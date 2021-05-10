@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -194,6 +195,29 @@ type ForwardingRuleMetadataFilter struct {
 	FilterLabel         []ForwardingRuleMetadataFilterFilterLabel            `json:"filterLabel"`
 }
 
+type jsonForwardingRuleMetadataFilter ForwardingRuleMetadataFilter
+
+func (r *ForwardingRuleMetadataFilter) UnmarshalJSON(data []byte) error {
+	var res jsonForwardingRuleMetadataFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyForwardingRuleMetadataFilter
+	} else {
+
+		r.FilterMatchCriteria = res.FilterMatchCriteria
+
+		r.FilterLabel = res.FilterLabel
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ForwardingRuleMetadataFilter is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -214,6 +238,29 @@ type ForwardingRuleMetadataFilterFilterLabel struct {
 	empty bool    `json:"-"`
 	Name  *string `json:"name"`
 	Value *string `json:"value"`
+}
+
+type jsonForwardingRuleMetadataFilterFilterLabel ForwardingRuleMetadataFilterFilterLabel
+
+func (r *ForwardingRuleMetadataFilterFilterLabel) UnmarshalJSON(data []byte) error {
+	var res jsonForwardingRuleMetadataFilterFilterLabel
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyForwardingRuleMetadataFilterFilterLabel
+	} else {
+
+		r.Name = res.Name
+
+		r.Value = res.Value
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ForwardingRuleMetadataFilterFilterLabel is

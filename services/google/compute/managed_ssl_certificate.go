@@ -16,6 +16,7 @@ package compute
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -97,6 +98,31 @@ type ManagedSslCertificateManaged struct {
 	Domains      []string                                `json:"domains"`
 	Status       *ManagedSslCertificateManagedStatusEnum `json:"status"`
 	DomainStatus map[string]string                       `json:"domainStatus"`
+}
+
+type jsonManagedSslCertificateManaged ManagedSslCertificateManaged
+
+func (r *ManagedSslCertificateManaged) UnmarshalJSON(data []byte) error {
+	var res jsonManagedSslCertificateManaged
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyManagedSslCertificateManaged
+	} else {
+
+		r.Domains = res.Domains
+
+		r.Status = res.Status
+
+		r.DomainStatus = res.DomainStatus
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ManagedSslCertificateManaged is

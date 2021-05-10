@@ -16,6 +16,7 @@ package dataproc
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -39,6 +40,29 @@ type AutoscalingPolicyBasicAlgorithm struct {
 	empty          bool                                       `json:"-"`
 	YarnConfig     *AutoscalingPolicyBasicAlgorithmYarnConfig `json:"yarnConfig"`
 	CooldownPeriod *string                                    `json:"cooldownPeriod"`
+}
+
+type jsonAutoscalingPolicyBasicAlgorithm AutoscalingPolicyBasicAlgorithm
+
+func (r *AutoscalingPolicyBasicAlgorithm) UnmarshalJSON(data []byte) error {
+	var res jsonAutoscalingPolicyBasicAlgorithm
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAutoscalingPolicyBasicAlgorithm
+	} else {
+
+		r.YarnConfig = res.YarnConfig
+
+		r.CooldownPeriod = res.CooldownPeriod
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AutoscalingPolicyBasicAlgorithm is
@@ -66,6 +90,35 @@ type AutoscalingPolicyBasicAlgorithmYarnConfig struct {
 	ScaleDownMinWorkerFraction  *float64 `json:"scaleDownMinWorkerFraction"`
 }
 
+type jsonAutoscalingPolicyBasicAlgorithmYarnConfig AutoscalingPolicyBasicAlgorithmYarnConfig
+
+func (r *AutoscalingPolicyBasicAlgorithmYarnConfig) UnmarshalJSON(data []byte) error {
+	var res jsonAutoscalingPolicyBasicAlgorithmYarnConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAutoscalingPolicyBasicAlgorithmYarnConfig
+	} else {
+
+		r.GracefulDecommissionTimeout = res.GracefulDecommissionTimeout
+
+		r.ScaleUpFactor = res.ScaleUpFactor
+
+		r.ScaleDownFactor = res.ScaleDownFactor
+
+		r.ScaleUpMinWorkerFraction = res.ScaleUpMinWorkerFraction
+
+		r.ScaleDownMinWorkerFraction = res.ScaleDownMinWorkerFraction
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AutoscalingPolicyBasicAlgorithmYarnConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -89,6 +142,31 @@ type AutoscalingPolicyWorkerConfig struct {
 	Weight       *int64 `json:"weight"`
 }
 
+type jsonAutoscalingPolicyWorkerConfig AutoscalingPolicyWorkerConfig
+
+func (r *AutoscalingPolicyWorkerConfig) UnmarshalJSON(data []byte) error {
+	var res jsonAutoscalingPolicyWorkerConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAutoscalingPolicyWorkerConfig
+	} else {
+
+		r.MinInstances = res.MinInstances
+
+		r.MaxInstances = res.MaxInstances
+
+		r.Weight = res.Weight
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AutoscalingPolicyWorkerConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -110,6 +188,31 @@ type AutoscalingPolicySecondaryWorkerConfig struct {
 	MinInstances *int64 `json:"minInstances"`
 	MaxInstances *int64 `json:"maxInstances"`
 	Weight       *int64 `json:"weight"`
+}
+
+type jsonAutoscalingPolicySecondaryWorkerConfig AutoscalingPolicySecondaryWorkerConfig
+
+func (r *AutoscalingPolicySecondaryWorkerConfig) UnmarshalJSON(data []byte) error {
+	var res jsonAutoscalingPolicySecondaryWorkerConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAutoscalingPolicySecondaryWorkerConfig
+	} else {
+
+		r.MinInstances = res.MinInstances
+
+		r.MaxInstances = res.MaxInstances
+
+		r.Weight = res.Weight
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AutoscalingPolicySecondaryWorkerConfig is

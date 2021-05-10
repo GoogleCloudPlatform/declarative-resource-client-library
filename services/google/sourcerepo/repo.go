@@ -16,6 +16,7 @@ package sourcerepo
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -39,6 +40,31 @@ type RepoPubsubConfigs struct {
 	Topic               *string `json:"topic"`
 	MessageFormat       *string `json:"messageFormat"`
 	ServiceAccountEmail *string `json:"serviceAccountEmail"`
+}
+
+type jsonRepoPubsubConfigs RepoPubsubConfigs
+
+func (r *RepoPubsubConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonRepoPubsubConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyRepoPubsubConfigs
+	} else {
+
+		r.Topic = res.Topic
+
+		r.MessageFormat = res.MessageFormat
+
+		r.ServiceAccountEmail = res.ServiceAccountEmail
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this RepoPubsubConfigs is

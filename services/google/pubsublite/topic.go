@@ -16,6 +16,7 @@ package pubsublite
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -40,6 +41,29 @@ type TopicPartitionConfig struct {
 	Capacity *TopicPartitionConfigCapacity `json:"capacity"`
 }
 
+type jsonTopicPartitionConfig TopicPartitionConfig
+
+func (r *TopicPartitionConfig) UnmarshalJSON(data []byte) error {
+	var res jsonTopicPartitionConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTopicPartitionConfig
+	} else {
+
+		r.Count = res.Count
+
+		r.Capacity = res.Capacity
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this TopicPartitionConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -62,6 +86,29 @@ type TopicPartitionConfigCapacity struct {
 	SubscribeMibPerSec *int64 `json:"subscribeMibPerSec"`
 }
 
+type jsonTopicPartitionConfigCapacity TopicPartitionConfigCapacity
+
+func (r *TopicPartitionConfigCapacity) UnmarshalJSON(data []byte) error {
+	var res jsonTopicPartitionConfigCapacity
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTopicPartitionConfigCapacity
+	} else {
+
+		r.PublishMibPerSec = res.PublishMibPerSec
+
+		r.SubscribeMibPerSec = res.SubscribeMibPerSec
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this TopicPartitionConfigCapacity is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -82,6 +129,29 @@ type TopicRetentionConfig struct {
 	empty             bool    `json:"-"`
 	PerPartitionBytes *int64  `json:"perPartitionBytes"`
 	Period            *string `json:"period"`
+}
+
+type jsonTopicRetentionConfig TopicRetentionConfig
+
+func (r *TopicRetentionConfig) UnmarshalJSON(data []byte) error {
+	var res jsonTopicRetentionConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTopicRetentionConfig
+	} else {
+
+		r.PerPartitionBytes = res.PerPartitionBytes
+
+		r.Period = res.Period
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this TopicRetentionConfig is

@@ -93,7 +93,7 @@ func (v AssignmentStateEnum) Validate() error {
 // can identify it.
 func (r *Assignment) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "bigqueryreservation",
+		Service: "bigquery_reservation",
 		Type:    "Assignment",
 		Version: "bigqueryreservation",
 	}

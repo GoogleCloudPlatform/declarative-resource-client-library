@@ -16,6 +16,7 @@ package cloudfunctions
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -139,6 +140,29 @@ type FunctionSourceRepository struct {
 	DeployedUrl *string `json:"deployedUrl"`
 }
 
+type jsonFunctionSourceRepository FunctionSourceRepository
+
+func (r *FunctionSourceRepository) UnmarshalJSON(data []byte) error {
+	var res jsonFunctionSourceRepository
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFunctionSourceRepository
+	} else {
+
+		r.Url = res.Url
+
+		r.DeployedUrl = res.DeployedUrl
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this FunctionSourceRepository is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -158,6 +182,27 @@ func (r *FunctionSourceRepository) HashCode() string {
 type FunctionHttpsTrigger struct {
 	empty bool    `json:"-"`
 	Url   *string `json:"url"`
+}
+
+type jsonFunctionHttpsTrigger FunctionHttpsTrigger
+
+func (r *FunctionHttpsTrigger) UnmarshalJSON(data []byte) error {
+	var res jsonFunctionHttpsTrigger
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFunctionHttpsTrigger
+	} else {
+
+		r.Url = res.Url
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this FunctionHttpsTrigger is
@@ -184,6 +229,33 @@ type FunctionEventTrigger struct {
 	FailurePolicy *bool   `json:"failurePolicy"`
 }
 
+type jsonFunctionEventTrigger FunctionEventTrigger
+
+func (r *FunctionEventTrigger) UnmarshalJSON(data []byte) error {
+	var res jsonFunctionEventTrigger
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFunctionEventTrigger
+	} else {
+
+		r.EventType = res.EventType
+
+		r.Resource = res.Resource
+
+		r.Service = res.Service
+
+		r.FailurePolicy = res.FailurePolicy
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this FunctionEventTrigger is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -204,7 +276,7 @@ func (r *FunctionEventTrigger) HashCode() string {
 // can identify it.
 func (r *Function) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "cloudfunctions",
+		Service: "cloud_functions",
 		Type:    "Function",
 		Version: "cloudfunctions",
 	}

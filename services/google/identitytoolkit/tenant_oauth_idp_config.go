@@ -16,6 +16,7 @@ package identitytoolkit
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -45,6 +46,31 @@ type TenantOAuthIdpConfigResponseType struct {
 	Token   *bool `json:"token"`
 }
 
+type jsonTenantOAuthIdpConfigResponseType TenantOAuthIdpConfigResponseType
+
+func (r *TenantOAuthIdpConfigResponseType) UnmarshalJSON(data []byte) error {
+	var res jsonTenantOAuthIdpConfigResponseType
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTenantOAuthIdpConfigResponseType
+	} else {
+
+		r.IdToken = res.IdToken
+
+		r.Code = res.Code
+
+		r.Token = res.Token
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this TenantOAuthIdpConfigResponseType is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -65,7 +91,7 @@ func (r *TenantOAuthIdpConfigResponseType) HashCode() string {
 // can identify it.
 func (r *TenantOAuthIdpConfig) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "identitytoolkit",
+		Service: "identity_toolkit",
 		Type:    "TenantOAuthIdpConfig",
 		Version: "identitytoolkit",
 	}

@@ -16,6 +16,7 @@ package accesscontextmanager
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -74,6 +75,33 @@ type ServicePerimeterStatus struct {
 	VPCAccessibleServices *ServicePerimeterStatusVPCAccessibleServices `json:"vpcAccessibleServices"`
 }
 
+type jsonServicePerimeterStatus ServicePerimeterStatus
+
+func (r *ServicePerimeterStatus) UnmarshalJSON(data []byte) error {
+	var res jsonServicePerimeterStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServicePerimeterStatus
+	} else {
+
+		r.Resources = res.Resources
+
+		r.AccessLevels = res.AccessLevels
+
+		r.RestrictedServices = res.RestrictedServices
+
+		r.VPCAccessibleServices = res.VPCAccessibleServices
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServicePerimeterStatus is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -94,6 +122,29 @@ type ServicePerimeterStatusVPCAccessibleServices struct {
 	empty             bool     `json:"-"`
 	EnableRestriction *bool    `json:"enableRestriction"`
 	AllowedServices   []string `json:"allowedServices"`
+}
+
+type jsonServicePerimeterStatusVPCAccessibleServices ServicePerimeterStatusVPCAccessibleServices
+
+func (r *ServicePerimeterStatusVPCAccessibleServices) UnmarshalJSON(data []byte) error {
+	var res jsonServicePerimeterStatusVPCAccessibleServices
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServicePerimeterStatusVPCAccessibleServices
+	} else {
+
+		r.EnableRestriction = res.EnableRestriction
+
+		r.AllowedServices = res.AllowedServices
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServicePerimeterStatusVPCAccessibleServices is
@@ -120,6 +171,33 @@ type ServicePerimeterSpec struct {
 	VPCAccessibleServices *ServicePerimeterSpecVPCAccessibleServices `json:"vpcAccessibleServices"`
 }
 
+type jsonServicePerimeterSpec ServicePerimeterSpec
+
+func (r *ServicePerimeterSpec) UnmarshalJSON(data []byte) error {
+	var res jsonServicePerimeterSpec
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServicePerimeterSpec
+	} else {
+
+		r.Resources = res.Resources
+
+		r.AccessLevels = res.AccessLevels
+
+		r.RestrictedServices = res.RestrictedServices
+
+		r.VPCAccessibleServices = res.VPCAccessibleServices
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServicePerimeterSpec is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -140,6 +218,29 @@ type ServicePerimeterSpecVPCAccessibleServices struct {
 	empty             bool     `json:"-"`
 	EnableRestriction *bool    `json:"enableRestriction"`
 	AllowedServices   []string `json:"allowedServices"`
+}
+
+type jsonServicePerimeterSpecVPCAccessibleServices ServicePerimeterSpecVPCAccessibleServices
+
+func (r *ServicePerimeterSpecVPCAccessibleServices) UnmarshalJSON(data []byte) error {
+	var res jsonServicePerimeterSpecVPCAccessibleServices
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServicePerimeterSpecVPCAccessibleServices
+	} else {
+
+		r.EnableRestriction = res.EnableRestriction
+
+		r.AllowedServices = res.AllowedServices
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServicePerimeterSpecVPCAccessibleServices is

@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -159,6 +160,29 @@ type SubnetworkSecondaryIPRanges struct {
 	IPCidrRange *string `json:"ipCidrRange"`
 }
 
+type jsonSubnetworkSecondaryIPRanges SubnetworkSecondaryIPRanges
+
+func (r *SubnetworkSecondaryIPRanges) UnmarshalJSON(data []byte) error {
+	var res jsonSubnetworkSecondaryIPRanges
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptySubnetworkSecondaryIPRanges
+	} else {
+
+		r.RangeName = res.RangeName
+
+		r.IPCidrRange = res.IPCidrRange
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this SubnetworkSecondaryIPRanges is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -180,6 +204,31 @@ type SubnetworkLogConfig struct {
 	AggregationInterval *SubnetworkLogConfigAggregationIntervalEnum `json:"aggregationInterval"`
 	FlowSampling        *float64                                    `json:"flowSampling"`
 	Metadata            *SubnetworkLogConfigMetadataEnum            `json:"metadata"`
+}
+
+type jsonSubnetworkLogConfig SubnetworkLogConfig
+
+func (r *SubnetworkLogConfig) UnmarshalJSON(data []byte) error {
+	var res jsonSubnetworkLogConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptySubnetworkLogConfig
+	} else {
+
+		r.AggregationInterval = res.AggregationInterval
+
+		r.FlowSampling = res.FlowSampling
+
+		r.Metadata = res.Metadata
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this SubnetworkLogConfig is

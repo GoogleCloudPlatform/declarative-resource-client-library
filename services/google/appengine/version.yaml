@@ -978,8 +978,8 @@ components:
       x-dcl-locations: []
       x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Appengine Version resource
-  title: Appengine/Version
+  description: DCL Specification for the AppEngine Version resource
+  title: AppEngine/Version
   x-dcl-has-iam: false
 paths:
   apply:

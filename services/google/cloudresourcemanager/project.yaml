@@ -90,8 +90,8 @@ components:
       x-dcl-locations: []
       x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Cloudresourcemanager Project resource
-  title: Cloudresourcemanager/Project
+  description: DCL Specification for the CloudResourceManager Project resource
+  title: CloudResourceManager/Project
   x-dcl-has-iam: true
 paths:
   apply:

@@ -768,8 +768,8 @@ components:
       x-dcl-parent-container: project
       x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Containeranalysis Note resource
-  title: Containeranalysis/Note
+  description: DCL Specification for the ContainerAnalysis Note resource
+  title: ContainerAnalysis/Note
   x-dcl-has-iam: false
 paths:
   apply:

@@ -16,6 +16,7 @@ package storage
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -127,6 +128,33 @@ type BucketCors struct {
 	ResponseHeader []string `json:"responseHeader"`
 }
 
+type jsonBucketCors BucketCors
+
+func (r *BucketCors) UnmarshalJSON(data []byte) error {
+	var res jsonBucketCors
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBucketCors
+	} else {
+
+		r.MaxAgeSeconds = res.MaxAgeSeconds
+
+		r.Method = res.Method
+
+		r.Origin = res.Origin
+
+		r.ResponseHeader = res.ResponseHeader
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BucketCors is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -146,6 +174,27 @@ func (r *BucketCors) HashCode() string {
 type BucketLifecycle struct {
 	empty bool                  `json:"-"`
 	Rule  []BucketLifecycleRule `json:"rule"`
+}
+
+type jsonBucketLifecycle BucketLifecycle
+
+func (r *BucketLifecycle) UnmarshalJSON(data []byte) error {
+	var res jsonBucketLifecycle
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBucketLifecycle
+	} else {
+
+		r.Rule = res.Rule
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this BucketLifecycle is
@@ -170,6 +219,29 @@ type BucketLifecycleRule struct {
 	Condition *BucketLifecycleRuleCondition `json:"condition"`
 }
 
+type jsonBucketLifecycleRule BucketLifecycleRule
+
+func (r *BucketLifecycleRule) UnmarshalJSON(data []byte) error {
+	var res jsonBucketLifecycleRule
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBucketLifecycleRule
+	} else {
+
+		r.Action = res.Action
+
+		r.Condition = res.Condition
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BucketLifecycleRule is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -190,6 +262,29 @@ type BucketLifecycleRuleAction struct {
 	empty        bool                               `json:"-"`
 	StorageClass *string                            `json:"storageClass"`
 	Type         *BucketLifecycleRuleActionTypeEnum `json:"type"`
+}
+
+type jsonBucketLifecycleRuleAction BucketLifecycleRuleAction
+
+func (r *BucketLifecycleRuleAction) UnmarshalJSON(data []byte) error {
+	var res jsonBucketLifecycleRuleAction
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBucketLifecycleRuleAction
+	} else {
+
+		r.StorageClass = res.StorageClass
+
+		r.Type = res.Type
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this BucketLifecycleRuleAction is
@@ -217,6 +312,35 @@ type BucketLifecycleRuleCondition struct {
 	NumNewerVersions    *int64                                     `json:"numNewerVersions"`
 }
 
+type jsonBucketLifecycleRuleCondition BucketLifecycleRuleCondition
+
+func (r *BucketLifecycleRuleCondition) UnmarshalJSON(data []byte) error {
+	var res jsonBucketLifecycleRuleCondition
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBucketLifecycleRuleCondition
+	} else {
+
+		r.Age = res.Age
+
+		r.CreatedBefore = res.CreatedBefore
+
+		r.WithState = res.WithState
+
+		r.MatchesStorageClass = res.MatchesStorageClass
+
+		r.NumNewerVersions = res.NumNewerVersions
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BucketLifecycleRuleCondition is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -237,6 +361,29 @@ type BucketLogging struct {
 	empty           bool    `json:"-"`
 	LogBucket       *string `json:"logBucket"`
 	LogObjectPrefix *string `json:"logObjectPrefix"`
+}
+
+type jsonBucketLogging BucketLogging
+
+func (r *BucketLogging) UnmarshalJSON(data []byte) error {
+	var res jsonBucketLogging
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBucketLogging
+	} else {
+
+		r.LogBucket = res.LogBucket
+
+		r.LogObjectPrefix = res.LogObjectPrefix
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this BucketLogging is
@@ -260,6 +407,27 @@ type BucketVersioning struct {
 	Enabled *bool `json:"enabled"`
 }
 
+type jsonBucketVersioning BucketVersioning
+
+func (r *BucketVersioning) UnmarshalJSON(data []byte) error {
+	var res jsonBucketVersioning
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBucketVersioning
+	} else {
+
+		r.Enabled = res.Enabled
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BucketVersioning is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -280,6 +448,29 @@ type BucketWebsite struct {
 	empty          bool    `json:"-"`
 	MainPageSuffix *string `json:"mainPageSuffix"`
 	NotFoundPage   *string `json:"notFoundPage"`
+}
+
+type jsonBucketWebsite BucketWebsite
+
+func (r *BucketWebsite) UnmarshalJSON(data []byte) error {
+	var res jsonBucketWebsite
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBucketWebsite
+	} else {
+
+		r.MainPageSuffix = res.MainPageSuffix
+
+		r.NotFoundPage = res.NotFoundPage
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this BucketWebsite is

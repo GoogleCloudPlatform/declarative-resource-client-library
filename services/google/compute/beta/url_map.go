@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -187,6 +188,39 @@ type UrlMapDefaultRouteAction struct {
 	FaultInjectionPolicy   *UrlMapDefaultRouteActionFaultInjectionPolicy    `json:"faultInjectionPolicy"`
 }
 
+type jsonUrlMapDefaultRouteAction UrlMapDefaultRouteAction
+
+func (r *UrlMapDefaultRouteAction) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapDefaultRouteAction
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapDefaultRouteAction
+	} else {
+
+		r.WeightedBackendService = res.WeightedBackendService
+
+		r.UrlRewrite = res.UrlRewrite
+
+		r.Timeout = res.Timeout
+
+		r.RetryPolicy = res.RetryPolicy
+
+		r.RequestMirrorPolicy = res.RequestMirrorPolicy
+
+		r.CorsPolicy = res.CorsPolicy
+
+		r.FaultInjectionPolicy = res.FaultInjectionPolicy
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapDefaultRouteAction is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -208,6 +242,31 @@ type UrlMapDefaultRouteActionWeightedBackendService struct {
 	BackendService *string             `json:"backendService"`
 	Weight         *int64              `json:"weight"`
 	HeaderAction   *UrlMapHeaderAction `json:"headerAction"`
+}
+
+type jsonUrlMapDefaultRouteActionWeightedBackendService UrlMapDefaultRouteActionWeightedBackendService
+
+func (r *UrlMapDefaultRouteActionWeightedBackendService) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapDefaultRouteActionWeightedBackendService
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapDefaultRouteActionWeightedBackendService
+	} else {
+
+		r.BackendService = res.BackendService
+
+		r.Weight = res.Weight
+
+		r.HeaderAction = res.HeaderAction
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapDefaultRouteActionWeightedBackendService is
@@ -234,6 +293,33 @@ type UrlMapHeaderAction struct {
 	ResponseHeadersToAdd    []UrlMapHeaderActionResponseHeadersToAdd `json:"responseHeadersToAdd"`
 }
 
+type jsonUrlMapHeaderAction UrlMapHeaderAction
+
+func (r *UrlMapHeaderAction) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapHeaderAction
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapHeaderAction
+	} else {
+
+		r.RequestHeadersToRemove = res.RequestHeadersToRemove
+
+		r.RequestHeadersToAdd = res.RequestHeadersToAdd
+
+		r.ResponseHeadersToRemove = res.ResponseHeadersToRemove
+
+		r.ResponseHeadersToAdd = res.ResponseHeadersToAdd
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapHeaderAction is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -255,6 +341,31 @@ type UrlMapHeaderActionRequestHeadersToAdd struct {
 	HeaderName  *string `json:"headerName"`
 	HeaderValue *string `json:"headerValue"`
 	Replace     *bool   `json:"replace"`
+}
+
+type jsonUrlMapHeaderActionRequestHeadersToAdd UrlMapHeaderActionRequestHeadersToAdd
+
+func (r *UrlMapHeaderActionRequestHeadersToAdd) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapHeaderActionRequestHeadersToAdd
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapHeaderActionRequestHeadersToAdd
+	} else {
+
+		r.HeaderName = res.HeaderName
+
+		r.HeaderValue = res.HeaderValue
+
+		r.Replace = res.Replace
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapHeaderActionRequestHeadersToAdd is
@@ -280,6 +391,31 @@ type UrlMapHeaderActionResponseHeadersToAdd struct {
 	Replace     *bool   `json:"replace"`
 }
 
+type jsonUrlMapHeaderActionResponseHeadersToAdd UrlMapHeaderActionResponseHeadersToAdd
+
+func (r *UrlMapHeaderActionResponseHeadersToAdd) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapHeaderActionResponseHeadersToAdd
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapHeaderActionResponseHeadersToAdd
+	} else {
+
+		r.HeaderName = res.HeaderName
+
+		r.HeaderValue = res.HeaderValue
+
+		r.Replace = res.Replace
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapHeaderActionResponseHeadersToAdd is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -302,6 +438,29 @@ type UrlMapDefaultRouteActionUrlRewrite struct {
 	HostRewrite       *string `json:"hostRewrite"`
 }
 
+type jsonUrlMapDefaultRouteActionUrlRewrite UrlMapDefaultRouteActionUrlRewrite
+
+func (r *UrlMapDefaultRouteActionUrlRewrite) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapDefaultRouteActionUrlRewrite
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapDefaultRouteActionUrlRewrite
+	} else {
+
+		r.PathPrefixRewrite = res.PathPrefixRewrite
+
+		r.HostRewrite = res.HostRewrite
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapDefaultRouteActionUrlRewrite is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -322,6 +481,29 @@ type UrlMapDefaultRouteActionTimeout struct {
 	empty   bool   `json:"-"`
 	Seconds *int64 `json:"seconds"`
 	Nanos   *int64 `json:"nanos"`
+}
+
+type jsonUrlMapDefaultRouteActionTimeout UrlMapDefaultRouteActionTimeout
+
+func (r *UrlMapDefaultRouteActionTimeout) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapDefaultRouteActionTimeout
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapDefaultRouteActionTimeout
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapDefaultRouteActionTimeout is
@@ -347,6 +529,31 @@ type UrlMapDefaultRouteActionRetryPolicy struct {
 	PerTryTimeout  *UrlMapDefaultRouteActionRetryPolicyPerTryTimeout `json:"perTryTimeout"`
 }
 
+type jsonUrlMapDefaultRouteActionRetryPolicy UrlMapDefaultRouteActionRetryPolicy
+
+func (r *UrlMapDefaultRouteActionRetryPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapDefaultRouteActionRetryPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapDefaultRouteActionRetryPolicy
+	} else {
+
+		r.RetryCondition = res.RetryCondition
+
+		r.NumRetries = res.NumRetries
+
+		r.PerTryTimeout = res.PerTryTimeout
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapDefaultRouteActionRetryPolicy is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -369,6 +576,29 @@ type UrlMapDefaultRouteActionRetryPolicyPerTryTimeout struct {
 	Nanos   *int64 `json:"nanos"`
 }
 
+type jsonUrlMapDefaultRouteActionRetryPolicyPerTryTimeout UrlMapDefaultRouteActionRetryPolicyPerTryTimeout
+
+func (r *UrlMapDefaultRouteActionRetryPolicyPerTryTimeout) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapDefaultRouteActionRetryPolicyPerTryTimeout
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapDefaultRouteActionRetryPolicyPerTryTimeout
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapDefaultRouteActionRetryPolicyPerTryTimeout is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -388,6 +618,27 @@ func (r *UrlMapDefaultRouteActionRetryPolicyPerTryTimeout) HashCode() string {
 type UrlMapDefaultRouteActionRequestMirrorPolicy struct {
 	empty          bool    `json:"-"`
 	BackendService *string `json:"backendService"`
+}
+
+type jsonUrlMapDefaultRouteActionRequestMirrorPolicy UrlMapDefaultRouteActionRequestMirrorPolicy
+
+func (r *UrlMapDefaultRouteActionRequestMirrorPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapDefaultRouteActionRequestMirrorPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapDefaultRouteActionRequestMirrorPolicy
+	} else {
+
+		r.BackendService = res.BackendService
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapDefaultRouteActionRequestMirrorPolicy is
@@ -418,6 +669,41 @@ type UrlMapDefaultRouteActionCorsPolicy struct {
 	Disabled         *bool    `json:"disabled"`
 }
 
+type jsonUrlMapDefaultRouteActionCorsPolicy UrlMapDefaultRouteActionCorsPolicy
+
+func (r *UrlMapDefaultRouteActionCorsPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapDefaultRouteActionCorsPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapDefaultRouteActionCorsPolicy
+	} else {
+
+		r.AllowOrigin = res.AllowOrigin
+
+		r.AllowOriginRegex = res.AllowOriginRegex
+
+		r.AllowMethod = res.AllowMethod
+
+		r.AllowHeader = res.AllowHeader
+
+		r.ExposeHeader = res.ExposeHeader
+
+		r.MaxAge = res.MaxAge
+
+		r.AllowCredentials = res.AllowCredentials
+
+		r.Disabled = res.Disabled
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapDefaultRouteActionCorsPolicy is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -438,6 +724,29 @@ type UrlMapDefaultRouteActionFaultInjectionPolicy struct {
 	empty bool                                               `json:"-"`
 	Delay *UrlMapDefaultRouteActionFaultInjectionPolicyDelay `json:"delay"`
 	Abort *UrlMapDefaultRouteActionFaultInjectionPolicyAbort `json:"abort"`
+}
+
+type jsonUrlMapDefaultRouteActionFaultInjectionPolicy UrlMapDefaultRouteActionFaultInjectionPolicy
+
+func (r *UrlMapDefaultRouteActionFaultInjectionPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapDefaultRouteActionFaultInjectionPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapDefaultRouteActionFaultInjectionPolicy
+	} else {
+
+		r.Delay = res.Delay
+
+		r.Abort = res.Abort
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapDefaultRouteActionFaultInjectionPolicy is
@@ -462,6 +771,29 @@ type UrlMapDefaultRouteActionFaultInjectionPolicyDelay struct {
 	Percentage *float64                                                     `json:"percentage"`
 }
 
+type jsonUrlMapDefaultRouteActionFaultInjectionPolicyDelay UrlMapDefaultRouteActionFaultInjectionPolicyDelay
+
+func (r *UrlMapDefaultRouteActionFaultInjectionPolicyDelay) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapDefaultRouteActionFaultInjectionPolicyDelay
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapDefaultRouteActionFaultInjectionPolicyDelay
+	} else {
+
+		r.FixedDelay = res.FixedDelay
+
+		r.Percentage = res.Percentage
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapDefaultRouteActionFaultInjectionPolicyDelay is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -484,6 +816,29 @@ type UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay struct {
 	Nanos   *int64 `json:"nanos"`
 }
 
+type jsonUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay
+
+func (r *UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -504,6 +859,29 @@ type UrlMapDefaultRouteActionFaultInjectionPolicyAbort struct {
 	empty      bool     `json:"-"`
 	HttpStatus *int64   `json:"httpStatus"`
 	Percentage *float64 `json:"percentage"`
+}
+
+type jsonUrlMapDefaultRouteActionFaultInjectionPolicyAbort UrlMapDefaultRouteActionFaultInjectionPolicyAbort
+
+func (r *UrlMapDefaultRouteActionFaultInjectionPolicyAbort) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapDefaultRouteActionFaultInjectionPolicyAbort
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapDefaultRouteActionFaultInjectionPolicyAbort
+	} else {
+
+		r.HttpStatus = res.HttpStatus
+
+		r.Percentage = res.Percentage
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapDefaultRouteActionFaultInjectionPolicyAbort is
@@ -532,6 +910,37 @@ type UrlMapDefaultUrlRedirect struct {
 	StripQuery           *bool                                             `json:"stripQuery"`
 }
 
+type jsonUrlMapDefaultUrlRedirect UrlMapDefaultUrlRedirect
+
+func (r *UrlMapDefaultUrlRedirect) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapDefaultUrlRedirect
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapDefaultUrlRedirect
+	} else {
+
+		r.HostRedirect = res.HostRedirect
+
+		r.PathRedirect = res.PathRedirect
+
+		r.PrefixRedirect = res.PrefixRedirect
+
+		r.RedirectResponseCode = res.RedirectResponseCode
+
+		r.HttpsRedirect = res.HttpsRedirect
+
+		r.StripQuery = res.StripQuery
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapDefaultUrlRedirect is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -553,6 +962,31 @@ type UrlMapHostRule struct {
 	Description *string  `json:"description"`
 	Host        []string `json:"host"`
 	PathMatcher *string  `json:"pathMatcher"`
+}
+
+type jsonUrlMapHostRule UrlMapHostRule
+
+func (r *UrlMapHostRule) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapHostRule
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapHostRule
+	} else {
+
+		r.Description = res.Description
+
+		r.Host = res.Host
+
+		r.PathMatcher = res.PathMatcher
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapHostRule is
@@ -583,6 +1017,41 @@ type UrlMapPathMatcher struct {
 	HeaderAction       *UrlMapHeaderAction                  `json:"headerAction"`
 }
 
+type jsonUrlMapPathMatcher UrlMapPathMatcher
+
+func (r *UrlMapPathMatcher) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcher
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcher
+	} else {
+
+		r.Name = res.Name
+
+		r.Description = res.Description
+
+		r.DefaultService = res.DefaultService
+
+		r.DefaultRouteAction = res.DefaultRouteAction
+
+		r.DefaultUrlRedirect = res.DefaultUrlRedirect
+
+		r.PathRule = res.PathRule
+
+		r.RouteRule = res.RouteRule
+
+		r.HeaderAction = res.HeaderAction
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcher is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -609,6 +1078,37 @@ type UrlMapPathMatcherDefaultUrlRedirect struct {
 	StripQuery           *bool                                                        `json:"stripQuery"`
 }
 
+type jsonUrlMapPathMatcherDefaultUrlRedirect UrlMapPathMatcherDefaultUrlRedirect
+
+func (r *UrlMapPathMatcherDefaultUrlRedirect) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherDefaultUrlRedirect
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherDefaultUrlRedirect
+	} else {
+
+		r.HostRedirect = res.HostRedirect
+
+		r.PathRedirect = res.PathRedirect
+
+		r.PrefixRedirect = res.PrefixRedirect
+
+		r.RedirectResponseCode = res.RedirectResponseCode
+
+		r.HttpsRedirect = res.HttpsRedirect
+
+		r.StripQuery = res.StripQuery
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcherDefaultUrlRedirect is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -631,6 +1131,33 @@ type UrlMapPathMatcherPathRule struct {
 	RouteAction    *UrlMapPathMatcherPathRuleRouteAction `json:"routeAction"`
 	UrlRedirect    *UrlMapPathMatcherPathRuleUrlRedirect `json:"urlRedirect"`
 	Path           []string                              `json:"path"`
+}
+
+type jsonUrlMapPathMatcherPathRule UrlMapPathMatcherPathRule
+
+func (r *UrlMapPathMatcherPathRule) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherPathRule
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherPathRule
+	} else {
+
+		r.BackendService = res.BackendService
+
+		r.RouteAction = res.RouteAction
+
+		r.UrlRedirect = res.UrlRedirect
+
+		r.Path = res.Path
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapPathMatcherPathRule is
@@ -660,6 +1187,39 @@ type UrlMapPathMatcherPathRuleRouteAction struct {
 	FaultInjectionPolicy   *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy    `json:"faultInjectionPolicy"`
 }
 
+type jsonUrlMapPathMatcherPathRuleRouteAction UrlMapPathMatcherPathRuleRouteAction
+
+func (r *UrlMapPathMatcherPathRuleRouteAction) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherPathRuleRouteAction
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherPathRuleRouteAction
+	} else {
+
+		r.WeightedBackendService = res.WeightedBackendService
+
+		r.UrlRewrite = res.UrlRewrite
+
+		r.Timeout = res.Timeout
+
+		r.RetryPolicy = res.RetryPolicy
+
+		r.RequestMirrorPolicy = res.RequestMirrorPolicy
+
+		r.CorsPolicy = res.CorsPolicy
+
+		r.FaultInjectionPolicy = res.FaultInjectionPolicy
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcherPathRuleRouteAction is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -681,6 +1241,31 @@ type UrlMapPathMatcherPathRuleRouteActionWeightedBackendService struct {
 	BackendService *string             `json:"backendService"`
 	Weight         *int64              `json:"weight"`
 	HeaderAction   *UrlMapHeaderAction `json:"headerAction"`
+}
+
+type jsonUrlMapPathMatcherPathRuleRouteActionWeightedBackendService UrlMapPathMatcherPathRuleRouteActionWeightedBackendService
+
+func (r *UrlMapPathMatcherPathRuleRouteActionWeightedBackendService) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherPathRuleRouteActionWeightedBackendService
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherPathRuleRouteActionWeightedBackendService
+	} else {
+
+		r.BackendService = res.BackendService
+
+		r.Weight = res.Weight
+
+		r.HeaderAction = res.HeaderAction
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapPathMatcherPathRuleRouteActionWeightedBackendService is
@@ -705,6 +1290,29 @@ type UrlMapPathMatcherPathRuleRouteActionUrlRewrite struct {
 	HostRewrite       *string `json:"hostRewrite"`
 }
 
+type jsonUrlMapPathMatcherPathRuleRouteActionUrlRewrite UrlMapPathMatcherPathRuleRouteActionUrlRewrite
+
+func (r *UrlMapPathMatcherPathRuleRouteActionUrlRewrite) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherPathRuleRouteActionUrlRewrite
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherPathRuleRouteActionUrlRewrite
+	} else {
+
+		r.PathPrefixRewrite = res.PathPrefixRewrite
+
+		r.HostRewrite = res.HostRewrite
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcherPathRuleRouteActionUrlRewrite is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -725,6 +1333,29 @@ type UrlMapPathMatcherPathRuleRouteActionTimeout struct {
 	empty   bool   `json:"-"`
 	Seconds *int64 `json:"seconds"`
 	Nanos   *int64 `json:"nanos"`
+}
+
+type jsonUrlMapPathMatcherPathRuleRouteActionTimeout UrlMapPathMatcherPathRuleRouteActionTimeout
+
+func (r *UrlMapPathMatcherPathRuleRouteActionTimeout) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherPathRuleRouteActionTimeout
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherPathRuleRouteActionTimeout
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapPathMatcherPathRuleRouteActionTimeout is
@@ -750,6 +1381,31 @@ type UrlMapPathMatcherPathRuleRouteActionRetryPolicy struct {
 	PerTryTimeout  *UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout `json:"perTryTimeout"`
 }
 
+type jsonUrlMapPathMatcherPathRuleRouteActionRetryPolicy UrlMapPathMatcherPathRuleRouteActionRetryPolicy
+
+func (r *UrlMapPathMatcherPathRuleRouteActionRetryPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherPathRuleRouteActionRetryPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherPathRuleRouteActionRetryPolicy
+	} else {
+
+		r.RetryCondition = res.RetryCondition
+
+		r.NumRetries = res.NumRetries
+
+		r.PerTryTimeout = res.PerTryTimeout
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcherPathRuleRouteActionRetryPolicy is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -772,6 +1428,29 @@ type UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout struct {
 	Nanos   *int64 `json:"nanos"`
 }
 
+type jsonUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout
+
+func (r *UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -791,6 +1470,27 @@ func (r *UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout) HashCode(
 type UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy struct {
 	empty          bool    `json:"-"`
 	BackendService *string `json:"backendService"`
+}
+
+type jsonUrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy
+
+func (r *UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy
+	} else {
+
+		r.BackendService = res.BackendService
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy is
@@ -821,6 +1521,41 @@ type UrlMapPathMatcherPathRuleRouteActionCorsPolicy struct {
 	Disabled         *bool    `json:"disabled"`
 }
 
+type jsonUrlMapPathMatcherPathRuleRouteActionCorsPolicy UrlMapPathMatcherPathRuleRouteActionCorsPolicy
+
+func (r *UrlMapPathMatcherPathRuleRouteActionCorsPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherPathRuleRouteActionCorsPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherPathRuleRouteActionCorsPolicy
+	} else {
+
+		r.AllowOrigin = res.AllowOrigin
+
+		r.AllowOriginRegex = res.AllowOriginRegex
+
+		r.AllowMethod = res.AllowMethod
+
+		r.AllowHeader = res.AllowHeader
+
+		r.ExposeHeader = res.ExposeHeader
+
+		r.MaxAge = res.MaxAge
+
+		r.AllowCredentials = res.AllowCredentials
+
+		r.Disabled = res.Disabled
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcherPathRuleRouteActionCorsPolicy is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -841,6 +1576,29 @@ type UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy struct {
 	empty bool                                                           `json:"-"`
 	Delay *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay `json:"delay"`
 	Abort *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort `json:"abort"`
+}
+
+type jsonUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy
+
+func (r *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy
+	} else {
+
+		r.Delay = res.Delay
+
+		r.Abort = res.Abort
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy is
@@ -865,6 +1623,29 @@ type UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay struct {
 	Percentage *float64                                                                 `json:"percentage"`
 }
 
+type jsonUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay
+
+func (r *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay
+	} else {
+
+		r.FixedDelay = res.FixedDelay
+
+		r.Percentage = res.Percentage
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -887,6 +1668,29 @@ type UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay str
 	Nanos   *int64 `json:"nanos"`
 }
 
+type jsonUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay
+
+func (r *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -907,6 +1711,29 @@ type UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort struct {
 	empty      bool     `json:"-"`
 	HttpStatus *int64   `json:"httpStatus"`
 	Percentage *float64 `json:"percentage"`
+}
+
+type jsonUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort
+
+func (r *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort
+	} else {
+
+		r.HttpStatus = res.HttpStatus
+
+		r.Percentage = res.Percentage
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort is
@@ -933,6 +1760,37 @@ type UrlMapPathMatcherPathRuleUrlRedirect struct {
 	RedirectResponseCode *UrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum `json:"redirectResponseCode"`
 	HttpsRedirect        *bool                                                         `json:"httpsRedirect"`
 	StripQuery           *bool                                                         `json:"stripQuery"`
+}
+
+type jsonUrlMapPathMatcherPathRuleUrlRedirect UrlMapPathMatcherPathRuleUrlRedirect
+
+func (r *UrlMapPathMatcherPathRuleUrlRedirect) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherPathRuleUrlRedirect
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherPathRuleUrlRedirect
+	} else {
+
+		r.HostRedirect = res.HostRedirect
+
+		r.PathRedirect = res.PathRedirect
+
+		r.PrefixRedirect = res.PrefixRedirect
+
+		r.RedirectResponseCode = res.RedirectResponseCode
+
+		r.HttpsRedirect = res.HttpsRedirect
+
+		r.StripQuery = res.StripQuery
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapPathMatcherPathRuleUrlRedirect is
@@ -962,6 +1820,39 @@ type UrlMapPathMatcherRouteRule struct {
 	HeaderAction   *UrlMapHeaderAction                    `json:"headerAction"`
 }
 
+type jsonUrlMapPathMatcherRouteRule UrlMapPathMatcherRouteRule
+
+func (r *UrlMapPathMatcherRouteRule) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherRouteRule
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherRouteRule
+	} else {
+
+		r.Priority = res.Priority
+
+		r.Description = res.Description
+
+		r.MatchRule = res.MatchRule
+
+		r.BackendService = res.BackendService
+
+		r.RouteAction = res.RouteAction
+
+		r.UrlRedirect = res.UrlRedirect
+
+		r.HeaderAction = res.HeaderAction
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcherRouteRule is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -987,6 +1878,39 @@ type UrlMapPathMatcherRouteRuleMatchRule struct {
 	HeaderMatch         []UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch         `json:"headerMatch"`
 	QueryParameterMatch []UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch `json:"queryParameterMatch"`
 	MetadataFilter      []UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter      `json:"metadataFilter"`
+}
+
+type jsonUrlMapPathMatcherRouteRuleMatchRule UrlMapPathMatcherRouteRuleMatchRule
+
+func (r *UrlMapPathMatcherRouteRuleMatchRule) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherRouteRuleMatchRule
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherRouteRuleMatchRule
+	} else {
+
+		r.PrefixMatch = res.PrefixMatch
+
+		r.FullPathMatch = res.FullPathMatch
+
+		r.RegexMatch = res.RegexMatch
+
+		r.IgnoreCase = res.IgnoreCase
+
+		r.HeaderMatch = res.HeaderMatch
+
+		r.QueryParameterMatch = res.QueryParameterMatch
+
+		r.MetadataFilter = res.MetadataFilter
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapPathMatcherRouteRuleMatchRule is
@@ -1017,6 +1941,41 @@ type UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch struct {
 	InvertMatch  *bool                                                     `json:"invertMatch"`
 }
 
+type jsonUrlMapPathMatcherRouteRuleMatchRuleHeaderMatch UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch
+
+func (r *UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherRouteRuleMatchRuleHeaderMatch
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherRouteRuleMatchRuleHeaderMatch
+	} else {
+
+		r.HeaderName = res.HeaderName
+
+		r.ExactMatch = res.ExactMatch
+
+		r.RegexMatch = res.RegexMatch
+
+		r.RangeMatch = res.RangeMatch
+
+		r.PresentMatch = res.PresentMatch
+
+		r.PrefixMatch = res.PrefixMatch
+
+		r.SuffixMatch = res.SuffixMatch
+
+		r.InvertMatch = res.InvertMatch
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1037,6 +1996,29 @@ type UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch struct {
 	empty      bool   `json:"-"`
 	RangeStart *int64 `json:"rangeStart"`
 	RangeEnd   *int64 `json:"rangeEnd"`
+}
+
+type jsonUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch
+
+func (r *UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch
+	} else {
+
+		r.RangeStart = res.RangeStart
+
+		r.RangeEnd = res.RangeEnd
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch is
@@ -1063,6 +2045,33 @@ type UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch struct {
 	RegexMatch   *string `json:"regexMatch"`
 }
 
+type jsonUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch
+
+func (r *UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch
+	} else {
+
+		r.Name = res.Name
+
+		r.PresentMatch = res.PresentMatch
+
+		r.ExactMatch = res.ExactMatch
+
+		r.RegexMatch = res.RegexMatch
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1085,6 +2094,29 @@ type UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter struct {
 	FilterLabel         []UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel            `json:"filterLabel"`
 }
 
+type jsonUrlMapPathMatcherRouteRuleMatchRuleMetadataFilter UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter
+
+func (r *UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherRouteRuleMatchRuleMetadataFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherRouteRuleMatchRuleMetadataFilter
+	} else {
+
+		r.FilterMatchCriteria = res.FilterMatchCriteria
+
+		r.FilterLabel = res.FilterLabel
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1105,6 +2137,29 @@ type UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel struct {
 	empty bool    `json:"-"`
 	Name  *string `json:"name"`
 	Value *string `json:"value"`
+}
+
+type jsonUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel
+
+func (r *UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel
+	} else {
+
+		r.Name = res.Name
+
+		r.Value = res.Value
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel is
@@ -1134,6 +2189,39 @@ type UrlMapPathMatcherRouteRuleRouteAction struct {
 	FaultInjectionPolicy   *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy    `json:"faultInjectionPolicy"`
 }
 
+type jsonUrlMapPathMatcherRouteRuleRouteAction UrlMapPathMatcherRouteRuleRouteAction
+
+func (r *UrlMapPathMatcherRouteRuleRouteAction) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherRouteRuleRouteAction
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherRouteRuleRouteAction
+	} else {
+
+		r.WeightedBackendService = res.WeightedBackendService
+
+		r.UrlRewrite = res.UrlRewrite
+
+		r.Timeout = res.Timeout
+
+		r.RetryPolicy = res.RetryPolicy
+
+		r.RequestMirrorPolicy = res.RequestMirrorPolicy
+
+		r.CorsPolicy = res.CorsPolicy
+
+		r.FaultInjectionPolicy = res.FaultInjectionPolicy
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcherRouteRuleRouteAction is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1155,6 +2243,31 @@ type UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService struct {
 	BackendService *string             `json:"backendService"`
 	Weight         *int64              `json:"weight"`
 	HeaderAction   *UrlMapHeaderAction `json:"headerAction"`
+}
+
+type jsonUrlMapPathMatcherRouteRuleRouteActionWeightedBackendService UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService
+
+func (r *UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherRouteRuleRouteActionWeightedBackendService
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherRouteRuleRouteActionWeightedBackendService
+	} else {
+
+		r.BackendService = res.BackendService
+
+		r.Weight = res.Weight
+
+		r.HeaderAction = res.HeaderAction
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService is
@@ -1179,6 +2292,29 @@ type UrlMapPathMatcherRouteRuleRouteActionUrlRewrite struct {
 	HostRewrite       *string `json:"hostRewrite"`
 }
 
+type jsonUrlMapPathMatcherRouteRuleRouteActionUrlRewrite UrlMapPathMatcherRouteRuleRouteActionUrlRewrite
+
+func (r *UrlMapPathMatcherRouteRuleRouteActionUrlRewrite) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherRouteRuleRouteActionUrlRewrite
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherRouteRuleRouteActionUrlRewrite
+	} else {
+
+		r.PathPrefixRewrite = res.PathPrefixRewrite
+
+		r.HostRewrite = res.HostRewrite
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcherRouteRuleRouteActionUrlRewrite is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1199,6 +2335,29 @@ type UrlMapPathMatcherRouteRuleRouteActionTimeout struct {
 	empty   bool   `json:"-"`
 	Seconds *int64 `json:"seconds"`
 	Nanos   *int64 `json:"nanos"`
+}
+
+type jsonUrlMapPathMatcherRouteRuleRouteActionTimeout UrlMapPathMatcherRouteRuleRouteActionTimeout
+
+func (r *UrlMapPathMatcherRouteRuleRouteActionTimeout) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherRouteRuleRouteActionTimeout
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherRouteRuleRouteActionTimeout
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapPathMatcherRouteRuleRouteActionTimeout is
@@ -1224,6 +2383,31 @@ type UrlMapPathMatcherRouteRuleRouteActionRetryPolicy struct {
 	PerTryTimeout  *UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout `json:"perTryTimeout"`
 }
 
+type jsonUrlMapPathMatcherRouteRuleRouteActionRetryPolicy UrlMapPathMatcherRouteRuleRouteActionRetryPolicy
+
+func (r *UrlMapPathMatcherRouteRuleRouteActionRetryPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherRouteRuleRouteActionRetryPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherRouteRuleRouteActionRetryPolicy
+	} else {
+
+		r.RetryCondition = res.RetryCondition
+
+		r.NumRetries = res.NumRetries
+
+		r.PerTryTimeout = res.PerTryTimeout
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcherRouteRuleRouteActionRetryPolicy is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1246,6 +2430,29 @@ type UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout struct {
 	Nanos   *int64 `json:"nanos"`
 }
 
+type jsonUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout
+
+func (r *UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1265,6 +2472,27 @@ func (r *UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout) HashCode
 type UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy struct {
 	empty          bool    `json:"-"`
 	BackendService *string `json:"backendService"`
+}
+
+type jsonUrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy
+
+func (r *UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy
+	} else {
+
+		r.BackendService = res.BackendService
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy is
@@ -1295,6 +2523,41 @@ type UrlMapPathMatcherRouteRuleRouteActionCorsPolicy struct {
 	Disabled         *bool    `json:"disabled"`
 }
 
+type jsonUrlMapPathMatcherRouteRuleRouteActionCorsPolicy UrlMapPathMatcherRouteRuleRouteActionCorsPolicy
+
+func (r *UrlMapPathMatcherRouteRuleRouteActionCorsPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherRouteRuleRouteActionCorsPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherRouteRuleRouteActionCorsPolicy
+	} else {
+
+		r.AllowOrigin = res.AllowOrigin
+
+		r.AllowOriginRegex = res.AllowOriginRegex
+
+		r.AllowMethod = res.AllowMethod
+
+		r.AllowHeader = res.AllowHeader
+
+		r.ExposeHeader = res.ExposeHeader
+
+		r.MaxAge = res.MaxAge
+
+		r.AllowCredentials = res.AllowCredentials
+
+		r.Disabled = res.Disabled
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcherRouteRuleRouteActionCorsPolicy is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1315,6 +2578,29 @@ type UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy struct {
 	empty bool                                                            `json:"-"`
 	Delay *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay `json:"delay"`
 	Abort *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort `json:"abort"`
+}
+
+type jsonUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy
+
+func (r *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy
+	} else {
+
+		r.Delay = res.Delay
+
+		r.Abort = res.Abort
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy is
@@ -1339,6 +2625,29 @@ type UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay struct {
 	Percentage *float64                                                                  `json:"percentage"`
 }
 
+type jsonUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay
+
+func (r *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay
+	} else {
+
+		r.FixedDelay = res.FixedDelay
+
+		r.Percentage = res.Percentage
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1361,6 +2670,29 @@ type UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay st
 	Nanos   *int64 `json:"nanos"`
 }
 
+type jsonUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay
+
+func (r *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1381,6 +2713,29 @@ type UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort struct {
 	empty      bool     `json:"-"`
 	HttpStatus *int64   `json:"httpStatus"`
 	Percentage *float64 `json:"percentage"`
+}
+
+type jsonUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort
+
+func (r *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort
+	} else {
+
+		r.HttpStatus = res.HttpStatus
+
+		r.Percentage = res.Percentage
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort is
@@ -1409,6 +2764,37 @@ type UrlMapPathMatcherRouteRuleUrlRedirect struct {
 	StripQuery           *bool                                                          `json:"stripQuery"`
 }
 
+type jsonUrlMapPathMatcherRouteRuleUrlRedirect UrlMapPathMatcherRouteRuleUrlRedirect
+
+func (r *UrlMapPathMatcherRouteRuleUrlRedirect) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapPathMatcherRouteRuleUrlRedirect
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapPathMatcherRouteRuleUrlRedirect
+	} else {
+
+		r.HostRedirect = res.HostRedirect
+
+		r.PathRedirect = res.PathRedirect
+
+		r.PrefixRedirect = res.PrefixRedirect
+
+		r.RedirectResponseCode = res.RedirectResponseCode
+
+		r.HttpsRedirect = res.HttpsRedirect
+
+		r.StripQuery = res.StripQuery
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UrlMapPathMatcherRouteRuleUrlRedirect is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1431,6 +2817,33 @@ type UrlMapTest struct {
 	Host                   *string `json:"host"`
 	Path                   *string `json:"path"`
 	ExpectedBackendService *string `json:"expectedBackendService"`
+}
+
+type jsonUrlMapTest UrlMapTest
+
+func (r *UrlMapTest) UnmarshalJSON(data []byte) error {
+	var res jsonUrlMapTest
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUrlMapTest
+	} else {
+
+		r.Description = res.Description
+
+		r.Host = res.Host
+
+		r.Path = res.Path
+
+		r.ExpectedBackendService = res.ExpectedBackendService
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UrlMapTest is

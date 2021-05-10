@@ -16,6 +16,7 @@ package cloudbuild
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -108,6 +109,39 @@ type BuildTriggerTriggerTemplate struct {
 	InvertRegex *bool   `json:"invertRegex"`
 }
 
+type jsonBuildTriggerTriggerTemplate BuildTriggerTriggerTemplate
+
+func (r *BuildTriggerTriggerTemplate) UnmarshalJSON(data []byte) error {
+	var res jsonBuildTriggerTriggerTemplate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBuildTriggerTriggerTemplate
+	} else {
+
+		r.ProjectId = res.ProjectId
+
+		r.RepoName = res.RepoName
+
+		r.BranchName = res.BranchName
+
+		r.TagName = res.TagName
+
+		r.CommitSha = res.CommitSha
+
+		r.Dir = res.Dir
+
+		r.InvertRegex = res.InvertRegex
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BuildTriggerTriggerTemplate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -130,6 +164,33 @@ type BuildTriggerGithub struct {
 	Name        *string                        `json:"name"`
 	PullRequest *BuildTriggerGithubPullRequest `json:"pullRequest"`
 	Push        *BuildTriggerGithubPush        `json:"push"`
+}
+
+type jsonBuildTriggerGithub BuildTriggerGithub
+
+func (r *BuildTriggerGithub) UnmarshalJSON(data []byte) error {
+	var res jsonBuildTriggerGithub
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBuildTriggerGithub
+	} else {
+
+		r.Owner = res.Owner
+
+		r.Name = res.Name
+
+		r.PullRequest = res.PullRequest
+
+		r.Push = res.Push
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this BuildTriggerGithub is
@@ -155,6 +216,31 @@ type BuildTriggerGithubPullRequest struct {
 	InvertRegex    *bool                                            `json:"invertRegex"`
 }
 
+type jsonBuildTriggerGithubPullRequest BuildTriggerGithubPullRequest
+
+func (r *BuildTriggerGithubPullRequest) UnmarshalJSON(data []byte) error {
+	var res jsonBuildTriggerGithubPullRequest
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBuildTriggerGithubPullRequest
+	} else {
+
+		r.Branch = res.Branch
+
+		r.CommentControl = res.CommentControl
+
+		r.InvertRegex = res.InvertRegex
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BuildTriggerGithubPullRequest is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -176,6 +262,31 @@ type BuildTriggerGithubPush struct {
 	Branch      *string `json:"branch"`
 	Tag         *string `json:"tag"`
 	InvertRegex *bool   `json:"invertRegex"`
+}
+
+type jsonBuildTriggerGithubPush BuildTriggerGithubPush
+
+func (r *BuildTriggerGithubPush) UnmarshalJSON(data []byte) error {
+	var res jsonBuildTriggerGithubPush
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBuildTriggerGithubPush
+	} else {
+
+		r.Branch = res.Branch
+
+		r.Tag = res.Tag
+
+		r.InvertRegex = res.InvertRegex
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this BuildTriggerGithubPush is
@@ -207,6 +318,43 @@ type BuildTriggerBuild struct {
 	Source        *BuildTriggerBuildSource   `json:"source"`
 }
 
+type jsonBuildTriggerBuild BuildTriggerBuild
+
+func (r *BuildTriggerBuild) UnmarshalJSON(data []byte) error {
+	var res jsonBuildTriggerBuild
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBuildTriggerBuild
+	} else {
+
+		r.Tags = res.Tags
+
+		r.Images = res.Images
+
+		r.Substitutions = res.Substitutions
+
+		r.QueueTtl = res.QueueTtl
+
+		r.LogsBucket = res.LogsBucket
+
+		r.Timeout = res.Timeout
+
+		r.Secrets = res.Secrets
+
+		r.Steps = res.Steps
+
+		r.Source = res.Source
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BuildTriggerBuild is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -227,6 +375,29 @@ type BuildTriggerBuildSecrets struct {
 	empty      bool              `json:"-"`
 	KmsKeyName *string           `json:"kmsKeyName"`
 	SecretEnv  map[string]string `json:"secretEnv"`
+}
+
+type jsonBuildTriggerBuildSecrets BuildTriggerBuildSecrets
+
+func (r *BuildTriggerBuildSecrets) UnmarshalJSON(data []byte) error {
+	var res jsonBuildTriggerBuildSecrets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBuildTriggerBuildSecrets
+	} else {
+
+		r.KmsKeyName = res.KmsKeyName
+
+		r.SecretEnv = res.SecretEnv
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this BuildTriggerBuildSecrets is
@@ -262,6 +433,51 @@ type BuildTriggerBuildSteps struct {
 	Status     *BuildTriggerBuildStepsStatusEnum `json:"status"`
 }
 
+type jsonBuildTriggerBuildSteps BuildTriggerBuildSteps
+
+func (r *BuildTriggerBuildSteps) UnmarshalJSON(data []byte) error {
+	var res jsonBuildTriggerBuildSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBuildTriggerBuildSteps
+	} else {
+
+		r.Name = res.Name
+
+		r.Env = res.Env
+
+		r.Args = res.Args
+
+		r.Dir = res.Dir
+
+		r.Id = res.Id
+
+		r.WaitFor = res.WaitFor
+
+		r.Entrypoint = res.Entrypoint
+
+		r.SecretEnv = res.SecretEnv
+
+		r.Volumes = res.Volumes
+
+		r.Timing = res.Timing
+
+		r.PullTiming = res.PullTiming
+
+		r.Timeout = res.Timeout
+
+		r.Status = res.Status
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BuildTriggerBuildSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -282,6 +498,29 @@ type BuildTriggerBuildStepsVolumes struct {
 	empty bool    `json:"-"`
 	Name  *string `json:"name"`
 	Path  *string `json:"path"`
+}
+
+type jsonBuildTriggerBuildStepsVolumes BuildTriggerBuildStepsVolumes
+
+func (r *BuildTriggerBuildStepsVolumes) UnmarshalJSON(data []byte) error {
+	var res jsonBuildTriggerBuildStepsVolumes
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBuildTriggerBuildStepsVolumes
+	} else {
+
+		r.Name = res.Name
+
+		r.Path = res.Path
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this BuildTriggerBuildStepsVolumes is
@@ -306,6 +545,29 @@ type BuildTriggerBuildStepsTiming struct {
 	EndTime   *string `json:"endTime"`
 }
 
+type jsonBuildTriggerBuildStepsTiming BuildTriggerBuildStepsTiming
+
+func (r *BuildTriggerBuildStepsTiming) UnmarshalJSON(data []byte) error {
+	var res jsonBuildTriggerBuildStepsTiming
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBuildTriggerBuildStepsTiming
+	} else {
+
+		r.StartTime = res.StartTime
+
+		r.EndTime = res.EndTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BuildTriggerBuildStepsTiming is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -326,6 +588,29 @@ type BuildTriggerBuildStepsPullTiming struct {
 	empty     bool    `json:"-"`
 	StartTime *string `json:"startTime"`
 	EndTime   *string `json:"endTime"`
+}
+
+type jsonBuildTriggerBuildStepsPullTiming BuildTriggerBuildStepsPullTiming
+
+func (r *BuildTriggerBuildStepsPullTiming) UnmarshalJSON(data []byte) error {
+	var res jsonBuildTriggerBuildStepsPullTiming
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBuildTriggerBuildStepsPullTiming
+	} else {
+
+		r.StartTime = res.StartTime
+
+		r.EndTime = res.EndTime
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this BuildTriggerBuildStepsPullTiming is
@@ -350,6 +635,29 @@ type BuildTriggerBuildSource struct {
 	RepoSource    *BuildTriggerBuildSourceRepoSource    `json:"repoSource"`
 }
 
+type jsonBuildTriggerBuildSource BuildTriggerBuildSource
+
+func (r *BuildTriggerBuildSource) UnmarshalJSON(data []byte) error {
+	var res jsonBuildTriggerBuildSource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBuildTriggerBuildSource
+	} else {
+
+		r.StorageSource = res.StorageSource
+
+		r.RepoSource = res.RepoSource
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BuildTriggerBuildSource is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -371,6 +679,31 @@ type BuildTriggerBuildSourceStorageSource struct {
 	Bucket     *string `json:"bucket"`
 	Object     *string `json:"object"`
 	Generation *string `json:"generation"`
+}
+
+type jsonBuildTriggerBuildSourceStorageSource BuildTriggerBuildSourceStorageSource
+
+func (r *BuildTriggerBuildSourceStorageSource) UnmarshalJSON(data []byte) error {
+	var res jsonBuildTriggerBuildSourceStorageSource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBuildTriggerBuildSourceStorageSource
+	} else {
+
+		r.Bucket = res.Bucket
+
+		r.Object = res.Object
+
+		r.Generation = res.Generation
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this BuildTriggerBuildSourceStorageSource is
@@ -401,6 +734,41 @@ type BuildTriggerBuildSourceRepoSource struct {
 	Substitutions map[string]string `json:"substitutions"`
 }
 
+type jsonBuildTriggerBuildSourceRepoSource BuildTriggerBuildSourceRepoSource
+
+func (r *BuildTriggerBuildSourceRepoSource) UnmarshalJSON(data []byte) error {
+	var res jsonBuildTriggerBuildSourceRepoSource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBuildTriggerBuildSourceRepoSource
+	} else {
+
+		r.ProjectId = res.ProjectId
+
+		r.RepoName = res.RepoName
+
+		r.BranchName = res.BranchName
+
+		r.TagName = res.TagName
+
+		r.CommitSha = res.CommitSha
+
+		r.Dir = res.Dir
+
+		r.InvertRegex = res.InvertRegex
+
+		r.Substitutions = res.Substitutions
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BuildTriggerBuildSourceRepoSource is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -421,7 +789,7 @@ func (r *BuildTriggerBuildSourceRepoSource) HashCode() string {
 // can identify it.
 func (r *BuildTrigger) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "cloudbuild",
+		Service: "cloud_build",
 		Type:    "BuildTrigger",
 		Version: "cloudbuild",
 	}

@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -303,6 +304,27 @@ type ImageGuestOsFeature struct {
 	Type  *ImageGuestOsFeatureTypeEnum `json:"type"`
 }
 
+type jsonImageGuestOsFeature ImageGuestOsFeature
+
+func (r *ImageGuestOsFeature) UnmarshalJSON(data []byte) error {
+	var res jsonImageGuestOsFeature
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyImageGuestOsFeature
+	} else {
+
+		r.Type = res.Type
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ImageGuestOsFeature is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -327,6 +349,33 @@ type ImageImageEncryptionKey struct {
 	KmsKeyServiceAccount *string `json:"kmsKeyServiceAccount"`
 }
 
+type jsonImageImageEncryptionKey ImageImageEncryptionKey
+
+func (r *ImageImageEncryptionKey) UnmarshalJSON(data []byte) error {
+	var res jsonImageImageEncryptionKey
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyImageImageEncryptionKey
+	} else {
+
+		r.RawKey = res.RawKey
+
+		r.KmsKeyName = res.KmsKeyName
+
+		r.Sha256 = res.Sha256
+
+		r.KmsKeyServiceAccount = res.KmsKeyServiceAccount
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ImageImageEncryptionKey is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -348,6 +397,31 @@ type ImageRawDisk struct {
 	Source        *string                        `json:"source"`
 	Sha1Checksum  *string                        `json:"sha1Checksum"`
 	ContainerType *ImageRawDiskContainerTypeEnum `json:"containerType"`
+}
+
+type jsonImageRawDisk ImageRawDisk
+
+func (r *ImageRawDisk) UnmarshalJSON(data []byte) error {
+	var res jsonImageRawDisk
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyImageRawDisk
+	} else {
+
+		r.Source = res.Source
+
+		r.Sha1Checksum = res.Sha1Checksum
+
+		r.ContainerType = res.ContainerType
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ImageRawDisk is
@@ -374,6 +448,33 @@ type ImageShieldedInstanceInitialState struct {
 	Dbx   []ImageShieldedInstanceInitialStateDbx `json:"dbx"`
 }
 
+type jsonImageShieldedInstanceInitialState ImageShieldedInstanceInitialState
+
+func (r *ImageShieldedInstanceInitialState) UnmarshalJSON(data []byte) error {
+	var res jsonImageShieldedInstanceInitialState
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyImageShieldedInstanceInitialState
+	} else {
+
+		r.Pk = res.Pk
+
+		r.Kek = res.Kek
+
+		r.Db = res.Db
+
+		r.Dbx = res.Dbx
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ImageShieldedInstanceInitialState is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -394,6 +495,29 @@ type ImageShieldedInstanceInitialStatePk struct {
 	empty    bool                                             `json:"-"`
 	Content  *string                                          `json:"content"`
 	FileType *ImageShieldedInstanceInitialStatePkFileTypeEnum `json:"fileType"`
+}
+
+type jsonImageShieldedInstanceInitialStatePk ImageShieldedInstanceInitialStatePk
+
+func (r *ImageShieldedInstanceInitialStatePk) UnmarshalJSON(data []byte) error {
+	var res jsonImageShieldedInstanceInitialStatePk
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyImageShieldedInstanceInitialStatePk
+	} else {
+
+		r.Content = res.Content
+
+		r.FileType = res.FileType
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ImageShieldedInstanceInitialStatePk is
@@ -418,6 +542,29 @@ type ImageShieldedInstanceInitialStateKek struct {
 	FileType *ImageShieldedInstanceInitialStateKekFileTypeEnum `json:"fileType"`
 }
 
+type jsonImageShieldedInstanceInitialStateKek ImageShieldedInstanceInitialStateKek
+
+func (r *ImageShieldedInstanceInitialStateKek) UnmarshalJSON(data []byte) error {
+	var res jsonImageShieldedInstanceInitialStateKek
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyImageShieldedInstanceInitialStateKek
+	} else {
+
+		r.Content = res.Content
+
+		r.FileType = res.FileType
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ImageShieldedInstanceInitialStateKek is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -440,6 +587,29 @@ type ImageShieldedInstanceInitialStateDb struct {
 	FileType *ImageShieldedInstanceInitialStateDbFileTypeEnum `json:"fileType"`
 }
 
+type jsonImageShieldedInstanceInitialStateDb ImageShieldedInstanceInitialStateDb
+
+func (r *ImageShieldedInstanceInitialStateDb) UnmarshalJSON(data []byte) error {
+	var res jsonImageShieldedInstanceInitialStateDb
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyImageShieldedInstanceInitialStateDb
+	} else {
+
+		r.Content = res.Content
+
+		r.FileType = res.FileType
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ImageShieldedInstanceInitialStateDb is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -460,6 +630,29 @@ type ImageShieldedInstanceInitialStateDbx struct {
 	empty    bool                                              `json:"-"`
 	Content  *string                                           `json:"content"`
 	FileType *ImageShieldedInstanceInitialStateDbxFileTypeEnum `json:"fileType"`
+}
+
+type jsonImageShieldedInstanceInitialStateDbx ImageShieldedInstanceInitialStateDbx
+
+func (r *ImageShieldedInstanceInitialStateDbx) UnmarshalJSON(data []byte) error {
+	var res jsonImageShieldedInstanceInitialStateDbx
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyImageShieldedInstanceInitialStateDbx
+	} else {
+
+		r.Content = res.Content
+
+		r.FileType = res.FileType
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ImageShieldedInstanceInitialStateDbx is
@@ -486,6 +679,33 @@ type ImageSourceDiskEncryptionKey struct {
 	KmsKeyServiceAccount *string `json:"kmsKeyServiceAccount"`
 }
 
+type jsonImageSourceDiskEncryptionKey ImageSourceDiskEncryptionKey
+
+func (r *ImageSourceDiskEncryptionKey) UnmarshalJSON(data []byte) error {
+	var res jsonImageSourceDiskEncryptionKey
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyImageSourceDiskEncryptionKey
+	} else {
+
+		r.RawKey = res.RawKey
+
+		r.KmsKeyName = res.KmsKeyName
+
+		r.Sha256 = res.Sha256
+
+		r.KmsKeyServiceAccount = res.KmsKeyServiceAccount
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ImageSourceDiskEncryptionKey is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -508,6 +728,33 @@ type ImageSourceImageEncryptionKey struct {
 	KmsKeyName           *string `json:"kmsKeyName"`
 	Sha256               *string `json:"sha256"`
 	KmsKeyServiceAccount *string `json:"kmsKeyServiceAccount"`
+}
+
+type jsonImageSourceImageEncryptionKey ImageSourceImageEncryptionKey
+
+func (r *ImageSourceImageEncryptionKey) UnmarshalJSON(data []byte) error {
+	var res jsonImageSourceImageEncryptionKey
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyImageSourceImageEncryptionKey
+	} else {
+
+		r.RawKey = res.RawKey
+
+		r.KmsKeyName = res.KmsKeyName
+
+		r.Sha256 = res.Sha256
+
+		r.KmsKeyServiceAccount = res.KmsKeyServiceAccount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ImageSourceImageEncryptionKey is
@@ -534,6 +781,33 @@ type ImageSourceSnapshotEncryptionKey struct {
 	KmsKeyServiceAccount *string `json:"kmsKeyServiceAccount"`
 }
 
+type jsonImageSourceSnapshotEncryptionKey ImageSourceSnapshotEncryptionKey
+
+func (r *ImageSourceSnapshotEncryptionKey) UnmarshalJSON(data []byte) error {
+	var res jsonImageSourceSnapshotEncryptionKey
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyImageSourceSnapshotEncryptionKey
+	} else {
+
+		r.RawKey = res.RawKey
+
+		r.KmsKeyName = res.KmsKeyName
+
+		r.Sha256 = res.Sha256
+
+		r.KmsKeyServiceAccount = res.KmsKeyServiceAccount
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ImageSourceSnapshotEncryptionKey is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -557,6 +831,35 @@ type ImageDeprecated struct {
 	Deprecated  *string                   `json:"deprecated"`
 	Obsolete    *string                   `json:"obsolete"`
 	Deleted     *string                   `json:"deleted"`
+}
+
+type jsonImageDeprecated ImageDeprecated
+
+func (r *ImageDeprecated) UnmarshalJSON(data []byte) error {
+	var res jsonImageDeprecated
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyImageDeprecated
+	} else {
+
+		r.State = res.State
+
+		r.Replacement = res.Replacement
+
+		r.Deprecated = res.Deprecated
+
+		r.Obsolete = res.Obsolete
+
+		r.Deleted = res.Deleted
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ImageDeprecated is

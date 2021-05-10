@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -264,6 +265,35 @@ type GuestPolicyAssignment struct {
 	OsTypes              []GuestPolicyAssignmentOsTypes     `json:"osTypes"`
 }
 
+type jsonGuestPolicyAssignment GuestPolicyAssignment
+
+func (r *GuestPolicyAssignment) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyAssignment
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyAssignment
+	} else {
+
+		r.GroupLabels = res.GroupLabels
+
+		r.Zones = res.Zones
+
+		r.Instances = res.Instances
+
+		r.InstanceNamePrefixes = res.InstanceNamePrefixes
+
+		r.OsTypes = res.OsTypes
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this GuestPolicyAssignment is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -283,6 +313,27 @@ func (r *GuestPolicyAssignment) HashCode() string {
 type GuestPolicyAssignmentGroupLabels struct {
 	empty  bool              `json:"-"`
 	Labels map[string]string `json:"labels"`
+}
+
+type jsonGuestPolicyAssignmentGroupLabels GuestPolicyAssignmentGroupLabels
+
+func (r *GuestPolicyAssignmentGroupLabels) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyAssignmentGroupLabels
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyAssignmentGroupLabels
+	} else {
+
+		r.Labels = res.Labels
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this GuestPolicyAssignmentGroupLabels is
@@ -308,6 +359,31 @@ type GuestPolicyAssignmentOsTypes struct {
 	OsArchitecture *string `json:"osArchitecture"`
 }
 
+type jsonGuestPolicyAssignmentOsTypes GuestPolicyAssignmentOsTypes
+
+func (r *GuestPolicyAssignmentOsTypes) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyAssignmentOsTypes
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyAssignmentOsTypes
+	} else {
+
+		r.OsShortName = res.OsShortName
+
+		r.OsVersion = res.OsVersion
+
+		r.OsArchitecture = res.OsArchitecture
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this GuestPolicyAssignmentOsTypes is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -329,6 +405,31 @@ type GuestPolicyPackages struct {
 	Name         *string                              `json:"name"`
 	DesiredState *GuestPolicyPackagesDesiredStateEnum `json:"desiredState"`
 	Manager      *GuestPolicyPackagesManagerEnum      `json:"manager"`
+}
+
+type jsonGuestPolicyPackages GuestPolicyPackages
+
+func (r *GuestPolicyPackages) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyPackages
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyPackages
+	} else {
+
+		r.Name = res.Name
+
+		r.DesiredState = res.DesiredState
+
+		r.Manager = res.Manager
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this GuestPolicyPackages is
@@ -353,6 +454,33 @@ type GuestPolicyPackageRepositories struct {
 	Yum    *GuestPolicyPackageRepositoriesYum    `json:"yum"`
 	Zypper *GuestPolicyPackageRepositoriesZypper `json:"zypper"`
 	Goo    *GuestPolicyPackageRepositoriesGoo    `json:"goo"`
+}
+
+type jsonGuestPolicyPackageRepositories GuestPolicyPackageRepositories
+
+func (r *GuestPolicyPackageRepositories) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyPackageRepositories
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyPackageRepositories
+	} else {
+
+		r.Apt = res.Apt
+
+		r.Yum = res.Yum
+
+		r.Zypper = res.Zypper
+
+		r.Goo = res.Goo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this GuestPolicyPackageRepositories is
@@ -380,6 +508,35 @@ type GuestPolicyPackageRepositoriesApt struct {
 	GpgKey       *string                                           `json:"gpgKey"`
 }
 
+type jsonGuestPolicyPackageRepositoriesApt GuestPolicyPackageRepositoriesApt
+
+func (r *GuestPolicyPackageRepositoriesApt) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyPackageRepositoriesApt
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyPackageRepositoriesApt
+	} else {
+
+		r.ArchiveType = res.ArchiveType
+
+		r.Uri = res.Uri
+
+		r.Distribution = res.Distribution
+
+		r.Components = res.Components
+
+		r.GpgKey = res.GpgKey
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this GuestPolicyPackageRepositoriesApt is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -402,6 +559,33 @@ type GuestPolicyPackageRepositoriesYum struct {
 	DisplayName *string  `json:"displayName"`
 	BaseUrl     *string  `json:"baseUrl"`
 	GpgKeys     []string `json:"gpgKeys"`
+}
+
+type jsonGuestPolicyPackageRepositoriesYum GuestPolicyPackageRepositoriesYum
+
+func (r *GuestPolicyPackageRepositoriesYum) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyPackageRepositoriesYum
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyPackageRepositoriesYum
+	} else {
+
+		r.Id = res.Id
+
+		r.DisplayName = res.DisplayName
+
+		r.BaseUrl = res.BaseUrl
+
+		r.GpgKeys = res.GpgKeys
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this GuestPolicyPackageRepositoriesYum is
@@ -428,6 +612,33 @@ type GuestPolicyPackageRepositoriesZypper struct {
 	GpgKeys     []string `json:"gpgKeys"`
 }
 
+type jsonGuestPolicyPackageRepositoriesZypper GuestPolicyPackageRepositoriesZypper
+
+func (r *GuestPolicyPackageRepositoriesZypper) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyPackageRepositoriesZypper
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyPackageRepositoriesZypper
+	} else {
+
+		r.Id = res.Id
+
+		r.DisplayName = res.DisplayName
+
+		r.BaseUrl = res.BaseUrl
+
+		r.GpgKeys = res.GpgKeys
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this GuestPolicyPackageRepositoriesZypper is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -448,6 +659,29 @@ type GuestPolicyPackageRepositoriesGoo struct {
 	empty bool    `json:"-"`
 	Name  *string `json:"name"`
 	Url   *string `json:"url"`
+}
+
+type jsonGuestPolicyPackageRepositoriesGoo GuestPolicyPackageRepositoriesGoo
+
+func (r *GuestPolicyPackageRepositoriesGoo) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyPackageRepositoriesGoo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyPackageRepositoriesGoo
+	} else {
+
+		r.Name = res.Name
+
+		r.Url = res.Url
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this GuestPolicyPackageRepositoriesGoo is
@@ -476,6 +710,37 @@ type GuestPolicyRecipes struct {
 	DesiredState *GuestPolicyRecipesDesiredStateEnum `json:"desiredState"`
 }
 
+type jsonGuestPolicyRecipes GuestPolicyRecipes
+
+func (r *GuestPolicyRecipes) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyRecipes
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyRecipes
+	} else {
+
+		r.Name = res.Name
+
+		r.Version = res.Version
+
+		r.Artifacts = res.Artifacts
+
+		r.InstallSteps = res.InstallSteps
+
+		r.UpdateSteps = res.UpdateSteps
+
+		r.DesiredState = res.DesiredState
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this GuestPolicyRecipes is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -500,6 +765,33 @@ type GuestPolicyRecipesArtifacts struct {
 	AllowInsecure *bool                              `json:"allowInsecure"`
 }
 
+type jsonGuestPolicyRecipesArtifacts GuestPolicyRecipesArtifacts
+
+func (r *GuestPolicyRecipesArtifacts) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyRecipesArtifacts
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyRecipesArtifacts
+	} else {
+
+		r.Id = res.Id
+
+		r.Remote = res.Remote
+
+		r.Gcs = res.Gcs
+
+		r.AllowInsecure = res.AllowInsecure
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this GuestPolicyRecipesArtifacts is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -520,6 +812,29 @@ type GuestPolicyRecipesArtifactsRemote struct {
 	empty    bool    `json:"-"`
 	Uri      *string `json:"uri"`
 	Checksum *string `json:"checksum"`
+}
+
+type jsonGuestPolicyRecipesArtifactsRemote GuestPolicyRecipesArtifactsRemote
+
+func (r *GuestPolicyRecipesArtifactsRemote) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyRecipesArtifactsRemote
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyRecipesArtifactsRemote
+	} else {
+
+		r.Uri = res.Uri
+
+		r.Checksum = res.Checksum
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesArtifactsRemote is
@@ -543,6 +858,31 @@ type GuestPolicyRecipesArtifactsGcs struct {
 	Bucket     *string `json:"bucket"`
 	Object     *string `json:"object"`
 	Generation *int64  `json:"generation"`
+}
+
+type jsonGuestPolicyRecipesArtifactsGcs GuestPolicyRecipesArtifactsGcs
+
+func (r *GuestPolicyRecipesArtifactsGcs) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyRecipesArtifactsGcs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyRecipesArtifactsGcs
+	} else {
+
+		r.Bucket = res.Bucket
+
+		r.Object = res.Object
+
+		r.Generation = res.Generation
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesArtifactsGcs is
@@ -572,6 +912,39 @@ type GuestPolicyRecipesInstallSteps struct {
 	ScriptRun         *GuestPolicyRecipesInstallStepsScriptRun         `json:"scriptRun"`
 }
 
+type jsonGuestPolicyRecipesInstallSteps GuestPolicyRecipesInstallSteps
+
+func (r *GuestPolicyRecipesInstallSteps) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyRecipesInstallSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyRecipesInstallSteps
+	} else {
+
+		r.FileCopy = res.FileCopy
+
+		r.ArchiveExtraction = res.ArchiveExtraction
+
+		r.MsiInstallation = res.MsiInstallation
+
+		r.DpkgInstallation = res.DpkgInstallation
+
+		r.RpmInstallation = res.RpmInstallation
+
+		r.FileExec = res.FileExec
+
+		r.ScriptRun = res.ScriptRun
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this GuestPolicyRecipesInstallSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -594,6 +967,33 @@ type GuestPolicyRecipesInstallStepsFileCopy struct {
 	Destination *string `json:"destination"`
 	Overwrite   *bool   `json:"overwrite"`
 	Permissions *string `json:"permissions"`
+}
+
+type jsonGuestPolicyRecipesInstallStepsFileCopy GuestPolicyRecipesInstallStepsFileCopy
+
+func (r *GuestPolicyRecipesInstallStepsFileCopy) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyRecipesInstallStepsFileCopy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyRecipesInstallStepsFileCopy
+	} else {
+
+		r.ArtifactId = res.ArtifactId
+
+		r.Destination = res.Destination
+
+		r.Overwrite = res.Overwrite
+
+		r.Permissions = res.Permissions
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesInstallStepsFileCopy is
@@ -619,6 +1019,31 @@ type GuestPolicyRecipesInstallStepsArchiveExtraction struct {
 	Type        *GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum `json:"type"`
 }
 
+type jsonGuestPolicyRecipesInstallStepsArchiveExtraction GuestPolicyRecipesInstallStepsArchiveExtraction
+
+func (r *GuestPolicyRecipesInstallStepsArchiveExtraction) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyRecipesInstallStepsArchiveExtraction
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyRecipesInstallStepsArchiveExtraction
+	} else {
+
+		r.ArtifactId = res.ArtifactId
+
+		r.Destination = res.Destination
+
+		r.Type = res.Type
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this GuestPolicyRecipesInstallStepsArchiveExtraction is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -642,6 +1067,31 @@ type GuestPolicyRecipesInstallStepsMsiInstallation struct {
 	AllowedExitCodes []int64  `json:"allowedExitCodes"`
 }
 
+type jsonGuestPolicyRecipesInstallStepsMsiInstallation GuestPolicyRecipesInstallStepsMsiInstallation
+
+func (r *GuestPolicyRecipesInstallStepsMsiInstallation) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyRecipesInstallStepsMsiInstallation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyRecipesInstallStepsMsiInstallation
+	} else {
+
+		r.ArtifactId = res.ArtifactId
+
+		r.Flags = res.Flags
+
+		r.AllowedExitCodes = res.AllowedExitCodes
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this GuestPolicyRecipesInstallStepsMsiInstallation is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -663,6 +1113,27 @@ type GuestPolicyRecipesInstallStepsDpkgInstallation struct {
 	ArtifactId *string `json:"artifactId"`
 }
 
+type jsonGuestPolicyRecipesInstallStepsDpkgInstallation GuestPolicyRecipesInstallStepsDpkgInstallation
+
+func (r *GuestPolicyRecipesInstallStepsDpkgInstallation) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyRecipesInstallStepsDpkgInstallation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyRecipesInstallStepsDpkgInstallation
+	} else {
+
+		r.ArtifactId = res.ArtifactId
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this GuestPolicyRecipesInstallStepsDpkgInstallation is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -682,6 +1153,27 @@ func (r *GuestPolicyRecipesInstallStepsDpkgInstallation) HashCode() string {
 type GuestPolicyRecipesInstallStepsRpmInstallation struct {
 	empty      bool    `json:"-"`
 	ArtifactId *string `json:"artifactId"`
+}
+
+type jsonGuestPolicyRecipesInstallStepsRpmInstallation GuestPolicyRecipesInstallStepsRpmInstallation
+
+func (r *GuestPolicyRecipesInstallStepsRpmInstallation) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyRecipesInstallStepsRpmInstallation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyRecipesInstallStepsRpmInstallation
+	} else {
+
+		r.ArtifactId = res.ArtifactId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesInstallStepsRpmInstallation is
@@ -708,6 +1200,33 @@ type GuestPolicyRecipesInstallStepsFileExec struct {
 	AllowedExitCodes []int64  `json:"allowedExitCodes"`
 }
 
+type jsonGuestPolicyRecipesInstallStepsFileExec GuestPolicyRecipesInstallStepsFileExec
+
+func (r *GuestPolicyRecipesInstallStepsFileExec) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyRecipesInstallStepsFileExec
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyRecipesInstallStepsFileExec
+	} else {
+
+		r.ArtifactId = res.ArtifactId
+
+		r.LocalPath = res.LocalPath
+
+		r.Args = res.Args
+
+		r.AllowedExitCodes = res.AllowedExitCodes
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this GuestPolicyRecipesInstallStepsFileExec is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -729,6 +1248,31 @@ type GuestPolicyRecipesInstallStepsScriptRun struct {
 	Script           *string                                                 `json:"script"`
 	AllowedExitCodes []int64                                                 `json:"allowedExitCodes"`
 	Interpreter      *GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum `json:"interpreter"`
+}
+
+type jsonGuestPolicyRecipesInstallStepsScriptRun GuestPolicyRecipesInstallStepsScriptRun
+
+func (r *GuestPolicyRecipesInstallStepsScriptRun) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyRecipesInstallStepsScriptRun
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyRecipesInstallStepsScriptRun
+	} else {
+
+		r.Script = res.Script
+
+		r.AllowedExitCodes = res.AllowedExitCodes
+
+		r.Interpreter = res.Interpreter
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesInstallStepsScriptRun is
@@ -758,6 +1302,39 @@ type GuestPolicyRecipesUpdateSteps struct {
 	ScriptRun         *GuestPolicyRecipesUpdateStepsScriptRun         `json:"scriptRun"`
 }
 
+type jsonGuestPolicyRecipesUpdateSteps GuestPolicyRecipesUpdateSteps
+
+func (r *GuestPolicyRecipesUpdateSteps) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyRecipesUpdateSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyRecipesUpdateSteps
+	} else {
+
+		r.FileCopy = res.FileCopy
+
+		r.ArchiveExtraction = res.ArchiveExtraction
+
+		r.MsiInstallation = res.MsiInstallation
+
+		r.DpkgInstallation = res.DpkgInstallation
+
+		r.RpmInstallation = res.RpmInstallation
+
+		r.FileExec = res.FileExec
+
+		r.ScriptRun = res.ScriptRun
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this GuestPolicyRecipesUpdateSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -780,6 +1357,33 @@ type GuestPolicyRecipesUpdateStepsFileCopy struct {
 	Destination *string `json:"destination"`
 	Overwrite   *bool   `json:"overwrite"`
 	Permissions *string `json:"permissions"`
+}
+
+type jsonGuestPolicyRecipesUpdateStepsFileCopy GuestPolicyRecipesUpdateStepsFileCopy
+
+func (r *GuestPolicyRecipesUpdateStepsFileCopy) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyRecipesUpdateStepsFileCopy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyRecipesUpdateStepsFileCopy
+	} else {
+
+		r.ArtifactId = res.ArtifactId
+
+		r.Destination = res.Destination
+
+		r.Overwrite = res.Overwrite
+
+		r.Permissions = res.Permissions
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesUpdateStepsFileCopy is
@@ -805,6 +1409,31 @@ type GuestPolicyRecipesUpdateStepsArchiveExtraction struct {
 	Type        *GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum `json:"type"`
 }
 
+type jsonGuestPolicyRecipesUpdateStepsArchiveExtraction GuestPolicyRecipesUpdateStepsArchiveExtraction
+
+func (r *GuestPolicyRecipesUpdateStepsArchiveExtraction) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyRecipesUpdateStepsArchiveExtraction
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyRecipesUpdateStepsArchiveExtraction
+	} else {
+
+		r.ArtifactId = res.ArtifactId
+
+		r.Destination = res.Destination
+
+		r.Type = res.Type
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this GuestPolicyRecipesUpdateStepsArchiveExtraction is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -828,6 +1457,31 @@ type GuestPolicyRecipesUpdateStepsMsiInstallation struct {
 	AllowedExitCodes []int64  `json:"allowedExitCodes"`
 }
 
+type jsonGuestPolicyRecipesUpdateStepsMsiInstallation GuestPolicyRecipesUpdateStepsMsiInstallation
+
+func (r *GuestPolicyRecipesUpdateStepsMsiInstallation) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyRecipesUpdateStepsMsiInstallation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyRecipesUpdateStepsMsiInstallation
+	} else {
+
+		r.ArtifactId = res.ArtifactId
+
+		r.Flags = res.Flags
+
+		r.AllowedExitCodes = res.AllowedExitCodes
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this GuestPolicyRecipesUpdateStepsMsiInstallation is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -849,6 +1503,27 @@ type GuestPolicyRecipesUpdateStepsDpkgInstallation struct {
 	ArtifactId *string `json:"artifactId"`
 }
 
+type jsonGuestPolicyRecipesUpdateStepsDpkgInstallation GuestPolicyRecipesUpdateStepsDpkgInstallation
+
+func (r *GuestPolicyRecipesUpdateStepsDpkgInstallation) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyRecipesUpdateStepsDpkgInstallation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyRecipesUpdateStepsDpkgInstallation
+	} else {
+
+		r.ArtifactId = res.ArtifactId
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this GuestPolicyRecipesUpdateStepsDpkgInstallation is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -868,6 +1543,27 @@ func (r *GuestPolicyRecipesUpdateStepsDpkgInstallation) HashCode() string {
 type GuestPolicyRecipesUpdateStepsRpmInstallation struct {
 	empty      bool    `json:"-"`
 	ArtifactId *string `json:"artifactId"`
+}
+
+type jsonGuestPolicyRecipesUpdateStepsRpmInstallation GuestPolicyRecipesUpdateStepsRpmInstallation
+
+func (r *GuestPolicyRecipesUpdateStepsRpmInstallation) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyRecipesUpdateStepsRpmInstallation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyRecipesUpdateStepsRpmInstallation
+	} else {
+
+		r.ArtifactId = res.ArtifactId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this GuestPolicyRecipesUpdateStepsRpmInstallation is
@@ -894,6 +1590,33 @@ type GuestPolicyRecipesUpdateStepsFileExec struct {
 	AllowedExitCodes []int64  `json:"allowedExitCodes"`
 }
 
+type jsonGuestPolicyRecipesUpdateStepsFileExec GuestPolicyRecipesUpdateStepsFileExec
+
+func (r *GuestPolicyRecipesUpdateStepsFileExec) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyRecipesUpdateStepsFileExec
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyRecipesUpdateStepsFileExec
+	} else {
+
+		r.ArtifactId = res.ArtifactId
+
+		r.LocalPath = res.LocalPath
+
+		r.Args = res.Args
+
+		r.AllowedExitCodes = res.AllowedExitCodes
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this GuestPolicyRecipesUpdateStepsFileExec is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -917,6 +1640,31 @@ type GuestPolicyRecipesUpdateStepsScriptRun struct {
 	Interpreter      *GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum `json:"interpreter"`
 }
 
+type jsonGuestPolicyRecipesUpdateStepsScriptRun GuestPolicyRecipesUpdateStepsScriptRun
+
+func (r *GuestPolicyRecipesUpdateStepsScriptRun) UnmarshalJSON(data []byte) error {
+	var res jsonGuestPolicyRecipesUpdateStepsScriptRun
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGuestPolicyRecipesUpdateStepsScriptRun
+	} else {
+
+		r.Script = res.Script
+
+		r.AllowedExitCodes = res.AllowedExitCodes
+
+		r.Interpreter = res.Interpreter
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this GuestPolicyRecipesUpdateStepsScriptRun is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -937,7 +1685,7 @@ func (r *GuestPolicyRecipesUpdateStepsScriptRun) HashCode() string {
 // can identify it.
 func (r *GuestPolicy) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "osconfig",
+		Service: "os_config",
 		Type:    "GuestPolicy",
 		Version: "beta",
 	}

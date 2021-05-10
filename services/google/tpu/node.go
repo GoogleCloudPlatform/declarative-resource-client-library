@@ -16,6 +16,7 @@ package tpu
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -136,6 +137,29 @@ type NodeCreateTime struct {
 	Nanos   *int64 `json:"nanos"`
 }
 
+type jsonNodeCreateTime NodeCreateTime
+
+func (r *NodeCreateTime) UnmarshalJSON(data []byte) error {
+	var res jsonNodeCreateTime
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodeCreateTime
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NodeCreateTime is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -158,6 +182,29 @@ type NodeSchedulingConfig struct {
 	Reserved    *bool `json:"reserved"`
 }
 
+type jsonNodeSchedulingConfig NodeSchedulingConfig
+
+func (r *NodeSchedulingConfig) UnmarshalJSON(data []byte) error {
+	var res jsonNodeSchedulingConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodeSchedulingConfig
+	} else {
+
+		r.Preemptible = res.Preemptible
+
+		r.Reserved = res.Reserved
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NodeSchedulingConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -178,6 +225,29 @@ type NodeNetworkEndpoints struct {
 	empty     bool    `json:"-"`
 	IPAddress *string `json:"ipAddress"`
 	Port      *int64  `json:"port"`
+}
+
+type jsonNodeNetworkEndpoints NodeNetworkEndpoints
+
+func (r *NodeNetworkEndpoints) UnmarshalJSON(data []byte) error {
+	var res jsonNodeNetworkEndpoints
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodeNetworkEndpoints
+	} else {
+
+		r.IPAddress = res.IPAddress
+
+		r.Port = res.Port
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this NodeNetworkEndpoints is
@@ -204,6 +274,33 @@ type NodeSymptoms struct {
 	WorkerId    *string                      `json:"workerId"`
 }
 
+type jsonNodeSymptoms NodeSymptoms
+
+func (r *NodeSymptoms) UnmarshalJSON(data []byte) error {
+	var res jsonNodeSymptoms
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodeSymptoms
+	} else {
+
+		r.CreateTime = res.CreateTime
+
+		r.SymptomType = res.SymptomType
+
+		r.Details = res.Details
+
+		r.WorkerId = res.WorkerId
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NodeSymptoms is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -224,6 +321,29 @@ type NodeSymptomsCreateTime struct {
 	empty   bool   `json:"-"`
 	Seconds *int64 `json:"seconds"`
 	Nanos   *int64 `json:"nanos"`
+}
+
+type jsonNodeSymptomsCreateTime NodeSymptomsCreateTime
+
+func (r *NodeSymptomsCreateTime) UnmarshalJSON(data []byte) error {
+	var res jsonNodeSymptomsCreateTime
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodeSymptomsCreateTime
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this NodeSymptomsCreateTime is

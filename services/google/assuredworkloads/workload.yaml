@@ -164,8 +164,8 @@ components:
       x-dcl-parent-container: organization
       x-dcl-uses-state-hint: true
 info:
-  description: DCL Specification for the Assuredworkloads Workload resource
-  title: Assuredworkloads/Workload
+  description: DCL Specification for the AssuredWorkloads Workload resource
+  title: AssuredWorkloads/Workload
   x-dcl-has-iam: false
 paths:
   apply:

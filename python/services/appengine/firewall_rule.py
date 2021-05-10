@@ -12,8 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from connector import channel
-from google3.cloud.graphite.mmv2.services.google.appengine import firewall_rule_pb2
-from google3.cloud.graphite.mmv2.services.google.appengine import firewall_rule_pb2_grpc
+from google3.cloud.graphite.mmv2.services.google.app_engine import firewall_rule_pb2
+from google3.cloud.graphite.mmv2.services.google.app_engine import (
+    firewall_rule_pb2_grpc,
+)
 
 from typing import List
 

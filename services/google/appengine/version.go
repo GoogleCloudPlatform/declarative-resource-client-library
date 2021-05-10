@@ -16,6 +16,7 @@ package appengine
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -354,6 +355,51 @@ type VersionAutomaticScaling struct {
 	StandardSchedulerSettings *VersionAutomaticScalingStandardSchedulerSettings `json:"standardSchedulerSettings"`
 }
 
+type jsonVersionAutomaticScaling VersionAutomaticScaling
+
+func (r *VersionAutomaticScaling) UnmarshalJSON(data []byte) error {
+	var res jsonVersionAutomaticScaling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionAutomaticScaling
+	} else {
+
+		r.CoolDownPeriod = res.CoolDownPeriod
+
+		r.CpuUtilization = res.CpuUtilization
+
+		r.MaxConcurrentRequests = res.MaxConcurrentRequests
+
+		r.MaxIdleInstances = res.MaxIdleInstances
+
+		r.MaxTotalInstances = res.MaxTotalInstances
+
+		r.MaxPendingLatency = res.MaxPendingLatency
+
+		r.MinIdleInstances = res.MinIdleInstances
+
+		r.MinTotalInstances = res.MinTotalInstances
+
+		r.MinPendingLatency = res.MinPendingLatency
+
+		r.RequestUtilization = res.RequestUtilization
+
+		r.DiskUtilization = res.DiskUtilization
+
+		r.NetworkUtilization = res.NetworkUtilization
+
+		r.StandardSchedulerSettings = res.StandardSchedulerSettings
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this VersionAutomaticScaling is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -376,6 +422,29 @@ type VersionAutomaticScalingCpuUtilization struct {
 	TargetUtilization       *float64 `json:"targetUtilization"`
 }
 
+type jsonVersionAutomaticScalingCpuUtilization VersionAutomaticScalingCpuUtilization
+
+func (r *VersionAutomaticScalingCpuUtilization) UnmarshalJSON(data []byte) error {
+	var res jsonVersionAutomaticScalingCpuUtilization
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionAutomaticScalingCpuUtilization
+	} else {
+
+		r.AggregationWindowLength = res.AggregationWindowLength
+
+		r.TargetUtilization = res.TargetUtilization
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this VersionAutomaticScalingCpuUtilization is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -396,6 +465,29 @@ type VersionAutomaticScalingRequestUtilization struct {
 	empty                       bool   `json:"-"`
 	TargetRequestCountPerSecond *int64 `json:"targetRequestCountPerSecond"`
 	TargetConcurrentRequests    *int64 `json:"targetConcurrentRequests"`
+}
+
+type jsonVersionAutomaticScalingRequestUtilization VersionAutomaticScalingRequestUtilization
+
+func (r *VersionAutomaticScalingRequestUtilization) UnmarshalJSON(data []byte) error {
+	var res jsonVersionAutomaticScalingRequestUtilization
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionAutomaticScalingRequestUtilization
+	} else {
+
+		r.TargetRequestCountPerSecond = res.TargetRequestCountPerSecond
+
+		r.TargetConcurrentRequests = res.TargetConcurrentRequests
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this VersionAutomaticScalingRequestUtilization is
@@ -422,6 +514,33 @@ type VersionAutomaticScalingDiskUtilization struct {
 	TargetReadOpsPerSecond    *int64 `json:"targetReadOpsPerSecond"`
 }
 
+type jsonVersionAutomaticScalingDiskUtilization VersionAutomaticScalingDiskUtilization
+
+func (r *VersionAutomaticScalingDiskUtilization) UnmarshalJSON(data []byte) error {
+	var res jsonVersionAutomaticScalingDiskUtilization
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionAutomaticScalingDiskUtilization
+	} else {
+
+		r.TargetWriteBytesPerSecond = res.TargetWriteBytesPerSecond
+
+		r.TargetWriteOpsPerSecond = res.TargetWriteOpsPerSecond
+
+		r.TargetReadBytesPerSecond = res.TargetReadBytesPerSecond
+
+		r.TargetReadOpsPerSecond = res.TargetReadOpsPerSecond
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this VersionAutomaticScalingDiskUtilization is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -444,6 +563,33 @@ type VersionAutomaticScalingNetworkUtilization struct {
 	TargetSentPacketsPerSecond     *int64 `json:"targetSentPacketsPerSecond"`
 	TargetReceivedBytesPerSecond   *int64 `json:"targetReceivedBytesPerSecond"`
 	TargetReceivedPacketsPerSecond *int64 `json:"targetReceivedPacketsPerSecond"`
+}
+
+type jsonVersionAutomaticScalingNetworkUtilization VersionAutomaticScalingNetworkUtilization
+
+func (r *VersionAutomaticScalingNetworkUtilization) UnmarshalJSON(data []byte) error {
+	var res jsonVersionAutomaticScalingNetworkUtilization
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionAutomaticScalingNetworkUtilization
+	} else {
+
+		r.TargetSentBytesPerSecond = res.TargetSentBytesPerSecond
+
+		r.TargetSentPacketsPerSecond = res.TargetSentPacketsPerSecond
+
+		r.TargetReceivedBytesPerSecond = res.TargetReceivedBytesPerSecond
+
+		r.TargetReceivedPacketsPerSecond = res.TargetReceivedPacketsPerSecond
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this VersionAutomaticScalingNetworkUtilization is
@@ -470,6 +616,33 @@ type VersionAutomaticScalingStandardSchedulerSettings struct {
 	MaxInstances                *int64   `json:"maxInstances"`
 }
 
+type jsonVersionAutomaticScalingStandardSchedulerSettings VersionAutomaticScalingStandardSchedulerSettings
+
+func (r *VersionAutomaticScalingStandardSchedulerSettings) UnmarshalJSON(data []byte) error {
+	var res jsonVersionAutomaticScalingStandardSchedulerSettings
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionAutomaticScalingStandardSchedulerSettings
+	} else {
+
+		r.TargetCpuUtilization = res.TargetCpuUtilization
+
+		r.TargetThroughputUtilization = res.TargetThroughputUtilization
+
+		r.MinInstances = res.MinInstances
+
+		r.MaxInstances = res.MaxInstances
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this VersionAutomaticScalingStandardSchedulerSettings is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -492,6 +665,29 @@ type VersionBasicScaling struct {
 	MaxInstances *int64  `json:"maxInstances"`
 }
 
+type jsonVersionBasicScaling VersionBasicScaling
+
+func (r *VersionBasicScaling) UnmarshalJSON(data []byte) error {
+	var res jsonVersionBasicScaling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionBasicScaling
+	} else {
+
+		r.IdleTimeout = res.IdleTimeout
+
+		r.MaxInstances = res.MaxInstances
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this VersionBasicScaling is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -511,6 +707,27 @@ func (r *VersionBasicScaling) HashCode() string {
 type VersionManualScaling struct {
 	empty     bool   `json:"-"`
 	Instances *int64 `json:"instances"`
+}
+
+type jsonVersionManualScaling VersionManualScaling
+
+func (r *VersionManualScaling) UnmarshalJSON(data []byte) error {
+	var res jsonVersionManualScaling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionManualScaling
+	} else {
+
+		r.Instances = res.Instances
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this VersionManualScaling is
@@ -538,6 +755,35 @@ type VersionNetwork struct {
 	SessionAffinity *bool    `json:"sessionAffinity"`
 }
 
+type jsonVersionNetwork VersionNetwork
+
+func (r *VersionNetwork) UnmarshalJSON(data []byte) error {
+	var res jsonVersionNetwork
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionNetwork
+	} else {
+
+		r.ForwardedPorts = res.ForwardedPorts
+
+		r.InstanceTag = res.InstanceTag
+
+		r.Name = res.Name
+
+		r.SubnetworkName = res.SubnetworkName
+
+		r.SessionAffinity = res.SessionAffinity
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this VersionNetwork is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -562,6 +808,33 @@ type VersionResources struct {
 	Volumes  []VersionResourcesVolumes `json:"volumes"`
 }
 
+type jsonVersionResources VersionResources
+
+func (r *VersionResources) UnmarshalJSON(data []byte) error {
+	var res jsonVersionResources
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionResources
+	} else {
+
+		r.Cpu = res.Cpu
+
+		r.DiskGb = res.DiskGb
+
+		r.MemoryGb = res.MemoryGb
+
+		r.Volumes = res.Volumes
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this VersionResources is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -583,6 +856,31 @@ type VersionResourcesVolumes struct {
 	Name       *string  `json:"name"`
 	VolumeType *string  `json:"volumeType"`
 	SizeGb     *float64 `json:"sizeGb"`
+}
+
+type jsonVersionResourcesVolumes VersionResourcesVolumes
+
+func (r *VersionResourcesVolumes) UnmarshalJSON(data []byte) error {
+	var res jsonVersionResourcesVolumes
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionResourcesVolumes
+	} else {
+
+		r.Name = res.Name
+
+		r.VolumeType = res.VolumeType
+
+		r.SizeGb = res.SizeGb
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this VersionResourcesVolumes is
@@ -613,6 +911,41 @@ type VersionHandlers struct {
 	RedirectHttpResponseCode *VersionHandlersRedirectHttpResponseCodeEnum `json:"redirectHttpResponseCode"`
 }
 
+type jsonVersionHandlers VersionHandlers
+
+func (r *VersionHandlers) UnmarshalJSON(data []byte) error {
+	var res jsonVersionHandlers
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionHandlers
+	} else {
+
+		r.UrlRegex = res.UrlRegex
+
+		r.StaticFiles = res.StaticFiles
+
+		r.Script = res.Script
+
+		r.ApiEndpoint = res.ApiEndpoint
+
+		r.SecurityLevel = res.SecurityLevel
+
+		r.Login = res.Login
+
+		r.AuthFailAction = res.AuthFailAction
+
+		r.RedirectHttpResponseCode = res.RedirectHttpResponseCode
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this VersionHandlers is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -640,6 +973,39 @@ type VersionHandlersStaticFiles struct {
 	ApplicationReadable *bool             `json:"applicationReadable"`
 }
 
+type jsonVersionHandlersStaticFiles VersionHandlersStaticFiles
+
+func (r *VersionHandlersStaticFiles) UnmarshalJSON(data []byte) error {
+	var res jsonVersionHandlersStaticFiles
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionHandlersStaticFiles
+	} else {
+
+		r.Path = res.Path
+
+		r.UploadPathRegex = res.UploadPathRegex
+
+		r.HttpHeaders = res.HttpHeaders
+
+		r.MimeType = res.MimeType
+
+		r.Expiration = res.Expiration
+
+		r.RequireMatchingFile = res.RequireMatchingFile
+
+		r.ApplicationReadable = res.ApplicationReadable
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this VersionHandlersStaticFiles is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -661,6 +1027,27 @@ type VersionHandlersScript struct {
 	ScriptPath *string `json:"scriptPath"`
 }
 
+type jsonVersionHandlersScript VersionHandlersScript
+
+func (r *VersionHandlersScript) UnmarshalJSON(data []byte) error {
+	var res jsonVersionHandlersScript
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionHandlersScript
+	} else {
+
+		r.ScriptPath = res.ScriptPath
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this VersionHandlersScript is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -680,6 +1067,27 @@ func (r *VersionHandlersScript) HashCode() string {
 type VersionHandlersApiEndpoint struct {
 	empty      bool    `json:"-"`
 	ScriptPath *string `json:"scriptPath"`
+}
+
+type jsonVersionHandlersApiEndpoint VersionHandlersApiEndpoint
+
+func (r *VersionHandlersApiEndpoint) UnmarshalJSON(data []byte) error {
+	var res jsonVersionHandlersApiEndpoint
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionHandlersApiEndpoint
+	} else {
+
+		r.ScriptPath = res.ScriptPath
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this VersionHandlersApiEndpoint is
@@ -705,6 +1113,31 @@ type VersionErrorHandlers struct {
 	MimeType   *string                            `json:"mimeType"`
 }
 
+type jsonVersionErrorHandlers VersionErrorHandlers
+
+func (r *VersionErrorHandlers) UnmarshalJSON(data []byte) error {
+	var res jsonVersionErrorHandlers
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionErrorHandlers
+	} else {
+
+		r.ErrorCode = res.ErrorCode
+
+		r.StaticFile = res.StaticFile
+
+		r.MimeType = res.MimeType
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this VersionErrorHandlers is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -725,6 +1158,29 @@ type VersionLibraries struct {
 	empty   bool    `json:"-"`
 	Name    *string `json:"name"`
 	Version *string `json:"version"`
+}
+
+type jsonVersionLibraries VersionLibraries
+
+func (r *VersionLibraries) UnmarshalJSON(data []byte) error {
+	var res jsonVersionLibraries
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionLibraries
+	} else {
+
+		r.Name = res.Name
+
+		r.Version = res.Version
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this VersionLibraries is
@@ -752,6 +1208,35 @@ type VersionApiConfig struct {
 	Url            *string                             `json:"url"`
 }
 
+type jsonVersionApiConfig VersionApiConfig
+
+func (r *VersionApiConfig) UnmarshalJSON(data []byte) error {
+	var res jsonVersionApiConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionApiConfig
+	} else {
+
+		r.AuthFailAction = res.AuthFailAction
+
+		r.Login = res.Login
+
+		r.Script = res.Script
+
+		r.SecurityLevel = res.SecurityLevel
+
+		r.Url = res.Url
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this VersionApiConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -774,6 +1259,33 @@ type VersionDeployment struct {
 	Container         *VersionDeploymentContainer         `json:"container"`
 	Zip               *VersionDeploymentZip               `json:"zip"`
 	CloudBuildOptions *VersionDeploymentCloudBuildOptions `json:"cloudBuildOptions"`
+}
+
+type jsonVersionDeployment VersionDeployment
+
+func (r *VersionDeployment) UnmarshalJSON(data []byte) error {
+	var res jsonVersionDeployment
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionDeployment
+	} else {
+
+		r.Files = res.Files
+
+		r.Container = res.Container
+
+		r.Zip = res.Zip
+
+		r.CloudBuildOptions = res.CloudBuildOptions
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this VersionDeployment is
@@ -799,6 +1311,31 @@ type VersionDeploymentFiles struct {
 	MimeType  *string `json:"mimeType"`
 }
 
+type jsonVersionDeploymentFiles VersionDeploymentFiles
+
+func (r *VersionDeploymentFiles) UnmarshalJSON(data []byte) error {
+	var res jsonVersionDeploymentFiles
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionDeploymentFiles
+	} else {
+
+		r.SourceUrl = res.SourceUrl
+
+		r.Sha1Sum = res.Sha1Sum
+
+		r.MimeType = res.MimeType
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this VersionDeploymentFiles is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -818,6 +1355,27 @@ func (r *VersionDeploymentFiles) HashCode() string {
 type VersionDeploymentContainer struct {
 	empty bool    `json:"-"`
 	Image *string `json:"image"`
+}
+
+type jsonVersionDeploymentContainer VersionDeploymentContainer
+
+func (r *VersionDeploymentContainer) UnmarshalJSON(data []byte) error {
+	var res jsonVersionDeploymentContainer
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionDeploymentContainer
+	} else {
+
+		r.Image = res.Image
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this VersionDeploymentContainer is
@@ -842,6 +1400,29 @@ type VersionDeploymentZip struct {
 	FilesCount *int64  `json:"filesCount"`
 }
 
+type jsonVersionDeploymentZip VersionDeploymentZip
+
+func (r *VersionDeploymentZip) UnmarshalJSON(data []byte) error {
+	var res jsonVersionDeploymentZip
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionDeploymentZip
+	} else {
+
+		r.SourceUrl = res.SourceUrl
+
+		r.FilesCount = res.FilesCount
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this VersionDeploymentZip is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -862,6 +1443,29 @@ type VersionDeploymentCloudBuildOptions struct {
 	empty             bool    `json:"-"`
 	AppYamlPath       *string `json:"appYamlPath"`
 	CloudBuildTimeout *string `json:"cloudBuildTimeout"`
+}
+
+type jsonVersionDeploymentCloudBuildOptions VersionDeploymentCloudBuildOptions
+
+func (r *VersionDeploymentCloudBuildOptions) UnmarshalJSON(data []byte) error {
+	var res jsonVersionDeploymentCloudBuildOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionDeploymentCloudBuildOptions
+	} else {
+
+		r.AppYamlPath = res.AppYamlPath
+
+		r.CloudBuildTimeout = res.CloudBuildTimeout
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this VersionDeploymentCloudBuildOptions is
@@ -891,6 +1495,39 @@ type VersionHealthCheck struct {
 	Timeout            *string `json:"timeout"`
 }
 
+type jsonVersionHealthCheck VersionHealthCheck
+
+func (r *VersionHealthCheck) UnmarshalJSON(data []byte) error {
+	var res jsonVersionHealthCheck
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionHealthCheck
+	} else {
+
+		r.DisableHealthCheck = res.DisableHealthCheck
+
+		r.Host = res.Host
+
+		r.HealthyThreshold = res.HealthyThreshold
+
+		r.UnhealthyThreshold = res.UnhealthyThreshold
+
+		r.RestartThreshold = res.RestartThreshold
+
+		r.CheckInterval = res.CheckInterval
+
+		r.Timeout = res.Timeout
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this VersionHealthCheck is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -916,6 +1553,39 @@ type VersionReadinessCheck struct {
 	CheckInterval    *string `json:"checkInterval"`
 	Timeout          *string `json:"timeout"`
 	AppStartTimeout  *string `json:"appStartTimeout"`
+}
+
+type jsonVersionReadinessCheck VersionReadinessCheck
+
+func (r *VersionReadinessCheck) UnmarshalJSON(data []byte) error {
+	var res jsonVersionReadinessCheck
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionReadinessCheck
+	} else {
+
+		r.Path = res.Path
+
+		r.Host = res.Host
+
+		r.FailureThreshold = res.FailureThreshold
+
+		r.SuccessThreshold = res.SuccessThreshold
+
+		r.CheckInterval = res.CheckInterval
+
+		r.Timeout = res.Timeout
+
+		r.AppStartTimeout = res.AppStartTimeout
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this VersionReadinessCheck is
@@ -945,6 +1615,39 @@ type VersionLivenessCheck struct {
 	InitialDelay     *string `json:"initialDelay"`
 }
 
+type jsonVersionLivenessCheck VersionLivenessCheck
+
+func (r *VersionLivenessCheck) UnmarshalJSON(data []byte) error {
+	var res jsonVersionLivenessCheck
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionLivenessCheck
+	} else {
+
+		r.Path = res.Path
+
+		r.Host = res.Host
+
+		r.FailureThreshold = res.FailureThreshold
+
+		r.SuccessThreshold = res.SuccessThreshold
+
+		r.CheckInterval = res.CheckInterval
+
+		r.Timeout = res.Timeout
+
+		r.InitialDelay = res.InitialDelay
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this VersionLivenessCheck is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -964,6 +1667,27 @@ func (r *VersionLivenessCheck) HashCode() string {
 type VersionEntrypoint struct {
 	empty bool    `json:"-"`
 	Shell *string `json:"shell"`
+}
+
+type jsonVersionEntrypoint VersionEntrypoint
+
+func (r *VersionEntrypoint) UnmarshalJSON(data []byte) error {
+	var res jsonVersionEntrypoint
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionEntrypoint
+	} else {
+
+		r.Shell = res.Shell
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this VersionEntrypoint is
@@ -987,6 +1711,27 @@ type VersionVPCAccessConnector struct {
 	Name  *string `json:"name"`
 }
 
+type jsonVersionVPCAccessConnector VersionVPCAccessConnector
+
+func (r *VersionVPCAccessConnector) UnmarshalJSON(data []byte) error {
+	var res jsonVersionVPCAccessConnector
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVersionVPCAccessConnector
+	} else {
+
+		r.Name = res.Name
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this VersionVPCAccessConnector is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1007,7 +1752,7 @@ func (r *VersionVPCAccessConnector) HashCode() string {
 // can identify it.
 func (r *Version) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "appengine",
+		Service: "app_engine",
 		Type:    "Version",
 		Version: "appengine",
 	}

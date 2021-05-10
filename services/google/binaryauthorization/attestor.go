@@ -16,6 +16,7 @@ package binaryauthorization
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -68,6 +69,31 @@ type AttestorUserOwnedGrafeasNote struct {
 	DelegationServiceAccountEmail *string                                  `json:"delegationServiceAccountEmail"`
 }
 
+type jsonAttestorUserOwnedGrafeasNote AttestorUserOwnedGrafeasNote
+
+func (r *AttestorUserOwnedGrafeasNote) UnmarshalJSON(data []byte) error {
+	var res jsonAttestorUserOwnedGrafeasNote
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAttestorUserOwnedGrafeasNote
+	} else {
+
+		r.NoteReference = res.NoteReference
+
+		r.PublicKeys = res.PublicKeys
+
+		r.DelegationServiceAccountEmail = res.DelegationServiceAccountEmail
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AttestorUserOwnedGrafeasNote is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -92,6 +118,33 @@ type AttestorUserOwnedGrafeasNotePublicKeys struct {
 	PkixPublicKey            *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey `json:"pkixPublicKey"`
 }
 
+type jsonAttestorUserOwnedGrafeasNotePublicKeys AttestorUserOwnedGrafeasNotePublicKeys
+
+func (r *AttestorUserOwnedGrafeasNotePublicKeys) UnmarshalJSON(data []byte) error {
+	var res jsonAttestorUserOwnedGrafeasNotePublicKeys
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAttestorUserOwnedGrafeasNotePublicKeys
+	} else {
+
+		r.Comment = res.Comment
+
+		r.Id = res.Id
+
+		r.AsciiArmoredPgpPublicKey = res.AsciiArmoredPgpPublicKey
+
+		r.PkixPublicKey = res.PkixPublicKey
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AttestorUserOwnedGrafeasNotePublicKeys is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -114,6 +167,29 @@ type AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey struct {
 	SignatureAlgorithm *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum `json:"signatureAlgorithm"`
 }
 
+type jsonAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey
+
+func (r *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) UnmarshalJSON(data []byte) error {
+	var res jsonAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey
+	} else {
+
+		r.PublicKeyPem = res.PublicKeyPem
+
+		r.SignatureAlgorithm = res.SignatureAlgorithm
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -134,7 +210,7 @@ func (r *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) HashCode() string 
 // can identify it.
 func (r *Attestor) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "binaryauthorization",
+		Service: "binary_authorization",
 		Type:    "Attestor",
 		Version: "binaryauthorization",
 	}

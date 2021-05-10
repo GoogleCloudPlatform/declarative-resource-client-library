@@ -17,6 +17,7 @@ import (
 	"bytes"
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -274,6 +275,55 @@ type ClusterClusterConfig struct {
 	MetastoreConfig       *ClusterClusterConfigMetastoreConfig        `json:"metastoreConfig"`
 }
 
+type jsonClusterClusterConfig ClusterClusterConfig
+
+func (r *ClusterClusterConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterClusterConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterClusterConfig
+	} else {
+
+		r.StagingBucket = res.StagingBucket
+
+		r.TempBucket = res.TempBucket
+
+		r.GceClusterConfig = res.GceClusterConfig
+
+		r.MasterConfig = res.MasterConfig
+
+		r.WorkerConfig = res.WorkerConfig
+
+		r.SecondaryWorkerConfig = res.SecondaryWorkerConfig
+
+		r.SoftwareConfig = res.SoftwareConfig
+
+		r.InitializationActions = res.InitializationActions
+
+		r.EncryptionConfig = res.EncryptionConfig
+
+		r.AutoscalingConfig = res.AutoscalingConfig
+
+		r.SecurityConfig = res.SecurityConfig
+
+		r.LifecycleConfig = res.LifecycleConfig
+
+		r.EndpointConfig = res.EndpointConfig
+
+		r.GkeClusterConfig = res.GkeClusterConfig
+
+		r.MetastoreConfig = res.MetastoreConfig
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ClusterClusterConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -305,6 +355,47 @@ type ClusterClusterConfigGceClusterConfig struct {
 	NodeGroupAffinity       *ClusterClusterConfigGceClusterConfigNodeGroupAffinity           `json:"nodeGroupAffinity"`
 }
 
+type jsonClusterClusterConfigGceClusterConfig ClusterClusterConfigGceClusterConfig
+
+func (r *ClusterClusterConfigGceClusterConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterClusterConfigGceClusterConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterClusterConfigGceClusterConfig
+	} else {
+
+		r.Zone = res.Zone
+
+		r.Network = res.Network
+
+		r.Subnetwork = res.Subnetwork
+
+		r.InternalIPOnly = res.InternalIPOnly
+
+		r.PrivateIPv6GoogleAccess = res.PrivateIPv6GoogleAccess
+
+		r.ServiceAccount = res.ServiceAccount
+
+		r.ServiceAccountScopes = res.ServiceAccountScopes
+
+		r.Tags = res.Tags
+
+		r.Metadata = res.Metadata
+
+		r.ReservationAffinity = res.ReservationAffinity
+
+		r.NodeGroupAffinity = res.NodeGroupAffinity
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ClusterClusterConfigGceClusterConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -328,6 +419,31 @@ type ClusterClusterConfigGceClusterConfigReservationAffinity struct {
 	Values                 []string                                                                           `json:"values"`
 }
 
+type jsonClusterClusterConfigGceClusterConfigReservationAffinity ClusterClusterConfigGceClusterConfigReservationAffinity
+
+func (r *ClusterClusterConfigGceClusterConfigReservationAffinity) UnmarshalJSON(data []byte) error {
+	var res jsonClusterClusterConfigGceClusterConfigReservationAffinity
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterClusterConfigGceClusterConfigReservationAffinity
+	} else {
+
+		r.ConsumeReservationType = res.ConsumeReservationType
+
+		r.Key = res.Key
+
+		r.Values = res.Values
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ClusterClusterConfigGceClusterConfigReservationAffinity is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -347,6 +463,27 @@ func (r *ClusterClusterConfigGceClusterConfigReservationAffinity) HashCode() str
 type ClusterClusterConfigGceClusterConfigNodeGroupAffinity struct {
 	empty     bool    `json:"-"`
 	NodeGroup *string `json:"nodeGroup"`
+}
+
+type jsonClusterClusterConfigGceClusterConfigNodeGroupAffinity ClusterClusterConfigGceClusterConfigNodeGroupAffinity
+
+func (r *ClusterClusterConfigGceClusterConfigNodeGroupAffinity) UnmarshalJSON(data []byte) error {
+	var res jsonClusterClusterConfigGceClusterConfigNodeGroupAffinity
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterClusterConfigGceClusterConfigNodeGroupAffinity
+	} else {
+
+		r.NodeGroup = res.NodeGroup
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ClusterClusterConfigGceClusterConfigNodeGroupAffinity is
@@ -379,6 +516,45 @@ type ClusterInstanceGroupConfig struct {
 	MinCpuPlatform     *string                                       `json:"minCpuPlatform"`
 }
 
+type jsonClusterInstanceGroupConfig ClusterInstanceGroupConfig
+
+func (r *ClusterInstanceGroupConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterInstanceGroupConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterInstanceGroupConfig
+	} else {
+
+		r.NumInstances = res.NumInstances
+
+		r.InstanceNames = res.InstanceNames
+
+		r.Image = res.Image
+
+		r.MachineType = res.MachineType
+
+		r.DiskConfig = res.DiskConfig
+
+		r.IsPreemptible = res.IsPreemptible
+
+		r.Preemptibility = res.Preemptibility
+
+		r.ManagedGroupConfig = res.ManagedGroupConfig
+
+		r.Accelerators = res.Accelerators
+
+		r.MinCpuPlatform = res.MinCpuPlatform
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ClusterInstanceGroupConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -400,6 +576,31 @@ type ClusterInstanceGroupConfigDiskConfig struct {
 	BootDiskType   *string `json:"bootDiskType"`
 	BootDiskSizeGb *int64  `json:"bootDiskSizeGb"`
 	NumLocalSsds   *int64  `json:"numLocalSsds"`
+}
+
+type jsonClusterInstanceGroupConfigDiskConfig ClusterInstanceGroupConfigDiskConfig
+
+func (r *ClusterInstanceGroupConfigDiskConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterInstanceGroupConfigDiskConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterInstanceGroupConfigDiskConfig
+	} else {
+
+		r.BootDiskType = res.BootDiskType
+
+		r.BootDiskSizeGb = res.BootDiskSizeGb
+
+		r.NumLocalSsds = res.NumLocalSsds
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ClusterInstanceGroupConfigDiskConfig is
@@ -424,6 +625,29 @@ type ClusterInstanceGroupConfigManagedGroupConfig struct {
 	InstanceGroupManagerName *string `json:"instanceGroupManagerName"`
 }
 
+type jsonClusterInstanceGroupConfigManagedGroupConfig ClusterInstanceGroupConfigManagedGroupConfig
+
+func (r *ClusterInstanceGroupConfigManagedGroupConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterInstanceGroupConfigManagedGroupConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterInstanceGroupConfigManagedGroupConfig
+	} else {
+
+		r.InstanceTemplateName = res.InstanceTemplateName
+
+		r.InstanceGroupManagerName = res.InstanceGroupManagerName
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ClusterInstanceGroupConfigManagedGroupConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -444,6 +668,29 @@ type ClusterInstanceGroupConfigAccelerators struct {
 	empty            bool    `json:"-"`
 	AcceleratorType  *string `json:"acceleratorType"`
 	AcceleratorCount *int64  `json:"acceleratorCount"`
+}
+
+type jsonClusterInstanceGroupConfigAccelerators ClusterInstanceGroupConfigAccelerators
+
+func (r *ClusterInstanceGroupConfigAccelerators) UnmarshalJSON(data []byte) error {
+	var res jsonClusterInstanceGroupConfigAccelerators
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterInstanceGroupConfigAccelerators
+	} else {
+
+		r.AcceleratorType = res.AcceleratorType
+
+		r.AcceleratorCount = res.AcceleratorCount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ClusterInstanceGroupConfigAccelerators is
@@ -469,6 +716,31 @@ type ClusterClusterConfigSoftwareConfig struct {
 	OptionalComponents []ClusterClusterConfigSoftwareConfigOptionalComponentsEnum `json:"optionalComponents"`
 }
 
+type jsonClusterClusterConfigSoftwareConfig ClusterClusterConfigSoftwareConfig
+
+func (r *ClusterClusterConfigSoftwareConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterClusterConfigSoftwareConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterClusterConfigSoftwareConfig
+	} else {
+
+		r.ImageVersion = res.ImageVersion
+
+		r.Properties = res.Properties
+
+		r.OptionalComponents = res.OptionalComponents
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ClusterClusterConfigSoftwareConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -489,6 +761,29 @@ type ClusterClusterConfigInitializationActions struct {
 	empty            bool    `json:"-"`
 	ExecutableFile   *string `json:"executableFile"`
 	ExecutionTimeout *string `json:"executionTimeout"`
+}
+
+type jsonClusterClusterConfigInitializationActions ClusterClusterConfigInitializationActions
+
+func (r *ClusterClusterConfigInitializationActions) UnmarshalJSON(data []byte) error {
+	var res jsonClusterClusterConfigInitializationActions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterClusterConfigInitializationActions
+	} else {
+
+		r.ExecutableFile = res.ExecutableFile
+
+		r.ExecutionTimeout = res.ExecutionTimeout
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ClusterClusterConfigInitializationActions is
@@ -512,6 +807,27 @@ type ClusterClusterConfigEncryptionConfig struct {
 	GcePdKmsKeyName *string `json:"gcePdKmsKeyName"`
 }
 
+type jsonClusterClusterConfigEncryptionConfig ClusterClusterConfigEncryptionConfig
+
+func (r *ClusterClusterConfigEncryptionConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterClusterConfigEncryptionConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterClusterConfigEncryptionConfig
+	} else {
+
+		r.GcePdKmsKeyName = res.GcePdKmsKeyName
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ClusterClusterConfigEncryptionConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -533,6 +849,27 @@ type ClusterClusterConfigAutoscalingConfig struct {
 	Policy *string `json:"policy"`
 }
 
+type jsonClusterClusterConfigAutoscalingConfig ClusterClusterConfigAutoscalingConfig
+
+func (r *ClusterClusterConfigAutoscalingConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterClusterConfigAutoscalingConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterClusterConfigAutoscalingConfig
+	} else {
+
+		r.Policy = res.Policy
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ClusterClusterConfigAutoscalingConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -552,6 +889,27 @@ func (r *ClusterClusterConfigAutoscalingConfig) HashCode() string {
 type ClusterClusterConfigSecurityConfig struct {
 	empty          bool                                              `json:"-"`
 	KerberosConfig *ClusterClusterConfigSecurityConfigKerberosConfig `json:"kerberosConfig"`
+}
+
+type jsonClusterClusterConfigSecurityConfig ClusterClusterConfigSecurityConfig
+
+func (r *ClusterClusterConfigSecurityConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterClusterConfigSecurityConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterClusterConfigSecurityConfig
+	} else {
+
+		r.KerberosConfig = res.KerberosConfig
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ClusterClusterConfigSecurityConfig is
@@ -589,6 +947,55 @@ type ClusterClusterConfigSecurityConfigKerberosConfig struct {
 	Realm                         *string `json:"realm"`
 }
 
+type jsonClusterClusterConfigSecurityConfigKerberosConfig ClusterClusterConfigSecurityConfigKerberosConfig
+
+func (r *ClusterClusterConfigSecurityConfigKerberosConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterClusterConfigSecurityConfigKerberosConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterClusterConfigSecurityConfigKerberosConfig
+	} else {
+
+		r.EnableKerberos = res.EnableKerberos
+
+		r.RootPrincipalPassword = res.RootPrincipalPassword
+
+		r.KmsKey = res.KmsKey
+
+		r.Keystore = res.Keystore
+
+		r.Truststore = res.Truststore
+
+		r.KeystorePassword = res.KeystorePassword
+
+		r.KeyPassword = res.KeyPassword
+
+		r.TruststorePassword = res.TruststorePassword
+
+		r.CrossRealmTrustRealm = res.CrossRealmTrustRealm
+
+		r.CrossRealmTrustKdc = res.CrossRealmTrustKdc
+
+		r.CrossRealmTrustAdminServer = res.CrossRealmTrustAdminServer
+
+		r.CrossRealmTrustSharedPassword = res.CrossRealmTrustSharedPassword
+
+		r.KdcDbKey = res.KdcDbKey
+
+		r.TgtLifetimeHours = res.TgtLifetimeHours
+
+		r.Realm = res.Realm
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ClusterClusterConfigSecurityConfigKerberosConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -613,6 +1020,33 @@ type ClusterClusterConfigLifecycleConfig struct {
 	IdleStartTime  *string `json:"idleStartTime"`
 }
 
+type jsonClusterClusterConfigLifecycleConfig ClusterClusterConfigLifecycleConfig
+
+func (r *ClusterClusterConfigLifecycleConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterClusterConfigLifecycleConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterClusterConfigLifecycleConfig
+	} else {
+
+		r.IdleDeleteTtl = res.IdleDeleteTtl
+
+		r.AutoDeleteTime = res.AutoDeleteTime
+
+		r.AutoDeleteTtl = res.AutoDeleteTtl
+
+		r.IdleStartTime = res.IdleStartTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ClusterClusterConfigLifecycleConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -635,6 +1069,29 @@ type ClusterClusterConfigEndpointConfig struct {
 	EnableHttpPortAccess *bool             `json:"enableHttpPortAccess"`
 }
 
+type jsonClusterClusterConfigEndpointConfig ClusterClusterConfigEndpointConfig
+
+func (r *ClusterClusterConfigEndpointConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterClusterConfigEndpointConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterClusterConfigEndpointConfig
+	} else {
+
+		r.HttpPorts = res.HttpPorts
+
+		r.EnableHttpPortAccess = res.EnableHttpPortAccess
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ClusterClusterConfigEndpointConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -654,6 +1111,27 @@ func (r *ClusterClusterConfigEndpointConfig) HashCode() string {
 type ClusterClusterConfigGkeClusterConfig struct {
 	empty                         bool                                                               `json:"-"`
 	NamespacedGkeDeploymentTarget *ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget `json:"namespacedGkeDeploymentTarget"`
+}
+
+type jsonClusterClusterConfigGkeClusterConfig ClusterClusterConfigGkeClusterConfig
+
+func (r *ClusterClusterConfigGkeClusterConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterClusterConfigGkeClusterConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterClusterConfigGkeClusterConfig
+	} else {
+
+		r.NamespacedGkeDeploymentTarget = res.NamespacedGkeDeploymentTarget
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ClusterClusterConfigGkeClusterConfig is
@@ -678,6 +1156,29 @@ type ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget struct {
 	ClusterNamespace *string `json:"clusterNamespace"`
 }
 
+type jsonClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget
+
+func (r *ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget) UnmarshalJSON(data []byte) error {
+	var res jsonClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget
+	} else {
+
+		r.TargetGkeCluster = res.TargetGkeCluster
+
+		r.ClusterNamespace = res.ClusterNamespace
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -697,6 +1198,27 @@ func (r *ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget) Hash
 type ClusterClusterConfigMetastoreConfig struct {
 	empty                    bool    `json:"-"`
 	DataprocMetastoreService *string `json:"dataprocMetastoreService"`
+}
+
+type jsonClusterClusterConfigMetastoreConfig ClusterClusterConfigMetastoreConfig
+
+func (r *ClusterClusterConfigMetastoreConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterClusterConfigMetastoreConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterClusterConfigMetastoreConfig
+	} else {
+
+		r.DataprocMetastoreService = res.DataprocMetastoreService
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ClusterClusterConfigMetastoreConfig is
@@ -723,6 +1245,33 @@ type ClusterStatus struct {
 	Substate       *ClusterStatusSubstateEnum `json:"substate"`
 }
 
+type jsonClusterStatus ClusterStatus
+
+func (r *ClusterStatus) UnmarshalJSON(data []byte) error {
+	var res jsonClusterStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterStatus
+	} else {
+
+		r.State = res.State
+
+		r.Detail = res.Detail
+
+		r.StateStartTime = res.StateStartTime
+
+		r.Substate = res.Substate
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ClusterStatus is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -747,6 +1296,33 @@ type ClusterStatusHistory struct {
 	Substate       *ClusterStatusHistorySubstateEnum `json:"substate"`
 }
 
+type jsonClusterStatusHistory ClusterStatusHistory
+
+func (r *ClusterStatusHistory) UnmarshalJSON(data []byte) error {
+	var res jsonClusterStatusHistory
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterStatusHistory
+	} else {
+
+		r.State = res.State
+
+		r.Detail = res.Detail
+
+		r.StateStartTime = res.StateStartTime
+
+		r.Substate = res.Substate
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ClusterStatusHistory is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -767,6 +1343,29 @@ type ClusterMetrics struct {
 	empty       bool              `json:"-"`
 	HdfsMetrics map[string]string `json:"hdfsMetrics"`
 	YarnMetrics map[string]string `json:"yarnMetrics"`
+}
+
+type jsonClusterMetrics ClusterMetrics
+
+func (r *ClusterMetrics) UnmarshalJSON(data []byte) error {
+	var res jsonClusterMetrics
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterMetrics
+	} else {
+
+		r.HdfsMetrics = res.HdfsMetrics
+
+		r.YarnMetrics = res.YarnMetrics
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ClusterMetrics is

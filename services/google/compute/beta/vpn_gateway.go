@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -42,6 +43,29 @@ type VpnGatewayVpnInterface struct {
 	empty     bool    `json:"-"`
 	Id        *int64  `json:"id"`
 	IPAddress *string `json:"ipAddress"`
+}
+
+type jsonVpnGatewayVpnInterface VpnGatewayVpnInterface
+
+func (r *VpnGatewayVpnInterface) UnmarshalJSON(data []byte) error {
+	var res jsonVpnGatewayVpnInterface
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyVpnGatewayVpnInterface
+	} else {
+
+		r.Id = res.Id
+
+		r.IPAddress = res.IPAddress
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this VpnGatewayVpnInterface is

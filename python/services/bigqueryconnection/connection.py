@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from connector import channel
-from google3.cloud.graphite.mmv2.services.google.bigqueryconnection import (
+from google3.cloud.graphite.mmv2.services.google.bigquery_connection import (
     connection_pb2,
 )
-from google3.cloud.graphite.mmv2.services.google.bigqueryconnection import (
+from google3.cloud.graphite.mmv2.services.google.bigquery_connection import (
     connection_pb2_grpc,
 )
 

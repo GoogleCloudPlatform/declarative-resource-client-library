@@ -16,6 +16,7 @@ package compute
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -216,6 +217,53 @@ type InstanceTemplateProperties struct {
 	Tags                   []string                                          `json:"tags"`
 }
 
+type jsonInstanceTemplateProperties InstanceTemplateProperties
+
+func (r *InstanceTemplateProperties) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceTemplateProperties
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceTemplateProperties
+	} else {
+
+		r.CanIPForward = res.CanIPForward
+
+		r.Description = res.Description
+
+		r.Disks = res.Disks
+
+		r.Labels = res.Labels
+
+		r.MachineType = res.MachineType
+
+		r.MinCpuPlatform = res.MinCpuPlatform
+
+		r.Metadata = res.Metadata
+
+		r.ReservationAffinity = res.ReservationAffinity
+
+		r.GuestAccelerators = res.GuestAccelerators
+
+		r.NetworkInterfaces = res.NetworkInterfaces
+
+		r.ShieldedInstanceConfig = res.ShieldedInstanceConfig
+
+		r.Scheduling = res.Scheduling
+
+		r.ServiceAccounts = res.ServiceAccounts
+
+		r.Tags = res.Tags
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceTemplateProperties is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -247,6 +295,47 @@ type InstanceTemplatePropertiesDisks struct {
 	Type              *InstanceTemplatePropertiesDisksTypeEnum          `json:"type"`
 }
 
+type jsonInstanceTemplatePropertiesDisks InstanceTemplatePropertiesDisks
+
+func (r *InstanceTemplatePropertiesDisks) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceTemplatePropertiesDisks
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceTemplatePropertiesDisks
+	} else {
+
+		r.AutoDelete = res.AutoDelete
+
+		r.Boot = res.Boot
+
+		r.DeviceName = res.DeviceName
+
+		r.DiskEncryptionKey = res.DiskEncryptionKey
+
+		r.Index = res.Index
+
+		r.InitializeParams = res.InitializeParams
+
+		r.GuestOsFeatures = res.GuestOsFeatures
+
+		r.Interface = res.Interface
+
+		r.Mode = res.Mode
+
+		r.Source = res.Source
+
+		r.Type = res.Type
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceTemplatePropertiesDisks is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -268,6 +357,31 @@ type InstanceTemplatePropertiesDisksDiskEncryptionKey struct {
 	RawKey          *string `json:"rawKey"`
 	RsaEncryptedKey *string `json:"rsaEncryptedKey"`
 	Sha256          *string `json:"sha256"`
+}
+
+type jsonInstanceTemplatePropertiesDisksDiskEncryptionKey InstanceTemplatePropertiesDisksDiskEncryptionKey
+
+func (r *InstanceTemplatePropertiesDisksDiskEncryptionKey) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceTemplatePropertiesDisksDiskEncryptionKey
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceTemplatePropertiesDisksDiskEncryptionKey
+	} else {
+
+		r.RawKey = res.RawKey
+
+		r.RsaEncryptedKey = res.RsaEncryptedKey
+
+		r.Sha256 = res.Sha256
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceTemplatePropertiesDisksDiskEncryptionKey is
@@ -301,6 +415,47 @@ type InstanceTemplatePropertiesDisksInitializeParams struct {
 	SourceImageEncryptionKey    *InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey    `json:"sourceImageEncryptionKey"`
 }
 
+type jsonInstanceTemplatePropertiesDisksInitializeParams InstanceTemplatePropertiesDisksInitializeParams
+
+func (r *InstanceTemplatePropertiesDisksInitializeParams) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceTemplatePropertiesDisksInitializeParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceTemplatePropertiesDisksInitializeParams
+	} else {
+
+		r.DiskName = res.DiskName
+
+		r.DiskSizeGb = res.DiskSizeGb
+
+		r.DiskType = res.DiskType
+
+		r.SourceImage = res.SourceImage
+
+		r.Labels = res.Labels
+
+		r.SourceSnapshot = res.SourceSnapshot
+
+		r.SourceSnapshotEncryptionKey = res.SourceSnapshotEncryptionKey
+
+		r.Description = res.Description
+
+		r.ResourcePolicies = res.ResourcePolicies
+
+		r.OnUpdateAction = res.OnUpdateAction
+
+		r.SourceImageEncryptionKey = res.SourceImageEncryptionKey
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceTemplatePropertiesDisksInitializeParams is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -322,6 +477,31 @@ type InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey 
 	RawKey     *string `json:"rawKey"`
 	Sha256     *string `json:"sha256"`
 	KmsKeyName *string `json:"kmsKeyName"`
+}
+
+type jsonInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey
+
+func (r *InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey
+	} else {
+
+		r.RawKey = res.RawKey
+
+		r.Sha256 = res.Sha256
+
+		r.KmsKeyName = res.KmsKeyName
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey is
@@ -347,6 +527,31 @@ type InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey str
 	KmsKeyName *string `json:"kmsKeyName"`
 }
 
+type jsonInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey
+
+func (r *InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey
+	} else {
+
+		r.RawKey = res.RawKey
+
+		r.Sha256 = res.Sha256
+
+		r.KmsKeyName = res.KmsKeyName
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -366,6 +571,27 @@ func (r *InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey
 type InstanceTemplatePropertiesDisksGuestOsFeatures struct {
 	empty bool    `json:"-"`
 	Type  *string `json:"type"`
+}
+
+type jsonInstanceTemplatePropertiesDisksGuestOsFeatures InstanceTemplatePropertiesDisksGuestOsFeatures
+
+func (r *InstanceTemplatePropertiesDisksGuestOsFeatures) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceTemplatePropertiesDisksGuestOsFeatures
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceTemplatePropertiesDisksGuestOsFeatures
+	} else {
+
+		r.Type = res.Type
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceTemplatePropertiesDisksGuestOsFeatures is
@@ -390,6 +616,29 @@ type InstanceTemplatePropertiesReservationAffinity struct {
 	Value []string `json:"value"`
 }
 
+type jsonInstanceTemplatePropertiesReservationAffinity InstanceTemplatePropertiesReservationAffinity
+
+func (r *InstanceTemplatePropertiesReservationAffinity) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceTemplatePropertiesReservationAffinity
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceTemplatePropertiesReservationAffinity
+	} else {
+
+		r.Key = res.Key
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceTemplatePropertiesReservationAffinity is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -410,6 +659,29 @@ type InstanceTemplatePropertiesGuestAccelerators struct {
 	empty            bool    `json:"-"`
 	AcceleratorCount *int64  `json:"acceleratorCount"`
 	AcceleratorType  *string `json:"acceleratorType"`
+}
+
+type jsonInstanceTemplatePropertiesGuestAccelerators InstanceTemplatePropertiesGuestAccelerators
+
+func (r *InstanceTemplatePropertiesGuestAccelerators) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceTemplatePropertiesGuestAccelerators
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceTemplatePropertiesGuestAccelerators
+	} else {
+
+		r.AcceleratorCount = res.AcceleratorCount
+
+		r.AcceleratorType = res.AcceleratorType
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceTemplatePropertiesGuestAccelerators is
@@ -438,6 +710,37 @@ type InstanceTemplatePropertiesNetworkInterfaces struct {
 	Subnetwork    *string                                                    `json:"subnetwork"`
 }
 
+type jsonInstanceTemplatePropertiesNetworkInterfaces InstanceTemplatePropertiesNetworkInterfaces
+
+func (r *InstanceTemplatePropertiesNetworkInterfaces) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceTemplatePropertiesNetworkInterfaces
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceTemplatePropertiesNetworkInterfaces
+	} else {
+
+		r.AccessConfigs = res.AccessConfigs
+
+		r.AliasIPRanges = res.AliasIPRanges
+
+		r.Name = res.Name
+
+		r.Network = res.Network
+
+		r.NetworkIP = res.NetworkIP
+
+		r.Subnetwork = res.Subnetwork
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceTemplatePropertiesNetworkInterfaces is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -464,6 +767,37 @@ type InstanceTemplatePropertiesNetworkInterfacesAccessConfigs struct {
 	NetworkTier         *InstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum `json:"networkTier"`
 }
 
+type jsonInstanceTemplatePropertiesNetworkInterfacesAccessConfigs InstanceTemplatePropertiesNetworkInterfacesAccessConfigs
+
+func (r *InstanceTemplatePropertiesNetworkInterfacesAccessConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceTemplatePropertiesNetworkInterfacesAccessConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceTemplatePropertiesNetworkInterfacesAccessConfigs
+	} else {
+
+		r.Name = res.Name
+
+		r.NatIP = res.NatIP
+
+		r.Type = res.Type
+
+		r.SetPublicPtr = res.SetPublicPtr
+
+		r.PublicPtrDomainName = res.PublicPtrDomainName
+
+		r.NetworkTier = res.NetworkTier
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceTemplatePropertiesNetworkInterfacesAccessConfigs is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -484,6 +818,29 @@ type InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges struct {
 	empty               bool    `json:"-"`
 	IPCidrRange         *string `json:"ipCidrRange"`
 	SubnetworkRangeName *string `json:"subnetworkRangeName"`
+}
+
+type jsonInstanceTemplatePropertiesNetworkInterfacesAliasIPRanges InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges
+
+func (r *InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceTemplatePropertiesNetworkInterfacesAliasIPRanges
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceTemplatePropertiesNetworkInterfacesAliasIPRanges
+	} else {
+
+		r.IPCidrRange = res.IPCidrRange
+
+		r.SubnetworkRangeName = res.SubnetworkRangeName
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges is
@@ -507,6 +864,31 @@ type InstanceTemplatePropertiesShieldedInstanceConfig struct {
 	EnableSecureBoot          *bool `json:"enableSecureBoot"`
 	EnableVtpm                *bool `json:"enableVtpm"`
 	EnableIntegrityMonitoring *bool `json:"enableIntegrityMonitoring"`
+}
+
+type jsonInstanceTemplatePropertiesShieldedInstanceConfig InstanceTemplatePropertiesShieldedInstanceConfig
+
+func (r *InstanceTemplatePropertiesShieldedInstanceConfig) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceTemplatePropertiesShieldedInstanceConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceTemplatePropertiesShieldedInstanceConfig
+	} else {
+
+		r.EnableSecureBoot = res.EnableSecureBoot
+
+		r.EnableVtpm = res.EnableVtpm
+
+		r.EnableIntegrityMonitoring = res.EnableIntegrityMonitoring
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceTemplatePropertiesShieldedInstanceConfig is
@@ -533,6 +915,33 @@ type InstanceTemplatePropertiesScheduling struct {
 	NodeAffinities    []InstanceTemplatePropertiesSchedulingNodeAffinities `json:"nodeAffinities"`
 }
 
+type jsonInstanceTemplatePropertiesScheduling InstanceTemplatePropertiesScheduling
+
+func (r *InstanceTemplatePropertiesScheduling) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceTemplatePropertiesScheduling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceTemplatePropertiesScheduling
+	} else {
+
+		r.AutomaticRestart = res.AutomaticRestart
+
+		r.OnHostMaintenance = res.OnHostMaintenance
+
+		r.Preemptible = res.Preemptible
+
+		r.NodeAffinities = res.NodeAffinities
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceTemplatePropertiesScheduling is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -556,6 +965,31 @@ type InstanceTemplatePropertiesSchedulingNodeAffinities struct {
 	Values   []string                                                        `json:"values"`
 }
 
+type jsonInstanceTemplatePropertiesSchedulingNodeAffinities InstanceTemplatePropertiesSchedulingNodeAffinities
+
+func (r *InstanceTemplatePropertiesSchedulingNodeAffinities) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceTemplatePropertiesSchedulingNodeAffinities
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceTemplatePropertiesSchedulingNodeAffinities
+	} else {
+
+		r.Key = res.Key
+
+		r.Operator = res.Operator
+
+		r.Values = res.Values
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceTemplatePropertiesSchedulingNodeAffinities is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -576,6 +1010,29 @@ type InstanceTemplatePropertiesServiceAccounts struct {
 	empty  bool     `json:"-"`
 	Email  *string  `json:"email"`
 	Scopes []string `json:"scopes"`
+}
+
+type jsonInstanceTemplatePropertiesServiceAccounts InstanceTemplatePropertiesServiceAccounts
+
+func (r *InstanceTemplatePropertiesServiceAccounts) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceTemplatePropertiesServiceAccounts
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceTemplatePropertiesServiceAccounts
+	} else {
+
+		r.Email = res.Email
+
+		r.Scopes = res.Scopes
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceTemplatePropertiesServiceAccounts is

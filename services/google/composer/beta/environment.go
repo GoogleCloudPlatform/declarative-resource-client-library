@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -81,6 +82,49 @@ type EnvironmentConfig struct {
 	MaintenanceWindow             *EnvironmentConfigMaintenanceWindow             `json:"maintenanceWindow"`
 }
 
+type jsonEnvironmentConfig EnvironmentConfig
+
+func (r *EnvironmentConfig) UnmarshalJSON(data []byte) error {
+	var res jsonEnvironmentConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyEnvironmentConfig
+	} else {
+
+		r.GkeCluster = res.GkeCluster
+
+		r.DagGcsPrefix = res.DagGcsPrefix
+
+		r.NodeCount = res.NodeCount
+
+		r.SoftwareConfig = res.SoftwareConfig
+
+		r.NodeConfig = res.NodeConfig
+
+		r.PrivateEnvironmentConfig = res.PrivateEnvironmentConfig
+
+		r.WebServerNetworkAccessControl = res.WebServerNetworkAccessControl
+
+		r.DatabaseConfig = res.DatabaseConfig
+
+		r.WebServerConfig = res.WebServerConfig
+
+		r.EncryptionConfig = res.EncryptionConfig
+
+		r.AirflowUri = res.AirflowUri
+
+		r.MaintenanceWindow = res.MaintenanceWindow
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this EnvironmentConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -104,6 +148,35 @@ type EnvironmentConfigSoftwareConfig struct {
 	PypiPackages           map[string]string `json:"pypiPackages"`
 	EnvVariables           map[string]string `json:"envVariables"`
 	PythonVersion          *string           `json:"pythonVersion"`
+}
+
+type jsonEnvironmentConfigSoftwareConfig EnvironmentConfigSoftwareConfig
+
+func (r *EnvironmentConfigSoftwareConfig) UnmarshalJSON(data []byte) error {
+	var res jsonEnvironmentConfigSoftwareConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyEnvironmentConfigSoftwareConfig
+	} else {
+
+		r.ImageVersion = res.ImageVersion
+
+		r.AirflowConfigOverrides = res.AirflowConfigOverrides
+
+		r.PypiPackages = res.PypiPackages
+
+		r.EnvVariables = res.EnvVariables
+
+		r.PythonVersion = res.PythonVersion
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this EnvironmentConfigSoftwareConfig is
@@ -136,6 +209,45 @@ type EnvironmentConfigNodeConfig struct {
 	MaxPodsPerNode     *int64                                         `json:"maxPodsPerNode"`
 }
 
+type jsonEnvironmentConfigNodeConfig EnvironmentConfigNodeConfig
+
+func (r *EnvironmentConfigNodeConfig) UnmarshalJSON(data []byte) error {
+	var res jsonEnvironmentConfigNodeConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyEnvironmentConfigNodeConfig
+	} else {
+
+		r.Location = res.Location
+
+		r.MachineType = res.MachineType
+
+		r.Network = res.Network
+
+		r.Subnetwork = res.Subnetwork
+
+		r.DiskSizeGb = res.DiskSizeGb
+
+		r.OAuthScopes = res.OAuthScopes
+
+		r.ServiceAccount = res.ServiceAccount
+
+		r.Tags = res.Tags
+
+		r.IPAllocationPolicy = res.IPAllocationPolicy
+
+		r.MaxPodsPerNode = res.MaxPodsPerNode
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this EnvironmentConfigNodeConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -159,6 +271,35 @@ type EnvironmentConfigNodeConfigIPAllocationPolicy struct {
 	ClusterIPv4CidrBlock       *string `json:"clusterIPv4CidrBlock"`
 	ServicesSecondaryRangeName *string `json:"servicesSecondaryRangeName"`
 	ServicesIPv4CidrBlock      *string `json:"servicesIPv4CidrBlock"`
+}
+
+type jsonEnvironmentConfigNodeConfigIPAllocationPolicy EnvironmentConfigNodeConfigIPAllocationPolicy
+
+func (r *EnvironmentConfigNodeConfigIPAllocationPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonEnvironmentConfigNodeConfigIPAllocationPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyEnvironmentConfigNodeConfigIPAllocationPolicy
+	} else {
+
+		r.UseIPAliases = res.UseIPAliases
+
+		r.ClusterSecondaryRangeName = res.ClusterSecondaryRangeName
+
+		r.ClusterIPv4CidrBlock = res.ClusterIPv4CidrBlock
+
+		r.ServicesSecondaryRangeName = res.ServicesSecondaryRangeName
+
+		r.ServicesIPv4CidrBlock = res.ServicesIPv4CidrBlock
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this EnvironmentConfigNodeConfigIPAllocationPolicy is
@@ -186,6 +327,35 @@ type EnvironmentConfigPrivateEnvironmentConfig struct {
 	WebServerIPv4ReservedRange *string                                                        `json:"webServerIPv4ReservedRange"`
 }
 
+type jsonEnvironmentConfigPrivateEnvironmentConfig EnvironmentConfigPrivateEnvironmentConfig
+
+func (r *EnvironmentConfigPrivateEnvironmentConfig) UnmarshalJSON(data []byte) error {
+	var res jsonEnvironmentConfigPrivateEnvironmentConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyEnvironmentConfigPrivateEnvironmentConfig
+	} else {
+
+		r.EnablePrivateEnvironment = res.EnablePrivateEnvironment
+
+		r.PrivateClusterConfig = res.PrivateClusterConfig
+
+		r.WebServerIPv4CidrBlock = res.WebServerIPv4CidrBlock
+
+		r.CloudSqlIPv4CidrBlock = res.CloudSqlIPv4CidrBlock
+
+		r.WebServerIPv4ReservedRange = res.WebServerIPv4ReservedRange
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this EnvironmentConfigPrivateEnvironmentConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -209,6 +379,31 @@ type EnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig struct {
 	MasterIPv4ReservedRange *string `json:"masterIPv4ReservedRange"`
 }
 
+type jsonEnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig EnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig
+
+func (r *EnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig) UnmarshalJSON(data []byte) error {
+	var res jsonEnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyEnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig
+	} else {
+
+		r.EnablePrivateEndpoint = res.EnablePrivateEndpoint
+
+		r.MasterIPv4CidrBlock = res.MasterIPv4CidrBlock
+
+		r.MasterIPv4ReservedRange = res.MasterIPv4ReservedRange
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this EnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -228,6 +423,27 @@ func (r *EnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig) HashCode
 type EnvironmentConfigWebServerNetworkAccessControl struct {
 	empty           bool                                                            `json:"-"`
 	AllowedIPRanges []EnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges `json:"allowedIPRanges"`
+}
+
+type jsonEnvironmentConfigWebServerNetworkAccessControl EnvironmentConfigWebServerNetworkAccessControl
+
+func (r *EnvironmentConfigWebServerNetworkAccessControl) UnmarshalJSON(data []byte) error {
+	var res jsonEnvironmentConfigWebServerNetworkAccessControl
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyEnvironmentConfigWebServerNetworkAccessControl
+	} else {
+
+		r.AllowedIPRanges = res.AllowedIPRanges
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this EnvironmentConfigWebServerNetworkAccessControl is
@@ -252,6 +468,29 @@ type EnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges struct {
 	Description *string `json:"description"`
 }
 
+type jsonEnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges EnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges
+
+func (r *EnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges) UnmarshalJSON(data []byte) error {
+	var res jsonEnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyEnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges
+	} else {
+
+		r.Value = res.Value
+
+		r.Description = res.Description
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this EnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -271,6 +510,27 @@ func (r *EnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges) HashCode
 type EnvironmentConfigDatabaseConfig struct {
 	empty       bool    `json:"-"`
 	MachineType *string `json:"machineType"`
+}
+
+type jsonEnvironmentConfigDatabaseConfig EnvironmentConfigDatabaseConfig
+
+func (r *EnvironmentConfigDatabaseConfig) UnmarshalJSON(data []byte) error {
+	var res jsonEnvironmentConfigDatabaseConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyEnvironmentConfigDatabaseConfig
+	} else {
+
+		r.MachineType = res.MachineType
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this EnvironmentConfigDatabaseConfig is
@@ -294,6 +554,27 @@ type EnvironmentConfigWebServerConfig struct {
 	MachineType *string `json:"machineType"`
 }
 
+type jsonEnvironmentConfigWebServerConfig EnvironmentConfigWebServerConfig
+
+func (r *EnvironmentConfigWebServerConfig) UnmarshalJSON(data []byte) error {
+	var res jsonEnvironmentConfigWebServerConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyEnvironmentConfigWebServerConfig
+	} else {
+
+		r.MachineType = res.MachineType
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this EnvironmentConfigWebServerConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -313,6 +594,27 @@ func (r *EnvironmentConfigWebServerConfig) HashCode() string {
 type EnvironmentConfigEncryptionConfig struct {
 	empty      bool    `json:"-"`
 	KmsKeyName *string `json:"kmsKeyName"`
+}
+
+type jsonEnvironmentConfigEncryptionConfig EnvironmentConfigEncryptionConfig
+
+func (r *EnvironmentConfigEncryptionConfig) UnmarshalJSON(data []byte) error {
+	var res jsonEnvironmentConfigEncryptionConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyEnvironmentConfigEncryptionConfig
+	} else {
+
+		r.KmsKeyName = res.KmsKeyName
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this EnvironmentConfigEncryptionConfig is
@@ -336,6 +638,31 @@ type EnvironmentConfigMaintenanceWindow struct {
 	StartTime  *string `json:"startTime"`
 	EndTime    *string `json:"endTime"`
 	Recurrence *string `json:"recurrence"`
+}
+
+type jsonEnvironmentConfigMaintenanceWindow EnvironmentConfigMaintenanceWindow
+
+func (r *EnvironmentConfigMaintenanceWindow) UnmarshalJSON(data []byte) error {
+	var res jsonEnvironmentConfigMaintenanceWindow
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyEnvironmentConfigMaintenanceWindow
+	} else {
+
+		r.StartTime = res.StartTime
+
+		r.EndTime = res.EndTime
+
+		r.Recurrence = res.Recurrence
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this EnvironmentConfigMaintenanceWindow is

@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -105,6 +106,31 @@ type MembershipEndpoint struct {
 	KubernetesResource *MembershipEndpointKubernetesResource `json:"kubernetesResource"`
 }
 
+type jsonMembershipEndpoint MembershipEndpoint
+
+func (r *MembershipEndpoint) UnmarshalJSON(data []byte) error {
+	var res jsonMembershipEndpoint
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyMembershipEndpoint
+	} else {
+
+		r.GkeCluster = res.GkeCluster
+
+		r.KubernetesMetadata = res.KubernetesMetadata
+
+		r.KubernetesResource = res.KubernetesResource
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this MembershipEndpoint is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -124,6 +150,27 @@ func (r *MembershipEndpoint) HashCode() string {
 type MembershipEndpointGkeCluster struct {
 	empty        bool    `json:"-"`
 	ResourceLink *string `json:"resourceLink"`
+}
+
+type jsonMembershipEndpointGkeCluster MembershipEndpointGkeCluster
+
+func (r *MembershipEndpointGkeCluster) UnmarshalJSON(data []byte) error {
+	var res jsonMembershipEndpointGkeCluster
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyMembershipEndpointGkeCluster
+	} else {
+
+		r.ResourceLink = res.ResourceLink
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this MembershipEndpointGkeCluster is
@@ -152,6 +199,37 @@ type MembershipEndpointKubernetesMetadata struct {
 	UpdateTime                 *string `json:"updateTime"`
 }
 
+type jsonMembershipEndpointKubernetesMetadata MembershipEndpointKubernetesMetadata
+
+func (r *MembershipEndpointKubernetesMetadata) UnmarshalJSON(data []byte) error {
+	var res jsonMembershipEndpointKubernetesMetadata
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyMembershipEndpointKubernetesMetadata
+	} else {
+
+		r.KubernetesApiServerVersion = res.KubernetesApiServerVersion
+
+		r.NodeProviderId = res.NodeProviderId
+
+		r.NodeCount = res.NodeCount
+
+		r.VcpuCount = res.VcpuCount
+
+		r.MemoryMb = res.MemoryMb
+
+		r.UpdateTime = res.UpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this MembershipEndpointKubernetesMetadata is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -176,6 +254,33 @@ type MembershipEndpointKubernetesResource struct {
 	ResourceOptions      *MembershipEndpointKubernetesResourceResourceOptions      `json:"resourceOptions"`
 }
 
+type jsonMembershipEndpointKubernetesResource MembershipEndpointKubernetesResource
+
+func (r *MembershipEndpointKubernetesResource) UnmarshalJSON(data []byte) error {
+	var res jsonMembershipEndpointKubernetesResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyMembershipEndpointKubernetesResource
+	} else {
+
+		r.MembershipCrManifest = res.MembershipCrManifest
+
+		r.MembershipResources = res.MembershipResources
+
+		r.ConnectResources = res.ConnectResources
+
+		r.ResourceOptions = res.ResourceOptions
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this MembershipEndpointKubernetesResource is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -196,6 +301,29 @@ type MembershipEndpointKubernetesResourceMembershipResources struct {
 	empty         bool    `json:"-"`
 	Manifest      *string `json:"manifest"`
 	ClusterScoped *bool   `json:"clusterScoped"`
+}
+
+type jsonMembershipEndpointKubernetesResourceMembershipResources MembershipEndpointKubernetesResourceMembershipResources
+
+func (r *MembershipEndpointKubernetesResourceMembershipResources) UnmarshalJSON(data []byte) error {
+	var res jsonMembershipEndpointKubernetesResourceMembershipResources
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyMembershipEndpointKubernetesResourceMembershipResources
+	} else {
+
+		r.Manifest = res.Manifest
+
+		r.ClusterScoped = res.ClusterScoped
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this MembershipEndpointKubernetesResourceMembershipResources is
@@ -220,6 +348,29 @@ type MembershipEndpointKubernetesResourceConnectResources struct {
 	ClusterScoped *bool   `json:"clusterScoped"`
 }
 
+type jsonMembershipEndpointKubernetesResourceConnectResources MembershipEndpointKubernetesResourceConnectResources
+
+func (r *MembershipEndpointKubernetesResourceConnectResources) UnmarshalJSON(data []byte) error {
+	var res jsonMembershipEndpointKubernetesResourceConnectResources
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyMembershipEndpointKubernetesResourceConnectResources
+	} else {
+
+		r.Manifest = res.Manifest
+
+		r.ClusterScoped = res.ClusterScoped
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this MembershipEndpointKubernetesResourceConnectResources is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -242,6 +393,29 @@ type MembershipEndpointKubernetesResourceResourceOptions struct {
 	V1Beta1Crd     *bool   `json:"v1beta1Crd"`
 }
 
+type jsonMembershipEndpointKubernetesResourceResourceOptions MembershipEndpointKubernetesResourceResourceOptions
+
+func (r *MembershipEndpointKubernetesResourceResourceOptions) UnmarshalJSON(data []byte) error {
+	var res jsonMembershipEndpointKubernetesResourceResourceOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyMembershipEndpointKubernetesResourceResourceOptions
+	} else {
+
+		r.ConnectVersion = res.ConnectVersion
+
+		r.V1Beta1Crd = res.V1Beta1Crd
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this MembershipEndpointKubernetesResourceResourceOptions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -261,6 +435,27 @@ func (r *MembershipEndpointKubernetesResourceResourceOptions) HashCode() string 
 type MembershipState struct {
 	empty bool                     `json:"-"`
 	Code  *MembershipStateCodeEnum `json:"code"`
+}
+
+type jsonMembershipState MembershipState
+
+func (r *MembershipState) UnmarshalJSON(data []byte) error {
+	var res jsonMembershipState
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyMembershipState
+	} else {
+
+		r.Code = res.Code
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this MembershipState is
@@ -286,6 +481,31 @@ type MembershipAuthority struct {
 	IdentityProvider     *string `json:"identityProvider"`
 }
 
+type jsonMembershipAuthority MembershipAuthority
+
+func (r *MembershipAuthority) UnmarshalJSON(data []byte) error {
+	var res jsonMembershipAuthority
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyMembershipAuthority
+	} else {
+
+		r.Issuer = res.Issuer
+
+		r.WorkloadIdentityPool = res.WorkloadIdentityPool
+
+		r.IdentityProvider = res.IdentityProvider
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this MembershipAuthority is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -306,7 +526,7 @@ func (r *MembershipAuthority) HashCode() string {
 // can identify it.
 func (r *Membership) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "gkehub",
+		Service: "gke_hub",
 		Type:    "Membership",
 		Version: "beta",
 	}

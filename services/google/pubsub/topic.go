@@ -16,6 +16,7 @@ package pubsub
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -37,6 +38,27 @@ func (r *Topic) String() string {
 type TopicMessageStoragePolicy struct {
 	empty                     bool     `json:"-"`
 	AllowedPersistenceRegions []string `json:"allowedPersistenceRegions"`
+}
+
+type jsonTopicMessageStoragePolicy TopicMessageStoragePolicy
+
+func (r *TopicMessageStoragePolicy) UnmarshalJSON(data []byte) error {
+	var res jsonTopicMessageStoragePolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTopicMessageStoragePolicy
+	} else {
+
+		r.AllowedPersistenceRegions = res.AllowedPersistenceRegions
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this TopicMessageStoragePolicy is

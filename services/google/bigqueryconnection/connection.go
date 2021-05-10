@@ -17,6 +17,7 @@ import (
 	"bytes"
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -74,6 +75,33 @@ type ConnectionCloudSql struct {
 	Credential *ConnectionCloudSqlCredential `json:"credential"`
 }
 
+type jsonConnectionCloudSql ConnectionCloudSql
+
+func (r *ConnectionCloudSql) UnmarshalJSON(data []byte) error {
+	var res jsonConnectionCloudSql
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyConnectionCloudSql
+	} else {
+
+		r.InstanceId = res.InstanceId
+
+		r.Database = res.Database
+
+		r.Type = res.Type
+
+		r.Credential = res.Credential
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ConnectionCloudSql is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -96,6 +124,29 @@ type ConnectionCloudSqlCredential struct {
 	Password *string `json:"password"`
 }
 
+type jsonConnectionCloudSqlCredential ConnectionCloudSqlCredential
+
+func (r *ConnectionCloudSqlCredential) UnmarshalJSON(data []byte) error {
+	var res jsonConnectionCloudSqlCredential
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyConnectionCloudSqlCredential
+	} else {
+
+		r.Username = res.Username
+
+		r.Password = res.Password
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ConnectionCloudSqlCredential is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -116,7 +167,7 @@ func (r *ConnectionCloudSqlCredential) HashCode() string {
 // can identify it.
 func (r *Connection) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "bigqueryconnection",
+		Service: "bigquery_connection",
 		Type:    "Connection",
 		Version: "bigqueryconnection",
 	}

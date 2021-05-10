@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -40,6 +41,29 @@ type BackendBucketCdnPolicy struct {
 	empty                   bool     `json:"-"`
 	SignedUrlKeyNames       []string `json:"signedUrlKeyNames"`
 	SignedUrlCacheMaxAgeSec *int64   `json:"signedUrlCacheMaxAgeSec"`
+}
+
+type jsonBackendBucketCdnPolicy BackendBucketCdnPolicy
+
+func (r *BackendBucketCdnPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonBackendBucketCdnPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBackendBucketCdnPolicy
+	} else {
+
+		r.SignedUrlKeyNames = res.SignedUrlKeyNames
+
+		r.SignedUrlCacheMaxAgeSec = res.SignedUrlCacheMaxAgeSec
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this BackendBucketCdnPolicy is

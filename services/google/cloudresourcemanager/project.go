@@ -17,6 +17,7 @@ import (
 	"bytes"
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -69,6 +70,29 @@ type ProjectParent struct {
 	Id    *string `json:"id"`
 }
 
+type jsonProjectParent ProjectParent
+
+func (r *ProjectParent) UnmarshalJSON(data []byte) error {
+	var res jsonProjectParent
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyProjectParent
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ProjectParent is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -89,7 +113,7 @@ func (r *ProjectParent) HashCode() string {
 // can identify it.
 func (r *Project) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "cloudresourcemanager",
+		Service: "cloud_resource_manager",
 		Type:    "Project",
 		Version: "cloudresourcemanager",
 	}

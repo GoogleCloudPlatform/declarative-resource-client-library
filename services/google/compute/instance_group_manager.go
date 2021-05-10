@@ -16,6 +16,7 @@ package compute
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -108,6 +109,27 @@ type InstanceGroupManagerDistributionPolicy struct {
 	Zones []InstanceGroupManagerDistributionPolicyZones `json:"zones"`
 }
 
+type jsonInstanceGroupManagerDistributionPolicy InstanceGroupManagerDistributionPolicy
+
+func (r *InstanceGroupManagerDistributionPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerDistributionPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceGroupManagerDistributionPolicy
+	} else {
+
+		r.Zones = res.Zones
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceGroupManagerDistributionPolicy is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -127,6 +149,27 @@ func (r *InstanceGroupManagerDistributionPolicy) HashCode() string {
 type InstanceGroupManagerDistributionPolicyZones struct {
 	empty bool    `json:"-"`
 	Zone  *string `json:"zone"`
+}
+
+type jsonInstanceGroupManagerDistributionPolicyZones InstanceGroupManagerDistributionPolicyZones
+
+func (r *InstanceGroupManagerDistributionPolicyZones) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerDistributionPolicyZones
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceGroupManagerDistributionPolicyZones
+	} else {
+
+		r.Zone = res.Zone
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerDistributionPolicyZones is
@@ -157,6 +200,41 @@ type InstanceGroupManagerCurrentActions struct {
 	Restarting             *int64 `json:"restarting"`
 }
 
+type jsonInstanceGroupManagerCurrentActions InstanceGroupManagerCurrentActions
+
+func (r *InstanceGroupManagerCurrentActions) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerCurrentActions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceGroupManagerCurrentActions
+	} else {
+
+		r.Abandoning = res.Abandoning
+
+		r.Creating = res.Creating
+
+		r.CreatingWithoutRetries = res.CreatingWithoutRetries
+
+		r.Deleting = res.Deleting
+
+		r.None = res.None
+
+		r.Recreating = res.Recreating
+
+		r.Refreshing = res.Refreshing
+
+		r.Restarting = res.Restarting
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceGroupManagerCurrentActions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -178,6 +256,31 @@ type InstanceGroupManagerVersions struct {
 	Name             *string                                 `json:"name"`
 	InstanceTemplate *string                                 `json:"instanceTemplate"`
 	TargetSize       *InstanceGroupManagerVersionsTargetSize `json:"targetSize"`
+}
+
+type jsonInstanceGroupManagerVersions InstanceGroupManagerVersions
+
+func (r *InstanceGroupManagerVersions) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerVersions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceGroupManagerVersions
+	} else {
+
+		r.Name = res.Name
+
+		r.InstanceTemplate = res.InstanceTemplate
+
+		r.TargetSize = res.TargetSize
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerVersions is
@@ -203,6 +306,31 @@ type InstanceGroupManagerVersionsTargetSize struct {
 	Calculated *int64 `json:"calculated"`
 }
 
+type jsonInstanceGroupManagerVersionsTargetSize InstanceGroupManagerVersionsTargetSize
+
+func (r *InstanceGroupManagerVersionsTargetSize) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerVersionsTargetSize
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceGroupManagerVersionsTargetSize
+	} else {
+
+		r.Fixed = res.Fixed
+
+		r.Percent = res.Percent
+
+		r.Calculated = res.Calculated
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceGroupManagerVersionsTargetSize is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -223,6 +351,29 @@ type InstanceGroupManagerNamedPorts struct {
 	empty bool    `json:"-"`
 	Name  *string `json:"name"`
 	Port  *int64  `json:"port"`
+}
+
+type jsonInstanceGroupManagerNamedPorts InstanceGroupManagerNamedPorts
+
+func (r *InstanceGroupManagerNamedPorts) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerNamedPorts
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceGroupManagerNamedPorts
+	} else {
+
+		r.Name = res.Name
+
+		r.Port = res.Port
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerNamedPorts is
@@ -248,6 +399,31 @@ type InstanceGroupManagerStatus struct {
 	Autoscalar    *string                                  `json:"autoscalar"`
 }
 
+type jsonInstanceGroupManagerStatus InstanceGroupManagerStatus
+
+func (r *InstanceGroupManagerStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceGroupManagerStatus
+	} else {
+
+		r.IsStable = res.IsStable
+
+		r.VersionTarget = res.VersionTarget
+
+		r.Autoscalar = res.Autoscalar
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceGroupManagerStatus is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -267,6 +443,27 @@ func (r *InstanceGroupManagerStatus) HashCode() string {
 type InstanceGroupManagerStatusVersionTarget struct {
 	empty     bool  `json:"-"`
 	IsReached *bool `json:"isReached"`
+}
+
+type jsonInstanceGroupManagerStatusVersionTarget InstanceGroupManagerStatusVersionTarget
+
+func (r *InstanceGroupManagerStatusVersionTarget) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerStatusVersionTarget
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceGroupManagerStatusVersionTarget
+	} else {
+
+		r.IsReached = res.IsReached
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerStatusVersionTarget is
@@ -291,6 +488,29 @@ type InstanceGroupManagerAutoHealingPolicies struct {
 	InitialDelaySec *int64  `json:"initialDelaySec"`
 }
 
+type jsonInstanceGroupManagerAutoHealingPolicies InstanceGroupManagerAutoHealingPolicies
+
+func (r *InstanceGroupManagerAutoHealingPolicies) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerAutoHealingPolicies
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceGroupManagerAutoHealingPolicies
+	} else {
+
+		r.HealthCheck = res.HealthCheck
+
+		r.InitialDelaySec = res.InitialDelaySec
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceGroupManagerAutoHealingPolicies is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -312,6 +532,31 @@ type InstanceGroupManagerUpdatePolicy struct {
 	InstanceRedistributionType *InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum `json:"instanceRedistributionType"`
 	MinimalAction              *InstanceGroupManagerUpdatePolicyMinimalActionEnum              `json:"minimalAction"`
 	MaxSurge                   *InstanceGroupManagerUpdatePolicyMaxSurge                       `json:"maxSurge"`
+}
+
+type jsonInstanceGroupManagerUpdatePolicy InstanceGroupManagerUpdatePolicy
+
+func (r *InstanceGroupManagerUpdatePolicy) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerUpdatePolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceGroupManagerUpdatePolicy
+	} else {
+
+		r.InstanceRedistributionType = res.InstanceRedistributionType
+
+		r.MinimalAction = res.MinimalAction
+
+		r.MaxSurge = res.MaxSurge
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerUpdatePolicy is
@@ -338,6 +583,33 @@ type InstanceGroupManagerUpdatePolicyMaxSurge struct {
 	MaxUnavailable *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable `json:"maxUnavailable"`
 }
 
+type jsonInstanceGroupManagerUpdatePolicyMaxSurge InstanceGroupManagerUpdatePolicyMaxSurge
+
+func (r *InstanceGroupManagerUpdatePolicyMaxSurge) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerUpdatePolicyMaxSurge
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceGroupManagerUpdatePolicyMaxSurge
+	} else {
+
+		r.Fixed = res.Fixed
+
+		r.Percent = res.Percent
+
+		r.Calculated = res.Calculated
+
+		r.MaxUnavailable = res.MaxUnavailable
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceGroupManagerUpdatePolicyMaxSurge is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -359,6 +631,31 @@ type InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable struct {
 	Fixed      *int64 `json:"fixed"`
 	Percent    *int64 `json:"percent"`
 	Calculated *int64 `json:"calculated"`
+}
+
+type jsonInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable
+
+func (r *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable
+	} else {
+
+		r.Fixed = res.Fixed
+
+		r.Percent = res.Percent
+
+		r.Calculated = res.Calculated
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable is

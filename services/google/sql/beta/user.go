@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -68,6 +69,29 @@ type UserSqlserverUserDetails struct {
 	empty       bool     `json:"-"`
 	Disabled    *bool    `json:"disabled"`
 	ServerRoles []string `json:"serverRoles"`
+}
+
+type jsonUserSqlserverUserDetails UserSqlserverUserDetails
+
+func (r *UserSqlserverUserDetails) UnmarshalJSON(data []byte) error {
+	var res jsonUserSqlserverUserDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUserSqlserverUserDetails
+	} else {
+
+		r.Disabled = res.Disabled
+
+		r.ServerRoles = res.ServerRoles
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UserSqlserverUserDetails is

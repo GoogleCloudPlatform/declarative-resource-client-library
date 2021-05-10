@@ -16,6 +16,7 @@ package pubsublite
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -64,6 +65,27 @@ func (v SubscriptionDeliveryConfigDeliveryRequirementEnum) Validate() error {
 type SubscriptionDeliveryConfig struct {
 	empty               bool                                               `json:"-"`
 	DeliveryRequirement *SubscriptionDeliveryConfigDeliveryRequirementEnum `json:"deliveryRequirement"`
+}
+
+type jsonSubscriptionDeliveryConfig SubscriptionDeliveryConfig
+
+func (r *SubscriptionDeliveryConfig) UnmarshalJSON(data []byte) error {
+	var res jsonSubscriptionDeliveryConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptySubscriptionDeliveryConfig
+	} else {
+
+		r.DeliveryRequirement = res.DeliveryRequirement
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this SubscriptionDeliveryConfig is

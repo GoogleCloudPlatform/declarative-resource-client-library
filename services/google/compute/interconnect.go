@@ -16,6 +16,7 @@ package compute
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -251,6 +252,41 @@ type InterconnectExpectedOutages struct {
 	EndTime          *int64                                    `json:"endTime"`
 }
 
+type jsonInterconnectExpectedOutages InterconnectExpectedOutages
+
+func (r *InterconnectExpectedOutages) UnmarshalJSON(data []byte) error {
+	var res jsonInterconnectExpectedOutages
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInterconnectExpectedOutages
+	} else {
+
+		r.Name = res.Name
+
+		r.Description = res.Description
+
+		r.Source = res.Source
+
+		r.State = res.State
+
+		r.IssueType = res.IssueType
+
+		r.AffectedCircuits = res.AffectedCircuits
+
+		r.StartTime = res.StartTime
+
+		r.EndTime = res.EndTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InterconnectExpectedOutages is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -272,6 +308,31 @@ type InterconnectCircuitInfos struct {
 	GoogleCircuitId  *string `json:"googleCircuitId"`
 	GoogleDemarcId   *string `json:"googleDemarcId"`
 	CustomerDemarcId *string `json:"customerDemarcId"`
+}
+
+type jsonInterconnectCircuitInfos InterconnectCircuitInfos
+
+func (r *InterconnectCircuitInfos) UnmarshalJSON(data []byte) error {
+	var res jsonInterconnectCircuitInfos
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInterconnectCircuitInfos
+	} else {
+
+		r.GoogleCircuitId = res.GoogleCircuitId
+
+		r.GoogleDemarcId = res.GoogleDemarcId
+
+		r.CustomerDemarcId = res.CustomerDemarcId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InterconnectCircuitInfos is

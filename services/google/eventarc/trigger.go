@@ -16,6 +16,7 @@ package eventarc
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -47,6 +48,29 @@ type TriggerEventFilters struct {
 	Value     *string `json:"value"`
 }
 
+type jsonTriggerEventFilters TriggerEventFilters
+
+func (r *TriggerEventFilters) UnmarshalJSON(data []byte) error {
+	var res jsonTriggerEventFilters
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTriggerEventFilters
+	} else {
+
+		r.Attribute = res.Attribute
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this TriggerEventFilters is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -70,6 +94,31 @@ type TriggerDestination struct {
 	Gke           *TriggerDestinationGke      `json:"gke"`
 }
 
+type jsonTriggerDestination TriggerDestination
+
+func (r *TriggerDestination) UnmarshalJSON(data []byte) error {
+	var res jsonTriggerDestination
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTriggerDestination
+	} else {
+
+		r.CloudRun = res.CloudRun
+
+		r.CloudFunction = res.CloudFunction
+
+		r.Gke = res.Gke
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this TriggerDestination is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -91,6 +140,31 @@ type TriggerDestinationCloudRun struct {
 	Service *string `json:"service"`
 	Path    *string `json:"path"`
 	Region  *string `json:"region"`
+}
+
+type jsonTriggerDestinationCloudRun TriggerDestinationCloudRun
+
+func (r *TriggerDestinationCloudRun) UnmarshalJSON(data []byte) error {
+	var res jsonTriggerDestinationCloudRun
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTriggerDestinationCloudRun
+	} else {
+
+		r.Service = res.Service
+
+		r.Path = res.Path
+
+		r.Region = res.Region
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this TriggerDestinationCloudRun is
@@ -118,6 +192,35 @@ type TriggerDestinationGke struct {
 	Path      *string `json:"path"`
 }
 
+type jsonTriggerDestinationGke TriggerDestinationGke
+
+func (r *TriggerDestinationGke) UnmarshalJSON(data []byte) error {
+	var res jsonTriggerDestinationGke
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTriggerDestinationGke
+	} else {
+
+		r.Cluster = res.Cluster
+
+		r.Location = res.Location
+
+		r.Namespace = res.Namespace
+
+		r.Service = res.Service
+
+		r.Path = res.Path
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this TriggerDestinationGke is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -137,6 +240,27 @@ func (r *TriggerDestinationGke) HashCode() string {
 type TriggerTransport struct {
 	empty  bool                    `json:"-"`
 	Pubsub *TriggerTransportPubsub `json:"pubsub"`
+}
+
+type jsonTriggerTransport TriggerTransport
+
+func (r *TriggerTransport) UnmarshalJSON(data []byte) error {
+	var res jsonTriggerTransport
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTriggerTransport
+	} else {
+
+		r.Pubsub = res.Pubsub
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this TriggerTransport is
@@ -159,6 +283,29 @@ type TriggerTransportPubsub struct {
 	empty        bool    `json:"-"`
 	Topic        *string `json:"topic"`
 	Subscription *string `json:"subscription"`
+}
+
+type jsonTriggerTransportPubsub TriggerTransportPubsub
+
+func (r *TriggerTransportPubsub) UnmarshalJSON(data []byte) error {
+	var res jsonTriggerTransportPubsub
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTriggerTransportPubsub
+	} else {
+
+		r.Topic = res.Topic
+
+		r.Subscription = res.Subscription
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this TriggerTransportPubsub is

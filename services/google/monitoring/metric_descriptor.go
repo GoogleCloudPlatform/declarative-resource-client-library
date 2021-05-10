@@ -16,6 +16,7 @@ package monitoring
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -183,6 +184,31 @@ type MetricDescriptorDescriptorLabels struct {
 	Description *string                                        `json:"description"`
 }
 
+type jsonMetricDescriptorDescriptorLabels MetricDescriptorDescriptorLabels
+
+func (r *MetricDescriptorDescriptorLabels) UnmarshalJSON(data []byte) error {
+	var res jsonMetricDescriptorDescriptorLabels
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyMetricDescriptorDescriptorLabels
+	} else {
+
+		r.Key = res.Key
+
+		r.ValueType = res.ValueType
+
+		r.Description = res.Description
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this MetricDescriptorDescriptorLabels is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -204,6 +230,31 @@ type MetricDescriptorMetadata struct {
 	LaunchStage  *MetricDescriptorMetadataLaunchStageEnum `json:"launchStage"`
 	SamplePeriod *string                                  `json:"samplePeriod"`
 	IngestDelay  *string                                  `json:"ingestDelay"`
+}
+
+type jsonMetricDescriptorMetadata MetricDescriptorMetadata
+
+func (r *MetricDescriptorMetadata) UnmarshalJSON(data []byte) error {
+	var res jsonMetricDescriptorMetadata
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyMetricDescriptorMetadata
+	} else {
+
+		r.LaunchStage = res.LaunchStage
+
+		r.SamplePeriod = res.SamplePeriod
+
+		r.IngestDelay = res.IngestDelay
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this MetricDescriptorMetadata is

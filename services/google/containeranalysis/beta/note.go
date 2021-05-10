@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -483,6 +484,29 @@ type NoteRelatedUrl struct {
 	Label *string `json:"label"`
 }
 
+type jsonNoteRelatedUrl NoteRelatedUrl
+
+func (r *NoteRelatedUrl) UnmarshalJSON(data []byte) error {
+	var res jsonNoteRelatedUrl
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteRelatedUrl
+	} else {
+
+		r.Url = res.Url
+
+		r.Label = res.Label
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NoteRelatedUrl is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -507,6 +531,37 @@ type NoteVulnerability struct {
 	CvssV3           *NoteVulnerabilityCvssV3          `json:"cvssV3"`
 	WindowsDetails   []NoteVulnerabilityWindowsDetails `json:"windowsDetails"`
 	SourceUpdateTime *string                           `json:"sourceUpdateTime"`
+}
+
+type jsonNoteVulnerability NoteVulnerability
+
+func (r *NoteVulnerability) UnmarshalJSON(data []byte) error {
+	var res jsonNoteVulnerability
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteVulnerability
+	} else {
+
+		r.CvssScore = res.CvssScore
+
+		r.Severity = res.Severity
+
+		r.Details = res.Details
+
+		r.CvssV3 = res.CvssV3
+
+		r.WindowsDetails = res.WindowsDetails
+
+		r.SourceUpdateTime = res.SourceUpdateTime
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this NoteVulnerability is
@@ -541,6 +596,49 @@ type NoteVulnerabilityDetails struct {
 	SourceUpdateTime     *string                                       `json:"sourceUpdateTime"`
 }
 
+type jsonNoteVulnerabilityDetails NoteVulnerabilityDetails
+
+func (r *NoteVulnerabilityDetails) UnmarshalJSON(data []byte) error {
+	var res jsonNoteVulnerabilityDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteVulnerabilityDetails
+	} else {
+
+		r.SeverityName = res.SeverityName
+
+		r.Description = res.Description
+
+		r.PackageType = res.PackageType
+
+		r.AffectedCpeUri = res.AffectedCpeUri
+
+		r.AffectedPackage = res.AffectedPackage
+
+		r.AffectedVersionStart = res.AffectedVersionStart
+
+		r.AffectedVersionEnd = res.AffectedVersionEnd
+
+		r.FixedCpeUri = res.FixedCpeUri
+
+		r.FixedPackage = res.FixedPackage
+
+		r.FixedVersion = res.FixedVersion
+
+		r.IsObsolete = res.IsObsolete
+
+		r.SourceUpdateTime = res.SourceUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NoteVulnerabilityDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -564,6 +662,35 @@ type NoteVulnerabilityDetailsAffectedVersionStart struct {
 	Revision *string                                               `json:"revision"`
 	Kind     *NoteVulnerabilityDetailsAffectedVersionStartKindEnum `json:"kind"`
 	FullName *string                                               `json:"fullName"`
+}
+
+type jsonNoteVulnerabilityDetailsAffectedVersionStart NoteVulnerabilityDetailsAffectedVersionStart
+
+func (r *NoteVulnerabilityDetailsAffectedVersionStart) UnmarshalJSON(data []byte) error {
+	var res jsonNoteVulnerabilityDetailsAffectedVersionStart
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteVulnerabilityDetailsAffectedVersionStart
+	} else {
+
+		r.Epoch = res.Epoch
+
+		r.Name = res.Name
+
+		r.Revision = res.Revision
+
+		r.Kind = res.Kind
+
+		r.FullName = res.FullName
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this NoteVulnerabilityDetailsAffectedVersionStart is
@@ -591,6 +718,35 @@ type NoteVulnerabilityDetailsAffectedVersionEnd struct {
 	FullName *string                                             `json:"fullName"`
 }
 
+type jsonNoteVulnerabilityDetailsAffectedVersionEnd NoteVulnerabilityDetailsAffectedVersionEnd
+
+func (r *NoteVulnerabilityDetailsAffectedVersionEnd) UnmarshalJSON(data []byte) error {
+	var res jsonNoteVulnerabilityDetailsAffectedVersionEnd
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteVulnerabilityDetailsAffectedVersionEnd
+	} else {
+
+		r.Epoch = res.Epoch
+
+		r.Name = res.Name
+
+		r.Revision = res.Revision
+
+		r.Kind = res.Kind
+
+		r.FullName = res.FullName
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NoteVulnerabilityDetailsAffectedVersionEnd is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -614,6 +770,35 @@ type NoteVulnerabilityDetailsFixedVersion struct {
 	Revision *string                                       `json:"revision"`
 	Kind     *NoteVulnerabilityDetailsFixedVersionKindEnum `json:"kind"`
 	FullName *string                                       `json:"fullName"`
+}
+
+type jsonNoteVulnerabilityDetailsFixedVersion NoteVulnerabilityDetailsFixedVersion
+
+func (r *NoteVulnerabilityDetailsFixedVersion) UnmarshalJSON(data []byte) error {
+	var res jsonNoteVulnerabilityDetailsFixedVersion
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteVulnerabilityDetailsFixedVersion
+	} else {
+
+		r.Epoch = res.Epoch
+
+		r.Name = res.Name
+
+		r.Revision = res.Revision
+
+		r.Kind = res.Kind
+
+		r.FullName = res.FullName
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this NoteVulnerabilityDetailsFixedVersion is
@@ -647,6 +832,47 @@ type NoteVulnerabilityCvssV3 struct {
 	AvailabilityImpact    *NoteVulnerabilityCvssV3AvailabilityImpactEnum    `json:"availabilityImpact"`
 }
 
+type jsonNoteVulnerabilityCvssV3 NoteVulnerabilityCvssV3
+
+func (r *NoteVulnerabilityCvssV3) UnmarshalJSON(data []byte) error {
+	var res jsonNoteVulnerabilityCvssV3
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteVulnerabilityCvssV3
+	} else {
+
+		r.BaseScore = res.BaseScore
+
+		r.ExploitabilityScore = res.ExploitabilityScore
+
+		r.ImpactScore = res.ImpactScore
+
+		r.AttackVector = res.AttackVector
+
+		r.AttackComplexity = res.AttackComplexity
+
+		r.PrivilegesRequired = res.PrivilegesRequired
+
+		r.UserInteraction = res.UserInteraction
+
+		r.Scope = res.Scope
+
+		r.ConfidentialityImpact = res.ConfidentialityImpact
+
+		r.IntegrityImpact = res.IntegrityImpact
+
+		r.AvailabilityImpact = res.AvailabilityImpact
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NoteVulnerabilityCvssV3 is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -671,6 +897,33 @@ type NoteVulnerabilityWindowsDetails struct {
 	FixingKbs   []NoteVulnerabilityWindowsDetailsFixingKbs `json:"fixingKbs"`
 }
 
+type jsonNoteVulnerabilityWindowsDetails NoteVulnerabilityWindowsDetails
+
+func (r *NoteVulnerabilityWindowsDetails) UnmarshalJSON(data []byte) error {
+	var res jsonNoteVulnerabilityWindowsDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteVulnerabilityWindowsDetails
+	} else {
+
+		r.CpeUri = res.CpeUri
+
+		r.Name = res.Name
+
+		r.Description = res.Description
+
+		r.FixingKbs = res.FixingKbs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NoteVulnerabilityWindowsDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -693,6 +946,29 @@ type NoteVulnerabilityWindowsDetailsFixingKbs struct {
 	Url   *string `json:"url"`
 }
 
+type jsonNoteVulnerabilityWindowsDetailsFixingKbs NoteVulnerabilityWindowsDetailsFixingKbs
+
+func (r *NoteVulnerabilityWindowsDetailsFixingKbs) UnmarshalJSON(data []byte) error {
+	var res jsonNoteVulnerabilityWindowsDetailsFixingKbs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteVulnerabilityWindowsDetailsFixingKbs
+	} else {
+
+		r.Name = res.Name
+
+		r.Url = res.Url
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NoteVulnerabilityWindowsDetailsFixingKbs is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -713,6 +989,29 @@ type NoteBuild struct {
 	empty          bool                `json:"-"`
 	BuilderVersion *string             `json:"builderVersion"`
 	Signature      *NoteBuildSignature `json:"signature"`
+}
+
+type jsonNoteBuild NoteBuild
+
+func (r *NoteBuild) UnmarshalJSON(data []byte) error {
+	var res jsonNoteBuild
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteBuild
+	} else {
+
+		r.BuilderVersion = res.BuilderVersion
+
+		r.Signature = res.Signature
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this NoteBuild is
@@ -739,6 +1038,33 @@ type NoteBuildSignature struct {
 	KeyType   *NoteBuildSignatureKeyTypeEnum `json:"keyType"`
 }
 
+type jsonNoteBuildSignature NoteBuildSignature
+
+func (r *NoteBuildSignature) UnmarshalJSON(data []byte) error {
+	var res jsonNoteBuildSignature
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteBuildSignature
+	} else {
+
+		r.PublicKey = res.PublicKey
+
+		r.Signature = res.Signature
+
+		r.KeyId = res.KeyId
+
+		r.KeyType = res.KeyType
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NoteBuildSignature is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -759,6 +1085,29 @@ type NoteImage struct {
 	empty       bool                  `json:"-"`
 	ResourceUrl *string               `json:"resourceUrl"`
 	Fingerprint *NoteImageFingerprint `json:"fingerprint"`
+}
+
+type jsonNoteImage NoteImage
+
+func (r *NoteImage) UnmarshalJSON(data []byte) error {
+	var res jsonNoteImage
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteImage
+	} else {
+
+		r.ResourceUrl = res.ResourceUrl
+
+		r.Fingerprint = res.Fingerprint
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this NoteImage is
@@ -784,6 +1133,31 @@ type NoteImageFingerprint struct {
 	V2Name *string  `json:"v2Name"`
 }
 
+type jsonNoteImageFingerprint NoteImageFingerprint
+
+func (r *NoteImageFingerprint) UnmarshalJSON(data []byte) error {
+	var res jsonNoteImageFingerprint
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteImageFingerprint
+	} else {
+
+		r.V1Name = res.V1Name
+
+		r.V2Blob = res.V2Blob
+
+		r.V2Name = res.V2Name
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NoteImageFingerprint is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -804,6 +1178,29 @@ type NotePackage struct {
 	empty        bool                      `json:"-"`
 	Name         *string                   `json:"name"`
 	Distribution []NotePackageDistribution `json:"distribution"`
+}
+
+type jsonNotePackage NotePackage
+
+func (r *NotePackage) UnmarshalJSON(data []byte) error {
+	var res jsonNotePackage
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNotePackage
+	} else {
+
+		r.Name = res.Name
+
+		r.Distribution = res.Distribution
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this NotePackage is
@@ -832,6 +1229,37 @@ type NotePackageDistribution struct {
 	Description   *string                                  `json:"description"`
 }
 
+type jsonNotePackageDistribution NotePackageDistribution
+
+func (r *NotePackageDistribution) UnmarshalJSON(data []byte) error {
+	var res jsonNotePackageDistribution
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNotePackageDistribution
+	} else {
+
+		r.CpeUri = res.CpeUri
+
+		r.Architecture = res.Architecture
+
+		r.LatestVersion = res.LatestVersion
+
+		r.Maintainer = res.Maintainer
+
+		r.Url = res.Url
+
+		r.Description = res.Description
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NotePackageDistribution is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -857,6 +1285,35 @@ type NotePackageDistributionLatestVersion struct {
 	FullName *string                                       `json:"fullName"`
 }
 
+type jsonNotePackageDistributionLatestVersion NotePackageDistributionLatestVersion
+
+func (r *NotePackageDistributionLatestVersion) UnmarshalJSON(data []byte) error {
+	var res jsonNotePackageDistributionLatestVersion
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNotePackageDistributionLatestVersion
+	} else {
+
+		r.Epoch = res.Epoch
+
+		r.Name = res.Name
+
+		r.Revision = res.Revision
+
+		r.Kind = res.Kind
+
+		r.FullName = res.FullName
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NotePackageDistributionLatestVersion is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -876,6 +1333,27 @@ func (r *NotePackageDistributionLatestVersion) HashCode() string {
 type NoteDiscovery struct {
 	empty        bool                           `json:"-"`
 	AnalysisKind *NoteDiscoveryAnalysisKindEnum `json:"analysisKind"`
+}
+
+type jsonNoteDiscovery NoteDiscovery
+
+func (r *NoteDiscovery) UnmarshalJSON(data []byte) error {
+	var res jsonNoteDiscovery
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteDiscovery
+	} else {
+
+		r.AnalysisKind = res.AnalysisKind
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this NoteDiscovery is
@@ -899,6 +1377,27 @@ type NoteDeployment struct {
 	ResourceUri []string `json:"resourceUri"`
 }
 
+type jsonNoteDeployment NoteDeployment
+
+func (r *NoteDeployment) UnmarshalJSON(data []byte) error {
+	var res jsonNoteDeployment
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteDeployment
+	} else {
+
+		r.ResourceUri = res.ResourceUri
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NoteDeployment is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -918,6 +1417,27 @@ func (r *NoteDeployment) HashCode() string {
 type NoteAttestation struct {
 	empty bool                 `json:"-"`
 	Hint  *NoteAttestationHint `json:"hint"`
+}
+
+type jsonNoteAttestation NoteAttestation
+
+func (r *NoteAttestation) UnmarshalJSON(data []byte) error {
+	var res jsonNoteAttestation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteAttestation
+	} else {
+
+		r.Hint = res.Hint
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this NoteAttestation is
@@ -941,6 +1461,27 @@ type NoteAttestationHint struct {
 	HumanReadableName *string `json:"humanReadableName"`
 }
 
+type jsonNoteAttestationHint NoteAttestationHint
+
+func (r *NoteAttestationHint) UnmarshalJSON(data []byte) error {
+	var res jsonNoteAttestationHint
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteAttestationHint
+	} else {
+
+		r.HumanReadableName = res.HumanReadableName
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NoteAttestationHint is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -961,7 +1502,7 @@ func (r *NoteAttestationHint) HashCode() string {
 // can identify it.
 func (r *Note) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "containeranalysis",
+		Service: "container_analysis",
 		Type:    "Note",
 		Version: "beta",
 	}

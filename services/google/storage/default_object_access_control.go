@@ -16,6 +16,7 @@ package storage
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -95,6 +96,29 @@ type DefaultObjectAccessControlProjectTeam struct {
 	empty         bool                                           `json:"-"`
 	ProjectNumber *string                                        `json:"projectNumber"`
 	Team          *DefaultObjectAccessControlProjectTeamTeamEnum `json:"team"`
+}
+
+type jsonDefaultObjectAccessControlProjectTeam DefaultObjectAccessControlProjectTeam
+
+func (r *DefaultObjectAccessControlProjectTeam) UnmarshalJSON(data []byte) error {
+	var res jsonDefaultObjectAccessControlProjectTeam
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDefaultObjectAccessControlProjectTeam
+	} else {
+
+		r.ProjectNumber = res.ProjectNumber
+
+		r.Team = res.Team
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DefaultObjectAccessControlProjectTeam is

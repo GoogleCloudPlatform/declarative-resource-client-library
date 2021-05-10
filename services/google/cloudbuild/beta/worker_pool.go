@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -72,6 +73,31 @@ type WorkerPoolWorkerConfig struct {
 	NoExternalIP *bool   `json:"noExternalIP"`
 }
 
+type jsonWorkerPoolWorkerConfig WorkerPoolWorkerConfig
+
+func (r *WorkerPoolWorkerConfig) UnmarshalJSON(data []byte) error {
+	var res jsonWorkerPoolWorkerConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkerPoolWorkerConfig
+	} else {
+
+		r.MachineType = res.MachineType
+
+		r.DiskSizeGb = res.DiskSizeGb
+
+		r.NoExternalIP = res.NoExternalIP
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this WorkerPoolWorkerConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -91,6 +117,27 @@ func (r *WorkerPoolWorkerConfig) HashCode() string {
 type WorkerPoolNetworkConfig struct {
 	empty         bool    `json:"-"`
 	PeeredNetwork *string `json:"peeredNetwork"`
+}
+
+type jsonWorkerPoolNetworkConfig WorkerPoolNetworkConfig
+
+func (r *WorkerPoolNetworkConfig) UnmarshalJSON(data []byte) error {
+	var res jsonWorkerPoolNetworkConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkerPoolNetworkConfig
+	} else {
+
+		r.PeeredNetwork = res.PeeredNetwork
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this WorkerPoolNetworkConfig is
@@ -113,7 +160,7 @@ func (r *WorkerPoolNetworkConfig) HashCode() string {
 // can identify it.
 func (r *WorkerPool) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "cloudbuild",
+		Service: "cloud_build",
 		Type:    "WorkerPool",
 		Version: "beta",
 	}

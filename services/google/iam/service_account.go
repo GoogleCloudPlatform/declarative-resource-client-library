@@ -17,6 +17,7 @@ import (
 	"bytes"
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -44,6 +45,27 @@ type ServiceAccountActasResources struct {
 	Resources []ServiceAccountActasResourcesResources `json:"resources"`
 }
 
+type jsonServiceAccountActasResources ServiceAccountActasResources
+
+func (r *ServiceAccountActasResources) UnmarshalJSON(data []byte) error {
+	var res jsonServiceAccountActasResources
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceAccountActasResources
+	} else {
+
+		r.Resources = res.Resources
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceAccountActasResources is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -63,6 +85,27 @@ func (r *ServiceAccountActasResources) HashCode() string {
 type ServiceAccountActasResourcesResources struct {
 	empty            bool    `json:"-"`
 	FullResourceName *string `json:"fullResourceName"`
+}
+
+type jsonServiceAccountActasResourcesResources ServiceAccountActasResourcesResources
+
+func (r *ServiceAccountActasResourcesResources) UnmarshalJSON(data []byte) error {
+	var res jsonServiceAccountActasResourcesResources
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceAccountActasResourcesResources
+	} else {
+
+		r.FullResourceName = res.FullResourceName
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceAccountActasResourcesResources is

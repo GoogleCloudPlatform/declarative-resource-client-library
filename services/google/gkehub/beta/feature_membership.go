@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -42,6 +43,35 @@ type FeatureMembershipConfigmanagement struct {
 	Version             *string                                               `json:"version"`
 }
 
+type jsonFeatureMembershipConfigmanagement FeatureMembershipConfigmanagement
+
+func (r *FeatureMembershipConfigmanagement) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureMembershipConfigmanagement
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureMembershipConfigmanagement
+	} else {
+
+		r.ConfigSync = res.ConfigSync
+
+		r.PolicyController = res.PolicyController
+
+		r.Binauthz = res.Binauthz
+
+		r.HierarchyController = res.HierarchyController
+
+		r.Version = res.Version
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this FeatureMembershipConfigmanagement is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -62,6 +92,29 @@ type FeatureMembershipConfigmanagementConfigSync struct {
 	empty        bool                                            `json:"-"`
 	Git          *FeatureMembershipConfigmanagementConfigSyncGit `json:"git"`
 	SourceFormat *string                                         `json:"sourceFormat"`
+}
+
+type jsonFeatureMembershipConfigmanagementConfigSync FeatureMembershipConfigmanagementConfigSync
+
+func (r *FeatureMembershipConfigmanagementConfigSync) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureMembershipConfigmanagementConfigSync
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureMembershipConfigmanagementConfigSync
+	} else {
+
+		r.Git = res.Git
+
+		r.SourceFormat = res.SourceFormat
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this FeatureMembershipConfigmanagementConfigSync is
@@ -92,6 +145,41 @@ type FeatureMembershipConfigmanagementConfigSyncGit struct {
 	GcpServiceAccountEmail *string `json:"gcpServiceAccountEmail"`
 }
 
+type jsonFeatureMembershipConfigmanagementConfigSyncGit FeatureMembershipConfigmanagementConfigSyncGit
+
+func (r *FeatureMembershipConfigmanagementConfigSyncGit) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureMembershipConfigmanagementConfigSyncGit
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureMembershipConfigmanagementConfigSyncGit
+	} else {
+
+		r.SyncRepo = res.SyncRepo
+
+		r.SyncBranch = res.SyncBranch
+
+		r.PolicyDir = res.PolicyDir
+
+		r.SyncWaitSecs = res.SyncWaitSecs
+
+		r.SyncRev = res.SyncRev
+
+		r.SecretType = res.SecretType
+
+		r.HttpsProxy = res.HttpsProxy
+
+		r.GcpServiceAccountEmail = res.GcpServiceAccountEmail
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this FeatureMembershipConfigmanagementConfigSyncGit is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -118,6 +206,37 @@ type FeatureMembershipConfigmanagementPolicyController struct {
 	AuditIntervalSeconds     *string  `json:"auditIntervalSeconds"`
 }
 
+type jsonFeatureMembershipConfigmanagementPolicyController FeatureMembershipConfigmanagementPolicyController
+
+func (r *FeatureMembershipConfigmanagementPolicyController) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureMembershipConfigmanagementPolicyController
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureMembershipConfigmanagementPolicyController
+	} else {
+
+		r.Enabled = res.Enabled
+
+		r.ExemptableNamespaces = res.ExemptableNamespaces
+
+		r.ReferentialRulesEnabled = res.ReferentialRulesEnabled
+
+		r.LogDeniesEnabled = res.LogDeniesEnabled
+
+		r.TemplateLibraryInstalled = res.TemplateLibraryInstalled
+
+		r.AuditIntervalSeconds = res.AuditIntervalSeconds
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this FeatureMembershipConfigmanagementPolicyController is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -137,6 +256,27 @@ func (r *FeatureMembershipConfigmanagementPolicyController) HashCode() string {
 type FeatureMembershipConfigmanagementBinauthz struct {
 	empty   bool  `json:"-"`
 	Enabled *bool `json:"enabled"`
+}
+
+type jsonFeatureMembershipConfigmanagementBinauthz FeatureMembershipConfigmanagementBinauthz
+
+func (r *FeatureMembershipConfigmanagementBinauthz) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureMembershipConfigmanagementBinauthz
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureMembershipConfigmanagementBinauthz
+	} else {
+
+		r.Enabled = res.Enabled
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this FeatureMembershipConfigmanagementBinauthz is
@@ -162,6 +302,31 @@ type FeatureMembershipConfigmanagementHierarchyController struct {
 	EnableHierarchicalResourceQuota *bool `json:"enableHierarchicalResourceQuota"`
 }
 
+type jsonFeatureMembershipConfigmanagementHierarchyController FeatureMembershipConfigmanagementHierarchyController
+
+func (r *FeatureMembershipConfigmanagementHierarchyController) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureMembershipConfigmanagementHierarchyController
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureMembershipConfigmanagementHierarchyController
+	} else {
+
+		r.Enabled = res.Enabled
+
+		r.EnablePodTreeLabels = res.EnablePodTreeLabels
+
+		r.EnableHierarchicalResourceQuota = res.EnableHierarchicalResourceQuota
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this FeatureMembershipConfigmanagementHierarchyController is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -182,7 +347,7 @@ func (r *FeatureMembershipConfigmanagementHierarchyController) HashCode() string
 // can identify it.
 func (r *FeatureMembership) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "gkehub",
+		Service: "gke_hub",
 		Type:    "FeatureMembership",
 		Version: "beta",
 	}

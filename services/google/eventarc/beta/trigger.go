@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -45,6 +46,27 @@ type TriggerDestination struct {
 	CloudRunService *TriggerDestinationCloudRunService `json:"cloudRunService"`
 }
 
+type jsonTriggerDestination TriggerDestination
+
+func (r *TriggerDestination) UnmarshalJSON(data []byte) error {
+	var res jsonTriggerDestination
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTriggerDestination
+	} else {
+
+		r.CloudRunService = res.CloudRunService
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this TriggerDestination is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -68,6 +90,31 @@ type TriggerDestinationCloudRunService struct {
 	Region  *string `json:"region"`
 }
 
+type jsonTriggerDestinationCloudRunService TriggerDestinationCloudRunService
+
+func (r *TriggerDestinationCloudRunService) UnmarshalJSON(data []byte) error {
+	var res jsonTriggerDestinationCloudRunService
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTriggerDestinationCloudRunService
+	} else {
+
+		r.Service = res.Service
+
+		r.Path = res.Path
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this TriggerDestinationCloudRunService is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -87,6 +134,27 @@ func (r *TriggerDestinationCloudRunService) HashCode() string {
 type TriggerTransport struct {
 	empty  bool                    `json:"-"`
 	Pubsub *TriggerTransportPubsub `json:"pubsub"`
+}
+
+type jsonTriggerTransport TriggerTransport
+
+func (r *TriggerTransport) UnmarshalJSON(data []byte) error {
+	var res jsonTriggerTransport
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTriggerTransport
+	} else {
+
+		r.Pubsub = res.Pubsub
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this TriggerTransport is
@@ -111,6 +179,29 @@ type TriggerTransportPubsub struct {
 	Subscription *string `json:"subscription"`
 }
 
+type jsonTriggerTransportPubsub TriggerTransportPubsub
+
+func (r *TriggerTransportPubsub) UnmarshalJSON(data []byte) error {
+	var res jsonTriggerTransportPubsub
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTriggerTransportPubsub
+	} else {
+
+		r.Topic = res.Topic
+
+		r.Subscription = res.Subscription
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this TriggerTransportPubsub is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -131,6 +222,29 @@ type TriggerMatchingCriteria struct {
 	empty     bool    `json:"-"`
 	Attribute *string `json:"attribute"`
 	Value     *string `json:"value"`
+}
+
+type jsonTriggerMatchingCriteria TriggerMatchingCriteria
+
+func (r *TriggerMatchingCriteria) UnmarshalJSON(data []byte) error {
+	var res jsonTriggerMatchingCriteria
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTriggerMatchingCriteria
+	} else {
+
+		r.Attribute = res.Attribute
+
+		r.Value = res.Value
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this TriggerMatchingCriteria is

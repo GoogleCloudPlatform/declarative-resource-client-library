@@ -16,6 +16,7 @@ package logging
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -191,6 +192,47 @@ type LogMetricMetricDescriptor struct {
 	MonitoredResourceTypes []string                                    `json:"monitoredResourceTypes"`
 }
 
+type jsonLogMetricMetricDescriptor LogMetricMetricDescriptor
+
+func (r *LogMetricMetricDescriptor) UnmarshalJSON(data []byte) error {
+	var res jsonLogMetricMetricDescriptor
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyLogMetricMetricDescriptor
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.DescriptorLabels = res.DescriptorLabels
+
+		r.MetricKind = res.MetricKind
+
+		r.ValueType = res.ValueType
+
+		r.Unit = res.Unit
+
+		r.Description = res.Description
+
+		r.DisplayName = res.DisplayName
+
+		r.Metadata = res.Metadata
+
+		r.LaunchStage = res.LaunchStage
+
+		r.MonitoredResourceTypes = res.MonitoredResourceTypes
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this LogMetricMetricDescriptor is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -212,6 +254,31 @@ type LogMetricMetricDescriptorDescriptorLabels struct {
 	Key         *string                                                 `json:"key"`
 	ValueType   *LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum `json:"valueType"`
 	Description *string                                                 `json:"description"`
+}
+
+type jsonLogMetricMetricDescriptorDescriptorLabels LogMetricMetricDescriptorDescriptorLabels
+
+func (r *LogMetricMetricDescriptorDescriptorLabels) UnmarshalJSON(data []byte) error {
+	var res jsonLogMetricMetricDescriptorDescriptorLabels
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyLogMetricMetricDescriptorDescriptorLabels
+	} else {
+
+		r.Key = res.Key
+
+		r.ValueType = res.ValueType
+
+		r.Description = res.Description
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this LogMetricMetricDescriptorDescriptorLabels is
@@ -237,6 +304,31 @@ type LogMetricMetricDescriptorMetadata struct {
 	IngestDelay  *string                                           `json:"ingestDelay"`
 }
 
+type jsonLogMetricMetricDescriptorMetadata LogMetricMetricDescriptorMetadata
+
+func (r *LogMetricMetricDescriptorMetadata) UnmarshalJSON(data []byte) error {
+	var res jsonLogMetricMetricDescriptorMetadata
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyLogMetricMetricDescriptorMetadata
+	} else {
+
+		r.LaunchStage = res.LaunchStage
+
+		r.SamplePeriod = res.SamplePeriod
+
+		r.IngestDelay = res.IngestDelay
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this LogMetricMetricDescriptorMetadata is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -258,6 +350,31 @@ type LogMetricBucketOptions struct {
 	LinearBuckets      *LogMetricBucketOptionsLinearBuckets      `json:"linearBuckets"`
 	ExponentialBuckets *LogMetricBucketOptionsExponentialBuckets `json:"exponentialBuckets"`
 	ExplicitBuckets    *LogMetricBucketOptionsExplicitBuckets    `json:"explicitBuckets"`
+}
+
+type jsonLogMetricBucketOptions LogMetricBucketOptions
+
+func (r *LogMetricBucketOptions) UnmarshalJSON(data []byte) error {
+	var res jsonLogMetricBucketOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyLogMetricBucketOptions
+	} else {
+
+		r.LinearBuckets = res.LinearBuckets
+
+		r.ExponentialBuckets = res.ExponentialBuckets
+
+		r.ExplicitBuckets = res.ExplicitBuckets
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this LogMetricBucketOptions is
@@ -283,6 +400,31 @@ type LogMetricBucketOptionsLinearBuckets struct {
 	Offset           *float64 `json:"offset"`
 }
 
+type jsonLogMetricBucketOptionsLinearBuckets LogMetricBucketOptionsLinearBuckets
+
+func (r *LogMetricBucketOptionsLinearBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonLogMetricBucketOptionsLinearBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyLogMetricBucketOptionsLinearBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.Width = res.Width
+
+		r.Offset = res.Offset
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this LogMetricBucketOptionsLinearBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -306,6 +448,31 @@ type LogMetricBucketOptionsExponentialBuckets struct {
 	Scale            *float64 `json:"scale"`
 }
 
+type jsonLogMetricBucketOptionsExponentialBuckets LogMetricBucketOptionsExponentialBuckets
+
+func (r *LogMetricBucketOptionsExponentialBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonLogMetricBucketOptionsExponentialBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyLogMetricBucketOptionsExponentialBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.GrowthFactor = res.GrowthFactor
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this LogMetricBucketOptionsExponentialBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -325,6 +492,27 @@ func (r *LogMetricBucketOptionsExponentialBuckets) HashCode() string {
 type LogMetricBucketOptionsExplicitBuckets struct {
 	empty  bool      `json:"-"`
 	Bounds []float64 `json:"bounds"`
+}
+
+type jsonLogMetricBucketOptionsExplicitBuckets LogMetricBucketOptionsExplicitBuckets
+
+func (r *LogMetricBucketOptionsExplicitBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonLogMetricBucketOptionsExplicitBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyLogMetricBucketOptionsExplicitBuckets
+	} else {
+
+		r.Bounds = res.Bounds
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this LogMetricBucketOptionsExplicitBuckets is

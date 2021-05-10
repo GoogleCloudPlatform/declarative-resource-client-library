@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -48,6 +49,29 @@ type SnapshotSnapshotEncryptionKey struct {
 	Sha256 *string `json:"sha256"`
 }
 
+type jsonSnapshotSnapshotEncryptionKey SnapshotSnapshotEncryptionKey
+
+func (r *SnapshotSnapshotEncryptionKey) UnmarshalJSON(data []byte) error {
+	var res jsonSnapshotSnapshotEncryptionKey
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptySnapshotSnapshotEncryptionKey
+	} else {
+
+		r.RawKey = res.RawKey
+
+		r.Sha256 = res.Sha256
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this SnapshotSnapshotEncryptionKey is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -67,6 +91,27 @@ func (r *SnapshotSnapshotEncryptionKey) HashCode() string {
 type SnapshotSourceDiskEncryptionKey struct {
 	empty  bool    `json:"-"`
 	RawKey *string `json:"rawKey"`
+}
+
+type jsonSnapshotSourceDiskEncryptionKey SnapshotSourceDiskEncryptionKey
+
+func (r *SnapshotSourceDiskEncryptionKey) UnmarshalJSON(data []byte) error {
+	var res jsonSnapshotSourceDiskEncryptionKey
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptySnapshotSourceDiskEncryptionKey
+	} else {
+
+		r.RawKey = res.RawKey
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this SnapshotSourceDiskEncryptionKey is

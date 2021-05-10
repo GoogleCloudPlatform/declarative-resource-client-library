@@ -193,8 +193,8 @@ components:
       x-dcl-parent-container: project
       x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Gkehub FeatureMembership resource
-  title: Gkehub/FeatureMembership
+  description: DCL Specification for the GkeHub FeatureMembership resource
+  title: GkeHub/FeatureMembership
   x-dcl-has-iam: false
 paths:
   apply:

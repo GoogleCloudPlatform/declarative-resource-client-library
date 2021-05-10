@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -353,6 +354,39 @@ type HealthCheckHttp2HealthCheck struct {
 	Response          *string                                           `json:"response"`
 }
 
+type jsonHealthCheckHttp2HealthCheck HealthCheckHttp2HealthCheck
+
+func (r *HealthCheckHttp2HealthCheck) UnmarshalJSON(data []byte) error {
+	var res jsonHealthCheckHttp2HealthCheck
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyHealthCheckHttp2HealthCheck
+	} else {
+
+		r.Port = res.Port
+
+		r.PortName = res.PortName
+
+		r.PortSpecification = res.PortSpecification
+
+		r.Host = res.Host
+
+		r.RequestPath = res.RequestPath
+
+		r.ProxyHeader = res.ProxyHeader
+
+		r.Response = res.Response
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this HealthCheckHttp2HealthCheck is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -378,6 +412,39 @@ type HealthCheckHttpHealthCheck struct {
 	RequestPath       *string                                          `json:"requestPath"`
 	ProxyHeader       *HealthCheckHttpHealthCheckProxyHeaderEnum       `json:"proxyHeader"`
 	Response          *string                                          `json:"response"`
+}
+
+type jsonHealthCheckHttpHealthCheck HealthCheckHttpHealthCheck
+
+func (r *HealthCheckHttpHealthCheck) UnmarshalJSON(data []byte) error {
+	var res jsonHealthCheckHttpHealthCheck
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyHealthCheckHttpHealthCheck
+	} else {
+
+		r.Port = res.Port
+
+		r.PortName = res.PortName
+
+		r.PortSpecification = res.PortSpecification
+
+		r.Host = res.Host
+
+		r.RequestPath = res.RequestPath
+
+		r.ProxyHeader = res.ProxyHeader
+
+		r.Response = res.Response
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this HealthCheckHttpHealthCheck is
@@ -407,6 +474,39 @@ type HealthCheckHttpsHealthCheck struct {
 	Response          *string                                           `json:"response"`
 }
 
+type jsonHealthCheckHttpsHealthCheck HealthCheckHttpsHealthCheck
+
+func (r *HealthCheckHttpsHealthCheck) UnmarshalJSON(data []byte) error {
+	var res jsonHealthCheckHttpsHealthCheck
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyHealthCheckHttpsHealthCheck
+	} else {
+
+		r.Port = res.Port
+
+		r.PortName = res.PortName
+
+		r.PortSpecification = res.PortSpecification
+
+		r.Host = res.Host
+
+		r.RequestPath = res.RequestPath
+
+		r.ProxyHeader = res.ProxyHeader
+
+		r.Response = res.Response
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this HealthCheckHttpsHealthCheck is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -433,6 +533,37 @@ type HealthCheckSslHealthCheck struct {
 	ProxyHeader       *HealthCheckSslHealthCheckProxyHeaderEnum       `json:"proxyHeader"`
 }
 
+type jsonHealthCheckSslHealthCheck HealthCheckSslHealthCheck
+
+func (r *HealthCheckSslHealthCheck) UnmarshalJSON(data []byte) error {
+	var res jsonHealthCheckSslHealthCheck
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyHealthCheckSslHealthCheck
+	} else {
+
+		r.Port = res.Port
+
+		r.PortName = res.PortName
+
+		r.PortSpecification = res.PortSpecification
+
+		r.Request = res.Request
+
+		r.Response = res.Response
+
+		r.ProxyHeader = res.ProxyHeader
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this HealthCheckSslHealthCheck is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -457,6 +588,37 @@ type HealthCheckTcpHealthCheck struct {
 	Request           *string                                         `json:"request"`
 	Response          *string                                         `json:"response"`
 	ProxyHeader       *HealthCheckTcpHealthCheckProxyHeaderEnum       `json:"proxyHeader"`
+}
+
+type jsonHealthCheckTcpHealthCheck HealthCheckTcpHealthCheck
+
+func (r *HealthCheckTcpHealthCheck) UnmarshalJSON(data []byte) error {
+	var res jsonHealthCheckTcpHealthCheck
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyHealthCheckTcpHealthCheck
+	} else {
+
+		r.Port = res.Port
+
+		r.PortName = res.PortName
+
+		r.PortSpecification = res.PortSpecification
+
+		r.Request = res.Request
+
+		r.Response = res.Response
+
+		r.ProxyHeader = res.ProxyHeader
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this HealthCheckTcpHealthCheck is

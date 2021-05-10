@@ -16,6 +16,7 @@ package run
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -55,6 +56,55 @@ type ServiceMetadata struct {
 	ClusterName                *string                          `json:"clusterName"`
 }
 
+type jsonServiceMetadata ServiceMetadata
+
+func (r *ServiceMetadata) UnmarshalJSON(data []byte) error {
+	var res jsonServiceMetadata
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceMetadata
+	} else {
+
+		r.Name = res.Name
+
+		r.GenerateName = res.GenerateName
+
+		r.Namespace = res.Namespace
+
+		r.SelfLink = res.SelfLink
+
+		r.Uid = res.Uid
+
+		r.ResourceVersion = res.ResourceVersion
+
+		r.Generation = res.Generation
+
+		r.CreateTime = res.CreateTime
+
+		r.Labels = res.Labels
+
+		r.Annotations = res.Annotations
+
+		r.OwnerReferences = res.OwnerReferences
+
+		r.DeleteTime = res.DeleteTime
+
+		r.DeletionGracePeriodSeconds = res.DeletionGracePeriodSeconds
+
+		r.Finalizers = res.Finalizers
+
+		r.ClusterName = res.ClusterName
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceMetadata is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -75,6 +125,29 @@ type ServiceMetadataCreateTime struct {
 	empty   bool   `json:"-"`
 	Seconds *int64 `json:"seconds"`
 	Nanos   *int64 `json:"nanos"`
+}
+
+type jsonServiceMetadataCreateTime ServiceMetadataCreateTime
+
+func (r *ServiceMetadataCreateTime) UnmarshalJSON(data []byte) error {
+	var res jsonServiceMetadataCreateTime
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceMetadataCreateTime
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceMetadataCreateTime is
@@ -103,6 +176,37 @@ type ServiceMetadataOwnerReferences struct {
 	BlockOwnerDeletion *bool   `json:"blockOwnerDeletion"`
 }
 
+type jsonServiceMetadataOwnerReferences ServiceMetadataOwnerReferences
+
+func (r *ServiceMetadataOwnerReferences) UnmarshalJSON(data []byte) error {
+	var res jsonServiceMetadataOwnerReferences
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceMetadataOwnerReferences
+	} else {
+
+		r.ApiVersion = res.ApiVersion
+
+		r.Kind = res.Kind
+
+		r.Name = res.Name
+
+		r.Uid = res.Uid
+
+		r.Controller = res.Controller
+
+		r.BlockOwnerDeletion = res.BlockOwnerDeletion
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceMetadataOwnerReferences is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -123,6 +227,29 @@ type ServiceMetadataDeleteTime struct {
 	empty   bool   `json:"-"`
 	Seconds *int64 `json:"seconds"`
 	Nanos   *int64 `json:"nanos"`
+}
+
+type jsonServiceMetadataDeleteTime ServiceMetadataDeleteTime
+
+func (r *ServiceMetadataDeleteTime) UnmarshalJSON(data []byte) error {
+	var res jsonServiceMetadataDeleteTime
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceMetadataDeleteTime
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceMetadataDeleteTime is
@@ -147,6 +274,29 @@ type ServiceSpec struct {
 	Traffic  []ServiceSpecTraffic `json:"traffic"`
 }
 
+type jsonServiceSpec ServiceSpec
+
+func (r *ServiceSpec) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpec
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpec
+	} else {
+
+		r.Template = res.Template
+
+		r.Traffic = res.Traffic
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceSpec is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -167,6 +317,29 @@ type ServiceSpecTemplate struct {
 	empty    bool                         `json:"-"`
 	Metadata *ServiceSpecTemplateMetadata `json:"metadata"`
 	Spec     *ServiceSpecTemplateSpec     `json:"spec"`
+}
+
+type jsonServiceSpecTemplate ServiceSpecTemplate
+
+func (r *ServiceSpecTemplate) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplate
+	} else {
+
+		r.Metadata = res.Metadata
+
+		r.Spec = res.Spec
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTemplate is
@@ -204,6 +377,55 @@ type ServiceSpecTemplateMetadata struct {
 	ClusterName                *string                                      `json:"clusterName"`
 }
 
+type jsonServiceSpecTemplateMetadata ServiceSpecTemplateMetadata
+
+func (r *ServiceSpecTemplateMetadata) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateMetadata
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateMetadata
+	} else {
+
+		r.Name = res.Name
+
+		r.GenerateName = res.GenerateName
+
+		r.Namespace = res.Namespace
+
+		r.SelfLink = res.SelfLink
+
+		r.Uid = res.Uid
+
+		r.ResourceVersion = res.ResourceVersion
+
+		r.Generation = res.Generation
+
+		r.CreateTime = res.CreateTime
+
+		r.Labels = res.Labels
+
+		r.Annotations = res.Annotations
+
+		r.OwnerReferences = res.OwnerReferences
+
+		r.DeleteTime = res.DeleteTime
+
+		r.DeletionGracePeriodSeconds = res.DeletionGracePeriodSeconds
+
+		r.Finalizers = res.Finalizers
+
+		r.ClusterName = res.ClusterName
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceSpecTemplateMetadata is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -224,6 +446,29 @@ type ServiceSpecTemplateMetadataCreateTime struct {
 	empty   bool   `json:"-"`
 	Seconds *int64 `json:"seconds"`
 	Nanos   *int64 `json:"nanos"`
+}
+
+type jsonServiceSpecTemplateMetadataCreateTime ServiceSpecTemplateMetadataCreateTime
+
+func (r *ServiceSpecTemplateMetadataCreateTime) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateMetadataCreateTime
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateMetadataCreateTime
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTemplateMetadataCreateTime is
@@ -252,6 +497,37 @@ type ServiceSpecTemplateMetadataOwnerReferences struct {
 	BlockOwnerDeletion *bool   `json:"blockOwnerDeletion"`
 }
 
+type jsonServiceSpecTemplateMetadataOwnerReferences ServiceSpecTemplateMetadataOwnerReferences
+
+func (r *ServiceSpecTemplateMetadataOwnerReferences) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateMetadataOwnerReferences
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateMetadataOwnerReferences
+	} else {
+
+		r.ApiVersion = res.ApiVersion
+
+		r.Kind = res.Kind
+
+		r.Name = res.Name
+
+		r.Uid = res.Uid
+
+		r.Controller = res.Controller
+
+		r.BlockOwnerDeletion = res.BlockOwnerDeletion
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceSpecTemplateMetadataOwnerReferences is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -272,6 +548,29 @@ type ServiceSpecTemplateMetadataDeleteTime struct {
 	empty   bool   `json:"-"`
 	Seconds *int64 `json:"seconds"`
 	Nanos   *int64 `json:"nanos"`
+}
+
+type jsonServiceSpecTemplateMetadataDeleteTime ServiceSpecTemplateMetadataDeleteTime
+
+func (r *ServiceSpecTemplateMetadataDeleteTime) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateMetadataDeleteTime
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateMetadataDeleteTime
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTemplateMetadataDeleteTime is
@@ -297,6 +596,35 @@ type ServiceSpecTemplateSpec struct {
 	ServiceAccountName   *string                             `json:"serviceAccountName"`
 	Containers           []ServiceSpecTemplateSpecContainers `json:"containers"`
 	Volumes              []ServiceSpecTemplateSpecVolumes    `json:"volumes"`
+}
+
+type jsonServiceSpecTemplateSpec ServiceSpecTemplateSpec
+
+func (r *ServiceSpecTemplateSpec) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpec
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpec
+	} else {
+
+		r.ContainerConcurrency = res.ContainerConcurrency
+
+		r.TimeoutSeconds = res.TimeoutSeconds
+
+		r.ServiceAccountName = res.ServiceAccountName
+
+		r.Containers = res.Containers
+
+		r.Volumes = res.Volumes
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTemplateSpec is
@@ -335,6 +663,57 @@ type ServiceSpecTemplateSpecContainers struct {
 	SecurityContext          *ServiceSpecTemplateSpecContainersSecurityContext `json:"securityContext"`
 }
 
+type jsonServiceSpecTemplateSpecContainers ServiceSpecTemplateSpecContainers
+
+func (r *ServiceSpecTemplateSpecContainers) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainers
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainers
+	} else {
+
+		r.Name = res.Name
+
+		r.Image = res.Image
+
+		r.Command = res.Command
+
+		r.Args = res.Args
+
+		r.Env = res.Env
+
+		r.Resources = res.Resources
+
+		r.WorkingDir = res.WorkingDir
+
+		r.Ports = res.Ports
+
+		r.EnvFrom = res.EnvFrom
+
+		r.VolumeMounts = res.VolumeMounts
+
+		r.LivenessProbe = res.LivenessProbe
+
+		r.ReadinessProbe = res.ReadinessProbe
+
+		r.TerminationMessagePath = res.TerminationMessagePath
+
+		r.TerminationMessagePolicy = res.TerminationMessagePolicy
+
+		r.ImagePullPolicy = res.ImagePullPolicy
+
+		r.SecurityContext = res.SecurityContext
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainers is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -358,6 +737,31 @@ type ServiceSpecTemplateSpecContainersEnv struct {
 	ValueFrom *ServiceSpecTemplateSpecContainersEnvValueFrom `json:"valueFrom"`
 }
 
+type jsonServiceSpecTemplateSpecContainersEnv ServiceSpecTemplateSpecContainersEnv
+
+func (r *ServiceSpecTemplateSpecContainersEnv) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersEnv
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersEnv
+	} else {
+
+		r.Name = res.Name
+
+		r.Value = res.Value
+
+		r.ValueFrom = res.ValueFrom
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersEnv is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -378,6 +782,29 @@ type ServiceSpecTemplateSpecContainersEnvValueFrom struct {
 	empty           bool                                                          `json:"-"`
 	ConfigMapKeyRef *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef `json:"configMapKeyRef"`
 	SecretKeyRef    *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef    `json:"secretKeyRef"`
+}
+
+type jsonServiceSpecTemplateSpecContainersEnvValueFrom ServiceSpecTemplateSpecContainersEnvValueFrom
+
+func (r *ServiceSpecTemplateSpecContainersEnvValueFrom) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersEnvValueFrom
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersEnvValueFrom
+	} else {
+
+		r.ConfigMapKeyRef = res.ConfigMapKeyRef
+
+		r.SecretKeyRef = res.SecretKeyRef
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersEnvValueFrom is
@@ -404,6 +831,33 @@ type ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef struct {
 	Name                 *string                                                                           `json:"name"`
 }
 
+type jsonServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef
+
+func (r *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef
+	} else {
+
+		r.LocalObjectReference = res.LocalObjectReference
+
+		r.Key = res.Key
+
+		r.Optional = res.Optional
+
+		r.Name = res.Name
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -423,6 +877,27 @@ func (r *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef) HashCode(
 type ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference struct {
 	empty bool    `json:"-"`
 	Name  *string `json:"name"`
+}
+
+type jsonServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference
+
+func (r *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference
+	} else {
+
+		r.Name = res.Name
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference is
@@ -449,6 +924,33 @@ type ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef struct {
 	Name                 *string                                                                        `json:"name"`
 }
 
+type jsonServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef
+
+func (r *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef
+	} else {
+
+		r.LocalObjectReference = res.LocalObjectReference
+
+		r.Key = res.Key
+
+		r.Optional = res.Optional
+
+		r.Name = res.Name
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -468,6 +970,27 @@ func (r *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef) HashCode() s
 type ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference struct {
 	empty bool    `json:"-"`
 	Name  *string `json:"name"`
+}
+
+type jsonServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference
+
+func (r *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference
+	} else {
+
+		r.Name = res.Name
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference is
@@ -490,6 +1013,29 @@ type ServiceSpecTemplateSpecContainersResources struct {
 	empty    bool              `json:"-"`
 	Limits   map[string]string `json:"limits"`
 	Requests map[string]string `json:"requests"`
+}
+
+type jsonServiceSpecTemplateSpecContainersResources ServiceSpecTemplateSpecContainersResources
+
+func (r *ServiceSpecTemplateSpecContainersResources) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersResources
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersResources
+	} else {
+
+		r.Limits = res.Limits
+
+		r.Requests = res.Requests
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersResources is
@@ -515,6 +1061,31 @@ type ServiceSpecTemplateSpecContainersPorts struct {
 	Protocol      *string `json:"protocol"`
 }
 
+type jsonServiceSpecTemplateSpecContainersPorts ServiceSpecTemplateSpecContainersPorts
+
+func (r *ServiceSpecTemplateSpecContainersPorts) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersPorts
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersPorts
+	} else {
+
+		r.Name = res.Name
+
+		r.ContainerPort = res.ContainerPort
+
+		r.Protocol = res.Protocol
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersPorts is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -536,6 +1107,31 @@ type ServiceSpecTemplateSpecContainersEnvFrom struct {
 	Prefix       *string                                               `json:"prefix"`
 	ConfigMapRef *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef `json:"configMapRef"`
 	SecretRef    *ServiceSpecTemplateSpecContainersEnvFromSecretRef    `json:"secretRef"`
+}
+
+type jsonServiceSpecTemplateSpecContainersEnvFrom ServiceSpecTemplateSpecContainersEnvFrom
+
+func (r *ServiceSpecTemplateSpecContainersEnvFrom) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersEnvFrom
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersEnvFrom
+	} else {
+
+		r.Prefix = res.Prefix
+
+		r.ConfigMapRef = res.ConfigMapRef
+
+		r.SecretRef = res.SecretRef
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersEnvFrom is
@@ -561,6 +1157,31 @@ type ServiceSpecTemplateSpecContainersEnvFromConfigMapRef struct {
 	Name                 *string                                                                   `json:"name"`
 }
 
+type jsonServiceSpecTemplateSpecContainersEnvFromConfigMapRef ServiceSpecTemplateSpecContainersEnvFromConfigMapRef
+
+func (r *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersEnvFromConfigMapRef
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersEnvFromConfigMapRef
+	} else {
+
+		r.LocalObjectReference = res.LocalObjectReference
+
+		r.Optional = res.Optional
+
+		r.Name = res.Name
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersEnvFromConfigMapRef is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -580,6 +1201,27 @@ func (r *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef) HashCode() string
 type ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference struct {
 	empty bool    `json:"-"`
 	Name  *string `json:"name"`
+}
+
+type jsonServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference
+
+func (r *ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference
+	} else {
+
+		r.Name = res.Name
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference is
@@ -605,6 +1247,31 @@ type ServiceSpecTemplateSpecContainersEnvFromSecretRef struct {
 	Name                 *string                                                                `json:"name"`
 }
 
+type jsonServiceSpecTemplateSpecContainersEnvFromSecretRef ServiceSpecTemplateSpecContainersEnvFromSecretRef
+
+func (r *ServiceSpecTemplateSpecContainersEnvFromSecretRef) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersEnvFromSecretRef
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersEnvFromSecretRef
+	} else {
+
+		r.LocalObjectReference = res.LocalObjectReference
+
+		r.Optional = res.Optional
+
+		r.Name = res.Name
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersEnvFromSecretRef is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -624,6 +1291,27 @@ func (r *ServiceSpecTemplateSpecContainersEnvFromSecretRef) HashCode() string {
 type ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference struct {
 	empty bool    `json:"-"`
 	Name  *string `json:"name"`
+}
+
+type jsonServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference
+
+func (r *ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference
+	} else {
+
+		r.Name = res.Name
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference is
@@ -648,6 +1336,33 @@ type ServiceSpecTemplateSpecContainersVolumeMounts struct {
 	ReadOnly  *bool   `json:"readOnly"`
 	MountPath *string `json:"mountPath"`
 	SubPath   *string `json:"subPath"`
+}
+
+type jsonServiceSpecTemplateSpecContainersVolumeMounts ServiceSpecTemplateSpecContainersVolumeMounts
+
+func (r *ServiceSpecTemplateSpecContainersVolumeMounts) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersVolumeMounts
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersVolumeMounts
+	} else {
+
+		r.Name = res.Name
+
+		r.ReadOnly = res.ReadOnly
+
+		r.MountPath = res.MountPath
+
+		r.SubPath = res.SubPath
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersVolumeMounts is
@@ -678,6 +1393,41 @@ type ServiceSpecTemplateSpecContainersLivenessProbe struct {
 	TcpSocket           *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket `json:"tcpSocket"`
 }
 
+type jsonServiceSpecTemplateSpecContainersLivenessProbe ServiceSpecTemplateSpecContainersLivenessProbe
+
+func (r *ServiceSpecTemplateSpecContainersLivenessProbe) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersLivenessProbe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersLivenessProbe
+	} else {
+
+		r.InitialDelaySeconds = res.InitialDelaySeconds
+
+		r.TimeoutSeconds = res.TimeoutSeconds
+
+		r.PeriodSeconds = res.PeriodSeconds
+
+		r.SuccessThreshold = res.SuccessThreshold
+
+		r.FailureThreshold = res.FailureThreshold
+
+		r.Exec = res.Exec
+
+		r.HttpGet = res.HttpGet
+
+		r.TcpSocket = res.TcpSocket
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersLivenessProbe is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -697,6 +1447,27 @@ func (r *ServiceSpecTemplateSpecContainersLivenessProbe) HashCode() string {
 type ServiceSpecTemplateSpecContainersLivenessProbeExec struct {
 	empty   bool    `json:"-"`
 	Command *string `json:"command"`
+}
+
+type jsonServiceSpecTemplateSpecContainersLivenessProbeExec ServiceSpecTemplateSpecContainersLivenessProbeExec
+
+func (r *ServiceSpecTemplateSpecContainersLivenessProbeExec) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersLivenessProbeExec
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersLivenessProbeExec
+	} else {
+
+		r.Command = res.Command
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersLivenessProbeExec is
@@ -723,6 +1494,33 @@ type ServiceSpecTemplateSpecContainersLivenessProbeHttpGet struct {
 	HttpHeaders []ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders `json:"httpHeaders"`
 }
 
+type jsonServiceSpecTemplateSpecContainersLivenessProbeHttpGet ServiceSpecTemplateSpecContainersLivenessProbeHttpGet
+
+func (r *ServiceSpecTemplateSpecContainersLivenessProbeHttpGet) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersLivenessProbeHttpGet
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersLivenessProbeHttpGet
+	} else {
+
+		r.Path = res.Path
+
+		r.Host = res.Host
+
+		r.Scheme = res.Scheme
+
+		r.HttpHeaders = res.HttpHeaders
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersLivenessProbeHttpGet is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -745,6 +1543,29 @@ type ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders struct {
 	Value *string `json:"value"`
 }
 
+type jsonServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders
+
+func (r *ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders
+	} else {
+
+		r.Name = res.Name
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -765,6 +1586,29 @@ type ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket struct {
 	empty bool    `json:"-"`
 	Port  *int64  `json:"port"`
 	Host  *string `json:"host"`
+}
+
+type jsonServiceSpecTemplateSpecContainersLivenessProbeTcpSocket ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket
+
+func (r *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersLivenessProbeTcpSocket
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersLivenessProbeTcpSocket
+	} else {
+
+		r.Port = res.Port
+
+		r.Host = res.Host
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket is
@@ -795,6 +1639,41 @@ type ServiceSpecTemplateSpecContainersReadinessProbe struct {
 	TcpSocket           *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket `json:"tcpSocket"`
 }
 
+type jsonServiceSpecTemplateSpecContainersReadinessProbe ServiceSpecTemplateSpecContainersReadinessProbe
+
+func (r *ServiceSpecTemplateSpecContainersReadinessProbe) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersReadinessProbe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersReadinessProbe
+	} else {
+
+		r.InitialDelaySeconds = res.InitialDelaySeconds
+
+		r.TimeoutSeconds = res.TimeoutSeconds
+
+		r.PeriodSeconds = res.PeriodSeconds
+
+		r.SuccessThreshold = res.SuccessThreshold
+
+		r.FailureThreshold = res.FailureThreshold
+
+		r.Exec = res.Exec
+
+		r.HttpGet = res.HttpGet
+
+		r.TcpSocket = res.TcpSocket
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersReadinessProbe is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -814,6 +1693,27 @@ func (r *ServiceSpecTemplateSpecContainersReadinessProbe) HashCode() string {
 type ServiceSpecTemplateSpecContainersReadinessProbeExec struct {
 	empty   bool    `json:"-"`
 	Command *string `json:"command"`
+}
+
+type jsonServiceSpecTemplateSpecContainersReadinessProbeExec ServiceSpecTemplateSpecContainersReadinessProbeExec
+
+func (r *ServiceSpecTemplateSpecContainersReadinessProbeExec) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersReadinessProbeExec
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersReadinessProbeExec
+	} else {
+
+		r.Command = res.Command
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersReadinessProbeExec is
@@ -840,6 +1740,33 @@ type ServiceSpecTemplateSpecContainersReadinessProbeHttpGet struct {
 	HttpHeaders []ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders `json:"httpHeaders"`
 }
 
+type jsonServiceSpecTemplateSpecContainersReadinessProbeHttpGet ServiceSpecTemplateSpecContainersReadinessProbeHttpGet
+
+func (r *ServiceSpecTemplateSpecContainersReadinessProbeHttpGet) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersReadinessProbeHttpGet
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersReadinessProbeHttpGet
+	} else {
+
+		r.Path = res.Path
+
+		r.Host = res.Host
+
+		r.Scheme = res.Scheme
+
+		r.HttpHeaders = res.HttpHeaders
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersReadinessProbeHttpGet is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -860,6 +1787,29 @@ type ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders struct {
 	empty bool    `json:"-"`
 	Name  *string `json:"name"`
 	Value *string `json:"value"`
+}
+
+type jsonServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders
+
+func (r *ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders
+	} else {
+
+		r.Name = res.Name
+
+		r.Value = res.Value
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders is
@@ -884,6 +1834,29 @@ type ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket struct {
 	Host  *string `json:"host"`
 }
 
+type jsonServiceSpecTemplateSpecContainersReadinessProbeTcpSocket ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket
+
+func (r *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersReadinessProbeTcpSocket
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersReadinessProbeTcpSocket
+	} else {
+
+		r.Port = res.Port
+
+		r.Host = res.Host
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -903,6 +1876,27 @@ func (r *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket) HashCode() st
 type ServiceSpecTemplateSpecContainersSecurityContext struct {
 	empty     bool   `json:"-"`
 	RunAsUser *int64 `json:"runAsUser"`
+}
+
+type jsonServiceSpecTemplateSpecContainersSecurityContext ServiceSpecTemplateSpecContainersSecurityContext
+
+func (r *ServiceSpecTemplateSpecContainersSecurityContext) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecContainersSecurityContext
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecContainersSecurityContext
+	} else {
+
+		r.RunAsUser = res.RunAsUser
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecContainersSecurityContext is
@@ -926,6 +1920,31 @@ type ServiceSpecTemplateSpecVolumes struct {
 	Name      *string                                  `json:"name"`
 	Secret    *ServiceSpecTemplateSpecVolumesSecret    `json:"secret"`
 	ConfigMap *ServiceSpecTemplateSpecVolumesConfigMap `json:"configMap"`
+}
+
+type jsonServiceSpecTemplateSpecVolumes ServiceSpecTemplateSpecVolumes
+
+func (r *ServiceSpecTemplateSpecVolumes) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecVolumes
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecVolumes
+	} else {
+
+		r.Name = res.Name
+
+		r.Secret = res.Secret
+
+		r.ConfigMap = res.ConfigMap
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecVolumes is
@@ -952,6 +1971,33 @@ type ServiceSpecTemplateSpecVolumesSecret struct {
 	Optional    *bool                                       `json:"optional"`
 }
 
+type jsonServiceSpecTemplateSpecVolumesSecret ServiceSpecTemplateSpecVolumesSecret
+
+func (r *ServiceSpecTemplateSpecVolumesSecret) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecVolumesSecret
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecVolumesSecret
+	} else {
+
+		r.SecretName = res.SecretName
+
+		r.Items = res.Items
+
+		r.DefaultMode = res.DefaultMode
+
+		r.Optional = res.Optional
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecVolumesSecret is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -973,6 +2019,31 @@ type ServiceSpecTemplateSpecVolumesSecretItems struct {
 	Key   *string `json:"key"`
 	Path  *string `json:"path"`
 	Mode  *int64  `json:"mode"`
+}
+
+type jsonServiceSpecTemplateSpecVolumesSecretItems ServiceSpecTemplateSpecVolumesSecretItems
+
+func (r *ServiceSpecTemplateSpecVolumesSecretItems) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecVolumesSecretItems
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecVolumesSecretItems
+	} else {
+
+		r.Key = res.Key
+
+		r.Path = res.Path
+
+		r.Mode = res.Mode
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecVolumesSecretItems is
@@ -999,6 +2070,33 @@ type ServiceSpecTemplateSpecVolumesConfigMap struct {
 	Optional    *bool                                          `json:"optional"`
 }
 
+type jsonServiceSpecTemplateSpecVolumesConfigMap ServiceSpecTemplateSpecVolumesConfigMap
+
+func (r *ServiceSpecTemplateSpecVolumesConfigMap) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecVolumesConfigMap
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecVolumesConfigMap
+	} else {
+
+		r.Name = res.Name
+
+		r.Items = res.Items
+
+		r.DefaultMode = res.DefaultMode
+
+		r.Optional = res.Optional
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecVolumesConfigMap is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1020,6 +2118,31 @@ type ServiceSpecTemplateSpecVolumesConfigMapItems struct {
 	Key   *string `json:"key"`
 	Path  *string `json:"path"`
 	Mode  *int64  `json:"mode"`
+}
+
+type jsonServiceSpecTemplateSpecVolumesConfigMapItems ServiceSpecTemplateSpecVolumesConfigMapItems
+
+func (r *ServiceSpecTemplateSpecVolumesConfigMapItems) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTemplateSpecVolumesConfigMapItems
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTemplateSpecVolumesConfigMapItems
+	} else {
+
+		r.Key = res.Key
+
+		r.Path = res.Path
+
+		r.Mode = res.Mode
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTemplateSpecVolumesConfigMapItems is
@@ -1046,6 +2169,37 @@ type ServiceSpecTraffic struct {
 	Tag               *string `json:"tag"`
 	LatestRevision    *bool   `json:"latestRevision"`
 	Url               *string `json:"url"`
+}
+
+type jsonServiceSpecTraffic ServiceSpecTraffic
+
+func (r *ServiceSpecTraffic) UnmarshalJSON(data []byte) error {
+	var res jsonServiceSpecTraffic
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceSpecTraffic
+	} else {
+
+		r.ConfigurationName = res.ConfigurationName
+
+		r.RevisionName = res.RevisionName
+
+		r.Percent = res.Percent
+
+		r.Tag = res.Tag
+
+		r.LatestRevision = res.LatestRevision
+
+		r.Url = res.Url
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceSpecTraffic is
@@ -1075,6 +2229,39 @@ type ServiceStatus struct {
 	Address                   *ServiceStatusAddress     `json:"address"`
 }
 
+type jsonServiceStatus ServiceStatus
+
+func (r *ServiceStatus) UnmarshalJSON(data []byte) error {
+	var res jsonServiceStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceStatus
+	} else {
+
+		r.ObservedGeneration = res.ObservedGeneration
+
+		r.Conditions = res.Conditions
+
+		r.LatestReadyRevisionName = res.LatestReadyRevisionName
+
+		r.LatestCreatedRevisionName = res.LatestCreatedRevisionName
+
+		r.Traffic = res.Traffic
+
+		r.Url = res.Url
+
+		r.Address = res.Address
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceStatus is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1101,6 +2288,37 @@ type ServiceStatusConditions struct {
 	Severity           *string                                    `json:"severity"`
 }
 
+type jsonServiceStatusConditions ServiceStatusConditions
+
+func (r *ServiceStatusConditions) UnmarshalJSON(data []byte) error {
+	var res jsonServiceStatusConditions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceStatusConditions
+	} else {
+
+		r.Type = res.Type
+
+		r.Status = res.Status
+
+		r.Reason = res.Reason
+
+		r.Message = res.Message
+
+		r.LastTransitionTime = res.LastTransitionTime
+
+		r.Severity = res.Severity
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceStatusConditions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1121,6 +2339,29 @@ type ServiceStatusConditionsLastTransitionTime struct {
 	empty   bool   `json:"-"`
 	Seconds *int64 `json:"seconds"`
 	Nanos   *int64 `json:"nanos"`
+}
+
+type jsonServiceStatusConditionsLastTransitionTime ServiceStatusConditionsLastTransitionTime
+
+func (r *ServiceStatusConditionsLastTransitionTime) UnmarshalJSON(data []byte) error {
+	var res jsonServiceStatusConditionsLastTransitionTime
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceStatusConditionsLastTransitionTime
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceStatusConditionsLastTransitionTime is
@@ -1149,6 +2390,37 @@ type ServiceStatusTraffic struct {
 	Url               *string `json:"url"`
 }
 
+type jsonServiceStatusTraffic ServiceStatusTraffic
+
+func (r *ServiceStatusTraffic) UnmarshalJSON(data []byte) error {
+	var res jsonServiceStatusTraffic
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceStatusTraffic
+	} else {
+
+		r.ConfigurationName = res.ConfigurationName
+
+		r.RevisionName = res.RevisionName
+
+		r.Percent = res.Percent
+
+		r.Tag = res.Tag
+
+		r.LatestRevision = res.LatestRevision
+
+		r.Url = res.Url
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServiceStatusTraffic is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1168,6 +2440,27 @@ func (r *ServiceStatusTraffic) HashCode() string {
 type ServiceStatusAddress struct {
 	empty bool    `json:"-"`
 	Url   *string `json:"url"`
+}
+
+type jsonServiceStatusAddress ServiceStatusAddress
+
+func (r *ServiceStatusAddress) UnmarshalJSON(data []byte) error {
+	var res jsonServiceStatusAddress
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServiceStatusAddress
+	} else {
+
+		r.Url = res.Url
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServiceStatusAddress is

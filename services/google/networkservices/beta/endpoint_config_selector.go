@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -102,6 +103,27 @@ type EndpointConfigSelectorHttpFilters struct {
 	HttpFilters []string `json:"httpFilters"`
 }
 
+type jsonEndpointConfigSelectorHttpFilters EndpointConfigSelectorHttpFilters
+
+func (r *EndpointConfigSelectorHttpFilters) UnmarshalJSON(data []byte) error {
+	var res jsonEndpointConfigSelectorHttpFilters
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyEndpointConfigSelectorHttpFilters
+	} else {
+
+		r.HttpFilters = res.HttpFilters
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this EndpointConfigSelectorHttpFilters is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -121,6 +143,27 @@ func (r *EndpointConfigSelectorHttpFilters) HashCode() string {
 type EndpointConfigSelectorEndpointMatcher struct {
 	empty                bool                                                       `json:"-"`
 	MetadataLabelMatcher *EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher `json:"metadataLabelMatcher"`
+}
+
+type jsonEndpointConfigSelectorEndpointMatcher EndpointConfigSelectorEndpointMatcher
+
+func (r *EndpointConfigSelectorEndpointMatcher) UnmarshalJSON(data []byte) error {
+	var res jsonEndpointConfigSelectorEndpointMatcher
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyEndpointConfigSelectorEndpointMatcher
+	} else {
+
+		r.MetadataLabelMatcher = res.MetadataLabelMatcher
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this EndpointConfigSelectorEndpointMatcher is
@@ -145,6 +188,29 @@ type EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher struct {
 	MetadataLabels             []EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels                `json:"metadataLabels"`
 }
 
+type jsonEndpointConfigSelectorEndpointMatcherMetadataLabelMatcher EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher
+
+func (r *EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher) UnmarshalJSON(data []byte) error {
+	var res jsonEndpointConfigSelectorEndpointMatcherMetadataLabelMatcher
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyEndpointConfigSelectorEndpointMatcherMetadataLabelMatcher
+	} else {
+
+		r.MetadataLabelMatchCriteria = res.MetadataLabelMatchCriteria
+
+		r.MetadataLabels = res.MetadataLabels
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -165,6 +231,29 @@ type EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels str
 	empty      bool    `json:"-"`
 	LabelName  *string `json:"labelName"`
 	LabelValue *string `json:"labelValue"`
+}
+
+type jsonEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels
+
+func (r *EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels) UnmarshalJSON(data []byte) error {
+	var res jsonEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels
+	} else {
+
+		r.LabelName = res.LabelName
+
+		r.LabelValue = res.LabelValue
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels is
@@ -188,6 +277,27 @@ type EndpointConfigSelectorTrafficPortSelector struct {
 	Ports []string `json:"ports"`
 }
 
+type jsonEndpointConfigSelectorTrafficPortSelector EndpointConfigSelectorTrafficPortSelector
+
+func (r *EndpointConfigSelectorTrafficPortSelector) UnmarshalJSON(data []byte) error {
+	var res jsonEndpointConfigSelectorTrafficPortSelector
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyEndpointConfigSelectorTrafficPortSelector
+	} else {
+
+		r.Ports = res.Ports
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this EndpointConfigSelectorTrafficPortSelector is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -208,7 +318,7 @@ func (r *EndpointConfigSelectorTrafficPortSelector) HashCode() string {
 // can identify it.
 func (r *EndpointConfigSelector) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "networkservices",
+		Service: "network_services",
 		Type:    "EndpointConfigSelector",
 		Version: "beta",
 	}

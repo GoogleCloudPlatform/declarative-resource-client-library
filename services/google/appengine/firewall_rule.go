@@ -64,7 +64,7 @@ func (v FirewallRuleActionEnum) Validate() error {
 // can identify it.
 func (r *FirewallRule) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "appengine",
+		Service: "app_engine",
 		Type:    "FirewallRule",
 		Version: "appengine",
 	}

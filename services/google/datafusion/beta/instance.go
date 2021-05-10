@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -114,6 +115,29 @@ type InstanceNetworkConfig struct {
 	IPAllocation *string `json:"ipAllocation"`
 }
 
+type jsonInstanceNetworkConfig InstanceNetworkConfig
+
+func (r *InstanceNetworkConfig) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNetworkConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNetworkConfig
+	} else {
+
+		r.Network = res.Network
+
+		r.IPAllocation = res.IPAllocation
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceNetworkConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -137,6 +161,31 @@ type InstanceAvailableVersion struct {
 	AvailableFeatures []string `json:"availableFeatures"`
 }
 
+type jsonInstanceAvailableVersion InstanceAvailableVersion
+
+func (r *InstanceAvailableVersion) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceAvailableVersion
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceAvailableVersion
+	} else {
+
+		r.VersionNumber = res.VersionNumber
+
+		r.DefaultVersion = res.DefaultVersion
+
+		r.AvailableFeatures = res.AvailableFeatures
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceAvailableVersion is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -157,7 +206,7 @@ func (r *InstanceAvailableVersion) HashCode() string {
 // can identify it.
 func (r *Instance) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "datafusion",
+		Service: "data_fusion",
 		Type:    "Instance",
 		Version: "beta",
 	}

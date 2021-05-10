@@ -16,6 +16,7 @@ package datastore
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -120,6 +121,29 @@ type IndexProperties struct {
 	empty     bool                          `json:"-"`
 	Name      *string                       `json:"name"`
 	Direction *IndexPropertiesDirectionEnum `json:"direction"`
+}
+
+type jsonIndexProperties IndexProperties
+
+func (r *IndexProperties) UnmarshalJSON(data []byte) error {
+	var res jsonIndexProperties
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyIndexProperties
+	} else {
+
+		r.Name = res.Name
+
+		r.Direction = res.Direction
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this IndexProperties is

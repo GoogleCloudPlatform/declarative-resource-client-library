@@ -16,6 +16,7 @@ package compute
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -205,6 +206,29 @@ type DiskGuestOsFeature struct {
 	TypeAlt []DiskGuestOsFeatureTypeAltEnum `json:"typeAlt"`
 }
 
+type jsonDiskGuestOsFeature DiskGuestOsFeature
+
+func (r *DiskGuestOsFeature) UnmarshalJSON(data []byte) error {
+	var res jsonDiskGuestOsFeature
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDiskGuestOsFeature
+	} else {
+
+		r.Type = res.Type
+
+		r.TypeAlt = res.TypeAlt
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DiskGuestOsFeature is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -229,6 +253,33 @@ type DiskEncryptionKey struct {
 	KmsKeyServiceAccount *string `json:"kmsKeyServiceAccount"`
 }
 
+type jsonDiskEncryptionKey DiskEncryptionKey
+
+func (r *DiskEncryptionKey) UnmarshalJSON(data []byte) error {
+	var res jsonDiskEncryptionKey
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDiskEncryptionKey
+	} else {
+
+		r.RawKey = res.RawKey
+
+		r.KmsKeyName = res.KmsKeyName
+
+		r.Sha256 = res.Sha256
+
+		r.KmsKeyServiceAccount = res.KmsKeyServiceAccount
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DiskEncryptionKey is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -249,6 +300,29 @@ type DiskGuestOsFeatures struct {
 	empty    bool                              `json:"-"`
 	Type     *DiskGuestOsFeaturesTypeEnum      `json:"type"`
 	TypeAlts []DiskGuestOsFeaturesTypeAltsEnum `json:"typeAlts"`
+}
+
+type jsonDiskGuestOsFeatures DiskGuestOsFeatures
+
+func (r *DiskGuestOsFeatures) UnmarshalJSON(data []byte) error {
+	var res jsonDiskGuestOsFeatures
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDiskGuestOsFeatures
+	} else {
+
+		r.Type = res.Type
+
+		r.TypeAlts = res.TypeAlts
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DiskGuestOsFeatures is

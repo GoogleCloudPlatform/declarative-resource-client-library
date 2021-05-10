@@ -16,6 +16,7 @@ package compute
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -78,6 +79,31 @@ type RouteWarning struct {
 	Code    *RouteWarningCodeEnum `json:"code"`
 	Message *string               `json:"message"`
 	Data    map[string]string     `json:"data"`
+}
+
+type jsonRouteWarning RouteWarning
+
+func (r *RouteWarning) UnmarshalJSON(data []byte) error {
+	var res jsonRouteWarning
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyRouteWarning
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Data = res.Data
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this RouteWarning is

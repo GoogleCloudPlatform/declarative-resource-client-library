@@ -89,8 +89,8 @@ components:
       x-dcl-locations: []
       x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Cloudresourcemanager Folder resource
-  title: Cloudresourcemanager/Folder
+  description: DCL Specification for the CloudResourceManager Folder resource
+  title: CloudResourceManager/Folder
   x-dcl-has-iam: true
 paths:
   apply:

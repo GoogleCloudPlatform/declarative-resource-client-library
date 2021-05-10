@@ -39,7 +39,7 @@ func (r *Reservation) String() string {
 // can identify it.
 func (r *Reservation) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "bigqueryreservation",
+		Service: "bigquery_reservation",
 		Type:    "Reservation",
 		Version: "bigqueryreservation",
 	}

@@ -16,6 +16,7 @@ package apigee
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -160,6 +161,27 @@ type OrganizationProperties struct {
 	Property []OrganizationPropertiesProperty `json:"property"`
 }
 
+type jsonOrganizationProperties OrganizationProperties
+
+func (r *OrganizationProperties) UnmarshalJSON(data []byte) error {
+	var res jsonOrganizationProperties
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyOrganizationProperties
+	} else {
+
+		r.Property = res.Property
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this OrganizationProperties is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -180,6 +202,29 @@ type OrganizationPropertiesProperty struct {
 	empty bool    `json:"-"`
 	Name  *string `json:"name"`
 	Value *string `json:"value"`
+}
+
+type jsonOrganizationPropertiesProperty OrganizationPropertiesProperty
+
+func (r *OrganizationPropertiesProperty) UnmarshalJSON(data []byte) error {
+	var res jsonOrganizationPropertiesProperty
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyOrganizationPropertiesProperty
+	} else {
+
+		r.Name = res.Name
+
+		r.Value = res.Value
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this OrganizationPropertiesProperty is

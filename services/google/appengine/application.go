@@ -16,6 +16,7 @@ package appengine
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -102,6 +103,31 @@ type ApplicationDispatchRules struct {
 	Service *string `json:"service"`
 }
 
+type jsonApplicationDispatchRules ApplicationDispatchRules
+
+func (r *ApplicationDispatchRules) UnmarshalJSON(data []byte) error {
+	var res jsonApplicationDispatchRules
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyApplicationDispatchRules
+	} else {
+
+		r.Domain = res.Domain
+
+		r.Path = res.Path
+
+		r.Service = res.Service
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ApplicationDispatchRules is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -122,6 +148,29 @@ type ApplicationFeatureSettings struct {
 	empty                   bool  `json:"-"`
 	SplitHealthChecks       *bool `json:"splitHealthChecks"`
 	UseContainerOptimizedOs *bool `json:"useContainerOptimizedOs"`
+}
+
+type jsonApplicationFeatureSettings ApplicationFeatureSettings
+
+func (r *ApplicationFeatureSettings) UnmarshalJSON(data []byte) error {
+	var res jsonApplicationFeatureSettings
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyApplicationFeatureSettings
+	} else {
+
+		r.SplitHealthChecks = res.SplitHealthChecks
+
+		r.UseContainerOptimizedOs = res.UseContainerOptimizedOs
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ApplicationFeatureSettings is
@@ -148,6 +197,33 @@ type ApplicationIap struct {
 	OAuth2ClientSecretSha256 *string `json:"oauth2ClientSecretSha256"`
 }
 
+type jsonApplicationIap ApplicationIap
+
+func (r *ApplicationIap) UnmarshalJSON(data []byte) error {
+	var res jsonApplicationIap
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyApplicationIap
+	} else {
+
+		r.Enabled = res.Enabled
+
+		r.OAuth2ClientId = res.OAuth2ClientId
+
+		r.OAuth2ClientSecret = res.OAuth2ClientSecret
+
+		r.OAuth2ClientSecretSha256 = res.OAuth2ClientSecretSha256
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ApplicationIap is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -168,7 +244,7 @@ func (r *ApplicationIap) HashCode() string {
 // can identify it.
 func (r *Application) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "appengine",
+		Service: "app_engine",
 		Type:    "Application",
 		Version: "appengine",
 	}

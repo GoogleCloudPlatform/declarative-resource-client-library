@@ -16,6 +16,7 @@ package container
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -147,6 +148,59 @@ type NodePoolConfig struct {
 	ShieldedInstanceConfig *NodePoolConfigShieldedInstanceConfig `json:"shieldedInstanceConfig"`
 }
 
+type jsonNodePoolConfig NodePoolConfig
+
+func (r *NodePoolConfig) UnmarshalJSON(data []byte) error {
+	var res jsonNodePoolConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodePoolConfig
+	} else {
+
+		r.MachineType = res.MachineType
+
+		r.DiskSizeGb = res.DiskSizeGb
+
+		r.OAuthScopes = res.OAuthScopes
+
+		r.ServiceAccount = res.ServiceAccount
+
+		r.Metadata = res.Metadata
+
+		r.ImageType = res.ImageType
+
+		r.Labels = res.Labels
+
+		r.LocalSsdCount = res.LocalSsdCount
+
+		r.Tags = res.Tags
+
+		r.Preemptible = res.Preemptible
+
+		r.Accelerators = res.Accelerators
+
+		r.DiskType = res.DiskType
+
+		r.MinCpuPlatform = res.MinCpuPlatform
+
+		r.Taints = res.Taints
+
+		r.SandboxConfig = res.SandboxConfig
+
+		r.ReservationAffinity = res.ReservationAffinity
+
+		r.ShieldedInstanceConfig = res.ShieldedInstanceConfig
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NodePoolConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -167,6 +221,29 @@ type NodePoolConfigAccelerators struct {
 	empty            bool    `json:"-"`
 	AcceleratorCount *int64  `json:"acceleratorCount"`
 	AcceleratorType  *string `json:"acceleratorType"`
+}
+
+type jsonNodePoolConfigAccelerators NodePoolConfigAccelerators
+
+func (r *NodePoolConfigAccelerators) UnmarshalJSON(data []byte) error {
+	var res jsonNodePoolConfigAccelerators
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodePoolConfigAccelerators
+	} else {
+
+		r.AcceleratorCount = res.AcceleratorCount
+
+		r.AcceleratorType = res.AcceleratorType
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this NodePoolConfigAccelerators is
@@ -192,6 +269,31 @@ type NodePoolConfigTaints struct {
 	Effect *string `json:"effect"`
 }
 
+type jsonNodePoolConfigTaints NodePoolConfigTaints
+
+func (r *NodePoolConfigTaints) UnmarshalJSON(data []byte) error {
+	var res jsonNodePoolConfigTaints
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodePoolConfigTaints
+	} else {
+
+		r.Key = res.Key
+
+		r.Value = res.Value
+
+		r.Effect = res.Effect
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NodePoolConfigTaints is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -211,6 +313,27 @@ func (r *NodePoolConfigTaints) HashCode() string {
 type NodePoolConfigSandboxConfig struct {
 	empty bool                                 `json:"-"`
 	Type  *NodePoolConfigSandboxConfigTypeEnum `json:"type"`
+}
+
+type jsonNodePoolConfigSandboxConfig NodePoolConfigSandboxConfig
+
+func (r *NodePoolConfigSandboxConfig) UnmarshalJSON(data []byte) error {
+	var res jsonNodePoolConfigSandboxConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodePoolConfigSandboxConfig
+	} else {
+
+		r.Type = res.Type
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this NodePoolConfigSandboxConfig is
@@ -236,6 +359,31 @@ type NodePoolConfigReservationAffinity struct {
 	Values                 []string                                                     `json:"values"`
 }
 
+type jsonNodePoolConfigReservationAffinity NodePoolConfigReservationAffinity
+
+func (r *NodePoolConfigReservationAffinity) UnmarshalJSON(data []byte) error {
+	var res jsonNodePoolConfigReservationAffinity
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodePoolConfigReservationAffinity
+	} else {
+
+		r.ConsumeReservationType = res.ConsumeReservationType
+
+		r.Key = res.Key
+
+		r.Values = res.Values
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NodePoolConfigReservationAffinity is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -256,6 +404,29 @@ type NodePoolConfigShieldedInstanceConfig struct {
 	empty                     bool  `json:"-"`
 	EnableSecureBoot          *bool `json:"enableSecureBoot"`
 	EnableIntegrityMonitoring *bool `json:"enableIntegrityMonitoring"`
+}
+
+type jsonNodePoolConfigShieldedInstanceConfig NodePoolConfigShieldedInstanceConfig
+
+func (r *NodePoolConfigShieldedInstanceConfig) UnmarshalJSON(data []byte) error {
+	var res jsonNodePoolConfigShieldedInstanceConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodePoolConfigShieldedInstanceConfig
+	} else {
+
+		r.EnableSecureBoot = res.EnableSecureBoot
+
+		r.EnableIntegrityMonitoring = res.EnableIntegrityMonitoring
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this NodePoolConfigShieldedInstanceConfig is
@@ -282,6 +453,33 @@ type NodePoolAutoscaling struct {
 	Autoprovisioned *bool  `json:"autoprovisioned"`
 }
 
+type jsonNodePoolAutoscaling NodePoolAutoscaling
+
+func (r *NodePoolAutoscaling) UnmarshalJSON(data []byte) error {
+	var res jsonNodePoolAutoscaling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodePoolAutoscaling
+	} else {
+
+		r.Enabled = res.Enabled
+
+		r.MinNodeCount = res.MinNodeCount
+
+		r.MaxNodeCount = res.MaxNodeCount
+
+		r.Autoprovisioned = res.Autoprovisioned
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NodePoolAutoscaling is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -303,6 +501,31 @@ type NodePoolManagement struct {
 	AutoUpgrade    *bool                             `json:"autoUpgrade"`
 	AutoRepair     *bool                             `json:"autoRepair"`
 	UpgradeOptions *NodePoolManagementUpgradeOptions `json:"upgradeOptions"`
+}
+
+type jsonNodePoolManagement NodePoolManagement
+
+func (r *NodePoolManagement) UnmarshalJSON(data []byte) error {
+	var res jsonNodePoolManagement
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodePoolManagement
+	} else {
+
+		r.AutoUpgrade = res.AutoUpgrade
+
+		r.AutoRepair = res.AutoRepair
+
+		r.UpgradeOptions = res.UpgradeOptions
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this NodePoolManagement is
@@ -327,6 +550,29 @@ type NodePoolManagementUpgradeOptions struct {
 	Description          *string `json:"description"`
 }
 
+type jsonNodePoolManagementUpgradeOptions NodePoolManagementUpgradeOptions
+
+func (r *NodePoolManagementUpgradeOptions) UnmarshalJSON(data []byte) error {
+	var res jsonNodePoolManagementUpgradeOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodePoolManagementUpgradeOptions
+	} else {
+
+		r.AutoUpgradeStartTime = res.AutoUpgradeStartTime
+
+		r.Description = res.Description
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NodePoolManagementUpgradeOptions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -346,6 +592,27 @@ func (r *NodePoolManagementUpgradeOptions) HashCode() string {
 type NodePoolMaxPodsConstraint struct {
 	empty          bool   `json:"-"`
 	MaxPodsPerNode *int64 `json:"maxPodsPerNode"`
+}
+
+type jsonNodePoolMaxPodsConstraint NodePoolMaxPodsConstraint
+
+func (r *NodePoolMaxPodsConstraint) UnmarshalJSON(data []byte) error {
+	var res jsonNodePoolMaxPodsConstraint
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodePoolMaxPodsConstraint
+	} else {
+
+		r.MaxPodsPerNode = res.MaxPodsPerNode
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this NodePoolMaxPodsConstraint is
@@ -370,6 +637,29 @@ type NodePoolConditions struct {
 	Message *string                     `json:"message"`
 }
 
+type jsonNodePoolConditions NodePoolConditions
+
+func (r *NodePoolConditions) UnmarshalJSON(data []byte) error {
+	var res jsonNodePoolConditions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodePoolConditions
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NodePoolConditions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -390,6 +680,29 @@ type NodePoolUpgradeSettings struct {
 	empty          bool   `json:"-"`
 	MaxSurge       *int64 `json:"maxSurge"`
 	MaxUnavailable *int64 `json:"maxUnavailable"`
+}
+
+type jsonNodePoolUpgradeSettings NodePoolUpgradeSettings
+
+func (r *NodePoolUpgradeSettings) UnmarshalJSON(data []byte) error {
+	var res jsonNodePoolUpgradeSettings
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodePoolUpgradeSettings
+	} else {
+
+		r.MaxSurge = res.MaxSurge
+
+		r.MaxUnavailable = res.MaxUnavailable
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this NodePoolUpgradeSettings is

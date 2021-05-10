@@ -16,6 +16,7 @@ package pubsub
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -44,6 +45,27 @@ type SubscriptionExpirationPolicy struct {
 	Ttl   *string `json:"ttl"`
 }
 
+type jsonSubscriptionExpirationPolicy SubscriptionExpirationPolicy
+
+func (r *SubscriptionExpirationPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonSubscriptionExpirationPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptySubscriptionExpirationPolicy
+	} else {
+
+		r.Ttl = res.Ttl
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this SubscriptionExpirationPolicy is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -64,6 +86,29 @@ type SubscriptionDeadLetterPolicy struct {
 	empty               bool    `json:"-"`
 	DeadLetterTopic     *string `json:"deadLetterTopic"`
 	MaxDeliveryAttempts *int64  `json:"maxDeliveryAttempts"`
+}
+
+type jsonSubscriptionDeadLetterPolicy SubscriptionDeadLetterPolicy
+
+func (r *SubscriptionDeadLetterPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonSubscriptionDeadLetterPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptySubscriptionDeadLetterPolicy
+	} else {
+
+		r.DeadLetterTopic = res.DeadLetterTopic
+
+		r.MaxDeliveryAttempts = res.MaxDeliveryAttempts
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this SubscriptionDeadLetterPolicy is
@@ -89,6 +134,31 @@ type SubscriptionPushConfig struct {
 	OidcToken    *SubscriptionPushConfigOidcToken `json:"oidcToken"`
 }
 
+type jsonSubscriptionPushConfig SubscriptionPushConfig
+
+func (r *SubscriptionPushConfig) UnmarshalJSON(data []byte) error {
+	var res jsonSubscriptionPushConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptySubscriptionPushConfig
+	} else {
+
+		r.PushEndpoint = res.PushEndpoint
+
+		r.Attributes = res.Attributes
+
+		r.OidcToken = res.OidcToken
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this SubscriptionPushConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -109,6 +179,29 @@ type SubscriptionPushConfigOidcToken struct {
 	empty               bool    `json:"-"`
 	ServiceAccountEmail *string `json:"serviceAccountEmail"`
 	Audience            *string `json:"audience"`
+}
+
+type jsonSubscriptionPushConfigOidcToken SubscriptionPushConfigOidcToken
+
+func (r *SubscriptionPushConfigOidcToken) UnmarshalJSON(data []byte) error {
+	var res jsonSubscriptionPushConfigOidcToken
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptySubscriptionPushConfigOidcToken
+	} else {
+
+		r.ServiceAccountEmail = res.ServiceAccountEmail
+
+		r.Audience = res.Audience
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this SubscriptionPushConfigOidcToken is

@@ -16,6 +16,7 @@ package cloudscheduler
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -133,6 +134,31 @@ type JobPubsubTarget struct {
 	Attributes map[string]string `json:"attributes"`
 }
 
+type jsonJobPubsubTarget JobPubsubTarget
+
+func (r *JobPubsubTarget) UnmarshalJSON(data []byte) error {
+	var res jsonJobPubsubTarget
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobPubsubTarget
+	} else {
+
+		r.TopicName = res.TopicName
+
+		r.Data = res.Data
+
+		r.Attributes = res.Attributes
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobPubsubTarget is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -158,6 +184,35 @@ type JobAppEngineHttpTarget struct {
 	Body             *string                                 `json:"body"`
 }
 
+type jsonJobAppEngineHttpTarget JobAppEngineHttpTarget
+
+func (r *JobAppEngineHttpTarget) UnmarshalJSON(data []byte) error {
+	var res jsonJobAppEngineHttpTarget
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobAppEngineHttpTarget
+	} else {
+
+		r.HttpMethod = res.HttpMethod
+
+		r.AppEngineRouting = res.AppEngineRouting
+
+		r.RelativeUri = res.RelativeUri
+
+		r.Headers = res.Headers
+
+		r.Body = res.Body
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobAppEngineHttpTarget is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -180,6 +235,33 @@ type JobAppEngineHttpTargetAppEngineRouting struct {
 	Version  *string `json:"version"`
 	Instance *string `json:"instance"`
 	Host     *string `json:"host"`
+}
+
+type jsonJobAppEngineHttpTargetAppEngineRouting JobAppEngineHttpTargetAppEngineRouting
+
+func (r *JobAppEngineHttpTargetAppEngineRouting) UnmarshalJSON(data []byte) error {
+	var res jsonJobAppEngineHttpTargetAppEngineRouting
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobAppEngineHttpTargetAppEngineRouting
+	} else {
+
+		r.Service = res.Service
+
+		r.Version = res.Version
+
+		r.Instance = res.Instance
+
+		r.Host = res.Host
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this JobAppEngineHttpTargetAppEngineRouting is
@@ -208,6 +290,37 @@ type JobHttpTarget struct {
 	OidcToken  *JobHttpTargetOidcToken      `json:"oidcToken"`
 }
 
+type jsonJobHttpTarget JobHttpTarget
+
+func (r *JobHttpTarget) UnmarshalJSON(data []byte) error {
+	var res jsonJobHttpTarget
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobHttpTarget
+	} else {
+
+		r.Uri = res.Uri
+
+		r.HttpMethod = res.HttpMethod
+
+		r.Headers = res.Headers
+
+		r.Body = res.Body
+
+		r.OAuthToken = res.OAuthToken
+
+		r.OidcToken = res.OidcToken
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobHttpTarget is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -230,6 +343,29 @@ type JobHttpTargetOAuthToken struct {
 	Scope               *string `json:"scope"`
 }
 
+type jsonJobHttpTargetOAuthToken JobHttpTargetOAuthToken
+
+func (r *JobHttpTargetOAuthToken) UnmarshalJSON(data []byte) error {
+	var res jsonJobHttpTargetOAuthToken
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobHttpTargetOAuthToken
+	} else {
+
+		r.ServiceAccountEmail = res.ServiceAccountEmail
+
+		r.Scope = res.Scope
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobHttpTargetOAuthToken is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -250,6 +386,29 @@ type JobHttpTargetOidcToken struct {
 	empty               bool    `json:"-"`
 	ServiceAccountEmail *string `json:"serviceAccountEmail"`
 	Audience            *string `json:"audience"`
+}
+
+type jsonJobHttpTargetOidcToken JobHttpTargetOidcToken
+
+func (r *JobHttpTargetOidcToken) UnmarshalJSON(data []byte) error {
+	var res jsonJobHttpTargetOidcToken
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobHttpTargetOidcToken
+	} else {
+
+		r.ServiceAccountEmail = res.ServiceAccountEmail
+
+		r.Audience = res.Audience
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this JobHttpTargetOidcToken is
@@ -275,6 +434,31 @@ type JobStatus struct {
 	Details []JobStatusDetails `json:"details"`
 }
 
+type jsonJobStatus JobStatus
+
+func (r *JobStatus) UnmarshalJSON(data []byte) error {
+	var res jsonJobStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobStatus is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -295,6 +479,29 @@ type JobStatusDetails struct {
 	empty   bool    `json:"-"`
 	TypeUrl *string `json:"typeUrl"`
 	Value   *string `json:"value"`
+}
+
+type jsonJobStatusDetails JobStatusDetails
+
+func (r *JobStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonJobStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this JobStatusDetails is
@@ -322,6 +529,35 @@ type JobRetryConfig struct {
 	MaxDoublings       *int64  `json:"maxDoublings"`
 }
 
+type jsonJobRetryConfig JobRetryConfig
+
+func (r *JobRetryConfig) UnmarshalJSON(data []byte) error {
+	var res jsonJobRetryConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobRetryConfig
+	} else {
+
+		r.RetryCount = res.RetryCount
+
+		r.MaxRetryDuration = res.MaxRetryDuration
+
+		r.MinBackoffDuration = res.MinBackoffDuration
+
+		r.MaxBackoffDuration = res.MaxBackoffDuration
+
+		r.MaxDoublings = res.MaxDoublings
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobRetryConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -342,7 +578,7 @@ func (r *JobRetryConfig) HashCode() string {
 // can identify it.
 func (r *Job) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "cloudscheduler",
+		Service: "cloud_scheduler",
 		Type:    "Job",
 		Version: "cloudscheduler",
 	}

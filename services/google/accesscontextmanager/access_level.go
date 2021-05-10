@@ -16,6 +16,7 @@ package accesscontextmanager
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -150,6 +151,29 @@ type AccessLevelBasic struct {
 	Conditions        []AccessLevelBasicConditions           `json:"conditions"`
 }
 
+type jsonAccessLevelBasic AccessLevelBasic
+
+func (r *AccessLevelBasic) UnmarshalJSON(data []byte) error {
+	var res jsonAccessLevelBasic
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAccessLevelBasic
+	} else {
+
+		r.CombiningFunction = res.CombiningFunction
+
+		r.Conditions = res.Conditions
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AccessLevelBasic is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -174,6 +198,37 @@ type AccessLevelBasicConditions struct {
 	Members              []string                                `json:"members"`
 	Negate               *bool                                   `json:"negate"`
 	DevicePolicy         *AccessLevelBasicConditionsDevicePolicy `json:"devicePolicy"`
+}
+
+type jsonAccessLevelBasicConditions AccessLevelBasicConditions
+
+func (r *AccessLevelBasicConditions) UnmarshalJSON(data []byte) error {
+	var res jsonAccessLevelBasicConditions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAccessLevelBasicConditions
+	} else {
+
+		r.Regions = res.Regions
+
+		r.IPSubnetworks = res.IPSubnetworks
+
+		r.RequiredAccessLevels = res.RequiredAccessLevels
+
+		r.Members = res.Members
+
+		r.Negate = res.Negate
+
+		r.DevicePolicy = res.DevicePolicy
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AccessLevelBasicConditions is
@@ -202,6 +257,37 @@ type AccessLevelBasicConditionsDevicePolicy struct {
 	OsConstraints                 []AccessLevelBasicConditionsDevicePolicyOsConstraints                     `json:"osConstraints"`
 }
 
+type jsonAccessLevelBasicConditionsDevicePolicy AccessLevelBasicConditionsDevicePolicy
+
+func (r *AccessLevelBasicConditionsDevicePolicy) UnmarshalJSON(data []byte) error {
+	var res jsonAccessLevelBasicConditionsDevicePolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAccessLevelBasicConditionsDevicePolicy
+	} else {
+
+		r.RequireScreenlock = res.RequireScreenlock
+
+		r.RequireAdminApproval = res.RequireAdminApproval
+
+		r.RequireCorpOwned = res.RequireCorpOwned
+
+		r.AllowedEncryptionStatuses = res.AllowedEncryptionStatuses
+
+		r.AllowedDeviceManagementLevels = res.AllowedDeviceManagementLevels
+
+		r.OsConstraints = res.OsConstraints
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AccessLevelBasicConditionsDevicePolicy is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -223,6 +309,31 @@ type AccessLevelBasicConditionsDevicePolicyOsConstraints struct {
 	MinimumVersion          *string                                                        `json:"minimumVersion"`
 	OsType                  *AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum `json:"osType"`
 	RequireVerifiedChromeOs *bool                                                          `json:"requireVerifiedChromeOs"`
+}
+
+type jsonAccessLevelBasicConditionsDevicePolicyOsConstraints AccessLevelBasicConditionsDevicePolicyOsConstraints
+
+func (r *AccessLevelBasicConditionsDevicePolicyOsConstraints) UnmarshalJSON(data []byte) error {
+	var res jsonAccessLevelBasicConditionsDevicePolicyOsConstraints
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAccessLevelBasicConditionsDevicePolicyOsConstraints
+	} else {
+
+		r.MinimumVersion = res.MinimumVersion
+
+		r.OsType = res.OsType
+
+		r.RequireVerifiedChromeOs = res.RequireVerifiedChromeOs
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AccessLevelBasicConditionsDevicePolicyOsConstraints is

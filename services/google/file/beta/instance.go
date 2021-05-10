@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -184,6 +185,33 @@ type InstanceFileShares struct {
 	NfsExportOptions []InstanceFileSharesNfsExportOptions `json:"nfsExportOptions"`
 }
 
+type jsonInstanceFileShares InstanceFileShares
+
+func (r *InstanceFileShares) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceFileShares
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceFileShares
+	} else {
+
+		r.Name = res.Name
+
+		r.CapacityGb = res.CapacityGb
+
+		r.SourceBackup = res.SourceBackup
+
+		r.NfsExportOptions = res.NfsExportOptions
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceFileShares is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -209,6 +237,35 @@ type InstanceFileSharesNfsExportOptions struct {
 	AnonGid    *int64                                            `json:"anonGid"`
 }
 
+type jsonInstanceFileSharesNfsExportOptions InstanceFileSharesNfsExportOptions
+
+func (r *InstanceFileSharesNfsExportOptions) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceFileSharesNfsExportOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceFileSharesNfsExportOptions
+	} else {
+
+		r.IPRanges = res.IPRanges
+
+		r.AccessMode = res.AccessMode
+
+		r.SquashMode = res.SquashMode
+
+		r.AnonUid = res.AnonUid
+
+		r.AnonGid = res.AnonGid
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceFileSharesNfsExportOptions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -231,6 +288,33 @@ type InstanceNetworks struct {
 	Modes           []InstanceNetworksModesEnum `json:"modes"`
 	ReservedIPRange *string                     `json:"reservedIPRange"`
 	IPAddresses     []string                    `json:"ipAddresses"`
+}
+
+type jsonInstanceNetworks InstanceNetworks
+
+func (r *InstanceNetworks) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNetworks
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNetworks
+	} else {
+
+		r.Network = res.Network
+
+		r.Modes = res.Modes
+
+		r.ReservedIPRange = res.ReservedIPRange
+
+		r.IPAddresses = res.IPAddresses
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceNetworks is

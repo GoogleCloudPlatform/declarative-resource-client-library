@@ -70,8 +70,8 @@ components:
       x-dcl-locations: []
       x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Appengine FirewallRule resource
-  title: Appengine/FirewallRule
+  description: DCL Specification for the AppEngine FirewallRule resource
+  title: AppEngine/FirewallRule
   x-dcl-has-iam: false
 paths:
   apply:

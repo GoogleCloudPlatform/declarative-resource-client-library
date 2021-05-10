@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -100,6 +101,31 @@ type SslPolicyWarning struct {
 	Data    []SslPolicyWarningData `json:"data"`
 }
 
+type jsonSslPolicyWarning SslPolicyWarning
+
+func (r *SslPolicyWarning) UnmarshalJSON(data []byte) error {
+	var res jsonSslPolicyWarning
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptySslPolicyWarning
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Data = res.Data
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this SslPolicyWarning is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -120,6 +146,29 @@ type SslPolicyWarningData struct {
 	empty bool    `json:"-"`
 	Key   *string `json:"key"`
 	Value *string `json:"value"`
+}
+
+type jsonSslPolicyWarningData SslPolicyWarningData
+
+func (r *SslPolicyWarningData) UnmarshalJSON(data []byte) error {
+	var res jsonSslPolicyWarningData
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptySslPolicyWarningData
+	} else {
+
+		r.Key = res.Key
+
+		r.Value = res.Value
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this SslPolicyWarningData is

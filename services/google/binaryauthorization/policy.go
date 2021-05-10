@@ -16,6 +16,7 @@ package binaryauthorization
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -177,6 +178,27 @@ type PolicyAdmissionWhitelistPatterns struct {
 	NamePattern *string `json:"namePattern"`
 }
 
+type jsonPolicyAdmissionWhitelistPatterns PolicyAdmissionWhitelistPatterns
+
+func (r *PolicyAdmissionWhitelistPatterns) UnmarshalJSON(data []byte) error {
+	var res jsonPolicyAdmissionWhitelistPatterns
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyPolicyAdmissionWhitelistPatterns
+	} else {
+
+		r.NamePattern = res.NamePattern
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this PolicyAdmissionWhitelistPatterns is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -198,6 +220,31 @@ type PolicyClusterAdmissionRules struct {
 	EvaluationMode        *PolicyClusterAdmissionRulesEvaluationModeEnum  `json:"evaluationMode"`
 	RequireAttestationsBy []string                                        `json:"requireAttestationsBy"`
 	EnforcementMode       *PolicyClusterAdmissionRulesEnforcementModeEnum `json:"enforcementMode"`
+}
+
+type jsonPolicyClusterAdmissionRules PolicyClusterAdmissionRules
+
+func (r *PolicyClusterAdmissionRules) UnmarshalJSON(data []byte) error {
+	var res jsonPolicyClusterAdmissionRules
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyPolicyClusterAdmissionRules
+	} else {
+
+		r.EvaluationMode = res.EvaluationMode
+
+		r.RequireAttestationsBy = res.RequireAttestationsBy
+
+		r.EnforcementMode = res.EnforcementMode
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this PolicyClusterAdmissionRules is
@@ -223,6 +270,31 @@ type PolicyDefaultAdmissionRule struct {
 	EnforcementMode       *PolicyDefaultAdmissionRuleEnforcementModeEnum `json:"enforcementMode"`
 }
 
+type jsonPolicyDefaultAdmissionRule PolicyDefaultAdmissionRule
+
+func (r *PolicyDefaultAdmissionRule) UnmarshalJSON(data []byte) error {
+	var res jsonPolicyDefaultAdmissionRule
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyPolicyDefaultAdmissionRule
+	} else {
+
+		r.EvaluationMode = res.EvaluationMode
+
+		r.RequireAttestationsBy = res.RequireAttestationsBy
+
+		r.EnforcementMode = res.EnforcementMode
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this PolicyDefaultAdmissionRule is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -243,7 +315,7 @@ func (r *PolicyDefaultAdmissionRule) HashCode() string {
 // can identify it.
 func (r *Policy) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "binaryauthorization",
+		Service: "binary_authorization",
 		Type:    "Policy",
 		Version: "binaryauthorization",
 	}

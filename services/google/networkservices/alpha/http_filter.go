@@ -42,7 +42,7 @@ func (r *HttpFilter) String() string {
 // can identify it.
 func (r *HttpFilter) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "networkservices",
+		Service: "network_services",
 		Type:    "HttpFilter",
 		Version: "alpha",
 	}

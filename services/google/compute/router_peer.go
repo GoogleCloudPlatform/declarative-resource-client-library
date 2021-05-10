@@ -50,6 +50,29 @@ type RouterPeerAdvertisedIPRanges struct {
 	Description *string `json:"description"`
 }
 
+type jsonRouterPeerAdvertisedIPRanges RouterPeerAdvertisedIPRanges
+
+func (r *RouterPeerAdvertisedIPRanges) UnmarshalJSON(data []byte) error {
+	var res jsonRouterPeerAdvertisedIPRanges
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyRouterPeerAdvertisedIPRanges
+	} else {
+
+		r.Range = res.Range
+
+		r.Description = res.Description
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this RouterPeerAdvertisedIPRanges is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.

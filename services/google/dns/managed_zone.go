@@ -16,6 +16,7 @@ package dns
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -211,6 +212,33 @@ type ManagedZoneDnssecConfig struct {
 	DefaultKeySpecs []ManagedZoneDnssecConfigDefaultKeySpecs `json:"defaultKeySpecs"`
 }
 
+type jsonManagedZoneDnssecConfig ManagedZoneDnssecConfig
+
+func (r *ManagedZoneDnssecConfig) UnmarshalJSON(data []byte) error {
+	var res jsonManagedZoneDnssecConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyManagedZoneDnssecConfig
+	} else {
+
+		r.Kind = res.Kind
+
+		r.NonExistence = res.NonExistence
+
+		r.State = res.State
+
+		r.DefaultKeySpecs = res.DefaultKeySpecs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ManagedZoneDnssecConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -235,6 +263,33 @@ type ManagedZoneDnssecConfigDefaultKeySpecs struct {
 	Kind      *string                                              `json:"kind"`
 }
 
+type jsonManagedZoneDnssecConfigDefaultKeySpecs ManagedZoneDnssecConfigDefaultKeySpecs
+
+func (r *ManagedZoneDnssecConfigDefaultKeySpecs) UnmarshalJSON(data []byte) error {
+	var res jsonManagedZoneDnssecConfigDefaultKeySpecs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyManagedZoneDnssecConfigDefaultKeySpecs
+	} else {
+
+		r.Algorithm = res.Algorithm
+
+		r.KeyLength = res.KeyLength
+
+		r.KeyType = res.KeyType
+
+		r.Kind = res.Kind
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ManagedZoneDnssecConfigDefaultKeySpecs is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -254,6 +309,27 @@ func (r *ManagedZoneDnssecConfigDefaultKeySpecs) HashCode() string {
 type ManagedZonePrivateVisibilityConfig struct {
 	empty    bool                                         `json:"-"`
 	Networks []ManagedZonePrivateVisibilityConfigNetworks `json:"networks"`
+}
+
+type jsonManagedZonePrivateVisibilityConfig ManagedZonePrivateVisibilityConfig
+
+func (r *ManagedZonePrivateVisibilityConfig) UnmarshalJSON(data []byte) error {
+	var res jsonManagedZonePrivateVisibilityConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyManagedZonePrivateVisibilityConfig
+	} else {
+
+		r.Networks = res.Networks
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ManagedZonePrivateVisibilityConfig is
@@ -277,6 +353,27 @@ type ManagedZonePrivateVisibilityConfigNetworks struct {
 	NetworkUrl *string `json:"networkUrl"`
 }
 
+type jsonManagedZonePrivateVisibilityConfigNetworks ManagedZonePrivateVisibilityConfigNetworks
+
+func (r *ManagedZonePrivateVisibilityConfigNetworks) UnmarshalJSON(data []byte) error {
+	var res jsonManagedZonePrivateVisibilityConfigNetworks
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyManagedZonePrivateVisibilityConfigNetworks
+	} else {
+
+		r.NetworkUrl = res.NetworkUrl
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ManagedZonePrivateVisibilityConfigNetworks is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -296,6 +393,27 @@ func (r *ManagedZonePrivateVisibilityConfigNetworks) HashCode() string {
 type ManagedZoneForwardingConfig struct {
 	empty             bool                                           `json:"-"`
 	TargetNameServers []ManagedZoneForwardingConfigTargetNameServers `json:"targetNameServers"`
+}
+
+type jsonManagedZoneForwardingConfig ManagedZoneForwardingConfig
+
+func (r *ManagedZoneForwardingConfig) UnmarshalJSON(data []byte) error {
+	var res jsonManagedZoneForwardingConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyManagedZoneForwardingConfig
+	} else {
+
+		r.TargetNameServers = res.TargetNameServers
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ManagedZoneForwardingConfig is
@@ -320,6 +438,29 @@ type ManagedZoneForwardingConfigTargetNameServers struct {
 	ForwardingPath *ManagedZoneForwardingConfigTargetNameServersForwardingPathEnum `json:"forwardingPath"`
 }
 
+type jsonManagedZoneForwardingConfigTargetNameServers ManagedZoneForwardingConfigTargetNameServers
+
+func (r *ManagedZoneForwardingConfigTargetNameServers) UnmarshalJSON(data []byte) error {
+	var res jsonManagedZoneForwardingConfigTargetNameServers
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyManagedZoneForwardingConfigTargetNameServers
+	} else {
+
+		r.IPv4Address = res.IPv4Address
+
+		r.ForwardingPath = res.ForwardingPath
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ManagedZoneForwardingConfigTargetNameServers is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -341,6 +482,27 @@ type ManagedZonePeeringConfig struct {
 	TargetNetwork *ManagedZonePeeringConfigTargetNetwork `json:"targetNetwork"`
 }
 
+type jsonManagedZonePeeringConfig ManagedZonePeeringConfig
+
+func (r *ManagedZonePeeringConfig) UnmarshalJSON(data []byte) error {
+	var res jsonManagedZonePeeringConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyManagedZonePeeringConfig
+	} else {
+
+		r.TargetNetwork = res.TargetNetwork
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ManagedZonePeeringConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -360,6 +522,27 @@ func (r *ManagedZonePeeringConfig) HashCode() string {
 type ManagedZonePeeringConfigTargetNetwork struct {
 	empty      bool    `json:"-"`
 	NetworkUrl *string `json:"networkUrl"`
+}
+
+type jsonManagedZonePeeringConfigTargetNetwork ManagedZonePeeringConfigTargetNetwork
+
+func (r *ManagedZonePeeringConfigTargetNetwork) UnmarshalJSON(data []byte) error {
+	var res jsonManagedZonePeeringConfigTargetNetwork
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyManagedZonePeeringConfigTargetNetwork
+	} else {
+
+		r.NetworkUrl = res.NetworkUrl
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ManagedZonePeeringConfigTargetNetwork is

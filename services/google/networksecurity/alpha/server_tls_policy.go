@@ -17,6 +17,7 @@ import (
 	"bytes"
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -47,6 +48,31 @@ type ServerTlsPolicyServerCertificate struct {
 	CertificateProviderInstance *ServerTlsPolicyServerCertificateCertificateProviderInstance `json:"certificateProviderInstance"`
 }
 
+type jsonServerTlsPolicyServerCertificate ServerTlsPolicyServerCertificate
+
+func (r *ServerTlsPolicyServerCertificate) UnmarshalJSON(data []byte) error {
+	var res jsonServerTlsPolicyServerCertificate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServerTlsPolicyServerCertificate
+	} else {
+
+		r.LocalFilepath = res.LocalFilepath
+
+		r.GrpcEndpoint = res.GrpcEndpoint
+
+		r.CertificateProviderInstance = res.CertificateProviderInstance
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServerTlsPolicyServerCertificate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -67,6 +93,29 @@ type ServerTlsPolicyServerCertificateLocalFilepath struct {
 	empty           bool    `json:"-"`
 	CertificatePath *string `json:"certificatePath"`
 	PrivateKeyPath  *string `json:"privateKeyPath"`
+}
+
+type jsonServerTlsPolicyServerCertificateLocalFilepath ServerTlsPolicyServerCertificateLocalFilepath
+
+func (r *ServerTlsPolicyServerCertificateLocalFilepath) UnmarshalJSON(data []byte) error {
+	var res jsonServerTlsPolicyServerCertificateLocalFilepath
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServerTlsPolicyServerCertificateLocalFilepath
+	} else {
+
+		r.CertificatePath = res.CertificatePath
+
+		r.PrivateKeyPath = res.PrivateKeyPath
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServerTlsPolicyServerCertificateLocalFilepath is
@@ -90,6 +139,27 @@ type ServerTlsPolicyServerCertificateGrpcEndpoint struct {
 	TargetUri *string `json:"targetUri"`
 }
 
+type jsonServerTlsPolicyServerCertificateGrpcEndpoint ServerTlsPolicyServerCertificateGrpcEndpoint
+
+func (r *ServerTlsPolicyServerCertificateGrpcEndpoint) UnmarshalJSON(data []byte) error {
+	var res jsonServerTlsPolicyServerCertificateGrpcEndpoint
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServerTlsPolicyServerCertificateGrpcEndpoint
+	} else {
+
+		r.TargetUri = res.TargetUri
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServerTlsPolicyServerCertificateGrpcEndpoint is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -111,6 +181,27 @@ type ServerTlsPolicyServerCertificateCertificateProviderInstance struct {
 	PluginInstance *string `json:"pluginInstance"`
 }
 
+type jsonServerTlsPolicyServerCertificateCertificateProviderInstance ServerTlsPolicyServerCertificateCertificateProviderInstance
+
+func (r *ServerTlsPolicyServerCertificateCertificateProviderInstance) UnmarshalJSON(data []byte) error {
+	var res jsonServerTlsPolicyServerCertificateCertificateProviderInstance
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServerTlsPolicyServerCertificateCertificateProviderInstance
+	} else {
+
+		r.PluginInstance = res.PluginInstance
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServerTlsPolicyServerCertificateCertificateProviderInstance is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -130,6 +221,27 @@ func (r *ServerTlsPolicyServerCertificateCertificateProviderInstance) HashCode()
 type ServerTlsPolicyMtlsPolicy struct {
 	empty              bool                                          `json:"-"`
 	ClientValidationCa []ServerTlsPolicyMtlsPolicyClientValidationCa `json:"clientValidationCa"`
+}
+
+type jsonServerTlsPolicyMtlsPolicy ServerTlsPolicyMtlsPolicy
+
+func (r *ServerTlsPolicyMtlsPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonServerTlsPolicyMtlsPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServerTlsPolicyMtlsPolicy
+	} else {
+
+		r.ClientValidationCa = res.ClientValidationCa
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServerTlsPolicyMtlsPolicy is
@@ -155,6 +267,31 @@ type ServerTlsPolicyMtlsPolicyClientValidationCa struct {
 	CertificateProviderInstance *ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance `json:"certificateProviderInstance"`
 }
 
+type jsonServerTlsPolicyMtlsPolicyClientValidationCa ServerTlsPolicyMtlsPolicyClientValidationCa
+
+func (r *ServerTlsPolicyMtlsPolicyClientValidationCa) UnmarshalJSON(data []byte) error {
+	var res jsonServerTlsPolicyMtlsPolicyClientValidationCa
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServerTlsPolicyMtlsPolicyClientValidationCa
+	} else {
+
+		r.CaCertPath = res.CaCertPath
+
+		r.GrpcEndpoint = res.GrpcEndpoint
+
+		r.CertificateProviderInstance = res.CertificateProviderInstance
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServerTlsPolicyMtlsPolicyClientValidationCa is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -174,6 +311,27 @@ func (r *ServerTlsPolicyMtlsPolicyClientValidationCa) HashCode() string {
 type ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint struct {
 	empty     bool    `json:"-"`
 	TargetUri *string `json:"targetUri"`
+}
+
+type jsonServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint
+
+func (r *ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint) UnmarshalJSON(data []byte) error {
+	var res jsonServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint
+	} else {
+
+		r.TargetUri = res.TargetUri
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint is
@@ -197,6 +355,27 @@ type ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance stru
 	PluginInstance *string `json:"pluginInstance"`
 }
 
+type jsonServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance
+
+func (r *ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance) UnmarshalJSON(data []byte) error {
+	var res jsonServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance
+	} else {
+
+		r.PluginInstance = res.PluginInstance
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -217,7 +396,7 @@ func (r *ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance)
 // can identify it.
 func (r *ServerTlsPolicy) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "networksecurity",
+		Service: "network_security",
 		Type:    "ServerTlsPolicy",
 		Version: "alpha",
 	}

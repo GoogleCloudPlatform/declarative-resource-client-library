@@ -16,6 +16,7 @@ package compute
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -79,6 +80,31 @@ type NetworkEndpointGroupCloudRun struct {
 	UrlMask *string `json:"urlMask"`
 }
 
+type jsonNetworkEndpointGroupCloudRun NetworkEndpointGroupCloudRun
+
+func (r *NetworkEndpointGroupCloudRun) UnmarshalJSON(data []byte) error {
+	var res jsonNetworkEndpointGroupCloudRun
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNetworkEndpointGroupCloudRun
+	} else {
+
+		r.Service = res.Service
+
+		r.Tag = res.Tag
+
+		r.UrlMask = res.UrlMask
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NetworkEndpointGroupCloudRun is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -102,6 +128,31 @@ type NetworkEndpointGroupAppEngine struct {
 	UrlMask *string `json:"urlMask"`
 }
 
+type jsonNetworkEndpointGroupAppEngine NetworkEndpointGroupAppEngine
+
+func (r *NetworkEndpointGroupAppEngine) UnmarshalJSON(data []byte) error {
+	var res jsonNetworkEndpointGroupAppEngine
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNetworkEndpointGroupAppEngine
+	} else {
+
+		r.Service = res.Service
+
+		r.Version = res.Version
+
+		r.UrlMask = res.UrlMask
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this NetworkEndpointGroupAppEngine is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -122,6 +173,29 @@ type NetworkEndpointGroupCloudFunction struct {
 	empty    bool    `json:"-"`
 	Function *string `json:"function"`
 	UrlMask  *string `json:"urlMask"`
+}
+
+type jsonNetworkEndpointGroupCloudFunction NetworkEndpointGroupCloudFunction
+
+func (r *NetworkEndpointGroupCloudFunction) UnmarshalJSON(data []byte) error {
+	var res jsonNetworkEndpointGroupCloudFunction
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNetworkEndpointGroupCloudFunction
+	} else {
+
+		r.Function = res.Function
+
+		r.UrlMask = res.UrlMask
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this NetworkEndpointGroupCloudFunction is

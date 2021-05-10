@@ -16,6 +16,7 @@ package compute
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -67,6 +68,27 @@ func (v NetworkRoutingConfigRoutingModeEnum) Validate() error {
 type NetworkRoutingConfig struct {
 	empty       bool                                 `json:"-"`
 	RoutingMode *NetworkRoutingConfigRoutingModeEnum `json:"routingMode"`
+}
+
+type jsonNetworkRoutingConfig NetworkRoutingConfig
+
+func (r *NetworkRoutingConfig) UnmarshalJSON(data []byte) error {
+	var res jsonNetworkRoutingConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNetworkRoutingConfig
+	} else {
+
+		r.RoutingMode = res.RoutingMode
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this NetworkRoutingConfig is

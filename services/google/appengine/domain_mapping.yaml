@@ -120,8 +120,8 @@ components:
       x-dcl-locations: []
       x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Appengine DomainMapping resource
-  title: Appengine/DomainMapping
+  description: DCL Specification for the AppEngine DomainMapping resource
+  title: AppEngine/DomainMapping
   x-dcl-has-iam: false
 paths:
   apply:

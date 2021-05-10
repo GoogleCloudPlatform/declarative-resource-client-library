@@ -16,6 +16,7 @@ package appengine
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -95,6 +96,31 @@ type DomainMappingSslSettings struct {
 	PendingManagedCertificateId *string                                        `json:"pendingManagedCertificateId"`
 }
 
+type jsonDomainMappingSslSettings DomainMappingSslSettings
+
+func (r *DomainMappingSslSettings) UnmarshalJSON(data []byte) error {
+	var res jsonDomainMappingSslSettings
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDomainMappingSslSettings
+	} else {
+
+		r.CertificateId = res.CertificateId
+
+		r.SslManagementType = res.SslManagementType
+
+		r.PendingManagedCertificateId = res.PendingManagedCertificateId
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DomainMappingSslSettings is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -118,6 +144,31 @@ type DomainMappingResourceRecords struct {
 	Type   *DomainMappingResourceRecordsTypeEnum `json:"type"`
 }
 
+type jsonDomainMappingResourceRecords DomainMappingResourceRecords
+
+func (r *DomainMappingResourceRecords) UnmarshalJSON(data []byte) error {
+	var res jsonDomainMappingResourceRecords
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDomainMappingResourceRecords
+	} else {
+
+		r.Name = res.Name
+
+		r.Rrdata = res.Rrdata
+
+		r.Type = res.Type
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DomainMappingResourceRecords is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -138,7 +189,7 @@ func (r *DomainMappingResourceRecords) HashCode() string {
 // can identify it.
 func (r *DomainMapping) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "appengine",
+		Service: "app_engine",
 		Type:    "DomainMapping",
 		Version: "appengine",
 	}

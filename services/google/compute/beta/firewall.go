@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -80,6 +81,27 @@ type FirewallLogConfig struct {
 	Enable *bool `json:"enable"`
 }
 
+type jsonFirewallLogConfig FirewallLogConfig
+
+func (r *FirewallLogConfig) UnmarshalJSON(data []byte) error {
+	var res jsonFirewallLogConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFirewallLogConfig
+	} else {
+
+		r.Enable = res.Enable
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this FirewallLogConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -103,6 +125,31 @@ type FirewallAllowed struct {
 	IPProtocolAlt []string `json:"ipProtocolAlt"`
 }
 
+type jsonFirewallAllowed FirewallAllowed
+
+func (r *FirewallAllowed) UnmarshalJSON(data []byte) error {
+	var res jsonFirewallAllowed
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFirewallAllowed
+	} else {
+
+		r.IPProtocol = res.IPProtocol
+
+		r.Ports = res.Ports
+
+		r.IPProtocolAlt = res.IPProtocolAlt
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this FirewallAllowed is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -124,6 +171,31 @@ type FirewallDenied struct {
 	IPProtocol    *string  `json:"ipProtocol"`
 	Ports         []string `json:"ports"`
 	IPProtocolAlt []string `json:"ipProtocolAlt"`
+}
+
+type jsonFirewallDenied FirewallDenied
+
+func (r *FirewallDenied) UnmarshalJSON(data []byte) error {
+	var res jsonFirewallDenied
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFirewallDenied
+	} else {
+
+		r.IPProtocol = res.IPProtocol
+
+		r.Ports = res.Ports
+
+		r.IPProtocolAlt = res.IPProtocolAlt
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this FirewallDenied is

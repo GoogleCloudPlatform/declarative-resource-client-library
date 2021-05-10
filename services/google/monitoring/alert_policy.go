@@ -16,6 +16,7 @@ package monitoring
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -428,6 +429,29 @@ type AlertPolicyDocumentation struct {
 	MimeType *string `json:"mimeType"`
 }
 
+type jsonAlertPolicyDocumentation AlertPolicyDocumentation
+
+func (r *AlertPolicyDocumentation) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyDocumentation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyDocumentation
+	} else {
+
+		r.Content = res.Content
+
+		r.MimeType = res.MimeType
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyDocumentation is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -460,6 +484,49 @@ type AlertPolicyConditions struct {
 	ConditionMonitoringQueryLanguage *AlertPolicyConditionsConditionMonitoringQueryLanguage `json:"conditionMonitoringQueryLanguage"`
 }
 
+type jsonAlertPolicyConditions AlertPolicyConditions
+
+func (r *AlertPolicyConditions) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditions
+	} else {
+
+		r.Name = res.Name
+
+		r.DisplayName = res.DisplayName
+
+		r.ResourceStateFilter = res.ResourceStateFilter
+
+		r.ConditionThreshold = res.ConditionThreshold
+
+		r.ConditionAbsent = res.ConditionAbsent
+
+		r.ConditionMatchedLog = res.ConditionMatchedLog
+
+		r.ConditionClusterOutlier = res.ConditionClusterOutlier
+
+		r.ConditionRate = res.ConditionRate
+
+		r.ConditionUpMon = res.ConditionUpMon
+
+		r.ConditionProcessCount = res.ConditionProcessCount
+
+		r.ConditionTimeSeriesQueryLanguage = res.ConditionTimeSeriesQueryLanguage
+
+		r.ConditionMonitoringQueryLanguage = res.ConditionMonitoringQueryLanguage
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -488,6 +555,41 @@ type AlertPolicyConditionsConditionThreshold struct {
 	Trigger                 *AlertPolicyConditionsConditionThresholdTrigger                  `json:"trigger"`
 }
 
+type jsonAlertPolicyConditionsConditionThreshold AlertPolicyConditionsConditionThreshold
+
+func (r *AlertPolicyConditionsConditionThreshold) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionThreshold
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionThreshold
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregations = res.Aggregations
+
+		r.DenominatorFilter = res.DenominatorFilter
+
+		r.DenominatorAggregations = res.DenominatorAggregations
+
+		r.Comparison = res.Comparison
+
+		r.ThresholdValue = res.ThresholdValue
+
+		r.Duration = res.Duration
+
+		r.Trigger = res.Trigger
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionThreshold is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -514,6 +616,37 @@ type AlertPolicyConditionsConditionThresholdAggregations struct {
 	ReduceMakeDistributionParams *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams `json:"reduceMakeDistributionParams"`
 }
 
+type jsonAlertPolicyConditionsConditionThresholdAggregations AlertPolicyConditionsConditionThresholdAggregations
+
+func (r *AlertPolicyConditionsConditionThresholdAggregations) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionThresholdAggregations
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionThresholdAggregations
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+		r.ReduceFractionLessThanParams = res.ReduceFractionLessThanParams
+
+		r.ReduceMakeDistributionParams = res.ReduceMakeDistributionParams
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionThresholdAggregations is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -533,6 +666,27 @@ func (r *AlertPolicyConditionsConditionThresholdAggregations) HashCode() string 
 type AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams struct {
 	empty     bool     `json:"-"`
 	Threshold *float64 `json:"threshold"`
+}
+
+type jsonAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams
+
+func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams
+	} else {
+
+		r.Threshold = res.Threshold
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams is
@@ -555,6 +709,29 @@ type AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionPa
 	empty            bool                                                                                             `json:"-"`
 	BucketOptions    *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions    `json:"bucketOptions"`
 	ExemplarSampling *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling `json:"exemplarSampling"`
+}
+
+type jsonAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams
+
+func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams
+	} else {
+
+		r.BucketOptions = res.BucketOptions
+
+		r.ExemplarSampling = res.ExemplarSampling
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams is
@@ -580,6 +757,31 @@ type AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionPa
 	ExplicitBuckets    *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets    `json:"explicitBuckets"`
 }
 
+type jsonAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions
+
+func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions
+	} else {
+
+		r.LinearBuckets = res.LinearBuckets
+
+		r.ExponentialBuckets = res.ExponentialBuckets
+
+		r.ExplicitBuckets = res.ExplicitBuckets
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -601,6 +803,31 @@ type AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionPa
 	NumFiniteBuckets *int64   `json:"numFiniteBuckets"`
 	Width            *float64 `json:"width"`
 	Offset           *float64 `json:"offset"`
+}
+
+type jsonAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+
+func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.Width = res.Width
+
+		r.Offset = res.Offset
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets is
@@ -626,6 +853,31 @@ type AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionPa
 	Scale            *float64 `json:"scale"`
 }
 
+type jsonAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+
+func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.GrowthFactor = res.GrowthFactor
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -647,6 +899,27 @@ type AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionPa
 	Bounds []float64 `json:"bounds"`
 }
 
+type jsonAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+
+func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	} else {
+
+		r.Bounds = res.Bounds
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -666,6 +939,27 @@ func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributi
 type AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling struct {
 	empty        bool     `json:"-"`
 	MinimumValue *float64 `json:"minimumValue"`
+}
+
+type jsonAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling
+
+func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling
+	} else {
+
+		r.MinimumValue = res.MinimumValue
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling is
@@ -694,6 +988,37 @@ type AlertPolicyConditionsConditionThresholdDenominatorAggregations struct {
 	ReduceMakeDistributionParams *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams `json:"reduceMakeDistributionParams"`
 }
 
+type jsonAlertPolicyConditionsConditionThresholdDenominatorAggregations AlertPolicyConditionsConditionThresholdDenominatorAggregations
+
+func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregations) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionThresholdDenominatorAggregations
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregations
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+		r.ReduceFractionLessThanParams = res.ReduceFractionLessThanParams
+
+		r.ReduceMakeDistributionParams = res.ReduceMakeDistributionParams
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionThresholdDenominatorAggregations is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -713,6 +1038,27 @@ func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregations) HashCod
 type AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams struct {
 	empty     bool     `json:"-"`
 	Threshold *float64 `json:"threshold"`
+}
+
+type jsonAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams
+
+func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams
+	} else {
+
+		r.Threshold = res.Threshold
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams is
@@ -735,6 +1081,29 @@ type AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDis
 	empty            bool                                                                                                        `json:"-"`
 	BucketOptions    *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions    `json:"bucketOptions"`
 	ExemplarSampling *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling `json:"exemplarSampling"`
+}
+
+type jsonAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams
+
+func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams
+	} else {
+
+		r.BucketOptions = res.BucketOptions
+
+		r.ExemplarSampling = res.ExemplarSampling
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams is
@@ -760,6 +1129,31 @@ type AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDis
 	ExplicitBuckets    *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets    `json:"explicitBuckets"`
 }
 
+type jsonAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions
+
+func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions
+	} else {
+
+		r.LinearBuckets = res.LinearBuckets
+
+		r.ExponentialBuckets = res.ExponentialBuckets
+
+		r.ExplicitBuckets = res.ExplicitBuckets
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -781,6 +1175,31 @@ type AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDis
 	NumFiniteBuckets *int64   `json:"numFiniteBuckets"`
 	Width            *float64 `json:"width"`
 	Offset           *float64 `json:"offset"`
+}
+
+type jsonAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+
+func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.Width = res.Width
+
+		r.Offset = res.Offset
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets is
@@ -806,6 +1225,31 @@ type AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDis
 	Scale            *float64 `json:"scale"`
 }
 
+type jsonAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+
+func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.GrowthFactor = res.GrowthFactor
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -827,6 +1271,27 @@ type AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDis
 	Bounds []float64 `json:"bounds"`
 }
 
+type jsonAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+
+func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	} else {
+
+		r.Bounds = res.Bounds
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -846,6 +1311,27 @@ func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMak
 type AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling struct {
 	empty        bool     `json:"-"`
 	MinimumValue *float64 `json:"minimumValue"`
+}
+
+type jsonAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling
+
+func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling
+	} else {
+
+		r.MinimumValue = res.MinimumValue
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling is
@@ -870,6 +1356,29 @@ type AlertPolicyConditionsConditionThresholdTrigger struct {
 	Percent *float64 `json:"percent"`
 }
 
+type jsonAlertPolicyConditionsConditionThresholdTrigger AlertPolicyConditionsConditionThresholdTrigger
+
+func (r *AlertPolicyConditionsConditionThresholdTrigger) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionThresholdTrigger
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionThresholdTrigger
+	} else {
+
+		r.Count = res.Count
+
+		r.Percent = res.Percent
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionThresholdTrigger is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -892,6 +1401,33 @@ type AlertPolicyConditionsConditionAbsent struct {
 	Aggregations []AlertPolicyConditionsConditionAbsentAggregations `json:"aggregations"`
 	Duration     *AlertPolicyConditionsConditionAbsentDuration      `json:"duration"`
 	Trigger      *AlertPolicyConditionsConditionAbsentTrigger       `json:"trigger"`
+}
+
+type jsonAlertPolicyConditionsConditionAbsent AlertPolicyConditionsConditionAbsent
+
+func (r *AlertPolicyConditionsConditionAbsent) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionAbsent
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionAbsent
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregations = res.Aggregations
+
+		r.Duration = res.Duration
+
+		r.Trigger = res.Trigger
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionAbsent is
@@ -920,6 +1456,37 @@ type AlertPolicyConditionsConditionAbsentAggregations struct {
 	ReduceMakeDistributionParams *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams `json:"reduceMakeDistributionParams"`
 }
 
+type jsonAlertPolicyConditionsConditionAbsentAggregations AlertPolicyConditionsConditionAbsentAggregations
+
+func (r *AlertPolicyConditionsConditionAbsentAggregations) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionAbsentAggregations
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionAbsentAggregations
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+		r.ReduceFractionLessThanParams = res.ReduceFractionLessThanParams
+
+		r.ReduceMakeDistributionParams = res.ReduceMakeDistributionParams
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionAbsentAggregations is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -939,6 +1506,27 @@ func (r *AlertPolicyConditionsConditionAbsentAggregations) HashCode() string {
 type AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams struct {
 	empty     bool     `json:"-"`
 	Threshold *float64 `json:"threshold"`
+}
+
+type jsonAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams
+
+func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams
+	} else {
+
+		r.Threshold = res.Threshold
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams is
@@ -961,6 +1549,29 @@ type AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParam
 	empty            bool                                                                                          `json:"-"`
 	BucketOptions    *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions    `json:"bucketOptions"`
 	ExemplarSampling *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling `json:"exemplarSampling"`
+}
+
+type jsonAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams
+
+func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams
+	} else {
+
+		r.BucketOptions = res.BucketOptions
+
+		r.ExemplarSampling = res.ExemplarSampling
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams is
@@ -986,6 +1597,31 @@ type AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParam
 	ExplicitBuckets    *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets    `json:"explicitBuckets"`
 }
 
+type jsonAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions
+
+func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions
+	} else {
+
+		r.LinearBuckets = res.LinearBuckets
+
+		r.ExponentialBuckets = res.ExponentialBuckets
+
+		r.ExplicitBuckets = res.ExplicitBuckets
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1007,6 +1643,31 @@ type AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParam
 	NumFiniteBuckets *int64   `json:"numFiniteBuckets"`
 	Width            *float64 `json:"width"`
 	Offset           *float64 `json:"offset"`
+}
+
+type jsonAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+
+func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.Width = res.Width
+
+		r.Offset = res.Offset
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets is
@@ -1032,6 +1693,31 @@ type AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParam
 	Scale            *float64 `json:"scale"`
 }
 
+type jsonAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+
+func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.GrowthFactor = res.GrowthFactor
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1053,6 +1739,27 @@ type AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParam
 	Bounds []float64 `json:"bounds"`
 }
 
+type jsonAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+
+func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	} else {
+
+		r.Bounds = res.Bounds
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1072,6 +1779,27 @@ func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionP
 type AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling struct {
 	empty        bool     `json:"-"`
 	MinimumValue *float64 `json:"minimumValue"`
+}
+
+type jsonAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling
+
+func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling
+	} else {
+
+		r.MinimumValue = res.MinimumValue
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling is
@@ -1096,6 +1824,29 @@ type AlertPolicyConditionsConditionAbsentDuration struct {
 	Nanos   *int64 `json:"nanos"`
 }
 
+type jsonAlertPolicyConditionsConditionAbsentDuration AlertPolicyConditionsConditionAbsentDuration
+
+func (r *AlertPolicyConditionsConditionAbsentDuration) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionAbsentDuration
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionAbsentDuration
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionAbsentDuration is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1116,6 +1867,29 @@ type AlertPolicyConditionsConditionAbsentTrigger struct {
 	empty   bool     `json:"-"`
 	Count   *int64   `json:"count"`
 	Percent *float64 `json:"percent"`
+}
+
+type jsonAlertPolicyConditionsConditionAbsentTrigger AlertPolicyConditionsConditionAbsentTrigger
+
+func (r *AlertPolicyConditionsConditionAbsentTrigger) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionAbsentTrigger
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionAbsentTrigger
+	} else {
+
+		r.Count = res.Count
+
+		r.Percent = res.Percent
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionAbsentTrigger is
@@ -1140,6 +1914,29 @@ type AlertPolicyConditionsConditionMatchedLog struct {
 	LabelExtractors map[string]string `json:"labelExtractors"`
 }
 
+type jsonAlertPolicyConditionsConditionMatchedLog AlertPolicyConditionsConditionMatchedLog
+
+func (r *AlertPolicyConditionsConditionMatchedLog) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionMatchedLog
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionMatchedLog
+	} else {
+
+		r.Filter = res.Filter
+
+		r.LabelExtractors = res.LabelExtractors
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionMatchedLog is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1159,6 +1956,27 @@ func (r *AlertPolicyConditionsConditionMatchedLog) HashCode() string {
 type AlertPolicyConditionsConditionClusterOutlier struct {
 	empty  bool    `json:"-"`
 	Filter *string `json:"filter"`
+}
+
+type jsonAlertPolicyConditionsConditionClusterOutlier AlertPolicyConditionsConditionClusterOutlier
+
+func (r *AlertPolicyConditionsConditionClusterOutlier) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionClusterOutlier
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionClusterOutlier
+	} else {
+
+		r.Filter = res.Filter
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionClusterOutlier is
@@ -1187,6 +2005,37 @@ type AlertPolicyConditionsConditionRate struct {
 	Trigger        *AlertPolicyConditionsConditionRateTrigger        `json:"trigger"`
 }
 
+type jsonAlertPolicyConditionsConditionRate AlertPolicyConditionsConditionRate
+
+func (r *AlertPolicyConditionsConditionRate) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionRate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionRate
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregations = res.Aggregations
+
+		r.Comparison = res.Comparison
+
+		r.ThresholdValue = res.ThresholdValue
+
+		r.TimeWindow = res.TimeWindow
+
+		r.Trigger = res.Trigger
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionRate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1213,6 +2062,37 @@ type AlertPolicyConditionsConditionRateAggregations struct {
 	ReduceMakeDistributionParams *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams `json:"reduceMakeDistributionParams"`
 }
 
+type jsonAlertPolicyConditionsConditionRateAggregations AlertPolicyConditionsConditionRateAggregations
+
+func (r *AlertPolicyConditionsConditionRateAggregations) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionRateAggregations
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionRateAggregations
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+		r.ReduceFractionLessThanParams = res.ReduceFractionLessThanParams
+
+		r.ReduceMakeDistributionParams = res.ReduceMakeDistributionParams
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionRateAggregations is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1232,6 +2112,27 @@ func (r *AlertPolicyConditionsConditionRateAggregations) HashCode() string {
 type AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams struct {
 	empty     bool     `json:"-"`
 	Threshold *float64 `json:"threshold"`
+}
+
+type jsonAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams
+
+func (r *AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams
+	} else {
+
+		r.Threshold = res.Threshold
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams is
@@ -1254,6 +2155,29 @@ type AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams 
 	empty            bool                                                                                        `json:"-"`
 	BucketOptions    *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions    `json:"bucketOptions"`
 	ExemplarSampling *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling `json:"exemplarSampling"`
+}
+
+type jsonAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams
+
+func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams
+	} else {
+
+		r.BucketOptions = res.BucketOptions
+
+		r.ExemplarSampling = res.ExemplarSampling
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams is
@@ -1279,6 +2203,31 @@ type AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsB
 	ExplicitBuckets    *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets    `json:"explicitBuckets"`
 }
 
+type jsonAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions
+
+func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions
+	} else {
+
+		r.LinearBuckets = res.LinearBuckets
+
+		r.ExponentialBuckets = res.ExponentialBuckets
+
+		r.ExplicitBuckets = res.ExplicitBuckets
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1300,6 +2249,31 @@ type AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsB
 	NumFiniteBuckets *int64   `json:"numFiniteBuckets"`
 	Width            *float64 `json:"width"`
 	Offset           *float64 `json:"offset"`
+}
+
+type jsonAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+
+func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.Width = res.Width
+
+		r.Offset = res.Offset
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets is
@@ -1325,6 +2299,31 @@ type AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsB
 	Scale            *float64 `json:"scale"`
 }
 
+type jsonAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+
+func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.GrowthFactor = res.GrowthFactor
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1346,6 +2345,27 @@ type AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsB
 	Bounds []float64 `json:"bounds"`
 }
 
+type jsonAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+
+func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	} else {
+
+		r.Bounds = res.Bounds
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1365,6 +2385,27 @@ func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionPar
 type AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling struct {
 	empty        bool     `json:"-"`
 	MinimumValue *float64 `json:"minimumValue"`
+}
+
+type jsonAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling
+
+func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling
+	} else {
+
+		r.MinimumValue = res.MinimumValue
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling is
@@ -1389,6 +2430,29 @@ type AlertPolicyConditionsConditionRateTimeWindow struct {
 	Nanos   *int64 `json:"nanos"`
 }
 
+type jsonAlertPolicyConditionsConditionRateTimeWindow AlertPolicyConditionsConditionRateTimeWindow
+
+func (r *AlertPolicyConditionsConditionRateTimeWindow) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionRateTimeWindow
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionRateTimeWindow
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionRateTimeWindow is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1409,6 +2473,29 @@ type AlertPolicyConditionsConditionRateTrigger struct {
 	empty   bool     `json:"-"`
 	Count   *int64   `json:"count"`
 	Percent *float64 `json:"percent"`
+}
+
+type jsonAlertPolicyConditionsConditionRateTrigger AlertPolicyConditionsConditionRateTrigger
+
+func (r *AlertPolicyConditionsConditionRateTrigger) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionRateTrigger
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionRateTrigger
+	} else {
+
+		r.Count = res.Count
+
+		r.Percent = res.Percent
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionRateTrigger is
@@ -1436,6 +2523,35 @@ type AlertPolicyConditionsConditionUpMon struct {
 	Trigger    *AlertPolicyConditionsConditionUpMonTrigger  `json:"trigger"`
 }
 
+type jsonAlertPolicyConditionsConditionUpMon AlertPolicyConditionsConditionUpMon
+
+func (r *AlertPolicyConditionsConditionUpMon) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionUpMon
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionUpMon
+	} else {
+
+		r.Filter = res.Filter
+
+		r.EndpointId = res.EndpointId
+
+		r.CheckId = res.CheckId
+
+		r.Duration = res.Duration
+
+		r.Trigger = res.Trigger
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionUpMon is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1458,6 +2574,29 @@ type AlertPolicyConditionsConditionUpMonDuration struct {
 	Nanos   *int64 `json:"nanos"`
 }
 
+type jsonAlertPolicyConditionsConditionUpMonDuration AlertPolicyConditionsConditionUpMonDuration
+
+func (r *AlertPolicyConditionsConditionUpMonDuration) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionUpMonDuration
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionUpMonDuration
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionUpMonDuration is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1478,6 +2617,29 @@ type AlertPolicyConditionsConditionUpMonTrigger struct {
 	empty   bool     `json:"-"`
 	Count   *int64   `json:"count"`
 	Percent *float64 `json:"percent"`
+}
+
+type jsonAlertPolicyConditionsConditionUpMonTrigger AlertPolicyConditionsConditionUpMonTrigger
+
+func (r *AlertPolicyConditionsConditionUpMonTrigger) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionUpMonTrigger
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionUpMonTrigger
+	} else {
+
+		r.Count = res.Count
+
+		r.Percent = res.Percent
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionUpMonTrigger is
@@ -1507,6 +2669,39 @@ type AlertPolicyConditionsConditionProcessCount struct {
 	Duration              *AlertPolicyConditionsConditionProcessCountDuration       `json:"duration"`
 }
 
+type jsonAlertPolicyConditionsConditionProcessCount AlertPolicyConditionsConditionProcessCount
+
+func (r *AlertPolicyConditionsConditionProcessCount) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionProcessCount
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionProcessCount
+	} else {
+
+		r.Process = res.Process
+
+		r.User = res.User
+
+		r.Filter = res.Filter
+
+		r.Comparison = res.Comparison
+
+		r.ProcessCountThreshold = res.ProcessCountThreshold
+
+		r.Trigger = res.Trigger
+
+		r.Duration = res.Duration
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionProcessCount is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1527,6 +2722,29 @@ type AlertPolicyConditionsConditionProcessCountTrigger struct {
 	empty   bool     `json:"-"`
 	Count   *int64   `json:"count"`
 	Percent *float64 `json:"percent"`
+}
+
+type jsonAlertPolicyConditionsConditionProcessCountTrigger AlertPolicyConditionsConditionProcessCountTrigger
+
+func (r *AlertPolicyConditionsConditionProcessCountTrigger) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionProcessCountTrigger
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionProcessCountTrigger
+	} else {
+
+		r.Count = res.Count
+
+		r.Percent = res.Percent
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionProcessCountTrigger is
@@ -1551,6 +2769,29 @@ type AlertPolicyConditionsConditionProcessCountDuration struct {
 	Nanos   *int64 `json:"nanos"`
 }
 
+type jsonAlertPolicyConditionsConditionProcessCountDuration AlertPolicyConditionsConditionProcessCountDuration
+
+func (r *AlertPolicyConditionsConditionProcessCountDuration) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionProcessCountDuration
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionProcessCountDuration
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionProcessCountDuration is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1571,6 +2812,29 @@ type AlertPolicyConditionsConditionTimeSeriesQueryLanguage struct {
 	empty   bool    `json:"-"`
 	Query   *string `json:"query"`
 	Summary *string `json:"summary"`
+}
+
+type jsonAlertPolicyConditionsConditionTimeSeriesQueryLanguage AlertPolicyConditionsConditionTimeSeriesQueryLanguage
+
+func (r *AlertPolicyConditionsConditionTimeSeriesQueryLanguage) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionTimeSeriesQueryLanguage
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionTimeSeriesQueryLanguage
+	} else {
+
+		r.Query = res.Query
+
+		r.Summary = res.Summary
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionTimeSeriesQueryLanguage is
@@ -1596,6 +2860,31 @@ type AlertPolicyConditionsConditionMonitoringQueryLanguage struct {
 	Trigger  *AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger  `json:"trigger"`
 }
 
+type jsonAlertPolicyConditionsConditionMonitoringQueryLanguage AlertPolicyConditionsConditionMonitoringQueryLanguage
+
+func (r *AlertPolicyConditionsConditionMonitoringQueryLanguage) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionMonitoringQueryLanguage
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionMonitoringQueryLanguage
+	} else {
+
+		r.Query = res.Query
+
+		r.Duration = res.Duration
+
+		r.Trigger = res.Trigger
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionMonitoringQueryLanguage is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1616,6 +2905,29 @@ type AlertPolicyConditionsConditionMonitoringQueryLanguageDuration struct {
 	empty   bool   `json:"-"`
 	Seconds *int64 `json:"seconds"`
 	Nanos   *int64 `json:"nanos"`
+}
+
+type jsonAlertPolicyConditionsConditionMonitoringQueryLanguageDuration AlertPolicyConditionsConditionMonitoringQueryLanguageDuration
+
+func (r *AlertPolicyConditionsConditionMonitoringQueryLanguageDuration) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionMonitoringQueryLanguageDuration
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionMonitoringQueryLanguageDuration
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionMonitoringQueryLanguageDuration is
@@ -1640,6 +2952,29 @@ type AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger struct {
 	Percent *float64 `json:"percent"`
 }
 
+type jsonAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger
+
+func (r *AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger
+	} else {
+
+		r.Count = res.Count
+
+		r.Percent = res.Percent
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1659,6 +2994,27 @@ func (r *AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger) HashCode(
 type AlertPolicyEnabled struct {
 	empty bool  `json:"-"`
 	Value *bool `json:"value"`
+}
+
+type jsonAlertPolicyEnabled AlertPolicyEnabled
+
+func (r *AlertPolicyEnabled) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyEnabled
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyEnabled
+	} else {
+
+		r.Value = res.Value
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyEnabled is
@@ -1684,6 +3040,31 @@ type AlertPolicyValidity struct {
 	Details []AlertPolicyValidityDetails `json:"details"`
 }
 
+type jsonAlertPolicyValidity AlertPolicyValidity
+
+func (r *AlertPolicyValidity) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyValidity
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyValidity
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyValidity is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1704,6 +3085,29 @@ type AlertPolicyValidityDetails struct {
 	empty   bool    `json:"-"`
 	TypeUrl *string `json:"typeUrl"`
 	Value   *string `json:"value"`
+}
+
+type jsonAlertPolicyValidityDetails AlertPolicyValidityDetails
+
+func (r *AlertPolicyValidityDetails) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyValidityDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyValidityDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyValidityDetails is
@@ -1728,6 +3132,29 @@ type AlertPolicyCreationRecord struct {
 	MutatedBy  *string                              `json:"mutatedBy"`
 }
 
+type jsonAlertPolicyCreationRecord AlertPolicyCreationRecord
+
+func (r *AlertPolicyCreationRecord) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyCreationRecord
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyCreationRecord
+	} else {
+
+		r.MutateTime = res.MutateTime
+
+		r.MutatedBy = res.MutatedBy
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyCreationRecord is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1748,6 +3175,29 @@ type AlertPolicyCreationRecordMutateTime struct {
 	empty   bool   `json:"-"`
 	Seconds *int64 `json:"seconds"`
 	Nanos   *int64 `json:"nanos"`
+}
+
+type jsonAlertPolicyCreationRecordMutateTime AlertPolicyCreationRecordMutateTime
+
+func (r *AlertPolicyCreationRecordMutateTime) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyCreationRecordMutateTime
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyCreationRecordMutateTime
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyCreationRecordMutateTime is
@@ -1772,6 +3222,29 @@ type AlertPolicyMutationRecord struct {
 	MutatedBy  *string                              `json:"mutatedBy"`
 }
 
+type jsonAlertPolicyMutationRecord AlertPolicyMutationRecord
+
+func (r *AlertPolicyMutationRecord) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyMutationRecord
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyMutationRecord
+	} else {
+
+		r.MutateTime = res.MutateTime
+
+		r.MutatedBy = res.MutatedBy
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyMutationRecord is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1792,6 +3265,29 @@ type AlertPolicyMutationRecordMutateTime struct {
 	empty   bool   `json:"-"`
 	Seconds *int64 `json:"seconds"`
 	Nanos   *int64 `json:"nanos"`
+}
+
+type jsonAlertPolicyMutationRecordMutateTime AlertPolicyMutationRecordMutateTime
+
+func (r *AlertPolicyMutationRecordMutateTime) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyMutationRecordMutateTime
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyMutationRecordMutateTime
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyMutationRecordMutateTime is
@@ -1815,6 +3311,27 @@ type AlertPolicyIncidentStrategy struct {
 	Type  *AlertPolicyIncidentStrategyTypeEnum `json:"type"`
 }
 
+type jsonAlertPolicyIncidentStrategy AlertPolicyIncidentStrategy
+
+func (r *AlertPolicyIncidentStrategy) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyIncidentStrategy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyIncidentStrategy
+	} else {
+
+		r.Type = res.Type
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AlertPolicyIncidentStrategy is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1834,6 +3351,27 @@ func (r *AlertPolicyIncidentStrategy) HashCode() string {
 type AlertPolicyMetadata struct {
 	empty    bool     `json:"-"`
 	SloNames []string `json:"sloNames"`
+}
+
+type jsonAlertPolicyMetadata AlertPolicyMetadata
+
+func (r *AlertPolicyMetadata) UnmarshalJSON(data []byte) error {
+	var res jsonAlertPolicyMetadata
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAlertPolicyMetadata
+	} else {
+
+		r.SloNames = res.SloNames
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AlertPolicyMetadata is

@@ -179,8 +179,8 @@ components:
       x-dcl-locations: []
       x-dcl-uses-state-hint: true
 info:
-  description: DCL Specification for the Appengine Application resource
-  title: Appengine/Application
+  description: DCL Specification for the AppEngine Application resource
+  title: AppEngine/Application
   x-dcl-has-iam: false
 paths:
   apply:

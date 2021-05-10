@@ -582,8 +582,8 @@ components:
       x-dcl-parent-container: project
       x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Cloudbuild BuildTrigger resource
-  title: Cloudbuild/BuildTrigger
+  description: DCL Specification for the CloudBuild BuildTrigger resource
+  title: CloudBuild/BuildTrigger
   x-dcl-has-iam: false
 paths:
   apply:

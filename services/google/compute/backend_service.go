@@ -16,6 +16,7 @@ package compute
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -240,6 +241,49 @@ type BackendServiceBackends struct {
 	Failover                  *bool                                    `json:"failover"`
 }
 
+type jsonBackendServiceBackends BackendServiceBackends
+
+func (r *BackendServiceBackends) UnmarshalJSON(data []byte) error {
+	var res jsonBackendServiceBackends
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBackendServiceBackends
+	} else {
+
+		r.Description = res.Description
+
+		r.Group = res.Group
+
+		r.BalancingMode = res.BalancingMode
+
+		r.MaxUtilization = res.MaxUtilization
+
+		r.MaxRate = res.MaxRate
+
+		r.MaxRatePerInstance = res.MaxRatePerInstance
+
+		r.MaxRatePerEndpoint = res.MaxRatePerEndpoint
+
+		r.MaxConnections = res.MaxConnections
+
+		r.MaxConnectionsPerInstance = res.MaxConnectionsPerInstance
+
+		r.MaxConnectionsPerEndpoint = res.MaxConnectionsPerEndpoint
+
+		r.CapacityScaler = res.CapacityScaler
+
+		r.Failover = res.Failover
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BackendServiceBackends is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -263,6 +307,31 @@ type BackendServiceFailoverPolicy struct {
 	FailoverRatio                    *float64 `json:"failoverRatio"`
 }
 
+type jsonBackendServiceFailoverPolicy BackendServiceFailoverPolicy
+
+func (r *BackendServiceFailoverPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonBackendServiceFailoverPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBackendServiceFailoverPolicy
+	} else {
+
+		r.DisableConnectionDrainOnFailover = res.DisableConnectionDrainOnFailover
+
+		r.DropTrafficIfUnhealthy = res.DropTrafficIfUnhealthy
+
+		r.FailoverRatio = res.FailoverRatio
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BackendServiceFailoverPolicy is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -282,6 +351,27 @@ func (r *BackendServiceFailoverPolicy) HashCode() string {
 type BackendServiceConnectionDraining struct {
 	empty              bool   `json:"-"`
 	DrainingTimeoutSec *int64 `json:"drainingTimeoutSec"`
+}
+
+type jsonBackendServiceConnectionDraining BackendServiceConnectionDraining
+
+func (r *BackendServiceConnectionDraining) UnmarshalJSON(data []byte) error {
+	var res jsonBackendServiceConnectionDraining
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBackendServiceConnectionDraining
+	} else {
+
+		r.DrainingTimeoutSec = res.DrainingTimeoutSec
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this BackendServiceConnectionDraining is
@@ -306,6 +396,33 @@ type BackendServiceIap struct {
 	OAuth2ClientId           *string `json:"oauth2ClientId"`
 	OAuth2ClientSecret       *string `json:"oauth2ClientSecret"`
 	OAuth2ClientSecretSha256 *string `json:"oauth2ClientSecretSha256"`
+}
+
+type jsonBackendServiceIap BackendServiceIap
+
+func (r *BackendServiceIap) UnmarshalJSON(data []byte) error {
+	var res jsonBackendServiceIap
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBackendServiceIap
+	} else {
+
+		r.Enabled = res.Enabled
+
+		r.OAuth2ClientId = res.OAuth2ClientId
+
+		r.OAuth2ClientSecret = res.OAuth2ClientSecret
+
+		r.OAuth2ClientSecretSha256 = res.OAuth2ClientSecretSha256
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this BackendServiceIap is
@@ -340,6 +457,49 @@ type BackendServiceCdnPolicy struct {
 	ServeWhileStale             *int64                                               `json:"serveWhileStale"`
 }
 
+type jsonBackendServiceCdnPolicy BackendServiceCdnPolicy
+
+func (r *BackendServiceCdnPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonBackendServiceCdnPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBackendServiceCdnPolicy
+	} else {
+
+		r.CacheKeyPolicy = res.CacheKeyPolicy
+
+		r.SignedUrlKeyNames = res.SignedUrlKeyNames
+
+		r.SignedUrlCacheMaxAgeSec = res.SignedUrlCacheMaxAgeSec
+
+		r.RequestCoalescing = res.RequestCoalescing
+
+		r.CacheMode = res.CacheMode
+
+		r.DefaultTtl = res.DefaultTtl
+
+		r.MaxTtl = res.MaxTtl
+
+		r.ClientTtl = res.ClientTtl
+
+		r.NegativeCaching = res.NegativeCaching
+
+		r.NegativeCachingPolicy = res.NegativeCachingPolicy
+
+		r.BypassCacheOnRequestHeaders = res.BypassCacheOnRequestHeaders
+
+		r.ServeWhileStale = res.ServeWhileStale
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BackendServiceCdnPolicy is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -367,6 +527,39 @@ type BackendServiceCdnPolicyCacheKeyPolicy struct {
 	IncludeNamedCookies  []string `json:"includeNamedCookies"`
 }
 
+type jsonBackendServiceCdnPolicyCacheKeyPolicy BackendServiceCdnPolicyCacheKeyPolicy
+
+func (r *BackendServiceCdnPolicyCacheKeyPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonBackendServiceCdnPolicyCacheKeyPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBackendServiceCdnPolicyCacheKeyPolicy
+	} else {
+
+		r.IncludeProtocol = res.IncludeProtocol
+
+		r.IncludeHost = res.IncludeHost
+
+		r.IncludeQueryString = res.IncludeQueryString
+
+		r.QueryStringWhitelist = res.QueryStringWhitelist
+
+		r.QueryStringBlacklist = res.QueryStringBlacklist
+
+		r.IncludeHttpHeaders = res.IncludeHttpHeaders
+
+		r.IncludeNamedCookies = res.IncludeNamedCookies
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BackendServiceCdnPolicyCacheKeyPolicy is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -389,6 +582,29 @@ type BackendServiceCdnPolicyNegativeCachingPolicy struct {
 	Ttl   *int64 `json:"ttl"`
 }
 
+type jsonBackendServiceCdnPolicyNegativeCachingPolicy BackendServiceCdnPolicyNegativeCachingPolicy
+
+func (r *BackendServiceCdnPolicyNegativeCachingPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonBackendServiceCdnPolicyNegativeCachingPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBackendServiceCdnPolicyNegativeCachingPolicy
+	} else {
+
+		r.Code = res.Code
+
+		r.Ttl = res.Ttl
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BackendServiceCdnPolicyNegativeCachingPolicy is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -408,6 +624,27 @@ func (r *BackendServiceCdnPolicyNegativeCachingPolicy) HashCode() string {
 type BackendServiceCdnPolicyBypassCacheOnRequestHeaders struct {
 	empty      bool    `json:"-"`
 	HeaderName *string `json:"headerName"`
+}
+
+type jsonBackendServiceCdnPolicyBypassCacheOnRequestHeaders BackendServiceCdnPolicyBypassCacheOnRequestHeaders
+
+func (r *BackendServiceCdnPolicyBypassCacheOnRequestHeaders) UnmarshalJSON(data []byte) error {
+	var res jsonBackendServiceCdnPolicyBypassCacheOnRequestHeaders
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBackendServiceCdnPolicyBypassCacheOnRequestHeaders
+	} else {
+
+		r.HeaderName = res.HeaderName
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this BackendServiceCdnPolicyBypassCacheOnRequestHeaders is
@@ -432,6 +669,29 @@ type BackendServiceLogConfig struct {
 	SampleRate *float64 `json:"sampleRate"`
 }
 
+type jsonBackendServiceLogConfig BackendServiceLogConfig
+
+func (r *BackendServiceLogConfig) UnmarshalJSON(data []byte) error {
+	var res jsonBackendServiceLogConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBackendServiceLogConfig
+	} else {
+
+		r.Enable = res.Enable
+
+		r.SampleRate = res.SampleRate
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BackendServiceLogConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -452,6 +712,29 @@ type BackendServiceSecuritySettings struct {
 	empty           bool     `json:"-"`
 	ClientTlsPolicy *string  `json:"clientTlsPolicy"`
 	SubjectAltNames []string `json:"subjectAltNames"`
+}
+
+type jsonBackendServiceSecuritySettings BackendServiceSecuritySettings
+
+func (r *BackendServiceSecuritySettings) UnmarshalJSON(data []byte) error {
+	var res jsonBackendServiceSecuritySettings
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBackendServiceSecuritySettings
+	} else {
+
+		r.ClientTlsPolicy = res.ClientTlsPolicy
+
+		r.SubjectAltNames = res.SubjectAltNames
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this BackendServiceSecuritySettings is
@@ -477,6 +760,31 @@ type BackendServiceConsistentHash struct {
 	MinimumRingSize *int64                                  `json:"minimumRingSize"`
 }
 
+type jsonBackendServiceConsistentHash BackendServiceConsistentHash
+
+func (r *BackendServiceConsistentHash) UnmarshalJSON(data []byte) error {
+	var res jsonBackendServiceConsistentHash
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBackendServiceConsistentHash
+	} else {
+
+		r.HttpCookie = res.HttpCookie
+
+		r.HttpHeaderName = res.HttpHeaderName
+
+		r.MinimumRingSize = res.MinimumRingSize
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BackendServiceConsistentHash is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -500,6 +808,31 @@ type BackendServiceConsistentHashHttpCookie struct {
 	Ttl   *BackendServiceConsistentHashHttpCookieTtl `json:"ttl"`
 }
 
+type jsonBackendServiceConsistentHashHttpCookie BackendServiceConsistentHashHttpCookie
+
+func (r *BackendServiceConsistentHashHttpCookie) UnmarshalJSON(data []byte) error {
+	var res jsonBackendServiceConsistentHashHttpCookie
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBackendServiceConsistentHashHttpCookie
+	} else {
+
+		r.Name = res.Name
+
+		r.Path = res.Path
+
+		r.Ttl = res.Ttl
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BackendServiceConsistentHashHttpCookie is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -520,6 +853,29 @@ type BackendServiceConsistentHashHttpCookieTtl struct {
 	empty   bool   `json:"-"`
 	Seconds *int64 `json:"seconds"`
 	Nanos   *int64 `json:"nanos"`
+}
+
+type jsonBackendServiceConsistentHashHttpCookieTtl BackendServiceConsistentHashHttpCookieTtl
+
+func (r *BackendServiceConsistentHashHttpCookieTtl) UnmarshalJSON(data []byte) error {
+	var res jsonBackendServiceConsistentHashHttpCookieTtl
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBackendServiceConsistentHashHttpCookieTtl
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this BackendServiceConsistentHashHttpCookieTtl is
@@ -545,6 +901,35 @@ type BackendServiceCircuitBreakers struct {
 	MaxPendingRequests       *int64 `json:"maxPendingRequests"`
 	MaxRequests              *int64 `json:"maxRequests"`
 	MaxRetries               *int64 `json:"maxRetries"`
+}
+
+type jsonBackendServiceCircuitBreakers BackendServiceCircuitBreakers
+
+func (r *BackendServiceCircuitBreakers) UnmarshalJSON(data []byte) error {
+	var res jsonBackendServiceCircuitBreakers
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBackendServiceCircuitBreakers
+	} else {
+
+		r.MaxRequestsPerConnection = res.MaxRequestsPerConnection
+
+		r.MaxConnections = res.MaxConnections
+
+		r.MaxPendingRequests = res.MaxPendingRequests
+
+		r.MaxRequests = res.MaxRequests
+
+		r.MaxRetries = res.MaxRetries
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this BackendServiceCircuitBreakers is
@@ -578,6 +963,47 @@ type BackendServiceOutlierDetection struct {
 	EnforcingConsecutiveGatewayFailure *int64                                          `json:"enforcingConsecutiveGatewayFailure"`
 }
 
+type jsonBackendServiceOutlierDetection BackendServiceOutlierDetection
+
+func (r *BackendServiceOutlierDetection) UnmarshalJSON(data []byte) error {
+	var res jsonBackendServiceOutlierDetection
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBackendServiceOutlierDetection
+	} else {
+
+		r.ConsecutiveErrors = res.ConsecutiveErrors
+
+		r.Interval = res.Interval
+
+		r.BaseEjectionTime = res.BaseEjectionTime
+
+		r.MaxEjectionPercent = res.MaxEjectionPercent
+
+		r.EnforcingConsecutiveErrors = res.EnforcingConsecutiveErrors
+
+		r.EnforcingSuccessRate = res.EnforcingSuccessRate
+
+		r.SuccessRateMinimumHosts = res.SuccessRateMinimumHosts
+
+		r.SuccessRateRequestVolume = res.SuccessRateRequestVolume
+
+		r.SuccessRateStdevFactor = res.SuccessRateStdevFactor
+
+		r.ConsecutiveGatewayFailure = res.ConsecutiveGatewayFailure
+
+		r.EnforcingConsecutiveGatewayFailure = res.EnforcingConsecutiveGatewayFailure
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BackendServiceOutlierDetection is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -598,6 +1024,29 @@ type BackendServiceOutlierDetectionInterval struct {
 	empty   bool   `json:"-"`
 	Seconds *int64 `json:"seconds"`
 	Nanos   *int64 `json:"nanos"`
+}
+
+type jsonBackendServiceOutlierDetectionInterval BackendServiceOutlierDetectionInterval
+
+func (r *BackendServiceOutlierDetectionInterval) UnmarshalJSON(data []byte) error {
+	var res jsonBackendServiceOutlierDetectionInterval
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBackendServiceOutlierDetectionInterval
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this BackendServiceOutlierDetectionInterval is
@@ -622,6 +1071,29 @@ type BackendServiceOutlierDetectionBaseEjectionTime struct {
 	Nanos   *int64 `json:"nanos"`
 }
 
+type jsonBackendServiceOutlierDetectionBaseEjectionTime BackendServiceOutlierDetectionBaseEjectionTime
+
+func (r *BackendServiceOutlierDetectionBaseEjectionTime) UnmarshalJSON(data []byte) error {
+	var res jsonBackendServiceOutlierDetectionBaseEjectionTime
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBackendServiceOutlierDetectionBaseEjectionTime
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this BackendServiceOutlierDetectionBaseEjectionTime is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -642,6 +1114,29 @@ type BackendServiceMaxStreamDuration struct {
 	empty   bool   `json:"-"`
 	Seconds *int64 `json:"seconds"`
 	Nanos   *int64 `json:"nanos"`
+}
+
+type jsonBackendServiceMaxStreamDuration BackendServiceMaxStreamDuration
+
+func (r *BackendServiceMaxStreamDuration) UnmarshalJSON(data []byte) error {
+	var res jsonBackendServiceMaxStreamDuration
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyBackendServiceMaxStreamDuration
+	} else {
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this BackendServiceMaxStreamDuration is

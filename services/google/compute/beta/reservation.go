@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -100,6 +101,31 @@ type ReservationSpecificReservation struct {
 	InUseCount         *int64                                            `json:"inUseCount"`
 }
 
+type jsonReservationSpecificReservation ReservationSpecificReservation
+
+func (r *ReservationSpecificReservation) UnmarshalJSON(data []byte) error {
+	var res jsonReservationSpecificReservation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyReservationSpecificReservation
+	} else {
+
+		r.InstanceProperties = res.InstanceProperties
+
+		r.Count = res.Count
+
+		r.InUseCount = res.InUseCount
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ReservationSpecificReservation is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -124,6 +150,33 @@ type ReservationSpecificReservationInstanceProperties struct {
 	LocalSsds         []ReservationSpecificReservationInstancePropertiesLocalSsds         `json:"localSsds"`
 }
 
+type jsonReservationSpecificReservationInstanceProperties ReservationSpecificReservationInstanceProperties
+
+func (r *ReservationSpecificReservationInstanceProperties) UnmarshalJSON(data []byte) error {
+	var res jsonReservationSpecificReservationInstanceProperties
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyReservationSpecificReservationInstanceProperties
+	} else {
+
+		r.MachineType = res.MachineType
+
+		r.GuestAccelerators = res.GuestAccelerators
+
+		r.MinCpuPlatform = res.MinCpuPlatform
+
+		r.LocalSsds = res.LocalSsds
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ReservationSpecificReservationInstanceProperties is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -146,6 +199,29 @@ type ReservationSpecificReservationInstancePropertiesGuestAccelerators struct {
 	AcceleratorCount *int64  `json:"acceleratorCount"`
 }
 
+type jsonReservationSpecificReservationInstancePropertiesGuestAccelerators ReservationSpecificReservationInstancePropertiesGuestAccelerators
+
+func (r *ReservationSpecificReservationInstancePropertiesGuestAccelerators) UnmarshalJSON(data []byte) error {
+	var res jsonReservationSpecificReservationInstancePropertiesGuestAccelerators
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyReservationSpecificReservationInstancePropertiesGuestAccelerators
+	} else {
+
+		r.AcceleratorType = res.AcceleratorType
+
+		r.AcceleratorCount = res.AcceleratorCount
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this ReservationSpecificReservationInstancePropertiesGuestAccelerators is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -166,6 +242,29 @@ type ReservationSpecificReservationInstancePropertiesLocalSsds struct {
 	empty      bool                                                                    `json:"-"`
 	DiskSizeGb *int64                                                                  `json:"diskSizeGb"`
 	Interface  *ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum `json:"interface"`
+}
+
+type jsonReservationSpecificReservationInstancePropertiesLocalSsds ReservationSpecificReservationInstancePropertiesLocalSsds
+
+func (r *ReservationSpecificReservationInstancePropertiesLocalSsds) UnmarshalJSON(data []byte) error {
+	var res jsonReservationSpecificReservationInstancePropertiesLocalSsds
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyReservationSpecificReservationInstancePropertiesLocalSsds
+	} else {
+
+		r.DiskSizeGb = res.DiskSizeGb
+
+		r.Interface = res.Interface
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this ReservationSpecificReservationInstancePropertiesLocalSsds is

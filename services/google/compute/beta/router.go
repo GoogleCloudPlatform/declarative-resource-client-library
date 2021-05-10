@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -218,6 +219,49 @@ type RouterNats struct {
 	Subnetworks                   []RouterNatsSubnetworks                      `json:"subnetworks"`
 }
 
+type jsonRouterNats RouterNats
+
+func (r *RouterNats) UnmarshalJSON(data []byte) error {
+	var res jsonRouterNats
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyRouterNats
+	} else {
+
+		r.Name = res.Name
+
+		r.LogConfig = res.LogConfig
+
+		r.SourceSubnetworkIPRangesToNat = res.SourceSubnetworkIPRangesToNat
+
+		r.NatIps = res.NatIps
+
+		r.DrainNatIps = res.DrainNatIps
+
+		r.NatIPAllocateOption = res.NatIPAllocateOption
+
+		r.MinPortsPerVm = res.MinPortsPerVm
+
+		r.UdpIdleTimeoutSec = res.UdpIdleTimeoutSec
+
+		r.IcmpIdleTimeoutSec = res.IcmpIdleTimeoutSec
+
+		r.TcpEstablishedIdleTimeoutSec = res.TcpEstablishedIdleTimeoutSec
+
+		r.TcpTransitoryIdleTimeoutSec = res.TcpTransitoryIdleTimeoutSec
+
+		r.Subnetworks = res.Subnetworks
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this RouterNats is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -238,6 +282,29 @@ type RouterNatsLogConfig struct {
 	empty  bool                           `json:"-"`
 	Enable *bool                          `json:"enable"`
 	Filter *RouterNatsLogConfigFilterEnum `json:"filter"`
+}
+
+type jsonRouterNatsLogConfig RouterNatsLogConfig
+
+func (r *RouterNatsLogConfig) UnmarshalJSON(data []byte) error {
+	var res jsonRouterNatsLogConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyRouterNatsLogConfig
+	} else {
+
+		r.Enable = res.Enable
+
+		r.Filter = res.Filter
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this RouterNatsLogConfig is
@@ -263,6 +330,31 @@ type RouterNatsSubnetworks struct {
 	SecondaryIPRangeNames *string `json:"secondaryIPRangeNames"`
 }
 
+type jsonRouterNatsSubnetworks RouterNatsSubnetworks
+
+func (r *RouterNatsSubnetworks) UnmarshalJSON(data []byte) error {
+	var res jsonRouterNatsSubnetworks
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyRouterNatsSubnetworks
+	} else {
+
+		r.Name = res.Name
+
+		r.SourceIPRangesToNat = res.SourceIPRangesToNat
+
+		r.SecondaryIPRangeNames = res.SecondaryIPRangeNames
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this RouterNatsSubnetworks is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -285,6 +377,33 @@ type RouterInterfaces struct {
 	LinkedVpnTunnel *string                             `json:"linkedVpnTunnel"`
 	IPRange         *string                             `json:"ipRange"`
 	ManagementType  *RouterInterfacesManagementTypeEnum `json:"managementType"`
+}
+
+type jsonRouterInterfaces RouterInterfaces
+
+func (r *RouterInterfaces) UnmarshalJSON(data []byte) error {
+	var res jsonRouterInterfaces
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyRouterInterfaces
+	} else {
+
+		r.Name = res.Name
+
+		r.LinkedVpnTunnel = res.LinkedVpnTunnel
+
+		r.IPRange = res.IPRange
+
+		r.ManagementType = res.ManagementType
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this RouterInterfaces is
@@ -317,6 +436,45 @@ type RouterBgpPeers struct {
 	AdvertisedIPRanges      []RouterBgpPeersAdvertisedIPRanges   `json:"advertisedIPRanges"`
 }
 
+type jsonRouterBgpPeers RouterBgpPeers
+
+func (r *RouterBgpPeers) UnmarshalJSON(data []byte) error {
+	var res jsonRouterBgpPeers
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyRouterBgpPeers
+	} else {
+
+		r.Name = res.Name
+
+		r.InterfaceName = res.InterfaceName
+
+		r.IPAddress = res.IPAddress
+
+		r.PeerIPAddress = res.PeerIPAddress
+
+		r.PeerAsn = res.PeerAsn
+
+		r.AdvertisedRoutePriority = res.AdvertisedRoutePriority
+
+		r.AdvertiseMode = res.AdvertiseMode
+
+		r.ManagementType = res.ManagementType
+
+		r.AdvertisedGroups = res.AdvertisedGroups
+
+		r.AdvertisedIPRanges = res.AdvertisedIPRanges
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this RouterBgpPeers is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -337,6 +495,29 @@ type RouterBgpPeersAdvertisedIPRanges struct {
 	empty       bool    `json:"-"`
 	Range       *string `json:"range"`
 	Description *string `json:"description"`
+}
+
+type jsonRouterBgpPeersAdvertisedIPRanges RouterBgpPeersAdvertisedIPRanges
+
+func (r *RouterBgpPeersAdvertisedIPRanges) UnmarshalJSON(data []byte) error {
+	var res jsonRouterBgpPeersAdvertisedIPRanges
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyRouterBgpPeersAdvertisedIPRanges
+	} else {
+
+		r.Range = res.Range
+
+		r.Description = res.Description
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this RouterBgpPeersAdvertisedIPRanges is
@@ -363,6 +544,33 @@ type RouterBgp struct {
 	AdvertisedIPRanges []RouterBgpAdvertisedIPRanges `json:"advertisedIPRanges"`
 }
 
+type jsonRouterBgp RouterBgp
+
+func (r *RouterBgp) UnmarshalJSON(data []byte) error {
+	var res jsonRouterBgp
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyRouterBgp
+	} else {
+
+		r.Asn = res.Asn
+
+		r.AdvertiseMode = res.AdvertiseMode
+
+		r.AdvertisedGroups = res.AdvertisedGroups
+
+		r.AdvertisedIPRanges = res.AdvertisedIPRanges
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this RouterBgp is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -383,6 +591,29 @@ type RouterBgpAdvertisedIPRanges struct {
 	empty       bool    `json:"-"`
 	Range       *string `json:"range"`
 	Description *string `json:"description"`
+}
+
+type jsonRouterBgpAdvertisedIPRanges RouterBgpAdvertisedIPRanges
+
+func (r *RouterBgpAdvertisedIPRanges) UnmarshalJSON(data []byte) error {
+	var res jsonRouterBgpAdvertisedIPRanges
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyRouterBgpAdvertisedIPRanges
+	} else {
+
+		r.Range = res.Range
+
+		r.Description = res.Description
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this RouterBgpAdvertisedIPRanges is

@@ -68,7 +68,7 @@ func (v FolderStateEnum) Validate() error {
 // can identify it.
 func (r *Folder) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "cloudresourcemanager",
+		Service: "cloud_resource_manager",
 		Type:    "Folder",
 		Version: "cloudresourcemanager",
 	}

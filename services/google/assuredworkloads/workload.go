@@ -16,6 +16,7 @@ package assuredworkloads
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -100,6 +101,29 @@ type WorkloadResources struct {
 	ResourceType *WorkloadResourcesResourceTypeEnum `json:"resourceType"`
 }
 
+type jsonWorkloadResources WorkloadResources
+
+func (r *WorkloadResources) UnmarshalJSON(data []byte) error {
+	var res jsonWorkloadResources
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkloadResources
+	} else {
+
+		r.ResourceId = res.ResourceId
+
+		r.ResourceType = res.ResourceType
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this WorkloadResources is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -122,6 +146,29 @@ type WorkloadKmsSettings struct {
 	RotationPeriod   *string `json:"rotationPeriod"`
 }
 
+type jsonWorkloadKmsSettings WorkloadKmsSettings
+
+func (r *WorkloadKmsSettings) UnmarshalJSON(data []byte) error {
+	var res jsonWorkloadKmsSettings
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkloadKmsSettings
+	} else {
+
+		r.NextRotationTime = res.NextRotationTime
+
+		r.RotationPeriod = res.RotationPeriod
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this WorkloadKmsSettings is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -142,7 +189,7 @@ func (r *WorkloadKmsSettings) HashCode() string {
 // can identify it.
 func (r *Workload) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "assuredworkloads",
+		Service: "assured_workloads",
 		Type:    "Workload",
 		Version: "assuredworkloads",
 	}

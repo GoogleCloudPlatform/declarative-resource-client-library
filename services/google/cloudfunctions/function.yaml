@@ -356,8 +356,8 @@ components:
       x-dcl-parent-container: project
       x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Cloudfunctions Function resource
-  title: Cloudfunctions/Function
+  description: DCL Specification for the CloudFunctions Function resource
+  title: CloudFunctions/Function
   x-dcl-has-iam: false
 paths:
   apply:

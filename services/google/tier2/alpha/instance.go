@@ -16,6 +16,7 @@ package alpha
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -1407,6 +1408,29 @@ type InstanceSku struct {
 	Size  *InstanceSkuSizeEnum `json:"size"`
 }
 
+type jsonInstanceSku InstanceSku
+
+func (r *InstanceSku) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceSku
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceSku
+	} else {
+
+		r.Tier = res.Tier
+
+		r.Size = res.Size
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceSku is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1432,6 +1456,35 @@ type InstanceReferences struct {
 	CreateTime     *string                     `json:"createTime"`
 }
 
+type jsonInstanceReferences InstanceReferences
+
+func (r *InstanceReferences) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReferences
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReferences
+	} else {
+
+		r.Name = res.Name
+
+		r.Type = res.Type
+
+		r.SourceResource = res.SourceResource
+
+		r.Details = res.Details
+
+		r.CreateTime = res.CreateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReferences is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1452,6 +1505,29 @@ type InstanceReferencesDetails struct {
 	empty   bool    `json:"-"`
 	TypeUrl *string `json:"typeUrl"`
 	Value   *string `json:"value"`
+}
+
+type jsonInstanceReferencesDetails InstanceReferencesDetails
+
+func (r *InstanceReferencesDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReferencesDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReferencesDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceReferencesDetails is
@@ -1480,6 +1556,41 @@ type InstancePreprocessCreateRecipe struct {
 	ReadonlyRecipeStartTime           *string                               `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                              `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                                `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstancePreprocessCreateRecipe InstancePreprocessCreateRecipe
+
+func (r *InstancePreprocessCreateRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessCreateRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessCreateRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessCreateRecipe is
@@ -1518,6 +1629,57 @@ type InstancePreprocessCreateRecipeSteps struct {
 	ClhDataUpdateTime              *string                                                    `json:"clhDataUpdateTime"`
 }
 
+type jsonInstancePreprocessCreateRecipeSteps InstancePreprocessCreateRecipeSteps
+
+func (r *InstancePreprocessCreateRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessCreateRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessCreateRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessCreateRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1539,6 +1701,31 @@ type InstancePreprocessCreateRecipeStepsStatus struct {
 	Code    *int64                                             `json:"code"`
 	Message *string                                            `json:"message"`
 	Details []InstancePreprocessCreateRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstancePreprocessCreateRecipeStepsStatus InstancePreprocessCreateRecipeStepsStatus
+
+func (r *InstancePreprocessCreateRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessCreateRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessCreateRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessCreateRecipeStepsStatus is
@@ -1563,6 +1750,29 @@ type InstancePreprocessCreateRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstancePreprocessCreateRecipeStepsStatusDetails InstancePreprocessCreateRecipeStepsStatusDetails
+
+func (r *InstancePreprocessCreateRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessCreateRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessCreateRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessCreateRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1583,6 +1793,29 @@ type InstancePreprocessCreateRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstancePreprocessCreateRecipeStepsQuotaRequestDeltas InstancePreprocessCreateRecipeStepsQuotaRequestDeltas
+
+func (r *InstancePreprocessCreateRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessCreateRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessCreateRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessCreateRecipeStepsQuotaRequestDeltas is
@@ -1607,6 +1840,29 @@ type InstancePreprocessCreateRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstancePreprocessCreateRecipeStepsPreprocessUpdate InstancePreprocessCreateRecipeStepsPreprocessUpdate
+
+func (r *InstancePreprocessCreateRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessCreateRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessCreateRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessCreateRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1628,6 +1884,31 @@ type InstancePreprocessCreateRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                             `json:"tag"`
 	Folder *string                                                             `json:"folder"`
 	Scope  *InstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstancePreprocessCreateRecipeStepsRequestedTenantProject InstancePreprocessCreateRecipeStepsRequestedTenantProject
+
+func (r *InstancePreprocessCreateRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessCreateRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessCreateRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessCreateRecipeStepsRequestedTenantProject is
@@ -1654,6 +1935,33 @@ type InstancePreprocessCreateRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                                      `json:"apiAttrs"`
 }
 
+type jsonInstancePreprocessCreateRecipeStepsPermissionsInfo InstancePreprocessCreateRecipeStepsPermissionsInfo
+
+func (r *InstancePreprocessCreateRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessCreateRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessCreateRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessCreateRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1677,6 +1985,31 @@ type InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1696,6 +2029,27 @@ func (r *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName) HashCode(
 type InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions struct {
 	empty      bool    `json:"-"`
 	Permission *string `json:"permission"`
+}
+
+type jsonInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions is
@@ -1718,6 +2072,25 @@ type InstanceGoogleprotobufstruct struct {
 	empty bool `json:"-"`
 }
 
+type jsonInstanceGoogleprotobufstruct InstanceGoogleprotobufstruct
+
+func (r *InstanceGoogleprotobufstruct) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGoogleprotobufstruct
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceGoogleprotobufstruct
+	} else {
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceGoogleprotobufstruct is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1737,6 +2110,27 @@ func (r *InstanceGoogleprotobufstruct) HashCode() string {
 type InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                           `json:"-"`
 	KeyNotificationsInfo *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate
+
+func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate is
@@ -1762,6 +2156,31 @@ type InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 	KeyNotificationConfigs []InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1783,6 +2202,31 @@ type InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -1811,6 +2255,41 @@ type InstanceCreateRecipe struct {
 	ReadonlyRecipeStartTime           *string                     `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                    `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                      `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstanceCreateRecipe InstanceCreateRecipe
+
+func (r *InstanceCreateRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceCreateRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceCreateRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceCreateRecipe is
@@ -1849,6 +2328,57 @@ type InstanceCreateRecipeSteps struct {
 	ClhDataUpdateTime              *string                                          `json:"clhDataUpdateTime"`
 }
 
+type jsonInstanceCreateRecipeSteps InstanceCreateRecipeSteps
+
+func (r *InstanceCreateRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceCreateRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceCreateRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceCreateRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1870,6 +2400,31 @@ type InstanceCreateRecipeStepsStatus struct {
 	Code    *int64                                   `json:"code"`
 	Message *string                                  `json:"message"`
 	Details []InstanceCreateRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstanceCreateRecipeStepsStatus InstanceCreateRecipeStepsStatus
+
+func (r *InstanceCreateRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceCreateRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceCreateRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceCreateRecipeStepsStatus is
@@ -1894,6 +2449,29 @@ type InstanceCreateRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstanceCreateRecipeStepsStatusDetails InstanceCreateRecipeStepsStatusDetails
+
+func (r *InstanceCreateRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceCreateRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceCreateRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceCreateRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1914,6 +2492,29 @@ type InstanceCreateRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstanceCreateRecipeStepsQuotaRequestDeltas InstanceCreateRecipeStepsQuotaRequestDeltas
+
+func (r *InstanceCreateRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceCreateRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceCreateRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceCreateRecipeStepsQuotaRequestDeltas is
@@ -1938,6 +2539,29 @@ type InstanceCreateRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstanceCreateRecipeStepsPreprocessUpdate InstanceCreateRecipeStepsPreprocessUpdate
+
+func (r *InstanceCreateRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceCreateRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceCreateRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceCreateRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1959,6 +2583,31 @@ type InstanceCreateRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                   `json:"tag"`
 	Folder *string                                                   `json:"folder"`
 	Scope  *InstanceCreateRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstanceCreateRecipeStepsRequestedTenantProject InstanceCreateRecipeStepsRequestedTenantProject
+
+func (r *InstanceCreateRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceCreateRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceCreateRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceCreateRecipeStepsRequestedTenantProject is
@@ -1985,6 +2634,33 @@ type InstanceCreateRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                            `json:"apiAttrs"`
 }
 
+type jsonInstanceCreateRecipeStepsPermissionsInfo InstanceCreateRecipeStepsPermissionsInfo
+
+func (r *InstanceCreateRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceCreateRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceCreateRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceCreateRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2008,6 +2684,31 @@ type InstanceCreateRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstanceCreateRecipeStepsPermissionsInfoPolicyName InstanceCreateRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstanceCreateRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceCreateRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceCreateRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceCreateRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2029,6 +2730,27 @@ type InstanceCreateRecipeStepsPermissionsInfoIamPermissions struct {
 	Permission *string `json:"permission"`
 }
 
+type jsonInstanceCreateRecipeStepsPermissionsInfoIamPermissions InstanceCreateRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstanceCreateRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceCreateRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceCreateRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceCreateRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2048,6 +2770,27 @@ func (r *InstanceCreateRecipeStepsPermissionsInfoIamPermissions) HashCode() stri
 type InstanceCreateRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                 `json:"-"`
 	KeyNotificationsInfo *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstanceCreateRecipeStepsKeyNotificationsUpdate InstanceCreateRecipeStepsKeyNotificationsUpdate
+
+func (r *InstanceCreateRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceCreateRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceCreateRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceCreateRecipeStepsKeyNotificationsUpdate is
@@ -2073,6 +2816,31 @@ type InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct 
 	KeyNotificationConfigs []InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2094,6 +2862,31 @@ type InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotif
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -2122,6 +2915,41 @@ type InstanceDeleteRecipe struct {
 	ReadonlyRecipeStartTime           *string                     `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                    `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                      `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstanceDeleteRecipe InstanceDeleteRecipe
+
+func (r *InstanceDeleteRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceDeleteRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceDeleteRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceDeleteRecipe is
@@ -2160,6 +2988,57 @@ type InstanceDeleteRecipeSteps struct {
 	ClhDataUpdateTime              *string                                          `json:"clhDataUpdateTime"`
 }
 
+type jsonInstanceDeleteRecipeSteps InstanceDeleteRecipeSteps
+
+func (r *InstanceDeleteRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceDeleteRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceDeleteRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceDeleteRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2181,6 +3060,31 @@ type InstanceDeleteRecipeStepsStatus struct {
 	Code    *int64                                   `json:"code"`
 	Message *string                                  `json:"message"`
 	Details []InstanceDeleteRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstanceDeleteRecipeStepsStatus InstanceDeleteRecipeStepsStatus
+
+func (r *InstanceDeleteRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceDeleteRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceDeleteRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceDeleteRecipeStepsStatus is
@@ -2205,6 +3109,29 @@ type InstanceDeleteRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstanceDeleteRecipeStepsStatusDetails InstanceDeleteRecipeStepsStatusDetails
+
+func (r *InstanceDeleteRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceDeleteRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceDeleteRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceDeleteRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2225,6 +3152,29 @@ type InstanceDeleteRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstanceDeleteRecipeStepsQuotaRequestDeltas InstanceDeleteRecipeStepsQuotaRequestDeltas
+
+func (r *InstanceDeleteRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceDeleteRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceDeleteRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceDeleteRecipeStepsQuotaRequestDeltas is
@@ -2249,6 +3199,29 @@ type InstanceDeleteRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstanceDeleteRecipeStepsPreprocessUpdate InstanceDeleteRecipeStepsPreprocessUpdate
+
+func (r *InstanceDeleteRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceDeleteRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceDeleteRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceDeleteRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2270,6 +3243,31 @@ type InstanceDeleteRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                   `json:"tag"`
 	Folder *string                                                   `json:"folder"`
 	Scope  *InstanceDeleteRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstanceDeleteRecipeStepsRequestedTenantProject InstanceDeleteRecipeStepsRequestedTenantProject
+
+func (r *InstanceDeleteRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceDeleteRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceDeleteRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceDeleteRecipeStepsRequestedTenantProject is
@@ -2296,6 +3294,33 @@ type InstanceDeleteRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                            `json:"apiAttrs"`
 }
 
+type jsonInstanceDeleteRecipeStepsPermissionsInfo InstanceDeleteRecipeStepsPermissionsInfo
+
+func (r *InstanceDeleteRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceDeleteRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceDeleteRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceDeleteRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2319,6 +3344,31 @@ type InstanceDeleteRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstanceDeleteRecipeStepsPermissionsInfoPolicyName InstanceDeleteRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstanceDeleteRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceDeleteRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceDeleteRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceDeleteRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2340,6 +3390,27 @@ type InstanceDeleteRecipeStepsPermissionsInfoIamPermissions struct {
 	Permission *string `json:"permission"`
 }
 
+type jsonInstanceDeleteRecipeStepsPermissionsInfoIamPermissions InstanceDeleteRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstanceDeleteRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceDeleteRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceDeleteRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceDeleteRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2359,6 +3430,27 @@ func (r *InstanceDeleteRecipeStepsPermissionsInfoIamPermissions) HashCode() stri
 type InstanceDeleteRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                 `json:"-"`
 	KeyNotificationsInfo *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstanceDeleteRecipeStepsKeyNotificationsUpdate InstanceDeleteRecipeStepsKeyNotificationsUpdate
+
+func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceDeleteRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceDeleteRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceDeleteRecipeStepsKeyNotificationsUpdate is
@@ -2384,6 +3476,31 @@ type InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct 
 	KeyNotificationConfigs []InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2405,6 +3522,31 @@ type InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotif
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -2433,6 +3575,41 @@ type InstanceUpdateRecipe struct {
 	ReadonlyRecipeStartTime           *string                     `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                    `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                      `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstanceUpdateRecipe InstanceUpdateRecipe
+
+func (r *InstanceUpdateRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUpdateRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUpdateRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceUpdateRecipe is
@@ -2471,6 +3648,57 @@ type InstanceUpdateRecipeSteps struct {
 	ClhDataUpdateTime              *string                                          `json:"clhDataUpdateTime"`
 }
 
+type jsonInstanceUpdateRecipeSteps InstanceUpdateRecipeSteps
+
+func (r *InstanceUpdateRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUpdateRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUpdateRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceUpdateRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2492,6 +3720,31 @@ type InstanceUpdateRecipeStepsStatus struct {
 	Code    *int64                                   `json:"code"`
 	Message *string                                  `json:"message"`
 	Details []InstanceUpdateRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstanceUpdateRecipeStepsStatus InstanceUpdateRecipeStepsStatus
+
+func (r *InstanceUpdateRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUpdateRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUpdateRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceUpdateRecipeStepsStatus is
@@ -2516,6 +3769,29 @@ type InstanceUpdateRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstanceUpdateRecipeStepsStatusDetails InstanceUpdateRecipeStepsStatusDetails
+
+func (r *InstanceUpdateRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUpdateRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUpdateRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceUpdateRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2536,6 +3812,29 @@ type InstanceUpdateRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstanceUpdateRecipeStepsQuotaRequestDeltas InstanceUpdateRecipeStepsQuotaRequestDeltas
+
+func (r *InstanceUpdateRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUpdateRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUpdateRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceUpdateRecipeStepsQuotaRequestDeltas is
@@ -2560,6 +3859,29 @@ type InstanceUpdateRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstanceUpdateRecipeStepsPreprocessUpdate InstanceUpdateRecipeStepsPreprocessUpdate
+
+func (r *InstanceUpdateRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUpdateRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUpdateRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceUpdateRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2581,6 +3903,31 @@ type InstanceUpdateRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                   `json:"tag"`
 	Folder *string                                                   `json:"folder"`
 	Scope  *InstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstanceUpdateRecipeStepsRequestedTenantProject InstanceUpdateRecipeStepsRequestedTenantProject
+
+func (r *InstanceUpdateRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUpdateRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUpdateRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceUpdateRecipeStepsRequestedTenantProject is
@@ -2607,6 +3954,33 @@ type InstanceUpdateRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                            `json:"apiAttrs"`
 }
 
+type jsonInstanceUpdateRecipeStepsPermissionsInfo InstanceUpdateRecipeStepsPermissionsInfo
+
+func (r *InstanceUpdateRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUpdateRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUpdateRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceUpdateRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2630,6 +4004,31 @@ type InstanceUpdateRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstanceUpdateRecipeStepsPermissionsInfoPolicyName InstanceUpdateRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstanceUpdateRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUpdateRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUpdateRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceUpdateRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2651,6 +4050,27 @@ type InstanceUpdateRecipeStepsPermissionsInfoIamPermissions struct {
 	Permission *string `json:"permission"`
 }
 
+type jsonInstanceUpdateRecipeStepsPermissionsInfoIamPermissions InstanceUpdateRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstanceUpdateRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUpdateRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUpdateRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceUpdateRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2670,6 +4090,27 @@ func (r *InstanceUpdateRecipeStepsPermissionsInfoIamPermissions) HashCode() stri
 type InstanceUpdateRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                 `json:"-"`
 	KeyNotificationsInfo *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstanceUpdateRecipeStepsKeyNotificationsUpdate InstanceUpdateRecipeStepsKeyNotificationsUpdate
+
+func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUpdateRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUpdateRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceUpdateRecipeStepsKeyNotificationsUpdate is
@@ -2695,6 +4136,31 @@ type InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct 
 	KeyNotificationConfigs []InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2716,6 +4182,31 @@ type InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotif
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -2744,6 +4235,41 @@ type InstancePreprocessResetRecipe struct {
 	ReadonlyRecipeStartTime           *string                              `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                             `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                               `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstancePreprocessResetRecipe InstancePreprocessResetRecipe
+
+func (r *InstancePreprocessResetRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessResetRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessResetRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessResetRecipe is
@@ -2782,6 +4308,57 @@ type InstancePreprocessResetRecipeSteps struct {
 	ClhDataUpdateTime              *string                                                   `json:"clhDataUpdateTime"`
 }
 
+type jsonInstancePreprocessResetRecipeSteps InstancePreprocessResetRecipeSteps
+
+func (r *InstancePreprocessResetRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessResetRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessResetRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessResetRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2803,6 +4380,31 @@ type InstancePreprocessResetRecipeStepsStatus struct {
 	Code    *int64                                            `json:"code"`
 	Message *string                                           `json:"message"`
 	Details []InstancePreprocessResetRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstancePreprocessResetRecipeStepsStatus InstancePreprocessResetRecipeStepsStatus
+
+func (r *InstancePreprocessResetRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessResetRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessResetRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessResetRecipeStepsStatus is
@@ -2827,6 +4429,29 @@ type InstancePreprocessResetRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstancePreprocessResetRecipeStepsStatusDetails InstancePreprocessResetRecipeStepsStatusDetails
+
+func (r *InstancePreprocessResetRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessResetRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessResetRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessResetRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2847,6 +4472,29 @@ type InstancePreprocessResetRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstancePreprocessResetRecipeStepsQuotaRequestDeltas InstancePreprocessResetRecipeStepsQuotaRequestDeltas
+
+func (r *InstancePreprocessResetRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessResetRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessResetRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessResetRecipeStepsQuotaRequestDeltas is
@@ -2871,6 +4519,29 @@ type InstancePreprocessResetRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstancePreprocessResetRecipeStepsPreprocessUpdate InstancePreprocessResetRecipeStepsPreprocessUpdate
+
+func (r *InstancePreprocessResetRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessResetRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessResetRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessResetRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2892,6 +4563,31 @@ type InstancePreprocessResetRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                            `json:"tag"`
 	Folder *string                                                            `json:"folder"`
 	Scope  *InstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstancePreprocessResetRecipeStepsRequestedTenantProject InstancePreprocessResetRecipeStepsRequestedTenantProject
+
+func (r *InstancePreprocessResetRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessResetRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessResetRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessResetRecipeStepsRequestedTenantProject is
@@ -2918,6 +4614,33 @@ type InstancePreprocessResetRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                                     `json:"apiAttrs"`
 }
 
+type jsonInstancePreprocessResetRecipeStepsPermissionsInfo InstancePreprocessResetRecipeStepsPermissionsInfo
+
+func (r *InstancePreprocessResetRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessResetRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessResetRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessResetRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2941,6 +4664,31 @@ type InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2962,6 +4710,27 @@ type InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions struct {
 	Permission *string `json:"permission"`
 }
 
+type jsonInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2981,6 +4750,27 @@ func (r *InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions) HashCo
 type InstancePreprocessResetRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                          `json:"-"`
 	KeyNotificationsInfo *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstancePreprocessResetRecipeStepsKeyNotificationsUpdate InstancePreprocessResetRecipeStepsKeyNotificationsUpdate
+
+func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessResetRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessResetRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessResetRecipeStepsKeyNotificationsUpdate is
@@ -3006,6 +4796,31 @@ type InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 	KeyNotificationConfigs []InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3027,6 +4842,31 @@ type InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -3055,6 +4895,41 @@ type InstanceResetRecipe struct {
 	ReadonlyRecipeStartTime           *string                    `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                   `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                     `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstanceResetRecipe InstanceResetRecipe
+
+func (r *InstanceResetRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceResetRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceResetRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceResetRecipe is
@@ -3093,6 +4968,57 @@ type InstanceResetRecipeSteps struct {
 	ClhDataUpdateTime              *string                                         `json:"clhDataUpdateTime"`
 }
 
+type jsonInstanceResetRecipeSteps InstanceResetRecipeSteps
+
+func (r *InstanceResetRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceResetRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceResetRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceResetRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3114,6 +5040,31 @@ type InstanceResetRecipeStepsStatus struct {
 	Code    *int64                                  `json:"code"`
 	Message *string                                 `json:"message"`
 	Details []InstanceResetRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstanceResetRecipeStepsStatus InstanceResetRecipeStepsStatus
+
+func (r *InstanceResetRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceResetRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceResetRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceResetRecipeStepsStatus is
@@ -3138,6 +5089,29 @@ type InstanceResetRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstanceResetRecipeStepsStatusDetails InstanceResetRecipeStepsStatusDetails
+
+func (r *InstanceResetRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceResetRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceResetRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceResetRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3158,6 +5132,29 @@ type InstanceResetRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstanceResetRecipeStepsQuotaRequestDeltas InstanceResetRecipeStepsQuotaRequestDeltas
+
+func (r *InstanceResetRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceResetRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceResetRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceResetRecipeStepsQuotaRequestDeltas is
@@ -3182,6 +5179,29 @@ type InstanceResetRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstanceResetRecipeStepsPreprocessUpdate InstanceResetRecipeStepsPreprocessUpdate
+
+func (r *InstanceResetRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceResetRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceResetRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceResetRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3203,6 +5223,31 @@ type InstanceResetRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                  `json:"tag"`
 	Folder *string                                                  `json:"folder"`
 	Scope  *InstanceResetRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstanceResetRecipeStepsRequestedTenantProject InstanceResetRecipeStepsRequestedTenantProject
+
+func (r *InstanceResetRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceResetRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceResetRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceResetRecipeStepsRequestedTenantProject is
@@ -3229,6 +5274,33 @@ type InstanceResetRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                           `json:"apiAttrs"`
 }
 
+type jsonInstanceResetRecipeStepsPermissionsInfo InstanceResetRecipeStepsPermissionsInfo
+
+func (r *InstanceResetRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceResetRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceResetRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceResetRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3252,6 +5324,31 @@ type InstanceResetRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstanceResetRecipeStepsPermissionsInfoPolicyName InstanceResetRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstanceResetRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceResetRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceResetRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceResetRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3273,6 +5370,27 @@ type InstanceResetRecipeStepsPermissionsInfoIamPermissions struct {
 	Permission *string `json:"permission"`
 }
 
+type jsonInstanceResetRecipeStepsPermissionsInfoIamPermissions InstanceResetRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstanceResetRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceResetRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceResetRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceResetRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3292,6 +5410,27 @@ func (r *InstanceResetRecipeStepsPermissionsInfoIamPermissions) HashCode() strin
 type InstanceResetRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                `json:"-"`
 	KeyNotificationsInfo *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstanceResetRecipeStepsKeyNotificationsUpdate InstanceResetRecipeStepsKeyNotificationsUpdate
+
+func (r *InstanceResetRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceResetRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceResetRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceResetRecipeStepsKeyNotificationsUpdate is
@@ -3317,6 +5456,31 @@ type InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct {
 	KeyNotificationConfigs []InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3338,6 +5502,31 @@ type InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotifi
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -3366,6 +5555,41 @@ type InstancePreprocessRepairRecipe struct {
 	ReadonlyRecipeStartTime           *string                               `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                              `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                                `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstancePreprocessRepairRecipe InstancePreprocessRepairRecipe
+
+func (r *InstancePreprocessRepairRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessRepairRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessRepairRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessRepairRecipe is
@@ -3404,6 +5628,57 @@ type InstancePreprocessRepairRecipeSteps struct {
 	ClhDataUpdateTime              *string                                                    `json:"clhDataUpdateTime"`
 }
 
+type jsonInstancePreprocessRepairRecipeSteps InstancePreprocessRepairRecipeSteps
+
+func (r *InstancePreprocessRepairRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessRepairRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessRepairRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessRepairRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3425,6 +5700,31 @@ type InstancePreprocessRepairRecipeStepsStatus struct {
 	Code    *int64                                             `json:"code"`
 	Message *string                                            `json:"message"`
 	Details []InstancePreprocessRepairRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstancePreprocessRepairRecipeStepsStatus InstancePreprocessRepairRecipeStepsStatus
+
+func (r *InstancePreprocessRepairRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessRepairRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessRepairRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessRepairRecipeStepsStatus is
@@ -3449,6 +5749,29 @@ type InstancePreprocessRepairRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstancePreprocessRepairRecipeStepsStatusDetails InstancePreprocessRepairRecipeStepsStatusDetails
+
+func (r *InstancePreprocessRepairRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessRepairRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessRepairRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessRepairRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3469,6 +5792,29 @@ type InstancePreprocessRepairRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstancePreprocessRepairRecipeStepsQuotaRequestDeltas InstancePreprocessRepairRecipeStepsQuotaRequestDeltas
+
+func (r *InstancePreprocessRepairRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessRepairRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessRepairRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessRepairRecipeStepsQuotaRequestDeltas is
@@ -3493,6 +5839,29 @@ type InstancePreprocessRepairRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstancePreprocessRepairRecipeStepsPreprocessUpdate InstancePreprocessRepairRecipeStepsPreprocessUpdate
+
+func (r *InstancePreprocessRepairRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessRepairRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessRepairRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessRepairRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3514,6 +5883,31 @@ type InstancePreprocessRepairRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                             `json:"tag"`
 	Folder *string                                                             `json:"folder"`
 	Scope  *InstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstancePreprocessRepairRecipeStepsRequestedTenantProject InstancePreprocessRepairRecipeStepsRequestedTenantProject
+
+func (r *InstancePreprocessRepairRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessRepairRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessRepairRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessRepairRecipeStepsRequestedTenantProject is
@@ -3540,6 +5934,33 @@ type InstancePreprocessRepairRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                                      `json:"apiAttrs"`
 }
 
+type jsonInstancePreprocessRepairRecipeStepsPermissionsInfo InstancePreprocessRepairRecipeStepsPermissionsInfo
+
+func (r *InstancePreprocessRepairRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessRepairRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessRepairRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessRepairRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3563,6 +5984,31 @@ type InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3584,6 +6030,27 @@ type InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions struct {
 	Permission *string `json:"permission"`
 }
 
+type jsonInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3603,6 +6070,27 @@ func (r *InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions) HashC
 type InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                           `json:"-"`
 	KeyNotificationsInfo *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate
+
+func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate is
@@ -3628,6 +6116,31 @@ type InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 	KeyNotificationConfigs []InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3649,6 +6162,31 @@ type InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -3677,6 +6215,41 @@ type InstanceRepairRecipe struct {
 	ReadonlyRecipeStartTime           *string                     `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                    `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                      `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstanceRepairRecipe InstanceRepairRecipe
+
+func (r *InstanceRepairRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceRepairRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceRepairRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceRepairRecipe is
@@ -3715,6 +6288,57 @@ type InstanceRepairRecipeSteps struct {
 	ClhDataUpdateTime              *string                                          `json:"clhDataUpdateTime"`
 }
 
+type jsonInstanceRepairRecipeSteps InstanceRepairRecipeSteps
+
+func (r *InstanceRepairRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceRepairRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceRepairRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceRepairRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3736,6 +6360,31 @@ type InstanceRepairRecipeStepsStatus struct {
 	Code    *int64                                   `json:"code"`
 	Message *string                                  `json:"message"`
 	Details []InstanceRepairRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstanceRepairRecipeStepsStatus InstanceRepairRecipeStepsStatus
+
+func (r *InstanceRepairRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceRepairRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceRepairRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceRepairRecipeStepsStatus is
@@ -3760,6 +6409,29 @@ type InstanceRepairRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstanceRepairRecipeStepsStatusDetails InstanceRepairRecipeStepsStatusDetails
+
+func (r *InstanceRepairRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceRepairRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceRepairRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceRepairRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3780,6 +6452,29 @@ type InstanceRepairRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstanceRepairRecipeStepsQuotaRequestDeltas InstanceRepairRecipeStepsQuotaRequestDeltas
+
+func (r *InstanceRepairRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceRepairRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceRepairRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceRepairRecipeStepsQuotaRequestDeltas is
@@ -3804,6 +6499,29 @@ type InstanceRepairRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstanceRepairRecipeStepsPreprocessUpdate InstanceRepairRecipeStepsPreprocessUpdate
+
+func (r *InstanceRepairRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceRepairRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceRepairRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceRepairRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3825,6 +6543,31 @@ type InstanceRepairRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                   `json:"tag"`
 	Folder *string                                                   `json:"folder"`
 	Scope  *InstanceRepairRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstanceRepairRecipeStepsRequestedTenantProject InstanceRepairRecipeStepsRequestedTenantProject
+
+func (r *InstanceRepairRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceRepairRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceRepairRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceRepairRecipeStepsRequestedTenantProject is
@@ -3851,6 +6594,33 @@ type InstanceRepairRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                            `json:"apiAttrs"`
 }
 
+type jsonInstanceRepairRecipeStepsPermissionsInfo InstanceRepairRecipeStepsPermissionsInfo
+
+func (r *InstanceRepairRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceRepairRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceRepairRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceRepairRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3874,6 +6644,31 @@ type InstanceRepairRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstanceRepairRecipeStepsPermissionsInfoPolicyName InstanceRepairRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstanceRepairRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceRepairRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceRepairRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceRepairRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3895,6 +6690,27 @@ type InstanceRepairRecipeStepsPermissionsInfoIamPermissions struct {
 	Permission *string `json:"permission"`
 }
 
+type jsonInstanceRepairRecipeStepsPermissionsInfoIamPermissions InstanceRepairRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstanceRepairRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceRepairRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceRepairRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceRepairRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3914,6 +6730,27 @@ func (r *InstanceRepairRecipeStepsPermissionsInfoIamPermissions) HashCode() stri
 type InstanceRepairRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                 `json:"-"`
 	KeyNotificationsInfo *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstanceRepairRecipeStepsKeyNotificationsUpdate InstanceRepairRecipeStepsKeyNotificationsUpdate
+
+func (r *InstanceRepairRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceRepairRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceRepairRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceRepairRecipeStepsKeyNotificationsUpdate is
@@ -3939,6 +6776,31 @@ type InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct 
 	KeyNotificationConfigs []InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3960,6 +6822,31 @@ type InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotif
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -3988,6 +6875,41 @@ type InstancePreprocessDeleteRecipe struct {
 	ReadonlyRecipeStartTime           *string                               `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                              `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                                `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstancePreprocessDeleteRecipe InstancePreprocessDeleteRecipe
+
+func (r *InstancePreprocessDeleteRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessDeleteRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessDeleteRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessDeleteRecipe is
@@ -4026,6 +6948,57 @@ type InstancePreprocessDeleteRecipeSteps struct {
 	ClhDataUpdateTime              *string                                                    `json:"clhDataUpdateTime"`
 }
 
+type jsonInstancePreprocessDeleteRecipeSteps InstancePreprocessDeleteRecipeSteps
+
+func (r *InstancePreprocessDeleteRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessDeleteRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessDeleteRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessDeleteRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4047,6 +7020,31 @@ type InstancePreprocessDeleteRecipeStepsStatus struct {
 	Code    *int64                                             `json:"code"`
 	Message *string                                            `json:"message"`
 	Details []InstancePreprocessDeleteRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstancePreprocessDeleteRecipeStepsStatus InstancePreprocessDeleteRecipeStepsStatus
+
+func (r *InstancePreprocessDeleteRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessDeleteRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessDeleteRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessDeleteRecipeStepsStatus is
@@ -4071,6 +7069,29 @@ type InstancePreprocessDeleteRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstancePreprocessDeleteRecipeStepsStatusDetails InstancePreprocessDeleteRecipeStepsStatusDetails
+
+func (r *InstancePreprocessDeleteRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessDeleteRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessDeleteRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessDeleteRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4091,6 +7112,29 @@ type InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas
+
+func (r *InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas is
@@ -4115,6 +7159,29 @@ type InstancePreprocessDeleteRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstancePreprocessDeleteRecipeStepsPreprocessUpdate InstancePreprocessDeleteRecipeStepsPreprocessUpdate
+
+func (r *InstancePreprocessDeleteRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessDeleteRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessDeleteRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessDeleteRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4136,6 +7203,31 @@ type InstancePreprocessDeleteRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                             `json:"tag"`
 	Folder *string                                                             `json:"folder"`
 	Scope  *InstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstancePreprocessDeleteRecipeStepsRequestedTenantProject InstancePreprocessDeleteRecipeStepsRequestedTenantProject
+
+func (r *InstancePreprocessDeleteRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessDeleteRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessDeleteRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessDeleteRecipeStepsRequestedTenantProject is
@@ -4162,6 +7254,33 @@ type InstancePreprocessDeleteRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                                      `json:"apiAttrs"`
 }
 
+type jsonInstancePreprocessDeleteRecipeStepsPermissionsInfo InstancePreprocessDeleteRecipeStepsPermissionsInfo
+
+func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessDeleteRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessDeleteRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessDeleteRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4185,6 +7304,31 @@ type InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4206,6 +7350,27 @@ type InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions struct {
 	Permission *string `json:"permission"`
 }
 
+type jsonInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4225,6 +7390,27 @@ func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions) HashC
 type InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                           `json:"-"`
 	KeyNotificationsInfo *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate
+
+func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate is
@@ -4250,6 +7436,31 @@ type InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 	KeyNotificationConfigs []InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4271,6 +7482,31 @@ type InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -4299,6 +7535,41 @@ type InstancePreprocessUpdateRecipe struct {
 	ReadonlyRecipeStartTime           *string                               `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                              `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                                `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstancePreprocessUpdateRecipe InstancePreprocessUpdateRecipe
+
+func (r *InstancePreprocessUpdateRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUpdateRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUpdateRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessUpdateRecipe is
@@ -4337,6 +7608,57 @@ type InstancePreprocessUpdateRecipeSteps struct {
 	ClhDataUpdateTime              *string                                                    `json:"clhDataUpdateTime"`
 }
 
+type jsonInstancePreprocessUpdateRecipeSteps InstancePreprocessUpdateRecipeSteps
+
+func (r *InstancePreprocessUpdateRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUpdateRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUpdateRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessUpdateRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4358,6 +7680,31 @@ type InstancePreprocessUpdateRecipeStepsStatus struct {
 	Code    *int64                                             `json:"code"`
 	Message *string                                            `json:"message"`
 	Details []InstancePreprocessUpdateRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstancePreprocessUpdateRecipeStepsStatus InstancePreprocessUpdateRecipeStepsStatus
+
+func (r *InstancePreprocessUpdateRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUpdateRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUpdateRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessUpdateRecipeStepsStatus is
@@ -4382,6 +7729,29 @@ type InstancePreprocessUpdateRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstancePreprocessUpdateRecipeStepsStatusDetails InstancePreprocessUpdateRecipeStepsStatusDetails
+
+func (r *InstancePreprocessUpdateRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUpdateRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUpdateRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessUpdateRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4402,6 +7772,29 @@ type InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas
+
+func (r *InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas is
@@ -4426,6 +7819,29 @@ type InstancePreprocessUpdateRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstancePreprocessUpdateRecipeStepsPreprocessUpdate InstancePreprocessUpdateRecipeStepsPreprocessUpdate
+
+func (r *InstancePreprocessUpdateRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUpdateRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUpdateRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessUpdateRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4447,6 +7863,31 @@ type InstancePreprocessUpdateRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                             `json:"tag"`
 	Folder *string                                                             `json:"folder"`
 	Scope  *InstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstancePreprocessUpdateRecipeStepsRequestedTenantProject InstancePreprocessUpdateRecipeStepsRequestedTenantProject
+
+func (r *InstancePreprocessUpdateRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUpdateRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUpdateRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessUpdateRecipeStepsRequestedTenantProject is
@@ -4473,6 +7914,33 @@ type InstancePreprocessUpdateRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                                      `json:"apiAttrs"`
 }
 
+type jsonInstancePreprocessUpdateRecipeStepsPermissionsInfo InstancePreprocessUpdateRecipeStepsPermissionsInfo
+
+func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUpdateRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUpdateRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessUpdateRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4496,6 +7964,31 @@ type InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4517,6 +8010,27 @@ type InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions struct {
 	Permission *string `json:"permission"`
 }
 
+type jsonInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4536,6 +8050,27 @@ func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions) HashC
 type InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                           `json:"-"`
 	KeyNotificationsInfo *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate
+
+func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate is
@@ -4561,6 +8096,31 @@ type InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 	KeyNotificationConfigs []InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4582,6 +8142,31 @@ type InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -4610,6 +8195,41 @@ type InstancePreprocessFreezeRecipe struct {
 	ReadonlyRecipeStartTime           *string                               `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                              `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                                `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstancePreprocessFreezeRecipe InstancePreprocessFreezeRecipe
+
+func (r *InstancePreprocessFreezeRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessFreezeRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessFreezeRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessFreezeRecipe is
@@ -4648,6 +8268,57 @@ type InstancePreprocessFreezeRecipeSteps struct {
 	ClhDataUpdateTime              *string                                                    `json:"clhDataUpdateTime"`
 }
 
+type jsonInstancePreprocessFreezeRecipeSteps InstancePreprocessFreezeRecipeSteps
+
+func (r *InstancePreprocessFreezeRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessFreezeRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessFreezeRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessFreezeRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4669,6 +8340,31 @@ type InstancePreprocessFreezeRecipeStepsStatus struct {
 	Code    *int64                                             `json:"code"`
 	Message *string                                            `json:"message"`
 	Details []InstancePreprocessFreezeRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstancePreprocessFreezeRecipeStepsStatus InstancePreprocessFreezeRecipeStepsStatus
+
+func (r *InstancePreprocessFreezeRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessFreezeRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessFreezeRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessFreezeRecipeStepsStatus is
@@ -4693,6 +8389,29 @@ type InstancePreprocessFreezeRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstancePreprocessFreezeRecipeStepsStatusDetails InstancePreprocessFreezeRecipeStepsStatusDetails
+
+func (r *InstancePreprocessFreezeRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessFreezeRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessFreezeRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessFreezeRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4713,6 +8432,29 @@ type InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas
+
+func (r *InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas is
@@ -4737,6 +8479,29 @@ type InstancePreprocessFreezeRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstancePreprocessFreezeRecipeStepsPreprocessUpdate InstancePreprocessFreezeRecipeStepsPreprocessUpdate
+
+func (r *InstancePreprocessFreezeRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessFreezeRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessFreezeRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessFreezeRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4758,6 +8523,31 @@ type InstancePreprocessFreezeRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                             `json:"tag"`
 	Folder *string                                                             `json:"folder"`
 	Scope  *InstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstancePreprocessFreezeRecipeStepsRequestedTenantProject InstancePreprocessFreezeRecipeStepsRequestedTenantProject
+
+func (r *InstancePreprocessFreezeRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessFreezeRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessFreezeRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessFreezeRecipeStepsRequestedTenantProject is
@@ -4784,6 +8574,33 @@ type InstancePreprocessFreezeRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                                      `json:"apiAttrs"`
 }
 
+type jsonInstancePreprocessFreezeRecipeStepsPermissionsInfo InstancePreprocessFreezeRecipeStepsPermissionsInfo
+
+func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessFreezeRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessFreezeRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessFreezeRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4807,6 +8624,31 @@ type InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4828,6 +8670,27 @@ type InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions struct {
 	Permission *string `json:"permission"`
 }
 
+type jsonInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4847,6 +8710,27 @@ func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions) HashC
 type InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                           `json:"-"`
 	KeyNotificationsInfo *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate
+
+func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate is
@@ -4872,6 +8756,31 @@ type InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 	KeyNotificationConfigs []InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4893,6 +8802,31 @@ type InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -4921,6 +8855,41 @@ type InstanceFreezeRecipe struct {
 	ReadonlyRecipeStartTime           *string                     `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                    `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                      `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstanceFreezeRecipe InstanceFreezeRecipe
+
+func (r *InstanceFreezeRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceFreezeRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceFreezeRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceFreezeRecipe is
@@ -4959,6 +8928,57 @@ type InstanceFreezeRecipeSteps struct {
 	ClhDataUpdateTime              *string                                          `json:"clhDataUpdateTime"`
 }
 
+type jsonInstanceFreezeRecipeSteps InstanceFreezeRecipeSteps
+
+func (r *InstanceFreezeRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceFreezeRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceFreezeRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceFreezeRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4980,6 +9000,31 @@ type InstanceFreezeRecipeStepsStatus struct {
 	Code    *int64                                   `json:"code"`
 	Message *string                                  `json:"message"`
 	Details []InstanceFreezeRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstanceFreezeRecipeStepsStatus InstanceFreezeRecipeStepsStatus
+
+func (r *InstanceFreezeRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceFreezeRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceFreezeRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceFreezeRecipeStepsStatus is
@@ -5004,6 +9049,29 @@ type InstanceFreezeRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstanceFreezeRecipeStepsStatusDetails InstanceFreezeRecipeStepsStatusDetails
+
+func (r *InstanceFreezeRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceFreezeRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceFreezeRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceFreezeRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5024,6 +9092,29 @@ type InstanceFreezeRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstanceFreezeRecipeStepsQuotaRequestDeltas InstanceFreezeRecipeStepsQuotaRequestDeltas
+
+func (r *InstanceFreezeRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceFreezeRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceFreezeRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceFreezeRecipeStepsQuotaRequestDeltas is
@@ -5048,6 +9139,29 @@ type InstanceFreezeRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstanceFreezeRecipeStepsPreprocessUpdate InstanceFreezeRecipeStepsPreprocessUpdate
+
+func (r *InstanceFreezeRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceFreezeRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceFreezeRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceFreezeRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5069,6 +9183,31 @@ type InstanceFreezeRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                   `json:"tag"`
 	Folder *string                                                   `json:"folder"`
 	Scope  *InstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstanceFreezeRecipeStepsRequestedTenantProject InstanceFreezeRecipeStepsRequestedTenantProject
+
+func (r *InstanceFreezeRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceFreezeRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceFreezeRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceFreezeRecipeStepsRequestedTenantProject is
@@ -5095,6 +9234,33 @@ type InstanceFreezeRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                            `json:"apiAttrs"`
 }
 
+type jsonInstanceFreezeRecipeStepsPermissionsInfo InstanceFreezeRecipeStepsPermissionsInfo
+
+func (r *InstanceFreezeRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceFreezeRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceFreezeRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceFreezeRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5118,6 +9284,31 @@ type InstanceFreezeRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstanceFreezeRecipeStepsPermissionsInfoPolicyName InstanceFreezeRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstanceFreezeRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceFreezeRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceFreezeRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceFreezeRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5139,6 +9330,27 @@ type InstanceFreezeRecipeStepsPermissionsInfoIamPermissions struct {
 	Permission *string `json:"permission"`
 }
 
+type jsonInstanceFreezeRecipeStepsPermissionsInfoIamPermissions InstanceFreezeRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstanceFreezeRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceFreezeRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceFreezeRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceFreezeRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5158,6 +9370,27 @@ func (r *InstanceFreezeRecipeStepsPermissionsInfoIamPermissions) HashCode() stri
 type InstanceFreezeRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                 `json:"-"`
 	KeyNotificationsInfo *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstanceFreezeRecipeStepsKeyNotificationsUpdate InstanceFreezeRecipeStepsKeyNotificationsUpdate
+
+func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceFreezeRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceFreezeRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceFreezeRecipeStepsKeyNotificationsUpdate is
@@ -5183,6 +9416,31 @@ type InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struct 
 	KeyNotificationConfigs []InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5204,6 +9462,31 @@ type InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotif
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -5232,6 +9515,41 @@ type InstancePreprocessUnfreezeRecipe struct {
 	ReadonlyRecipeStartTime           *string                                 `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                                `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                                  `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstancePreprocessUnfreezeRecipe InstancePreprocessUnfreezeRecipe
+
+func (r *InstancePreprocessUnfreezeRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUnfreezeRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUnfreezeRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessUnfreezeRecipe is
@@ -5270,6 +9588,57 @@ type InstancePreprocessUnfreezeRecipeSteps struct {
 	ClhDataUpdateTime              *string                                                      `json:"clhDataUpdateTime"`
 }
 
+type jsonInstancePreprocessUnfreezeRecipeSteps InstancePreprocessUnfreezeRecipeSteps
+
+func (r *InstancePreprocessUnfreezeRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUnfreezeRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUnfreezeRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessUnfreezeRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5291,6 +9660,31 @@ type InstancePreprocessUnfreezeRecipeStepsStatus struct {
 	Code    *int64                                               `json:"code"`
 	Message *string                                              `json:"message"`
 	Details []InstancePreprocessUnfreezeRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstancePreprocessUnfreezeRecipeStepsStatus InstancePreprocessUnfreezeRecipeStepsStatus
+
+func (r *InstancePreprocessUnfreezeRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUnfreezeRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUnfreezeRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessUnfreezeRecipeStepsStatus is
@@ -5315,6 +9709,29 @@ type InstancePreprocessUnfreezeRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstancePreprocessUnfreezeRecipeStepsStatusDetails InstancePreprocessUnfreezeRecipeStepsStatusDetails
+
+func (r *InstancePreprocessUnfreezeRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUnfreezeRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUnfreezeRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessUnfreezeRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5335,6 +9752,29 @@ type InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas
+
+func (r *InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas is
@@ -5359,6 +9799,29 @@ type InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate
+
+func (r *InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5380,6 +9843,31 @@ type InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                               `json:"tag"`
 	Folder *string                                                               `json:"folder"`
 	Scope  *InstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject
+
+func (r *InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject is
@@ -5406,6 +9894,33 @@ type InstancePreprocessUnfreezeRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                                        `json:"apiAttrs"`
 }
 
+type jsonInstancePreprocessUnfreezeRecipeStepsPermissionsInfo InstancePreprocessUnfreezeRecipeStepsPermissionsInfo
+
+func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUnfreezeRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUnfreezeRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessUnfreezeRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5429,6 +9944,31 @@ type InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5450,6 +9990,27 @@ type InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions struct {
 	Permission *string `json:"permission"`
 }
 
+type jsonInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5469,6 +10030,27 @@ func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions) Has
 type InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                             `json:"-"`
 	KeyNotificationsInfo *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate
+
+func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate is
@@ -5494,6 +10076,31 @@ type InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifications
 	KeyNotificationConfigs []InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5515,6 +10122,31 @@ type InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifications
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -5543,6 +10175,41 @@ type InstanceUnfreezeRecipe struct {
 	ReadonlyRecipeStartTime           *string                       `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                      `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                        `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstanceUnfreezeRecipe InstanceUnfreezeRecipe
+
+func (r *InstanceUnfreezeRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUnfreezeRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUnfreezeRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceUnfreezeRecipe is
@@ -5581,6 +10248,57 @@ type InstanceUnfreezeRecipeSteps struct {
 	ClhDataUpdateTime              *string                                            `json:"clhDataUpdateTime"`
 }
 
+type jsonInstanceUnfreezeRecipeSteps InstanceUnfreezeRecipeSteps
+
+func (r *InstanceUnfreezeRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUnfreezeRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUnfreezeRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceUnfreezeRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5602,6 +10320,31 @@ type InstanceUnfreezeRecipeStepsStatus struct {
 	Code    *int64                                     `json:"code"`
 	Message *string                                    `json:"message"`
 	Details []InstanceUnfreezeRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstanceUnfreezeRecipeStepsStatus InstanceUnfreezeRecipeStepsStatus
+
+func (r *InstanceUnfreezeRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUnfreezeRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUnfreezeRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceUnfreezeRecipeStepsStatus is
@@ -5626,6 +10369,29 @@ type InstanceUnfreezeRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstanceUnfreezeRecipeStepsStatusDetails InstanceUnfreezeRecipeStepsStatusDetails
+
+func (r *InstanceUnfreezeRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUnfreezeRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUnfreezeRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceUnfreezeRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5646,6 +10412,29 @@ type InstanceUnfreezeRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstanceUnfreezeRecipeStepsQuotaRequestDeltas InstanceUnfreezeRecipeStepsQuotaRequestDeltas
+
+func (r *InstanceUnfreezeRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUnfreezeRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUnfreezeRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceUnfreezeRecipeStepsQuotaRequestDeltas is
@@ -5670,6 +10459,29 @@ type InstanceUnfreezeRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstanceUnfreezeRecipeStepsPreprocessUpdate InstanceUnfreezeRecipeStepsPreprocessUpdate
+
+func (r *InstanceUnfreezeRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUnfreezeRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUnfreezeRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceUnfreezeRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5691,6 +10503,31 @@ type InstanceUnfreezeRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                     `json:"tag"`
 	Folder *string                                                     `json:"folder"`
 	Scope  *InstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstanceUnfreezeRecipeStepsRequestedTenantProject InstanceUnfreezeRecipeStepsRequestedTenantProject
+
+func (r *InstanceUnfreezeRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUnfreezeRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUnfreezeRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceUnfreezeRecipeStepsRequestedTenantProject is
@@ -5717,6 +10554,33 @@ type InstanceUnfreezeRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                              `json:"apiAttrs"`
 }
 
+type jsonInstanceUnfreezeRecipeStepsPermissionsInfo InstanceUnfreezeRecipeStepsPermissionsInfo
+
+func (r *InstanceUnfreezeRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUnfreezeRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUnfreezeRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceUnfreezeRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5740,6 +10604,31 @@ type InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5761,6 +10650,27 @@ type InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions struct {
 	Permission *string `json:"permission"`
 }
 
+type jsonInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5780,6 +10690,27 @@ func (r *InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions) HashCode() st
 type InstanceUnfreezeRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                   `json:"-"`
 	KeyNotificationsInfo *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstanceUnfreezeRecipeStepsKeyNotificationsUpdate InstanceUnfreezeRecipeStepsKeyNotificationsUpdate
+
+func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUnfreezeRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUnfreezeRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceUnfreezeRecipeStepsKeyNotificationsUpdate is
@@ -5805,6 +10736,31 @@ type InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struc
 	KeyNotificationConfigs []InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5826,6 +10782,31 @@ type InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNot
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -5854,6 +10835,41 @@ type InstancePreprocessReportInstanceHealthRecipe struct {
 	ReadonlyRecipeStartTime           *string                                             `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                                            `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                                              `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstancePreprocessReportInstanceHealthRecipe InstancePreprocessReportInstanceHealthRecipe
+
+func (r *InstancePreprocessReportInstanceHealthRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReportInstanceHealthRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReportInstanceHealthRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessReportInstanceHealthRecipe is
@@ -5892,6 +10908,57 @@ type InstancePreprocessReportInstanceHealthRecipeSteps struct {
 	ClhDataUpdateTime              *string                                                                  `json:"clhDataUpdateTime"`
 }
 
+type jsonInstancePreprocessReportInstanceHealthRecipeSteps InstancePreprocessReportInstanceHealthRecipeSteps
+
+func (r *InstancePreprocessReportInstanceHealthRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReportInstanceHealthRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReportInstanceHealthRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessReportInstanceHealthRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5913,6 +10980,31 @@ type InstancePreprocessReportInstanceHealthRecipeStepsStatus struct {
 	Code    *int64                                                           `json:"code"`
 	Message *string                                                          `json:"message"`
 	Details []InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstancePreprocessReportInstanceHealthRecipeStepsStatus InstancePreprocessReportInstanceHealthRecipeStepsStatus
+
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReportInstanceHealthRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReportInstanceHealthRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessReportInstanceHealthRecipeStepsStatus is
@@ -5937,6 +11029,29 @@ type InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails
+
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -5957,6 +11072,29 @@ type InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas struct 
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas
+
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas is
@@ -5981,6 +11119,29 @@ type InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate
+
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6002,6 +11163,31 @@ type InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject str
 	Tag    *string                                                                           `json:"tag"`
 	Folder *string                                                                           `json:"folder"`
 	Scope  *InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject
+
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject is
@@ -6028,6 +11214,33 @@ type InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                                                    `json:"apiAttrs"`
 }
 
+type jsonInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo
+
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6051,6 +11264,31 @@ type InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName 
 	Region *string `json:"region"`
 }
 
+type jsonInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6072,6 +11310,27 @@ type InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissi
 	Permission *string `json:"permission"`
 }
 
+type jsonInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6091,6 +11350,27 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPerm
 type InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                                         `json:"-"`
 	KeyNotificationsInfo *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate
+
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate is
@@ -6116,6 +11396,31 @@ type InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyN
 	KeyNotificationConfigs []InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6137,6 +11442,31 @@ type InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyN
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -6165,6 +11495,41 @@ type InstanceReportInstanceHealthRecipe struct {
 	ReadonlyRecipeStartTime           *string                                   `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                                  `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                                    `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstanceReportInstanceHealthRecipe InstanceReportInstanceHealthRecipe
+
+func (r *InstanceReportInstanceHealthRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReportInstanceHealthRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReportInstanceHealthRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceReportInstanceHealthRecipe is
@@ -6203,6 +11568,57 @@ type InstanceReportInstanceHealthRecipeSteps struct {
 	ClhDataUpdateTime              *string                                                        `json:"clhDataUpdateTime"`
 }
 
+type jsonInstanceReportInstanceHealthRecipeSteps InstanceReportInstanceHealthRecipeSteps
+
+func (r *InstanceReportInstanceHealthRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReportInstanceHealthRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReportInstanceHealthRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReportInstanceHealthRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6224,6 +11640,31 @@ type InstanceReportInstanceHealthRecipeStepsStatus struct {
 	Code    *int64                                                 `json:"code"`
 	Message *string                                                `json:"message"`
 	Details []InstanceReportInstanceHealthRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstanceReportInstanceHealthRecipeStepsStatus InstanceReportInstanceHealthRecipeStepsStatus
+
+func (r *InstanceReportInstanceHealthRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReportInstanceHealthRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReportInstanceHealthRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceReportInstanceHealthRecipeStepsStatus is
@@ -6248,6 +11689,29 @@ type InstanceReportInstanceHealthRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstanceReportInstanceHealthRecipeStepsStatusDetails InstanceReportInstanceHealthRecipeStepsStatusDetails
+
+func (r *InstanceReportInstanceHealthRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReportInstanceHealthRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReportInstanceHealthRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReportInstanceHealthRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6268,6 +11732,29 @@ type InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas
+
+func (r *InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas is
@@ -6292,6 +11779,29 @@ type InstanceReportInstanceHealthRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstanceReportInstanceHealthRecipeStepsPreprocessUpdate InstanceReportInstanceHealthRecipeStepsPreprocessUpdate
+
+func (r *InstanceReportInstanceHealthRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReportInstanceHealthRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReportInstanceHealthRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReportInstanceHealthRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6313,6 +11823,31 @@ type InstanceReportInstanceHealthRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                                 `json:"tag"`
 	Folder *string                                                                 `json:"folder"`
 	Scope  *InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstanceReportInstanceHealthRecipeStepsRequestedTenantProject InstanceReportInstanceHealthRecipeStepsRequestedTenantProject
+
+func (r *InstanceReportInstanceHealthRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReportInstanceHealthRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReportInstanceHealthRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceReportInstanceHealthRecipeStepsRequestedTenantProject is
@@ -6339,6 +11874,33 @@ type InstanceReportInstanceHealthRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                                          `json:"apiAttrs"`
 }
 
+type jsonInstanceReportInstanceHealthRecipeStepsPermissionsInfo InstanceReportInstanceHealthRecipeStepsPermissionsInfo
+
+func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReportInstanceHealthRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReportInstanceHealthRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReportInstanceHealthRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6362,6 +11924,31 @@ type InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6383,6 +11970,27 @@ type InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions struct
 	Permission *string `json:"permission"`
 }
 
+type jsonInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6402,6 +12010,27 @@ func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) H
 type InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                               `json:"-"`
 	KeyNotificationsInfo *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate
+
+func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate is
@@ -6427,6 +12056,31 @@ type InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificatio
 	KeyNotificationConfigs []InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6448,6 +12102,31 @@ type InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificatio
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -6476,6 +12155,41 @@ type InstancePreprocessGetRecipe struct {
 	ReadonlyRecipeStartTime           *string                            `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                           `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                             `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstancePreprocessGetRecipe InstancePreprocessGetRecipe
+
+func (r *InstancePreprocessGetRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessGetRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessGetRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessGetRecipe is
@@ -6514,6 +12228,57 @@ type InstancePreprocessGetRecipeSteps struct {
 	ClhDataUpdateTime              *string                                                 `json:"clhDataUpdateTime"`
 }
 
+type jsonInstancePreprocessGetRecipeSteps InstancePreprocessGetRecipeSteps
+
+func (r *InstancePreprocessGetRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessGetRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessGetRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessGetRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6535,6 +12300,31 @@ type InstancePreprocessGetRecipeStepsStatus struct {
 	Code    *int64                                          `json:"code"`
 	Message *string                                         `json:"message"`
 	Details []InstancePreprocessGetRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstancePreprocessGetRecipeStepsStatus InstancePreprocessGetRecipeStepsStatus
+
+func (r *InstancePreprocessGetRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessGetRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessGetRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessGetRecipeStepsStatus is
@@ -6559,6 +12349,29 @@ type InstancePreprocessGetRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstancePreprocessGetRecipeStepsStatusDetails InstancePreprocessGetRecipeStepsStatusDetails
+
+func (r *InstancePreprocessGetRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessGetRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessGetRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessGetRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6579,6 +12392,29 @@ type InstancePreprocessGetRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstancePreprocessGetRecipeStepsQuotaRequestDeltas InstancePreprocessGetRecipeStepsQuotaRequestDeltas
+
+func (r *InstancePreprocessGetRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessGetRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessGetRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessGetRecipeStepsQuotaRequestDeltas is
@@ -6603,6 +12439,29 @@ type InstancePreprocessGetRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstancePreprocessGetRecipeStepsPreprocessUpdate InstancePreprocessGetRecipeStepsPreprocessUpdate
+
+func (r *InstancePreprocessGetRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessGetRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessGetRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessGetRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6624,6 +12483,31 @@ type InstancePreprocessGetRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                          `json:"tag"`
 	Folder *string                                                          `json:"folder"`
 	Scope  *InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstancePreprocessGetRecipeStepsRequestedTenantProject InstancePreprocessGetRecipeStepsRequestedTenantProject
+
+func (r *InstancePreprocessGetRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessGetRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessGetRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessGetRecipeStepsRequestedTenantProject is
@@ -6650,6 +12534,33 @@ type InstancePreprocessGetRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                                   `json:"apiAttrs"`
 }
 
+type jsonInstancePreprocessGetRecipeStepsPermissionsInfo InstancePreprocessGetRecipeStepsPermissionsInfo
+
+func (r *InstancePreprocessGetRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessGetRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessGetRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessGetRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6673,6 +12584,31 @@ type InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6694,6 +12630,27 @@ type InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions struct {
 	Permission *string `json:"permission"`
 }
 
+type jsonInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6713,6 +12670,27 @@ func (r *InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions) HashCode
 type InstancePreprocessGetRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                        `json:"-"`
 	KeyNotificationsInfo *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstancePreprocessGetRecipeStepsKeyNotificationsUpdate InstancePreprocessGetRecipeStepsKeyNotificationsUpdate
+
+func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessGetRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessGetRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessGetRecipeStepsKeyNotificationsUpdate is
@@ -6738,6 +12716,31 @@ type InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo 
 	KeyNotificationConfigs []InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6759,6 +12762,31 @@ type InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -6787,6 +12815,41 @@ type InstanceNotifyKeyAvailableRecipe struct {
 	ReadonlyRecipeStartTime           *string                                 `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                                `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                                  `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstanceNotifyKeyAvailableRecipe InstanceNotifyKeyAvailableRecipe
+
+func (r *InstanceNotifyKeyAvailableRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyAvailableRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyAvailableRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceNotifyKeyAvailableRecipe is
@@ -6825,6 +12888,57 @@ type InstanceNotifyKeyAvailableRecipeSteps struct {
 	ClhDataUpdateTime              *string                                                      `json:"clhDataUpdateTime"`
 }
 
+type jsonInstanceNotifyKeyAvailableRecipeSteps InstanceNotifyKeyAvailableRecipeSteps
+
+func (r *InstanceNotifyKeyAvailableRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyAvailableRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyAvailableRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceNotifyKeyAvailableRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6846,6 +12960,31 @@ type InstanceNotifyKeyAvailableRecipeStepsStatus struct {
 	Code    *int64                                               `json:"code"`
 	Message *string                                              `json:"message"`
 	Details []InstanceNotifyKeyAvailableRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstanceNotifyKeyAvailableRecipeStepsStatus InstanceNotifyKeyAvailableRecipeStepsStatus
+
+func (r *InstanceNotifyKeyAvailableRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyAvailableRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyAvailableRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceNotifyKeyAvailableRecipeStepsStatus is
@@ -6870,6 +13009,29 @@ type InstanceNotifyKeyAvailableRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstanceNotifyKeyAvailableRecipeStepsStatusDetails InstanceNotifyKeyAvailableRecipeStepsStatusDetails
+
+func (r *InstanceNotifyKeyAvailableRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyAvailableRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyAvailableRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceNotifyKeyAvailableRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6890,6 +13052,29 @@ type InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas
+
+func (r *InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas is
@@ -6914,6 +13099,29 @@ type InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate
+
+func (r *InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6935,6 +13143,31 @@ type InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                               `json:"tag"`
 	Folder *string                                                               `json:"folder"`
 	Scope  *InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject
+
+func (r *InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject is
@@ -6961,6 +13194,33 @@ type InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                                        `json:"apiAttrs"`
 }
 
+type jsonInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo
+
+func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -6984,6 +13244,31 @@ type InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7005,6 +13290,27 @@ type InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions struct {
 	Permission *string `json:"permission"`
 }
 
+type jsonInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7024,6 +13330,27 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions) Has
 type InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                             `json:"-"`
 	KeyNotificationsInfo *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate
+
+func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate is
@@ -7049,6 +13376,31 @@ type InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotifications
 	KeyNotificationConfigs []InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7070,6 +13422,31 @@ type InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotifications
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -7098,6 +13475,41 @@ type InstanceNotifyKeyUnavailableRecipe struct {
 	ReadonlyRecipeStartTime           *string                                   `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                                  `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                                    `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstanceNotifyKeyUnavailableRecipe InstanceNotifyKeyUnavailableRecipe
+
+func (r *InstanceNotifyKeyUnavailableRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyUnavailableRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyUnavailableRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceNotifyKeyUnavailableRecipe is
@@ -7136,6 +13548,57 @@ type InstanceNotifyKeyUnavailableRecipeSteps struct {
 	ClhDataUpdateTime              *string                                                        `json:"clhDataUpdateTime"`
 }
 
+type jsonInstanceNotifyKeyUnavailableRecipeSteps InstanceNotifyKeyUnavailableRecipeSteps
+
+func (r *InstanceNotifyKeyUnavailableRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyUnavailableRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyUnavailableRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceNotifyKeyUnavailableRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7157,6 +13620,31 @@ type InstanceNotifyKeyUnavailableRecipeStepsStatus struct {
 	Code    *int64                                                 `json:"code"`
 	Message *string                                                `json:"message"`
 	Details []InstanceNotifyKeyUnavailableRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstanceNotifyKeyUnavailableRecipeStepsStatus InstanceNotifyKeyUnavailableRecipeStepsStatus
+
+func (r *InstanceNotifyKeyUnavailableRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyUnavailableRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyUnavailableRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceNotifyKeyUnavailableRecipeStepsStatus is
@@ -7181,6 +13669,29 @@ type InstanceNotifyKeyUnavailableRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstanceNotifyKeyUnavailableRecipeStepsStatusDetails InstanceNotifyKeyUnavailableRecipeStepsStatusDetails
+
+func (r *InstanceNotifyKeyUnavailableRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyUnavailableRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyUnavailableRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceNotifyKeyUnavailableRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7201,6 +13712,29 @@ type InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas
+
+func (r *InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas is
@@ -7225,6 +13759,29 @@ type InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate
+
+func (r *InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7246,6 +13803,31 @@ type InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                                 `json:"tag"`
 	Folder *string                                                                 `json:"folder"`
 	Scope  *InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject
+
+func (r *InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject is
@@ -7272,6 +13854,33 @@ type InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                                          `json:"apiAttrs"`
 }
 
+type jsonInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo
+
+func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7295,6 +13904,31 @@ type InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7316,6 +13950,27 @@ type InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions struct
 	Permission *string `json:"permission"`
 }
 
+type jsonInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7335,6 +13990,27 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions) H
 type InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                               `json:"-"`
 	KeyNotificationsInfo *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate
+
+func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate is
@@ -7360,6 +14036,31 @@ type InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificatio
 	KeyNotificationConfigs []InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7381,6 +14082,31 @@ type InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificatio
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -7409,6 +14135,41 @@ type InstanceReadonlyRecipe struct {
 	ReadonlyRecipeStartTime           *string                       `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                      `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                        `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstanceReadonlyRecipe InstanceReadonlyRecipe
+
+func (r *InstanceReadonlyRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReadonlyRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReadonlyRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceReadonlyRecipe is
@@ -7447,6 +14208,57 @@ type InstanceReadonlyRecipeSteps struct {
 	ClhDataUpdateTime              *string                                            `json:"clhDataUpdateTime"`
 }
 
+type jsonInstanceReadonlyRecipeSteps InstanceReadonlyRecipeSteps
+
+func (r *InstanceReadonlyRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReadonlyRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReadonlyRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReadonlyRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7468,6 +14280,31 @@ type InstanceReadonlyRecipeStepsStatus struct {
 	Code    *int64                                     `json:"code"`
 	Message *string                                    `json:"message"`
 	Details []InstanceReadonlyRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstanceReadonlyRecipeStepsStatus InstanceReadonlyRecipeStepsStatus
+
+func (r *InstanceReadonlyRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReadonlyRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReadonlyRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceReadonlyRecipeStepsStatus is
@@ -7492,6 +14329,29 @@ type InstanceReadonlyRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstanceReadonlyRecipeStepsStatusDetails InstanceReadonlyRecipeStepsStatusDetails
+
+func (r *InstanceReadonlyRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReadonlyRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReadonlyRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReadonlyRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7512,6 +14372,29 @@ type InstanceReadonlyRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstanceReadonlyRecipeStepsQuotaRequestDeltas InstanceReadonlyRecipeStepsQuotaRequestDeltas
+
+func (r *InstanceReadonlyRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReadonlyRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReadonlyRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceReadonlyRecipeStepsQuotaRequestDeltas is
@@ -7536,6 +14419,29 @@ type InstanceReadonlyRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstanceReadonlyRecipeStepsPreprocessUpdate InstanceReadonlyRecipeStepsPreprocessUpdate
+
+func (r *InstanceReadonlyRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReadonlyRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReadonlyRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReadonlyRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7557,6 +14463,31 @@ type InstanceReadonlyRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                     `json:"tag"`
 	Folder *string                                                     `json:"folder"`
 	Scope  *InstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstanceReadonlyRecipeStepsRequestedTenantProject InstanceReadonlyRecipeStepsRequestedTenantProject
+
+func (r *InstanceReadonlyRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReadonlyRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReadonlyRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceReadonlyRecipeStepsRequestedTenantProject is
@@ -7583,6 +14514,33 @@ type InstanceReadonlyRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                              `json:"apiAttrs"`
 }
 
+type jsonInstanceReadonlyRecipeStepsPermissionsInfo InstanceReadonlyRecipeStepsPermissionsInfo
+
+func (r *InstanceReadonlyRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReadonlyRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReadonlyRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReadonlyRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7606,6 +14564,31 @@ type InstanceReadonlyRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstanceReadonlyRecipeStepsPermissionsInfoPolicyName InstanceReadonlyRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstanceReadonlyRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReadonlyRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReadonlyRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReadonlyRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7627,6 +14610,27 @@ type InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions struct {
 	Permission *string `json:"permission"`
 }
 
+type jsonInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7646,6 +14650,27 @@ func (r *InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions) HashCode() st
 type InstanceReadonlyRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                   `json:"-"`
 	KeyNotificationsInfo *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstanceReadonlyRecipeStepsKeyNotificationsUpdate InstanceReadonlyRecipeStepsKeyNotificationsUpdate
+
+func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReadonlyRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReadonlyRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceReadonlyRecipeStepsKeyNotificationsUpdate is
@@ -7671,6 +14696,31 @@ type InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo struc
 	KeyNotificationConfigs []InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7692,6 +14742,31 @@ type InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNot
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -7720,6 +14795,41 @@ type InstanceReconcileRecipe struct {
 	ReadonlyRecipeStartTime           *string                        `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                       `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                         `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstanceReconcileRecipe InstanceReconcileRecipe
+
+func (r *InstanceReconcileRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReconcileRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReconcileRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceReconcileRecipe is
@@ -7758,6 +14868,57 @@ type InstanceReconcileRecipeSteps struct {
 	ClhDataUpdateTime              *string                                             `json:"clhDataUpdateTime"`
 }
 
+type jsonInstanceReconcileRecipeSteps InstanceReconcileRecipeSteps
+
+func (r *InstanceReconcileRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReconcileRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReconcileRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReconcileRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7779,6 +14940,31 @@ type InstanceReconcileRecipeStepsStatus struct {
 	Code    *int64                                      `json:"code"`
 	Message *string                                     `json:"message"`
 	Details []InstanceReconcileRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstanceReconcileRecipeStepsStatus InstanceReconcileRecipeStepsStatus
+
+func (r *InstanceReconcileRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReconcileRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReconcileRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceReconcileRecipeStepsStatus is
@@ -7803,6 +14989,29 @@ type InstanceReconcileRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstanceReconcileRecipeStepsStatusDetails InstanceReconcileRecipeStepsStatusDetails
+
+func (r *InstanceReconcileRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReconcileRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReconcileRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReconcileRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7823,6 +15032,29 @@ type InstanceReconcileRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstanceReconcileRecipeStepsQuotaRequestDeltas InstanceReconcileRecipeStepsQuotaRequestDeltas
+
+func (r *InstanceReconcileRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReconcileRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReconcileRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceReconcileRecipeStepsQuotaRequestDeltas is
@@ -7847,6 +15079,29 @@ type InstanceReconcileRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstanceReconcileRecipeStepsPreprocessUpdate InstanceReconcileRecipeStepsPreprocessUpdate
+
+func (r *InstanceReconcileRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReconcileRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReconcileRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReconcileRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7868,6 +15123,31 @@ type InstanceReconcileRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                      `json:"tag"`
 	Folder *string                                                      `json:"folder"`
 	Scope  *InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstanceReconcileRecipeStepsRequestedTenantProject InstanceReconcileRecipeStepsRequestedTenantProject
+
+func (r *InstanceReconcileRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReconcileRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReconcileRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceReconcileRecipeStepsRequestedTenantProject is
@@ -7894,6 +15174,33 @@ type InstanceReconcileRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                               `json:"apiAttrs"`
 }
 
+type jsonInstanceReconcileRecipeStepsPermissionsInfo InstanceReconcileRecipeStepsPermissionsInfo
+
+func (r *InstanceReconcileRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReconcileRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReconcileRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReconcileRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7917,6 +15224,31 @@ type InstanceReconcileRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstanceReconcileRecipeStepsPermissionsInfoPolicyName InstanceReconcileRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstanceReconcileRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReconcileRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReconcileRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReconcileRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7938,6 +15270,27 @@ type InstanceReconcileRecipeStepsPermissionsInfoIamPermissions struct {
 	Permission *string `json:"permission"`
 }
 
+type jsonInstanceReconcileRecipeStepsPermissionsInfoIamPermissions InstanceReconcileRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstanceReconcileRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReconcileRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReconcileRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReconcileRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -7957,6 +15310,27 @@ func (r *InstanceReconcileRecipeStepsPermissionsInfoIamPermissions) HashCode() s
 type InstanceReconcileRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                    `json:"-"`
 	KeyNotificationsInfo *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstanceReconcileRecipeStepsKeyNotificationsUpdate InstanceReconcileRecipeStepsKeyNotificationsUpdate
+
+func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReconcileRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReconcileRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceReconcileRecipeStepsKeyNotificationsUpdate is
@@ -7982,6 +15356,31 @@ type InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo stru
 	KeyNotificationConfigs []InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -8003,6 +15402,31 @@ type InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNo
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -8031,6 +15455,41 @@ type InstancePreprocessPassthroughRecipe struct {
 	ReadonlyRecipeStartTime           *string                                    `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                                   `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                                     `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstancePreprocessPassthroughRecipe InstancePreprocessPassthroughRecipe
+
+func (r *InstancePreprocessPassthroughRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessPassthroughRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessPassthroughRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessPassthroughRecipe is
@@ -8069,6 +15528,57 @@ type InstancePreprocessPassthroughRecipeSteps struct {
 	ClhDataUpdateTime              *string                                                         `json:"clhDataUpdateTime"`
 }
 
+type jsonInstancePreprocessPassthroughRecipeSteps InstancePreprocessPassthroughRecipeSteps
+
+func (r *InstancePreprocessPassthroughRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessPassthroughRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessPassthroughRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessPassthroughRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -8090,6 +15600,31 @@ type InstancePreprocessPassthroughRecipeStepsStatus struct {
 	Code    *int64                                                  `json:"code"`
 	Message *string                                                 `json:"message"`
 	Details []InstancePreprocessPassthroughRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstancePreprocessPassthroughRecipeStepsStatus InstancePreprocessPassthroughRecipeStepsStatus
+
+func (r *InstancePreprocessPassthroughRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessPassthroughRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessPassthroughRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessPassthroughRecipeStepsStatus is
@@ -8114,6 +15649,29 @@ type InstancePreprocessPassthroughRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstancePreprocessPassthroughRecipeStepsStatusDetails InstancePreprocessPassthroughRecipeStepsStatusDetails
+
+func (r *InstancePreprocessPassthroughRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessPassthroughRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessPassthroughRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessPassthroughRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -8134,6 +15692,29 @@ type InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas
+
+func (r *InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas is
@@ -8158,6 +15739,29 @@ type InstancePreprocessPassthroughRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstancePreprocessPassthroughRecipeStepsPreprocessUpdate InstancePreprocessPassthroughRecipeStepsPreprocessUpdate
+
+func (r *InstancePreprocessPassthroughRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessPassthroughRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessPassthroughRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessPassthroughRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -8179,6 +15783,31 @@ type InstancePreprocessPassthroughRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                                  `json:"tag"`
 	Folder *string                                                                  `json:"folder"`
 	Scope  *InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstancePreprocessPassthroughRecipeStepsRequestedTenantProject InstancePreprocessPassthroughRecipeStepsRequestedTenantProject
+
+func (r *InstancePreprocessPassthroughRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessPassthroughRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessPassthroughRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessPassthroughRecipeStepsRequestedTenantProject is
@@ -8205,6 +15834,33 @@ type InstancePreprocessPassthroughRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                                           `json:"apiAttrs"`
 }
 
+type jsonInstancePreprocessPassthroughRecipeStepsPermissionsInfo InstancePreprocessPassthroughRecipeStepsPermissionsInfo
+
+func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessPassthroughRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessPassthroughRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessPassthroughRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -8228,6 +15884,31 @@ type InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -8249,6 +15930,27 @@ type InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions struc
 	Permission *string `json:"permission"`
 }
 
+type jsonInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -8268,6 +15970,27 @@ func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions) 
 type InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                                `json:"-"`
 	KeyNotificationsInfo *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate
+
+func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate is
@@ -8293,6 +16016,31 @@ type InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificati
 	KeyNotificationConfigs []InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -8314,6 +16062,31 @@ type InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificati
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -8342,6 +16115,41 @@ type InstancePreprocessReconcileRecipe struct {
 	ReadonlyRecipeStartTime           *string                                  `json:"readonlyRecipeStartTime"`
 	ResourceNamesStoredInClhWithDelay []string                                 `json:"resourceNamesStoredInClhWithDelay"`
 	DelayToStoreResourcesInClhDbNanos *int64                                   `json:"delayToStoreResourcesInClhDbNanos"`
+}
+
+type jsonInstancePreprocessReconcileRecipe InstancePreprocessReconcileRecipe
+
+func (r *InstancePreprocessReconcileRecipe) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReconcileRecipe
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReconcileRecipe
+	} else {
+
+		r.Steps = res.Steps
+
+		r.HonorCancelRequest = res.HonorCancelRequest
+
+		r.IgnoreRecipeAfter = res.IgnoreRecipeAfter
+
+		r.VerifyDeadlineSecondsBelow = res.VerifyDeadlineSecondsBelow
+
+		r.PopulateOperationResult = res.PopulateOperationResult
+
+		r.ReadonlyRecipeStartTime = res.ReadonlyRecipeStartTime
+
+		r.ResourceNamesStoredInClhWithDelay = res.ResourceNamesStoredInClhWithDelay
+
+		r.DelayToStoreResourcesInClhDbNanos = res.DelayToStoreResourcesInClhDbNanos
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessReconcileRecipe is
@@ -8380,6 +16188,57 @@ type InstancePreprocessReconcileRecipeSteps struct {
 	ClhDataUpdateTime              *string                                                       `json:"clhDataUpdateTime"`
 }
 
+type jsonInstancePreprocessReconcileRecipeSteps InstancePreprocessReconcileRecipeSteps
+
+func (r *InstancePreprocessReconcileRecipeSteps) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReconcileRecipeSteps
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReconcileRecipeSteps
+	} else {
+
+		r.RelativeTime = res.RelativeTime
+
+		r.SleepDuration = res.SleepDuration
+
+		r.Action = res.Action
+
+		r.Status = res.Status
+
+		r.ErrorSpace = res.ErrorSpace
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+		r.ResourceMetadataSize = res.ResourceMetadataSize
+
+		r.Description = res.Description
+
+		r.UpdatedRepeatOperationDelaySec = res.UpdatedRepeatOperationDelaySec
+
+		r.QuotaRequestDeltas = res.QuotaRequestDeltas
+
+		r.PreprocessUpdate = res.PreprocessUpdate
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+		r.RequestedTenantProject = res.RequestedTenantProject
+
+		r.PermissionsInfo = res.PermissionsInfo
+
+		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
+
+		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessReconcileRecipeSteps is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -8401,6 +16260,31 @@ type InstancePreprocessReconcileRecipeStepsStatus struct {
 	Code    *int64                                                `json:"code"`
 	Message *string                                               `json:"message"`
 	Details []InstancePreprocessReconcileRecipeStepsStatusDetails `json:"details"`
+}
+
+type jsonInstancePreprocessReconcileRecipeStepsStatus InstancePreprocessReconcileRecipeStepsStatus
+
+func (r *InstancePreprocessReconcileRecipeStepsStatus) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReconcileRecipeStepsStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReconcileRecipeStepsStatus
+	} else {
+
+		r.Code = res.Code
+
+		r.Message = res.Message
+
+		r.Details = res.Details
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessReconcileRecipeStepsStatus is
@@ -8425,6 +16309,29 @@ type InstancePreprocessReconcileRecipeStepsStatusDetails struct {
 	Value   *string `json:"value"`
 }
 
+type jsonInstancePreprocessReconcileRecipeStepsStatusDetails InstancePreprocessReconcileRecipeStepsStatusDetails
+
+func (r *InstancePreprocessReconcileRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReconcileRecipeStepsStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReconcileRecipeStepsStatusDetails
+	} else {
+
+		r.TypeUrl = res.TypeUrl
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessReconcileRecipeStepsStatusDetails is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -8445,6 +16352,29 @@ type InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas struct {
 	empty      bool    `json:"-"`
 	MetricName *string `json:"metricName"`
 	Amount     *int64  `json:"amount"`
+}
+
+type jsonInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas
+
+func (r *InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas
+	} else {
+
+		r.MetricName = res.MetricName
+
+		r.Amount = res.Amount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas is
@@ -8469,6 +16399,29 @@ type InstancePreprocessReconcileRecipeStepsPreprocessUpdate struct {
 	PublicOperationMetadata *string `json:"publicOperationMetadata"`
 }
 
+type jsonInstancePreprocessReconcileRecipeStepsPreprocessUpdate InstancePreprocessReconcileRecipeStepsPreprocessUpdate
+
+func (r *InstancePreprocessReconcileRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReconcileRecipeStepsPreprocessUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReconcileRecipeStepsPreprocessUpdate
+	} else {
+
+		r.LatencySloBucketName = res.LatencySloBucketName
+
+		r.PublicOperationMetadata = res.PublicOperationMetadata
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessReconcileRecipeStepsPreprocessUpdate is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -8490,6 +16443,31 @@ type InstancePreprocessReconcileRecipeStepsRequestedTenantProject struct {
 	Tag    *string                                                                `json:"tag"`
 	Folder *string                                                                `json:"folder"`
 	Scope  *InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum `json:"scope"`
+}
+
+type jsonInstancePreprocessReconcileRecipeStepsRequestedTenantProject InstancePreprocessReconcileRecipeStepsRequestedTenantProject
+
+func (r *InstancePreprocessReconcileRecipeStepsRequestedTenantProject) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReconcileRecipeStepsRequestedTenantProject
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReconcileRecipeStepsRequestedTenantProject
+	} else {
+
+		r.Tag = res.Tag
+
+		r.Folder = res.Folder
+
+		r.Scope = res.Scope
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessReconcileRecipeStepsRequestedTenantProject is
@@ -8516,6 +16494,33 @@ type InstancePreprocessReconcileRecipeStepsPermissionsInfo struct {
 	ApiAttrs       *InstanceGoogleprotobufstruct                                         `json:"apiAttrs"`
 }
 
+type jsonInstancePreprocessReconcileRecipeStepsPermissionsInfo InstancePreprocessReconcileRecipeStepsPermissionsInfo
+
+func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReconcileRecipeStepsPermissionsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReconcileRecipeStepsPermissionsInfo
+	} else {
+
+		r.PolicyName = res.PolicyName
+
+		r.IamPermissions = res.IamPermissions
+
+		r.ResourcePath = res.ResourcePath
+
+		r.ApiAttrs = res.ApiAttrs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessReconcileRecipeStepsPermissionsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -8539,6 +16544,31 @@ type InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName struct {
 	Region *string `json:"region"`
 }
 
+type jsonInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName
+
+func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName
+	} else {
+
+		r.Type = res.Type
+
+		r.Id = res.Id
+
+		r.Region = res.Region
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -8560,6 +16590,27 @@ type InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions struct 
 	Permission *string `json:"permission"`
 }
 
+type jsonInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions
+
+func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions
+	} else {
+
+		r.Permission = res.Permission
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -8579,6 +16630,27 @@ func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions) Ha
 type InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate struct {
 	empty                bool                                                                              `json:"-"`
 	KeyNotificationsInfo *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo `json:"keyNotificationsInfo"`
+}
+
+type jsonInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate
+
+func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate
+	} else {
+
+		r.KeyNotificationsInfo = res.KeyNotificationsInfo
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate is
@@ -8604,6 +16676,31 @@ type InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotification
 	KeyNotificationConfigs []InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs `json:"keyNotificationConfigs"`
 }
 
+type jsonInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+
+func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	} else {
+
+		r.DataVersion = res.DataVersion
+
+		r.Delegate = res.Delegate
+
+		r.KeyNotificationConfigs = res.KeyNotificationConfigs
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -8625,6 +16722,31 @@ type InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotification
 	KeyOrVersionName *string `json:"keyOrVersionName"`
 	Grant            *string `json:"grant"`
 	DelegatorGaiaId  *int64  `json:"delegatorGaiaId"`
+}
+
+type jsonInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+
+func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	} else {
+
+		r.KeyOrVersionName = res.KeyOrVersionName
+
+		r.Grant = res.Grant
+
+		r.DelegatorGaiaId = res.DelegatorGaiaId
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs is
@@ -8652,6 +16774,39 @@ type InstanceHistory struct {
 	TenantProjectNumber *int64  `json:"tenantProjectNumber"`
 	TenantProjectId     *string `json:"tenantProjectId"`
 	P4ServiceAccount    *string `json:"p4ServiceAccount"`
+}
+
+type jsonInstanceHistory InstanceHistory
+
+func (r *InstanceHistory) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceHistory
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceHistory
+	} else {
+
+		r.Timestamp = res.Timestamp
+
+		r.OperationHandle = res.OperationHandle
+
+		r.Description = res.Description
+
+		r.StepIndex = res.StepIndex
+
+		r.TenantProjectNumber = res.TenantProjectNumber
+
+		r.TenantProjectId = res.TenantProjectId
+
+		r.P4ServiceAccount = res.P4ServiceAccount
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceHistory is

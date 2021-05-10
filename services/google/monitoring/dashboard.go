@@ -16,6 +16,7 @@ package monitoring
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -1662,6 +1663,29 @@ type DashboardGridLayout struct {
 	Widgets []DashboardWidget `json:"widgets"`
 }
 
+type jsonDashboardGridLayout DashboardGridLayout
+
+func (r *DashboardGridLayout) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayout
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayout
+	} else {
+
+		r.Columns = res.Columns
+
+		r.Widgets = res.Widgets
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardGridLayout is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1682,6 +1706,29 @@ type DashboardMosaicLayout struct {
 	empty   bool                         `json:"-"`
 	Columns *int64                       `json:"columns"`
 	Tiles   []DashboardMosaicLayoutTiles `json:"tiles"`
+}
+
+type jsonDashboardMosaicLayout DashboardMosaicLayout
+
+func (r *DashboardMosaicLayout) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayout
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayout
+	} else {
+
+		r.Columns = res.Columns
+
+		r.Tiles = res.Tiles
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardMosaicLayout is
@@ -1709,6 +1756,35 @@ type DashboardMosaicLayoutTiles struct {
 	Widget *DashboardWidget `json:"widget"`
 }
 
+type jsonDashboardMosaicLayoutTiles DashboardMosaicLayoutTiles
+
+func (r *DashboardMosaicLayoutTiles) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTiles
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTiles
+	} else {
+
+		r.XPos = res.XPos
+
+		r.YPos = res.YPos
+
+		r.Width = res.Width
+
+		r.Height = res.Height
+
+		r.Widget = res.Widget
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardMosaicLayoutTiles is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1728,6 +1804,27 @@ func (r *DashboardMosaicLayoutTiles) HashCode() string {
 type DashboardRowLayout struct {
 	empty bool                     `json:"-"`
 	Rows  []DashboardRowLayoutRows `json:"rows"`
+}
+
+type jsonDashboardRowLayout DashboardRowLayout
+
+func (r *DashboardRowLayout) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayout
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayout
+	} else {
+
+		r.Rows = res.Rows
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardRowLayout is
@@ -1752,6 +1849,29 @@ type DashboardRowLayoutRows struct {
 	Widgets []DashboardWidget `json:"widgets"`
 }
 
+type jsonDashboardRowLayoutRows DashboardRowLayoutRows
+
+func (r *DashboardRowLayoutRows) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRows
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRows
+	} else {
+
+		r.Weight = res.Weight
+
+		r.Widgets = res.Widgets
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardRowLayoutRows is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1771,6 +1891,27 @@ func (r *DashboardRowLayoutRows) HashCode() string {
 type DashboardColumnLayout struct {
 	empty   bool                           `json:"-"`
 	Columns []DashboardColumnLayoutColumns `json:"columns"`
+}
+
+type jsonDashboardColumnLayout DashboardColumnLayout
+
+func (r *DashboardColumnLayout) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayout
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardColumnLayout
+	} else {
+
+		r.Columns = res.Columns
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardColumnLayout is
@@ -1793,6 +1934,29 @@ type DashboardColumnLayoutColumns struct {
 	empty   bool              `json:"-"`
 	Weight  *int64            `json:"weight"`
 	Widgets []DashboardWidget `json:"widgets"`
+}
+
+type jsonDashboardColumnLayoutColumns DashboardColumnLayoutColumns
+
+func (r *DashboardColumnLayoutColumns) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumns
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardColumnLayoutColumns
+	} else {
+
+		r.Weight = res.Weight
+
+		r.Widgets = res.Widgets
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardColumnLayoutColumns is
@@ -1818,6 +1982,35 @@ type DashboardWidget struct {
 	Scorecard *DashboardWidgetScorecard `json:"scorecard"`
 	Text      *DashboardWidgetText      `json:"text"`
 	Blank     *DashboardWidgetBlank     `json:"blank"`
+}
+
+type jsonDashboardWidget DashboardWidget
+
+func (r *DashboardWidget) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidget
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidget
+	} else {
+
+		r.Title = res.Title
+
+		r.XyChart = res.XyChart
+
+		r.Scorecard = res.Scorecard
+
+		r.Text = res.Text
+
+		r.Blank = res.Blank
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidget is
@@ -1848,6 +2041,41 @@ type DashboardWidgetXyChart struct {
 	ChartOptions      *DashboardWidgetXyChartChartOptions    `json:"chartOptions"`
 }
 
+type jsonDashboardWidgetXyChart DashboardWidgetXyChart
+
+func (r *DashboardWidgetXyChart) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChart
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChart
+	} else {
+
+		r.DataSets = res.DataSets
+
+		r.SourceDrilldown = res.SourceDrilldown
+
+		r.MetricDrilldown = res.MetricDrilldown
+
+		r.TimeshiftDuration = res.TimeshiftDuration
+
+		r.Thresholds = res.Thresholds
+
+		r.XAxis = res.XAxis
+
+		r.YAxis = res.YAxis
+
+		r.ChartOptions = res.ChartOptions
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChart is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1870,6 +2098,33 @@ type DashboardWidgetXyChartDataSets struct {
 	PlotType           *DashboardWidgetXyChartDataSetsPlotTypeEnum    `json:"plotType"`
 	LegendTemplate     *string                                        `json:"legendTemplate"`
 	MinAlignmentPeriod *string                                        `json:"minAlignmentPeriod"`
+}
+
+type jsonDashboardWidgetXyChartDataSets DashboardWidgetXyChartDataSets
+
+func (r *DashboardWidgetXyChartDataSets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSets
+	} else {
+
+		r.TimeSeriesQuery = res.TimeSeriesQuery
+
+		r.PlotType = res.PlotType
+
+		r.LegendTemplate = res.LegendTemplate
+
+		r.MinAlignmentPeriod = res.MinAlignmentPeriod
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSets is
@@ -1897,6 +2152,35 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQuery struct {
 	UnitOverride            *string                                                             `json:"unitOverride"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQuery DashboardWidgetXyChartDataSetsTimeSeriesQuery
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQuery) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQuery
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQuery
+	} else {
+
+		r.TimeSeriesFilter = res.TimeSeriesFilter
+
+		r.TimeSeriesFilterRatio = res.TimeSeriesFilterRatio
+
+		r.TimeSeriesQueryLanguage = res.TimeSeriesQueryLanguage
+
+		r.ApiSource = res.ApiSource
+
+		r.UnitOverride = res.UnitOverride
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQuery is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1919,6 +2203,33 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter struct {
 	Aggregation          *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation          `json:"aggregation"`
 	SecondaryAggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation `json:"secondaryAggregation"`
 	PickTimeSeriesFilter *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+		r.SecondaryAggregation = res.SecondaryAggregation
+
+		r.PickTimeSeriesFilter = res.PickTimeSeriesFilter
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter is
@@ -1947,6 +2258,37 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation st
 	ReduceMakeDistributionParams *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams `json:"reduceMakeDistributionParams"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+		r.ReduceFractionLessThanParams = res.ReduceFractionLessThanParams
+
+		r.ReduceMakeDistributionParams = res.ReduceMakeDistributionParams
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -1966,6 +2308,27 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregatio
 type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams struct {
 	empty     bool     `json:"-"`
 	Threshold *float64 `json:"threshold"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams
+	} else {
+
+		r.Threshold = res.Threshold
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams is
@@ -1988,6 +2351,29 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationRed
 	empty            bool                                                                                                                  `json:"-"`
 	BucketOptions    *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions    `json:"bucketOptions"`
 	ExemplarSampling *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling `json:"exemplarSampling"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams
+	} else {
+
+		r.BucketOptions = res.BucketOptions
+
+		r.ExemplarSampling = res.ExemplarSampling
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams is
@@ -2013,6 +2399,31 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationRed
 	ExplicitBuckets    *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets    `json:"explicitBuckets"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions
+	} else {
+
+		r.LinearBuckets = res.LinearBuckets
+
+		r.ExponentialBuckets = res.ExponentialBuckets
+
+		r.ExplicitBuckets = res.ExplicitBuckets
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2034,6 +2445,31 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationRed
 	NumFiniteBuckets *int64   `json:"numFiniteBuckets"`
 	Width            *float64 `json:"width"`
 	Offset           *float64 `json:"offset"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.Width = res.Width
+
+		r.Offset = res.Offset
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets is
@@ -2059,6 +2495,31 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationRed
 	Scale            *float64 `json:"scale"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.GrowthFactor = res.GrowthFactor
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2080,6 +2541,27 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationRed
 	Bounds []float64 `json:"bounds"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	} else {
+
+		r.Bounds = res.Bounds
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2099,6 +2581,27 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregatio
 type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling struct {
 	empty        bool     `json:"-"`
 	MinimumValue *float64 `json:"minimumValue"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling
+	} else {
+
+		r.MinimumValue = res.MinimumValue
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling is
@@ -2127,6 +2630,37 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggre
 	ReduceMakeDistributionParams *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams `json:"reduceMakeDistributionParams"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+		r.ReduceFractionLessThanParams = res.ReduceFractionLessThanParams
+
+		r.ReduceMakeDistributionParams = res.ReduceMakeDistributionParams
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2146,6 +2680,27 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryA
 type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams struct {
 	empty     bool     `json:"-"`
 	Threshold *float64 `json:"threshold"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams
+	} else {
+
+		r.Threshold = res.Threshold
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams is
@@ -2168,6 +2723,29 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggre
 	empty            bool                                                                                                                           `json:"-"`
 	BucketOptions    *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions    `json:"bucketOptions"`
 	ExemplarSampling *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling `json:"exemplarSampling"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams
+	} else {
+
+		r.BucketOptions = res.BucketOptions
+
+		r.ExemplarSampling = res.ExemplarSampling
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams is
@@ -2193,6 +2771,31 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggre
 	ExplicitBuckets    *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets    `json:"explicitBuckets"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions
+	} else {
+
+		r.LinearBuckets = res.LinearBuckets
+
+		r.ExponentialBuckets = res.ExponentialBuckets
+
+		r.ExplicitBuckets = res.ExplicitBuckets
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2214,6 +2817,31 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggre
 	NumFiniteBuckets *int64   `json:"numFiniteBuckets"`
 	Width            *float64 `json:"width"`
 	Offset           *float64 `json:"offset"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.Width = res.Width
+
+		r.Offset = res.Offset
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets is
@@ -2239,6 +2867,31 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggre
 	Scale            *float64 `json:"scale"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.GrowthFactor = res.GrowthFactor
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2258,6 +2911,27 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryA
 type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets struct {
 	empty  bool      `json:"-"`
 	Bounds []float64 `json:"bounds"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	} else {
+
+		r.Bounds = res.Bounds
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets is
@@ -2281,6 +2955,27 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggre
 	MinimumValue *float64 `json:"minimumValue"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
+	} else {
+
+		r.MinimumValue = res.MinimumValue
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2302,6 +2997,31 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeries
 	RankingMethod *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
 	NumTimeSeries *int64                                                                                              `json:"numTimeSeries"`
 	Direction     *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum     `json:"direction"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+	} else {
+
+		r.RankingMethod = res.RankingMethod
+
+		r.NumTimeSeries = res.NumTimeSeries
+
+		r.Direction = res.Direction
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter is
@@ -2328,6 +3048,33 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio struct {
 	PickTimeSeriesFilter *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
+	} else {
+
+		r.Numerator = res.Numerator
+
+		r.Denominator = res.Denominator
+
+		r.SecondaryAggregation = res.SecondaryAggregation
+
+		r.PickTimeSeriesFilter = res.PickTimeSeriesFilter
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2348,6 +3095,29 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
 	empty       bool                                                                                    `json:"-"`
 	Filter      *string                                                                                 `json:"filter"`
 	Aggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation `json:"aggregation"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator is
@@ -2376,6 +3146,37 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
 	ReduceMakeDistributionParams *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams `json:"reduceMakeDistributionParams"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+		r.ReduceFractionLessThanParams = res.ReduceFractionLessThanParams
+
+		r.ReduceMakeDistributionParams = res.ReduceMakeDistributionParams
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2395,6 +3196,27 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams struct {
 	empty     bool     `json:"-"`
 	Threshold *float64 `json:"threshold"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams
+	} else {
+
+		r.Threshold = res.Threshold
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams is
@@ -2417,6 +3239,29 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
 	empty            bool                                                                                                                                `json:"-"`
 	BucketOptions    *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions    `json:"bucketOptions"`
 	ExemplarSampling *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling `json:"exemplarSampling"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams
+	} else {
+
+		r.BucketOptions = res.BucketOptions
+
+		r.ExemplarSampling = res.ExemplarSampling
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams is
@@ -2442,6 +3287,31 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
 	ExplicitBuckets    *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets    `json:"explicitBuckets"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions
+	} else {
+
+		r.LinearBuckets = res.LinearBuckets
+
+		r.ExponentialBuckets = res.ExponentialBuckets
+
+		r.ExplicitBuckets = res.ExplicitBuckets
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2463,6 +3333,31 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
 	NumFiniteBuckets *int64   `json:"numFiniteBuckets"`
 	Width            *float64 `json:"width"`
 	Offset           *float64 `json:"offset"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.Width = res.Width
+
+		r.Offset = res.Offset
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets is
@@ -2488,6 +3383,31 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
 	Scale            *float64 `json:"scale"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.GrowthFactor = res.GrowthFactor
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2507,6 +3427,27 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets struct {
 	empty  bool      `json:"-"`
 	Bounds []float64 `json:"bounds"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	} else {
+
+		r.Bounds = res.Bounds
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets is
@@ -2530,6 +3471,27 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
 	MinimumValue *float64 `json:"minimumValue"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling
+	} else {
+
+		r.MinimumValue = res.MinimumValue
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2550,6 +3512,29 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominat
 	empty       bool                                                                                      `json:"-"`
 	Filter      *string                                                                                   `json:"filter"`
 	Aggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation `json:"aggregation"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator is
@@ -2578,6 +3563,37 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominat
 	ReduceMakeDistributionParams *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams `json:"reduceMakeDistributionParams"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+		r.ReduceFractionLessThanParams = res.ReduceFractionLessThanParams
+
+		r.ReduceMakeDistributionParams = res.ReduceMakeDistributionParams
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2597,6 +3613,27 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams struct {
 	empty     bool     `json:"-"`
 	Threshold *float64 `json:"threshold"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams
+	} else {
+
+		r.Threshold = res.Threshold
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams is
@@ -2619,6 +3656,29 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominat
 	empty            bool                                                                                                                                  `json:"-"`
 	BucketOptions    *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions    `json:"bucketOptions"`
 	ExemplarSampling *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling `json:"exemplarSampling"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams
+	} else {
+
+		r.BucketOptions = res.BucketOptions
+
+		r.ExemplarSampling = res.ExemplarSampling
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams is
@@ -2644,6 +3704,31 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominat
 	ExplicitBuckets    *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets    `json:"explicitBuckets"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions
+	} else {
+
+		r.LinearBuckets = res.LinearBuckets
+
+		r.ExponentialBuckets = res.ExponentialBuckets
+
+		r.ExplicitBuckets = res.ExplicitBuckets
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2665,6 +3750,31 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominat
 	NumFiniteBuckets *int64   `json:"numFiniteBuckets"`
 	Width            *float64 `json:"width"`
 	Offset           *float64 `json:"offset"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.Width = res.Width
+
+		r.Offset = res.Offset
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets is
@@ -2690,6 +3800,31 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominat
 	Scale            *float64 `json:"scale"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.GrowthFactor = res.GrowthFactor
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2711,6 +3846,27 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominat
 	Bounds []float64 `json:"bounds"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	} else {
+
+		r.Bounds = res.Bounds
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2730,6 +3886,27 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling struct {
 	empty        bool     `json:"-"`
 	MinimumValue *float64 `json:"minimumValue"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling
+	} else {
+
+		r.MinimumValue = res.MinimumValue
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling is
@@ -2758,6 +3935,37 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondary
 	ReduceMakeDistributionParams *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams `json:"reduceMakeDistributionParams"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+		r.ReduceFractionLessThanParams = res.ReduceFractionLessThanParams
+
+		r.ReduceMakeDistributionParams = res.ReduceMakeDistributionParams
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2777,6 +3985,27 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecon
 type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams struct {
 	empty     bool     `json:"-"`
 	Threshold *float64 `json:"threshold"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams
+	} else {
+
+		r.Threshold = res.Threshold
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams is
@@ -2799,6 +4028,29 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondary
 	empty            bool                                                                                                                                `json:"-"`
 	BucketOptions    *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions    `json:"bucketOptions"`
 	ExemplarSampling *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling `json:"exemplarSampling"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams
+	} else {
+
+		r.BucketOptions = res.BucketOptions
+
+		r.ExemplarSampling = res.ExemplarSampling
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams is
@@ -2824,6 +4076,31 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondary
 	ExplicitBuckets    *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets    `json:"explicitBuckets"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions
+	} else {
+
+		r.LinearBuckets = res.LinearBuckets
+
+		r.ExponentialBuckets = res.ExponentialBuckets
+
+		r.ExplicitBuckets = res.ExplicitBuckets
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2845,6 +4122,31 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondary
 	NumFiniteBuckets *int64   `json:"numFiniteBuckets"`
 	Width            *float64 `json:"width"`
 	Offset           *float64 `json:"offset"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.Width = res.Width
+
+		r.Offset = res.Offset
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets is
@@ -2870,6 +4172,31 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondary
 	Scale            *float64 `json:"scale"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.GrowthFactor = res.GrowthFactor
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2889,6 +4216,27 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecon
 type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets struct {
 	empty  bool      `json:"-"`
 	Bounds []float64 `json:"bounds"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	} else {
+
+		r.Bounds = res.Bounds
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets is
@@ -2912,6 +4260,27 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondary
 	MinimumValue *float64 `json:"minimumValue"`
 }
 
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
+	} else {
+
+		r.MinimumValue = res.MinimumValue
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2933,6 +4302,31 @@ type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeS
 	RankingMethod *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
 	NumTimeSeries *int64                                                                                                   `json:"numTimeSeries"`
 	Direction     *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum     `json:"direction"`
+}
+
+type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+	} else {
+
+		r.RankingMethod = res.RankingMethod
+
+		r.NumTimeSeries = res.NumTimeSeries
+
+		r.Direction = res.Direction
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter is
@@ -2962,6 +4356,39 @@ type DashboardWidgetXyChartSourceDrilldown struct {
 	ServiceTypeDrilldown          *DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown           `json:"serviceTypeDrilldown"`
 }
 
+type jsonDashboardWidgetXyChartSourceDrilldown DashboardWidgetXyChartSourceDrilldown
+
+func (r *DashboardWidgetXyChartSourceDrilldown) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartSourceDrilldown
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartSourceDrilldown
+	} else {
+
+		r.ResourceTypeDrilldown = res.ResourceTypeDrilldown
+
+		r.ResourceLabelDrilldowns = res.ResourceLabelDrilldowns
+
+		r.MetadataSystemLabelDrilldowns = res.MetadataSystemLabelDrilldowns
+
+		r.MetadataUserLabelDrilldowns = res.MetadataUserLabelDrilldowns
+
+		r.GroupNameDrilldown = res.GroupNameDrilldown
+
+		r.ServiceNameDrilldown = res.ServiceNameDrilldown
+
+		r.ServiceTypeDrilldown = res.ServiceTypeDrilldown
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartSourceDrilldown is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -2981,6 +4408,27 @@ func (r *DashboardWidgetXyChartSourceDrilldown) HashCode() string {
 type DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown struct {
 	empty        bool     `json:"-"`
 	TargetValues []string `json:"targetValues"`
+}
+
+type jsonDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown
+
+func (r *DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown
+	} else {
+
+		r.TargetValues = res.TargetValues
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown is
@@ -3006,6 +4454,31 @@ type DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns struct {
 	ValueRestrictions []DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions  `json:"valueRestrictions"`
 }
 
+type jsonDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns
+
+func (r *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns
+	} else {
+
+		r.Label = res.Label
+
+		r.LogicalOperator = res.LogicalOperator
+
+		r.ValueRestrictions = res.ValueRestrictions
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3026,6 +4499,29 @@ type DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictio
 	empty       bool                                                                                         `json:"-"`
 	TargetValue *string                                                                                      `json:"targetValue"`
 	Comparator  *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum `json:"comparator"`
+}
+
+type jsonDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions
+
+func (r *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions
+	} else {
+
+		r.TargetValue = res.TargetValue
+
+		r.Comparator = res.Comparator
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions is
@@ -3051,6 +4547,31 @@ type DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns struct {
 	ValueRestrictions []DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions  `json:"valueRestrictions"`
 }
 
+type jsonDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns
+
+func (r *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns
+	} else {
+
+		r.Label = res.Label
+
+		r.LogicalOperator = res.LogicalOperator
+
+		r.ValueRestrictions = res.ValueRestrictions
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3071,6 +4592,29 @@ type DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRest
 	empty       bool                                                                                               `json:"-"`
 	TargetValue *string                                                                                            `json:"targetValue"`
 	Comparator  *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum `json:"comparator"`
+}
+
+type jsonDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions
+
+func (r *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions
+	} else {
+
+		r.TargetValue = res.TargetValue
+
+		r.Comparator = res.Comparator
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions is
@@ -3096,6 +4640,31 @@ type DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns struct {
 	ValueRestrictions []DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions  `json:"valueRestrictions"`
 }
 
+type jsonDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns
+
+func (r *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns
+	} else {
+
+		r.Label = res.Label
+
+		r.LogicalOperator = res.LogicalOperator
+
+		r.ValueRestrictions = res.ValueRestrictions
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3116,6 +4685,29 @@ type DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestri
 	empty       bool                                                                                             `json:"-"`
 	TargetValue *string                                                                                          `json:"targetValue"`
 	Comparator  *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum `json:"comparator"`
+}
+
+type jsonDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions
+
+func (r *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions
+	} else {
+
+		r.TargetValue = res.TargetValue
+
+		r.Comparator = res.Comparator
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions is
@@ -3139,6 +4731,27 @@ type DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown struct {
 	TargetValues []string `json:"targetValues"`
 }
 
+type jsonDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown
+
+func (r *DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown
+	} else {
+
+		r.TargetValues = res.TargetValues
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3160,6 +4773,27 @@ type DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown struct {
 	TargetValues []string `json:"targetValues"`
 }
 
+type jsonDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown
+
+func (r *DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown
+	} else {
+
+		r.TargetValues = res.TargetValues
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3179,6 +4813,27 @@ func (r *DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown) HashCode() s
 type DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown struct {
 	empty bool                                                                 `json:"-"`
 	Types []DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownTypesEnum `json:"types"`
+}
+
+type jsonDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown
+
+func (r *DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown
+	} else {
+
+		r.Types = res.Types
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown is
@@ -3204,6 +4859,31 @@ type DashboardWidgetXyChartMetricDrilldown struct {
 	MetricGroupByDrilldown *DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown `json:"metricGroupByDrilldown"`
 }
 
+type jsonDashboardWidgetXyChartMetricDrilldown DashboardWidgetXyChartMetricDrilldown
+
+func (r *DashboardWidgetXyChartMetricDrilldown) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartMetricDrilldown
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartMetricDrilldown
+	} else {
+
+		r.MetricTypeDrilldown = res.MetricTypeDrilldown
+
+		r.MetricLabelDrilldowns = res.MetricLabelDrilldowns
+
+		r.MetricGroupByDrilldown = res.MetricGroupByDrilldown
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartMetricDrilldown is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3223,6 +4903,27 @@ func (r *DashboardWidgetXyChartMetricDrilldown) HashCode() string {
 type DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown struct {
 	empty       bool    `json:"-"`
 	TargetValue *string `json:"targetValue"`
+}
+
+type jsonDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown
+
+func (r *DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown
+	} else {
+
+		r.TargetValue = res.TargetValue
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown is
@@ -3248,6 +4949,31 @@ type DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns struct {
 	ValueRestrictions []DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions  `json:"valueRestrictions"`
 }
 
+type jsonDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns
+
+func (r *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns
+	} else {
+
+		r.Label = res.Label
+
+		r.LogicalOperator = res.LogicalOperator
+
+		r.ValueRestrictions = res.ValueRestrictions
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3268,6 +4994,29 @@ type DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions
 	empty       bool                                                                                       `json:"-"`
 	TargetValue *string                                                                                    `json:"targetValue"`
 	Comparator  *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum `json:"comparator"`
+}
+
+type jsonDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions
+
+func (r *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions
+	} else {
+
+		r.TargetValue = res.TargetValue
+
+		r.Comparator = res.Comparator
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions is
@@ -3295,6 +5044,35 @@ type DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown struct {
 	Reducer              *DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownReducerEnum `json:"reducer"`
 }
 
+type jsonDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown
+
+func (r *DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown
+	} else {
+
+		r.ResourceLabels = res.ResourceLabels
+
+		r.MetricLabels = res.MetricLabels
+
+		r.MetadataSystemLabels = res.MetadataSystemLabels
+
+		r.MetadataUserLabels = res.MetadataUserLabels
+
+		r.Reducer = res.Reducer
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3319,6 +5097,33 @@ type DashboardWidgetXyChartThresholds struct {
 	Direction *DashboardWidgetXyChartThresholdsDirectionEnum `json:"direction"`
 }
 
+type jsonDashboardWidgetXyChartThresholds DashboardWidgetXyChartThresholds
+
+func (r *DashboardWidgetXyChartThresholds) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartThresholds
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartThresholds
+	} else {
+
+		r.Label = res.Label
+
+		r.Value = res.Value
+
+		r.Color = res.Color
+
+		r.Direction = res.Direction
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartThresholds is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3339,6 +5144,29 @@ type DashboardWidgetXyChartXAxis struct {
 	empty bool                                  `json:"-"`
 	Label *string                               `json:"label"`
 	Scale *DashboardWidgetXyChartXAxisScaleEnum `json:"scale"`
+}
+
+type jsonDashboardWidgetXyChartXAxis DashboardWidgetXyChartXAxis
+
+func (r *DashboardWidgetXyChartXAxis) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartXAxis
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartXAxis
+	} else {
+
+		r.Label = res.Label
+
+		r.Scale = res.Scale
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartXAxis is
@@ -3363,6 +5191,29 @@ type DashboardWidgetXyChartYAxis struct {
 	Scale *DashboardWidgetXyChartYAxisScaleEnum `json:"scale"`
 }
 
+type jsonDashboardWidgetXyChartYAxis DashboardWidgetXyChartYAxis
+
+func (r *DashboardWidgetXyChartYAxis) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartYAxis
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartYAxis
+	} else {
+
+		r.Label = res.Label
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetXyChartYAxis is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3383,6 +5234,29 @@ type DashboardWidgetXyChartChartOptions struct {
 	empty      bool                                        `json:"-"`
 	Mode       *DashboardWidgetXyChartChartOptionsModeEnum `json:"mode"`
 	ShowLegend *bool                                       `json:"showLegend"`
+}
+
+type jsonDashboardWidgetXyChartChartOptions DashboardWidgetXyChartChartOptions
+
+func (r *DashboardWidgetXyChartChartOptions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetXyChartChartOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetXyChartChartOptions
+	} else {
+
+		r.Mode = res.Mode
+
+		r.ShowLegend = res.ShowLegend
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetXyChartChartOptions is
@@ -3411,6 +5285,37 @@ type DashboardWidgetScorecard struct {
 	Thresholds      []DashboardWidgetScorecardThresholds     `json:"thresholds"`
 }
 
+type jsonDashboardWidgetScorecard DashboardWidgetScorecard
+
+func (r *DashboardWidgetScorecard) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecard
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecard
+	} else {
+
+		r.TimeSeriesQuery = res.TimeSeriesQuery
+
+		r.SourceDrilldown = res.SourceDrilldown
+
+		r.MetricDrilldown = res.MetricDrilldown
+
+		r.GaugeView = res.GaugeView
+
+		r.SparkChartView = res.SparkChartView
+
+		r.Thresholds = res.Thresholds
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecard is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3436,6 +5341,35 @@ type DashboardWidgetScorecardTimeSeriesQuery struct {
 	UnitOverride            *string                                                       `json:"unitOverride"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQuery DashboardWidgetScorecardTimeSeriesQuery
+
+func (r *DashboardWidgetScorecardTimeSeriesQuery) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQuery
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQuery
+	} else {
+
+		r.TimeSeriesFilter = res.TimeSeriesFilter
+
+		r.TimeSeriesFilterRatio = res.TimeSeriesFilterRatio
+
+		r.TimeSeriesQueryLanguage = res.TimeSeriesQueryLanguage
+
+		r.ApiSource = res.ApiSource
+
+		r.UnitOverride = res.UnitOverride
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQuery is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3458,6 +5392,33 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter struct {
 	Aggregation          *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation          `json:"aggregation"`
 	SecondaryAggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation `json:"secondaryAggregation"`
 	PickTimeSeriesFilter *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+		r.SecondaryAggregation = res.SecondaryAggregation
+
+		r.PickTimeSeriesFilter = res.PickTimeSeriesFilter
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter is
@@ -3486,6 +5447,37 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation struct {
 	ReduceMakeDistributionParams *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams `json:"reduceMakeDistributionParams"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+		r.ReduceFractionLessThanParams = res.ReduceFractionLessThanParams
+
+		r.ReduceMakeDistributionParams = res.ReduceMakeDistributionParams
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3505,6 +5497,27 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) Has
 type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams struct {
 	empty     bool     `json:"-"`
 	Threshold *float64 `json:"threshold"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams
+	} else {
+
+		r.Threshold = res.Threshold
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams is
@@ -3527,6 +5540,29 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMak
 	empty            bool                                                                                                            `json:"-"`
 	BucketOptions    *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions    `json:"bucketOptions"`
 	ExemplarSampling *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling `json:"exemplarSampling"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams
+	} else {
+
+		r.BucketOptions = res.BucketOptions
+
+		r.ExemplarSampling = res.ExemplarSampling
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams is
@@ -3552,6 +5588,31 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMak
 	ExplicitBuckets    *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets    `json:"explicitBuckets"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions
+	} else {
+
+		r.LinearBuckets = res.LinearBuckets
+
+		r.ExponentialBuckets = res.ExponentialBuckets
+
+		r.ExplicitBuckets = res.ExplicitBuckets
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3573,6 +5634,31 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMak
 	NumFiniteBuckets *int64   `json:"numFiniteBuckets"`
 	Width            *float64 `json:"width"`
 	Offset           *float64 `json:"offset"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.Width = res.Width
+
+		r.Offset = res.Offset
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets is
@@ -3598,6 +5684,31 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMak
 	Scale            *float64 `json:"scale"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.GrowthFactor = res.GrowthFactor
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3619,6 +5730,27 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMak
 	Bounds []float64 `json:"bounds"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	} else {
+
+		r.Bounds = res.Bounds
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3638,6 +5770,27 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduc
 type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling struct {
 	empty        bool     `json:"-"`
 	MinimumValue *float64 `json:"minimumValue"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling
+	} else {
+
+		r.MinimumValue = res.MinimumValue
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling is
@@ -3666,6 +5819,37 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
 	ReduceMakeDistributionParams *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams `json:"reduceMakeDistributionParams"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+		r.ReduceFractionLessThanParams = res.ReduceFractionLessThanParams
+
+		r.ReduceMakeDistributionParams = res.ReduceMakeDistributionParams
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3685,6 +5869,27 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggrega
 type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams struct {
 	empty     bool     `json:"-"`
 	Threshold *float64 `json:"threshold"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams
+	} else {
+
+		r.Threshold = res.Threshold
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams is
@@ -3707,6 +5912,29 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
 	empty            bool                                                                                                                     `json:"-"`
 	BucketOptions    *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions    `json:"bucketOptions"`
 	ExemplarSampling *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling `json:"exemplarSampling"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams
+	} else {
+
+		r.BucketOptions = res.BucketOptions
+
+		r.ExemplarSampling = res.ExemplarSampling
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams is
@@ -3732,6 +5960,31 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
 	ExplicitBuckets    *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets    `json:"explicitBuckets"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions
+	} else {
+
+		r.LinearBuckets = res.LinearBuckets
+
+		r.ExponentialBuckets = res.ExponentialBuckets
+
+		r.ExplicitBuckets = res.ExplicitBuckets
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3753,6 +6006,31 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
 	NumFiniteBuckets *int64   `json:"numFiniteBuckets"`
 	Width            *float64 `json:"width"`
 	Offset           *float64 `json:"offset"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.Width = res.Width
+
+		r.Offset = res.Offset
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets is
@@ -3778,6 +6056,31 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
 	Scale            *float64 `json:"scale"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.GrowthFactor = res.GrowthFactor
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3797,6 +6100,27 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggrega
 type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets struct {
 	empty  bool      `json:"-"`
 	Bounds []float64 `json:"bounds"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	} else {
+
+		r.Bounds = res.Bounds
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets is
@@ -3820,6 +6144,27 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
 	MinimumValue *float64 `json:"minimumValue"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
+	} else {
+
+		r.MinimumValue = res.MinimumValue
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3841,6 +6186,31 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
 	RankingMethod *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
 	NumTimeSeries *int64                                                                                        `json:"numTimeSeries"`
 	Direction     *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum     `json:"direction"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+	} else {
+
+		r.RankingMethod = res.RankingMethod
+
+		r.NumTimeSeries = res.NumTimeSeries
+
+		r.Direction = res.Direction
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter is
@@ -3867,6 +6237,33 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio struct {
 	PickTimeSeriesFilter *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
+	} else {
+
+		r.Numerator = res.Numerator
+
+		r.Denominator = res.Denominator
+
+		r.SecondaryAggregation = res.SecondaryAggregation
+
+		r.PickTimeSeriesFilter = res.PickTimeSeriesFilter
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3887,6 +6284,29 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator struc
 	empty       bool                                                                              `json:"-"`
 	Filter      *string                                                                           `json:"filter"`
 	Aggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation `json:"aggregation"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator is
@@ -3915,6 +6335,37 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggreg
 	ReduceMakeDistributionParams *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams `json:"reduceMakeDistributionParams"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+		r.ReduceFractionLessThanParams = res.ReduceFractionLessThanParams
+
+		r.ReduceMakeDistributionParams = res.ReduceMakeDistributionParams
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -3934,6 +6385,27 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAg
 type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams struct {
 	empty     bool     `json:"-"`
 	Threshold *float64 `json:"threshold"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams
+	} else {
+
+		r.Threshold = res.Threshold
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams is
@@ -3956,6 +6428,29 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggreg
 	empty            bool                                                                                                                          `json:"-"`
 	BucketOptions    *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions    `json:"bucketOptions"`
 	ExemplarSampling *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling `json:"exemplarSampling"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams
+	} else {
+
+		r.BucketOptions = res.BucketOptions
+
+		r.ExemplarSampling = res.ExemplarSampling
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams is
@@ -3981,6 +6476,31 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggreg
 	ExplicitBuckets    *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets    `json:"explicitBuckets"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions
+	} else {
+
+		r.LinearBuckets = res.LinearBuckets
+
+		r.ExponentialBuckets = res.ExponentialBuckets
+
+		r.ExplicitBuckets = res.ExplicitBuckets
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4002,6 +6522,31 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggreg
 	NumFiniteBuckets *int64   `json:"numFiniteBuckets"`
 	Width            *float64 `json:"width"`
 	Offset           *float64 `json:"offset"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.Width = res.Width
+
+		r.Offset = res.Offset
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets is
@@ -4027,6 +6572,31 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggreg
 	Scale            *float64 `json:"scale"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.GrowthFactor = res.GrowthFactor
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4046,6 +6616,27 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAg
 type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets struct {
 	empty  bool      `json:"-"`
 	Bounds []float64 `json:"bounds"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	} else {
+
+		r.Bounds = res.Bounds
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets is
@@ -4069,6 +6660,27 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggreg
 	MinimumValue *float64 `json:"minimumValue"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling
+	} else {
+
+		r.MinimumValue = res.MinimumValue
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4089,6 +6701,29 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator str
 	empty       bool                                                                                `json:"-"`
 	Filter      *string                                                                             `json:"filter"`
 	Aggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation `json:"aggregation"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator is
@@ -4117,6 +6752,37 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggr
 	ReduceMakeDistributionParams *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams `json:"reduceMakeDistributionParams"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+		r.ReduceFractionLessThanParams = res.ReduceFractionLessThanParams
+
+		r.ReduceMakeDistributionParams = res.ReduceMakeDistributionParams
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4136,6 +6802,27 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams struct {
 	empty     bool     `json:"-"`
 	Threshold *float64 `json:"threshold"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams
+	} else {
+
+		r.Threshold = res.Threshold
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams is
@@ -4158,6 +6845,29 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggr
 	empty            bool                                                                                                                            `json:"-"`
 	BucketOptions    *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions    `json:"bucketOptions"`
 	ExemplarSampling *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling `json:"exemplarSampling"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams
+	} else {
+
+		r.BucketOptions = res.BucketOptions
+
+		r.ExemplarSampling = res.ExemplarSampling
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams is
@@ -4183,6 +6893,31 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggr
 	ExplicitBuckets    *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets    `json:"explicitBuckets"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions
+	} else {
+
+		r.LinearBuckets = res.LinearBuckets
+
+		r.ExponentialBuckets = res.ExponentialBuckets
+
+		r.ExplicitBuckets = res.ExplicitBuckets
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4204,6 +6939,31 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggr
 	NumFiniteBuckets *int64   `json:"numFiniteBuckets"`
 	Width            *float64 `json:"width"`
 	Offset           *float64 `json:"offset"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.Width = res.Width
+
+		r.Offset = res.Offset
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets is
@@ -4229,6 +6989,31 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggr
 	Scale            *float64 `json:"scale"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.GrowthFactor = res.GrowthFactor
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4250,6 +7035,27 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggr
 	Bounds []float64 `json:"bounds"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	} else {
+
+		r.Bounds = res.Bounds
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4269,6 +7075,27 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling struct {
 	empty        bool     `json:"-"`
 	MinimumValue *float64 `json:"minimumValue"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling
+	} else {
+
+		r.MinimumValue = res.MinimumValue
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling is
@@ -4297,6 +7124,37 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggreg
 	ReduceMakeDistributionParams *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams `json:"reduceMakeDistributionParams"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+		r.ReduceFractionLessThanParams = res.ReduceFractionLessThanParams
+
+		r.ReduceMakeDistributionParams = res.ReduceMakeDistributionParams
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4316,6 +7174,27 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAg
 type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams struct {
 	empty     bool     `json:"-"`
 	Threshold *float64 `json:"threshold"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams
+	} else {
+
+		r.Threshold = res.Threshold
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams is
@@ -4338,6 +7217,29 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggreg
 	empty            bool                                                                                                                          `json:"-"`
 	BucketOptions    *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions    `json:"bucketOptions"`
 	ExemplarSampling *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling `json:"exemplarSampling"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams
+	} else {
+
+		r.BucketOptions = res.BucketOptions
+
+		r.ExemplarSampling = res.ExemplarSampling
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams is
@@ -4363,6 +7265,31 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggreg
 	ExplicitBuckets    *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets    `json:"explicitBuckets"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions
+	} else {
+
+		r.LinearBuckets = res.LinearBuckets
+
+		r.ExponentialBuckets = res.ExponentialBuckets
+
+		r.ExplicitBuckets = res.ExplicitBuckets
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4384,6 +7311,31 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggreg
 	NumFiniteBuckets *int64   `json:"numFiniteBuckets"`
 	Width            *float64 `json:"width"`
 	Offset           *float64 `json:"offset"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.Width = res.Width
+
+		r.Offset = res.Offset
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets is
@@ -4409,6 +7361,31 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggreg
 	Scale            *float64 `json:"scale"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	} else {
+
+		r.NumFiniteBuckets = res.NumFiniteBuckets
+
+		r.GrowthFactor = res.GrowthFactor
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4428,6 +7405,27 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAg
 type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets struct {
 	empty  bool      `json:"-"`
 	Bounds []float64 `json:"bounds"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	} else {
+
+		r.Bounds = res.Bounds
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets is
@@ -4451,6 +7449,27 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggreg
 	MinimumValue *float64 `json:"minimumValue"`
 }
 
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
+	} else {
+
+		r.MinimumValue = res.MinimumValue
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4472,6 +7491,31 @@ type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesF
 	RankingMethod *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
 	NumTimeSeries *int64                                                                                             `json:"numTimeSeries"`
 	Direction     *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum     `json:"direction"`
+}
+
+type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+	} else {
+
+		r.RankingMethod = res.RankingMethod
+
+		r.NumTimeSeries = res.NumTimeSeries
+
+		r.Direction = res.Direction
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter is
@@ -4501,6 +7545,39 @@ type DashboardWidgetScorecardSourceDrilldown struct {
 	ServiceTypeDrilldown          *DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown           `json:"serviceTypeDrilldown"`
 }
 
+type jsonDashboardWidgetScorecardSourceDrilldown DashboardWidgetScorecardSourceDrilldown
+
+func (r *DashboardWidgetScorecardSourceDrilldown) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardSourceDrilldown
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardSourceDrilldown
+	} else {
+
+		r.ResourceTypeDrilldown = res.ResourceTypeDrilldown
+
+		r.ResourceLabelDrilldowns = res.ResourceLabelDrilldowns
+
+		r.MetadataSystemLabelDrilldowns = res.MetadataSystemLabelDrilldowns
+
+		r.MetadataUserLabelDrilldowns = res.MetadataUserLabelDrilldowns
+
+		r.GroupNameDrilldown = res.GroupNameDrilldown
+
+		r.ServiceNameDrilldown = res.ServiceNameDrilldown
+
+		r.ServiceTypeDrilldown = res.ServiceTypeDrilldown
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardSourceDrilldown is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4520,6 +7597,27 @@ func (r *DashboardWidgetScorecardSourceDrilldown) HashCode() string {
 type DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown struct {
 	empty        bool     `json:"-"`
 	TargetValues []string `json:"targetValues"`
+}
+
+type jsonDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown
+
+func (r *DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown
+	} else {
+
+		r.TargetValues = res.TargetValues
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown is
@@ -4545,6 +7643,31 @@ type DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns struct {
 	ValueRestrictions []DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions  `json:"valueRestrictions"`
 }
 
+type jsonDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns
+
+func (r *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns
+	} else {
+
+		r.Label = res.Label
+
+		r.LogicalOperator = res.LogicalOperator
+
+		r.ValueRestrictions = res.ValueRestrictions
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4565,6 +7688,29 @@ type DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrict
 	empty       bool                                                                                           `json:"-"`
 	TargetValue *string                                                                                        `json:"targetValue"`
 	Comparator  *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum `json:"comparator"`
+}
+
+type jsonDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions
+
+func (r *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions
+	} else {
+
+		r.TargetValue = res.TargetValue
+
+		r.Comparator = res.Comparator
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions is
@@ -4590,6 +7736,31 @@ type DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns struct
 	ValueRestrictions []DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions  `json:"valueRestrictions"`
 }
 
+type jsonDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
+
+func (r *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
+	} else {
+
+		r.Label = res.Label
+
+		r.LogicalOperator = res.LogicalOperator
+
+		r.ValueRestrictions = res.ValueRestrictions
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4610,6 +7781,29 @@ type DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRe
 	empty       bool                                                                                                 `json:"-"`
 	TargetValue *string                                                                                              `json:"targetValue"`
 	Comparator  *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum `json:"comparator"`
+}
+
+type jsonDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions
+
+func (r *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions
+	} else {
+
+		r.TargetValue = res.TargetValue
+
+		r.Comparator = res.Comparator
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions is
@@ -4635,6 +7829,31 @@ type DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns struct {
 	ValueRestrictions []DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions  `json:"valueRestrictions"`
 }
 
+type jsonDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns
+
+func (r *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns
+	} else {
+
+		r.Label = res.Label
+
+		r.LogicalOperator = res.LogicalOperator
+
+		r.ValueRestrictions = res.ValueRestrictions
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4655,6 +7874,29 @@ type DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRest
 	empty       bool                                                                                               `json:"-"`
 	TargetValue *string                                                                                            `json:"targetValue"`
 	Comparator  *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum `json:"comparator"`
+}
+
+type jsonDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions
+
+func (r *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions
+	} else {
+
+		r.TargetValue = res.TargetValue
+
+		r.Comparator = res.Comparator
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions is
@@ -4678,6 +7920,27 @@ type DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown struct {
 	TargetValues []string `json:"targetValues"`
 }
 
+type jsonDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown
+
+func (r *DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown
+	} else {
+
+		r.TargetValues = res.TargetValues
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4699,6 +7962,27 @@ type DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown struct {
 	TargetValues []string `json:"targetValues"`
 }
 
+type jsonDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown
+
+func (r *DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown
+	} else {
+
+		r.TargetValues = res.TargetValues
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4718,6 +8002,27 @@ func (r *DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown) HashCode()
 type DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown struct {
 	empty bool                                                                   `json:"-"`
 	Types []DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownTypesEnum `json:"types"`
+}
+
+type jsonDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown
+
+func (r *DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown
+	} else {
+
+		r.Types = res.Types
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown is
@@ -4743,6 +8048,31 @@ type DashboardWidgetScorecardMetricDrilldown struct {
 	MetricGroupByDrilldown *DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown `json:"metricGroupByDrilldown"`
 }
 
+type jsonDashboardWidgetScorecardMetricDrilldown DashboardWidgetScorecardMetricDrilldown
+
+func (r *DashboardWidgetScorecardMetricDrilldown) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardMetricDrilldown
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardMetricDrilldown
+	} else {
+
+		r.MetricTypeDrilldown = res.MetricTypeDrilldown
+
+		r.MetricLabelDrilldowns = res.MetricLabelDrilldowns
+
+		r.MetricGroupByDrilldown = res.MetricGroupByDrilldown
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardMetricDrilldown is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4762,6 +8092,27 @@ func (r *DashboardWidgetScorecardMetricDrilldown) HashCode() string {
 type DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown struct {
 	empty       bool    `json:"-"`
 	TargetValue *string `json:"targetValue"`
+}
+
+type jsonDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown
+
+func (r *DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown
+	} else {
+
+		r.TargetValue = res.TargetValue
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown is
@@ -4787,6 +8138,31 @@ type DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns struct {
 	ValueRestrictions []DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions  `json:"valueRestrictions"`
 }
 
+type jsonDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns
+
+func (r *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns
+	} else {
+
+		r.Label = res.Label
+
+		r.LogicalOperator = res.LogicalOperator
+
+		r.ValueRestrictions = res.ValueRestrictions
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4807,6 +8183,29 @@ type DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictio
 	empty       bool                                                                                         `json:"-"`
 	TargetValue *string                                                                                      `json:"targetValue"`
 	Comparator  *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum `json:"comparator"`
+}
+
+type jsonDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions
+
+func (r *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions
+	} else {
+
+		r.TargetValue = res.TargetValue
+
+		r.Comparator = res.Comparator
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions is
@@ -4834,6 +8233,35 @@ type DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown struct {
 	Reducer              *DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownReducerEnum `json:"reducer"`
 }
 
+type jsonDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown
+
+func (r *DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown
+	} else {
+
+		r.ResourceLabels = res.ResourceLabels
+
+		r.MetricLabels = res.MetricLabels
+
+		r.MetadataSystemLabels = res.MetadataSystemLabels
+
+		r.MetadataUserLabels = res.MetadataUserLabels
+
+		r.Reducer = res.Reducer
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4856,6 +8284,29 @@ type DashboardWidgetScorecardGaugeView struct {
 	UpperBound *float64 `json:"upperBound"`
 }
 
+type jsonDashboardWidgetScorecardGaugeView DashboardWidgetScorecardGaugeView
+
+func (r *DashboardWidgetScorecardGaugeView) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardGaugeView
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardGaugeView
+	} else {
+
+		r.LowerBound = res.LowerBound
+
+		r.UpperBound = res.UpperBound
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardGaugeView is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4876,6 +8327,29 @@ type DashboardWidgetScorecardSparkChartView struct {
 	empty              bool                                                      `json:"-"`
 	SparkChartType     *DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum `json:"sparkChartType"`
 	MinAlignmentPeriod *string                                                   `json:"minAlignmentPeriod"`
+}
+
+type jsonDashboardWidgetScorecardSparkChartView DashboardWidgetScorecardSparkChartView
+
+func (r *DashboardWidgetScorecardSparkChartView) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardSparkChartView
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardSparkChartView
+	} else {
+
+		r.SparkChartType = res.SparkChartType
+
+		r.MinAlignmentPeriod = res.MinAlignmentPeriod
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetScorecardSparkChartView is
@@ -4902,6 +8376,33 @@ type DashboardWidgetScorecardThresholds struct {
 	Direction *DashboardWidgetScorecardThresholdsDirectionEnum `json:"direction"`
 }
 
+type jsonDashboardWidgetScorecardThresholds DashboardWidgetScorecardThresholds
+
+func (r *DashboardWidgetScorecardThresholds) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetScorecardThresholds
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetScorecardThresholds
+	} else {
+
+		r.Label = res.Label
+
+		r.Value = res.Value
+
+		r.Color = res.Color
+
+		r.Direction = res.Direction
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetScorecardThresholds is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4924,6 +8425,29 @@ type DashboardWidgetText struct {
 	Format  *DashboardWidgetTextFormatEnum `json:"format"`
 }
 
+type jsonDashboardWidgetText DashboardWidgetText
+
+func (r *DashboardWidgetText) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetText
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetText
+	} else {
+
+		r.Content = res.Content
+
+		r.Format = res.Format
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this DashboardWidgetText is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -4942,6 +8466,25 @@ func (r *DashboardWidgetText) HashCode() string {
 
 type DashboardWidgetBlank struct {
 	empty bool `json:"-"`
+}
+
+type jsonDashboardWidgetBlank DashboardWidgetBlank
+
+func (r *DashboardWidgetBlank) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardWidgetBlank
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardWidgetBlank
+	} else {
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this DashboardWidgetBlank is

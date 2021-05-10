@@ -16,6 +16,7 @@ package compute
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -165,6 +166,41 @@ type AutoscalerAutoscalingPolicy struct {
 	Mode                     *AutoscalerAutoscalingPolicyModeEnum                  `json:"mode"`
 }
 
+type jsonAutoscalerAutoscalingPolicy AutoscalerAutoscalingPolicy
+
+func (r *AutoscalerAutoscalingPolicy) UnmarshalJSON(data []byte) error {
+	var res jsonAutoscalerAutoscalingPolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAutoscalerAutoscalingPolicy
+	} else {
+
+		r.MinNumReplicas = res.MinNumReplicas
+
+		r.MaxNumReplicas = res.MaxNumReplicas
+
+		r.ScaleInControl = res.ScaleInControl
+
+		r.CoolDownPeriodSec = res.CoolDownPeriodSec
+
+		r.CpuUtilization = res.CpuUtilization
+
+		r.CustomMetricUtilizations = res.CustomMetricUtilizations
+
+		r.LoadBalancingUtilization = res.LoadBalancingUtilization
+
+		r.Mode = res.Mode
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AutoscalerAutoscalingPolicy is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -185,6 +221,29 @@ type AutoscalerAutoscalingPolicyScaleInControl struct {
 	empty               bool                                                          `json:"-"`
 	MaxScaledInReplicas *AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas `json:"maxScaledInReplicas"`
 	TimeWindowSec       *int64                                                        `json:"timeWindowSec"`
+}
+
+type jsonAutoscalerAutoscalingPolicyScaleInControl AutoscalerAutoscalingPolicyScaleInControl
+
+func (r *AutoscalerAutoscalingPolicyScaleInControl) UnmarshalJSON(data []byte) error {
+	var res jsonAutoscalerAutoscalingPolicyScaleInControl
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAutoscalerAutoscalingPolicyScaleInControl
+	} else {
+
+		r.MaxScaledInReplicas = res.MaxScaledInReplicas
+
+		r.TimeWindowSec = res.TimeWindowSec
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AutoscalerAutoscalingPolicyScaleInControl is
@@ -210,6 +269,31 @@ type AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas struct {
 	Calculated *int64 `json:"calculated"`
 }
 
+type jsonAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas
+
+func (r *AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas) UnmarshalJSON(data []byte) error {
+	var res jsonAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas
+	} else {
+
+		r.Fixed = res.Fixed
+
+		r.Percent = res.Percent
+
+		r.Calculated = res.Calculated
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -229,6 +313,27 @@ func (r *AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas) HashCode(
 type AutoscalerAutoscalingPolicyCpuUtilization struct {
 	empty             bool     `json:"-"`
 	UtilizationTarget *float64 `json:"utilizationTarget"`
+}
+
+type jsonAutoscalerAutoscalingPolicyCpuUtilization AutoscalerAutoscalingPolicyCpuUtilization
+
+func (r *AutoscalerAutoscalingPolicyCpuUtilization) UnmarshalJSON(data []byte) error {
+	var res jsonAutoscalerAutoscalingPolicyCpuUtilization
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAutoscalerAutoscalingPolicyCpuUtilization
+	} else {
+
+		r.UtilizationTarget = res.UtilizationTarget
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AutoscalerAutoscalingPolicyCpuUtilization is
@@ -254,6 +359,31 @@ type AutoscalerAutoscalingPolicyCustomMetricUtilizations struct {
 	UtilizationTargetType *AutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum `json:"utilizationTargetType"`
 }
 
+type jsonAutoscalerAutoscalingPolicyCustomMetricUtilizations AutoscalerAutoscalingPolicyCustomMetricUtilizations
+
+func (r *AutoscalerAutoscalingPolicyCustomMetricUtilizations) UnmarshalJSON(data []byte) error {
+	var res jsonAutoscalerAutoscalingPolicyCustomMetricUtilizations
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAutoscalerAutoscalingPolicyCustomMetricUtilizations
+	} else {
+
+		r.Metric = res.Metric
+
+		r.UtilizationTarget = res.UtilizationTarget
+
+		r.UtilizationTargetType = res.UtilizationTargetType
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AutoscalerAutoscalingPolicyCustomMetricUtilizations is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -273,6 +403,27 @@ func (r *AutoscalerAutoscalingPolicyCustomMetricUtilizations) HashCode() string 
 type AutoscalerAutoscalingPolicyLoadBalancingUtilization struct {
 	empty             bool     `json:"-"`
 	UtilizationTarget *float64 `json:"utilizationTarget"`
+}
+
+type jsonAutoscalerAutoscalingPolicyLoadBalancingUtilization AutoscalerAutoscalingPolicyLoadBalancingUtilization
+
+func (r *AutoscalerAutoscalingPolicyLoadBalancingUtilization) UnmarshalJSON(data []byte) error {
+	var res jsonAutoscalerAutoscalingPolicyLoadBalancingUtilization
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAutoscalerAutoscalingPolicyLoadBalancingUtilization
+	} else {
+
+		r.UtilizationTarget = res.UtilizationTarget
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AutoscalerAutoscalingPolicyLoadBalancingUtilization is
@@ -295,6 +446,29 @@ type AutoscalerStatusDetails struct {
 	empty   bool                             `json:"-"`
 	Message *string                          `json:"message"`
 	Type    *AutoscalerStatusDetailsTypeEnum `json:"type"`
+}
+
+type jsonAutoscalerStatusDetails AutoscalerStatusDetails
+
+func (r *AutoscalerStatusDetails) UnmarshalJSON(data []byte) error {
+	var res jsonAutoscalerStatusDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAutoscalerStatusDetails
+	} else {
+
+		r.Message = res.Message
+
+		r.Type = res.Type
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AutoscalerStatusDetails is

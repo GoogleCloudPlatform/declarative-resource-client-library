@@ -16,6 +16,7 @@ package monitoring
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -155,6 +156,29 @@ type UptimeCheckConfigMonitoredResource struct {
 	FilterLabels map[string]string `json:"filterLabels"`
 }
 
+type jsonUptimeCheckConfigMonitoredResource UptimeCheckConfigMonitoredResource
+
+func (r *UptimeCheckConfigMonitoredResource) UnmarshalJSON(data []byte) error {
+	var res jsonUptimeCheckConfigMonitoredResource
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUptimeCheckConfigMonitoredResource
+	} else {
+
+		r.Type = res.Type
+
+		r.FilterLabels = res.FilterLabels
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UptimeCheckConfigMonitoredResource is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -175,6 +199,29 @@ type UptimeCheckConfigResourceGroup struct {
 	empty        bool                                            `json:"-"`
 	GroupId      *string                                         `json:"groupId"`
 	ResourceType *UptimeCheckConfigResourceGroupResourceTypeEnum `json:"resourceType"`
+}
+
+type jsonUptimeCheckConfigResourceGroup UptimeCheckConfigResourceGroup
+
+func (r *UptimeCheckConfigResourceGroup) UnmarshalJSON(data []byte) error {
+	var res jsonUptimeCheckConfigResourceGroup
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUptimeCheckConfigResourceGroup
+	} else {
+
+		r.GroupId = res.GroupId
+
+		r.ResourceType = res.ResourceType
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UptimeCheckConfigResourceGroup is
@@ -207,6 +254,45 @@ type UptimeCheckConfigHttpCheck struct {
 	Body          *string                                      `json:"body"`
 }
 
+type jsonUptimeCheckConfigHttpCheck UptimeCheckConfigHttpCheck
+
+func (r *UptimeCheckConfigHttpCheck) UnmarshalJSON(data []byte) error {
+	var res jsonUptimeCheckConfigHttpCheck
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUptimeCheckConfigHttpCheck
+	} else {
+
+		r.RequestMethod = res.RequestMethod
+
+		r.UseSsl = res.UseSsl
+
+		r.Path = res.Path
+
+		r.Port = res.Port
+
+		r.AuthInfo = res.AuthInfo
+
+		r.MaskHeaders = res.MaskHeaders
+
+		r.Headers = res.Headers
+
+		r.ContentType = res.ContentType
+
+		r.ValidateSsl = res.ValidateSsl
+
+		r.Body = res.Body
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UptimeCheckConfigHttpCheck is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -227,6 +313,29 @@ type UptimeCheckConfigHttpCheckAuthInfo struct {
 	empty    bool    `json:"-"`
 	Username *string `json:"username"`
 	Password *string `json:"password"`
+}
+
+type jsonUptimeCheckConfigHttpCheckAuthInfo UptimeCheckConfigHttpCheckAuthInfo
+
+func (r *UptimeCheckConfigHttpCheckAuthInfo) UnmarshalJSON(data []byte) error {
+	var res jsonUptimeCheckConfigHttpCheckAuthInfo
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUptimeCheckConfigHttpCheckAuthInfo
+	} else {
+
+		r.Username = res.Username
+
+		r.Password = res.Password
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UptimeCheckConfigHttpCheckAuthInfo is
@@ -250,6 +359,27 @@ type UptimeCheckConfigTcpCheck struct {
 	Port  *int64 `json:"port"`
 }
 
+type jsonUptimeCheckConfigTcpCheck UptimeCheckConfigTcpCheck
+
+func (r *UptimeCheckConfigTcpCheck) UnmarshalJSON(data []byte) error {
+	var res jsonUptimeCheckConfigTcpCheck
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUptimeCheckConfigTcpCheck
+	} else {
+
+		r.Port = res.Port
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this UptimeCheckConfigTcpCheck is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -270,6 +400,29 @@ type UptimeCheckConfigContentMatchers struct {
 	empty   bool                                         `json:"-"`
 	Content *string                                      `json:"content"`
 	Matcher *UptimeCheckConfigContentMatchersMatcherEnum `json:"matcher"`
+}
+
+type jsonUptimeCheckConfigContentMatchers UptimeCheckConfigContentMatchers
+
+func (r *UptimeCheckConfigContentMatchers) UnmarshalJSON(data []byte) error {
+	var res jsonUptimeCheckConfigContentMatchers
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyUptimeCheckConfigContentMatchers
+	} else {
+
+		r.Content = res.Content
+
+		r.Matcher = res.Matcher
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this UptimeCheckConfigContentMatchers is

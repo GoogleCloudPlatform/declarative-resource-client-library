@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -46,6 +47,29 @@ type WorkflowTemplatePlacement struct {
 	ClusterSelector *WorkflowTemplatePlacementClusterSelector `json:"clusterSelector"`
 }
 
+type jsonWorkflowTemplatePlacement WorkflowTemplatePlacement
+
+func (r *WorkflowTemplatePlacement) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplatePlacement
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplatePlacement
+	} else {
+
+		r.ManagedCluster = res.ManagedCluster
+
+		r.ClusterSelector = res.ClusterSelector
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this WorkflowTemplatePlacement is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -69,6 +93,31 @@ type WorkflowTemplatePlacementManagedCluster struct {
 	Labels      map[string]string     `json:"labels"`
 }
 
+type jsonWorkflowTemplatePlacementManagedCluster WorkflowTemplatePlacementManagedCluster
+
+func (r *WorkflowTemplatePlacementManagedCluster) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplatePlacementManagedCluster
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplatePlacementManagedCluster
+	} else {
+
+		r.ClusterName = res.ClusterName
+
+		r.Config = res.Config
+
+		r.Labels = res.Labels
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this WorkflowTemplatePlacementManagedCluster is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -89,6 +138,29 @@ type WorkflowTemplatePlacementClusterSelector struct {
 	empty         bool              `json:"-"`
 	Zone          *string           `json:"zone"`
 	ClusterLabels map[string]string `json:"clusterLabels"`
+}
+
+type jsonWorkflowTemplatePlacementClusterSelector WorkflowTemplatePlacementClusterSelector
+
+func (r *WorkflowTemplatePlacementClusterSelector) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplatePlacementClusterSelector
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplatePlacementClusterSelector
+	} else {
+
+		r.Zone = res.Zone
+
+		r.ClusterLabels = res.ClusterLabels
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this WorkflowTemplatePlacementClusterSelector is
@@ -123,6 +195,49 @@ type WorkflowTemplateJobs struct {
 	PrerequisiteStepIds []string                         `json:"prerequisiteStepIds"`
 }
 
+type jsonWorkflowTemplateJobs WorkflowTemplateJobs
+
+func (r *WorkflowTemplateJobs) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobs
+	} else {
+
+		r.StepId = res.StepId
+
+		r.HadoopJob = res.HadoopJob
+
+		r.SparkJob = res.SparkJob
+
+		r.PysparkJob = res.PysparkJob
+
+		r.HiveJob = res.HiveJob
+
+		r.PigJob = res.PigJob
+
+		r.SparkRJob = res.SparkRJob
+
+		r.SparkSqlJob = res.SparkSqlJob
+
+		r.PrestoJob = res.PrestoJob
+
+		r.Labels = res.Labels
+
+		r.Scheduling = res.Scheduling
+
+		r.PrerequisiteStepIds = res.PrerequisiteStepIds
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this WorkflowTemplateJobs is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -151,6 +266,41 @@ type WorkflowTemplateJobsHadoopJob struct {
 	LoggingConfig  *WorkflowTemplateJobsHadoopJobLoggingConfig `json:"loggingConfig"`
 }
 
+type jsonWorkflowTemplateJobsHadoopJob WorkflowTemplateJobsHadoopJob
+
+func (r *WorkflowTemplateJobsHadoopJob) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobsHadoopJob
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobsHadoopJob
+	} else {
+
+		r.MainJarFileUri = res.MainJarFileUri
+
+		r.MainClass = res.MainClass
+
+		r.Args = res.Args
+
+		r.JarFileUris = res.JarFileUris
+
+		r.FileUris = res.FileUris
+
+		r.ArchiveUris = res.ArchiveUris
+
+		r.Properties = res.Properties
+
+		r.LoggingConfig = res.LoggingConfig
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this WorkflowTemplateJobsHadoopJob is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -170,6 +320,27 @@ func (r *WorkflowTemplateJobsHadoopJob) HashCode() string {
 type WorkflowTemplateJobsHadoopJobLoggingConfig struct {
 	empty           bool              `json:"-"`
 	DriverLogLevels map[string]string `json:"driverLogLevels"`
+}
+
+type jsonWorkflowTemplateJobsHadoopJobLoggingConfig WorkflowTemplateJobsHadoopJobLoggingConfig
+
+func (r *WorkflowTemplateJobsHadoopJobLoggingConfig) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobsHadoopJobLoggingConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobsHadoopJobLoggingConfig
+	} else {
+
+		r.DriverLogLevels = res.DriverLogLevels
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsHadoopJobLoggingConfig is
@@ -200,6 +371,41 @@ type WorkflowTemplateJobsSparkJob struct {
 	LoggingConfig  *WorkflowTemplateJobsSparkJobLoggingConfig `json:"loggingConfig"`
 }
 
+type jsonWorkflowTemplateJobsSparkJob WorkflowTemplateJobsSparkJob
+
+func (r *WorkflowTemplateJobsSparkJob) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobsSparkJob
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobsSparkJob
+	} else {
+
+		r.MainJarFileUri = res.MainJarFileUri
+
+		r.MainClass = res.MainClass
+
+		r.Args = res.Args
+
+		r.JarFileUris = res.JarFileUris
+
+		r.FileUris = res.FileUris
+
+		r.ArchiveUris = res.ArchiveUris
+
+		r.Properties = res.Properties
+
+		r.LoggingConfig = res.LoggingConfig
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this WorkflowTemplateJobsSparkJob is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -219,6 +425,27 @@ func (r *WorkflowTemplateJobsSparkJob) HashCode() string {
 type WorkflowTemplateJobsSparkJobLoggingConfig struct {
 	empty           bool              `json:"-"`
 	DriverLogLevels map[string]string `json:"driverLogLevels"`
+}
+
+type jsonWorkflowTemplateJobsSparkJobLoggingConfig WorkflowTemplateJobsSparkJobLoggingConfig
+
+func (r *WorkflowTemplateJobsSparkJobLoggingConfig) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobsSparkJobLoggingConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobsSparkJobLoggingConfig
+	} else {
+
+		r.DriverLogLevels = res.DriverLogLevels
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsSparkJobLoggingConfig is
@@ -249,6 +476,41 @@ type WorkflowTemplateJobsPysparkJob struct {
 	LoggingConfig     *WorkflowTemplateJobsPysparkJobLoggingConfig `json:"loggingConfig"`
 }
 
+type jsonWorkflowTemplateJobsPysparkJob WorkflowTemplateJobsPysparkJob
+
+func (r *WorkflowTemplateJobsPysparkJob) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobsPysparkJob
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobsPysparkJob
+	} else {
+
+		r.MainPythonFileUri = res.MainPythonFileUri
+
+		r.Args = res.Args
+
+		r.PythonFileUris = res.PythonFileUris
+
+		r.JarFileUris = res.JarFileUris
+
+		r.FileUris = res.FileUris
+
+		r.ArchiveUris = res.ArchiveUris
+
+		r.Properties = res.Properties
+
+		r.LoggingConfig = res.LoggingConfig
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this WorkflowTemplateJobsPysparkJob is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -268,6 +530,27 @@ func (r *WorkflowTemplateJobsPysparkJob) HashCode() string {
 type WorkflowTemplateJobsPysparkJobLoggingConfig struct {
 	empty           bool              `json:"-"`
 	DriverLogLevels map[string]string `json:"driverLogLevels"`
+}
+
+type jsonWorkflowTemplateJobsPysparkJobLoggingConfig WorkflowTemplateJobsPysparkJobLoggingConfig
+
+func (r *WorkflowTemplateJobsPysparkJobLoggingConfig) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobsPysparkJobLoggingConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobsPysparkJobLoggingConfig
+	} else {
+
+		r.DriverLogLevels = res.DriverLogLevels
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsPysparkJobLoggingConfig is
@@ -296,6 +579,37 @@ type WorkflowTemplateJobsHiveJob struct {
 	JarFileUris       []string                              `json:"jarFileUris"`
 }
 
+type jsonWorkflowTemplateJobsHiveJob WorkflowTemplateJobsHiveJob
+
+func (r *WorkflowTemplateJobsHiveJob) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobsHiveJob
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobsHiveJob
+	} else {
+
+		r.QueryFileUri = res.QueryFileUri
+
+		r.QueryList = res.QueryList
+
+		r.ContinueOnFailure = res.ContinueOnFailure
+
+		r.ScriptVariables = res.ScriptVariables
+
+		r.Properties = res.Properties
+
+		r.JarFileUris = res.JarFileUris
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this WorkflowTemplateJobsHiveJob is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -315,6 +629,27 @@ func (r *WorkflowTemplateJobsHiveJob) HashCode() string {
 type WorkflowTemplateJobsHiveJobQueryList struct {
 	empty   bool     `json:"-"`
 	Queries []string `json:"queries"`
+}
+
+type jsonWorkflowTemplateJobsHiveJobQueryList WorkflowTemplateJobsHiveJobQueryList
+
+func (r *WorkflowTemplateJobsHiveJobQueryList) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobsHiveJobQueryList
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobsHiveJobQueryList
+	} else {
+
+		r.Queries = res.Queries
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsHiveJobQueryList is
@@ -344,6 +679,39 @@ type WorkflowTemplateJobsPigJob struct {
 	LoggingConfig     *WorkflowTemplateJobsPigJobLoggingConfig `json:"loggingConfig"`
 }
 
+type jsonWorkflowTemplateJobsPigJob WorkflowTemplateJobsPigJob
+
+func (r *WorkflowTemplateJobsPigJob) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobsPigJob
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobsPigJob
+	} else {
+
+		r.QueryFileUri = res.QueryFileUri
+
+		r.QueryList = res.QueryList
+
+		r.ContinueOnFailure = res.ContinueOnFailure
+
+		r.ScriptVariables = res.ScriptVariables
+
+		r.Properties = res.Properties
+
+		r.JarFileUris = res.JarFileUris
+
+		r.LoggingConfig = res.LoggingConfig
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this WorkflowTemplateJobsPigJob is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -365,6 +733,27 @@ type WorkflowTemplateJobsPigJobQueryList struct {
 	Queries []string `json:"queries"`
 }
 
+type jsonWorkflowTemplateJobsPigJobQueryList WorkflowTemplateJobsPigJobQueryList
+
+func (r *WorkflowTemplateJobsPigJobQueryList) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobsPigJobQueryList
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobsPigJobQueryList
+	} else {
+
+		r.Queries = res.Queries
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this WorkflowTemplateJobsPigJobQueryList is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -384,6 +773,27 @@ func (r *WorkflowTemplateJobsPigJobQueryList) HashCode() string {
 type WorkflowTemplateJobsPigJobLoggingConfig struct {
 	empty           bool              `json:"-"`
 	DriverLogLevels map[string]string `json:"driverLogLevels"`
+}
+
+type jsonWorkflowTemplateJobsPigJobLoggingConfig WorkflowTemplateJobsPigJobLoggingConfig
+
+func (r *WorkflowTemplateJobsPigJobLoggingConfig) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobsPigJobLoggingConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobsPigJobLoggingConfig
+	} else {
+
+		r.DriverLogLevels = res.DriverLogLevels
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsPigJobLoggingConfig is
@@ -412,6 +822,37 @@ type WorkflowTemplateJobsSparkRJob struct {
 	LoggingConfig *WorkflowTemplateJobsSparkRJobLoggingConfig `json:"loggingConfig"`
 }
 
+type jsonWorkflowTemplateJobsSparkRJob WorkflowTemplateJobsSparkRJob
+
+func (r *WorkflowTemplateJobsSparkRJob) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobsSparkRJob
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobsSparkRJob
+	} else {
+
+		r.MainRFileUri = res.MainRFileUri
+
+		r.Args = res.Args
+
+		r.FileUris = res.FileUris
+
+		r.ArchiveUris = res.ArchiveUris
+
+		r.Properties = res.Properties
+
+		r.LoggingConfig = res.LoggingConfig
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this WorkflowTemplateJobsSparkRJob is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -431,6 +872,27 @@ func (r *WorkflowTemplateJobsSparkRJob) HashCode() string {
 type WorkflowTemplateJobsSparkRJobLoggingConfig struct {
 	empty           bool              `json:"-"`
 	DriverLogLevels map[string]string `json:"driverLogLevels"`
+}
+
+type jsonWorkflowTemplateJobsSparkRJobLoggingConfig WorkflowTemplateJobsSparkRJobLoggingConfig
+
+func (r *WorkflowTemplateJobsSparkRJobLoggingConfig) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobsSparkRJobLoggingConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobsSparkRJobLoggingConfig
+	} else {
+
+		r.DriverLogLevels = res.DriverLogLevels
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsSparkRJobLoggingConfig is
@@ -459,6 +921,37 @@ type WorkflowTemplateJobsSparkSqlJob struct {
 	LoggingConfig   *WorkflowTemplateJobsSparkSqlJobLoggingConfig `json:"loggingConfig"`
 }
 
+type jsonWorkflowTemplateJobsSparkSqlJob WorkflowTemplateJobsSparkSqlJob
+
+func (r *WorkflowTemplateJobsSparkSqlJob) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobsSparkSqlJob
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobsSparkSqlJob
+	} else {
+
+		r.QueryFileUri = res.QueryFileUri
+
+		r.QueryList = res.QueryList
+
+		r.ScriptVariables = res.ScriptVariables
+
+		r.Properties = res.Properties
+
+		r.JarFileUris = res.JarFileUris
+
+		r.LoggingConfig = res.LoggingConfig
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this WorkflowTemplateJobsSparkSqlJob is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -480,6 +973,27 @@ type WorkflowTemplateJobsSparkSqlJobQueryList struct {
 	Queries []string `json:"queries"`
 }
 
+type jsonWorkflowTemplateJobsSparkSqlJobQueryList WorkflowTemplateJobsSparkSqlJobQueryList
+
+func (r *WorkflowTemplateJobsSparkSqlJobQueryList) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobsSparkSqlJobQueryList
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobsSparkSqlJobQueryList
+	} else {
+
+		r.Queries = res.Queries
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this WorkflowTemplateJobsSparkSqlJobQueryList is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -499,6 +1013,27 @@ func (r *WorkflowTemplateJobsSparkSqlJobQueryList) HashCode() string {
 type WorkflowTemplateJobsSparkSqlJobLoggingConfig struct {
 	empty           bool              `json:"-"`
 	DriverLogLevels map[string]string `json:"driverLogLevels"`
+}
+
+type jsonWorkflowTemplateJobsSparkSqlJobLoggingConfig WorkflowTemplateJobsSparkSqlJobLoggingConfig
+
+func (r *WorkflowTemplateJobsSparkSqlJobLoggingConfig) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobsSparkSqlJobLoggingConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobsSparkSqlJobLoggingConfig
+	} else {
+
+		r.DriverLogLevels = res.DriverLogLevels
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsSparkSqlJobLoggingConfig is
@@ -528,6 +1063,39 @@ type WorkflowTemplateJobsPrestoJob struct {
 	LoggingConfig     *WorkflowTemplateJobsPrestoJobLoggingConfig `json:"loggingConfig"`
 }
 
+type jsonWorkflowTemplateJobsPrestoJob WorkflowTemplateJobsPrestoJob
+
+func (r *WorkflowTemplateJobsPrestoJob) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobsPrestoJob
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobsPrestoJob
+	} else {
+
+		r.QueryFileUri = res.QueryFileUri
+
+		r.QueryList = res.QueryList
+
+		r.ContinueOnFailure = res.ContinueOnFailure
+
+		r.OutputFormat = res.OutputFormat
+
+		r.ClientTags = res.ClientTags
+
+		r.Properties = res.Properties
+
+		r.LoggingConfig = res.LoggingConfig
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this WorkflowTemplateJobsPrestoJob is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -547,6 +1115,27 @@ func (r *WorkflowTemplateJobsPrestoJob) HashCode() string {
 type WorkflowTemplateJobsPrestoJobQueryList struct {
 	empty   bool     `json:"-"`
 	Queries []string `json:"queries"`
+}
+
+type jsonWorkflowTemplateJobsPrestoJobQueryList WorkflowTemplateJobsPrestoJobQueryList
+
+func (r *WorkflowTemplateJobsPrestoJobQueryList) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobsPrestoJobQueryList
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobsPrestoJobQueryList
+	} else {
+
+		r.Queries = res.Queries
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsPrestoJobQueryList is
@@ -570,6 +1159,27 @@ type WorkflowTemplateJobsPrestoJobLoggingConfig struct {
 	DriverLogLevels map[string]string `json:"driverLogLevels"`
 }
 
+type jsonWorkflowTemplateJobsPrestoJobLoggingConfig WorkflowTemplateJobsPrestoJobLoggingConfig
+
+func (r *WorkflowTemplateJobsPrestoJobLoggingConfig) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobsPrestoJobLoggingConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobsPrestoJobLoggingConfig
+	} else {
+
+		r.DriverLogLevels = res.DriverLogLevels
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this WorkflowTemplateJobsPrestoJobLoggingConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -590,6 +1200,29 @@ type WorkflowTemplateJobsScheduling struct {
 	empty              bool   `json:"-"`
 	MaxFailuresPerHour *int64 `json:"maxFailuresPerHour"`
 	MaxFailuresTotal   *int64 `json:"maxFailuresTotal"`
+}
+
+type jsonWorkflowTemplateJobsScheduling WorkflowTemplateJobsScheduling
+
+func (r *WorkflowTemplateJobsScheduling) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateJobsScheduling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateJobsScheduling
+	} else {
+
+		r.MaxFailuresPerHour = res.MaxFailuresPerHour
+
+		r.MaxFailuresTotal = res.MaxFailuresTotal
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateJobsScheduling is
@@ -616,6 +1249,33 @@ type WorkflowTemplateParameters struct {
 	Validation  *WorkflowTemplateParametersValidation `json:"validation"`
 }
 
+type jsonWorkflowTemplateParameters WorkflowTemplateParameters
+
+func (r *WorkflowTemplateParameters) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateParameters
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateParameters
+	} else {
+
+		r.Name = res.Name
+
+		r.Fields = res.Fields
+
+		r.Description = res.Description
+
+		r.Validation = res.Validation
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this WorkflowTemplateParameters is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -636,6 +1296,29 @@ type WorkflowTemplateParametersValidation struct {
 	empty  bool                                        `json:"-"`
 	Regex  *WorkflowTemplateParametersValidationRegex  `json:"regex"`
 	Values *WorkflowTemplateParametersValidationValues `json:"values"`
+}
+
+type jsonWorkflowTemplateParametersValidation WorkflowTemplateParametersValidation
+
+func (r *WorkflowTemplateParametersValidation) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateParametersValidation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateParametersValidation
+	} else {
+
+		r.Regex = res.Regex
+
+		r.Values = res.Values
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateParametersValidation is
@@ -659,6 +1342,27 @@ type WorkflowTemplateParametersValidationRegex struct {
 	Regexes []string `json:"regexes"`
 }
 
+type jsonWorkflowTemplateParametersValidationRegex WorkflowTemplateParametersValidationRegex
+
+func (r *WorkflowTemplateParametersValidationRegex) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateParametersValidationRegex
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateParametersValidationRegex
+	} else {
+
+		r.Regexes = res.Regexes
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this WorkflowTemplateParametersValidationRegex is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -678,6 +1382,27 @@ func (r *WorkflowTemplateParametersValidationRegex) HashCode() string {
 type WorkflowTemplateParametersValidationValues struct {
 	empty  bool     `json:"-"`
 	Values []string `json:"values"`
+}
+
+type jsonWorkflowTemplateParametersValidationValues WorkflowTemplateParametersValidationValues
+
+func (r *WorkflowTemplateParametersValidationValues) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateParametersValidationValues
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateParametersValidationValues
+	} else {
+
+		r.Values = res.Values
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this WorkflowTemplateParametersValidationValues is

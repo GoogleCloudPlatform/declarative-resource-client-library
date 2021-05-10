@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from connector import channel
-from google3.cloud.graphite.mmv2.services.google.identitytoolkit import (
+from google3.cloud.graphite.mmv2.services.google.identity_toolkit import (
     o_auth_idp_config_pb2,
 )
-from google3.cloud.graphite.mmv2.services.google.identitytoolkit import (
+from google3.cloud.graphite.mmv2.services.google.identity_toolkit import (
     o_auth_idp_config_pb2_grpc,
 )
 

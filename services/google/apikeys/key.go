@@ -16,6 +16,7 @@ package apikeys
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -47,6 +48,35 @@ type KeyRestrictions struct {
 	ApiTargets             []KeyRestrictionsApiTargets            `json:"apiTargets"`
 }
 
+type jsonKeyRestrictions KeyRestrictions
+
+func (r *KeyRestrictions) UnmarshalJSON(data []byte) error {
+	var res jsonKeyRestrictions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyKeyRestrictions
+	} else {
+
+		r.BrowserKeyRestrictions = res.BrowserKeyRestrictions
+
+		r.ServerKeyRestrictions = res.ServerKeyRestrictions
+
+		r.AndroidKeyRestrictions = res.AndroidKeyRestrictions
+
+		r.IosKeyRestrictions = res.IosKeyRestrictions
+
+		r.ApiTargets = res.ApiTargets
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this KeyRestrictions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -66,6 +96,27 @@ func (r *KeyRestrictions) HashCode() string {
 type KeyRestrictionsBrowserKeyRestrictions struct {
 	empty            bool     `json:"-"`
 	AllowedReferrers []string `json:"allowedReferrers"`
+}
+
+type jsonKeyRestrictionsBrowserKeyRestrictions KeyRestrictionsBrowserKeyRestrictions
+
+func (r *KeyRestrictionsBrowserKeyRestrictions) UnmarshalJSON(data []byte) error {
+	var res jsonKeyRestrictionsBrowserKeyRestrictions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyKeyRestrictionsBrowserKeyRestrictions
+	} else {
+
+		r.AllowedReferrers = res.AllowedReferrers
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this KeyRestrictionsBrowserKeyRestrictions is
@@ -89,6 +140,27 @@ type KeyRestrictionsServerKeyRestrictions struct {
 	AllowedIps []string `json:"allowedIps"`
 }
 
+type jsonKeyRestrictionsServerKeyRestrictions KeyRestrictionsServerKeyRestrictions
+
+func (r *KeyRestrictionsServerKeyRestrictions) UnmarshalJSON(data []byte) error {
+	var res jsonKeyRestrictionsServerKeyRestrictions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyKeyRestrictionsServerKeyRestrictions
+	} else {
+
+		r.AllowedIps = res.AllowedIps
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this KeyRestrictionsServerKeyRestrictions is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -108,6 +180,27 @@ func (r *KeyRestrictionsServerKeyRestrictions) HashCode() string {
 type KeyRestrictionsAndroidKeyRestrictions struct {
 	empty               bool                                                       `json:"-"`
 	AllowedApplications []KeyRestrictionsAndroidKeyRestrictionsAllowedApplications `json:"allowedApplications"`
+}
+
+type jsonKeyRestrictionsAndroidKeyRestrictions KeyRestrictionsAndroidKeyRestrictions
+
+func (r *KeyRestrictionsAndroidKeyRestrictions) UnmarshalJSON(data []byte) error {
+	var res jsonKeyRestrictionsAndroidKeyRestrictions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyKeyRestrictionsAndroidKeyRestrictions
+	} else {
+
+		r.AllowedApplications = res.AllowedApplications
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this KeyRestrictionsAndroidKeyRestrictions is
@@ -132,6 +225,29 @@ type KeyRestrictionsAndroidKeyRestrictionsAllowedApplications struct {
 	PackageName     *string `json:"packageName"`
 }
 
+type jsonKeyRestrictionsAndroidKeyRestrictionsAllowedApplications KeyRestrictionsAndroidKeyRestrictionsAllowedApplications
+
+func (r *KeyRestrictionsAndroidKeyRestrictionsAllowedApplications) UnmarshalJSON(data []byte) error {
+	var res jsonKeyRestrictionsAndroidKeyRestrictionsAllowedApplications
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyKeyRestrictionsAndroidKeyRestrictionsAllowedApplications
+	} else {
+
+		r.Sha1Fingerprint = res.Sha1Fingerprint
+
+		r.PackageName = res.PackageName
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this KeyRestrictionsAndroidKeyRestrictionsAllowedApplications is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -151,6 +267,27 @@ func (r *KeyRestrictionsAndroidKeyRestrictionsAllowedApplications) HashCode() st
 type KeyRestrictionsIosKeyRestrictions struct {
 	empty            bool     `json:"-"`
 	AllowedBundleIds []string `json:"allowedBundleIds"`
+}
+
+type jsonKeyRestrictionsIosKeyRestrictions KeyRestrictionsIosKeyRestrictions
+
+func (r *KeyRestrictionsIosKeyRestrictions) UnmarshalJSON(data []byte) error {
+	var res jsonKeyRestrictionsIosKeyRestrictions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyKeyRestrictionsIosKeyRestrictions
+	} else {
+
+		r.AllowedBundleIds = res.AllowedBundleIds
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this KeyRestrictionsIosKeyRestrictions is
@@ -173,6 +310,29 @@ type KeyRestrictionsApiTargets struct {
 	empty   bool     `json:"-"`
 	Service *string  `json:"service"`
 	Methods []string `json:"methods"`
+}
+
+type jsonKeyRestrictionsApiTargets KeyRestrictionsApiTargets
+
+func (r *KeyRestrictionsApiTargets) UnmarshalJSON(data []byte) error {
+	var res jsonKeyRestrictionsApiTargets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyKeyRestrictionsApiTargets
+	} else {
+
+		r.Service = res.Service
+
+		r.Methods = res.Methods
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this KeyRestrictionsApiTargets is

@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -199,6 +200,35 @@ type InstanceServerCaCerts struct {
 	Sha1Fingerprint *string `json:"sha1Fingerprint"`
 }
 
+type jsonInstanceServerCaCerts InstanceServerCaCerts
+
+func (r *InstanceServerCaCerts) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceServerCaCerts
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceServerCaCerts
+	} else {
+
+		r.SerialNumber = res.SerialNumber
+
+		r.Cert = res.Cert
+
+		r.CreateTime = res.CreateTime
+
+		r.ExpireTime = res.ExpireTime
+
+		r.Sha1Fingerprint = res.Sha1Fingerprint
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceServerCaCerts is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -223,6 +253,33 @@ type InstanceMaintenancePolicy struct {
 	WeeklyMaintenanceWindow []InstanceMaintenancePolicyWeeklyMaintenanceWindow `json:"weeklyMaintenanceWindow"`
 }
 
+type jsonInstanceMaintenancePolicy InstanceMaintenancePolicy
+
+func (r *InstanceMaintenancePolicy) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceMaintenancePolicy
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceMaintenancePolicy
+	} else {
+
+		r.CreateTime = res.CreateTime
+
+		r.UpdateTime = res.UpdateTime
+
+		r.Description = res.Description
+
+		r.WeeklyMaintenanceWindow = res.WeeklyMaintenanceWindow
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceMaintenancePolicy is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -244,6 +301,31 @@ type InstanceMaintenancePolicyWeeklyMaintenanceWindow struct {
 	Day       *InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum   `json:"day"`
 	StartTime *InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime `json:"startTime"`
 	Duration  *string                                                    `json:"duration"`
+}
+
+type jsonInstanceMaintenancePolicyWeeklyMaintenanceWindow InstanceMaintenancePolicyWeeklyMaintenanceWindow
+
+func (r *InstanceMaintenancePolicyWeeklyMaintenanceWindow) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceMaintenancePolicyWeeklyMaintenanceWindow
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceMaintenancePolicyWeeklyMaintenanceWindow
+	} else {
+
+		r.Day = res.Day
+
+		r.StartTime = res.StartTime
+
+		r.Duration = res.Duration
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceMaintenancePolicyWeeklyMaintenanceWindow is
@@ -270,6 +352,33 @@ type InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime struct {
 	Nanos   *int64 `json:"nanos"`
 }
 
+type jsonInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime
+
+func (r *InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime
+	} else {
+
+		r.Hours = res.Hours
+
+		r.Minutes = res.Minutes
+
+		r.Seconds = res.Seconds
+
+		r.Nanos = res.Nanos
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -292,6 +401,33 @@ type InstanceMaintenanceSchedule struct {
 	EndTime              *string `json:"endTime"`
 	CanReschedule        *bool   `json:"canReschedule"`
 	ScheduleDeadlineTime *string `json:"scheduleDeadlineTime"`
+}
+
+type jsonInstanceMaintenanceSchedule InstanceMaintenanceSchedule
+
+func (r *InstanceMaintenanceSchedule) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceMaintenanceSchedule
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceMaintenanceSchedule
+	} else {
+
+		r.StartTime = res.StartTime
+
+		r.EndTime = res.EndTime
+
+		r.CanReschedule = res.CanReschedule
+
+		r.ScheduleDeadlineTime = res.ScheduleDeadlineTime
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceMaintenanceSchedule is

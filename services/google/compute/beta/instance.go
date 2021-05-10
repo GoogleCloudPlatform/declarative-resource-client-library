@@ -17,6 +17,7 @@ import (
 	"bytes"
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -203,6 +204,45 @@ type InstanceDisks struct {
 	Type              *InstanceDisksTypeEnum          `json:"type"`
 }
 
+type jsonInstanceDisks InstanceDisks
+
+func (r *InstanceDisks) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceDisks
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceDisks
+	} else {
+
+		r.AutoDelete = res.AutoDelete
+
+		r.Boot = res.Boot
+
+		r.DeviceName = res.DeviceName
+
+		r.DiskEncryptionKey = res.DiskEncryptionKey
+
+		r.Index = res.Index
+
+		r.InitializeParams = res.InitializeParams
+
+		r.Interface = res.Interface
+
+		r.Mode = res.Mode
+
+		r.Source = res.Source
+
+		r.Type = res.Type
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceDisks is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -224,6 +264,31 @@ type InstanceDisksDiskEncryptionKey struct {
 	RawKey          *string `json:"rawKey"`
 	RsaEncryptedKey *string `json:"rsaEncryptedKey"`
 	Sha256          *string `json:"sha256"`
+}
+
+type jsonInstanceDisksDiskEncryptionKey InstanceDisksDiskEncryptionKey
+
+func (r *InstanceDisksDiskEncryptionKey) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceDisksDiskEncryptionKey
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceDisksDiskEncryptionKey
+	} else {
+
+		r.RawKey = res.RawKey
+
+		r.RsaEncryptedKey = res.RsaEncryptedKey
+
+		r.Sha256 = res.Sha256
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceDisksDiskEncryptionKey is
@@ -251,6 +316,35 @@ type InstanceDisksInitializeParams struct {
 	SourceImageEncryptionKey *InstanceDisksInitializeParamsSourceImageEncryptionKey `json:"sourceImageEncryptionKey"`
 }
 
+type jsonInstanceDisksInitializeParams InstanceDisksInitializeParams
+
+func (r *InstanceDisksInitializeParams) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceDisksInitializeParams
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceDisksInitializeParams
+	} else {
+
+		r.DiskName = res.DiskName
+
+		r.DiskSizeGb = res.DiskSizeGb
+
+		r.DiskType = res.DiskType
+
+		r.SourceImage = res.SourceImage
+
+		r.SourceImageEncryptionKey = res.SourceImageEncryptionKey
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceDisksInitializeParams is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -273,6 +367,29 @@ type InstanceDisksInitializeParamsSourceImageEncryptionKey struct {
 	Sha256 *string `json:"sha256"`
 }
 
+type jsonInstanceDisksInitializeParamsSourceImageEncryptionKey InstanceDisksInitializeParamsSourceImageEncryptionKey
+
+func (r *InstanceDisksInitializeParamsSourceImageEncryptionKey) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceDisksInitializeParamsSourceImageEncryptionKey
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceDisksInitializeParamsSourceImageEncryptionKey
+	} else {
+
+		r.RawKey = res.RawKey
+
+		r.Sha256 = res.Sha256
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceDisksInitializeParamsSourceImageEncryptionKey is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -293,6 +410,29 @@ type InstanceGuestAccelerators struct {
 	empty            bool    `json:"-"`
 	AcceleratorCount *int64  `json:"acceleratorCount"`
 	AcceleratorType  *string `json:"acceleratorType"`
+}
+
+type jsonInstanceGuestAccelerators InstanceGuestAccelerators
+
+func (r *InstanceGuestAccelerators) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGuestAccelerators
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceGuestAccelerators
+	} else {
+
+		r.AcceleratorCount = res.AcceleratorCount
+
+		r.AcceleratorType = res.AcceleratorType
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceGuestAccelerators is
@@ -321,6 +461,37 @@ type InstanceNetworkInterfaces struct {
 	Subnetwork    *string                                  `json:"subnetwork"`
 }
 
+type jsonInstanceNetworkInterfaces InstanceNetworkInterfaces
+
+func (r *InstanceNetworkInterfaces) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNetworkInterfaces
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNetworkInterfaces
+	} else {
+
+		r.AccessConfigs = res.AccessConfigs
+
+		r.AliasIPRanges = res.AliasIPRanges
+
+		r.Name = res.Name
+
+		r.Network = res.Network
+
+		r.NetworkIP = res.NetworkIP
+
+		r.Subnetwork = res.Subnetwork
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceNetworkInterfaces is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -344,6 +515,31 @@ type InstanceNetworkInterfacesAccessConfigs struct {
 	Type  *InstanceNetworkInterfacesAccessConfigsTypeEnum `json:"type"`
 }
 
+type jsonInstanceNetworkInterfacesAccessConfigs InstanceNetworkInterfacesAccessConfigs
+
+func (r *InstanceNetworkInterfacesAccessConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNetworkInterfacesAccessConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNetworkInterfacesAccessConfigs
+	} else {
+
+		r.Name = res.Name
+
+		r.NatIP = res.NatIP
+
+		r.Type = res.Type
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceNetworkInterfacesAccessConfigs is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -364,6 +560,29 @@ type InstanceNetworkInterfacesAliasIPRanges struct {
 	empty               bool    `json:"-"`
 	IPCidrRange         *string `json:"ipCidrRange"`
 	SubnetworkRangeName *string `json:"subnetworkRangeName"`
+}
+
+type jsonInstanceNetworkInterfacesAliasIPRanges InstanceNetworkInterfacesAliasIPRanges
+
+func (r *InstanceNetworkInterfacesAliasIPRanges) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceNetworkInterfacesAliasIPRanges
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceNetworkInterfacesAliasIPRanges
+	} else {
+
+		r.IPCidrRange = res.IPCidrRange
+
+		r.SubnetworkRangeName = res.SubnetworkRangeName
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceNetworkInterfacesAliasIPRanges is
@@ -389,6 +608,31 @@ type InstanceScheduling struct {
 	Preemptible       *bool   `json:"preemptible"`
 }
 
+type jsonInstanceScheduling InstanceScheduling
+
+func (r *InstanceScheduling) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceScheduling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceScheduling
+	} else {
+
+		r.AutomaticRestart = res.AutomaticRestart
+
+		r.OnHostMaintenance = res.OnHostMaintenance
+
+		r.Preemptible = res.Preemptible
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this InstanceScheduling is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -409,6 +653,29 @@ type InstanceServiceAccounts struct {
 	empty  bool     `json:"-"`
 	Email  *string  `json:"email"`
 	Scopes []string `json:"scopes"`
+}
+
+type jsonInstanceServiceAccounts InstanceServiceAccounts
+
+func (r *InstanceServiceAccounts) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceServiceAccounts
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceServiceAccounts
+	} else {
+
+		r.Email = res.Email
+
+		r.Scopes = res.Scopes
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceServiceAccounts is
@@ -432,6 +699,31 @@ type InstanceShieldedInstanceConfig struct {
 	EnableSecureBoot          *bool `json:"enableSecureBoot"`
 	EnableVtpm                *bool `json:"enableVtpm"`
 	EnableIntegrityMonitoring *bool `json:"enableIntegrityMonitoring"`
+}
+
+type jsonInstanceShieldedInstanceConfig InstanceShieldedInstanceConfig
+
+func (r *InstanceShieldedInstanceConfig) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceShieldedInstanceConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceShieldedInstanceConfig
+	} else {
+
+		r.EnableSecureBoot = res.EnableSecureBoot
+
+		r.EnableVtpm = res.EnableVtpm
+
+		r.EnableIntegrityMonitoring = res.EnableIntegrityMonitoring
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this InstanceShieldedInstanceConfig is

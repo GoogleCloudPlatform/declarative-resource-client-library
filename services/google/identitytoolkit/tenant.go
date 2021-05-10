@@ -16,6 +16,7 @@ package identitytoolkit
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -98,6 +99,29 @@ type TenantMfaConfig struct {
 	EnabledProviders []TenantMfaConfigEnabledProvidersEnum `json:"enabledProviders"`
 }
 
+type jsonTenantMfaConfig TenantMfaConfig
+
+func (r *TenantMfaConfig) UnmarshalJSON(data []byte) error {
+	var res jsonTenantMfaConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTenantMfaConfig
+	} else {
+
+		r.State = res.State
+
+		r.EnabledProviders = res.EnabledProviders
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this TenantMfaConfig is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -118,7 +142,7 @@ func (r *TenantMfaConfig) HashCode() string {
 // can identify it.
 func (r *Tenant) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "identitytoolkit",
+		Service: "identity_toolkit",
 		Type:    "Tenant",
 		Version: "identitytoolkit",
 	}

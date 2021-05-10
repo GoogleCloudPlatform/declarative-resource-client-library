@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -195,6 +196,29 @@ type JobReference struct {
 	JobId     *string `json:"jobId"`
 }
 
+type jsonJobReference JobReference
+
+func (r *JobReference) UnmarshalJSON(data []byte) error {
+	var res jsonJobReference
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobReference
+	} else {
+
+		r.ProjectId = res.ProjectId
+
+		r.JobId = res.JobId
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobReference is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -216,6 +240,31 @@ type JobPlacement struct {
 	ClusterName   *string           `json:"clusterName"`
 	ClusterUuid   *string           `json:"clusterUuid"`
 	ClusterLabels map[string]string `json:"clusterLabels"`
+}
+
+type jsonJobPlacement JobPlacement
+
+func (r *JobPlacement) UnmarshalJSON(data []byte) error {
+	var res jsonJobPlacement
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobPlacement
+	} else {
+
+		r.ClusterName = res.ClusterName
+
+		r.ClusterUuid = res.ClusterUuid
+
+		r.ClusterLabels = res.ClusterLabels
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this JobPlacement is
@@ -246,6 +295,41 @@ type JobHadoopJob struct {
 	LoggingConfig  *JobHadoopJobLoggingConfig `json:"loggingConfig"`
 }
 
+type jsonJobHadoopJob JobHadoopJob
+
+func (r *JobHadoopJob) UnmarshalJSON(data []byte) error {
+	var res jsonJobHadoopJob
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobHadoopJob
+	} else {
+
+		r.MainJarFileUri = res.MainJarFileUri
+
+		r.MainClass = res.MainClass
+
+		r.Args = res.Args
+
+		r.JarFileUris = res.JarFileUris
+
+		r.FileUris = res.FileUris
+
+		r.ArchiveUris = res.ArchiveUris
+
+		r.Properties = res.Properties
+
+		r.LoggingConfig = res.LoggingConfig
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobHadoopJob is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -265,6 +349,27 @@ func (r *JobHadoopJob) HashCode() string {
 type JobHadoopJobLoggingConfig struct {
 	empty           bool              `json:"-"`
 	DriverLogLevels map[string]string `json:"driverLogLevels"`
+}
+
+type jsonJobHadoopJobLoggingConfig JobHadoopJobLoggingConfig
+
+func (r *JobHadoopJobLoggingConfig) UnmarshalJSON(data []byte) error {
+	var res jsonJobHadoopJobLoggingConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobHadoopJobLoggingConfig
+	} else {
+
+		r.DriverLogLevels = res.DriverLogLevels
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this JobHadoopJobLoggingConfig is
@@ -295,6 +400,41 @@ type JobSparkJob struct {
 	LoggingConfig  *JobSparkJobLoggingConfig `json:"loggingConfig"`
 }
 
+type jsonJobSparkJob JobSparkJob
+
+func (r *JobSparkJob) UnmarshalJSON(data []byte) error {
+	var res jsonJobSparkJob
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobSparkJob
+	} else {
+
+		r.MainJarFileUri = res.MainJarFileUri
+
+		r.MainClass = res.MainClass
+
+		r.Args = res.Args
+
+		r.JarFileUris = res.JarFileUris
+
+		r.FileUris = res.FileUris
+
+		r.ArchiveUris = res.ArchiveUris
+
+		r.Properties = res.Properties
+
+		r.LoggingConfig = res.LoggingConfig
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobSparkJob is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -314,6 +454,27 @@ func (r *JobSparkJob) HashCode() string {
 type JobSparkJobLoggingConfig struct {
 	empty           bool              `json:"-"`
 	DriverLogLevels map[string]string `json:"driverLogLevels"`
+}
+
+type jsonJobSparkJobLoggingConfig JobSparkJobLoggingConfig
+
+func (r *JobSparkJobLoggingConfig) UnmarshalJSON(data []byte) error {
+	var res jsonJobSparkJobLoggingConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobSparkJobLoggingConfig
+	} else {
+
+		r.DriverLogLevels = res.DriverLogLevels
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this JobSparkJobLoggingConfig is
@@ -344,6 +505,41 @@ type JobPysparkJob struct {
 	LoggingConfig     *JobPysparkJobLoggingConfig `json:"loggingConfig"`
 }
 
+type jsonJobPysparkJob JobPysparkJob
+
+func (r *JobPysparkJob) UnmarshalJSON(data []byte) error {
+	var res jsonJobPysparkJob
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobPysparkJob
+	} else {
+
+		r.MainPythonFileUri = res.MainPythonFileUri
+
+		r.Args = res.Args
+
+		r.PythonFileUris = res.PythonFileUris
+
+		r.JarFileUris = res.JarFileUris
+
+		r.FileUris = res.FileUris
+
+		r.ArchiveUris = res.ArchiveUris
+
+		r.Properties = res.Properties
+
+		r.LoggingConfig = res.LoggingConfig
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobPysparkJob is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -363,6 +559,27 @@ func (r *JobPysparkJob) HashCode() string {
 type JobPysparkJobLoggingConfig struct {
 	empty           bool              `json:"-"`
 	DriverLogLevels map[string]string `json:"driverLogLevels"`
+}
+
+type jsonJobPysparkJobLoggingConfig JobPysparkJobLoggingConfig
+
+func (r *JobPysparkJobLoggingConfig) UnmarshalJSON(data []byte) error {
+	var res jsonJobPysparkJobLoggingConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobPysparkJobLoggingConfig
+	} else {
+
+		r.DriverLogLevels = res.DriverLogLevels
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this JobPysparkJobLoggingConfig is
@@ -391,6 +608,37 @@ type JobHiveJob struct {
 	JarFileUris       []string             `json:"jarFileUris"`
 }
 
+type jsonJobHiveJob JobHiveJob
+
+func (r *JobHiveJob) UnmarshalJSON(data []byte) error {
+	var res jsonJobHiveJob
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobHiveJob
+	} else {
+
+		r.QueryFileUri = res.QueryFileUri
+
+		r.QueryList = res.QueryList
+
+		r.ContinueOnFailure = res.ContinueOnFailure
+
+		r.ScriptVariables = res.ScriptVariables
+
+		r.Properties = res.Properties
+
+		r.JarFileUris = res.JarFileUris
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobHiveJob is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -410,6 +658,27 @@ func (r *JobHiveJob) HashCode() string {
 type JobHiveJobQueryList struct {
 	empty   bool     `json:"-"`
 	Queries []string `json:"queries"`
+}
+
+type jsonJobHiveJobQueryList JobHiveJobQueryList
+
+func (r *JobHiveJobQueryList) UnmarshalJSON(data []byte) error {
+	var res jsonJobHiveJobQueryList
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobHiveJobQueryList
+	} else {
+
+		r.Queries = res.Queries
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this JobHiveJobQueryList is
@@ -439,6 +708,39 @@ type JobPigJob struct {
 	LoggingConfig     *JobPigJobLoggingConfig `json:"loggingConfig"`
 }
 
+type jsonJobPigJob JobPigJob
+
+func (r *JobPigJob) UnmarshalJSON(data []byte) error {
+	var res jsonJobPigJob
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobPigJob
+	} else {
+
+		r.QueryFileUri = res.QueryFileUri
+
+		r.QueryList = res.QueryList
+
+		r.ContinueOnFailure = res.ContinueOnFailure
+
+		r.ScriptVariables = res.ScriptVariables
+
+		r.Properties = res.Properties
+
+		r.JarFileUris = res.JarFileUris
+
+		r.LoggingConfig = res.LoggingConfig
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobPigJob is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -460,6 +762,27 @@ type JobPigJobQueryList struct {
 	Queries []string `json:"queries"`
 }
 
+type jsonJobPigJobQueryList JobPigJobQueryList
+
+func (r *JobPigJobQueryList) UnmarshalJSON(data []byte) error {
+	var res jsonJobPigJobQueryList
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobPigJobQueryList
+	} else {
+
+		r.Queries = res.Queries
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobPigJobQueryList is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -479,6 +802,27 @@ func (r *JobPigJobQueryList) HashCode() string {
 type JobPigJobLoggingConfig struct {
 	empty           bool              `json:"-"`
 	DriverLogLevels map[string]string `json:"driverLogLevels"`
+}
+
+type jsonJobPigJobLoggingConfig JobPigJobLoggingConfig
+
+func (r *JobPigJobLoggingConfig) UnmarshalJSON(data []byte) error {
+	var res jsonJobPigJobLoggingConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobPigJobLoggingConfig
+	} else {
+
+		r.DriverLogLevels = res.DriverLogLevels
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this JobPigJobLoggingConfig is
@@ -507,6 +851,37 @@ type JobSparkRJob struct {
 	LoggingConfig *JobSparkRJobLoggingConfig `json:"loggingConfig"`
 }
 
+type jsonJobSparkRJob JobSparkRJob
+
+func (r *JobSparkRJob) UnmarshalJSON(data []byte) error {
+	var res jsonJobSparkRJob
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobSparkRJob
+	} else {
+
+		r.MainRFileUri = res.MainRFileUri
+
+		r.Args = res.Args
+
+		r.FileUris = res.FileUris
+
+		r.ArchiveUris = res.ArchiveUris
+
+		r.Properties = res.Properties
+
+		r.LoggingConfig = res.LoggingConfig
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobSparkRJob is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -526,6 +901,27 @@ func (r *JobSparkRJob) HashCode() string {
 type JobSparkRJobLoggingConfig struct {
 	empty           bool              `json:"-"`
 	DriverLogLevels map[string]string `json:"driverLogLevels"`
+}
+
+type jsonJobSparkRJobLoggingConfig JobSparkRJobLoggingConfig
+
+func (r *JobSparkRJobLoggingConfig) UnmarshalJSON(data []byte) error {
+	var res jsonJobSparkRJobLoggingConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobSparkRJobLoggingConfig
+	} else {
+
+		r.DriverLogLevels = res.DriverLogLevels
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this JobSparkRJobLoggingConfig is
@@ -554,6 +950,37 @@ type JobSparkSqlJob struct {
 	LoggingConfig   *JobSparkSqlJobLoggingConfig `json:"loggingConfig"`
 }
 
+type jsonJobSparkSqlJob JobSparkSqlJob
+
+func (r *JobSparkSqlJob) UnmarshalJSON(data []byte) error {
+	var res jsonJobSparkSqlJob
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobSparkSqlJob
+	} else {
+
+		r.QueryFileUri = res.QueryFileUri
+
+		r.QueryList = res.QueryList
+
+		r.ScriptVariables = res.ScriptVariables
+
+		r.Properties = res.Properties
+
+		r.JarFileUris = res.JarFileUris
+
+		r.LoggingConfig = res.LoggingConfig
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobSparkSqlJob is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -575,6 +1002,27 @@ type JobSparkSqlJobQueryList struct {
 	Queries []string `json:"queries"`
 }
 
+type jsonJobSparkSqlJobQueryList JobSparkSqlJobQueryList
+
+func (r *JobSparkSqlJobQueryList) UnmarshalJSON(data []byte) error {
+	var res jsonJobSparkSqlJobQueryList
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobSparkSqlJobQueryList
+	} else {
+
+		r.Queries = res.Queries
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobSparkSqlJobQueryList is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -594,6 +1042,27 @@ func (r *JobSparkSqlJobQueryList) HashCode() string {
 type JobSparkSqlJobLoggingConfig struct {
 	empty           bool              `json:"-"`
 	DriverLogLevels map[string]string `json:"driverLogLevels"`
+}
+
+type jsonJobSparkSqlJobLoggingConfig JobSparkSqlJobLoggingConfig
+
+func (r *JobSparkSqlJobLoggingConfig) UnmarshalJSON(data []byte) error {
+	var res jsonJobSparkSqlJobLoggingConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobSparkSqlJobLoggingConfig
+	} else {
+
+		r.DriverLogLevels = res.DriverLogLevels
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this JobSparkSqlJobLoggingConfig is
@@ -623,6 +1092,39 @@ type JobPrestoJob struct {
 	LoggingConfig     *JobPrestoJobLoggingConfig `json:"loggingConfig"`
 }
 
+type jsonJobPrestoJob JobPrestoJob
+
+func (r *JobPrestoJob) UnmarshalJSON(data []byte) error {
+	var res jsonJobPrestoJob
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobPrestoJob
+	} else {
+
+		r.QueryFileUri = res.QueryFileUri
+
+		r.QueryList = res.QueryList
+
+		r.ContinueOnFailure = res.ContinueOnFailure
+
+		r.OutputFormat = res.OutputFormat
+
+		r.ClientTags = res.ClientTags
+
+		r.Properties = res.Properties
+
+		r.LoggingConfig = res.LoggingConfig
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobPrestoJob is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -644,6 +1146,27 @@ type JobPrestoJobQueryList struct {
 	Queries []string `json:"queries"`
 }
 
+type jsonJobPrestoJobQueryList JobPrestoJobQueryList
+
+func (r *JobPrestoJobQueryList) UnmarshalJSON(data []byte) error {
+	var res jsonJobPrestoJobQueryList
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobPrestoJobQueryList
+	} else {
+
+		r.Queries = res.Queries
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobPrestoJobQueryList is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -663,6 +1186,27 @@ func (r *JobPrestoJobQueryList) HashCode() string {
 type JobPrestoJobLoggingConfig struct {
 	empty           bool              `json:"-"`
 	DriverLogLevels map[string]string `json:"driverLogLevels"`
+}
+
+type jsonJobPrestoJobLoggingConfig JobPrestoJobLoggingConfig
+
+func (r *JobPrestoJobLoggingConfig) UnmarshalJSON(data []byte) error {
+	var res jsonJobPrestoJobLoggingConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobPrestoJobLoggingConfig
+	} else {
+
+		r.DriverLogLevels = res.DriverLogLevels
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this JobPrestoJobLoggingConfig is
@@ -689,6 +1233,33 @@ type JobStatus struct {
 	Substate       *JobStatusSubstateEnum `json:"substate"`
 }
 
+type jsonJobStatus JobStatus
+
+func (r *JobStatus) UnmarshalJSON(data []byte) error {
+	var res jsonJobStatus
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobStatus
+	} else {
+
+		r.State = res.State
+
+		r.Details = res.Details
+
+		r.StateStartTime = res.StateStartTime
+
+		r.Substate = res.Substate
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobStatus is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -711,6 +1282,33 @@ type JobStatusHistory struct {
 	Details        *string                       `json:"details"`
 	StateStartTime *string                       `json:"stateStartTime"`
 	Substate       *JobStatusHistorySubstateEnum `json:"substate"`
+}
+
+type jsonJobStatusHistory JobStatusHistory
+
+func (r *JobStatusHistory) UnmarshalJSON(data []byte) error {
+	var res jsonJobStatusHistory
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobStatusHistory
+	} else {
+
+		r.State = res.State
+
+		r.Details = res.Details
+
+		r.StateStartTime = res.StateStartTime
+
+		r.Substate = res.Substate
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this JobStatusHistory is
@@ -737,6 +1335,33 @@ type JobYarnApplications struct {
 	TrackingUrl *string                       `json:"trackingUrl"`
 }
 
+type jsonJobYarnApplications JobYarnApplications
+
+func (r *JobYarnApplications) UnmarshalJSON(data []byte) error {
+	var res jsonJobYarnApplications
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobYarnApplications
+	} else {
+
+		r.Name = res.Name
+
+		r.State = res.State
+
+		r.Progress = res.Progress
+
+		r.TrackingUrl = res.TrackingUrl
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobYarnApplications is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -757,6 +1382,29 @@ type JobScheduling struct {
 	empty              bool   `json:"-"`
 	MaxFailuresPerHour *int64 `json:"maxFailuresPerHour"`
 	MaxFailuresTotal   *int64 `json:"maxFailuresTotal"`
+}
+
+type jsonJobScheduling JobScheduling
+
+func (r *JobScheduling) UnmarshalJSON(data []byte) error {
+	var res jsonJobScheduling
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobScheduling
+	} else {
+
+		r.MaxFailuresPerHour = res.MaxFailuresPerHour
+
+		r.MaxFailuresTotal = res.MaxFailuresTotal
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this JobScheduling is
@@ -781,6 +1429,29 @@ type JobDriverRunner struct {
 	YarnDriverRunner   *JobDriverRunnerYarnDriverRunner   `json:"yarnDriverRunner"`
 }
 
+type jsonJobDriverRunner JobDriverRunner
+
+func (r *JobDriverRunner) UnmarshalJSON(data []byte) error {
+	var res jsonJobDriverRunner
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobDriverRunner
+	} else {
+
+		r.MasterDriverRunner = res.MasterDriverRunner
+
+		r.YarnDriverRunner = res.YarnDriverRunner
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this JobDriverRunner is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -799,6 +1470,25 @@ func (r *JobDriverRunner) HashCode() string {
 
 type JobDriverRunnerMasterDriverRunner struct {
 	empty bool `json:"-"`
+}
+
+type jsonJobDriverRunnerMasterDriverRunner JobDriverRunnerMasterDriverRunner
+
+func (r *JobDriverRunnerMasterDriverRunner) UnmarshalJSON(data []byte) error {
+	var res jsonJobDriverRunnerMasterDriverRunner
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobDriverRunnerMasterDriverRunner
+	} else {
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this JobDriverRunnerMasterDriverRunner is
@@ -821,6 +1511,29 @@ type JobDriverRunnerYarnDriverRunner struct {
 	empty    bool   `json:"-"`
 	MemoryMb *int64 `json:"memoryMb"`
 	Vcores   *int64 `json:"vcores"`
+}
+
+type jsonJobDriverRunnerYarnDriverRunner JobDriverRunnerYarnDriverRunner
+
+func (r *JobDriverRunnerYarnDriverRunner) UnmarshalJSON(data []byte) error {
+	var res jsonJobDriverRunnerYarnDriverRunner
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyJobDriverRunnerYarnDriverRunner
+	} else {
+
+		r.MemoryMb = res.MemoryMb
+
+		r.Vcores = res.Vcores
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this JobDriverRunnerYarnDriverRunner is

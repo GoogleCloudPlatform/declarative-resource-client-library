@@ -17,6 +17,7 @@ import (
 	"bytes"
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -72,6 +73,29 @@ type AuthorizationPolicyRules struct {
 	Destinations []AuthorizationPolicyRulesDestinations `json:"destinations"`
 }
 
+type jsonAuthorizationPolicyRules AuthorizationPolicyRules
+
+func (r *AuthorizationPolicyRules) UnmarshalJSON(data []byte) error {
+	var res jsonAuthorizationPolicyRules
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAuthorizationPolicyRules
+	} else {
+
+		r.Sources = res.Sources
+
+		r.Destinations = res.Destinations
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AuthorizationPolicyRules is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -92,6 +116,29 @@ type AuthorizationPolicyRulesSources struct {
 	empty      bool     `json:"-"`
 	Principals []string `json:"principals"`
 	IPBlocks   []string `json:"ipBlocks"`
+}
+
+type jsonAuthorizationPolicyRulesSources AuthorizationPolicyRulesSources
+
+func (r *AuthorizationPolicyRulesSources) UnmarshalJSON(data []byte) error {
+	var res jsonAuthorizationPolicyRulesSources
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAuthorizationPolicyRulesSources
+	} else {
+
+		r.Principals = res.Principals
+
+		r.IPBlocks = res.IPBlocks
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this AuthorizationPolicyRulesSources is
@@ -119,6 +166,35 @@ type AuthorizationPolicyRulesDestinations struct {
 	HttpHeaderMatch *AuthorizationPolicyRulesDestinationsHttpHeaderMatch `json:"httpHeaderMatch"`
 }
 
+type jsonAuthorizationPolicyRulesDestinations AuthorizationPolicyRulesDestinations
+
+func (r *AuthorizationPolicyRulesDestinations) UnmarshalJSON(data []byte) error {
+	var res jsonAuthorizationPolicyRulesDestinations
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAuthorizationPolicyRulesDestinations
+	} else {
+
+		r.Hosts = res.Hosts
+
+		r.Ports = res.Ports
+
+		r.Paths = res.Paths
+
+		r.Methods = res.Methods
+
+		r.HttpHeaderMatch = res.HttpHeaderMatch
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AuthorizationPolicyRulesDestinations is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -141,6 +217,29 @@ type AuthorizationPolicyRulesDestinationsHttpHeaderMatch struct {
 	RegexMatch *string `json:"regexMatch"`
 }
 
+type jsonAuthorizationPolicyRulesDestinationsHttpHeaderMatch AuthorizationPolicyRulesDestinationsHttpHeaderMatch
+
+func (r *AuthorizationPolicyRulesDestinationsHttpHeaderMatch) UnmarshalJSON(data []byte) error {
+	var res jsonAuthorizationPolicyRulesDestinationsHttpHeaderMatch
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyAuthorizationPolicyRulesDestinationsHttpHeaderMatch
+	} else {
+
+		r.HeaderName = res.HeaderName
+
+		r.RegexMatch = res.RegexMatch
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this AuthorizationPolicyRulesDestinationsHttpHeaderMatch is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -161,7 +260,7 @@ func (r *AuthorizationPolicyRulesDestinationsHttpHeaderMatch) HashCode() string 
 // can identify it.
 func (r *AuthorizationPolicy) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "networksecurity",
+		Service: "network_security",
 		Type:    "AuthorizationPolicy",
 		Version: "beta",
 	}

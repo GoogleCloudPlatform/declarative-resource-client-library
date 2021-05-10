@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from connector import channel
-from google3.cloud.graphite.mmv2.services.google.identitytoolkit import tenant_pb2
-from google3.cloud.graphite.mmv2.services.google.identitytoolkit import tenant_pb2_grpc
+from google3.cloud.graphite.mmv2.services.google.identity_toolkit import tenant_pb2
+from google3.cloud.graphite.mmv2.services.google.identity_toolkit import tenant_pb2_grpc
 
 from typing import List
 

@@ -40,7 +40,7 @@ func (r *Realm) String() string {
 // can identify it.
 func (r *Realm) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "gameservices",
+		Service: "game_services",
 		Type:    "Realm",
 		Version: "gameservices",
 	}

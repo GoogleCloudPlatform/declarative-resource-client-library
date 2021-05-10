@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -69,6 +70,27 @@ type FeatureSpec struct {
 	Multiclusteringress *FeatureSpecMulticlusteringress `json:"multiclusteringress"`
 }
 
+type jsonFeatureSpec FeatureSpec
+
+func (r *FeatureSpec) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureSpec
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureSpec
+	} else {
+
+		r.Multiclusteringress = res.Multiclusteringress
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this FeatureSpec is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -91,6 +113,29 @@ type FeatureSpecMulticlusteringress struct {
 	Billing          *FeatureSpecMulticlusteringressBillingEnum `json:"billing"`
 }
 
+type jsonFeatureSpecMulticlusteringress FeatureSpecMulticlusteringress
+
+func (r *FeatureSpecMulticlusteringress) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureSpecMulticlusteringress
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureSpecMulticlusteringress
+	} else {
+
+		r.ConfigMembership = res.ConfigMembership
+
+		r.Billing = res.Billing
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this FeatureSpecMulticlusteringress is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -111,7 +156,7 @@ func (r *FeatureSpecMulticlusteringress) HashCode() string {
 // can identify it.
 func (r *Feature) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "gkehub",
+		Service: "gke_hub",
 		Type:    "Feature",
 		Version: "beta",
 	}

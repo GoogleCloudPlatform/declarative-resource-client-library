@@ -16,6 +16,7 @@ package compute
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -69,6 +70,29 @@ type SslCertificateSelfManaged struct {
 	empty       bool    `json:"-"`
 	Certificate *string `json:"certificate"`
 	PrivateKey  *string `json:"privateKey"`
+}
+
+type jsonSslCertificateSelfManaged SslCertificateSelfManaged
+
+func (r *SslCertificateSelfManaged) UnmarshalJSON(data []byte) error {
+	var res jsonSslCertificateSelfManaged
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptySslCertificateSelfManaged
+	} else {
+
+		r.Certificate = res.Certificate
+
+		r.PrivateKey = res.PrivateKey
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this SslCertificateSelfManaged is

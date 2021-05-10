@@ -16,6 +16,7 @@ package compute
 import (
 	"context"
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/api/googleapi"
@@ -77,6 +78,33 @@ type FirewallPolicyRuleMatch struct {
 	SrcSecureLabels []string                               `json:"srcSecureLabels"`
 }
 
+type jsonFirewallPolicyRuleMatch FirewallPolicyRuleMatch
+
+func (r *FirewallPolicyRuleMatch) UnmarshalJSON(data []byte) error {
+	var res jsonFirewallPolicyRuleMatch
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFirewallPolicyRuleMatch
+	} else {
+
+		r.SrcIPRanges = res.SrcIPRanges
+
+		r.DestIPRanges = res.DestIPRanges
+
+		r.Layer4Configs = res.Layer4Configs
+
+		r.SrcSecureLabels = res.SrcSecureLabels
+
+	}
+	return nil
+}
+
 // This object is used to assert a desired state where this FirewallPolicyRuleMatch is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
@@ -97,6 +125,29 @@ type FirewallPolicyRuleMatchLayer4Configs struct {
 	empty      bool     `json:"-"`
 	IPProtocol *string  `json:"ipProtocol"`
 	Ports      []string `json:"ports"`
+}
+
+type jsonFirewallPolicyRuleMatchLayer4Configs FirewallPolicyRuleMatchLayer4Configs
+
+func (r *FirewallPolicyRuleMatchLayer4Configs) UnmarshalJSON(data []byte) error {
+	var res jsonFirewallPolicyRuleMatchLayer4Configs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFirewallPolicyRuleMatchLayer4Configs
+	} else {
+
+		r.IPProtocol = res.IPProtocol
+
+		r.Ports = res.Ports
+
+	}
+	return nil
 }
 
 // This object is used to assert a desired state where this FirewallPolicyRuleMatchLayer4Configs is

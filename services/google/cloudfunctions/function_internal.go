@@ -1849,7 +1849,7 @@ func flattenFunctionHttpsTriggerSlice(c *Client, i interface{}) []FunctionHttpsT
 // expandFunctionHttpsTrigger expands an instance of FunctionHttpsTrigger into a JSON
 // request object.
 func expandFunctionHttpsTrigger(c *Client, f *FunctionHttpsTrigger) (map[string]interface{}, error) {
-	if f == nil || f.empty {
+	if f == nil {
 		return nil, nil
 	}
 

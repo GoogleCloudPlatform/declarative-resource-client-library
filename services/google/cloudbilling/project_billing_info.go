@@ -35,7 +35,7 @@ func (r *ProjectBillingInfo) String() string {
 // can identify it.
 func (r *ProjectBillingInfo) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "cloudbilling",
+		Service: "cloud_billing",
 		Type:    "ProjectBillingInfo",
 		Version: "cloudbilling",
 	}
