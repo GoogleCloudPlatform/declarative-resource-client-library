@@ -696,6 +696,7 @@ func ProtoToTier2AlphaInstancePreprocessCreateRecipeSteps(p *alphapb.Tier2AlphaI
 		RequestedTenantProject:         ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsQuotaRequestDeltas(r))
@@ -900,6 +901,7 @@ func ProtoToTier2AlphaInstanceCreateRecipeSteps(p *alphapb.Tier2AlphaInstanceCre
 		RequestedTenantProject:         ProtoToTier2AlphaInstanceCreateRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceCreateRecipeStepsQuotaRequestDeltas(r))
@@ -1095,6 +1097,7 @@ func ProtoToTier2AlphaInstanceDeleteRecipeSteps(p *alphapb.Tier2AlphaInstanceDel
 		RequestedTenantProject:         ProtoToTier2AlphaInstanceDeleteRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceDeleteRecipeStepsQuotaRequestDeltas(r))
@@ -1290,6 +1293,7 @@ func ProtoToTier2AlphaInstanceUpdateRecipeSteps(p *alphapb.Tier2AlphaInstanceUpd
 		RequestedTenantProject:         ProtoToTier2AlphaInstanceUpdateRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceUpdateRecipeStepsQuotaRequestDeltas(r))
@@ -1485,6 +1489,7 @@ func ProtoToTier2AlphaInstancePreprocessResetRecipeSteps(p *alphapb.Tier2AlphaIn
 		RequestedTenantProject:         ProtoToTier2AlphaInstancePreprocessResetRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstancePreprocessResetRecipeStepsQuotaRequestDeltas(r))
@@ -1680,6 +1685,7 @@ func ProtoToTier2AlphaInstanceResetRecipeSteps(p *alphapb.Tier2AlphaInstanceRese
 		RequestedTenantProject:         ProtoToTier2AlphaInstanceResetRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceResetRecipeStepsQuotaRequestDeltas(r))
@@ -1875,6 +1881,7 @@ func ProtoToTier2AlphaInstancePreprocessRepairRecipeSteps(p *alphapb.Tier2AlphaI
 		RequestedTenantProject:         ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsQuotaRequestDeltas(r))
@@ -2070,6 +2077,7 @@ func ProtoToTier2AlphaInstanceRepairRecipeSteps(p *alphapb.Tier2AlphaInstanceRep
 		RequestedTenantProject:         ProtoToTier2AlphaInstanceRepairRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceRepairRecipeStepsQuotaRequestDeltas(r))
@@ -2265,6 +2273,7 @@ func ProtoToTier2AlphaInstancePreprocessDeleteRecipeSteps(p *alphapb.Tier2AlphaI
 		RequestedTenantProject:         ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(r))
@@ -2460,6 +2469,7 @@ func ProtoToTier2AlphaInstancePreprocessUpdateRecipeSteps(p *alphapb.Tier2AlphaI
 		RequestedTenantProject:         ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(r))
@@ -2655,6 +2665,7 @@ func ProtoToTier2AlphaInstancePreprocessFreezeRecipeSteps(p *alphapb.Tier2AlphaI
 		RequestedTenantProject:         ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(r))
@@ -2850,6 +2861,7 @@ func ProtoToTier2AlphaInstanceFreezeRecipeSteps(p *alphapb.Tier2AlphaInstanceFre
 		RequestedTenantProject:         ProtoToTier2AlphaInstanceFreezeRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceFreezeRecipeStepsQuotaRequestDeltas(r))
@@ -3045,6 +3057,7 @@ func ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeSteps(p *alphapb.Tier2Alph
 		RequestedTenantProject:         ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(r))
@@ -3240,6 +3253,7 @@ func ProtoToTier2AlphaInstanceUnfreezeRecipeSteps(p *alphapb.Tier2AlphaInstanceU
 		RequestedTenantProject:         ProtoToTier2AlphaInstanceUnfreezeRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceUnfreezeRecipeStepsQuotaRequestDeltas(r))
@@ -3435,6 +3449,7 @@ func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeSteps(p *alpha
 		RequestedTenantProject:         ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas(r))
@@ -3630,6 +3645,7 @@ func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeSteps(p *alphapb.Tier2Al
 		RequestedTenantProject:         ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(r))
@@ -3825,6 +3841,7 @@ func ProtoToTier2AlphaInstancePreprocessGetRecipeSteps(p *alphapb.Tier2AlphaInst
 		RequestedTenantProject:         ProtoToTier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstancePreprocessGetRecipeStepsQuotaRequestDeltas(r))
@@ -4020,6 +4037,7 @@ func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeSteps(p *alphapb.Tier2Alph
 		RequestedTenantProject:         ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(r))
@@ -4215,6 +4233,7 @@ func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeSteps(p *alphapb.Tier2Al
 		RequestedTenantProject:         ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(r))
@@ -4410,6 +4429,7 @@ func ProtoToTier2AlphaInstanceReadonlyRecipeSteps(p *alphapb.Tier2AlphaInstanceR
 		RequestedTenantProject:         ProtoToTier2AlphaInstanceReadonlyRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceReadonlyRecipeStepsQuotaRequestDeltas(r))
@@ -4605,6 +4625,7 @@ func ProtoToTier2AlphaInstanceReconcileRecipeSteps(p *alphapb.Tier2AlphaInstance
 		RequestedTenantProject:         ProtoToTier2AlphaInstanceReconcileRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstanceReconcileRecipeStepsQuotaRequestDeltas(r))
@@ -4800,6 +4821,7 @@ func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeSteps(p *alphapb.Tier2A
 		RequestedTenantProject:         ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(r))
@@ -4995,6 +5017,7 @@ func ProtoToTier2AlphaInstancePreprocessReconcileRecipeSteps(p *alphapb.Tier2Alp
 		RequestedTenantProject:         ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProject(p.GetRequestedTenantProject()),
 		KeyNotificationsUpdate:         ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate(p.GetKeyNotificationsUpdate()),
 		ClhDataUpdateTime:              dcl.StringOrNil(p.GetClhDataUpdateTime()),
+		PublicErrorMessage:             dcl.StringOrNil(p.PublicErrorMessage),
 	}
 	for _, r := range p.GetQuotaRequestDeltas() {
 		obj.QuotaRequestDeltas = append(obj.QuotaRequestDeltas, *ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(r))
@@ -5846,6 +5869,7 @@ func Tier2AlphaInstancePreprocessCreateRecipeStepsToProto(o *alpha.InstancePrepr
 		RequestedTenantProject:         Tier2AlphaInstancePreprocessCreateRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstancePreprocessCreateRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -6050,6 +6074,7 @@ func Tier2AlphaInstanceCreateRecipeStepsToProto(o *alpha.InstanceCreateRecipeSte
 		RequestedTenantProject:         Tier2AlphaInstanceCreateRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceCreateRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -6245,6 +6270,7 @@ func Tier2AlphaInstanceDeleteRecipeStepsToProto(o *alpha.InstanceDeleteRecipeSte
 		RequestedTenantProject:         Tier2AlphaInstanceDeleteRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceDeleteRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -6440,6 +6466,7 @@ func Tier2AlphaInstanceUpdateRecipeStepsToProto(o *alpha.InstanceUpdateRecipeSte
 		RequestedTenantProject:         Tier2AlphaInstanceUpdateRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceUpdateRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -6635,6 +6662,7 @@ func Tier2AlphaInstancePreprocessResetRecipeStepsToProto(o *alpha.InstancePrepro
 		RequestedTenantProject:         Tier2AlphaInstancePreprocessResetRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstancePreprocessResetRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -6830,6 +6858,7 @@ func Tier2AlphaInstanceResetRecipeStepsToProto(o *alpha.InstanceResetRecipeSteps
 		RequestedTenantProject:         Tier2AlphaInstanceResetRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceResetRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -7025,6 +7054,7 @@ func Tier2AlphaInstancePreprocessRepairRecipeStepsToProto(o *alpha.InstancePrepr
 		RequestedTenantProject:         Tier2AlphaInstancePreprocessRepairRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstancePreprocessRepairRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -7220,6 +7250,7 @@ func Tier2AlphaInstanceRepairRecipeStepsToProto(o *alpha.InstanceRepairRecipeSte
 		RequestedTenantProject:         Tier2AlphaInstanceRepairRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceRepairRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -7415,6 +7446,7 @@ func Tier2AlphaInstancePreprocessDeleteRecipeStepsToProto(o *alpha.InstancePrepr
 		RequestedTenantProject:         Tier2AlphaInstancePreprocessDeleteRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstancePreprocessDeleteRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -7610,6 +7642,7 @@ func Tier2AlphaInstancePreprocessUpdateRecipeStepsToProto(o *alpha.InstancePrepr
 		RequestedTenantProject:         Tier2AlphaInstancePreprocessUpdateRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstancePreprocessUpdateRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -7805,6 +7838,7 @@ func Tier2AlphaInstancePreprocessFreezeRecipeStepsToProto(o *alpha.InstancePrepr
 		RequestedTenantProject:         Tier2AlphaInstancePreprocessFreezeRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstancePreprocessFreezeRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -8000,6 +8034,7 @@ func Tier2AlphaInstanceFreezeRecipeStepsToProto(o *alpha.InstanceFreezeRecipeSte
 		RequestedTenantProject:         Tier2AlphaInstanceFreezeRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceFreezeRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -8195,6 +8230,7 @@ func Tier2AlphaInstancePreprocessUnfreezeRecipeStepsToProto(o *alpha.InstancePre
 		RequestedTenantProject:         Tier2AlphaInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -8390,6 +8426,7 @@ func Tier2AlphaInstanceUnfreezeRecipeStepsToProto(o *alpha.InstanceUnfreezeRecip
 		RequestedTenantProject:         Tier2AlphaInstanceUnfreezeRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceUnfreezeRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -8585,6 +8622,7 @@ func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsToProto(o *alpha
 		RequestedTenantProject:         Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -8780,6 +8818,7 @@ func Tier2AlphaInstanceReportInstanceHealthRecipeStepsToProto(o *alpha.InstanceR
 		RequestedTenantProject:         Tier2AlphaInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -8975,6 +9014,7 @@ func Tier2AlphaInstancePreprocessGetRecipeStepsToProto(o *alpha.InstancePreproce
 		RequestedTenantProject:         Tier2AlphaInstancePreprocessGetRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstancePreprocessGetRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -9170,6 +9210,7 @@ func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsToProto(o *alpha.InstanceNot
 		RequestedTenantProject:         Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -9365,6 +9406,7 @@ func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsToProto(o *alpha.InstanceN
 		RequestedTenantProject:         Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -9560,6 +9602,7 @@ func Tier2AlphaInstanceReadonlyRecipeStepsToProto(o *alpha.InstanceReadonlyRecip
 		RequestedTenantProject:         Tier2AlphaInstanceReadonlyRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceReadonlyRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -9755,6 +9798,7 @@ func Tier2AlphaInstanceReconcileRecipeStepsToProto(o *alpha.InstanceReconcileRec
 		RequestedTenantProject:         Tier2AlphaInstanceReconcileRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstanceReconcileRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -9950,6 +9994,7 @@ func Tier2AlphaInstancePreprocessPassthroughRecipeStepsToProto(o *alpha.Instance
 		RequestedTenantProject:         Tier2AlphaInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltasToProto(&r))
@@ -10145,6 +10190,7 @@ func Tier2AlphaInstancePreprocessReconcileRecipeStepsToProto(o *alpha.InstancePr
 		RequestedTenantProject:         Tier2AlphaInstancePreprocessReconcileRecipeStepsRequestedTenantProjectToProto(o.RequestedTenantProject),
 		KeyNotificationsUpdate:         Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateToProto(o.KeyNotificationsUpdate),
 		ClhDataUpdateTime:              dcl.ValueOrEmptyString(o.ClhDataUpdateTime),
+		PublicErrorMessage:             dcl.ValueOrEmptyString(o.PublicErrorMessage),
 	}
 	for _, r := range o.QuotaRequestDeltas {
 		p.QuotaRequestDeltas = append(p.QuotaRequestDeltas, Tier2AlphaInstancePreprocessReconcileRecipeStepsQuotaRequestDeltasToProto(&r))

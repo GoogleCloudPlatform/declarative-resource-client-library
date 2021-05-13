@@ -531,6 +531,7 @@ message Tier2AlphaInstancePreprocessCreateRecipeSteps {
   repeated Tier2AlphaInstancePreprocessCreateRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstancePreprocessCreateRecipeStepsStatus {
@@ -624,6 +625,7 @@ message Tier2AlphaInstanceCreateRecipeSteps {
   repeated Tier2AlphaInstanceCreateRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstanceCreateRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstanceCreateRecipeStepsStatus {
@@ -714,6 +716,7 @@ message Tier2AlphaInstanceDeleteRecipeSteps {
   repeated Tier2AlphaInstanceDeleteRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstanceDeleteRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstanceDeleteRecipeStepsStatus {
@@ -804,6 +807,7 @@ message Tier2AlphaInstanceUpdateRecipeSteps {
   repeated Tier2AlphaInstanceUpdateRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstanceUpdateRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstanceUpdateRecipeStepsStatus {
@@ -894,6 +898,7 @@ message Tier2AlphaInstancePreprocessResetRecipeSteps {
   repeated Tier2AlphaInstancePreprocessResetRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstancePreprocessResetRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstancePreprocessResetRecipeStepsStatus {
@@ -984,6 +989,7 @@ message Tier2AlphaInstanceResetRecipeSteps {
   repeated Tier2AlphaInstanceResetRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstanceResetRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstanceResetRecipeStepsStatus {
@@ -1074,6 +1080,7 @@ message Tier2AlphaInstancePreprocessRepairRecipeSteps {
   repeated Tier2AlphaInstancePreprocessRepairRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstancePreprocessRepairRecipeStepsStatus {
@@ -1164,6 +1171,7 @@ message Tier2AlphaInstanceRepairRecipeSteps {
   repeated Tier2AlphaInstanceRepairRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstanceRepairRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstanceRepairRecipeStepsStatus {
@@ -1254,6 +1262,7 @@ message Tier2AlphaInstancePreprocessDeleteRecipeSteps {
   repeated Tier2AlphaInstancePreprocessDeleteRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstancePreprocessDeleteRecipeStepsStatus {
@@ -1344,6 +1353,7 @@ message Tier2AlphaInstancePreprocessUpdateRecipeSteps {
   repeated Tier2AlphaInstancePreprocessUpdateRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstancePreprocessUpdateRecipeStepsStatus {
@@ -1434,6 +1444,7 @@ message Tier2AlphaInstancePreprocessFreezeRecipeSteps {
   repeated Tier2AlphaInstancePreprocessFreezeRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstancePreprocessFreezeRecipeStepsStatus {
@@ -1524,6 +1535,7 @@ message Tier2AlphaInstanceFreezeRecipeSteps {
   repeated Tier2AlphaInstanceFreezeRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstanceFreezeRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstanceFreezeRecipeStepsStatus {
@@ -1614,6 +1626,7 @@ message Tier2AlphaInstancePreprocessUnfreezeRecipeSteps {
   repeated Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsStatus {
@@ -1704,6 +1717,7 @@ message Tier2AlphaInstanceUnfreezeRecipeSteps {
   repeated Tier2AlphaInstanceUnfreezeRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstanceUnfreezeRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstanceUnfreezeRecipeStepsStatus {
@@ -1794,6 +1808,7 @@ message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeSteps {
   repeated Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsStatus {
@@ -1884,6 +1899,7 @@ message Tier2AlphaInstanceReportInstanceHealthRecipeSteps {
   repeated Tier2AlphaInstanceReportInstanceHealthRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstanceReportInstanceHealthRecipeStepsStatus {
@@ -1974,6 +1990,7 @@ message Tier2AlphaInstancePreprocessGetRecipeSteps {
   repeated Tier2AlphaInstancePreprocessGetRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstancePreprocessGetRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstancePreprocessGetRecipeStepsStatus {
@@ -2064,6 +2081,7 @@ message Tier2AlphaInstanceNotifyKeyAvailableRecipeSteps {
   repeated Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsStatus {
@@ -2154,6 +2172,7 @@ message Tier2AlphaInstanceNotifyKeyUnavailableRecipeSteps {
   repeated Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsStatus {
@@ -2244,6 +2263,7 @@ message Tier2AlphaInstanceReadonlyRecipeSteps {
   repeated Tier2AlphaInstanceReadonlyRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstanceReadonlyRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstanceReadonlyRecipeStepsStatus {
@@ -2334,6 +2354,7 @@ message Tier2AlphaInstanceReconcileRecipeSteps {
   repeated Tier2AlphaInstanceReconcileRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstanceReconcileRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstanceReconcileRecipeStepsStatus {
@@ -2424,6 +2445,7 @@ message Tier2AlphaInstancePreprocessPassthroughRecipeSteps {
   repeated Tier2AlphaInstancePreprocessPassthroughRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstancePreprocessPassthroughRecipeStepsStatus {
@@ -2514,6 +2536,7 @@ message Tier2AlphaInstancePreprocessReconcileRecipeSteps {
   repeated Tier2AlphaInstancePreprocessReconcileRecipeStepsPermissionsInfo permissions_info = 14;
   Tier2AlphaInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate key_notifications_update = 15;
   string clh_data_update_time = 16;
+  string public_error_message = 17;
 }
 
 message Tier2AlphaInstancePreprocessReconcileRecipeStepsStatus {

@@ -3263,6 +3263,9 @@ func canonicalizeInstancePreprocessCreateRecipeSteps(des, initial *InstancePrepr
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -3307,6 +3310,9 @@ func canonicalizeNewInstancePreprocessCreateRecipeSteps(c *Client, des, nw *Inst
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -4479,6 +4485,9 @@ func canonicalizeInstanceCreateRecipeSteps(des, initial *InstanceCreateRecipeSte
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -4523,6 +4532,9 @@ func canonicalizeNewInstanceCreateRecipeSteps(c *Client, des, nw *InstanceCreate
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceCreateRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -5629,6 +5641,9 @@ func canonicalizeInstanceDeleteRecipeSteps(des, initial *InstanceDeleteRecipeSte
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -5673,6 +5688,9 @@ func canonicalizeNewInstanceDeleteRecipeSteps(c *Client, des, nw *InstanceDelete
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceDeleteRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -6779,6 +6797,9 @@ func canonicalizeInstanceUpdateRecipeSteps(des, initial *InstanceUpdateRecipeSte
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -6823,6 +6844,9 @@ func canonicalizeNewInstanceUpdateRecipeSteps(c *Client, des, nw *InstanceUpdate
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceUpdateRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -7929,6 +7953,9 @@ func canonicalizeInstancePreprocessResetRecipeSteps(des, initial *InstancePrepro
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -7973,6 +8000,9 @@ func canonicalizeNewInstancePreprocessResetRecipeSteps(c *Client, des, nw *Insta
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessResetRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -9079,6 +9109,9 @@ func canonicalizeInstanceResetRecipeSteps(des, initial *InstanceResetRecipeSteps
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -9123,6 +9156,9 @@ func canonicalizeNewInstanceResetRecipeSteps(c *Client, des, nw *InstanceResetRe
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceResetRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -10229,6 +10265,9 @@ func canonicalizeInstancePreprocessRepairRecipeSteps(des, initial *InstancePrepr
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -10273,6 +10312,9 @@ func canonicalizeNewInstancePreprocessRepairRecipeSteps(c *Client, des, nw *Inst
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -11379,6 +11421,9 @@ func canonicalizeInstanceRepairRecipeSteps(des, initial *InstanceRepairRecipeSte
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -11423,6 +11468,9 @@ func canonicalizeNewInstanceRepairRecipeSteps(c *Client, des, nw *InstanceRepair
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceRepairRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -12529,6 +12577,9 @@ func canonicalizeInstancePreprocessDeleteRecipeSteps(des, initial *InstancePrepr
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -12573,6 +12624,9 @@ func canonicalizeNewInstancePreprocessDeleteRecipeSteps(c *Client, des, nw *Inst
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -13679,6 +13733,9 @@ func canonicalizeInstancePreprocessUpdateRecipeSteps(des, initial *InstancePrepr
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -13723,6 +13780,9 @@ func canonicalizeNewInstancePreprocessUpdateRecipeSteps(c *Client, des, nw *Inst
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -14829,6 +14889,9 @@ func canonicalizeInstancePreprocessFreezeRecipeSteps(des, initial *InstancePrepr
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -14873,6 +14936,9 @@ func canonicalizeNewInstancePreprocessFreezeRecipeSteps(c *Client, des, nw *Inst
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -15979,6 +16045,9 @@ func canonicalizeInstanceFreezeRecipeSteps(des, initial *InstanceFreezeRecipeSte
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -16023,6 +16092,9 @@ func canonicalizeNewInstanceFreezeRecipeSteps(c *Client, des, nw *InstanceFreeze
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceFreezeRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -17129,6 +17201,9 @@ func canonicalizeInstancePreprocessUnfreezeRecipeSteps(des, initial *InstancePre
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -17173,6 +17248,9 @@ func canonicalizeNewInstancePreprocessUnfreezeRecipeSteps(c *Client, des, nw *In
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -18279,6 +18357,9 @@ func canonicalizeInstanceUnfreezeRecipeSteps(des, initial *InstanceUnfreezeRecip
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -18323,6 +18404,9 @@ func canonicalizeNewInstanceUnfreezeRecipeSteps(c *Client, des, nw *InstanceUnfr
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceUnfreezeRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -19429,6 +19513,9 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeSteps(des, initial 
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -19473,6 +19560,9 @@ func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeSteps(c *Client,
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -20579,6 +20669,9 @@ func canonicalizeInstanceReportInstanceHealthRecipeSteps(des, initial *InstanceR
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -20623,6 +20716,9 @@ func canonicalizeNewInstanceReportInstanceHealthRecipeSteps(c *Client, des, nw *
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -21729,6 +21825,9 @@ func canonicalizeInstancePreprocessGetRecipeSteps(des, initial *InstancePreproce
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -21773,6 +21872,9 @@ func canonicalizeNewInstancePreprocessGetRecipeSteps(c *Client, des, nw *Instanc
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessGetRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -22879,6 +22981,9 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeSteps(des, initial *InstanceNot
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -22923,6 +23028,9 @@ func canonicalizeNewInstanceNotifyKeyAvailableRecipeSteps(c *Client, des, nw *In
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -24029,6 +24137,9 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeSteps(des, initial *InstanceN
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -24073,6 +24184,9 @@ func canonicalizeNewInstanceNotifyKeyUnavailableRecipeSteps(c *Client, des, nw *
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -25179,6 +25293,9 @@ func canonicalizeInstanceReadonlyRecipeSteps(des, initial *InstanceReadonlyRecip
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -25223,6 +25340,9 @@ func canonicalizeNewInstanceReadonlyRecipeSteps(c *Client, des, nw *InstanceRead
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceReadonlyRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -26329,6 +26449,9 @@ func canonicalizeInstanceReconcileRecipeSteps(des, initial *InstanceReconcileRec
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -26373,6 +26496,9 @@ func canonicalizeNewInstanceReconcileRecipeSteps(c *Client, des, nw *InstanceRec
 	nw.KeyNotificationsUpdate = canonicalizeNewInstanceReconcileRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -27479,6 +27605,9 @@ func canonicalizeInstancePreprocessPassthroughRecipeSteps(des, initial *Instance
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -27523,6 +27652,9 @@ func canonicalizeNewInstancePreprocessPassthroughRecipeSteps(c *Client, des, nw 
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -28629,6 +28761,9 @@ func canonicalizeInstancePreprocessReconcileRecipeSteps(des, initial *InstancePr
 	if dcl.IsZeroValue(des.ClhDataUpdateTime) {
 		des.ClhDataUpdateTime = initial.ClhDataUpdateTime
 	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, initial.PublicErrorMessage) || dcl.IsZeroValue(des.PublicErrorMessage) {
+		des.PublicErrorMessage = initial.PublicErrorMessage
+	}
 
 	return des
 }
@@ -28673,6 +28808,9 @@ func canonicalizeNewInstancePreprocessReconcileRecipeSteps(c *Client, des, nw *I
 	nw.KeyNotificationsUpdate = canonicalizeNewInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate(c, des.KeyNotificationsUpdate, nw.KeyNotificationsUpdate)
 	if dcl.IsZeroValue(nw.ClhDataUpdateTime) {
 		nw.ClhDataUpdateTime = des.ClhDataUpdateTime
+	}
+	if dcl.StringCanonicalize(des.PublicErrorMessage, nw.PublicErrorMessage) {
+		nw.PublicErrorMessage = des.PublicErrorMessage
 	}
 
 	return nw
@@ -30747,6 +30885,13 @@ func compareInstancePreprocessCreateRecipeStepsNewStyle(d, a interface{}, fn dcl
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -31396,6 +31541,13 @@ func compareInstanceCreateRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -32034,6 +32186,13 @@ func compareInstanceDeleteRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 	}
 
 	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32682,6 +32841,13 @@ func compareInstanceUpdateRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -33320,6 +33486,13 @@ func compareInstancePreprocessResetRecipeStepsNewStyle(d, a interface{}, fn dcl.
 	}
 
 	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33968,6 +34141,13 @@ func compareInstanceResetRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName)
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -34606,6 +34786,13 @@ func compareInstancePreprocessRepairRecipeStepsNewStyle(d, a interface{}, fn dcl
 	}
 
 	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35254,6 +35441,13 @@ func compareInstanceRepairRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -35892,6 +36086,13 @@ func compareInstancePreprocessDeleteRecipeStepsNewStyle(d, a interface{}, fn dcl
 	}
 
 	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36540,6 +36741,13 @@ func compareInstancePreprocessUpdateRecipeStepsNewStyle(d, a interface{}, fn dcl
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -37178,6 +37386,13 @@ func compareInstancePreprocessFreezeRecipeStepsNewStyle(d, a interface{}, fn dcl
 	}
 
 	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37826,6 +38041,13 @@ func compareInstanceFreezeRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -38464,6 +38686,13 @@ func compareInstancePreprocessUnfreezeRecipeStepsNewStyle(d, a interface{}, fn d
 	}
 
 	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39112,6 +39341,13 @@ func compareInstanceUnfreezeRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldNa
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -39750,6 +39986,13 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsNewStyle(d, a inter
 	}
 
 	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40398,6 +40641,13 @@ func compareInstanceReportInstanceHealthRecipeStepsNewStyle(d, a interface{}, fn
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -41036,6 +41286,13 @@ func compareInstancePreprocessGetRecipeStepsNewStyle(d, a interface{}, fn dcl.Fi
 	}
 
 	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41684,6 +41941,13 @@ func compareInstanceNotifyKeyAvailableRecipeStepsNewStyle(d, a interface{}, fn d
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -42322,6 +42586,13 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsNewStyle(d, a interface{}, fn
 	}
 
 	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42970,6 +43241,13 @@ func compareInstanceReadonlyRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldNa
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -43608,6 +43886,13 @@ func compareInstanceReconcileRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldN
 	}
 
 	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44256,6 +44541,13 @@ func compareInstancePreprocessPassthroughRecipeStepsNewStyle(d, a interface{}, f
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -44894,6 +45186,13 @@ func compareInstancePreprocessReconcileRecipeStepsNewStyle(d, a interface{}, fn 
 	}
 
 	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -46404,6 +46703,9 @@ func expandInstancePreprocessCreateRecipeSteps(c *Client, f *InstancePreprocessC
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -46433,6 +46735,7 @@ func flattenInstancePreprocessCreateRecipeSteps(c *Client, i interface{}) *Insta
 	r.PermissionsInfo = flattenInstancePreprocessCreateRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -48118,6 +48421,9 @@ func expandInstanceCreateRecipeSteps(c *Client, f *InstanceCreateRecipeSteps) (m
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -48147,6 +48453,7 @@ func flattenInstanceCreateRecipeSteps(c *Client, i interface{}) *InstanceCreateR
 	r.PermissionsInfo = flattenInstanceCreateRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstanceCreateRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -49726,6 +50033,9 @@ func expandInstanceDeleteRecipeSteps(c *Client, f *InstanceDeleteRecipeSteps) (m
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -49755,6 +50065,7 @@ func flattenInstanceDeleteRecipeSteps(c *Client, i interface{}) *InstanceDeleteR
 	r.PermissionsInfo = flattenInstanceDeleteRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstanceDeleteRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -51334,6 +51645,9 @@ func expandInstanceUpdateRecipeSteps(c *Client, f *InstanceUpdateRecipeSteps) (m
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -51363,6 +51677,7 @@ func flattenInstanceUpdateRecipeSteps(c *Client, i interface{}) *InstanceUpdateR
 	r.PermissionsInfo = flattenInstanceUpdateRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstanceUpdateRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -52942,6 +53257,9 @@ func expandInstancePreprocessResetRecipeSteps(c *Client, f *InstancePreprocessRe
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -52971,6 +53289,7 @@ func flattenInstancePreprocessResetRecipeSteps(c *Client, i interface{}) *Instan
 	r.PermissionsInfo = flattenInstancePreprocessResetRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -54550,6 +54869,9 @@ func expandInstanceResetRecipeSteps(c *Client, f *InstanceResetRecipeSteps) (map
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -54579,6 +54901,7 @@ func flattenInstanceResetRecipeSteps(c *Client, i interface{}) *InstanceResetRec
 	r.PermissionsInfo = flattenInstanceResetRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstanceResetRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -56158,6 +56481,9 @@ func expandInstancePreprocessRepairRecipeSteps(c *Client, f *InstancePreprocessR
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -56187,6 +56513,7 @@ func flattenInstancePreprocessRepairRecipeSteps(c *Client, i interface{}) *Insta
 	r.PermissionsInfo = flattenInstancePreprocessRepairRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -57766,6 +58093,9 @@ func expandInstanceRepairRecipeSteps(c *Client, f *InstanceRepairRecipeSteps) (m
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -57795,6 +58125,7 @@ func flattenInstanceRepairRecipeSteps(c *Client, i interface{}) *InstanceRepairR
 	r.PermissionsInfo = flattenInstanceRepairRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstanceRepairRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -59374,6 +59705,9 @@ func expandInstancePreprocessDeleteRecipeSteps(c *Client, f *InstancePreprocessD
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -59403,6 +59737,7 @@ func flattenInstancePreprocessDeleteRecipeSteps(c *Client, i interface{}) *Insta
 	r.PermissionsInfo = flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -60982,6 +61317,9 @@ func expandInstancePreprocessUpdateRecipeSteps(c *Client, f *InstancePreprocessU
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -61011,6 +61349,7 @@ func flattenInstancePreprocessUpdateRecipeSteps(c *Client, i interface{}) *Insta
 	r.PermissionsInfo = flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -62590,6 +62929,9 @@ func expandInstancePreprocessFreezeRecipeSteps(c *Client, f *InstancePreprocessF
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -62619,6 +62961,7 @@ func flattenInstancePreprocessFreezeRecipeSteps(c *Client, i interface{}) *Insta
 	r.PermissionsInfo = flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -64198,6 +64541,9 @@ func expandInstanceFreezeRecipeSteps(c *Client, f *InstanceFreezeRecipeSteps) (m
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -64227,6 +64573,7 @@ func flattenInstanceFreezeRecipeSteps(c *Client, i interface{}) *InstanceFreezeR
 	r.PermissionsInfo = flattenInstanceFreezeRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstanceFreezeRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -65806,6 +66153,9 @@ func expandInstancePreprocessUnfreezeRecipeSteps(c *Client, f *InstancePreproces
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -65835,6 +66185,7 @@ func flattenInstancePreprocessUnfreezeRecipeSteps(c *Client, i interface{}) *Ins
 	r.PermissionsInfo = flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -67414,6 +67765,9 @@ func expandInstanceUnfreezeRecipeSteps(c *Client, f *InstanceUnfreezeRecipeSteps
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -67443,6 +67797,7 @@ func flattenInstanceUnfreezeRecipeSteps(c *Client, i interface{}) *InstanceUnfre
 	r.PermissionsInfo = flattenInstanceUnfreezeRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -69022,6 +69377,9 @@ func expandInstancePreprocessReportInstanceHealthRecipeSteps(c *Client, f *Insta
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -69051,6 +69409,7 @@ func flattenInstancePreprocessReportInstanceHealthRecipeSteps(c *Client, i inter
 	r.PermissionsInfo = flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -70630,6 +70989,9 @@ func expandInstanceReportInstanceHealthRecipeSteps(c *Client, f *InstanceReportI
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -70659,6 +71021,7 @@ func flattenInstanceReportInstanceHealthRecipeSteps(c *Client, i interface{}) *I
 	r.PermissionsInfo = flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -72238,6 +72601,9 @@ func expandInstancePreprocessGetRecipeSteps(c *Client, f *InstancePreprocessGetR
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -72267,6 +72633,7 @@ func flattenInstancePreprocessGetRecipeSteps(c *Client, i interface{}) *Instance
 	r.PermissionsInfo = flattenInstancePreprocessGetRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -73846,6 +74213,9 @@ func expandInstanceNotifyKeyAvailableRecipeSteps(c *Client, f *InstanceNotifyKey
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -73875,6 +74245,7 @@ func flattenInstanceNotifyKeyAvailableRecipeSteps(c *Client, i interface{}) *Ins
 	r.PermissionsInfo = flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -75454,6 +75825,9 @@ func expandInstanceNotifyKeyUnavailableRecipeSteps(c *Client, f *InstanceNotifyK
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -75483,6 +75857,7 @@ func flattenInstanceNotifyKeyUnavailableRecipeSteps(c *Client, i interface{}) *I
 	r.PermissionsInfo = flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -77062,6 +77437,9 @@ func expandInstanceReadonlyRecipeSteps(c *Client, f *InstanceReadonlyRecipeSteps
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -77091,6 +77469,7 @@ func flattenInstanceReadonlyRecipeSteps(c *Client, i interface{}) *InstanceReado
 	r.PermissionsInfo = flattenInstanceReadonlyRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -78670,6 +79049,9 @@ func expandInstanceReconcileRecipeSteps(c *Client, f *InstanceReconcileRecipeSte
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -78699,6 +79081,7 @@ func flattenInstanceReconcileRecipeSteps(c *Client, i interface{}) *InstanceReco
 	r.PermissionsInfo = flattenInstanceReconcileRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstanceReconcileRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -80278,6 +80661,9 @@ func expandInstancePreprocessPassthroughRecipeSteps(c *Client, f *InstancePrepro
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -80307,6 +80693,7 @@ func flattenInstancePreprocessPassthroughRecipeSteps(c *Client, i interface{}) *
 	r.PermissionsInfo = flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }
@@ -81886,6 +82273,9 @@ func expandInstancePreprocessReconcileRecipeSteps(c *Client, f *InstancePreproce
 	if v := f.ClhDataUpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["clhDataUpdateTime"] = v
 	}
+	if v := f.PublicErrorMessage; !dcl.IsEmptyValueIndirect(v) {
+		m["publicErrorMessage"] = v
+	}
 
 	return m, nil
 }
@@ -81915,6 +82305,7 @@ func flattenInstancePreprocessReconcileRecipeSteps(c *Client, i interface{}) *In
 	r.PermissionsInfo = flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoSlice(c, m["permissionsInfo"])
 	r.KeyNotificationsUpdate = flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate(c, m["keyNotificationsUpdate"])
 	r.ClhDataUpdateTime = dcl.FlattenString(m["clhDataUpdateTime"])
+	r.PublicErrorMessage = dcl.FlattenString(m["publicErrorMessage"])
 
 	return r
 }

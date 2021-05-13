@@ -266,6 +266,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstanceCreateRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -676,6 +680,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstanceDeleteRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -1096,6 +1104,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstanceFreezeRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -1554,6 +1566,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -1951,6 +1967,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -2355,6 +2375,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstancePreprocessCreateRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -2752,6 +2776,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstancePreprocessDeleteRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -3149,6 +3177,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstancePreprocessFreezeRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -3546,6 +3578,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstancePreprocessGetRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -3943,6 +3979,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstancePreprocessPassthroughRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -4340,6 +4380,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstancePreprocessReconcileRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -4737,6 +4781,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstancePreprocessRepairRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -5134,6 +5182,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -5531,6 +5583,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstancePreprocessResetRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -5928,6 +5984,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -6325,6 +6385,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstancePreprocessUpdateRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -6741,6 +6805,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstanceReadonlyRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -7138,6 +7206,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstanceReconcileRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -7613,6 +7685,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstanceRepairRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -8010,6 +8086,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstanceReportInstanceHealthRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -8413,6 +8493,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstanceResetRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -8860,6 +8944,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstanceUnfreezeRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the
@@ -9257,6 +9345,10 @@ components:
                     type: object
                     x-dcl-go-name: PreprocessUpdate
                     x-dcl-go-type: InstanceUpdateRecipeStepsPreprocessUpdate
+                  publicErrorMessage:
+                    description: Public error message specified by CLH.
+                    type: string
+                    x-dcl-go-name: PublicErrorMessage
                   publicOperationMetadata:
                     description: Optional public operation metadata to be returned
                       by Apply calls LROs. The value must be serialized using the

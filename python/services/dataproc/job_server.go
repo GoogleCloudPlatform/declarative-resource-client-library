@@ -439,39 +439,6 @@ func ProtoToDataprocJobScheduling(p *dataprocpb.DataprocJobScheduling) *dataproc
 	return obj
 }
 
-// ProtoToJobDriverRunner converts a JobDriverRunner resource from its proto representation.
-func ProtoToDataprocJobDriverRunner(p *dataprocpb.DataprocJobDriverRunner) *dataproc.JobDriverRunner {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.JobDriverRunner{
-		MasterDriverRunner: ProtoToDataprocJobDriverRunnerMasterDriverRunner(p.GetMasterDriverRunner()),
-		YarnDriverRunner:   ProtoToDataprocJobDriverRunnerYarnDriverRunner(p.GetYarnDriverRunner()),
-	}
-	return obj
-}
-
-// ProtoToJobDriverRunnerMasterDriverRunner converts a JobDriverRunnerMasterDriverRunner resource from its proto representation.
-func ProtoToDataprocJobDriverRunnerMasterDriverRunner(p *dataprocpb.DataprocJobDriverRunnerMasterDriverRunner) *dataproc.JobDriverRunnerMasterDriverRunner {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.JobDriverRunnerMasterDriverRunner{}
-	return obj
-}
-
-// ProtoToJobDriverRunnerYarnDriverRunner converts a JobDriverRunnerYarnDriverRunner resource from its proto representation.
-func ProtoToDataprocJobDriverRunnerYarnDriverRunner(p *dataprocpb.DataprocJobDriverRunnerYarnDriverRunner) *dataproc.JobDriverRunnerYarnDriverRunner {
-	if p == nil {
-		return nil
-	}
-	obj := &dataproc.JobDriverRunnerYarnDriverRunner{
-		MemoryMb: dcl.Int64OrNil(p.MemoryMb),
-		Vcores:   dcl.Int64OrNil(p.Vcores),
-	}
-	return obj
-}
-
 // ProtoToJob converts a Job resource from its proto representation.
 func ProtoToJob(p *dataprocpb.DataprocJob) *dataproc.Job {
 	obj := &dataproc.Job{
@@ -486,15 +453,11 @@ func ProtoToJob(p *dataprocpb.DataprocJob) *dataproc.Job {
 		SparkSqlJob:             ProtoToDataprocJobSparkSqlJob(p.GetSparkSqlJob()),
 		PrestoJob:               ProtoToDataprocJobPrestoJob(p.GetPrestoJob()),
 		Status:                  ProtoToDataprocJobStatus(p.GetStatus()),
-		SubmittedBy:             dcl.StringOrNil(p.SubmittedBy),
-		DriverInputResourceUri:  dcl.StringOrNil(p.DriverInputResourceUri),
 		DriverOutputResourceUri: dcl.StringOrNil(p.DriverOutputResourceUri),
 		DriverControlFilesUri:   dcl.StringOrNil(p.DriverControlFilesUri),
-		Interactive:             dcl.Bool(p.Interactive),
 		Scheduling:              ProtoToDataprocJobScheduling(p.GetScheduling()),
 		Name:                    dcl.StringOrNil(p.Name),
 		Done:                    dcl.Bool(p.Done),
-		DriverRunner:            ProtoToDataprocJobDriverRunner(p.GetDriverRunner()),
 		Region:                  dcl.StringOrNil(p.Region),
 		Project:                 dcl.StringOrNil(p.Project),
 	}
@@ -992,39 +955,6 @@ func DataprocJobSchedulingToProto(o *dataproc.JobScheduling) *dataprocpb.Datapro
 	return p
 }
 
-// JobDriverRunnerToProto converts a JobDriverRunner resource to its proto representation.
-func DataprocJobDriverRunnerToProto(o *dataproc.JobDriverRunner) *dataprocpb.DataprocJobDriverRunner {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocJobDriverRunner{
-		MasterDriverRunner: DataprocJobDriverRunnerMasterDriverRunnerToProto(o.MasterDriverRunner),
-		YarnDriverRunner:   DataprocJobDriverRunnerYarnDriverRunnerToProto(o.YarnDriverRunner),
-	}
-	return p
-}
-
-// JobDriverRunnerMasterDriverRunnerToProto converts a JobDriverRunnerMasterDriverRunner resource to its proto representation.
-func DataprocJobDriverRunnerMasterDriverRunnerToProto(o *dataproc.JobDriverRunnerMasterDriverRunner) *dataprocpb.DataprocJobDriverRunnerMasterDriverRunner {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocJobDriverRunnerMasterDriverRunner{}
-	return p
-}
-
-// JobDriverRunnerYarnDriverRunnerToProto converts a JobDriverRunnerYarnDriverRunner resource to its proto representation.
-func DataprocJobDriverRunnerYarnDriverRunnerToProto(o *dataproc.JobDriverRunnerYarnDriverRunner) *dataprocpb.DataprocJobDriverRunnerYarnDriverRunner {
-	if o == nil {
-		return nil
-	}
-	p := &dataprocpb.DataprocJobDriverRunnerYarnDriverRunner{
-		MemoryMb: dcl.ValueOrEmptyInt64(o.MemoryMb),
-		Vcores:   dcl.ValueOrEmptyInt64(o.Vcores),
-	}
-	return p
-}
-
 // JobToProto converts a Job resource to its proto representation.
 func JobToProto(resource *dataproc.Job) *dataprocpb.DataprocJob {
 	p := &dataprocpb.DataprocJob{
@@ -1039,15 +969,11 @@ func JobToProto(resource *dataproc.Job) *dataprocpb.DataprocJob {
 		SparkSqlJob:             DataprocJobSparkSqlJobToProto(resource.SparkSqlJob),
 		PrestoJob:               DataprocJobPrestoJobToProto(resource.PrestoJob),
 		Status:                  DataprocJobStatusToProto(resource.Status),
-		SubmittedBy:             dcl.ValueOrEmptyString(resource.SubmittedBy),
-		DriverInputResourceUri:  dcl.ValueOrEmptyString(resource.DriverInputResourceUri),
 		DriverOutputResourceUri: dcl.ValueOrEmptyString(resource.DriverOutputResourceUri),
 		DriverControlFilesUri:   dcl.ValueOrEmptyString(resource.DriverControlFilesUri),
-		Interactive:             dcl.ValueOrEmptyBool(resource.Interactive),
 		Scheduling:              DataprocJobSchedulingToProto(resource.Scheduling),
 		Name:                    dcl.ValueOrEmptyString(resource.Name),
 		Done:                    dcl.ValueOrEmptyBool(resource.Done),
-		DriverRunner:            DataprocJobDriverRunnerToProto(resource.DriverRunner),
 		Region:                  dcl.ValueOrEmptyString(resource.Region),
 		Project:                 dcl.ValueOrEmptyString(resource.Project),
 	}

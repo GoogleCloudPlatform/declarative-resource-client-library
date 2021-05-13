@@ -38,15 +38,12 @@ type Job struct {
 	StatusHistory           []JobStatusHistory    `json:"statusHistory"`
 	YarnApplications        []JobYarnApplications `json:"yarnApplications"`
 	SubmittedBy             *string               `json:"submittedBy"`
-	DriverInputResourceUri  *string               `json:"driverInputResourceUri"`
 	DriverOutputResourceUri *string               `json:"driverOutputResourceUri"`
 	DriverControlFilesUri   *string               `json:"driverControlFilesUri"`
-	Interactive             *bool                 `json:"interactive"`
 	Labels                  map[string]string     `json:"labels"`
 	Scheduling              *JobScheduling        `json:"scheduling"`
 	Name                    *string               `json:"name"`
 	Done                    *bool                 `json:"done"`
-	DriverRunner            *JobDriverRunner      `json:"driverRunner"`
 	Region                  *string               `json:"region"`
 	Project                 *string               `json:"project"`
 }
@@ -1417,135 +1414,6 @@ func (r *JobScheduling) String() string {
 }
 
 func (r *JobScheduling) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type JobDriverRunner struct {
-	empty              bool                               `json:"-"`
-	MasterDriverRunner *JobDriverRunnerMasterDriverRunner `json:"masterDriverRunner"`
-	YarnDriverRunner   *JobDriverRunnerYarnDriverRunner   `json:"yarnDriverRunner"`
-}
-
-type jsonJobDriverRunner JobDriverRunner
-
-func (r *JobDriverRunner) UnmarshalJSON(data []byte) error {
-	var res jsonJobDriverRunner
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyJobDriverRunner
-	} else {
-
-		r.MasterDriverRunner = res.MasterDriverRunner
-
-		r.YarnDriverRunner = res.YarnDriverRunner
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this JobDriverRunner is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyJobDriverRunner *JobDriverRunner = &JobDriverRunner{empty: true}
-
-func (r *JobDriverRunner) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *JobDriverRunner) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type JobDriverRunnerMasterDriverRunner struct {
-	empty bool `json:"-"`
-}
-
-type jsonJobDriverRunnerMasterDriverRunner JobDriverRunnerMasterDriverRunner
-
-func (r *JobDriverRunnerMasterDriverRunner) UnmarshalJSON(data []byte) error {
-	var res jsonJobDriverRunnerMasterDriverRunner
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyJobDriverRunnerMasterDriverRunner
-	} else {
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this JobDriverRunnerMasterDriverRunner is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyJobDriverRunnerMasterDriverRunner *JobDriverRunnerMasterDriverRunner = &JobDriverRunnerMasterDriverRunner{empty: true}
-
-func (r *JobDriverRunnerMasterDriverRunner) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *JobDriverRunnerMasterDriverRunner) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type JobDriverRunnerYarnDriverRunner struct {
-	empty    bool   `json:"-"`
-	MemoryMb *int64 `json:"memoryMb"`
-	Vcores   *int64 `json:"vcores"`
-}
-
-type jsonJobDriverRunnerYarnDriverRunner JobDriverRunnerYarnDriverRunner
-
-func (r *JobDriverRunnerYarnDriverRunner) UnmarshalJSON(data []byte) error {
-	var res jsonJobDriverRunnerYarnDriverRunner
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyJobDriverRunnerYarnDriverRunner
-	} else {
-
-		r.MemoryMb = res.MemoryMb
-
-		r.Vcores = res.Vcores
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this JobDriverRunnerYarnDriverRunner is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyJobDriverRunnerYarnDriverRunner *JobDriverRunnerYarnDriverRunner = &JobDriverRunnerYarnDriverRunner{empty: true}
-
-func (r *JobDriverRunnerYarnDriverRunner) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *JobDriverRunnerYarnDriverRunner) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

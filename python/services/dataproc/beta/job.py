@@ -35,15 +35,12 @@ class Job(object):
         status_history: list = None,
         yarn_applications: list = None,
         submitted_by: str = None,
-        driver_input_resource_uri: str = None,
         driver_output_resource_uri: str = None,
         driver_control_files_uri: str = None,
-        interactive: bool = None,
         labels: dict = None,
         scheduling: dict = None,
         name: str = None,
         done: bool = None,
-        driver_runner: dict = None,
         region: str = None,
         project: str = None,
         service_account_file: str = "",
@@ -60,10 +57,8 @@ class Job(object):
         self.spark_r_job = spark_r_job
         self.spark_sql_job = spark_sql_job
         self.presto_job = presto_job
-        self.interactive = interactive
         self.labels = labels
         self.scheduling = scheduling
-        self.driver_runner = driver_runner
         self.region = region
         self.project = project
         self.service_account_file = service_account_file
@@ -117,9 +112,6 @@ class Job(object):
             request.resource.presto_job.CopyFrom(JobPrestoJob.to_proto(self.presto_job))
         else:
             request.resource.ClearField("presto_job")
-        if Primitive.to_proto(self.interactive):
-            request.resource.interactive = Primitive.to_proto(self.interactive)
-
         if Primitive.to_proto(self.labels):
             request.resource.labels = Primitive.to_proto(self.labels)
 
@@ -129,12 +121,6 @@ class Job(object):
             )
         else:
             request.resource.ClearField("scheduling")
-        if JobDriverRunner.to_proto(self.driver_runner):
-            request.resource.driver_runner.CopyFrom(
-                JobDriverRunner.to_proto(self.driver_runner)
-            )
-        else:
-            request.resource.ClearField("driver_runner")
         if Primitive.to_proto(self.region):
             request.resource.region = Primitive.to_proto(self.region)
 
@@ -160,21 +146,16 @@ class Job(object):
             response.yarn_applications
         )
         self.submitted_by = Primitive.from_proto(response.submitted_by)
-        self.driver_input_resource_uri = Primitive.from_proto(
-            response.driver_input_resource_uri
-        )
         self.driver_output_resource_uri = Primitive.from_proto(
             response.driver_output_resource_uri
         )
         self.driver_control_files_uri = Primitive.from_proto(
             response.driver_control_files_uri
         )
-        self.interactive = Primitive.from_proto(response.interactive)
         self.labels = Primitive.from_proto(response.labels)
         self.scheduling = JobScheduling.from_proto(response.scheduling)
         self.name = Primitive.from_proto(response.name)
         self.done = Primitive.from_proto(response.done)
-        self.driver_runner = JobDriverRunner.from_proto(response.driver_runner)
         self.region = Primitive.from_proto(response.region)
         self.project = Primitive.from_proto(response.project)
 
@@ -228,9 +209,6 @@ class Job(object):
             request.resource.presto_job.CopyFrom(JobPrestoJob.to_proto(self.presto_job))
         else:
             request.resource.ClearField("presto_job")
-        if Primitive.to_proto(self.interactive):
-            request.resource.interactive = Primitive.to_proto(self.interactive)
-
         if Primitive.to_proto(self.labels):
             request.resource.labels = Primitive.to_proto(self.labels)
 
@@ -240,12 +218,6 @@ class Job(object):
             )
         else:
             request.resource.ClearField("scheduling")
-        if JobDriverRunner.to_proto(self.driver_runner):
-            request.resource.driver_runner.CopyFrom(
-                JobDriverRunner.to_proto(self.driver_runner)
-            )
-        else:
-            request.resource.ClearField("driver_runner")
         if Primitive.to_proto(self.region):
             request.resource.region = Primitive.to_proto(self.region)
 
@@ -307,20 +279,12 @@ class Job(object):
             resource.presto_job.CopyFrom(JobPrestoJob.to_proto(self.presto_job))
         else:
             resource.ClearField("presto_job")
-        if Primitive.to_proto(self.interactive):
-            resource.interactive = Primitive.to_proto(self.interactive)
         if Primitive.to_proto(self.labels):
             resource.labels = Primitive.to_proto(self.labels)
         if JobScheduling.to_proto(self.scheduling):
             resource.scheduling.CopyFrom(JobScheduling.to_proto(self.scheduling))
         else:
             resource.ClearField("scheduling")
-        if JobDriverRunner.to_proto(self.driver_runner):
-            resource.driver_runner.CopyFrom(
-                JobDriverRunner.to_proto(self.driver_runner)
-            )
-        else:
-            resource.ClearField("driver_runner")
         if Primitive.to_proto(self.region):
             resource.region = Primitive.to_proto(self.region)
         if Primitive.to_proto(self.project):
@@ -1584,126 +1548,6 @@ class JobSchedulingArray(object):
     @classmethod
     def from_proto(self, resources):
         return [JobScheduling.from_proto(i) for i in resources]
-
-
-class JobDriverRunner(object):
-    def __init__(
-        self, master_driver_runner: dict = None, yarn_driver_runner: dict = None
-    ):
-        self.master_driver_runner = master_driver_runner
-        self.yarn_driver_runner = yarn_driver_runner
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = job_pb2.DataprocBetaJobDriverRunner()
-        if JobDriverRunnerMasterDriverRunner.to_proto(resource.master_driver_runner):
-            res.master_driver_runner.CopyFrom(
-                JobDriverRunnerMasterDriverRunner.to_proto(
-                    resource.master_driver_runner
-                )
-            )
-        else:
-            res.ClearField("master_driver_runner")
-        if JobDriverRunnerYarnDriverRunner.to_proto(resource.yarn_driver_runner):
-            res.yarn_driver_runner.CopyFrom(
-                JobDriverRunnerYarnDriverRunner.to_proto(resource.yarn_driver_runner)
-            )
-        else:
-            res.ClearField("yarn_driver_runner")
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return JobDriverRunner(
-            master_driver_runner=resource.master_driver_runner,
-            yarn_driver_runner=resource.yarn_driver_runner,
-        )
-
-
-class JobDriverRunnerArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [JobDriverRunner.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [JobDriverRunner.from_proto(i) for i in resources]
-
-
-class JobDriverRunnerMasterDriverRunner(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = job_pb2.DataprocBetaJobDriverRunnerMasterDriverRunner()
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return JobDriverRunnerMasterDriverRunner()
-
-
-class JobDriverRunnerMasterDriverRunnerArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [JobDriverRunnerMasterDriverRunner.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [JobDriverRunnerMasterDriverRunner.from_proto(i) for i in resources]
-
-
-class JobDriverRunnerYarnDriverRunner(object):
-    def __init__(self, memory_mb: int = None, vcores: int = None):
-        self.memory_mb = memory_mb
-        self.vcores = vcores
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = job_pb2.DataprocBetaJobDriverRunnerYarnDriverRunner()
-        if Primitive.to_proto(resource.memory_mb):
-            res.memory_mb = Primitive.to_proto(resource.memory_mb)
-        if Primitive.to_proto(resource.vcores):
-            res.vcores = Primitive.to_proto(resource.vcores)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return JobDriverRunnerYarnDriverRunner(
-            memory_mb=resource.memory_mb, vcores=resource.vcores,
-        )
-
-
-class JobDriverRunnerYarnDriverRunnerArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [JobDriverRunnerYarnDriverRunner.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [JobDriverRunnerYarnDriverRunner.from_proto(i) for i in resources]
 
 
 class JobStatusStateEnum(object):

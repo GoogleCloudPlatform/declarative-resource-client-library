@@ -538,7 +538,7 @@ func canonicalizeConnectionCloudSql(des, initial *ConnectionCloudSql, opts ...dc
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.InstanceId, initial.InstanceId) || dcl.IsZeroValue(des.InstanceId) {
+	if dcl.NameToSelfLink(des.InstanceId, initial.InstanceId) || dcl.IsZeroValue(des.InstanceId) {
 		des.InstanceId = initial.InstanceId
 	}
 	if dcl.NameToSelfLink(des.Database, initial.Database) || dcl.IsZeroValue(des.Database) {
@@ -557,7 +557,7 @@ func canonicalizeNewConnectionCloudSql(c *Client, des, nw *ConnectionCloudSql) *
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.InstanceId, nw.InstanceId) {
+	if dcl.NameToSelfLink(des.InstanceId, nw.InstanceId) {
 		nw.InstanceId = des.InstanceId
 	}
 	if dcl.NameToSelfLink(des.Database, nw.Database) {
@@ -880,7 +880,7 @@ func compareConnectionCloudSqlNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceId, actual.InstanceId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceId, actual.InstanceId, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

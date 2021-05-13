@@ -10,7 +10,9 @@
           {
             "text": {
               "content": "test-1"
-            },
+            }
+          },
+          {
             "xyChart": {
               "dataSets": [
                 {

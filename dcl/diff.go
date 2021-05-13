@@ -168,7 +168,18 @@ func Diff(desired, actual interface{}, info Info, fn FieldName) ([]*FieldDiff, e
 
 	switch desiredType {
 	case "string":
-		dStr, aStr, err := strs(desired, actual)
+		dStr, err := str(desired)
+		if err != nil {
+			return nil, err
+		}
+
+		// Protobufs cannot differentiate between empty primitive values + null.
+		// If the API returns null or does not return a value for the field and we have set the empty string, those are equivalent.
+		if IsZeroValue(actual) && *dStr == "" {
+			return diffs, nil
+		}
+
+		aStr, err := str(actual)
 		if err != nil {
 			return nil, err
 		}
@@ -204,6 +215,11 @@ func Diff(desired, actual interface{}, info Info, fn FieldName) ([]*FieldDiff, e
 		}
 
 	case "struct":
+		// If API returns nil (which means field is unset) && we have the empty-struct, no diff occurs.
+		if IsZeroValue(actual) && IsEmptyValueIndirect(desired) {
+			return nil, nil
+		}
+
 		if info.ObjectFunction == nil {
 			return nil, fmt.Errorf("struct %v given without an object function", desired)
 		}

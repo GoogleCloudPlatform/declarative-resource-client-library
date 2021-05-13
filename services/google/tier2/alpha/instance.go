@@ -1627,6 +1627,7 @@ type InstancePreprocessCreateRecipeSteps struct {
 	PermissionsInfo                []InstancePreprocessCreateRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                                    `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                                    `json:"publicErrorMessage"`
 }
 
 type jsonInstancePreprocessCreateRecipeSteps InstancePreprocessCreateRecipeSteps
@@ -1675,6 +1676,8 @@ func (r *InstancePreprocessCreateRecipeSteps) UnmarshalJSON(data []byte) error {
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -2326,6 +2329,7 @@ type InstanceCreateRecipeSteps struct {
 	PermissionsInfo                []InstanceCreateRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstanceCreateRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                          `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                          `json:"publicErrorMessage"`
 }
 
 type jsonInstanceCreateRecipeSteps InstanceCreateRecipeSteps
@@ -2374,6 +2378,8 @@ func (r *InstanceCreateRecipeSteps) UnmarshalJSON(data []byte) error {
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -2986,6 +2992,7 @@ type InstanceDeleteRecipeSteps struct {
 	PermissionsInfo                []InstanceDeleteRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstanceDeleteRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                          `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                          `json:"publicErrorMessage"`
 }
 
 type jsonInstanceDeleteRecipeSteps InstanceDeleteRecipeSteps
@@ -3034,6 +3041,8 @@ func (r *InstanceDeleteRecipeSteps) UnmarshalJSON(data []byte) error {
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -3646,6 +3655,7 @@ type InstanceUpdateRecipeSteps struct {
 	PermissionsInfo                []InstanceUpdateRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstanceUpdateRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                          `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                          `json:"publicErrorMessage"`
 }
 
 type jsonInstanceUpdateRecipeSteps InstanceUpdateRecipeSteps
@@ -3694,6 +3704,8 @@ func (r *InstanceUpdateRecipeSteps) UnmarshalJSON(data []byte) error {
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -4306,6 +4318,7 @@ type InstancePreprocessResetRecipeSteps struct {
 	PermissionsInfo                []InstancePreprocessResetRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstancePreprocessResetRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                                   `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                                   `json:"publicErrorMessage"`
 }
 
 type jsonInstancePreprocessResetRecipeSteps InstancePreprocessResetRecipeSteps
@@ -4354,6 +4367,8 @@ func (r *InstancePreprocessResetRecipeSteps) UnmarshalJSON(data []byte) error {
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -4966,6 +4981,7 @@ type InstanceResetRecipeSteps struct {
 	PermissionsInfo                []InstanceResetRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstanceResetRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                         `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                         `json:"publicErrorMessage"`
 }
 
 type jsonInstanceResetRecipeSteps InstanceResetRecipeSteps
@@ -5014,6 +5030,8 @@ func (r *InstanceResetRecipeSteps) UnmarshalJSON(data []byte) error {
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -5626,6 +5644,7 @@ type InstancePreprocessRepairRecipeSteps struct {
 	PermissionsInfo                []InstancePreprocessRepairRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                                    `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                                    `json:"publicErrorMessage"`
 }
 
 type jsonInstancePreprocessRepairRecipeSteps InstancePreprocessRepairRecipeSteps
@@ -5674,6 +5693,8 @@ func (r *InstancePreprocessRepairRecipeSteps) UnmarshalJSON(data []byte) error {
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -6286,6 +6307,7 @@ type InstanceRepairRecipeSteps struct {
 	PermissionsInfo                []InstanceRepairRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstanceRepairRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                          `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                          `json:"publicErrorMessage"`
 }
 
 type jsonInstanceRepairRecipeSteps InstanceRepairRecipeSteps
@@ -6334,6 +6356,8 @@ func (r *InstanceRepairRecipeSteps) UnmarshalJSON(data []byte) error {
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -6946,6 +6970,7 @@ type InstancePreprocessDeleteRecipeSteps struct {
 	PermissionsInfo                []InstancePreprocessDeleteRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                                    `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                                    `json:"publicErrorMessage"`
 }
 
 type jsonInstancePreprocessDeleteRecipeSteps InstancePreprocessDeleteRecipeSteps
@@ -6994,6 +7019,8 @@ func (r *InstancePreprocessDeleteRecipeSteps) UnmarshalJSON(data []byte) error {
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -7606,6 +7633,7 @@ type InstancePreprocessUpdateRecipeSteps struct {
 	PermissionsInfo                []InstancePreprocessUpdateRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                                    `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                                    `json:"publicErrorMessage"`
 }
 
 type jsonInstancePreprocessUpdateRecipeSteps InstancePreprocessUpdateRecipeSteps
@@ -7654,6 +7682,8 @@ func (r *InstancePreprocessUpdateRecipeSteps) UnmarshalJSON(data []byte) error {
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -8266,6 +8296,7 @@ type InstancePreprocessFreezeRecipeSteps struct {
 	PermissionsInfo                []InstancePreprocessFreezeRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                                    `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                                    `json:"publicErrorMessage"`
 }
 
 type jsonInstancePreprocessFreezeRecipeSteps InstancePreprocessFreezeRecipeSteps
@@ -8314,6 +8345,8 @@ func (r *InstancePreprocessFreezeRecipeSteps) UnmarshalJSON(data []byte) error {
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -8926,6 +8959,7 @@ type InstanceFreezeRecipeSteps struct {
 	PermissionsInfo                []InstanceFreezeRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstanceFreezeRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                          `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                          `json:"publicErrorMessage"`
 }
 
 type jsonInstanceFreezeRecipeSteps InstanceFreezeRecipeSteps
@@ -8974,6 +9008,8 @@ func (r *InstanceFreezeRecipeSteps) UnmarshalJSON(data []byte) error {
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -9586,6 +9622,7 @@ type InstancePreprocessUnfreezeRecipeSteps struct {
 	PermissionsInfo                []InstancePreprocessUnfreezeRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                                      `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                                      `json:"publicErrorMessage"`
 }
 
 type jsonInstancePreprocessUnfreezeRecipeSteps InstancePreprocessUnfreezeRecipeSteps
@@ -9634,6 +9671,8 @@ func (r *InstancePreprocessUnfreezeRecipeSteps) UnmarshalJSON(data []byte) error
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -10246,6 +10285,7 @@ type InstanceUnfreezeRecipeSteps struct {
 	PermissionsInfo                []InstanceUnfreezeRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstanceUnfreezeRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                            `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                            `json:"publicErrorMessage"`
 }
 
 type jsonInstanceUnfreezeRecipeSteps InstanceUnfreezeRecipeSteps
@@ -10294,6 +10334,8 @@ func (r *InstanceUnfreezeRecipeSteps) UnmarshalJSON(data []byte) error {
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -10906,6 +10948,7 @@ type InstancePreprocessReportInstanceHealthRecipeSteps struct {
 	PermissionsInfo                []InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                                                  `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                                                  `json:"publicErrorMessage"`
 }
 
 type jsonInstancePreprocessReportInstanceHealthRecipeSteps InstancePreprocessReportInstanceHealthRecipeSteps
@@ -10954,6 +10997,8 @@ func (r *InstancePreprocessReportInstanceHealthRecipeSteps) UnmarshalJSON(data [
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -11566,6 +11611,7 @@ type InstanceReportInstanceHealthRecipeSteps struct {
 	PermissionsInfo                []InstanceReportInstanceHealthRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                                        `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                                        `json:"publicErrorMessage"`
 }
 
 type jsonInstanceReportInstanceHealthRecipeSteps InstanceReportInstanceHealthRecipeSteps
@@ -11614,6 +11660,8 @@ func (r *InstanceReportInstanceHealthRecipeSteps) UnmarshalJSON(data []byte) err
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -12226,6 +12274,7 @@ type InstancePreprocessGetRecipeSteps struct {
 	PermissionsInfo                []InstancePreprocessGetRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstancePreprocessGetRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                                 `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                                 `json:"publicErrorMessage"`
 }
 
 type jsonInstancePreprocessGetRecipeSteps InstancePreprocessGetRecipeSteps
@@ -12274,6 +12323,8 @@ func (r *InstancePreprocessGetRecipeSteps) UnmarshalJSON(data []byte) error {
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -12886,6 +12937,7 @@ type InstanceNotifyKeyAvailableRecipeSteps struct {
 	PermissionsInfo                []InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                                      `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                                      `json:"publicErrorMessage"`
 }
 
 type jsonInstanceNotifyKeyAvailableRecipeSteps InstanceNotifyKeyAvailableRecipeSteps
@@ -12934,6 +12986,8 @@ func (r *InstanceNotifyKeyAvailableRecipeSteps) UnmarshalJSON(data []byte) error
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -13546,6 +13600,7 @@ type InstanceNotifyKeyUnavailableRecipeSteps struct {
 	PermissionsInfo                []InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                                        `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                                        `json:"publicErrorMessage"`
 }
 
 type jsonInstanceNotifyKeyUnavailableRecipeSteps InstanceNotifyKeyUnavailableRecipeSteps
@@ -13594,6 +13649,8 @@ func (r *InstanceNotifyKeyUnavailableRecipeSteps) UnmarshalJSON(data []byte) err
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -14206,6 +14263,7 @@ type InstanceReadonlyRecipeSteps struct {
 	PermissionsInfo                []InstanceReadonlyRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstanceReadonlyRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                            `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                            `json:"publicErrorMessage"`
 }
 
 type jsonInstanceReadonlyRecipeSteps InstanceReadonlyRecipeSteps
@@ -14254,6 +14312,8 @@ func (r *InstanceReadonlyRecipeSteps) UnmarshalJSON(data []byte) error {
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -14866,6 +14926,7 @@ type InstanceReconcileRecipeSteps struct {
 	PermissionsInfo                []InstanceReconcileRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstanceReconcileRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                             `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                             `json:"publicErrorMessage"`
 }
 
 type jsonInstanceReconcileRecipeSteps InstanceReconcileRecipeSteps
@@ -14914,6 +14975,8 @@ func (r *InstanceReconcileRecipeSteps) UnmarshalJSON(data []byte) error {
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -15526,6 +15589,7 @@ type InstancePreprocessPassthroughRecipeSteps struct {
 	PermissionsInfo                []InstancePreprocessPassthroughRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                                         `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                                         `json:"publicErrorMessage"`
 }
 
 type jsonInstancePreprocessPassthroughRecipeSteps InstancePreprocessPassthroughRecipeSteps
@@ -15574,6 +15638,8 @@ func (r *InstancePreprocessPassthroughRecipeSteps) UnmarshalJSON(data []byte) er
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil
@@ -16186,6 +16252,7 @@ type InstancePreprocessReconcileRecipeSteps struct {
 	PermissionsInfo                []InstancePreprocessReconcileRecipeStepsPermissionsInfo       `json:"permissionsInfo"`
 	KeyNotificationsUpdate         *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate `json:"keyNotificationsUpdate"`
 	ClhDataUpdateTime              *string                                                       `json:"clhDataUpdateTime"`
+	PublicErrorMessage             *string                                                       `json:"publicErrorMessage"`
 }
 
 type jsonInstancePreprocessReconcileRecipeSteps InstancePreprocessReconcileRecipeSteps
@@ -16234,6 +16301,8 @@ func (r *InstancePreprocessReconcileRecipeSteps) UnmarshalJSON(data []byte) erro
 		r.KeyNotificationsUpdate = res.KeyNotificationsUpdate
 
 		r.ClhDataUpdateTime = res.ClhDataUpdateTime
+
+		r.PublicErrorMessage = res.PublicErrorMessage
 
 	}
 	return nil

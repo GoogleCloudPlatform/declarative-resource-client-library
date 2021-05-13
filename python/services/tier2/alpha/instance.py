@@ -1108,6 +1108,7 @@ class InstancePreprocessCreateRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -1125,6 +1126,7 @@ class InstancePreprocessCreateRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -1212,6 +1214,8 @@ class InstancePreprocessCreateRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -1236,6 +1240,7 @@ class InstancePreprocessCreateRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -2003,6 +2008,7 @@ class InstanceCreateRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -2020,6 +2026,7 @@ class InstanceCreateRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -2105,6 +2112,8 @@ class InstanceCreateRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -2129,6 +2138,7 @@ class InstanceCreateRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -2829,6 +2839,7 @@ class InstanceDeleteRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -2846,6 +2857,7 @@ class InstanceDeleteRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -2931,6 +2943,8 @@ class InstanceDeleteRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -2955,6 +2969,7 @@ class InstanceDeleteRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -3655,6 +3670,7 @@ class InstanceUpdateRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -3672,6 +3688,7 @@ class InstanceUpdateRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -3757,6 +3774,8 @@ class InstanceUpdateRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -3781,6 +3800,7 @@ class InstanceUpdateRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -4483,6 +4503,7 @@ class InstancePreprocessResetRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -4500,6 +4521,7 @@ class InstancePreprocessResetRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -4587,6 +4609,8 @@ class InstancePreprocessResetRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -4611,6 +4635,7 @@ class InstancePreprocessResetRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -5345,6 +5370,7 @@ class InstanceResetRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -5362,6 +5388,7 @@ class InstanceResetRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -5447,6 +5474,8 @@ class InstanceResetRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -5471,6 +5500,7 @@ class InstanceResetRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -6169,6 +6199,7 @@ class InstancePreprocessRepairRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -6186,6 +6217,7 @@ class InstancePreprocessRepairRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -6273,6 +6305,8 @@ class InstancePreprocessRepairRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -6297,6 +6331,7 @@ class InstancePreprocessRepairRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -7035,6 +7070,7 @@ class InstanceRepairRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -7052,6 +7088,7 @@ class InstanceRepairRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -7137,6 +7174,8 @@ class InstanceRepairRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -7161,6 +7200,7 @@ class InstanceRepairRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -7863,6 +7903,7 @@ class InstancePreprocessDeleteRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -7880,6 +7921,7 @@ class InstancePreprocessDeleteRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -7967,6 +8009,8 @@ class InstancePreprocessDeleteRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -7991,6 +8035,7 @@ class InstancePreprocessDeleteRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -8731,6 +8776,7 @@ class InstancePreprocessUpdateRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -8748,6 +8794,7 @@ class InstancePreprocessUpdateRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -8835,6 +8882,8 @@ class InstancePreprocessUpdateRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -8859,6 +8908,7 @@ class InstancePreprocessUpdateRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -9599,6 +9649,7 @@ class InstancePreprocessFreezeRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -9616,6 +9667,7 @@ class InstancePreprocessFreezeRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -9703,6 +9755,8 @@ class InstancePreprocessFreezeRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -9727,6 +9781,7 @@ class InstancePreprocessFreezeRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -10465,6 +10520,7 @@ class InstanceFreezeRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -10482,6 +10538,7 @@ class InstanceFreezeRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -10567,6 +10624,8 @@ class InstanceFreezeRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -10591,6 +10650,7 @@ class InstanceFreezeRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -11293,6 +11353,7 @@ class InstancePreprocessUnfreezeRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -11310,6 +11371,7 @@ class InstancePreprocessUnfreezeRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -11397,6 +11459,8 @@ class InstancePreprocessUnfreezeRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -11421,6 +11485,7 @@ class InstancePreprocessUnfreezeRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -12163,6 +12228,7 @@ class InstanceUnfreezeRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -12180,6 +12246,7 @@ class InstanceUnfreezeRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -12265,6 +12332,8 @@ class InstanceUnfreezeRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -12289,6 +12358,7 @@ class InstanceUnfreezeRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -13007,6 +13077,7 @@ class InstancePreprocessReportInstanceHealthRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -13024,6 +13095,7 @@ class InstancePreprocessReportInstanceHealthRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -13117,6 +13189,8 @@ class InstancePreprocessReportInstanceHealthRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -13141,6 +13215,7 @@ class InstancePreprocessReportInstanceHealthRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -13929,6 +14004,7 @@ class InstanceReportInstanceHealthRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -13946,6 +14022,7 @@ class InstanceReportInstanceHealthRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -14033,6 +14110,8 @@ class InstanceReportInstanceHealthRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -14057,6 +14136,7 @@ class InstanceReportInstanceHealthRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -14806,6 +14886,7 @@ class InstancePreprocessGetRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -14823,6 +14904,7 @@ class InstancePreprocessGetRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -14910,6 +14992,8 @@ class InstancePreprocessGetRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -14934,6 +15018,7 @@ class InstancePreprocessGetRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -15663,6 +15748,7 @@ class InstanceNotifyKeyAvailableRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -15680,6 +15766,7 @@ class InstanceNotifyKeyAvailableRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -15767,6 +15854,8 @@ class InstanceNotifyKeyAvailableRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -15791,6 +15880,7 @@ class InstanceNotifyKeyAvailableRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -16535,6 +16625,7 @@ class InstanceNotifyKeyUnavailableRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -16552,6 +16643,7 @@ class InstanceNotifyKeyUnavailableRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -16639,6 +16731,8 @@ class InstanceNotifyKeyUnavailableRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -16663,6 +16757,7 @@ class InstanceNotifyKeyUnavailableRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -17410,6 +17505,7 @@ class InstanceReadonlyRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -17427,6 +17523,7 @@ class InstanceReadonlyRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -17512,6 +17609,8 @@ class InstanceReadonlyRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -17536,6 +17635,7 @@ class InstanceReadonlyRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -18243,6 +18343,7 @@ class InstanceReconcileRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -18260,6 +18361,7 @@ class InstanceReconcileRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -18347,6 +18449,8 @@ class InstanceReconcileRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -18371,6 +18475,7 @@ class InstanceReconcileRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -19090,6 +19195,7 @@ class InstancePreprocessPassthroughRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -19107,6 +19213,7 @@ class InstancePreprocessPassthroughRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -19194,6 +19301,8 @@ class InstancePreprocessPassthroughRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -19218,6 +19327,7 @@ class InstancePreprocessPassthroughRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 
@@ -19972,6 +20082,7 @@ class InstancePreprocessReconcileRecipeSteps(object):
         permissions_info: list = None,
         key_notifications_update: dict = None,
         clh_data_update_time: str = None,
+        public_error_message: str = None,
     ):
         self.relative_time = relative_time
         self.sleep_duration = sleep_duration
@@ -19989,6 +20100,7 @@ class InstancePreprocessReconcileRecipeSteps(object):
         self.permissions_info = permissions_info
         self.key_notifications_update = key_notifications_update
         self.clh_data_update_time = clh_data_update_time
+        self.public_error_message = public_error_message
 
     @classmethod
     def to_proto(self, resource):
@@ -20076,6 +20188,8 @@ class InstancePreprocessReconcileRecipeSteps(object):
             res.ClearField("key_notifications_update")
         if Primitive.to_proto(resource.clh_data_update_time):
             res.clh_data_update_time = Primitive.to_proto(resource.clh_data_update_time)
+        if Primitive.to_proto(resource.public_error_message):
+            res.public_error_message = Primitive.to_proto(resource.public_error_message)
         return res
 
     @classmethod
@@ -20100,6 +20214,7 @@ class InstancePreprocessReconcileRecipeSteps(object):
             permissions_info=resource.permissions_info,
             key_notifications_update=resource.key_notifications_update,
             clh_data_update_time=resource.clh_data_update_time,
+            public_error_message=resource.public_error_message,
         )
 
 

@@ -657,7 +657,7 @@ func hasEmptyStructField(i interface{}) bool {
 		return false
 	}
 	if iv.Kind() == reflect.Struct {
-		if iv.FieldByName("empty").Bool() {
+		if iv.FieldByName("empty").IsValid() && iv.FieldByName("empty").Bool() {
 			return true
 		}
 	}

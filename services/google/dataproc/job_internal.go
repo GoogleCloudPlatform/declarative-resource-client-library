@@ -97,11 +97,6 @@ func (r *Job) validate() error {
 			return err
 		}
 	}
-	if !dcl.IsEmptyValueIndirect(r.DriverRunner) {
-		if err := r.DriverRunner.validate(); err != nil {
-			return err
-		}
-	}
 	return nil
 }
 func (r *JobReference) validate() error {
@@ -262,25 +257,6 @@ func (r *JobYarnApplications) validate() error {
 	return nil
 }
 func (r *JobScheduling) validate() error {
-	return nil
-}
-func (r *JobDriverRunner) validate() error {
-	if !dcl.IsEmptyValueIndirect(r.MasterDriverRunner) {
-		if err := r.MasterDriverRunner.validate(); err != nil {
-			return err
-		}
-	}
-	if !dcl.IsEmptyValueIndirect(r.YarnDriverRunner) {
-		if err := r.YarnDriverRunner.validate(); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-func (r *JobDriverRunnerMasterDriverRunner) validate() error {
-	return nil
-}
-func (r *JobDriverRunnerYarnDriverRunner) validate() error {
 	return nil
 }
 
@@ -780,7 +756,6 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 		rawDesired.PrestoJob = canonicalizeJobPrestoJob(rawDesired.PrestoJob, nil, opts...)
 		rawDesired.Status = canonicalizeJobStatus(rawDesired.Status, nil, opts...)
 		rawDesired.Scheduling = canonicalizeJobScheduling(rawDesired.Scheduling, nil, opts...)
-		rawDesired.DriverRunner = canonicalizeJobDriverRunner(rawDesired.DriverRunner, nil, opts...)
 
 		return rawDesired, nil
 	}
@@ -794,14 +769,10 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 	rawDesired.SparkRJob = canonicalizeJobSparkRJob(rawDesired.SparkRJob, rawInitial.SparkRJob, opts...)
 	rawDesired.SparkSqlJob = canonicalizeJobSparkSqlJob(rawDesired.SparkSqlJob, rawInitial.SparkSqlJob, opts...)
 	rawDesired.PrestoJob = canonicalizeJobPrestoJob(rawDesired.PrestoJob, rawInitial.PrestoJob, opts...)
-	if dcl.BoolCanonicalize(rawDesired.Interactive, rawInitial.Interactive) {
-		rawDesired.Interactive = rawInitial.Interactive
-	}
 	if dcl.IsZeroValue(rawDesired.Labels) {
 		rawDesired.Labels = rawInitial.Labels
 	}
 	rawDesired.Scheduling = canonicalizeJobScheduling(rawDesired.Scheduling, rawInitial.Scheduling, opts...)
-	rawDesired.DriverRunner = canonicalizeJobDriverRunner(rawDesired.DriverRunner, rawInitial.DriverRunner, opts...)
 	if dcl.NameToSelfLink(rawDesired.Region, rawInitial.Region) {
 		rawDesired.Region = rawInitial.Region
 	}
@@ -892,22 +863,6 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 		rawNew.YarnApplications = canonicalizeNewJobYarnApplicationsSlice(c, rawDesired.YarnApplications, rawNew.YarnApplications)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.SubmittedBy) && dcl.IsEmptyValueIndirect(rawDesired.SubmittedBy) {
-		rawNew.SubmittedBy = rawDesired.SubmittedBy
-	} else {
-		if dcl.StringCanonicalize(rawDesired.SubmittedBy, rawNew.SubmittedBy) {
-			rawNew.SubmittedBy = rawDesired.SubmittedBy
-		}
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.DriverInputResourceUri) && dcl.IsEmptyValueIndirect(rawDesired.DriverInputResourceUri) {
-		rawNew.DriverInputResourceUri = rawDesired.DriverInputResourceUri
-	} else {
-		if dcl.StringCanonicalize(rawDesired.DriverInputResourceUri, rawNew.DriverInputResourceUri) {
-			rawNew.DriverInputResourceUri = rawDesired.DriverInputResourceUri
-		}
-	}
-
 	if dcl.IsEmptyValueIndirect(rawNew.DriverOutputResourceUri) && dcl.IsEmptyValueIndirect(rawDesired.DriverOutputResourceUri) {
 		rawNew.DriverOutputResourceUri = rawDesired.DriverOutputResourceUri
 	} else {
@@ -921,14 +876,6 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DriverControlFilesUri, rawNew.DriverControlFilesUri) {
 			rawNew.DriverControlFilesUri = rawDesired.DriverControlFilesUri
-		}
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.Interactive) && dcl.IsEmptyValueIndirect(rawDesired.Interactive) {
-		rawNew.Interactive = rawDesired.Interactive
-	} else {
-		if dcl.BoolCanonicalize(rawDesired.Interactive, rawNew.Interactive) {
-			rawNew.Interactive = rawDesired.Interactive
 		}
 	}
 
@@ -954,12 +901,6 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 		if dcl.BoolCanonicalize(rawDesired.Done, rawNew.Done) {
 			rawNew.Done = rawDesired.Done
 		}
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.DriverRunner) && dcl.IsEmptyValueIndirect(rawDesired.DriverRunner) {
-		rawNew.DriverRunner = rawDesired.DriverRunner
-	} else {
-		rawNew.DriverRunner = canonicalizeNewJobDriverRunner(c, rawDesired.DriverRunner, rawNew.DriverRunner)
 	}
 
 	rawNew.Region = rawDesired.Region
@@ -1061,7 +1002,7 @@ func canonicalizeJobPlacement(des, initial *JobPlacement, opts ...dcl.ApplyOptio
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.ClusterName, initial.ClusterName) || dcl.IsZeroValue(des.ClusterName) {
+	if dcl.NameToSelfLink(des.ClusterName, initial.ClusterName) || dcl.IsZeroValue(des.ClusterName) {
 		des.ClusterName = initial.ClusterName
 	}
 	if dcl.IsZeroValue(des.ClusterLabels) {
@@ -1076,7 +1017,7 @@ func canonicalizeNewJobPlacement(c *Client, des, nw *JobPlacement) *JobPlacement
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ClusterName, nw.ClusterName) {
+	if dcl.NameToSelfLink(des.ClusterName, nw.ClusterName) {
 		nw.ClusterName = des.ClusterName
 	}
 	if dcl.StringCanonicalize(des.ClusterUuid, nw.ClusterUuid) {
@@ -3099,224 +3040,6 @@ func canonicalizeNewJobSchedulingSlice(c *Client, des, nw []JobScheduling) []Job
 	return items
 }
 
-func canonicalizeJobDriverRunner(des, initial *JobDriverRunner, opts ...dcl.ApplyOption) *JobDriverRunner {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	des.MasterDriverRunner = canonicalizeJobDriverRunnerMasterDriverRunner(des.MasterDriverRunner, initial.MasterDriverRunner, opts...)
-	des.YarnDriverRunner = canonicalizeJobDriverRunnerYarnDriverRunner(des.YarnDriverRunner, initial.YarnDriverRunner, opts...)
-
-	return des
-}
-
-func canonicalizeNewJobDriverRunner(c *Client, des, nw *JobDriverRunner) *JobDriverRunner {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	nw.MasterDriverRunner = canonicalizeNewJobDriverRunnerMasterDriverRunner(c, des.MasterDriverRunner, nw.MasterDriverRunner)
-	nw.YarnDriverRunner = canonicalizeNewJobDriverRunnerYarnDriverRunner(c, des.YarnDriverRunner, nw.YarnDriverRunner)
-
-	return nw
-}
-
-func canonicalizeNewJobDriverRunnerSet(c *Client, des, nw []JobDriverRunner) []JobDriverRunner {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []JobDriverRunner
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareJobDriverRunnerNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewJobDriverRunnerSlice(c *Client, des, nw []JobDriverRunner) []JobDriverRunner {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []JobDriverRunner
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewJobDriverRunner(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeJobDriverRunnerMasterDriverRunner(des, initial *JobDriverRunnerMasterDriverRunner, opts ...dcl.ApplyOption) *JobDriverRunnerMasterDriverRunner {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	return des
-}
-
-func canonicalizeNewJobDriverRunnerMasterDriverRunner(c *Client, des, nw *JobDriverRunnerMasterDriverRunner) *JobDriverRunnerMasterDriverRunner {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	return nw
-}
-
-func canonicalizeNewJobDriverRunnerMasterDriverRunnerSet(c *Client, des, nw []JobDriverRunnerMasterDriverRunner) []JobDriverRunnerMasterDriverRunner {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []JobDriverRunnerMasterDriverRunner
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareJobDriverRunnerMasterDriverRunnerNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewJobDriverRunnerMasterDriverRunnerSlice(c *Client, des, nw []JobDriverRunnerMasterDriverRunner) []JobDriverRunnerMasterDriverRunner {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []JobDriverRunnerMasterDriverRunner
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewJobDriverRunnerMasterDriverRunner(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeJobDriverRunnerYarnDriverRunner(des, initial *JobDriverRunnerYarnDriverRunner, opts ...dcl.ApplyOption) *JobDriverRunnerYarnDriverRunner {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.MemoryMb) {
-		des.MemoryMb = initial.MemoryMb
-	}
-	if dcl.IsZeroValue(des.Vcores) {
-		des.Vcores = initial.Vcores
-	}
-
-	return des
-}
-
-func canonicalizeNewJobDriverRunnerYarnDriverRunner(c *Client, des, nw *JobDriverRunnerYarnDriverRunner) *JobDriverRunnerYarnDriverRunner {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.IsZeroValue(nw.MemoryMb) {
-		nw.MemoryMb = des.MemoryMb
-	}
-	if dcl.IsZeroValue(nw.Vcores) {
-		nw.Vcores = des.Vcores
-	}
-
-	return nw
-}
-
-func canonicalizeNewJobDriverRunnerYarnDriverRunnerSet(c *Client, des, nw []JobDriverRunnerYarnDriverRunner) []JobDriverRunnerYarnDriverRunner {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []JobDriverRunnerYarnDriverRunner
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareJobDriverRunnerYarnDriverRunnerNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewJobDriverRunnerYarnDriverRunnerSlice(c *Client, des, nw []JobDriverRunnerYarnDriverRunner) []JobDriverRunnerYarnDriverRunner {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []JobDriverRunnerYarnDriverRunner
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewJobDriverRunnerYarnDriverRunner(c, &d, &n))
-	}
-
-	return items
-}
-
 type jobDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
@@ -3511,32 +3234,6 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]jobDif
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SubmittedBy, actual.SubmittedBy, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SubmittedBy")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
-	}
-
-	if ds, err := dcl.Diff(desired.DriverInputResourceUri, actual.DriverInputResourceUri, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverInputResourceUri")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
-	}
-
 	if ds, err := dcl.Diff(desired.DriverOutputResourceUri, actual.DriverOutputResourceUri, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverOutputResourceUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -3551,19 +3248,6 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]jobDif
 	}
 
 	if ds, err := dcl.Diff(desired.DriverControlFilesUri, actual.DriverControlFilesUri, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverControlFilesUri")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
-	}
-
-	if ds, err := dcl.Diff(desired.Interactive, actual.Interactive, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Interactive")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3616,19 +3300,6 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]jobDif
 	}
 
 	if ds, err := dcl.Diff(desired.Done, actual.Done, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Done")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToJobDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
-	}
-
-	if ds, err := dcl.Diff(desired.DriverRunner, actual.DriverRunner, dcl.Info{ObjectFunction: compareJobDriverRunnerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverRunner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3747,7 +3418,7 @@ func compareJobPlacementNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterName, actual.ClusterName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterName, actual.ClusterName, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4843,91 +4514,11 @@ func compareJobSchedulingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fi
 	return diffs, nil
 }
 
-func compareJobDriverRunnerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*JobDriverRunner)
-	if !ok {
-		desiredNotPointer, ok := d.(JobDriverRunner)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a JobDriverRunner or *JobDriverRunner", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*JobDriverRunner)
-	if !ok {
-		actualNotPointer, ok := a.(JobDriverRunner)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a JobDriverRunner", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.MasterDriverRunner, actual.MasterDriverRunner, dcl.Info{ObjectFunction: compareJobDriverRunnerMasterDriverRunnerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterDriverRunner")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.YarnDriverRunner, actual.YarnDriverRunner, dcl.Info{ObjectFunction: compareJobDriverRunnerYarnDriverRunnerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("YarnDriverRunner")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareJobDriverRunnerMasterDriverRunnerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	return diffs, nil
-}
-
-func compareJobDriverRunnerYarnDriverRunnerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*JobDriverRunnerYarnDriverRunner)
-	if !ok {
-		desiredNotPointer, ok := d.(JobDriverRunnerYarnDriverRunner)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a JobDriverRunnerYarnDriverRunner or *JobDriverRunnerYarnDriverRunner", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*JobDriverRunnerYarnDriverRunner)
-	if !ok {
-		actualNotPointer, ok := a.(JobDriverRunnerYarnDriverRunner)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a JobDriverRunnerYarnDriverRunner", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.MemoryMb, actual.MemoryMb, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MemoryMb")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Vcores, actual.Vcores, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Vcores")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Job) urlNormalized() *Job {
 	normalized := dcl.Copy(*r).(Job)
-	normalized.SubmittedBy = dcl.SelfLinkToName(r.SubmittedBy)
-	normalized.DriverInputResourceUri = dcl.SelfLinkToName(r.DriverInputResourceUri)
 	normalized.DriverOutputResourceUri = dcl.SelfLinkToName(r.DriverOutputResourceUri)
 	normalized.DriverControlFilesUri = dcl.SelfLinkToName(r.DriverControlFilesUri)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
@@ -5060,20 +4651,11 @@ func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["yarnApplications"] = v
 	}
-	if v := f.SubmittedBy; !dcl.IsEmptyValueIndirect(v) {
-		m["submittedBy"] = v
-	}
-	if v := f.DriverInputResourceUri; !dcl.IsEmptyValueIndirect(v) {
-		m["driverInputResourceUri"] = v
-	}
 	if v := f.DriverOutputResourceUri; !dcl.IsEmptyValueIndirect(v) {
 		m["driverOutputResourceUri"] = v
 	}
 	if v := f.DriverControlFilesUri; !dcl.IsEmptyValueIndirect(v) {
 		m["driverControlFilesUri"] = v
-	}
-	if v := f.Interactive; !dcl.IsEmptyValueIndirect(v) {
-		m["interactive"] = v
 	}
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
@@ -5088,11 +4670,6 @@ func expandJob(c *Client, f *Job) (map[string]interface{}, error) {
 	}
 	if v := f.Done; !dcl.IsEmptyValueIndirect(v) {
 		m["done"] = v
-	}
-	if v, err := expandJobDriverRunner(c, f.DriverRunner); err != nil {
-		return nil, fmt.Errorf("error expanding DriverRunner into driverRunner: %w", err)
-	} else if v != nil {
-		m["driverRunner"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Region into region: %w", err)
@@ -5133,16 +4710,12 @@ func flattenJob(c *Client, i interface{}) *Job {
 	res.Status = flattenJobStatus(c, m["status"])
 	res.StatusHistory = flattenJobStatusHistorySlice(c, m["statusHistory"])
 	res.YarnApplications = flattenJobYarnApplicationsSlice(c, m["yarnApplications"])
-	res.SubmittedBy = dcl.FlattenString(m["submittedBy"])
-	res.DriverInputResourceUri = dcl.FlattenString(m["driverInputResourceUri"])
 	res.DriverOutputResourceUri = dcl.FlattenString(m["driverOutputResourceUri"])
 	res.DriverControlFilesUri = dcl.FlattenString(m["driverControlFilesUri"])
-	res.Interactive = dcl.FlattenBool(m["interactive"])
 	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	res.Scheduling = flattenJobScheduling(c, m["scheduling"])
 	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["jobUuid"]))
 	res.Done = dcl.FlattenBool(m["done"])
-	res.DriverRunner = flattenJobDriverRunner(c, m["driverRunner"])
 	res.Region = dcl.FlattenString(m["region"])
 	res.Project = dcl.FlattenString(m["project"])
 
@@ -8161,344 +7734,6 @@ func flattenJobScheduling(c *Client, i interface{}) *JobScheduling {
 	r := &JobScheduling{}
 	r.MaxFailuresPerHour = dcl.FlattenInteger(m["maxFailuresPerHour"])
 	r.MaxFailuresTotal = dcl.FlattenInteger(m["maxFailuresTotal"])
-
-	return r
-}
-
-// expandJobDriverRunnerMap expands the contents of JobDriverRunner into a JSON
-// request object.
-func expandJobDriverRunnerMap(c *Client, f map[string]JobDriverRunner) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandJobDriverRunner(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandJobDriverRunnerSlice expands the contents of JobDriverRunner into a JSON
-// request object.
-func expandJobDriverRunnerSlice(c *Client, f []JobDriverRunner) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandJobDriverRunner(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenJobDriverRunnerMap flattens the contents of JobDriverRunner from a JSON
-// response object.
-func flattenJobDriverRunnerMap(c *Client, i interface{}) map[string]JobDriverRunner {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]JobDriverRunner{}
-	}
-
-	if len(a) == 0 {
-		return map[string]JobDriverRunner{}
-	}
-
-	items := make(map[string]JobDriverRunner)
-	for k, item := range a {
-		items[k] = *flattenJobDriverRunner(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenJobDriverRunnerSlice flattens the contents of JobDriverRunner from a JSON
-// response object.
-func flattenJobDriverRunnerSlice(c *Client, i interface{}) []JobDriverRunner {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []JobDriverRunner{}
-	}
-
-	if len(a) == 0 {
-		return []JobDriverRunner{}
-	}
-
-	items := make([]JobDriverRunner, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenJobDriverRunner(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandJobDriverRunner expands an instance of JobDriverRunner into a JSON
-// request object.
-func expandJobDriverRunner(c *Client, f *JobDriverRunner) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v, err := expandJobDriverRunnerMasterDriverRunner(c, f.MasterDriverRunner); err != nil {
-		return nil, fmt.Errorf("error expanding MasterDriverRunner into masterDriverRunner: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["masterDriverRunner"] = v
-	}
-	if v, err := expandJobDriverRunnerYarnDriverRunner(c, f.YarnDriverRunner); err != nil {
-		return nil, fmt.Errorf("error expanding YarnDriverRunner into yarnDriverRunner: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["yarnDriverRunner"] = v
-	}
-
-	return m, nil
-}
-
-// flattenJobDriverRunner flattens an instance of JobDriverRunner from a JSON
-// response object.
-func flattenJobDriverRunner(c *Client, i interface{}) *JobDriverRunner {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &JobDriverRunner{}
-	r.MasterDriverRunner = flattenJobDriverRunnerMasterDriverRunner(c, m["masterDriverRunner"])
-	r.YarnDriverRunner = flattenJobDriverRunnerYarnDriverRunner(c, m["yarnDriverRunner"])
-
-	return r
-}
-
-// expandJobDriverRunnerMasterDriverRunnerMap expands the contents of JobDriverRunnerMasterDriverRunner into a JSON
-// request object.
-func expandJobDriverRunnerMasterDriverRunnerMap(c *Client, f map[string]JobDriverRunnerMasterDriverRunner) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandJobDriverRunnerMasterDriverRunner(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandJobDriverRunnerMasterDriverRunnerSlice expands the contents of JobDriverRunnerMasterDriverRunner into a JSON
-// request object.
-func expandJobDriverRunnerMasterDriverRunnerSlice(c *Client, f []JobDriverRunnerMasterDriverRunner) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandJobDriverRunnerMasterDriverRunner(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenJobDriverRunnerMasterDriverRunnerMap flattens the contents of JobDriverRunnerMasterDriverRunner from a JSON
-// response object.
-func flattenJobDriverRunnerMasterDriverRunnerMap(c *Client, i interface{}) map[string]JobDriverRunnerMasterDriverRunner {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]JobDriverRunnerMasterDriverRunner{}
-	}
-
-	if len(a) == 0 {
-		return map[string]JobDriverRunnerMasterDriverRunner{}
-	}
-
-	items := make(map[string]JobDriverRunnerMasterDriverRunner)
-	for k, item := range a {
-		items[k] = *flattenJobDriverRunnerMasterDriverRunner(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenJobDriverRunnerMasterDriverRunnerSlice flattens the contents of JobDriverRunnerMasterDriverRunner from a JSON
-// response object.
-func flattenJobDriverRunnerMasterDriverRunnerSlice(c *Client, i interface{}) []JobDriverRunnerMasterDriverRunner {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []JobDriverRunnerMasterDriverRunner{}
-	}
-
-	if len(a) == 0 {
-		return []JobDriverRunnerMasterDriverRunner{}
-	}
-
-	items := make([]JobDriverRunnerMasterDriverRunner, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenJobDriverRunnerMasterDriverRunner(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandJobDriverRunnerMasterDriverRunner expands an instance of JobDriverRunnerMasterDriverRunner into a JSON
-// request object.
-func expandJobDriverRunnerMasterDriverRunner(c *Client, f *JobDriverRunnerMasterDriverRunner) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-
-	return m, nil
-}
-
-// flattenJobDriverRunnerMasterDriverRunner flattens an instance of JobDriverRunnerMasterDriverRunner from a JSON
-// response object.
-func flattenJobDriverRunnerMasterDriverRunner(c *Client, i interface{}) *JobDriverRunnerMasterDriverRunner {
-	_, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &JobDriverRunnerMasterDriverRunner{}
-
-	return r
-}
-
-// expandJobDriverRunnerYarnDriverRunnerMap expands the contents of JobDriverRunnerYarnDriverRunner into a JSON
-// request object.
-func expandJobDriverRunnerYarnDriverRunnerMap(c *Client, f map[string]JobDriverRunnerYarnDriverRunner) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandJobDriverRunnerYarnDriverRunner(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandJobDriverRunnerYarnDriverRunnerSlice expands the contents of JobDriverRunnerYarnDriverRunner into a JSON
-// request object.
-func expandJobDriverRunnerYarnDriverRunnerSlice(c *Client, f []JobDriverRunnerYarnDriverRunner) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandJobDriverRunnerYarnDriverRunner(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenJobDriverRunnerYarnDriverRunnerMap flattens the contents of JobDriverRunnerYarnDriverRunner from a JSON
-// response object.
-func flattenJobDriverRunnerYarnDriverRunnerMap(c *Client, i interface{}) map[string]JobDriverRunnerYarnDriverRunner {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]JobDriverRunnerYarnDriverRunner{}
-	}
-
-	if len(a) == 0 {
-		return map[string]JobDriverRunnerYarnDriverRunner{}
-	}
-
-	items := make(map[string]JobDriverRunnerYarnDriverRunner)
-	for k, item := range a {
-		items[k] = *flattenJobDriverRunnerYarnDriverRunner(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenJobDriverRunnerYarnDriverRunnerSlice flattens the contents of JobDriverRunnerYarnDriverRunner from a JSON
-// response object.
-func flattenJobDriverRunnerYarnDriverRunnerSlice(c *Client, i interface{}) []JobDriverRunnerYarnDriverRunner {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []JobDriverRunnerYarnDriverRunner{}
-	}
-
-	if len(a) == 0 {
-		return []JobDriverRunnerYarnDriverRunner{}
-	}
-
-	items := make([]JobDriverRunnerYarnDriverRunner, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenJobDriverRunnerYarnDriverRunner(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandJobDriverRunnerYarnDriverRunner expands an instance of JobDriverRunnerYarnDriverRunner into a JSON
-// request object.
-func expandJobDriverRunnerYarnDriverRunner(c *Client, f *JobDriverRunnerYarnDriverRunner) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.MemoryMb; !dcl.IsEmptyValueIndirect(v) {
-		m["memoryMb"] = v
-	}
-	if v := f.Vcores; !dcl.IsEmptyValueIndirect(v) {
-		m["vcores"] = v
-	}
-
-	return m, nil
-}
-
-// flattenJobDriverRunnerYarnDriverRunner flattens an instance of JobDriverRunnerYarnDriverRunner from a JSON
-// response object.
-func flattenJobDriverRunnerYarnDriverRunner(c *Client, i interface{}) *JobDriverRunnerYarnDriverRunner {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &JobDriverRunnerYarnDriverRunner{}
-	r.MemoryMb = dcl.FlattenInteger(m["memoryMb"])
-	r.Vcores = dcl.FlattenInteger(m["vcores"])
 
 	return r
 }

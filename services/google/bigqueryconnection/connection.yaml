@@ -25,6 +25,7 @@ components:
                   description: The password for the credential.
                   type: string
                   x-dcl-go-name: Password
+                  x-dcl-sensitive: true
                 username:
                   description: The username for the credential.
                   type: string
@@ -32,6 +33,7 @@ components:
               type: object
               x-dcl-go-name: Credential
               x-dcl-go-type: ConnectionCloudSqlCredential
+              x-dcl-mutable-unreadable: true
             database:
               description: Database name.
               type: string
@@ -43,6 +45,9 @@ components:
               description: Cloud SQL instance ID in the form `project:location:instance`.
               type: string
               x-dcl-go-name: InstanceId
+              x-dcl-references:
+              - field: name
+                resource: Sql/Instance
             type:
               description: 'Type of the Cloud SQL database. Possible values: DATABASE_TYPE_UNSPECIFIED,
                 POSTGRES, MYSQL'
@@ -111,7 +116,7 @@ components:
       x-dcl-id: projects/{{project}}/locations/{{location}}/connections/{{name}}
       x-dcl-locations: []
       x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
+      x-dcl-uses-state-hint: true
 info:
   description: DCL Specification for the BigqueryConnection Connection resource
   title: BigqueryConnection/Connection
