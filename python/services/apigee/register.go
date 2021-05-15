@@ -20,5 +20,8 @@ import (
 
 // RegisterServers registers each resource with the gRPC server.
 func RegisterServers(s *grpc.Server) {
+	sdkgrpc.RegisterApigeeAttachmentServiceServer(s, &AttachmentServer{})
+	sdkgrpc.RegisterApigeeEnvgroupServiceServer(s, &EnvgroupServer{})
+	sdkgrpc.RegisterApigeeEnvironmentServiceServer(s, &EnvironmentServer{})
 	sdkgrpc.RegisterApigeeOrganizationServiceServer(s, &OrganizationServer{})
 }

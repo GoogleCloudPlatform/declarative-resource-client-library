@@ -501,9 +501,6 @@ func canonicalizeFeatureMembershipConfigmanagementConfigSyncGit(des, initial *Fe
 	if dcl.StringCanonicalize(des.HttpsProxy, initial.HttpsProxy) || dcl.IsZeroValue(des.HttpsProxy) {
 		des.HttpsProxy = initial.HttpsProxy
 	}
-	if dcl.NameToSelfLink(des.GcpServiceAccountEmail, initial.GcpServiceAccountEmail) || dcl.IsZeroValue(des.GcpServiceAccountEmail) {
-		des.GcpServiceAccountEmail = initial.GcpServiceAccountEmail
-	}
 
 	return des
 }
@@ -533,9 +530,6 @@ func canonicalizeNewFeatureMembershipConfigmanagementConfigSyncGit(c *Client, de
 	}
 	if dcl.StringCanonicalize(des.HttpsProxy, nw.HttpsProxy) {
 		nw.HttpsProxy = des.HttpsProxy
-	}
-	if dcl.NameToSelfLink(des.GcpServiceAccountEmail, nw.GcpServiceAccountEmail) {
-		nw.GcpServiceAccountEmail = des.GcpServiceAccountEmail
 	}
 
 	return nw
@@ -1118,13 +1112,6 @@ func compareFeatureMembershipConfigmanagementConfigSyncGitNewStyle(d, a interfac
 	}
 
 	if ds, err := dcl.Diff(desired.HttpsProxy, actual.HttpsProxy, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HttpsProxy")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.GcpServiceAccountEmail, actual.GcpServiceAccountEmail, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GcpServiceAccountEmail")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1749,9 +1736,6 @@ func expandFeatureMembershipConfigmanagementConfigSyncGit(c *Client, f *FeatureM
 	if v := f.HttpsProxy; !dcl.IsEmptyValueIndirect(v) {
 		m["httpsProxy"] = v
 	}
-	if v := f.GcpServiceAccountEmail; !dcl.IsEmptyValueIndirect(v) {
-		m["gcpServiceAccountEmail"] = v
-	}
 
 	return m, nil
 }
@@ -1772,7 +1756,6 @@ func flattenFeatureMembershipConfigmanagementConfigSyncGit(c *Client, i interfac
 	r.SyncRev = dcl.FlattenString(m["syncRev"])
 	r.SecretType = dcl.FlattenString(m["secretType"])
 	r.HttpsProxy = dcl.FlattenString(m["httpsProxy"])
-	r.GcpServiceAccountEmail = dcl.FlattenString(m["gcpServiceAccountEmail"])
 
 	return r
 }

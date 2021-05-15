@@ -11,10 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-description: A basic example of an apigee organization
-name: basic_organization
-resource: samples/basic.organization.json
+dependencies:
+- samples/basic.organization.json
+description: A basic example of an apigee envgroup
+name: basic_envgroup
+resource: samples/basic.envgroup.json
 updates:
-- resource: samples/update.organization.json
+- resource: samples/update.envgroup.json
 versions:
 - ga

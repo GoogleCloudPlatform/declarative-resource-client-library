@@ -277,7 +277,6 @@ class FeatureMembershipConfigmanagementConfigSyncGit(object):
         sync_rev: str = None,
         secret_type: str = None,
         https_proxy: str = None,
-        gcp_service_account_email: str = None,
     ):
         self.sync_repo = sync_repo
         self.sync_branch = sync_branch
@@ -286,7 +285,6 @@ class FeatureMembershipConfigmanagementConfigSyncGit(object):
         self.sync_rev = sync_rev
         self.secret_type = secret_type
         self.https_proxy = https_proxy
-        self.gcp_service_account_email = gcp_service_account_email
 
     @classmethod
     def to_proto(self, resource):
@@ -310,10 +308,6 @@ class FeatureMembershipConfigmanagementConfigSyncGit(object):
             res.secret_type = Primitive.to_proto(resource.secret_type)
         if Primitive.to_proto(resource.https_proxy):
             res.https_proxy = Primitive.to_proto(resource.https_proxy)
-        if Primitive.to_proto(resource.gcp_service_account_email):
-            res.gcp_service_account_email = Primitive.to_proto(
-                resource.gcp_service_account_email
-            )
         return res
 
     @classmethod
@@ -329,7 +323,6 @@ class FeatureMembershipConfigmanagementConfigSyncGit(object):
             sync_rev=resource.sync_rev,
             secret_type=resource.secret_type,
             https_proxy=resource.https_proxy,
-            gcp_service_account_email=resource.gcp_service_account_email,
         )
 
 

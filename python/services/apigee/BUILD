@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="apigee", resources=["organization"])
+connector(name="apigee", resources=["attachment","envgroup","environment","organization"])

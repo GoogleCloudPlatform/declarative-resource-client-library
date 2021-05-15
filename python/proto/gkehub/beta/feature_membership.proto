@@ -47,7 +47,6 @@ message GkehubBetaFeatureMembershipConfigmanagementConfigSyncGit {
   string sync_rev = 5;
   string secret_type = 6;
   string https_proxy = 7;
-  string gcp_service_account_email = 8;
 }
 
 message GkehubBetaFeatureMembershipConfigmanagementPolicyController {

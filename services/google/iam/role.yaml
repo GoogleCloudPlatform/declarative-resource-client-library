@@ -100,6 +100,13 @@ components:
             on the specified resource parent: iam.roles.create'
           type: string
           x-dcl-go-name: Parent
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Organization
           x-kubernetes-immutable: true
         stage:
           description: The current launch stage of the role. If the `ALPHA` launch

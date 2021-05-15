@@ -1,0 +1,112 @@
+# Copyright 2021 Google LLC. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+components:
+  schemas:
+    Envgroup:
+      properties:
+        createdAt:
+          format: int64
+          readOnly: true
+          type: integer
+          x-dcl-go-name: CreatedAt
+          x-kubernetes-immutable: true
+        hostnames:
+          description: Required. Host names for this environment group.
+          items:
+            type: string
+            x-dcl-go-type: string
+          type: array
+          x-dcl-go-name: Hostnames
+          x-dcl-list-type: list
+          x-kubernetes-immutable: true
+        lastModifiedAt:
+          format: int64
+          readOnly: true
+          type: integer
+          x-dcl-go-name: LastModifiedAt
+          x-kubernetes-immutable: true
+        name:
+          description: ID of the environment group.
+          type: string
+          x-dcl-go-name: Name
+          x-kubernetes-immutable: true
+        organization:
+          description: The organization for the resource
+          type: string
+          x-dcl-go-name: Organization
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Organization
+          x-kubernetes-immutable: true
+        state:
+          description: 'Output only. State of the environment. Values other than ACTIVE
+            means the resource is not ready to use. Possible values: STATE_UNSPECIFIED,
+            CREATING, ACTIVE, DELETING'
+          enum:
+          - STATE_UNSPECIFIED
+          - CREATING
+          - ACTIVE
+          - DELETING
+          readOnly: true
+          type: string
+          x-dcl-go-name: State
+          x-dcl-go-type: EnvgroupStateEnum
+          x-kubernetes-immutable: true
+      required:
+      - hostnames
+      - organization
+      title: Envgroup
+      type: object
+      x-dcl-id: organizations/{{organization}}/envgroups/{{name}}
+      x-dcl-locations: []
+      x-dcl-parent-container: organization
+      x-dcl-uses-state-hint: false
+info:
+  description: DCL Specification for the Apigee Envgroup resource
+  title: Apigee/Envgroup
+  x-dcl-has-iam: false
+paths:
+  apply:
+    description: The function used to apply information about a Envgroup
+    parameters:
+    - description: A full instance of a Envgroup
+      name: Envgroup
+      required: true
+  delete:
+    description: The function used to delete a Envgroup
+    parameters:
+    - description: A full instance of a Envgroup
+      name: Envgroup
+      required: true
+  deleteAll:
+    description: The function used to delete all Envgroup
+    parameters:
+    - name: organization
+      required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Envgroup
+    parameters:
+    - description: A full instance of a Envgroup
+      name: Envgroup
+      required: true
+  list:
+    description: The function used to list information about many Envgroup
+    parameters:
+    - name: organization
+      required: true
+      schema:
+        type: string

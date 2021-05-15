@@ -64,7 +64,16 @@ components:
           x-dcl-references:
           - field: name
             parent: true
-            reference: folder
+            resource: Cloudresourcemanager/BillingAccount
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Folder
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Organization
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         retentionDays:
           description: Logs will be retained by default for this amount of time, after

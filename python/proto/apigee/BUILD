@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="apigee", resources=["organization"])
+proto_package(name="apigee", resources=["attachment","envgroup","environment","organization"])

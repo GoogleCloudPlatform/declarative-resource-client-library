@@ -49,7 +49,9 @@ components:
           x-dcl-go-name: Parent
           x-dcl-references:
           - field: name
-            reference: folder
+            resource: Cloudresourcemanager/Folder
+          - field: name
+            resource: Cloudresourcemanager/Organization
           x-kubernetes-immutable: true
         ruleTupleCount:
           description: Total count of all firewall policy rule tuples. A firewall

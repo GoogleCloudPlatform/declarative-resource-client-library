@@ -57,6 +57,16 @@ components:
             parent: logging.exclusions.create'
           type: string
           x-dcl-go-name: Parent
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Project
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Organization
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/BillingAccount
           x-kubernetes-immutable: true
         updateTime:
           description: Output only. The last update timestamp of the exclusion. This

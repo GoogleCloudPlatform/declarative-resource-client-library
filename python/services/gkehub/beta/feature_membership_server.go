@@ -58,14 +58,13 @@ func ProtoToGkehubBetaFeatureMembershipConfigmanagementConfigSyncGit(p *betapb.G
 		return nil
 	}
 	obj := &beta.FeatureMembershipConfigmanagementConfigSyncGit{
-		SyncRepo:               dcl.StringOrNil(p.SyncRepo),
-		SyncBranch:             dcl.StringOrNil(p.SyncBranch),
-		PolicyDir:              dcl.StringOrNil(p.PolicyDir),
-		SyncWaitSecs:           dcl.StringOrNil(p.SyncWaitSecs),
-		SyncRev:                dcl.StringOrNil(p.SyncRev),
-		SecretType:             dcl.StringOrNil(p.SecretType),
-		HttpsProxy:             dcl.StringOrNil(p.HttpsProxy),
-		GcpServiceAccountEmail: dcl.StringOrNil(p.GcpServiceAccountEmail),
+		SyncRepo:     dcl.StringOrNil(p.SyncRepo),
+		SyncBranch:   dcl.StringOrNil(p.SyncBranch),
+		PolicyDir:    dcl.StringOrNil(p.PolicyDir),
+		SyncWaitSecs: dcl.StringOrNil(p.SyncWaitSecs),
+		SyncRev:      dcl.StringOrNil(p.SyncRev),
+		SecretType:   dcl.StringOrNil(p.SecretType),
+		HttpsProxy:   dcl.StringOrNil(p.HttpsProxy),
 	}
 	return obj
 }
@@ -157,14 +156,13 @@ func GkehubBetaFeatureMembershipConfigmanagementConfigSyncGitToProto(o *beta.Fea
 		return nil
 	}
 	p := &betapb.GkehubBetaFeatureMembershipConfigmanagementConfigSyncGit{
-		SyncRepo:               dcl.ValueOrEmptyString(o.SyncRepo),
-		SyncBranch:             dcl.ValueOrEmptyString(o.SyncBranch),
-		PolicyDir:              dcl.ValueOrEmptyString(o.PolicyDir),
-		SyncWaitSecs:           dcl.ValueOrEmptyString(o.SyncWaitSecs),
-		SyncRev:                dcl.ValueOrEmptyString(o.SyncRev),
-		SecretType:             dcl.ValueOrEmptyString(o.SecretType),
-		HttpsProxy:             dcl.ValueOrEmptyString(o.HttpsProxy),
-		GcpServiceAccountEmail: dcl.ValueOrEmptyString(o.GcpServiceAccountEmail),
+		SyncRepo:     dcl.ValueOrEmptyString(o.SyncRepo),
+		SyncBranch:   dcl.ValueOrEmptyString(o.SyncBranch),
+		PolicyDir:    dcl.ValueOrEmptyString(o.PolicyDir),
+		SyncWaitSecs: dcl.ValueOrEmptyString(o.SyncWaitSecs),
+		SyncRev:      dcl.ValueOrEmptyString(o.SyncRev),
+		SecretType:   dcl.ValueOrEmptyString(o.SecretType),
+		HttpsProxy:   dcl.ValueOrEmptyString(o.HttpsProxy),
 	}
 	return p
 }

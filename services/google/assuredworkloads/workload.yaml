@@ -27,7 +27,7 @@ components:
           x-dcl-mutable-unreadable: true
           x-dcl-references:
           - field: name
-            reference: billingAccount
+            resource: Cloudresourcemanager/BillingAccount
           x-kubernetes-immutable: true
         complianceRegime:
           description: 'Required. Immutable. Compliance Regime associated with this
@@ -110,7 +110,7 @@ components:
           x-dcl-references:
           - field: name
             parent: true
-            reference: organization
+            resource: Cloudresourcemanager/Organization
           x-kubernetes-immutable: true
         provisionedResourcesParent:
           description: 'Input only. The parent resource for the resources managed

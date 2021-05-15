@@ -107,6 +107,9 @@ components:
             apigee.organizations.create'
           type: string
           x-dcl-go-name: Parent
+          x-dcl-references:
+          - field: name
+            resource: Cloudresourcemanager/Project
           x-kubernetes-immutable: true
         projectId:
           description: Output only. Project ID associated with the Apigee organization.

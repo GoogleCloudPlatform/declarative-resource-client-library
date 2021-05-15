@@ -134,15 +134,14 @@ func (r *FeatureMembershipConfigmanagementConfigSync) HashCode() string {
 }
 
 type FeatureMembershipConfigmanagementConfigSyncGit struct {
-	empty                  bool    `json:"-"`
-	SyncRepo               *string `json:"syncRepo"`
-	SyncBranch             *string `json:"syncBranch"`
-	PolicyDir              *string `json:"policyDir"`
-	SyncWaitSecs           *string `json:"syncWaitSecs"`
-	SyncRev                *string `json:"syncRev"`
-	SecretType             *string `json:"secretType"`
-	HttpsProxy             *string `json:"httpsProxy"`
-	GcpServiceAccountEmail *string `json:"gcpServiceAccountEmail"`
+	empty        bool    `json:"-"`
+	SyncRepo     *string `json:"syncRepo"`
+	SyncBranch   *string `json:"syncBranch"`
+	PolicyDir    *string `json:"policyDir"`
+	SyncWaitSecs *string `json:"syncWaitSecs"`
+	SyncRev      *string `json:"syncRev"`
+	SecretType   *string `json:"secretType"`
+	HttpsProxy   *string `json:"httpsProxy"`
 }
 
 type jsonFeatureMembershipConfigmanagementConfigSyncGit FeatureMembershipConfigmanagementConfigSyncGit
@@ -173,8 +172,6 @@ func (r *FeatureMembershipConfigmanagementConfigSyncGit) UnmarshalJSON(data []by
 		r.SecretType = res.SecretType
 
 		r.HttpsProxy = res.HttpsProxy
-
-		r.GcpServiceAccountEmail = res.GcpServiceAccountEmail
 
 	}
 	return nil

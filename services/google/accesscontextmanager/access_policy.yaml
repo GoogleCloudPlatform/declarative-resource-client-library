@@ -34,6 +34,10 @@ components:
             Currently immutable once created. Format: organizations/{organization_id}'
           type: string
           x-dcl-go-name: Parent
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Organization
           x-kubernetes-immutable: true
         title:
           description: Human readable title. Does not affect behavior

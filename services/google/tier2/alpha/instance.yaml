@@ -313,6 +313,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -727,6 +730,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -1151,6 +1157,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -1613,6 +1622,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -2014,6 +2026,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -2422,6 +2437,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -2823,6 +2841,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -3224,6 +3245,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -3625,6 +3649,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -4026,6 +4053,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -4427,6 +4457,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -4828,6 +4861,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -5229,6 +5265,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -5630,6 +5669,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -6031,6 +6073,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -6432,6 +6477,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -6852,6 +6900,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -7253,6 +7304,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -7732,6 +7786,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -8133,6 +8190,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -8540,6 +8600,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -8991,6 +9054,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically
@@ -9392,6 +9458,9 @@ components:
                           per-region tenant project pool.
                         type: string
                         x-dcl-go-name: Folder
+                        x-dcl-references:
+                        - field: name
+                          resource: Cloudresourcemanager/Folder
                       scope:
                         description: 'The scope of the tenant project. Note that if
                           the tenant project tag is "default", it''s automatically

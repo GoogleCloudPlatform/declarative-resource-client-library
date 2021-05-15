@@ -1,0 +1,110 @@
+# Copyright 2021 Google LLC. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+components:
+  schemas:
+    Attachment:
+      properties:
+        createdAt:
+          format: int64
+          readOnly: true
+          type: integer
+          x-dcl-go-name: CreatedAt
+          x-kubernetes-immutable: true
+        envgroup:
+          description: The envgroup for the resource
+          type: string
+          x-dcl-go-name: Envgroup
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Apigee/Envgroup
+          x-kubernetes-immutable: true
+        environment:
+          description: Required. ID of the attached environment.
+          type: string
+          x-dcl-go-name: Environment
+          x-dcl-references:
+          - field: name
+            resource: Apigee/Environment
+          x-kubernetes-immutable: true
+        name:
+          description: ID of the environment group attachment.
+          type: string
+          x-dcl-go-name: Name
+          x-dcl-server-generated-parameter: true
+          x-kubernetes-immutable: true
+        organization:
+          description: The organization for the resource
+          type: string
+          x-dcl-go-name: Organization
+          x-dcl-references:
+          - field: name
+            parent: true
+            resource: Cloudresourcemanager/Organization
+          x-kubernetes-immutable: true
+      required:
+      - environment
+      - organization
+      - envgroup
+      title: Attachment
+      type: object
+      x-dcl-id: organizations/{{organization}}/envgroups/{{envgroup}}/attachments/{{name}}
+      x-dcl-locations: []
+      x-dcl-parent-container: organization
+      x-dcl-uses-state-hint: false
+info:
+  description: DCL Specification for the Apigee Attachment resource
+  title: Apigee/Attachment
+  x-dcl-has-iam: false
+paths:
+  apply:
+    description: The function used to apply information about a Attachment
+    parameters:
+    - description: A full instance of a Attachment
+      name: Attachment
+      required: true
+  delete:
+    description: The function used to delete a Attachment
+    parameters:
+    - description: A full instance of a Attachment
+      name: Attachment
+      required: true
+  deleteAll:
+    description: The function used to delete all Attachment
+    parameters:
+    - name: organization
+      required: true
+      schema:
+        type: string
+    - name: envgroup
+      required: true
+      schema:
+        type: string
+  get:
+    description: The function used to get information about a Attachment
+    parameters:
+    - description: A full instance of a Attachment
+      name: Attachment
+      required: true
+  list:
+    description: The function used to list information about many Attachment
+    parameters:
+    - name: organization
+      required: true
+      schema:
+        type: string
+    - name: envgroup
+      required: true
+      schema:
+        type: string

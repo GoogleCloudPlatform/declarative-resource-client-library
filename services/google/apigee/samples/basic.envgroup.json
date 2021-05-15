@@ -1,0 +1,5 @@
+{
+  "name": "{{envgroup}}",
+  "organization": "{{ref:basic.organization.json:name}}",
+  "hostNames": ["abc.example.com"]
+}
