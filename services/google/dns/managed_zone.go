@@ -244,6 +244,10 @@ func (r *ManagedZoneDnssecConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyManagedZoneDnssecConfig *ManagedZoneDnssecConfig = &ManagedZoneDnssecConfig{empty: true}
 
+func (r *ManagedZoneDnssecConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *ManagedZoneDnssecConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -295,6 +299,10 @@ func (r *ManagedZoneDnssecConfigDefaultKeySpecs) UnmarshalJSON(data []byte) erro
 // as one.  Modifying this object will have undesirable results.
 var EmptyManagedZoneDnssecConfigDefaultKeySpecs *ManagedZoneDnssecConfigDefaultKeySpecs = &ManagedZoneDnssecConfigDefaultKeySpecs{empty: true}
 
+func (r *ManagedZoneDnssecConfigDefaultKeySpecs) Empty() bool {
+	return r.empty
+}
+
 func (r *ManagedZoneDnssecConfigDefaultKeySpecs) String() string {
 	return dcl.SprintResource(r)
 }
@@ -336,6 +344,10 @@ func (r *ManagedZonePrivateVisibilityConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyManagedZonePrivateVisibilityConfig *ManagedZonePrivateVisibilityConfig = &ManagedZonePrivateVisibilityConfig{empty: true}
+
+func (r *ManagedZonePrivateVisibilityConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *ManagedZonePrivateVisibilityConfig) String() string {
 	return dcl.SprintResource(r)
@@ -379,6 +391,10 @@ func (r *ManagedZonePrivateVisibilityConfigNetworks) UnmarshalJSON(data []byte) 
 // as one.  Modifying this object will have undesirable results.
 var EmptyManagedZonePrivateVisibilityConfigNetworks *ManagedZonePrivateVisibilityConfigNetworks = &ManagedZonePrivateVisibilityConfigNetworks{empty: true}
 
+func (r *ManagedZonePrivateVisibilityConfigNetworks) Empty() bool {
+	return r.empty
+}
+
 func (r *ManagedZonePrivateVisibilityConfigNetworks) String() string {
 	return dcl.SprintResource(r)
 }
@@ -420,6 +436,10 @@ func (r *ManagedZoneForwardingConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyManagedZoneForwardingConfig *ManagedZoneForwardingConfig = &ManagedZoneForwardingConfig{empty: true}
+
+func (r *ManagedZoneForwardingConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *ManagedZoneForwardingConfig) String() string {
 	return dcl.SprintResource(r)
@@ -466,6 +486,10 @@ func (r *ManagedZoneForwardingConfigTargetNameServers) UnmarshalJSON(data []byte
 // as one.  Modifying this object will have undesirable results.
 var EmptyManagedZoneForwardingConfigTargetNameServers *ManagedZoneForwardingConfigTargetNameServers = &ManagedZoneForwardingConfigTargetNameServers{empty: true}
 
+func (r *ManagedZoneForwardingConfigTargetNameServers) Empty() bool {
+	return r.empty
+}
+
 func (r *ManagedZoneForwardingConfigTargetNameServers) String() string {
 	return dcl.SprintResource(r)
 }
@@ -508,6 +532,10 @@ func (r *ManagedZonePeeringConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyManagedZonePeeringConfig *ManagedZonePeeringConfig = &ManagedZonePeeringConfig{empty: true}
 
+func (r *ManagedZonePeeringConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *ManagedZonePeeringConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -549,6 +577,10 @@ func (r *ManagedZonePeeringConfigTargetNetwork) UnmarshalJSON(data []byte) error
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyManagedZonePeeringConfigTargetNetwork *ManagedZonePeeringConfigTargetNetwork = &ManagedZonePeeringConfigTargetNetwork{empty: true}
+
+func (r *ManagedZonePeeringConfigTargetNetwork) Empty() bool {
+	return r.empty
+}
 
 func (r *ManagedZonePeeringConfigTargetNetwork) String() string {
 	return dcl.SprintResource(r)

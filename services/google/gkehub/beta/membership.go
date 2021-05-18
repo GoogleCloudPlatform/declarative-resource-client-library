@@ -136,6 +136,10 @@ func (r *MembershipEndpoint) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyMembershipEndpoint *MembershipEndpoint = &MembershipEndpoint{empty: true}
 
+func (r *MembershipEndpoint) Empty() bool {
+	return r.empty
+}
+
 func (r *MembershipEndpoint) String() string {
 	return dcl.SprintResource(r)
 }
@@ -177,6 +181,10 @@ func (r *MembershipEndpointGkeCluster) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyMembershipEndpointGkeCluster *MembershipEndpointGkeCluster = &MembershipEndpointGkeCluster{empty: true}
+
+func (r *MembershipEndpointGkeCluster) Empty() bool {
+	return r.empty
+}
 
 func (r *MembershipEndpointGkeCluster) String() string {
 	return dcl.SprintResource(r)
@@ -235,6 +243,10 @@ func (r *MembershipEndpointKubernetesMetadata) UnmarshalJSON(data []byte) error 
 // as one.  Modifying this object will have undesirable results.
 var EmptyMembershipEndpointKubernetesMetadata *MembershipEndpointKubernetesMetadata = &MembershipEndpointKubernetesMetadata{empty: true}
 
+func (r *MembershipEndpointKubernetesMetadata) Empty() bool {
+	return r.empty
+}
+
 func (r *MembershipEndpointKubernetesMetadata) String() string {
 	return dcl.SprintResource(r)
 }
@@ -286,6 +298,10 @@ func (r *MembershipEndpointKubernetesResource) UnmarshalJSON(data []byte) error 
 // as one.  Modifying this object will have undesirable results.
 var EmptyMembershipEndpointKubernetesResource *MembershipEndpointKubernetesResource = &MembershipEndpointKubernetesResource{empty: true}
 
+func (r *MembershipEndpointKubernetesResource) Empty() bool {
+	return r.empty
+}
+
 func (r *MembershipEndpointKubernetesResource) String() string {
 	return dcl.SprintResource(r)
 }
@@ -330,6 +346,10 @@ func (r *MembershipEndpointKubernetesResourceMembershipResources) UnmarshalJSON(
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyMembershipEndpointKubernetesResourceMembershipResources *MembershipEndpointKubernetesResourceMembershipResources = &MembershipEndpointKubernetesResourceMembershipResources{empty: true}
+
+func (r *MembershipEndpointKubernetesResourceMembershipResources) Empty() bool {
+	return r.empty
+}
 
 func (r *MembershipEndpointKubernetesResourceMembershipResources) String() string {
 	return dcl.SprintResource(r)
@@ -376,6 +396,10 @@ func (r *MembershipEndpointKubernetesResourceConnectResources) UnmarshalJSON(dat
 // as one.  Modifying this object will have undesirable results.
 var EmptyMembershipEndpointKubernetesResourceConnectResources *MembershipEndpointKubernetesResourceConnectResources = &MembershipEndpointKubernetesResourceConnectResources{empty: true}
 
+func (r *MembershipEndpointKubernetesResourceConnectResources) Empty() bool {
+	return r.empty
+}
+
 func (r *MembershipEndpointKubernetesResourceConnectResources) String() string {
 	return dcl.SprintResource(r)
 }
@@ -421,6 +445,10 @@ func (r *MembershipEndpointKubernetesResourceResourceOptions) UnmarshalJSON(data
 // as one.  Modifying this object will have undesirable results.
 var EmptyMembershipEndpointKubernetesResourceResourceOptions *MembershipEndpointKubernetesResourceResourceOptions = &MembershipEndpointKubernetesResourceResourceOptions{empty: true}
 
+func (r *MembershipEndpointKubernetesResourceResourceOptions) Empty() bool {
+	return r.empty
+}
+
 func (r *MembershipEndpointKubernetesResourceResourceOptions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -462,6 +490,10 @@ func (r *MembershipState) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyMembershipState *MembershipState = &MembershipState{empty: true}
+
+func (r *MembershipState) Empty() bool {
+	return r.empty
+}
 
 func (r *MembershipState) String() string {
 	return dcl.SprintResource(r)
@@ -510,6 +542,10 @@ func (r *MembershipAuthority) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyMembershipAuthority *MembershipAuthority = &MembershipAuthority{empty: true}
+
+func (r *MembershipAuthority) Empty() bool {
+	return r.empty
+}
 
 func (r *MembershipAuthority) String() string {
 	return dcl.SprintResource(r)

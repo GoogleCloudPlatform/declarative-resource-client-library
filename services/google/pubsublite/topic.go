@@ -69,6 +69,10 @@ func (r *TopicPartitionConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyTopicPartitionConfig *TopicPartitionConfig = &TopicPartitionConfig{empty: true}
 
+func (r *TopicPartitionConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *TopicPartitionConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -114,6 +118,10 @@ func (r *TopicPartitionConfigCapacity) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyTopicPartitionConfigCapacity *TopicPartitionConfigCapacity = &TopicPartitionConfigCapacity{empty: true}
 
+func (r *TopicPartitionConfigCapacity) Empty() bool {
+	return r.empty
+}
+
 func (r *TopicPartitionConfigCapacity) String() string {
 	return dcl.SprintResource(r)
 }
@@ -158,6 +166,10 @@ func (r *TopicRetentionConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyTopicRetentionConfig *TopicRetentionConfig = &TopicRetentionConfig{empty: true}
+
+func (r *TopicRetentionConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *TopicRetentionConfig) String() string {
 	return dcl.SprintResource(r)

@@ -1185,6 +1185,10 @@ func flattenWorkloadResources(c *Client, i interface{}) *WorkloadResources {
 	}
 
 	r := &WorkloadResources{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkloadResources
+	}
 	r.ResourceId = dcl.FlattenInteger(m["resourceId"])
 	r.ResourceType = flattenWorkloadResourcesResourceTypeEnum(m["resourceType"])
 
@@ -1299,6 +1303,10 @@ func flattenWorkloadKmsSettings(c *Client, i interface{}) *WorkloadKmsSettings {
 	}
 
 	r := &WorkloadKmsSettings{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkloadKmsSettings
+	}
 	r.NextRotationTime = dcl.FlattenString(m["nextRotationTime"])
 	r.RotationPeriod = dcl.FlattenString(m["rotationPeriod"])
 

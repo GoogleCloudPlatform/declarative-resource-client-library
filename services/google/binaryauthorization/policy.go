@@ -204,6 +204,10 @@ func (r *PolicyAdmissionWhitelistPatterns) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyPolicyAdmissionWhitelistPatterns *PolicyAdmissionWhitelistPatterns = &PolicyAdmissionWhitelistPatterns{empty: true}
 
+func (r *PolicyAdmissionWhitelistPatterns) Empty() bool {
+	return r.empty
+}
+
 func (r *PolicyAdmissionWhitelistPatterns) String() string {
 	return dcl.SprintResource(r)
 }
@@ -252,6 +256,10 @@ func (r *PolicyClusterAdmissionRules) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyPolicyClusterAdmissionRules *PolicyClusterAdmissionRules = &PolicyClusterAdmissionRules{empty: true}
 
+func (r *PolicyClusterAdmissionRules) Empty() bool {
+	return r.empty
+}
+
 func (r *PolicyClusterAdmissionRules) String() string {
 	return dcl.SprintResource(r)
 }
@@ -299,6 +307,10 @@ func (r *PolicyDefaultAdmissionRule) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyPolicyDefaultAdmissionRule *PolicyDefaultAdmissionRule = &PolicyDefaultAdmissionRule{empty: true}
+
+func (r *PolicyDefaultAdmissionRule) Empty() bool {
+	return r.empty
+}
 
 func (r *PolicyDefaultAdmissionRule) String() string {
 	return dcl.SprintResource(r)

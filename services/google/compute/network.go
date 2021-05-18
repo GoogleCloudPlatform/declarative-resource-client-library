@@ -96,6 +96,10 @@ func (r *NetworkRoutingConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNetworkRoutingConfig *NetworkRoutingConfig = &NetworkRoutingConfig{empty: true}
 
+func (r *NetworkRoutingConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *NetworkRoutingConfig) String() string {
 	return dcl.SprintResource(r)
 }

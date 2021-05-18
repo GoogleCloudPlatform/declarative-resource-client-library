@@ -1075,6 +1075,10 @@ func flattenObjectAccessControlProjectTeam(c *Client, i interface{}) *ObjectAcce
 	}
 
 	r := &ObjectAccessControlProjectTeam{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyObjectAccessControlProjectTeam
+	}
 	r.ProjectNumber = dcl.FlattenString(m["projectNumber"])
 	r.Team = flattenObjectAccessControlProjectTeamTeamEnum(m["team"])
 

@@ -299,6 +299,10 @@ func (r *GuestPolicyAssignment) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyAssignment *GuestPolicyAssignment = &GuestPolicyAssignment{empty: true}
 
+func (r *GuestPolicyAssignment) Empty() bool {
+	return r.empty
+}
+
 func (r *GuestPolicyAssignment) String() string {
 	return dcl.SprintResource(r)
 }
@@ -340,6 +344,10 @@ func (r *GuestPolicyAssignmentGroupLabels) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyAssignmentGroupLabels *GuestPolicyAssignmentGroupLabels = &GuestPolicyAssignmentGroupLabels{empty: true}
+
+func (r *GuestPolicyAssignmentGroupLabels) Empty() bool {
+	return r.empty
+}
 
 func (r *GuestPolicyAssignmentGroupLabels) String() string {
 	return dcl.SprintResource(r)
@@ -389,6 +397,10 @@ func (r *GuestPolicyAssignmentOsTypes) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyAssignmentOsTypes *GuestPolicyAssignmentOsTypes = &GuestPolicyAssignmentOsTypes{empty: true}
 
+func (r *GuestPolicyAssignmentOsTypes) Empty() bool {
+	return r.empty
+}
+
 func (r *GuestPolicyAssignmentOsTypes) String() string {
 	return dcl.SprintResource(r)
 }
@@ -436,6 +448,10 @@ func (r *GuestPolicyPackages) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyPackages *GuestPolicyPackages = &GuestPolicyPackages{empty: true}
+
+func (r *GuestPolicyPackages) Empty() bool {
+	return r.empty
+}
 
 func (r *GuestPolicyPackages) String() string {
 	return dcl.SprintResource(r)
@@ -487,6 +503,10 @@ func (r *GuestPolicyPackageRepositories) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyPackageRepositories *GuestPolicyPackageRepositories = &GuestPolicyPackageRepositories{empty: true}
+
+func (r *GuestPolicyPackageRepositories) Empty() bool {
+	return r.empty
+}
 
 func (r *GuestPolicyPackageRepositories) String() string {
 	return dcl.SprintResource(r)
@@ -542,6 +562,10 @@ func (r *GuestPolicyPackageRepositoriesApt) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyPackageRepositoriesApt *GuestPolicyPackageRepositoriesApt = &GuestPolicyPackageRepositoriesApt{empty: true}
 
+func (r *GuestPolicyPackageRepositoriesApt) Empty() bool {
+	return r.empty
+}
+
 func (r *GuestPolicyPackageRepositoriesApt) String() string {
 	return dcl.SprintResource(r)
 }
@@ -592,6 +616,10 @@ func (r *GuestPolicyPackageRepositoriesYum) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyPackageRepositoriesYum *GuestPolicyPackageRepositoriesYum = &GuestPolicyPackageRepositoriesYum{empty: true}
+
+func (r *GuestPolicyPackageRepositoriesYum) Empty() bool {
+	return r.empty
+}
 
 func (r *GuestPolicyPackageRepositoriesYum) String() string {
 	return dcl.SprintResource(r)
@@ -644,6 +672,10 @@ func (r *GuestPolicyPackageRepositoriesZypper) UnmarshalJSON(data []byte) error 
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyPackageRepositoriesZypper *GuestPolicyPackageRepositoriesZypper = &GuestPolicyPackageRepositoriesZypper{empty: true}
 
+func (r *GuestPolicyPackageRepositoriesZypper) Empty() bool {
+	return r.empty
+}
+
 func (r *GuestPolicyPackageRepositoriesZypper) String() string {
 	return dcl.SprintResource(r)
 }
@@ -688,6 +720,10 @@ func (r *GuestPolicyPackageRepositoriesGoo) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyPackageRepositoriesGoo *GuestPolicyPackageRepositoriesGoo = &GuestPolicyPackageRepositoriesGoo{empty: true}
+
+func (r *GuestPolicyPackageRepositoriesGoo) Empty() bool {
+	return r.empty
+}
 
 func (r *GuestPolicyPackageRepositoriesGoo) String() string {
 	return dcl.SprintResource(r)
@@ -746,6 +782,10 @@ func (r *GuestPolicyRecipes) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipes *GuestPolicyRecipes = &GuestPolicyRecipes{empty: true}
 
+func (r *GuestPolicyRecipes) Empty() bool {
+	return r.empty
+}
+
 func (r *GuestPolicyRecipes) String() string {
 	return dcl.SprintResource(r)
 }
@@ -797,6 +837,10 @@ func (r *GuestPolicyRecipesArtifacts) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesArtifacts *GuestPolicyRecipesArtifacts = &GuestPolicyRecipesArtifacts{empty: true}
 
+func (r *GuestPolicyRecipesArtifacts) Empty() bool {
+	return r.empty
+}
+
 func (r *GuestPolicyRecipesArtifacts) String() string {
 	return dcl.SprintResource(r)
 }
@@ -841,6 +885,10 @@ func (r *GuestPolicyRecipesArtifactsRemote) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesArtifactsRemote *GuestPolicyRecipesArtifactsRemote = &GuestPolicyRecipesArtifactsRemote{empty: true}
+
+func (r *GuestPolicyRecipesArtifactsRemote) Empty() bool {
+	return r.empty
+}
 
 func (r *GuestPolicyRecipesArtifactsRemote) String() string {
 	return dcl.SprintResource(r)
@@ -889,6 +937,10 @@ func (r *GuestPolicyRecipesArtifactsGcs) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesArtifactsGcs *GuestPolicyRecipesArtifactsGcs = &GuestPolicyRecipesArtifactsGcs{empty: true}
+
+func (r *GuestPolicyRecipesArtifactsGcs) Empty() bool {
+	return r.empty
+}
 
 func (r *GuestPolicyRecipesArtifactsGcs) String() string {
 	return dcl.SprintResource(r)
@@ -950,6 +1002,10 @@ func (r *GuestPolicyRecipesInstallSteps) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesInstallSteps *GuestPolicyRecipesInstallSteps = &GuestPolicyRecipesInstallSteps{empty: true}
 
+func (r *GuestPolicyRecipesInstallSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *GuestPolicyRecipesInstallSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1001,6 +1057,10 @@ func (r *GuestPolicyRecipesInstallStepsFileCopy) UnmarshalJSON(data []byte) erro
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesInstallStepsFileCopy *GuestPolicyRecipesInstallStepsFileCopy = &GuestPolicyRecipesInstallStepsFileCopy{empty: true}
 
+func (r *GuestPolicyRecipesInstallStepsFileCopy) Empty() bool {
+	return r.empty
+}
+
 func (r *GuestPolicyRecipesInstallStepsFileCopy) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1048,6 +1108,10 @@ func (r *GuestPolicyRecipesInstallStepsArchiveExtraction) UnmarshalJSON(data []b
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesInstallStepsArchiveExtraction *GuestPolicyRecipesInstallStepsArchiveExtraction = &GuestPolicyRecipesInstallStepsArchiveExtraction{empty: true}
+
+func (r *GuestPolicyRecipesInstallStepsArchiveExtraction) Empty() bool {
+	return r.empty
+}
 
 func (r *GuestPolicyRecipesInstallStepsArchiveExtraction) String() string {
 	return dcl.SprintResource(r)
@@ -1097,6 +1161,10 @@ func (r *GuestPolicyRecipesInstallStepsMsiInstallation) UnmarshalJSON(data []byt
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesInstallStepsMsiInstallation *GuestPolicyRecipesInstallStepsMsiInstallation = &GuestPolicyRecipesInstallStepsMsiInstallation{empty: true}
 
+func (r *GuestPolicyRecipesInstallStepsMsiInstallation) Empty() bool {
+	return r.empty
+}
+
 func (r *GuestPolicyRecipesInstallStepsMsiInstallation) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1139,6 +1207,10 @@ func (r *GuestPolicyRecipesInstallStepsDpkgInstallation) UnmarshalJSON(data []by
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesInstallStepsDpkgInstallation *GuestPolicyRecipesInstallStepsDpkgInstallation = &GuestPolicyRecipesInstallStepsDpkgInstallation{empty: true}
 
+func (r *GuestPolicyRecipesInstallStepsDpkgInstallation) Empty() bool {
+	return r.empty
+}
+
 func (r *GuestPolicyRecipesInstallStepsDpkgInstallation) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1180,6 +1252,10 @@ func (r *GuestPolicyRecipesInstallStepsRpmInstallation) UnmarshalJSON(data []byt
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesInstallStepsRpmInstallation *GuestPolicyRecipesInstallStepsRpmInstallation = &GuestPolicyRecipesInstallStepsRpmInstallation{empty: true}
+
+func (r *GuestPolicyRecipesInstallStepsRpmInstallation) Empty() bool {
+	return r.empty
+}
 
 func (r *GuestPolicyRecipesInstallStepsRpmInstallation) String() string {
 	return dcl.SprintResource(r)
@@ -1232,6 +1308,10 @@ func (r *GuestPolicyRecipesInstallStepsFileExec) UnmarshalJSON(data []byte) erro
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesInstallStepsFileExec *GuestPolicyRecipesInstallStepsFileExec = &GuestPolicyRecipesInstallStepsFileExec{empty: true}
 
+func (r *GuestPolicyRecipesInstallStepsFileExec) Empty() bool {
+	return r.empty
+}
+
 func (r *GuestPolicyRecipesInstallStepsFileExec) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1279,6 +1359,10 @@ func (r *GuestPolicyRecipesInstallStepsScriptRun) UnmarshalJSON(data []byte) err
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesInstallStepsScriptRun *GuestPolicyRecipesInstallStepsScriptRun = &GuestPolicyRecipesInstallStepsScriptRun{empty: true}
+
+func (r *GuestPolicyRecipesInstallStepsScriptRun) Empty() bool {
+	return r.empty
+}
 
 func (r *GuestPolicyRecipesInstallStepsScriptRun) String() string {
 	return dcl.SprintResource(r)
@@ -1340,6 +1424,10 @@ func (r *GuestPolicyRecipesUpdateSteps) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesUpdateSteps *GuestPolicyRecipesUpdateSteps = &GuestPolicyRecipesUpdateSteps{empty: true}
 
+func (r *GuestPolicyRecipesUpdateSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *GuestPolicyRecipesUpdateSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1391,6 +1479,10 @@ func (r *GuestPolicyRecipesUpdateStepsFileCopy) UnmarshalJSON(data []byte) error
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesUpdateStepsFileCopy *GuestPolicyRecipesUpdateStepsFileCopy = &GuestPolicyRecipesUpdateStepsFileCopy{empty: true}
 
+func (r *GuestPolicyRecipesUpdateStepsFileCopy) Empty() bool {
+	return r.empty
+}
+
 func (r *GuestPolicyRecipesUpdateStepsFileCopy) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1438,6 +1530,10 @@ func (r *GuestPolicyRecipesUpdateStepsArchiveExtraction) UnmarshalJSON(data []by
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesUpdateStepsArchiveExtraction *GuestPolicyRecipesUpdateStepsArchiveExtraction = &GuestPolicyRecipesUpdateStepsArchiveExtraction{empty: true}
+
+func (r *GuestPolicyRecipesUpdateStepsArchiveExtraction) Empty() bool {
+	return r.empty
+}
 
 func (r *GuestPolicyRecipesUpdateStepsArchiveExtraction) String() string {
 	return dcl.SprintResource(r)
@@ -1487,6 +1583,10 @@ func (r *GuestPolicyRecipesUpdateStepsMsiInstallation) UnmarshalJSON(data []byte
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesUpdateStepsMsiInstallation *GuestPolicyRecipesUpdateStepsMsiInstallation = &GuestPolicyRecipesUpdateStepsMsiInstallation{empty: true}
 
+func (r *GuestPolicyRecipesUpdateStepsMsiInstallation) Empty() bool {
+	return r.empty
+}
+
 func (r *GuestPolicyRecipesUpdateStepsMsiInstallation) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1529,6 +1629,10 @@ func (r *GuestPolicyRecipesUpdateStepsDpkgInstallation) UnmarshalJSON(data []byt
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesUpdateStepsDpkgInstallation *GuestPolicyRecipesUpdateStepsDpkgInstallation = &GuestPolicyRecipesUpdateStepsDpkgInstallation{empty: true}
 
+func (r *GuestPolicyRecipesUpdateStepsDpkgInstallation) Empty() bool {
+	return r.empty
+}
+
 func (r *GuestPolicyRecipesUpdateStepsDpkgInstallation) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1570,6 +1674,10 @@ func (r *GuestPolicyRecipesUpdateStepsRpmInstallation) UnmarshalJSON(data []byte
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesUpdateStepsRpmInstallation *GuestPolicyRecipesUpdateStepsRpmInstallation = &GuestPolicyRecipesUpdateStepsRpmInstallation{empty: true}
+
+func (r *GuestPolicyRecipesUpdateStepsRpmInstallation) Empty() bool {
+	return r.empty
+}
 
 func (r *GuestPolicyRecipesUpdateStepsRpmInstallation) String() string {
 	return dcl.SprintResource(r)
@@ -1622,6 +1730,10 @@ func (r *GuestPolicyRecipesUpdateStepsFileExec) UnmarshalJSON(data []byte) error
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesUpdateStepsFileExec *GuestPolicyRecipesUpdateStepsFileExec = &GuestPolicyRecipesUpdateStepsFileExec{empty: true}
 
+func (r *GuestPolicyRecipesUpdateStepsFileExec) Empty() bool {
+	return r.empty
+}
+
 func (r *GuestPolicyRecipesUpdateStepsFileExec) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1669,6 +1781,10 @@ func (r *GuestPolicyRecipesUpdateStepsScriptRun) UnmarshalJSON(data []byte) erro
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyGuestPolicyRecipesUpdateStepsScriptRun *GuestPolicyRecipesUpdateStepsScriptRun = &GuestPolicyRecipesUpdateStepsScriptRun{empty: true}
+
+func (r *GuestPolicyRecipesUpdateStepsScriptRun) Empty() bool {
+	return r.empty
+}
 
 func (r *GuestPolicyRecipesUpdateStepsScriptRun) String() string {
 	return dcl.SprintResource(r)

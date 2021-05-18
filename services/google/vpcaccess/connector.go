@@ -104,6 +104,10 @@ func (r *ConnectorSubnet) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyConnectorSubnet *ConnectorSubnet = &ConnectorSubnet{empty: true}
 
+func (r *ConnectorSubnet) Empty() bool {
+	return r.empty
+}
+
 func (r *ConnectorSubnet) String() string {
 	return dcl.SprintResource(r)
 }

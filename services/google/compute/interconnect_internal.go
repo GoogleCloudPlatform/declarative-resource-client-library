@@ -1577,6 +1577,10 @@ func flattenInterconnectExpectedOutages(c *Client, i interface{}) *InterconnectE
 	}
 
 	r := &InterconnectExpectedOutages{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInterconnectExpectedOutages
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Description = dcl.FlattenString(m["description"])
 	r.Source = flattenInterconnectExpectedOutagesSourceEnum(m["source"])
@@ -1700,6 +1704,10 @@ func flattenInterconnectCircuitInfos(c *Client, i interface{}) *InterconnectCirc
 	}
 
 	r := &InterconnectCircuitInfos{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInterconnectCircuitInfos
+	}
 	r.GoogleCircuitId = dcl.FlattenString(m["googleCircuitId"])
 	r.GoogleDemarcId = dcl.FlattenString(m["googleDemarcId"])
 	r.CustomerDemarcId = dcl.FlattenString(m["customerDemarcId"])

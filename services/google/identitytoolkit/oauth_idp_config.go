@@ -75,6 +75,10 @@ func (r *OAuthIdpConfigResponseType) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyOAuthIdpConfigResponseType *OAuthIdpConfigResponseType = &OAuthIdpConfigResponseType{empty: true}
 
+func (r *OAuthIdpConfigResponseType) Empty() bool {
+	return r.empty
+}
+
 func (r *OAuthIdpConfigResponseType) String() string {
 	return dcl.SprintResource(r)
 }

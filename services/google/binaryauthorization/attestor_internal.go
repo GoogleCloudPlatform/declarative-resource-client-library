@@ -1180,6 +1180,10 @@ func flattenAttestorUserOwnedGrafeasNote(c *Client, i interface{}) *AttestorUser
 	}
 
 	r := &AttestorUserOwnedGrafeasNote{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAttestorUserOwnedGrafeasNote
+	}
 	r.NoteReference = dcl.FlattenString(m["noteReference"])
 	r.PublicKeys = flattenAttestorUserOwnedGrafeasNotePublicKeysSlice(c, m["publicKeys"])
 	r.DelegationServiceAccountEmail = dcl.FlattenString(m["delegationServiceAccountEmail"])
@@ -1303,6 +1307,10 @@ func flattenAttestorUserOwnedGrafeasNotePublicKeys(c *Client, i interface{}) *At
 	}
 
 	r := &AttestorUserOwnedGrafeasNotePublicKeys{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAttestorUserOwnedGrafeasNotePublicKeys
+	}
 	r.Comment = dcl.FlattenString(m["comment"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.AsciiArmoredPgpPublicKey = dcl.FlattenString(m["asciiArmoredPgpPublicKey"])
@@ -1419,6 +1427,10 @@ func flattenAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c *Client, i int
 	}
 
 	r := &AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey
+	}
 	r.PublicKeyPem = dcl.FlattenString(m["publicKeyPem"])
 	r.SignatureAlgorithm = flattenAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(m["signatureAlgorithm"])
 

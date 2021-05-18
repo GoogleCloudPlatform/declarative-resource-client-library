@@ -111,6 +111,10 @@ func (r *RouteWarning) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyRouteWarning *RouteWarning = &RouteWarning{empty: true}
 
+func (r *RouteWarning) Empty() bool {
+	return r.empty
+}
+
 func (r *RouteWarning) String() string {
 	return dcl.SprintResource(r)
 }

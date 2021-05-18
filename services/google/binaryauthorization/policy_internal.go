@@ -1057,6 +1057,10 @@ func flattenPolicyAdmissionWhitelistPatterns(c *Client, i interface{}) *PolicyAd
 	}
 
 	r := &PolicyAdmissionWhitelistPatterns{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyPolicyAdmissionWhitelistPatterns
+	}
 	r.NamePattern = dcl.FlattenString(m["namePattern"])
 
 	return r
@@ -1173,6 +1177,10 @@ func flattenPolicyClusterAdmissionRules(c *Client, i interface{}) *PolicyCluster
 	}
 
 	r := &PolicyClusterAdmissionRules{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyPolicyClusterAdmissionRules
+	}
 	r.EvaluationMode = flattenPolicyClusterAdmissionRulesEvaluationModeEnum(m["evaluationMode"])
 	r.RequireAttestationsBy = dcl.FlattenStringSlice(m["requireAttestationsBy"])
 	r.EnforcementMode = flattenPolicyClusterAdmissionRulesEnforcementModeEnum(m["enforcementMode"])
@@ -1291,6 +1299,10 @@ func flattenPolicyDefaultAdmissionRule(c *Client, i interface{}) *PolicyDefaultA
 	}
 
 	r := &PolicyDefaultAdmissionRule{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyPolicyDefaultAdmissionRule
+	}
 	r.EvaluationMode = flattenPolicyDefaultAdmissionRuleEvaluationModeEnum(m["evaluationMode"])
 	r.RequireAttestationsBy = dcl.FlattenStringSlice(m["requireAttestationsBy"])
 	r.EnforcementMode = flattenPolicyDefaultAdmissionRuleEnforcementModeEnum(m["enforcementMode"])

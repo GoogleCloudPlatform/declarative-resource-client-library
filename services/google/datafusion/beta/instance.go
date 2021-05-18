@@ -143,6 +143,10 @@ func (r *InstanceNetworkConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNetworkConfig *InstanceNetworkConfig = &InstanceNetworkConfig{empty: true}
 
+func (r *InstanceNetworkConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceNetworkConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -190,6 +194,10 @@ func (r *InstanceAvailableVersion) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceAvailableVersion *InstanceAvailableVersion = &InstanceAvailableVersion{empty: true}
+
+func (r *InstanceAvailableVersion) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceAvailableVersion) String() string {
 	return dcl.SprintResource(r)

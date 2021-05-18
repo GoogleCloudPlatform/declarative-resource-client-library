@@ -151,6 +151,10 @@ func (r *IndexProperties) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyIndexProperties *IndexProperties = &IndexProperties{empty: true}
 
+func (r *IndexProperties) Empty() bool {
+	return r.empty
+}
+
 func (r *IndexProperties) String() string {
 	return dcl.SprintResource(r)
 }

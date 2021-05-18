@@ -1832,6 +1832,10 @@ func flattenNodeCreateTime(c *Client, i interface{}) *NodeCreateTime {
 	}
 
 	r := &NodeCreateTime{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNodeCreateTime
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -1946,6 +1950,10 @@ func flattenNodeSchedulingConfig(c *Client, i interface{}) *NodeSchedulingConfig
 	}
 
 	r := &NodeSchedulingConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNodeSchedulingConfig
+	}
 	r.Preemptible = dcl.FlattenBool(m["preemptible"])
 	r.Reserved = dcl.FlattenBool(m["reserved"])
 
@@ -2060,6 +2068,10 @@ func flattenNodeNetworkEndpoints(c *Client, i interface{}) *NodeNetworkEndpoints
 	}
 
 	r := &NodeNetworkEndpoints{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNodeNetworkEndpoints
+	}
 	r.IPAddress = dcl.FlattenString(m["ipAddress"])
 	r.Port = dcl.FlattenInteger(m["port"])
 
@@ -2182,6 +2194,10 @@ func flattenNodeSymptoms(c *Client, i interface{}) *NodeSymptoms {
 	}
 
 	r := &NodeSymptoms{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNodeSymptoms
+	}
 	r.CreateTime = flattenNodeSymptomsCreateTime(c, m["createTime"])
 	r.SymptomType = flattenNodeSymptomsSymptomTypeEnum(m["symptomType"])
 	r.Details = dcl.FlattenString(m["details"])
@@ -2298,6 +2314,10 @@ func flattenNodeSymptomsCreateTime(c *Client, i interface{}) *NodeSymptomsCreate
 	}
 
 	r := &NodeSymptomsCreateTime{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNodeSymptomsCreateTime
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 

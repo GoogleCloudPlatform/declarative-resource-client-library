@@ -1828,6 +1828,10 @@ func flattenTriggerEventFilters(c *Client, i interface{}) *TriggerEventFilters {
 	}
 
 	r := &TriggerEventFilters{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTriggerEventFilters
+	}
 	r.Attribute = dcl.FlattenString(m["attribute"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -1949,6 +1953,10 @@ func flattenTriggerDestination(c *Client, i interface{}) *TriggerDestination {
 	}
 
 	r := &TriggerDestination{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTriggerDestination
+	}
 	r.CloudRun = flattenTriggerDestinationCloudRun(c, m["cloudRun"])
 	r.CloudFunction = dcl.FlattenString(m["cloudFunction"])
 	r.Gke = flattenTriggerDestinationGke(c, m["gke"])
@@ -2067,6 +2075,10 @@ func flattenTriggerDestinationCloudRun(c *Client, i interface{}) *TriggerDestina
 	}
 
 	r := &TriggerDestinationCloudRun{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTriggerDestinationCloudRun
+	}
 	r.Service = dcl.FlattenString(m["service"])
 	r.Path = dcl.FlattenString(m["path"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -2191,6 +2203,10 @@ func flattenTriggerDestinationGke(c *Client, i interface{}) *TriggerDestinationG
 	}
 
 	r := &TriggerDestinationGke{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTriggerDestinationGke
+	}
 	r.Cluster = dcl.FlattenString(m["cluster"])
 	r.Location = dcl.FlattenString(m["location"])
 	r.Namespace = dcl.FlattenString(m["namespace"])
@@ -2307,6 +2323,10 @@ func flattenTriggerTransport(c *Client, i interface{}) *TriggerTransport {
 	}
 
 	r := &TriggerTransport{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTriggerTransport
+	}
 	r.Pubsub = flattenTriggerTransportPubsub(c, m["pubsub"])
 
 	return r
@@ -2420,6 +2440,10 @@ func flattenTriggerTransportPubsub(c *Client, i interface{}) *TriggerTransportPu
 	}
 
 	r := &TriggerTransportPubsub{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTriggerTransportPubsub
+	}
 	r.Topic = dcl.FlattenString(m["topic"])
 	r.Subscription = dcl.FlattenString(m["subscription"])
 

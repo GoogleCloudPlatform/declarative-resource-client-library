@@ -4836,6 +4836,10 @@ func flattenWorkflowTemplatePlacement(c *Client, i interface{}) *WorkflowTemplat
 	}
 
 	r := &WorkflowTemplatePlacement{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplatePlacement
+	}
 	r.ManagedCluster = flattenWorkflowTemplatePlacementManagedCluster(c, m["managedCluster"])
 	r.ClusterSelector = flattenWorkflowTemplatePlacementClusterSelector(c, m["clusterSelector"])
 
@@ -4955,6 +4959,10 @@ func flattenWorkflowTemplatePlacementManagedCluster(c *Client, i interface{}) *W
 	}
 
 	r := &WorkflowTemplatePlacementManagedCluster{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplatePlacementManagedCluster
+	}
 	r.ClusterName = dcl.FlattenString(m["clusterName"])
 	r.Config = flattenClusterClusterConfig(c, m["config"])
 	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
@@ -5070,6 +5078,10 @@ func flattenWorkflowTemplatePlacementClusterSelector(c *Client, i interface{}) *
 	}
 
 	r := &WorkflowTemplatePlacementClusterSelector{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplatePlacementClusterSelector
+	}
 	r.Zone = dcl.FlattenString(m["zone"])
 	r.ClusterLabels = dcl.FlattenKeyValuePairs(m["clusterLabels"])
 
@@ -5232,6 +5244,10 @@ func flattenWorkflowTemplateJobs(c *Client, i interface{}) *WorkflowTemplateJobs
 	}
 
 	r := &WorkflowTemplateJobs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobs
+	}
 	r.StepId = dcl.FlattenString(m["stepId"])
 	r.HadoopJob = flattenWorkflowTemplateJobsHadoopJob(c, m["hadoopJob"])
 	r.SparkJob = flattenWorkflowTemplateJobsSparkJob(c, m["sparkJob"])
@@ -5376,6 +5392,10 @@ func flattenWorkflowTemplateJobsHadoopJob(c *Client, i interface{}) *WorkflowTem
 	}
 
 	r := &WorkflowTemplateJobsHadoopJob{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobsHadoopJob
+	}
 	r.MainJarFileUri = dcl.FlattenString(m["mainJarFileUri"])
 	r.MainClass = dcl.FlattenString(m["mainClass"])
 	r.Args = dcl.FlattenStringSlice(m["args"])
@@ -5493,6 +5513,10 @@ func flattenWorkflowTemplateJobsHadoopJobLoggingConfig(c *Client, i interface{})
 	}
 
 	r := &WorkflowTemplateJobsHadoopJobLoggingConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobsHadoopJobLoggingConfig
+	}
 	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
@@ -5626,6 +5650,10 @@ func flattenWorkflowTemplateJobsSparkJob(c *Client, i interface{}) *WorkflowTemp
 	}
 
 	r := &WorkflowTemplateJobsSparkJob{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobsSparkJob
+	}
 	r.MainJarFileUri = dcl.FlattenString(m["mainJarFileUri"])
 	r.MainClass = dcl.FlattenString(m["mainClass"])
 	r.Args = dcl.FlattenStringSlice(m["args"])
@@ -5743,6 +5771,10 @@ func flattenWorkflowTemplateJobsSparkJobLoggingConfig(c *Client, i interface{}) 
 	}
 
 	r := &WorkflowTemplateJobsSparkJobLoggingConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobsSparkJobLoggingConfig
+	}
 	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
@@ -5876,6 +5908,10 @@ func flattenWorkflowTemplateJobsPysparkJob(c *Client, i interface{}) *WorkflowTe
 	}
 
 	r := &WorkflowTemplateJobsPysparkJob{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobsPysparkJob
+	}
 	r.MainPythonFileUri = dcl.FlattenString(m["mainPythonFileUri"])
 	r.Args = dcl.FlattenStringSlice(m["args"])
 	r.PythonFileUris = dcl.FlattenStringSlice(m["pythonFileUris"])
@@ -5993,6 +6029,10 @@ func flattenWorkflowTemplateJobsPysparkJobLoggingConfig(c *Client, i interface{}
 	}
 
 	r := &WorkflowTemplateJobsPysparkJobLoggingConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobsPysparkJobLoggingConfig
+	}
 	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
@@ -6120,6 +6160,10 @@ func flattenWorkflowTemplateJobsHiveJob(c *Client, i interface{}) *WorkflowTempl
 	}
 
 	r := &WorkflowTemplateJobsHiveJob{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobsHiveJob
+	}
 	r.QueryFileUri = dcl.FlattenString(m["queryFileUri"])
 	r.QueryList = flattenWorkflowTemplateJobsHiveJobQueryList(c, m["queryList"])
 	r.ContinueOnFailure = dcl.FlattenBool(m["continueOnFailure"])
@@ -6235,6 +6279,10 @@ func flattenWorkflowTemplateJobsHiveJobQueryList(c *Client, i interface{}) *Work
 	}
 
 	r := &WorkflowTemplateJobsHiveJobQueryList{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobsHiveJobQueryList
+	}
 	r.Queries = dcl.FlattenStringSlice(m["queries"])
 
 	return r
@@ -6367,6 +6415,10 @@ func flattenWorkflowTemplateJobsPigJob(c *Client, i interface{}) *WorkflowTempla
 	}
 
 	r := &WorkflowTemplateJobsPigJob{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobsPigJob
+	}
 	r.QueryFileUri = dcl.FlattenString(m["queryFileUri"])
 	r.QueryList = flattenWorkflowTemplateJobsPigJobQueryList(c, m["queryList"])
 	r.ContinueOnFailure = dcl.FlattenBool(m["continueOnFailure"])
@@ -6483,6 +6535,10 @@ func flattenWorkflowTemplateJobsPigJobQueryList(c *Client, i interface{}) *Workf
 	}
 
 	r := &WorkflowTemplateJobsPigJobQueryList{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobsPigJobQueryList
+	}
 	r.Queries = dcl.FlattenStringSlice(m["queries"])
 
 	return r
@@ -6593,6 +6649,10 @@ func flattenWorkflowTemplateJobsPigJobLoggingConfig(c *Client, i interface{}) *W
 	}
 
 	r := &WorkflowTemplateJobsPigJobLoggingConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobsPigJobLoggingConfig
+	}
 	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
@@ -6720,6 +6780,10 @@ func flattenWorkflowTemplateJobsSparkRJob(c *Client, i interface{}) *WorkflowTem
 	}
 
 	r := &WorkflowTemplateJobsSparkRJob{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobsSparkRJob
+	}
 	r.MainRFileUri = dcl.FlattenString(m["mainRFileUri"])
 	r.Args = dcl.FlattenStringSlice(m["args"])
 	r.FileUris = dcl.FlattenStringSlice(m["fileUris"])
@@ -6835,6 +6899,10 @@ func flattenWorkflowTemplateJobsSparkRJobLoggingConfig(c *Client, i interface{})
 	}
 
 	r := &WorkflowTemplateJobsSparkRJobLoggingConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobsSparkRJobLoggingConfig
+	}
 	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
@@ -6964,6 +7032,10 @@ func flattenWorkflowTemplateJobsSparkSqlJob(c *Client, i interface{}) *WorkflowT
 	}
 
 	r := &WorkflowTemplateJobsSparkSqlJob{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobsSparkSqlJob
+	}
 	r.QueryFileUri = dcl.FlattenString(m["queryFileUri"])
 	r.QueryList = flattenWorkflowTemplateJobsSparkSqlJobQueryList(c, m["queryList"])
 	r.ScriptVariables = dcl.FlattenKeyValuePairs(m["scriptVariables"])
@@ -7079,6 +7151,10 @@ func flattenWorkflowTemplateJobsSparkSqlJobQueryList(c *Client, i interface{}) *
 	}
 
 	r := &WorkflowTemplateJobsSparkSqlJobQueryList{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobsSparkSqlJobQueryList
+	}
 	r.Queries = dcl.FlattenStringSlice(m["queries"])
 
 	return r
@@ -7189,6 +7265,10 @@ func flattenWorkflowTemplateJobsSparkSqlJobLoggingConfig(c *Client, i interface{
 	}
 
 	r := &WorkflowTemplateJobsSparkSqlJobLoggingConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobsSparkSqlJobLoggingConfig
+	}
 	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
@@ -7321,6 +7401,10 @@ func flattenWorkflowTemplateJobsPrestoJob(c *Client, i interface{}) *WorkflowTem
 	}
 
 	r := &WorkflowTemplateJobsPrestoJob{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobsPrestoJob
+	}
 	r.QueryFileUri = dcl.FlattenString(m["queryFileUri"])
 	r.QueryList = flattenWorkflowTemplateJobsPrestoJobQueryList(c, m["queryList"])
 	r.ContinueOnFailure = dcl.FlattenBool(m["continueOnFailure"])
@@ -7437,6 +7521,10 @@ func flattenWorkflowTemplateJobsPrestoJobQueryList(c *Client, i interface{}) *Wo
 	}
 
 	r := &WorkflowTemplateJobsPrestoJobQueryList{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobsPrestoJobQueryList
+	}
 	r.Queries = dcl.FlattenStringSlice(m["queries"])
 
 	return r
@@ -7547,6 +7635,10 @@ func flattenWorkflowTemplateJobsPrestoJobLoggingConfig(c *Client, i interface{})
 	}
 
 	r := &WorkflowTemplateJobsPrestoJobLoggingConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobsPrestoJobLoggingConfig
+	}
 	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
@@ -7660,6 +7752,10 @@ func flattenWorkflowTemplateJobsScheduling(c *Client, i interface{}) *WorkflowTe
 	}
 
 	r := &WorkflowTemplateJobsScheduling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateJobsScheduling
+	}
 	r.MaxFailuresPerHour = dcl.FlattenInteger(m["maxFailuresPerHour"])
 	r.MaxFailuresTotal = dcl.FlattenInteger(m["maxFailuresTotal"])
 
@@ -7782,6 +7878,10 @@ func flattenWorkflowTemplateParameters(c *Client, i interface{}) *WorkflowTempla
 	}
 
 	r := &WorkflowTemplateParameters{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateParameters
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Fields = dcl.FlattenStringSlice(m["fields"])
 	r.Description = dcl.FlattenString(m["description"])
@@ -7902,6 +8002,10 @@ func flattenWorkflowTemplateParametersValidation(c *Client, i interface{}) *Work
 	}
 
 	r := &WorkflowTemplateParametersValidation{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateParametersValidation
+	}
 	r.Regex = flattenWorkflowTemplateParametersValidationRegex(c, m["regex"])
 	r.Values = flattenWorkflowTemplateParametersValidationValues(c, m["values"])
 
@@ -8013,6 +8117,10 @@ func flattenWorkflowTemplateParametersValidationRegex(c *Client, i interface{}) 
 	}
 
 	r := &WorkflowTemplateParametersValidationRegex{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateParametersValidationRegex
+	}
 	r.Regexes = dcl.FlattenStringSlice(m["regexes"])
 
 	return r
@@ -8123,6 +8231,10 @@ func flattenWorkflowTemplateParametersValidationValues(c *Client, i interface{})
 	}
 
 	r := &WorkflowTemplateParametersValidationValues{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateParametersValidationValues
+	}
 	r.Values = dcl.FlattenStringSlice(m["values"])
 
 	return r

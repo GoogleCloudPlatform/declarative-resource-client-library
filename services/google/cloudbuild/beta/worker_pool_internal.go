@@ -1156,6 +1156,10 @@ func flattenWorkerPoolWorkerConfig(c *Client, i interface{}) *WorkerPoolWorkerCo
 	}
 
 	r := &WorkerPoolWorkerConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkerPoolWorkerConfig
+	}
 	r.MachineType = dcl.FlattenString(m["machineType"])
 	r.DiskSizeGb = dcl.FlattenInteger(m["diskSizeGb"])
 	r.NoExternalIP = dcl.FlattenBool(m["noExternalIp"])
@@ -1268,6 +1272,10 @@ func flattenWorkerPoolNetworkConfig(c *Client, i interface{}) *WorkerPoolNetwork
 	}
 
 	r := &WorkerPoolNetworkConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkerPoolNetworkConfig
+	}
 	r.PeeredNetwork = dcl.FlattenString(m["peeredNetwork"])
 
 	return r

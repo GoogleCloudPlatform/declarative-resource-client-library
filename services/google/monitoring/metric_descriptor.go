@@ -214,6 +214,10 @@ func (r *MetricDescriptorDescriptorLabels) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyMetricDescriptorDescriptorLabels *MetricDescriptorDescriptorLabels = &MetricDescriptorDescriptorLabels{empty: true}
 
+func (r *MetricDescriptorDescriptorLabels) Empty() bool {
+	return r.empty
+}
+
 func (r *MetricDescriptorDescriptorLabels) String() string {
 	return dcl.SprintResource(r)
 }
@@ -261,6 +265,10 @@ func (r *MetricDescriptorMetadata) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyMetricDescriptorMetadata *MetricDescriptorMetadata = &MetricDescriptorMetadata{empty: true}
+
+func (r *MetricDescriptorMetadata) Empty() bool {
+	return r.empty
+}
 
 func (r *MetricDescriptorMetadata) String() string {
 	return dcl.SprintResource(r)

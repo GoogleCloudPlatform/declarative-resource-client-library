@@ -1132,6 +1132,10 @@ func flattenServiceAccountActasResources(c *Client, i interface{}) *ServiceAccou
 	}
 
 	r := &ServiceAccountActasResources{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceAccountActasResources
+	}
 	r.Resources = flattenServiceAccountActasResourcesResourcesSlice(c, m["resources"])
 
 	return r
@@ -1242,6 +1246,10 @@ func flattenServiceAccountActasResourcesResources(c *Client, i interface{}) *Ser
 	}
 
 	r := &ServiceAccountActasResourcesResources{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceAccountActasResourcesResources
+	}
 	r.FullResourceName = dcl.FlattenString(m["fullResourceName"])
 
 	return r

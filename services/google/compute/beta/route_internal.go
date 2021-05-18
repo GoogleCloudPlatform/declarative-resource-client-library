@@ -1200,6 +1200,10 @@ func flattenRouteWarning(c *Client, i interface{}) *RouteWarning {
 	}
 
 	r := &RouteWarning{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyRouteWarning
+	}
 	r.Code = flattenRouteWarningCodeEnum(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Data = dcl.FlattenKeyValuePairs(m["data"])

@@ -1691,6 +1691,10 @@ func (r *DashboardGridLayout) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardGridLayout *DashboardGridLayout = &DashboardGridLayout{empty: true}
 
+func (r *DashboardGridLayout) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardGridLayout) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1735,6 +1739,10 @@ func (r *DashboardMosaicLayout) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardMosaicLayout *DashboardMosaicLayout = &DashboardMosaicLayout{empty: true}
+
+func (r *DashboardMosaicLayout) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardMosaicLayout) String() string {
 	return dcl.SprintResource(r)
@@ -1790,6 +1798,10 @@ func (r *DashboardMosaicLayoutTiles) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardMosaicLayoutTiles *DashboardMosaicLayoutTiles = &DashboardMosaicLayoutTiles{empty: true}
 
+func (r *DashboardMosaicLayoutTiles) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardMosaicLayoutTiles) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1831,6 +1843,10 @@ func (r *DashboardRowLayout) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardRowLayout *DashboardRowLayout = &DashboardRowLayout{empty: true}
+
+func (r *DashboardRowLayout) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardRowLayout) String() string {
 	return dcl.SprintResource(r)
@@ -1877,6 +1893,10 @@ func (r *DashboardRowLayoutRows) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardRowLayoutRows *DashboardRowLayoutRows = &DashboardRowLayoutRows{empty: true}
 
+func (r *DashboardRowLayoutRows) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardRowLayoutRows) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1918,6 +1938,10 @@ func (r *DashboardColumnLayout) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardColumnLayout *DashboardColumnLayout = &DashboardColumnLayout{empty: true}
+
+func (r *DashboardColumnLayout) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardColumnLayout) String() string {
 	return dcl.SprintResource(r)
@@ -1963,6 +1987,10 @@ func (r *DashboardColumnLayoutColumns) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardColumnLayoutColumns *DashboardColumnLayoutColumns = &DashboardColumnLayoutColumns{empty: true}
+
+func (r *DashboardColumnLayoutColumns) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardColumnLayoutColumns) String() string {
 	return dcl.SprintResource(r)
@@ -2017,6 +2045,10 @@ func (r *DashboardWidget) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidget *DashboardWidget = &DashboardWidget{empty: true}
+
+func (r *DashboardWidget) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidget) String() string {
 	return dcl.SprintResource(r)
@@ -2081,6 +2113,10 @@ func (r *DashboardWidgetXyChart) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChart *DashboardWidgetXyChart = &DashboardWidgetXyChart{empty: true}
 
+func (r *DashboardWidgetXyChart) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChart) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2131,6 +2167,10 @@ func (r *DashboardWidgetXyChartDataSets) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSets *DashboardWidgetXyChartDataSets = &DashboardWidgetXyChartDataSets{empty: true}
+
+func (r *DashboardWidgetXyChartDataSets) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSets) String() string {
 	return dcl.SprintResource(r)
@@ -2186,6 +2226,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQuery) UnmarshalJSON(data []byt
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQuery *DashboardWidgetXyChartDataSetsTimeSeriesQuery = &DashboardWidgetXyChartDataSetsTimeSeriesQuery{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQuery) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQuery) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2236,6 +2280,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) Unmarsha
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) String() string {
 	return dcl.SprintResource(r)
@@ -2294,6 +2342,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregatio
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2335,6 +2387,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregatio
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams) String() string {
 	return dcl.SprintResource(r)
@@ -2380,6 +2436,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregatio
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams) String() string {
 	return dcl.SprintResource(r)
@@ -2429,6 +2489,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregatio
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2476,6 +2540,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregatio
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) String() string {
 	return dcl.SprintResource(r)
@@ -2525,6 +2593,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregatio
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2567,6 +2639,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregatio
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2608,6 +2684,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregatio
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling) String() string {
 	return dcl.SprintResource(r)
@@ -2666,6 +2746,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryA
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2707,6 +2791,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryA
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams) String() string {
 	return dcl.SprintResource(r)
@@ -2752,6 +2840,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryA
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams) String() string {
 	return dcl.SprintResource(r)
@@ -2801,6 +2893,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryA
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2848,6 +2944,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryA
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) String() string {
 	return dcl.SprintResource(r)
@@ -2897,6 +2997,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryA
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2939,6 +3043,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryA
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2980,6 +3088,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryA
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) String() string {
 	return dcl.SprintResource(r)
@@ -3028,6 +3140,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSe
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) String() string {
 	return dcl.SprintResource(r)
@@ -3080,6 +3196,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) Unm
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3124,6 +3244,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) String() string {
 	return dcl.SprintResource(r)
@@ -3182,6 +3306,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3223,6 +3351,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams) String() string {
 	return dcl.SprintResource(r)
@@ -3268,6 +3400,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams) String() string {
 	return dcl.SprintResource(r)
@@ -3317,6 +3453,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3364,6 +3504,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) String() string {
 	return dcl.SprintResource(r)
@@ -3413,6 +3557,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3455,6 +3603,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3496,6 +3648,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling) String() string {
 	return dcl.SprintResource(r)
@@ -3541,6 +3697,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) String() string {
 	return dcl.SprintResource(r)
@@ -3599,6 +3759,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3640,6 +3804,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams) String() string {
 	return dcl.SprintResource(r)
@@ -3685,6 +3853,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams) String() string {
 	return dcl.SprintResource(r)
@@ -3734,6 +3906,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3781,6 +3957,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) String() string {
 	return dcl.SprintResource(r)
@@ -3830,6 +4010,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3872,6 +4056,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3913,6 +4101,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling) String() string {
 	return dcl.SprintResource(r)
@@ -3971,6 +4163,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecon
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4012,6 +4208,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecon
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams) String() string {
 	return dcl.SprintResource(r)
@@ -4057,6 +4257,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecon
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams) String() string {
 	return dcl.SprintResource(r)
@@ -4106,6 +4310,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecon
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4153,6 +4361,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecon
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) String() string {
 	return dcl.SprintResource(r)
@@ -4202,6 +4414,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecon
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4244,6 +4460,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecon
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets{empty: true}
 
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4285,6 +4505,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecon
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) String() string {
 	return dcl.SprintResource(r)
@@ -4333,6 +4557,10 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickT
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{empty: true}
+
+func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) String() string {
 	return dcl.SprintResource(r)
@@ -4394,6 +4622,10 @@ func (r *DashboardWidgetXyChartSourceDrilldown) UnmarshalJSON(data []byte) error
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartSourceDrilldown *DashboardWidgetXyChartSourceDrilldown = &DashboardWidgetXyChartSourceDrilldown{empty: true}
 
+func (r *DashboardWidgetXyChartSourceDrilldown) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartSourceDrilldown) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4435,6 +4667,10 @@ func (r *DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown) UnmarshalJS
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown *DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown = &DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown{empty: true}
+
+func (r *DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown) String() string {
 	return dcl.SprintResource(r)
@@ -4484,6 +4720,10 @@ func (r *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns) Unmarshal
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns = &DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns{empty: true}
 
+func (r *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4528,6 +4768,10 @@ func (r *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestri
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions = &DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions{empty: true}
+
+func (r *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions) String() string {
 	return dcl.SprintResource(r)
@@ -4577,6 +4821,10 @@ func (r *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns) Unm
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns = &DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns{empty: true}
 
+func (r *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4621,6 +4869,10 @@ func (r *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValue
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions = &DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions{empty: true}
+
+func (r *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions) String() string {
 	return dcl.SprintResource(r)
@@ -4670,6 +4922,10 @@ func (r *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns) Unmar
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns = &DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns{empty: true}
 
+func (r *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4715,6 +4971,10 @@ func (r *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRe
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions = &DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions{empty: true}
 
+func (r *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4756,6 +5016,10 @@ func (r *DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown) UnmarshalJSON(
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown *DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown = &DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown{empty: true}
+
+func (r *DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown) String() string {
 	return dcl.SprintResource(r)
@@ -4799,6 +5063,10 @@ func (r *DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown) UnmarshalJSO
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown *DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown = &DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown{empty: true}
 
+func (r *DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4840,6 +5108,10 @@ func (r *DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown) UnmarshalJSO
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown *DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown = &DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown{empty: true}
+
+func (r *DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown) String() string {
 	return dcl.SprintResource(r)
@@ -4889,6 +5161,10 @@ func (r *DashboardWidgetXyChartMetricDrilldown) UnmarshalJSON(data []byte) error
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartMetricDrilldown *DashboardWidgetXyChartMetricDrilldown = &DashboardWidgetXyChartMetricDrilldown{empty: true}
 
+func (r *DashboardWidgetXyChartMetricDrilldown) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartMetricDrilldown) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4930,6 +5206,10 @@ func (r *DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown) UnmarshalJSON
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown *DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown = &DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown{empty: true}
+
+func (r *DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown) String() string {
 	return dcl.SprintResource(r)
@@ -4979,6 +5259,10 @@ func (r *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns) UnmarshalJS
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns = &DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns{empty: true}
 
+func (r *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5023,6 +5307,10 @@ func (r *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrict
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions = &DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions{empty: true}
+
+func (r *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions) String() string {
 	return dcl.SprintResource(r)
@@ -5078,6 +5366,10 @@ func (r *DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown) UnmarshalJ
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown *DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown = &DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown{empty: true}
 
+func (r *DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5129,6 +5421,10 @@ func (r *DashboardWidgetXyChartThresholds) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartThresholds *DashboardWidgetXyChartThresholds = &DashboardWidgetXyChartThresholds{empty: true}
 
+func (r *DashboardWidgetXyChartThresholds) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartThresholds) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5173,6 +5469,10 @@ func (r *DashboardWidgetXyChartXAxis) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartXAxis *DashboardWidgetXyChartXAxis = &DashboardWidgetXyChartXAxis{empty: true}
+
+func (r *DashboardWidgetXyChartXAxis) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartXAxis) String() string {
 	return dcl.SprintResource(r)
@@ -5219,6 +5519,10 @@ func (r *DashboardWidgetXyChartYAxis) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartYAxis *DashboardWidgetXyChartYAxis = &DashboardWidgetXyChartYAxis{empty: true}
 
+func (r *DashboardWidgetXyChartYAxis) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetXyChartYAxis) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5263,6 +5567,10 @@ func (r *DashboardWidgetXyChartChartOptions) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetXyChartChartOptions *DashboardWidgetXyChartChartOptions = &DashboardWidgetXyChartChartOptions{empty: true}
+
+func (r *DashboardWidgetXyChartChartOptions) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetXyChartChartOptions) String() string {
 	return dcl.SprintResource(r)
@@ -5321,6 +5629,10 @@ func (r *DashboardWidgetScorecard) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecard *DashboardWidgetScorecard = &DashboardWidgetScorecard{empty: true}
 
+func (r *DashboardWidgetScorecard) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecard) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5375,6 +5687,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQuery) UnmarshalJSON(data []byte) err
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQuery *DashboardWidgetScorecardTimeSeriesQuery = &DashboardWidgetScorecardTimeSeriesQuery{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQuery) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQuery) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5425,6 +5741,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) UnmarshalJSON(
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) String() string {
 	return dcl.SprintResource(r)
@@ -5483,6 +5803,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) Unm
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5524,6 +5848,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduc
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams) String() string {
 	return dcl.SprintResource(r)
@@ -5569,6 +5897,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduc
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams) String() string {
 	return dcl.SprintResource(r)
@@ -5618,6 +5950,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduc
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5665,6 +6001,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduc
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) String() string {
 	return dcl.SprintResource(r)
@@ -5714,6 +6054,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduc
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5756,6 +6100,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduc
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5797,6 +6145,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduc
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling) String() string {
 	return dcl.SprintResource(r)
@@ -5855,6 +6207,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggrega
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5896,6 +6252,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggrega
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams) String() string {
 	return dcl.SprintResource(r)
@@ -5941,6 +6301,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggrega
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams) String() string {
 	return dcl.SprintResource(r)
@@ -5990,6 +6354,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggrega
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6037,6 +6405,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggrega
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) String() string {
 	return dcl.SprintResource(r)
@@ -6086,6 +6458,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggrega
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6128,6 +6504,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggrega
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6169,6 +6549,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggrega
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) String() string {
 	return dcl.SprintResource(r)
@@ -6217,6 +6601,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFi
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) String() string {
 	return dcl.SprintResource(r)
@@ -6269,6 +6657,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) Unmarshal
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6313,6 +6705,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) String() string {
 	return dcl.SprintResource(r)
@@ -6371,6 +6767,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAg
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6412,6 +6812,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAg
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams) String() string {
 	return dcl.SprintResource(r)
@@ -6457,6 +6861,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAg
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams) String() string {
 	return dcl.SprintResource(r)
@@ -6506,6 +6914,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAg
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6553,6 +6965,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAg
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) String() string {
 	return dcl.SprintResource(r)
@@ -6602,6 +7018,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAg
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6644,6 +7064,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAg
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6685,6 +7109,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAg
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling) String() string {
 	return dcl.SprintResource(r)
@@ -6730,6 +7158,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) String() string {
 	return dcl.SprintResource(r)
@@ -6788,6 +7220,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6829,6 +7265,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams) String() string {
 	return dcl.SprintResource(r)
@@ -6874,6 +7314,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams) String() string {
 	return dcl.SprintResource(r)
@@ -6923,6 +7367,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6970,6 +7418,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) String() string {
 	return dcl.SprintResource(r)
@@ -7019,6 +7471,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7061,6 +7517,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7102,6 +7562,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling) String() string {
 	return dcl.SprintResource(r)
@@ -7160,6 +7624,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAg
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7201,6 +7669,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAg
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams) String() string {
 	return dcl.SprintResource(r)
@@ -7246,6 +7718,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAg
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams) String() string {
 	return dcl.SprintResource(r)
@@ -7295,6 +7771,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAg
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7342,6 +7822,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAg
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets) String() string {
 	return dcl.SprintResource(r)
@@ -7391,6 +7875,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAg
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7433,6 +7921,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAg
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets{empty: true}
 
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7474,6 +7966,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAg
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling) String() string {
 	return dcl.SprintResource(r)
@@ -7522,6 +8018,10 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSer
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{empty: true}
+
+func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) String() string {
 	return dcl.SprintResource(r)
@@ -7583,6 +8083,10 @@ func (r *DashboardWidgetScorecardSourceDrilldown) UnmarshalJSON(data []byte) err
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardSourceDrilldown *DashboardWidgetScorecardSourceDrilldown = &DashboardWidgetScorecardSourceDrilldown{empty: true}
 
+func (r *DashboardWidgetScorecardSourceDrilldown) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardSourceDrilldown) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7624,6 +8128,10 @@ func (r *DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown) Unmarshal
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown *DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown = &DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown{empty: true}
+
+func (r *DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown) String() string {
 	return dcl.SprintResource(r)
@@ -7673,6 +8181,10 @@ func (r *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns) Unmarsh
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns = &DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns{empty: true}
 
+func (r *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7717,6 +8229,10 @@ func (r *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRest
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions = &DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions{empty: true}
+
+func (r *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions) String() string {
 	return dcl.SprintResource(r)
@@ -7766,6 +8282,10 @@ func (r *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns) U
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns = &DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns{empty: true}
 
+func (r *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7810,6 +8330,10 @@ func (r *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsVal
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions = &DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions{empty: true}
+
+func (r *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions) String() string {
 	return dcl.SprintResource(r)
@@ -7859,6 +8383,10 @@ func (r *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns) Unm
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns = &DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns{empty: true}
 
+func (r *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7904,6 +8432,10 @@ func (r *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValue
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions = &DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions{empty: true}
 
+func (r *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7945,6 +8477,10 @@ func (r *DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown) UnmarshalJSO
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown *DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown = &DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown{empty: true}
+
+func (r *DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown) String() string {
 	return dcl.SprintResource(r)
@@ -7988,6 +8524,10 @@ func (r *DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown) UnmarshalJ
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown *DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown = &DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown{empty: true}
 
+func (r *DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown) String() string {
 	return dcl.SprintResource(r)
 }
@@ -8029,6 +8569,10 @@ func (r *DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown) UnmarshalJ
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown *DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown = &DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown{empty: true}
+
+func (r *DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown) String() string {
 	return dcl.SprintResource(r)
@@ -8078,6 +8622,10 @@ func (r *DashboardWidgetScorecardMetricDrilldown) UnmarshalJSON(data []byte) err
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardMetricDrilldown *DashboardWidgetScorecardMetricDrilldown = &DashboardWidgetScorecardMetricDrilldown{empty: true}
 
+func (r *DashboardWidgetScorecardMetricDrilldown) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardMetricDrilldown) String() string {
 	return dcl.SprintResource(r)
 }
@@ -8119,6 +8667,10 @@ func (r *DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown) UnmarshalJS
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown *DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown = &DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown{empty: true}
+
+func (r *DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown) String() string {
 	return dcl.SprintResource(r)
@@ -8168,6 +8720,10 @@ func (r *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns) Unmarshal
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns = &DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns{empty: true}
 
+func (r *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns) String() string {
 	return dcl.SprintResource(r)
 }
@@ -8212,6 +8768,10 @@ func (r *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestri
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions = &DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions{empty: true}
+
+func (r *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions) String() string {
 	return dcl.SprintResource(r)
@@ -8267,6 +8827,10 @@ func (r *DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown) Unmarsha
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown *DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown = &DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown{empty: true}
 
+func (r *DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown) String() string {
 	return dcl.SprintResource(r)
 }
@@ -8312,6 +8876,10 @@ func (r *DashboardWidgetScorecardGaugeView) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardGaugeView *DashboardWidgetScorecardGaugeView = &DashboardWidgetScorecardGaugeView{empty: true}
 
+func (r *DashboardWidgetScorecardGaugeView) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardGaugeView) String() string {
 	return dcl.SprintResource(r)
 }
@@ -8356,6 +8924,10 @@ func (r *DashboardWidgetScorecardSparkChartView) UnmarshalJSON(data []byte) erro
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardSparkChartView *DashboardWidgetScorecardSparkChartView = &DashboardWidgetScorecardSparkChartView{empty: true}
+
+func (r *DashboardWidgetScorecardSparkChartView) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetScorecardSparkChartView) String() string {
 	return dcl.SprintResource(r)
@@ -8408,6 +8980,10 @@ func (r *DashboardWidgetScorecardThresholds) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetScorecardThresholds *DashboardWidgetScorecardThresholds = &DashboardWidgetScorecardThresholds{empty: true}
 
+func (r *DashboardWidgetScorecardThresholds) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetScorecardThresholds) String() string {
 	return dcl.SprintResource(r)
 }
@@ -8453,6 +9029,10 @@ func (r *DashboardWidgetText) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetText *DashboardWidgetText = &DashboardWidgetText{empty: true}
 
+func (r *DashboardWidgetText) Empty() bool {
+	return r.empty
+}
+
 func (r *DashboardWidgetText) String() string {
 	return dcl.SprintResource(r)
 }
@@ -8491,6 +9071,10 @@ func (r *DashboardWidgetBlank) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDashboardWidgetBlank *DashboardWidgetBlank = &DashboardWidgetBlank{empty: true}
+
+func (r *DashboardWidgetBlank) Empty() bool {
+	return r.empty
+}
 
 func (r *DashboardWidgetBlank) String() string {
 	return dcl.SprintResource(r)

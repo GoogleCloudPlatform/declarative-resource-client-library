@@ -93,6 +93,10 @@ func (r *SubscriptionDeliveryConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptySubscriptionDeliveryConfig *SubscriptionDeliveryConfig = &SubscriptionDeliveryConfig{empty: true}
 
+func (r *SubscriptionDeliveryConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *SubscriptionDeliveryConfig) String() string {
 	return dcl.SprintResource(r)
 }

@@ -135,6 +135,10 @@ func (r *InstanceGroupManagerDistributionPolicy) UnmarshalJSON(data []byte) erro
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerDistributionPolicy *InstanceGroupManagerDistributionPolicy = &InstanceGroupManagerDistributionPolicy{empty: true}
 
+func (r *InstanceGroupManagerDistributionPolicy) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceGroupManagerDistributionPolicy) String() string {
 	return dcl.SprintResource(r)
 }
@@ -176,6 +180,10 @@ func (r *InstanceGroupManagerDistributionPolicyZones) UnmarshalJSON(data []byte)
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerDistributionPolicyZones *InstanceGroupManagerDistributionPolicyZones = &InstanceGroupManagerDistributionPolicyZones{empty: true}
+
+func (r *InstanceGroupManagerDistributionPolicyZones) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceGroupManagerDistributionPolicyZones) String() string {
 	return dcl.SprintResource(r)
@@ -240,6 +248,10 @@ func (r *InstanceGroupManagerCurrentActions) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerCurrentActions *InstanceGroupManagerCurrentActions = &InstanceGroupManagerCurrentActions{empty: true}
 
+func (r *InstanceGroupManagerCurrentActions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceGroupManagerCurrentActions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -287,6 +299,10 @@ func (r *InstanceGroupManagerVersions) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerVersions *InstanceGroupManagerVersions = &InstanceGroupManagerVersions{empty: true}
+
+func (r *InstanceGroupManagerVersions) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceGroupManagerVersions) String() string {
 	return dcl.SprintResource(r)
@@ -336,6 +352,10 @@ func (r *InstanceGroupManagerVersionsTargetSize) UnmarshalJSON(data []byte) erro
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerVersionsTargetSize *InstanceGroupManagerVersionsTargetSize = &InstanceGroupManagerVersionsTargetSize{empty: true}
 
+func (r *InstanceGroupManagerVersionsTargetSize) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceGroupManagerVersionsTargetSize) String() string {
 	return dcl.SprintResource(r)
 }
@@ -380,6 +400,10 @@ func (r *InstanceGroupManagerNamedPorts) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerNamedPorts *InstanceGroupManagerNamedPorts = &InstanceGroupManagerNamedPorts{empty: true}
+
+func (r *InstanceGroupManagerNamedPorts) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceGroupManagerNamedPorts) String() string {
 	return dcl.SprintResource(r)
@@ -429,6 +453,10 @@ func (r *InstanceGroupManagerStatus) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerStatus *InstanceGroupManagerStatus = &InstanceGroupManagerStatus{empty: true}
 
+func (r *InstanceGroupManagerStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceGroupManagerStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -470,6 +498,10 @@ func (r *InstanceGroupManagerStatusVersionTarget) UnmarshalJSON(data []byte) err
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerStatusVersionTarget *InstanceGroupManagerStatusVersionTarget = &InstanceGroupManagerStatusVersionTarget{empty: true}
+
+func (r *InstanceGroupManagerStatusVersionTarget) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceGroupManagerStatusVersionTarget) String() string {
 	return dcl.SprintResource(r)
@@ -515,6 +547,10 @@ func (r *InstanceGroupManagerAutoHealingPolicies) UnmarshalJSON(data []byte) err
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerAutoHealingPolicies *InstanceGroupManagerAutoHealingPolicies = &InstanceGroupManagerAutoHealingPolicies{empty: true}
+
+func (r *InstanceGroupManagerAutoHealingPolicies) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceGroupManagerAutoHealingPolicies) String() string {
 	return dcl.SprintResource(r)
@@ -563,6 +599,10 @@ func (r *InstanceGroupManagerUpdatePolicy) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerUpdatePolicy *InstanceGroupManagerUpdatePolicy = &InstanceGroupManagerUpdatePolicy{empty: true}
+
+func (r *InstanceGroupManagerUpdatePolicy) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceGroupManagerUpdatePolicy) String() string {
 	return dcl.SprintResource(r)
@@ -615,6 +655,10 @@ func (r *InstanceGroupManagerUpdatePolicyMaxSurge) UnmarshalJSON(data []byte) er
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerUpdatePolicyMaxSurge *InstanceGroupManagerUpdatePolicyMaxSurge = &InstanceGroupManagerUpdatePolicyMaxSurge{empty: true}
 
+func (r *InstanceGroupManagerUpdatePolicyMaxSurge) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceGroupManagerUpdatePolicyMaxSurge) String() string {
 	return dcl.SprintResource(r)
 }
@@ -662,6 +706,10 @@ func (r *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) UnmarshalJSON(d
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable = &InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable{empty: true}
+
+func (r *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) String() string {
 	return dcl.SprintResource(r)

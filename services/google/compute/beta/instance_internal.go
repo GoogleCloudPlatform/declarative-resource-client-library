@@ -3613,6 +3613,10 @@ func flattenInstanceDisks(c *Client, i interface{}) *InstanceDisks {
 	}
 
 	r := &InstanceDisks{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceDisks
+	}
 	r.AutoDelete = dcl.FlattenBool(m["autoDelete"])
 	r.Boot = dcl.FlattenBool(m["boot"])
 	r.DeviceName = dcl.FlattenString(m["deviceName"])
@@ -3738,6 +3742,10 @@ func flattenInstanceDisksDiskEncryptionKey(c *Client, i interface{}) *InstanceDi
 	}
 
 	r := &InstanceDisksDiskEncryptionKey{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceDisksDiskEncryptionKey
+	}
 	r.RawKey = dcl.FlattenString(m["rawKey"])
 	r.RsaEncryptedKey = dcl.FlattenString(m["rsaEncryptedKey"])
 	r.Sha256 = dcl.FlattenString(m["sha256"])
@@ -3864,6 +3872,10 @@ func flattenInstanceDisksInitializeParams(c *Client, i interface{}) *InstanceDis
 	}
 
 	r := &InstanceDisksInitializeParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceDisksInitializeParams
+	}
 	r.DiskName = dcl.FlattenString(m["diskName"])
 	r.DiskSizeGb = dcl.FlattenInteger(m["diskSizeGb"])
 	r.DiskType = dcl.FlattenString(m["diskType"])
@@ -3981,6 +3993,10 @@ func flattenInstanceDisksInitializeParamsSourceImageEncryptionKey(c *Client, i i
 	}
 
 	r := &InstanceDisksInitializeParamsSourceImageEncryptionKey{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceDisksInitializeParamsSourceImageEncryptionKey
+	}
 	r.RawKey = dcl.FlattenString(m["rawKey"])
 	r.Sha256 = dcl.FlattenString(m["sha256"])
 
@@ -4095,6 +4111,10 @@ func flattenInstanceGuestAccelerators(c *Client, i interface{}) *InstanceGuestAc
 	}
 
 	r := &InstanceGuestAccelerators{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGuestAccelerators
+	}
 	r.AcceleratorCount = dcl.FlattenInteger(m["acceleratorCount"])
 	r.AcceleratorType = dcl.FlattenString(m["acceleratorType"])
 
@@ -4225,6 +4245,10 @@ func flattenInstanceNetworkInterfaces(c *Client, i interface{}) *InstanceNetwork
 	}
 
 	r := &InstanceNetworkInterfaces{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNetworkInterfaces
+	}
 	r.AccessConfigs = flattenInstanceNetworkInterfacesAccessConfigsSlice(c, m["accessConfigs"])
 	r.AliasIPRanges = flattenInstanceNetworkInterfacesAliasIPRangesSlice(c, m["aliasIPRanges"])
 	r.Name = dcl.FlattenString(m["name"])
@@ -4346,6 +4370,10 @@ func flattenInstanceNetworkInterfacesAccessConfigs(c *Client, i interface{}) *In
 	}
 
 	r := &InstanceNetworkInterfacesAccessConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNetworkInterfacesAccessConfigs
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.NatIP = dcl.FlattenString(m["natIP"])
 	r.Type = flattenInstanceNetworkInterfacesAccessConfigsTypeEnum(m["type"])
@@ -4461,6 +4489,10 @@ func flattenInstanceNetworkInterfacesAliasIPRanges(c *Client, i interface{}) *In
 	}
 
 	r := &InstanceNetworkInterfacesAliasIPRanges{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNetworkInterfacesAliasIPRanges
+	}
 	r.IPCidrRange = dcl.FlattenString(m["ipCidrRange"])
 	r.SubnetworkRangeName = dcl.FlattenString(m["subnetworkRangeName"])
 
@@ -4578,6 +4610,10 @@ func flattenInstanceScheduling(c *Client, i interface{}) *InstanceScheduling {
 	}
 
 	r := &InstanceScheduling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceScheduling
+	}
 	r.AutomaticRestart = dcl.FlattenBool(m["automaticRestart"])
 	r.OnHostMaintenance = dcl.FlattenString(m["onHostMaintenance"])
 	r.Preemptible = dcl.FlattenBool(m["preemptible"])
@@ -4693,6 +4729,10 @@ func flattenInstanceServiceAccounts(c *Client, i interface{}) *InstanceServiceAc
 	}
 
 	r := &InstanceServiceAccounts{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceServiceAccounts
+	}
 	r.Email = dcl.FlattenString(m["email"])
 	r.Scopes = dcl.FlattenStringSlice(m["scopes"])
 
@@ -4810,6 +4850,10 @@ func flattenInstanceShieldedInstanceConfig(c *Client, i interface{}) *InstanceSh
 	}
 
 	r := &InstanceShieldedInstanceConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceShieldedInstanceConfig
+	}
 	r.EnableSecureBoot = dcl.FlattenBool(m["enableSecureBoot"])
 	r.EnableVtpm = dcl.FlattenBool(m["enableVtpm"])
 	r.EnableIntegrityMonitoring = dcl.FlattenBool(m["enableIntegrityMonitoring"])

@@ -129,6 +129,10 @@ func (r *WorkloadResources) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkloadResources *WorkloadResources = &WorkloadResources{empty: true}
 
+func (r *WorkloadResources) Empty() bool {
+	return r.empty
+}
+
 func (r *WorkloadResources) String() string {
 	return dcl.SprintResource(r)
 }
@@ -173,6 +177,10 @@ func (r *WorkloadKmsSettings) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkloadKmsSettings *WorkloadKmsSettings = &WorkloadKmsSettings{empty: true}
+
+func (r *WorkloadKmsSettings) Empty() bool {
+	return r.empty
+}
 
 func (r *WorkloadKmsSettings) String() string {
 	return dcl.SprintResource(r)

@@ -4427,6 +4427,10 @@ func flattenBackendServiceBackends(c *Client, i interface{}) *BackendServiceBack
 	}
 
 	r := &BackendServiceBackends{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBackendServiceBackends
+	}
 	r.Description = dcl.FlattenString(m["description"])
 	r.Group = dcl.FlattenString(m["group"])
 	r.BalancingMode = flattenBackendServiceBackendsBalancingModeEnum(m["balancingMode"])
@@ -4554,6 +4558,10 @@ func flattenBackendServiceFailoverPolicy(c *Client, i interface{}) *BackendServi
 	}
 
 	r := &BackendServiceFailoverPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBackendServiceFailoverPolicy
+	}
 	r.DisableConnectionDrainOnFailover = dcl.FlattenBool(m["disableConnectionDrainOnFailover"])
 	r.DropTrafficIfUnhealthy = dcl.FlattenBool(m["dropTrafficIfUnhealthy"])
 	r.FailoverRatio = dcl.FlattenDouble(m["failoverRatio"])
@@ -4666,6 +4674,10 @@ func flattenBackendServiceConnectionDraining(c *Client, i interface{}) *BackendS
 	}
 
 	r := &BackendServiceConnectionDraining{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBackendServiceConnectionDraining
+	}
 	r.DrainingTimeoutSec = dcl.FlattenInteger(m["drainingTimeoutSec"])
 
 	return r
@@ -4785,6 +4797,10 @@ func flattenBackendServiceIap(c *Client, i interface{}) *BackendServiceIap {
 	}
 
 	r := &BackendServiceIap{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBackendServiceIap
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 	r.OAuth2ClientId = dcl.FlattenString(m["oauth2ClientId"])
 	r.OAuth2ClientSecret = dcl.FlattenString(m["oauth2ClientSecret"])
@@ -4937,6 +4953,10 @@ func flattenBackendServiceCdnPolicy(c *Client, i interface{}) *BackendServiceCdn
 	}
 
 	r := &BackendServiceCdnPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBackendServiceCdnPolicy
+	}
 	r.CacheKeyPolicy = flattenBackendServiceCdnPolicyCacheKeyPolicy(c, m["cacheKeyPolicy"])
 	r.SignedUrlKeyNames = dcl.FlattenStringSlice(m["signedUrlKeyNames"])
 	r.SignedUrlCacheMaxAgeSec = dcl.FlattenInteger(m["signedUrlCacheMaxAgeSec"])
@@ -5076,6 +5096,10 @@ func flattenBackendServiceCdnPolicyCacheKeyPolicy(c *Client, i interface{}) *Bac
 	}
 
 	r := &BackendServiceCdnPolicyCacheKeyPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBackendServiceCdnPolicyCacheKeyPolicy
+	}
 	r.IncludeProtocol = dcl.FlattenBool(m["includeProtocol"])
 	r.IncludeHost = dcl.FlattenBool(m["includeHost"])
 	r.IncludeQueryString = dcl.FlattenBool(m["includeQueryString"])
@@ -5195,6 +5219,10 @@ func flattenBackendServiceCdnPolicyNegativeCachingPolicy(c *Client, i interface{
 	}
 
 	r := &BackendServiceCdnPolicyNegativeCachingPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBackendServiceCdnPolicyNegativeCachingPolicy
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Ttl = dcl.FlattenInteger(m["ttl"])
 
@@ -5306,6 +5334,10 @@ func flattenBackendServiceCdnPolicyBypassCacheOnRequestHeaders(c *Client, i inte
 	}
 
 	r := &BackendServiceCdnPolicyBypassCacheOnRequestHeaders{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBackendServiceCdnPolicyBypassCacheOnRequestHeaders
+	}
 	r.HeaderName = dcl.FlattenString(m["headerName"])
 
 	return r
@@ -5419,6 +5451,10 @@ func flattenBackendServiceLogConfig(c *Client, i interface{}) *BackendServiceLog
 	}
 
 	r := &BackendServiceLogConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBackendServiceLogConfig
+	}
 	r.Enable = dcl.FlattenBool(m["enable"])
 	r.SampleRate = dcl.FlattenDouble(m["sampleRate"])
 
@@ -5533,6 +5569,10 @@ func flattenBackendServiceSecuritySettings(c *Client, i interface{}) *BackendSer
 	}
 
 	r := &BackendServiceSecuritySettings{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBackendServiceSecuritySettings
+	}
 	r.ClientTlsPolicy = dcl.FlattenString(m["clientTlsPolicy"])
 	r.SubjectAltNames = dcl.FlattenStringSlice(m["subjectAltNames"])
 
@@ -5652,6 +5692,10 @@ func flattenBackendServiceConsistentHash(c *Client, i interface{}) *BackendServi
 	}
 
 	r := &BackendServiceConsistentHash{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBackendServiceConsistentHash
+	}
 	r.HttpCookie = flattenBackendServiceConsistentHashHttpCookie(c, m["httpCookie"])
 	r.HttpHeaderName = dcl.FlattenString(m["httpHeaderName"])
 	r.MinimumRingSize = dcl.FlattenInteger(m["minimumRingSize"])
@@ -5772,6 +5816,10 @@ func flattenBackendServiceConsistentHashHttpCookie(c *Client, i interface{}) *Ba
 	}
 
 	r := &BackendServiceConsistentHashHttpCookie{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBackendServiceConsistentHashHttpCookie
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Path = dcl.FlattenString(m["path"])
 	r.Ttl = flattenBackendServiceConsistentHashHttpCookieTtl(c, m["ttl"])
@@ -5887,6 +5935,10 @@ func flattenBackendServiceConsistentHashHttpCookieTtl(c *Client, i interface{}) 
 	}
 
 	r := &BackendServiceConsistentHashHttpCookieTtl{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBackendServiceConsistentHashHttpCookieTtl
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -6010,6 +6062,10 @@ func flattenBackendServiceCircuitBreakers(c *Client, i interface{}) *BackendServ
 	}
 
 	r := &BackendServiceCircuitBreakers{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBackendServiceCircuitBreakers
+	}
 	r.MaxRequestsPerConnection = dcl.FlattenInteger(m["maxRequestsPerConnection"])
 	r.MaxConnections = dcl.FlattenInteger(m["maxConnections"])
 	r.MaxPendingRequests = dcl.FlattenInteger(m["maxPendingRequests"])
@@ -6158,6 +6214,10 @@ func flattenBackendServiceOutlierDetection(c *Client, i interface{}) *BackendSer
 	}
 
 	r := &BackendServiceOutlierDetection{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBackendServiceOutlierDetection
+	}
 	r.ConsecutiveErrors = dcl.FlattenInteger(m["consecutiveErrors"])
 	r.Interval = flattenBackendServiceOutlierDetectionInterval(c, m["interval"])
 	r.BaseEjectionTime = flattenBackendServiceOutlierDetectionBaseEjectionTime(c, m["baseEjectionTime"])
@@ -6281,6 +6341,10 @@ func flattenBackendServiceOutlierDetectionInterval(c *Client, i interface{}) *Ba
 	}
 
 	r := &BackendServiceOutlierDetectionInterval{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBackendServiceOutlierDetectionInterval
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -6395,6 +6459,10 @@ func flattenBackendServiceOutlierDetectionBaseEjectionTime(c *Client, i interfac
 	}
 
 	r := &BackendServiceOutlierDetectionBaseEjectionTime{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBackendServiceOutlierDetectionBaseEjectionTime
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -6509,6 +6577,10 @@ func flattenBackendServiceMaxStreamDuration(c *Client, i interface{}) *BackendSe
 	}
 
 	r := &BackendServiceMaxStreamDuration{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBackendServiceMaxStreamDuration
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 

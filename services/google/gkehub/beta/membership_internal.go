@@ -2211,6 +2211,10 @@ func flattenMembershipEndpoint(c *Client, i interface{}) *MembershipEndpoint {
 	}
 
 	r := &MembershipEndpoint{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyMembershipEndpoint
+	}
 	r.GkeCluster = flattenMembershipEndpointGkeCluster(c, m["gkeCluster"])
 	r.KubernetesMetadata = flattenMembershipEndpointKubernetesMetadata(c, m["kubernetesMetadata"])
 	r.KubernetesResource = flattenMembershipEndpointKubernetesResource(c, m["kubernetesResource"])
@@ -2325,6 +2329,10 @@ func flattenMembershipEndpointGkeCluster(c *Client, i interface{}) *MembershipEn
 	}
 
 	r := &MembershipEndpointGkeCluster{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyMembershipEndpointGkeCluster
+	}
 	r.ResourceLink = flattenHubReferenceLink(m["resourceLink"])
 
 	return r
@@ -2450,6 +2458,10 @@ func flattenMembershipEndpointKubernetesMetadata(c *Client, i interface{}) *Memb
 	}
 
 	r := &MembershipEndpointKubernetesMetadata{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyMembershipEndpointKubernetesMetadata
+	}
 	r.KubernetesApiServerVersion = dcl.FlattenString(m["kubernetesApiServerVersion"])
 	r.NodeProviderId = dcl.FlattenString(m["nodeProviderId"])
 	r.NodeCount = dcl.FlattenInteger(m["nodeCount"])
@@ -2580,6 +2592,10 @@ func flattenMembershipEndpointKubernetesResource(c *Client, i interface{}) *Memb
 	}
 
 	r := &MembershipEndpointKubernetesResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyMembershipEndpointKubernetesResource
+	}
 	r.MembershipCrManifest = dcl.FlattenSecretValue(m["membershipCrManifest"])
 	r.MembershipResources = flattenMembershipEndpointKubernetesResourceMembershipResourcesSlice(c, m["membershipResources"])
 	r.ConnectResources = flattenMembershipEndpointKubernetesResourceConnectResourcesSlice(c, m["connectResources"])
@@ -2696,6 +2712,10 @@ func flattenMembershipEndpointKubernetesResourceMembershipResources(c *Client, i
 	}
 
 	r := &MembershipEndpointKubernetesResourceMembershipResources{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyMembershipEndpointKubernetesResourceMembershipResources
+	}
 	r.Manifest = dcl.FlattenString(m["manifest"])
 	r.ClusterScoped = dcl.FlattenBool(m["clusterScoped"])
 
@@ -2810,6 +2830,10 @@ func flattenMembershipEndpointKubernetesResourceConnectResources(c *Client, i in
 	}
 
 	r := &MembershipEndpointKubernetesResourceConnectResources{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyMembershipEndpointKubernetesResourceConnectResources
+	}
 	r.Manifest = dcl.FlattenString(m["manifest"])
 	r.ClusterScoped = dcl.FlattenBool(m["clusterScoped"])
 
@@ -2924,6 +2948,10 @@ func flattenMembershipEndpointKubernetesResourceResourceOptions(c *Client, i int
 	}
 
 	r := &MembershipEndpointKubernetesResourceResourceOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyMembershipEndpointKubernetesResourceResourceOptions
+	}
 	r.ConnectVersion = dcl.FlattenString(m["connectVersion"])
 	r.V1Beta1Crd = dcl.FlattenBool(m["v1beta1Crd"])
 
@@ -3035,6 +3063,10 @@ func flattenMembershipState(c *Client, i interface{}) *MembershipState {
 	}
 
 	r := &MembershipState{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyMembershipState
+	}
 	r.Code = flattenMembershipStateCodeEnum(m["code"])
 
 	return r
@@ -3151,6 +3183,10 @@ func flattenMembershipAuthority(c *Client, i interface{}) *MembershipAuthority {
 	}
 
 	r := &MembershipAuthority{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyMembershipAuthority
+	}
 	r.Issuer = dcl.FlattenString(m["issuer"])
 	r.WorkloadIdentityPool = dcl.FlattenString(m["workloadIdentityPool"])
 	r.IdentityProvider = dcl.FlattenString(m["identityProvider"])

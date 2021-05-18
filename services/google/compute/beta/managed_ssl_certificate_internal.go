@@ -955,6 +955,10 @@ func flattenManagedSslCertificateManaged(c *Client, i interface{}) *ManagedSslCe
 	}
 
 	r := &ManagedSslCertificateManaged{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyManagedSslCertificateManaged
+	}
 	r.Domains = dcl.FlattenStringSlice(m["domains"])
 	r.Status = flattenManagedSslCertificateManagedStatusEnum(m["status"])
 	r.DomainStatus = dcl.FlattenKeyValuePairs(m["domainStatus"])

@@ -100,6 +100,10 @@ func (r *SslCertificateSelfManaged) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptySslCertificateSelfManaged *SslCertificateSelfManaged = &SslCertificateSelfManaged{empty: true}
 
+func (r *SslCertificateSelfManaged) Empty() bool {
+	return r.empty
+}
+
 func (r *SslCertificateSelfManaged) String() string {
 	return dcl.SprintResource(r)
 }

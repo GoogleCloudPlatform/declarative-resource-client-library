@@ -103,6 +103,10 @@ func (r *WorkerPoolWorkerConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkerPoolWorkerConfig *WorkerPoolWorkerConfig = &WorkerPoolWorkerConfig{empty: true}
 
+func (r *WorkerPoolWorkerConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *WorkerPoolWorkerConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -144,6 +148,10 @@ func (r *WorkerPoolNetworkConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkerPoolNetworkConfig *WorkerPoolNetworkConfig = &WorkerPoolNetworkConfig{empty: true}
+
+func (r *WorkerPoolNetworkConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *WorkerPoolNetworkConfig) String() string {
 	return dcl.SprintResource(r)

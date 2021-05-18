@@ -1234,6 +1234,10 @@ func flattenApplicationDispatchRules(c *Client, i interface{}) *ApplicationDispa
 	}
 
 	r := &ApplicationDispatchRules{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyApplicationDispatchRules
+	}
 	r.Domain = dcl.FlattenString(m["domain"])
 	r.Path = dcl.FlattenString(m["path"])
 	r.Service = dcl.FlattenString(m["service"])
@@ -1349,6 +1353,10 @@ func flattenApplicationFeatureSettings(c *Client, i interface{}) *ApplicationFea
 	}
 
 	r := &ApplicationFeatureSettings{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyApplicationFeatureSettings
+	}
 	r.SplitHealthChecks = dcl.FlattenBool(m["splitHealthChecks"])
 	r.UseContainerOptimizedOs = dcl.FlattenBool(m["useContainerOptimizedOs"])
 
@@ -1469,6 +1477,10 @@ func flattenApplicationIap(c *Client, i interface{}) *ApplicationIap {
 	}
 
 	r := &ApplicationIap{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyApplicationIap
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 	r.OAuth2ClientId = dcl.FlattenString(m["oauth2ClientId"])
 	r.OAuth2ClientSecret = dcl.FlattenString(m["oauth2ClientSecret"])

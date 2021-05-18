@@ -1616,6 +1616,10 @@ func flattenInstanceNetworkConfig(c *Client, i interface{}) *InstanceNetworkConf
 	}
 
 	r := &InstanceNetworkConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNetworkConfig
+	}
 	r.Network = dcl.FlattenString(m["network"])
 	r.IPAllocation = dcl.FlattenString(m["ipAllocation"])
 
@@ -1733,6 +1737,10 @@ func flattenInstanceAvailableVersion(c *Client, i interface{}) *InstanceAvailabl
 	}
 
 	r := &InstanceAvailableVersion{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceAvailableVersion
+	}
 	r.VersionNumber = dcl.FlattenString(m["versionNumber"])
 	r.DefaultVersion = dcl.FlattenBool(m["defaultVersion"])
 	r.AvailableFeatures = dcl.FlattenStringSlice(m["availableFeatures"])

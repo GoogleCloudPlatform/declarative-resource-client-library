@@ -2379,6 +2379,10 @@ func flattenJobPubsubTarget(c *Client, i interface{}) *JobPubsubTarget {
 	}
 
 	r := &JobPubsubTarget{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobPubsubTarget
+	}
 	r.TopicName = dcl.FlattenString(m["topicName"])
 	r.Data = dcl.FlattenString(m["data"])
 	r.Attributes = dcl.FlattenKeyValuePairs(m["attributes"])
@@ -2505,6 +2509,10 @@ func flattenJobAppEngineHttpTarget(c *Client, i interface{}) *JobAppEngineHttpTa
 	}
 
 	r := &JobAppEngineHttpTarget{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobAppEngineHttpTarget
+	}
 	r.HttpMethod = flattenJobAppEngineHttpTargetHttpMethodEnum(m["httpMethod"])
 	r.AppEngineRouting = flattenJobAppEngineHttpTargetAppEngineRouting(c, m["appEngineRouting"])
 	r.RelativeUri = dcl.FlattenString(m["relativeUri"])
@@ -2628,6 +2636,10 @@ func flattenJobAppEngineHttpTargetAppEngineRouting(c *Client, i interface{}) *Jo
 	}
 
 	r := &JobAppEngineHttpTargetAppEngineRouting{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobAppEngineHttpTargetAppEngineRouting
+	}
 	r.Service = dcl.FlattenString(m["service"])
 	r.Version = dcl.FlattenString(m["version"])
 	r.Instance = dcl.FlattenString(m["instance"])
@@ -2760,6 +2772,10 @@ func flattenJobHttpTarget(c *Client, i interface{}) *JobHttpTarget {
 	}
 
 	r := &JobHttpTarget{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobHttpTarget
+	}
 	r.Uri = dcl.FlattenString(m["uri"])
 	r.HttpMethod = flattenJobHttpTargetHttpMethodEnum(m["httpMethod"])
 	r.Headers = dcl.FlattenKeyValuePairs(m["headers"])
@@ -2878,6 +2894,10 @@ func flattenJobHttpTargetOAuthToken(c *Client, i interface{}) *JobHttpTargetOAut
 	}
 
 	r := &JobHttpTargetOAuthToken{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobHttpTargetOAuthToken
+	}
 	r.ServiceAccountEmail = dcl.FlattenString(m["serviceAccountEmail"])
 	r.Scope = dcl.FlattenString(m["scope"])
 
@@ -2992,6 +3012,10 @@ func flattenJobHttpTargetOidcToken(c *Client, i interface{}) *JobHttpTargetOidcT
 	}
 
 	r := &JobHttpTargetOidcToken{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobHttpTargetOidcToken
+	}
 	r.ServiceAccountEmail = dcl.FlattenString(m["serviceAccountEmail"])
 	r.Audience = dcl.FlattenString(m["audience"])
 
@@ -3111,6 +3135,10 @@ func flattenJobStatus(c *Client, i interface{}) *JobStatus {
 	}
 
 	r := &JobStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenJobStatusDetailsSlice(c, m["details"])
@@ -3226,6 +3254,10 @@ func flattenJobStatusDetails(c *Client, i interface{}) *JobStatusDetails {
 	}
 
 	r := &JobStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -3349,6 +3381,10 @@ func flattenJobRetryConfig(c *Client, i interface{}) *JobRetryConfig {
 	}
 
 	r := &JobRetryConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobRetryConfig
+	}
 	r.RetryCount = dcl.FlattenInteger(m["retryCount"])
 	r.MaxRetryDuration = dcl.FlattenString(m["maxRetryDuration"])
 	r.MinBackoffDuration = dcl.FlattenString(m["minBackoffDuration"])

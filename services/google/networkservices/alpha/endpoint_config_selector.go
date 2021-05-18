@@ -129,6 +129,10 @@ func (r *EndpointConfigSelectorHttpFilters) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyEndpointConfigSelectorHttpFilters *EndpointConfigSelectorHttpFilters = &EndpointConfigSelectorHttpFilters{empty: true}
 
+func (r *EndpointConfigSelectorHttpFilters) Empty() bool {
+	return r.empty
+}
+
 func (r *EndpointConfigSelectorHttpFilters) String() string {
 	return dcl.SprintResource(r)
 }
@@ -170,6 +174,10 @@ func (r *EndpointConfigSelectorEndpointMatcher) UnmarshalJSON(data []byte) error
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyEndpointConfigSelectorEndpointMatcher *EndpointConfigSelectorEndpointMatcher = &EndpointConfigSelectorEndpointMatcher{empty: true}
+
+func (r *EndpointConfigSelectorEndpointMatcher) Empty() bool {
+	return r.empty
+}
 
 func (r *EndpointConfigSelectorEndpointMatcher) String() string {
 	return dcl.SprintResource(r)
@@ -216,6 +224,10 @@ func (r *EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher) UnmarshalJSO
 // as one.  Modifying this object will have undesirable results.
 var EmptyEndpointConfigSelectorEndpointMatcherMetadataLabelMatcher *EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher = &EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher{empty: true}
 
+func (r *EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher) Empty() bool {
+	return r.empty
+}
+
 func (r *EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher) String() string {
 	return dcl.SprintResource(r)
 }
@@ -261,6 +273,10 @@ func (r *EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels
 // as one.  Modifying this object will have undesirable results.
 var EmptyEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels *EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels = &EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels{empty: true}
 
+func (r *EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels) Empty() bool {
+	return r.empty
+}
+
 func (r *EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels) String() string {
 	return dcl.SprintResource(r)
 }
@@ -302,6 +318,10 @@ func (r *EndpointConfigSelectorTrafficPortSelector) UnmarshalJSON(data []byte) e
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyEndpointConfigSelectorTrafficPortSelector *EndpointConfigSelectorTrafficPortSelector = &EndpointConfigSelectorTrafficPortSelector{empty: true}
+
+func (r *EndpointConfigSelectorTrafficPortSelector) Empty() bool {
+	return r.empty
+}
 
 func (r *EndpointConfigSelectorTrafficPortSelector) String() string {
 	return dcl.SprintResource(r)

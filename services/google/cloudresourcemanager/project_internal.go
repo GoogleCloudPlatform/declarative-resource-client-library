@@ -916,6 +916,10 @@ func flattenProjectParent(c *Client, i interface{}) *ProjectParent {
 	}
 
 	r := &ProjectParent{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyProjectParent
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 

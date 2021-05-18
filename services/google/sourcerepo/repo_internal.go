@@ -913,6 +913,10 @@ func flattenRepoPubsubConfigs(c *Client, i interface{}) *RepoPubsubConfigs {
 	}
 
 	r := &RepoPubsubConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyRepoPubsubConfigs
+	}
 	r.Topic = dcl.FlattenString(m["topic"])
 	r.MessageFormat = dcl.FlattenString(m["messageFormat"])
 	r.ServiceAccountEmail = dcl.FlattenString(m["serviceAccountEmail"])

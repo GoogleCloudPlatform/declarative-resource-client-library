@@ -1501,6 +1501,10 @@ func flattenFeatureMembershipConfigmanagement(c *Client, i interface{}) *Feature
 	}
 
 	r := &FeatureMembershipConfigmanagement{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFeatureMembershipConfigmanagement
+	}
 	r.ConfigSync = flattenFeatureMembershipConfigmanagementConfigSync(c, m["configSync"])
 	r.PolicyController = flattenFeatureMembershipConfigmanagementPolicyController(c, m["policyController"])
 	r.Binauthz = flattenFeatureMembershipConfigmanagementBinauthz(c, m["binauthz"])
@@ -1620,6 +1624,10 @@ func flattenFeatureMembershipConfigmanagementConfigSync(c *Client, i interface{}
 	}
 
 	r := &FeatureMembershipConfigmanagementConfigSync{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFeatureMembershipConfigmanagementConfigSync
+	}
 	r.Git = flattenFeatureMembershipConfigmanagementConfigSyncGit(c, m["git"])
 	r.SourceFormat = dcl.FlattenString(m["sourceFormat"])
 
@@ -1749,6 +1757,10 @@ func flattenFeatureMembershipConfigmanagementConfigSyncGit(c *Client, i interfac
 	}
 
 	r := &FeatureMembershipConfigmanagementConfigSyncGit{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFeatureMembershipConfigmanagementConfigSyncGit
+	}
 	r.SyncRepo = dcl.FlattenString(m["syncRepo"])
 	r.SyncBranch = dcl.FlattenString(m["syncBranch"])
 	r.PolicyDir = dcl.FlattenString(m["policyDir"])
@@ -1880,6 +1892,10 @@ func flattenFeatureMembershipConfigmanagementPolicyController(c *Client, i inter
 	}
 
 	r := &FeatureMembershipConfigmanagementPolicyController{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFeatureMembershipConfigmanagementPolicyController
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 	r.ExemptableNamespaces = dcl.FlattenStringSlice(m["exemptableNamespaces"])
 	r.ReferentialRulesEnabled = dcl.FlattenBool(m["referentialRulesEnabled"])
@@ -1995,6 +2011,10 @@ func flattenFeatureMembershipConfigmanagementBinauthz(c *Client, i interface{}) 
 	}
 
 	r := &FeatureMembershipConfigmanagementBinauthz{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFeatureMembershipConfigmanagementBinauthz
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 
 	return r
@@ -2111,6 +2131,10 @@ func flattenFeatureMembershipConfigmanagementHierarchyController(c *Client, i in
 	}
 
 	r := &FeatureMembershipConfigmanagementHierarchyController{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFeatureMembershipConfigmanagementHierarchyController
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 	r.EnablePodTreeLabels = dcl.FlattenBool(m["enablePodTreeLabels"])
 	r.EnableHierarchicalResourceQuota = dcl.FlattenBool(m["enableHierarchicalResourceQuota"])

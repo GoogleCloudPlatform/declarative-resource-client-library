@@ -8629,6 +8629,10 @@ func flattenUrlMapDefaultRouteAction(c *Client, i interface{}) *UrlMapDefaultRou
 	}
 
 	r := &UrlMapDefaultRouteAction{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapDefaultRouteAction
+	}
 	r.WeightedBackendService = flattenUrlMapDefaultRouteActionWeightedBackendServiceSlice(c, m["weightedBackendServices"])
 	r.UrlRewrite = flattenUrlMapDefaultRouteActionUrlRewrite(c, m["urlRewrite"])
 	r.Timeout = flattenUrlMapDefaultRouteActionTimeout(c, m["timeout"])
@@ -8753,6 +8757,10 @@ func flattenUrlMapDefaultRouteActionWeightedBackendService(c *Client, i interfac
 	}
 
 	r := &UrlMapDefaultRouteActionWeightedBackendService{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapDefaultRouteActionWeightedBackendService
+	}
 	r.BackendService = dcl.FlattenString(m["backendService"])
 	r.Weight = dcl.FlattenInteger(m["weight"])
 	r.HeaderAction = flattenUrlMapHeaderAction(c, m["headerAction"])
@@ -8878,6 +8886,10 @@ func flattenUrlMapHeaderAction(c *Client, i interface{}) *UrlMapHeaderAction {
 	}
 
 	r := &UrlMapHeaderAction{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapHeaderAction
+	}
 	r.RequestHeadersToRemove = dcl.FlattenStringSlice(m["requestHeadersToRemove"])
 	r.RequestHeadersToAdd = flattenUrlMapHeaderActionRequestHeadersToAddSlice(c, m["requestHeadersToAdd"])
 	r.ResponseHeadersToRemove = dcl.FlattenStringSlice(m["responseHeadersToRemove"])
@@ -8997,6 +9009,10 @@ func flattenUrlMapHeaderActionRequestHeadersToAdd(c *Client, i interface{}) *Url
 	}
 
 	r := &UrlMapHeaderActionRequestHeadersToAdd{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapHeaderActionRequestHeadersToAdd
+	}
 	r.HeaderName = dcl.FlattenString(m["headerName"])
 	r.HeaderValue = dcl.FlattenString(m["headerValue"])
 	r.Replace = dcl.FlattenBool(m["replace"])
@@ -9115,6 +9131,10 @@ func flattenUrlMapHeaderActionResponseHeadersToAdd(c *Client, i interface{}) *Ur
 	}
 
 	r := &UrlMapHeaderActionResponseHeadersToAdd{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapHeaderActionResponseHeadersToAdd
+	}
 	r.HeaderName = dcl.FlattenString(m["headerName"])
 	r.HeaderValue = dcl.FlattenString(m["headerValue"])
 	r.Replace = dcl.FlattenBool(m["replace"])
@@ -9230,6 +9250,10 @@ func flattenUrlMapDefaultRouteActionUrlRewrite(c *Client, i interface{}) *UrlMap
 	}
 
 	r := &UrlMapDefaultRouteActionUrlRewrite{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapDefaultRouteActionUrlRewrite
+	}
 	r.PathPrefixRewrite = dcl.FlattenString(m["pathPrefixRewrite"])
 	r.HostRewrite = dcl.FlattenString(m["hostRewrite"])
 
@@ -9344,6 +9368,10 @@ func flattenUrlMapDefaultRouteActionTimeout(c *Client, i interface{}) *UrlMapDef
 	}
 
 	r := &UrlMapDefaultRouteActionTimeout{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapDefaultRouteActionTimeout
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -9463,6 +9491,10 @@ func flattenUrlMapDefaultRouteActionRetryPolicy(c *Client, i interface{}) *UrlMa
 	}
 
 	r := &UrlMapDefaultRouteActionRetryPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapDefaultRouteActionRetryPolicy
+	}
 	r.RetryCondition = dcl.FlattenStringSlice(m["retryConditions"])
 	r.NumRetries = dcl.FlattenInteger(m["numRetries"])
 	r.PerTryTimeout = flattenUrlMapDefaultRouteActionRetryPolicyPerTryTimeout(c, m["perTryTimeout"])
@@ -9578,6 +9610,10 @@ func flattenUrlMapDefaultRouteActionRetryPolicyPerTryTimeout(c *Client, i interf
 	}
 
 	r := &UrlMapDefaultRouteActionRetryPolicyPerTryTimeout{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapDefaultRouteActionRetryPolicyPerTryTimeout
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -9689,6 +9725,10 @@ func flattenUrlMapDefaultRouteActionRequestMirrorPolicy(c *Client, i interface{}
 	}
 
 	r := &UrlMapDefaultRouteActionRequestMirrorPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapDefaultRouteActionRequestMirrorPolicy
+	}
 	r.BackendService = dcl.FlattenString(m["backendService"])
 
 	return r
@@ -9820,6 +9860,10 @@ func flattenUrlMapDefaultRouteActionCorsPolicy(c *Client, i interface{}) *UrlMap
 	}
 
 	r := &UrlMapDefaultRouteActionCorsPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapDefaultRouteActionCorsPolicy
+	}
 	r.AllowOrigin = dcl.FlattenStringSlice(m["allowOrigins"])
 	r.AllowOriginRegex = dcl.FlattenStringSlice(m["allowOriginRegexes"])
 	r.AllowMethod = dcl.FlattenStringSlice(m["allowMethods"])
@@ -9944,6 +9988,10 @@ func flattenUrlMapDefaultRouteActionFaultInjectionPolicy(c *Client, i interface{
 	}
 
 	r := &UrlMapDefaultRouteActionFaultInjectionPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapDefaultRouteActionFaultInjectionPolicy
+	}
 	r.Delay = flattenUrlMapDefaultRouteActionFaultInjectionPolicyDelay(c, m["delay"])
 	r.Abort = flattenUrlMapDefaultRouteActionFaultInjectionPolicyAbort(c, m["abort"])
 
@@ -10060,6 +10108,10 @@ func flattenUrlMapDefaultRouteActionFaultInjectionPolicyDelay(c *Client, i inter
 	}
 
 	r := &UrlMapDefaultRouteActionFaultInjectionPolicyDelay{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapDefaultRouteActionFaultInjectionPolicyDelay
+	}
 	r.FixedDelay = flattenUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay(c, m["fixedDelay"])
 	r.Percentage = dcl.FlattenDouble(m["percentage"])
 
@@ -10174,6 +10226,10 @@ func flattenUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay(c *Clien
 	}
 
 	r := &UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -10288,6 +10344,10 @@ func flattenUrlMapDefaultRouteActionFaultInjectionPolicyAbort(c *Client, i inter
 	}
 
 	r := &UrlMapDefaultRouteActionFaultInjectionPolicyAbort{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapDefaultRouteActionFaultInjectionPolicyAbort
+	}
 	r.HttpStatus = dcl.FlattenInteger(m["httpStatus"])
 	r.Percentage = dcl.FlattenDouble(m["percentage"])
 
@@ -10414,6 +10474,10 @@ func flattenUrlMapDefaultUrlRedirect(c *Client, i interface{}) *UrlMapDefaultUrl
 	}
 
 	r := &UrlMapDefaultUrlRedirect{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapDefaultUrlRedirect
+	}
 	r.HostRedirect = dcl.FlattenString(m["hostRedirect"])
 	r.PathRedirect = dcl.FlattenString(m["pathRedirect"])
 	r.PrefixRedirect = dcl.FlattenString(m["prefixRedirect"])
@@ -10535,6 +10599,10 @@ func flattenUrlMapHostRule(c *Client, i interface{}) *UrlMapHostRule {
 	}
 
 	r := &UrlMapHostRule{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapHostRule
+	}
 	r.Description = dcl.FlattenString(m["description"])
 	r.Host = dcl.FlattenStringSlice(m["hosts"])
 	r.PathMatcher = dcl.FlattenString(m["pathMatcher"])
@@ -10678,6 +10746,10 @@ func flattenUrlMapPathMatcher(c *Client, i interface{}) *UrlMapPathMatcher {
 	}
 
 	r := &UrlMapPathMatcher{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcher
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Description = dcl.FlattenString(m["description"])
 	r.DefaultService = dcl.FlattenString(m["defaultService"])
@@ -10810,6 +10882,10 @@ func flattenUrlMapPathMatcherDefaultUrlRedirect(c *Client, i interface{}) *UrlMa
 	}
 
 	r := &UrlMapPathMatcherDefaultUrlRedirect{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherDefaultUrlRedirect
+	}
 	r.HostRedirect = dcl.FlattenString(m["hostRedirect"])
 	r.PathRedirect = dcl.FlattenString(m["pathRedirect"])
 	r.PrefixRedirect = dcl.FlattenString(m["prefixRedirect"])
@@ -10938,6 +11014,10 @@ func flattenUrlMapPathMatcherPathRule(c *Client, i interface{}) *UrlMapPathMatch
 	}
 
 	r := &UrlMapPathMatcherPathRule{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherPathRule
+	}
 	r.BackendService = dcl.FlattenString(m["service"])
 	r.RouteAction = flattenUrlMapPathMatcherPathRuleRouteAction(c, m["routeAction"])
 	r.UrlRedirect = flattenUrlMapPathMatcherPathRuleUrlRedirect(c, m["urlRedirect"])
@@ -11083,6 +11163,10 @@ func flattenUrlMapPathMatcherPathRuleRouteAction(c *Client, i interface{}) *UrlM
 	}
 
 	r := &UrlMapPathMatcherPathRuleRouteAction{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherPathRuleRouteAction
+	}
 	r.WeightedBackendService = flattenUrlMapPathMatcherPathRuleRouteActionWeightedBackendServiceSlice(c, m["weightedBackendServices"])
 	r.UrlRewrite = flattenUrlMapPathMatcherPathRuleRouteActionUrlRewrite(c, m["urlRewrite"])
 	r.Timeout = flattenUrlMapPathMatcherPathRuleRouteActionTimeout(c, m["timeout"])
@@ -11207,6 +11291,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionWeightedBackendService(c *Client
 	}
 
 	r := &UrlMapPathMatcherPathRuleRouteActionWeightedBackendService{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherPathRuleRouteActionWeightedBackendService
+	}
 	r.BackendService = dcl.FlattenString(m["backendService"])
 	r.Weight = dcl.FlattenInteger(m["weight"])
 	r.HeaderAction = flattenUrlMapHeaderAction(c, m["headerAction"])
@@ -11322,6 +11410,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionUrlRewrite(c *Client, i interfac
 	}
 
 	r := &UrlMapPathMatcherPathRuleRouteActionUrlRewrite{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherPathRuleRouteActionUrlRewrite
+	}
 	r.PathPrefixRewrite = dcl.FlattenString(m["pathPrefixRewrite"])
 	r.HostRewrite = dcl.FlattenString(m["hostRewrite"])
 
@@ -11436,6 +11528,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionTimeout(c *Client, i interface{}
 	}
 
 	r := &UrlMapPathMatcherPathRuleRouteActionTimeout{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherPathRuleRouteActionTimeout
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -11555,6 +11651,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionRetryPolicy(c *Client, i interfa
 	}
 
 	r := &UrlMapPathMatcherPathRuleRouteActionRetryPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherPathRuleRouteActionRetryPolicy
+	}
 	r.RetryCondition = dcl.FlattenStringSlice(m["retryConditions"])
 	r.NumRetries = dcl.FlattenInteger(m["numRetries"])
 	r.PerTryTimeout = flattenUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout(c, m["perTryTimeout"])
@@ -11670,6 +11770,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout(c *Clie
 	}
 
 	r := &UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -11781,6 +11885,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy(c *Client, i
 	}
 
 	r := &UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy
+	}
 	r.BackendService = dcl.FlattenString(m["backendService"])
 
 	return r
@@ -11912,6 +12020,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionCorsPolicy(c *Client, i interfac
 	}
 
 	r := &UrlMapPathMatcherPathRuleRouteActionCorsPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherPathRuleRouteActionCorsPolicy
+	}
 	r.AllowOrigin = dcl.FlattenStringSlice(m["allowOrigins"])
 	r.AllowOriginRegex = dcl.FlattenStringSlice(m["allowOriginRegexes"])
 	r.AllowMethod = dcl.FlattenStringSlice(m["allowMethods"])
@@ -12036,6 +12148,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy(c *Client, 
 	}
 
 	r := &UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy
+	}
 	r.Delay = flattenUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay(c, m["delay"])
 	r.Abort = flattenUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort(c, m["abort"])
 
@@ -12152,6 +12268,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay(c *Cli
 	}
 
 	r := &UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay
+	}
 	r.FixedDelay = flattenUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay(c, m["fixedDelay"])
 	r.Percentage = dcl.FlattenDouble(m["percentage"])
 
@@ -12266,6 +12386,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDe
 	}
 
 	r := &UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -12380,6 +12504,10 @@ func flattenUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort(c *Cli
 	}
 
 	r := &UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort
+	}
 	r.HttpStatus = dcl.FlattenInteger(m["httpStatus"])
 	r.Percentage = dcl.FlattenDouble(m["percentage"])
 
@@ -12506,6 +12634,10 @@ func flattenUrlMapPathMatcherPathRuleUrlRedirect(c *Client, i interface{}) *UrlM
 	}
 
 	r := &UrlMapPathMatcherPathRuleUrlRedirect{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherPathRuleUrlRedirect
+	}
 	r.HostRedirect = dcl.FlattenString(m["hostRedirect"])
 	r.PathRedirect = dcl.FlattenString(m["pathRedirect"])
 	r.PrefixRedirect = dcl.FlattenString(m["prefixRedirect"])
@@ -12647,6 +12779,10 @@ func flattenUrlMapPathMatcherRouteRule(c *Client, i interface{}) *UrlMapPathMatc
 	}
 
 	r := &UrlMapPathMatcherRouteRule{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherRouteRule
+	}
 	r.Priority = dcl.FlattenInteger(m["priority"])
 	r.Description = dcl.FlattenString(m["description"])
 	r.MatchRule = flattenUrlMapPathMatcherRouteRuleMatchRuleSlice(c, m["matchRules"])
@@ -12787,6 +12923,10 @@ func flattenUrlMapPathMatcherRouteRuleMatchRule(c *Client, i interface{}) *UrlMa
 	}
 
 	r := &UrlMapPathMatcherRouteRuleMatchRule{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherRouteRuleMatchRule
+	}
 	r.PrefixMatch = dcl.FlattenString(m["prefixMatch"])
 	r.FullPathMatch = dcl.FlattenString(m["fullPathMatch"])
 	r.RegexMatch = dcl.FlattenString(m["regexMatch"])
@@ -12926,6 +13066,10 @@ func flattenUrlMapPathMatcherRouteRuleMatchRuleHeaderMatch(c *Client, i interfac
 	}
 
 	r := &UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherRouteRuleMatchRuleHeaderMatch
+	}
 	r.HeaderName = dcl.FlattenString(m["headerName"])
 	r.ExactMatch = dcl.FlattenString(m["exactMatch"])
 	r.RegexMatch = dcl.FlattenString(m["regexMatch"])
@@ -13046,6 +13190,10 @@ func flattenUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch(c *Client, 
 	}
 
 	r := &UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch
+	}
 	r.RangeStart = dcl.FlattenInteger(m["rangeStart"])
 	r.RangeEnd = dcl.FlattenInteger(m["rangeEnd"])
 
@@ -13166,6 +13314,10 @@ func flattenUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch(c *Client, i 
 	}
 
 	r := &UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.PresentMatch = dcl.FlattenBool(m["presentMatch"])
 	r.ExactMatch = dcl.FlattenString(m["exactMatch"])
@@ -13284,6 +13436,10 @@ func flattenUrlMapPathMatcherRouteRuleMatchRuleMetadataFilter(c *Client, i inter
 	}
 
 	r := &UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherRouteRuleMatchRuleMetadataFilter
+	}
 	r.FilterMatchCriteria = flattenUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum(m["filterMatchCriteria"])
 	r.FilterLabel = flattenUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabelSlice(c, m["filterLabels"])
 
@@ -13398,6 +13554,10 @@ func flattenUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel(c *Clie
 	}
 
 	r := &UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -13541,6 +13701,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteAction(c *Client, i interface{}) *Url
 	}
 
 	r := &UrlMapPathMatcherRouteRuleRouteAction{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherRouteRuleRouteAction
+	}
 	r.WeightedBackendService = flattenUrlMapPathMatcherRouteRuleRouteActionWeightedBackendServiceSlice(c, m["weightedBackendServices"])
 	r.UrlRewrite = flattenUrlMapPathMatcherRouteRuleRouteActionUrlRewrite(c, m["urlRewrite"])
 	r.Timeout = flattenUrlMapPathMatcherRouteRuleRouteActionTimeout(c, m["timeout"])
@@ -13665,6 +13829,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionWeightedBackendService(c *Clien
 	}
 
 	r := &UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherRouteRuleRouteActionWeightedBackendService
+	}
 	r.BackendService = dcl.FlattenString(m["backendService"])
 	r.Weight = dcl.FlattenInteger(m["weight"])
 	r.HeaderAction = flattenUrlMapHeaderAction(c, m["headerAction"])
@@ -13780,6 +13948,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionUrlRewrite(c *Client, i interfa
 	}
 
 	r := &UrlMapPathMatcherRouteRuleRouteActionUrlRewrite{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherRouteRuleRouteActionUrlRewrite
+	}
 	r.PathPrefixRewrite = dcl.FlattenString(m["pathPrefixRewrite"])
 	r.HostRewrite = dcl.FlattenString(m["hostRewrite"])
 
@@ -13894,6 +14066,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionTimeout(c *Client, i interface{
 	}
 
 	r := &UrlMapPathMatcherRouteRuleRouteActionTimeout{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherRouteRuleRouteActionTimeout
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -14013,6 +14189,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionRetryPolicy(c *Client, i interf
 	}
 
 	r := &UrlMapPathMatcherRouteRuleRouteActionRetryPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherRouteRuleRouteActionRetryPolicy
+	}
 	r.RetryCondition = dcl.FlattenStringSlice(m["retryConditions"])
 	r.NumRetries = dcl.FlattenInteger(m["numRetries"])
 	r.PerTryTimeout = flattenUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout(c, m["perTryTimeout"])
@@ -14128,6 +14308,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout(c *Cli
 	}
 
 	r := &UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -14239,6 +14423,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy(c *Client, 
 	}
 
 	r := &UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy
+	}
 	r.BackendService = dcl.FlattenString(m["backendService"])
 
 	return r
@@ -14370,6 +14558,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionCorsPolicy(c *Client, i interfa
 	}
 
 	r := &UrlMapPathMatcherRouteRuleRouteActionCorsPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherRouteRuleRouteActionCorsPolicy
+	}
 	r.AllowOrigin = dcl.FlattenStringSlice(m["allowOrigins"])
 	r.AllowOriginRegex = dcl.FlattenStringSlice(m["allowOriginRegexes"])
 	r.AllowMethod = dcl.FlattenStringSlice(m["allowMethods"])
@@ -14494,6 +14686,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy(c *Client,
 	}
 
 	r := &UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy
+	}
 	r.Delay = flattenUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay(c, m["delay"])
 	r.Abort = flattenUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort(c, m["abort"])
 
@@ -14610,6 +14806,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay(c *Cl
 	}
 
 	r := &UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay
+	}
 	r.FixedDelay = flattenUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay(c, m["fixedDelay"])
 	r.Percentage = dcl.FlattenDouble(m["percentage"])
 
@@ -14724,6 +14924,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedD
 	}
 
 	r := &UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -14838,6 +15042,10 @@ func flattenUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort(c *Cl
 	}
 
 	r := &UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort
+	}
 	r.HttpStatus = dcl.FlattenInteger(m["httpStatus"])
 	r.Percentage = dcl.FlattenDouble(m["percentage"])
 
@@ -14964,6 +15172,10 @@ func flattenUrlMapPathMatcherRouteRuleUrlRedirect(c *Client, i interface{}) *Url
 	}
 
 	r := &UrlMapPathMatcherRouteRuleUrlRedirect{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapPathMatcherRouteRuleUrlRedirect
+	}
 	r.HostRedirect = dcl.FlattenString(m["hostRedirect"])
 	r.PathRedirect = dcl.FlattenString(m["pathRedirect"])
 	r.PrefixRedirect = dcl.FlattenString(m["prefixRedirect"])
@@ -15088,6 +15300,10 @@ func flattenUrlMapTest(c *Client, i interface{}) *UrlMapTest {
 	}
 
 	r := &UrlMapTest{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUrlMapTest
+	}
 	r.Description = dcl.FlattenString(m["description"])
 	r.Host = dcl.FlattenString(m["host"])
 	r.Path = dcl.FlattenString(m["path"])

@@ -118,17 +118,9 @@ class Cluster(object):
         self.database_encryption = database_encryption
         self.vertical_pod_autoscaling = vertical_pod_autoscaling
         self.shielded_nodes = shielded_nodes
-        self.endpoint = endpoint
         self.master_version = master_version
-        self.create_time = create_time
-        self.status = status
-        self.status_message = status_message
-        self.node_ipv4_cidr_size = node_ipv4_cidr_size
-        self.services_ipv4_cidr = services_ipv4_cidr
-        self.expire_time = expire_time
         self.location = location
         self.enable_tpu = enable_tpu
-        self.tpu_ipv4_cidr_block = tpu_ipv4_cidr_block
         self.conditions = conditions
         self.autopilot = autopilot
         self.project = project
@@ -137,13 +129,8 @@ class Cluster(object):
         self.workload_identity_config = workload_identity_config
         self.notification_config = notification_config
         self.confidential_nodes = confidential_nodes
-        self.self_link = self_link
-        self.zone = zone
         self.initial_cluster_version = initial_cluster_version
-        self.current_master_version = current_master_version
-        self.current_node_version = current_node_version
         self.instance_group_urls = instance_group_urls
-        self.current_node_count = current_node_count
         self.pod_security_policy_config = pod_security_policy_config
         self.private_cluster = private_cluster
         self.master_ipv4_cidr_block = master_ipv4_cidr_block
@@ -316,44 +303,14 @@ class Cluster(object):
             )
         else:
             request.resource.ClearField("shielded_nodes")
-        if Primitive.to_proto(self.endpoint):
-            request.resource.endpoint = Primitive.to_proto(self.endpoint)
-
         if Primitive.to_proto(self.master_version):
             request.resource.master_version = Primitive.to_proto(self.master_version)
-
-        if Primitive.to_proto(self.create_time):
-            request.resource.create_time = Primitive.to_proto(self.create_time)
-
-        if Primitive.to_proto(self.status):
-            request.resource.status = Primitive.to_proto(self.status)
-
-        if Primitive.to_proto(self.status_message):
-            request.resource.status_message = Primitive.to_proto(self.status_message)
-
-        if Primitive.to_proto(self.node_ipv4_cidr_size):
-            request.resource.node_ipv4_cidr_size = Primitive.to_proto(
-                self.node_ipv4_cidr_size
-            )
-
-        if Primitive.to_proto(self.services_ipv4_cidr):
-            request.resource.services_ipv4_cidr = Primitive.to_proto(
-                self.services_ipv4_cidr
-            )
-
-        if Primitive.to_proto(self.expire_time):
-            request.resource.expire_time = Primitive.to_proto(self.expire_time)
 
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
         if Primitive.to_proto(self.enable_tpu):
             request.resource.enable_tpu = Primitive.to_proto(self.enable_tpu)
-
-        if Primitive.to_proto(self.tpu_ipv4_cidr_block):
-            request.resource.tpu_ipv4_cidr_block = Primitive.to_proto(
-                self.tpu_ipv4_cidr_block
-            )
 
         if ClusterConditionsArray.to_proto(self.conditions):
             request.resource.conditions.extend(
@@ -398,36 +355,15 @@ class Cluster(object):
             )
         else:
             request.resource.ClearField("confidential_nodes")
-        if Primitive.to_proto(self.self_link):
-            request.resource.self_link = Primitive.to_proto(self.self_link)
-
-        if Primitive.to_proto(self.zone):
-            request.resource.zone = Primitive.to_proto(self.zone)
-
         if Primitive.to_proto(self.initial_cluster_version):
             request.resource.initial_cluster_version = Primitive.to_proto(
                 self.initial_cluster_version
-            )
-
-        if Primitive.to_proto(self.current_master_version):
-            request.resource.current_master_version = Primitive.to_proto(
-                self.current_master_version
-            )
-
-        if Primitive.to_proto(self.current_node_version):
-            request.resource.current_node_version = Primitive.to_proto(
-                self.current_node_version
             )
 
         if Primitive.to_proto(self.instance_group_urls):
             request.resource.instance_group_urls.extend(
                 Primitive.to_proto(self.instance_group_urls)
             )
-        if Primitive.to_proto(self.current_node_count):
-            request.resource.current_node_count = Primitive.to_proto(
-                self.current_node_count
-            )
-
         if ClusterPodSecurityPolicyConfig.to_proto(self.pod_security_policy_config):
             request.resource.pod_security_policy_config.CopyFrom(
                 ClusterPodSecurityPolicyConfig.to_proto(self.pod_security_policy_config)
@@ -730,44 +666,14 @@ class Cluster(object):
             )
         else:
             request.resource.ClearField("shielded_nodes")
-        if Primitive.to_proto(self.endpoint):
-            request.resource.endpoint = Primitive.to_proto(self.endpoint)
-
         if Primitive.to_proto(self.master_version):
             request.resource.master_version = Primitive.to_proto(self.master_version)
-
-        if Primitive.to_proto(self.create_time):
-            request.resource.create_time = Primitive.to_proto(self.create_time)
-
-        if Primitive.to_proto(self.status):
-            request.resource.status = Primitive.to_proto(self.status)
-
-        if Primitive.to_proto(self.status_message):
-            request.resource.status_message = Primitive.to_proto(self.status_message)
-
-        if Primitive.to_proto(self.node_ipv4_cidr_size):
-            request.resource.node_ipv4_cidr_size = Primitive.to_proto(
-                self.node_ipv4_cidr_size
-            )
-
-        if Primitive.to_proto(self.services_ipv4_cidr):
-            request.resource.services_ipv4_cidr = Primitive.to_proto(
-                self.services_ipv4_cidr
-            )
-
-        if Primitive.to_proto(self.expire_time):
-            request.resource.expire_time = Primitive.to_proto(self.expire_time)
 
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
         if Primitive.to_proto(self.enable_tpu):
             request.resource.enable_tpu = Primitive.to_proto(self.enable_tpu)
-
-        if Primitive.to_proto(self.tpu_ipv4_cidr_block):
-            request.resource.tpu_ipv4_cidr_block = Primitive.to_proto(
-                self.tpu_ipv4_cidr_block
-            )
 
         if ClusterConditionsArray.to_proto(self.conditions):
             request.resource.conditions.extend(
@@ -812,36 +718,15 @@ class Cluster(object):
             )
         else:
             request.resource.ClearField("confidential_nodes")
-        if Primitive.to_proto(self.self_link):
-            request.resource.self_link = Primitive.to_proto(self.self_link)
-
-        if Primitive.to_proto(self.zone):
-            request.resource.zone = Primitive.to_proto(self.zone)
-
         if Primitive.to_proto(self.initial_cluster_version):
             request.resource.initial_cluster_version = Primitive.to_proto(
                 self.initial_cluster_version
-            )
-
-        if Primitive.to_proto(self.current_master_version):
-            request.resource.current_master_version = Primitive.to_proto(
-                self.current_master_version
-            )
-
-        if Primitive.to_proto(self.current_node_version):
-            request.resource.current_node_version = Primitive.to_proto(
-                self.current_node_version
             )
 
         if Primitive.to_proto(self.instance_group_urls):
             request.resource.instance_group_urls.extend(
                 Primitive.to_proto(self.instance_group_urls)
             )
-        if Primitive.to_proto(self.current_node_count):
-            request.resource.current_node_count = Primitive.to_proto(
-                self.current_node_count
-            )
-
         if ClusterPodSecurityPolicyConfig.to_proto(self.pod_security_policy_config):
             request.resource.pod_security_policy_config.CopyFrom(
                 ClusterPodSecurityPolicyConfig.to_proto(self.pod_security_policy_config)
@@ -1021,28 +906,12 @@ class Cluster(object):
             )
         else:
             resource.ClearField("shielded_nodes")
-        if Primitive.to_proto(self.endpoint):
-            resource.endpoint = Primitive.to_proto(self.endpoint)
         if Primitive.to_proto(self.master_version):
             resource.master_version = Primitive.to_proto(self.master_version)
-        if Primitive.to_proto(self.create_time):
-            resource.create_time = Primitive.to_proto(self.create_time)
-        if Primitive.to_proto(self.status):
-            resource.status = Primitive.to_proto(self.status)
-        if Primitive.to_proto(self.status_message):
-            resource.status_message = Primitive.to_proto(self.status_message)
-        if Primitive.to_proto(self.node_ipv4_cidr_size):
-            resource.node_ipv4_cidr_size = Primitive.to_proto(self.node_ipv4_cidr_size)
-        if Primitive.to_proto(self.services_ipv4_cidr):
-            resource.services_ipv4_cidr = Primitive.to_proto(self.services_ipv4_cidr)
-        if Primitive.to_proto(self.expire_time):
-            resource.expire_time = Primitive.to_proto(self.expire_time)
         if Primitive.to_proto(self.location):
             resource.location = Primitive.to_proto(self.location)
         if Primitive.to_proto(self.enable_tpu):
             resource.enable_tpu = Primitive.to_proto(self.enable_tpu)
-        if Primitive.to_proto(self.tpu_ipv4_cidr_block):
-            resource.tpu_ipv4_cidr_block = Primitive.to_proto(self.tpu_ipv4_cidr_block)
         if ClusterConditionsArray.to_proto(self.conditions):
             resource.conditions.extend(ClusterConditionsArray.to_proto(self.conditions))
         if ClusterAutopilot.to_proto(self.autopilot):
@@ -1079,28 +948,14 @@ class Cluster(object):
             )
         else:
             resource.ClearField("confidential_nodes")
-        if Primitive.to_proto(self.self_link):
-            resource.self_link = Primitive.to_proto(self.self_link)
-        if Primitive.to_proto(self.zone):
-            resource.zone = Primitive.to_proto(self.zone)
         if Primitive.to_proto(self.initial_cluster_version):
             resource.initial_cluster_version = Primitive.to_proto(
                 self.initial_cluster_version
-            )
-        if Primitive.to_proto(self.current_master_version):
-            resource.current_master_version = Primitive.to_proto(
-                self.current_master_version
-            )
-        if Primitive.to_proto(self.current_node_version):
-            resource.current_node_version = Primitive.to_proto(
-                self.current_node_version
             )
         if Primitive.to_proto(self.instance_group_urls):
             resource.instance_group_urls.extend(
                 Primitive.to_proto(self.instance_group_urls)
             )
-        if Primitive.to_proto(self.current_node_count):
-            resource.current_node_count = Primitive.to_proto(self.current_node_count)
         if ClusterPodSecurityPolicyConfig.to_proto(self.pod_security_policy_config):
             resource.pod_security_policy_config.CopyFrom(
                 ClusterPodSecurityPolicyConfig.to_proto(self.pod_security_policy_config)

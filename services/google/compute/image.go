@@ -330,6 +330,10 @@ func (r *ImageGuestOsFeature) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyImageGuestOsFeature *ImageGuestOsFeature = &ImageGuestOsFeature{empty: true}
 
+func (r *ImageGuestOsFeature) Empty() bool {
+	return r.empty
+}
+
 func (r *ImageGuestOsFeature) String() string {
 	return dcl.SprintResource(r)
 }
@@ -381,6 +385,10 @@ func (r *ImageImageEncryptionKey) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyImageImageEncryptionKey *ImageImageEncryptionKey = &ImageImageEncryptionKey{empty: true}
 
+func (r *ImageImageEncryptionKey) Empty() bool {
+	return r.empty
+}
+
 func (r *ImageImageEncryptionKey) String() string {
 	return dcl.SprintResource(r)
 }
@@ -428,6 +436,10 @@ func (r *ImageRawDisk) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyImageRawDisk *ImageRawDisk = &ImageRawDisk{empty: true}
+
+func (r *ImageRawDisk) Empty() bool {
+	return r.empty
+}
 
 func (r *ImageRawDisk) String() string {
 	return dcl.SprintResource(r)
@@ -480,6 +492,10 @@ func (r *ImageShieldedInstanceInitialState) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyImageShieldedInstanceInitialState *ImageShieldedInstanceInitialState = &ImageShieldedInstanceInitialState{empty: true}
 
+func (r *ImageShieldedInstanceInitialState) Empty() bool {
+	return r.empty
+}
+
 func (r *ImageShieldedInstanceInitialState) String() string {
 	return dcl.SprintResource(r)
 }
@@ -524,6 +540,10 @@ func (r *ImageShieldedInstanceInitialStatePk) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyImageShieldedInstanceInitialStatePk *ImageShieldedInstanceInitialStatePk = &ImageShieldedInstanceInitialStatePk{empty: true}
+
+func (r *ImageShieldedInstanceInitialStatePk) Empty() bool {
+	return r.empty
+}
 
 func (r *ImageShieldedInstanceInitialStatePk) String() string {
 	return dcl.SprintResource(r)
@@ -570,6 +590,10 @@ func (r *ImageShieldedInstanceInitialStateKek) UnmarshalJSON(data []byte) error 
 // as one.  Modifying this object will have undesirable results.
 var EmptyImageShieldedInstanceInitialStateKek *ImageShieldedInstanceInitialStateKek = &ImageShieldedInstanceInitialStateKek{empty: true}
 
+func (r *ImageShieldedInstanceInitialStateKek) Empty() bool {
+	return r.empty
+}
+
 func (r *ImageShieldedInstanceInitialStateKek) String() string {
 	return dcl.SprintResource(r)
 }
@@ -615,6 +639,10 @@ func (r *ImageShieldedInstanceInitialStateDb) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyImageShieldedInstanceInitialStateDb *ImageShieldedInstanceInitialStateDb = &ImageShieldedInstanceInitialStateDb{empty: true}
 
+func (r *ImageShieldedInstanceInitialStateDb) Empty() bool {
+	return r.empty
+}
+
 func (r *ImageShieldedInstanceInitialStateDb) String() string {
 	return dcl.SprintResource(r)
 }
@@ -659,6 +687,10 @@ func (r *ImageShieldedInstanceInitialStateDbx) UnmarshalJSON(data []byte) error 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyImageShieldedInstanceInitialStateDbx *ImageShieldedInstanceInitialStateDbx = &ImageShieldedInstanceInitialStateDbx{empty: true}
+
+func (r *ImageShieldedInstanceInitialStateDbx) Empty() bool {
+	return r.empty
+}
 
 func (r *ImageShieldedInstanceInitialStateDbx) String() string {
 	return dcl.SprintResource(r)
@@ -711,6 +743,10 @@ func (r *ImageSourceDiskEncryptionKey) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyImageSourceDiskEncryptionKey *ImageSourceDiskEncryptionKey = &ImageSourceDiskEncryptionKey{empty: true}
 
+func (r *ImageSourceDiskEncryptionKey) Empty() bool {
+	return r.empty
+}
+
 func (r *ImageSourceDiskEncryptionKey) String() string {
 	return dcl.SprintResource(r)
 }
@@ -762,6 +798,10 @@ func (r *ImageSourceImageEncryptionKey) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyImageSourceImageEncryptionKey *ImageSourceImageEncryptionKey = &ImageSourceImageEncryptionKey{empty: true}
 
+func (r *ImageSourceImageEncryptionKey) Empty() bool {
+	return r.empty
+}
+
 func (r *ImageSourceImageEncryptionKey) String() string {
 	return dcl.SprintResource(r)
 }
@@ -812,6 +852,10 @@ func (r *ImageSourceSnapshotEncryptionKey) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyImageSourceSnapshotEncryptionKey *ImageSourceSnapshotEncryptionKey = &ImageSourceSnapshotEncryptionKey{empty: true}
+
+func (r *ImageSourceSnapshotEncryptionKey) Empty() bool {
+	return r.empty
+}
 
 func (r *ImageSourceSnapshotEncryptionKey) String() string {
 	return dcl.SprintResource(r)
@@ -866,6 +910,10 @@ func (r *ImageDeprecated) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyImageDeprecated *ImageDeprecated = &ImageDeprecated{empty: true}
+
+func (r *ImageDeprecated) Empty() bool {
+	return r.empty
+}
 
 func (r *ImageDeprecated) String() string {
 	return dcl.SprintResource(r)

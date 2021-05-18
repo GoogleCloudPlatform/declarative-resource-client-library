@@ -131,6 +131,10 @@ func (r *ReservationSpecificReservation) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyReservationSpecificReservation *ReservationSpecificReservation = &ReservationSpecificReservation{empty: true}
 
+func (r *ReservationSpecificReservation) Empty() bool {
+	return r.empty
+}
+
 func (r *ReservationSpecificReservation) String() string {
 	return dcl.SprintResource(r)
 }
@@ -182,6 +186,10 @@ func (r *ReservationSpecificReservationInstanceProperties) UnmarshalJSON(data []
 // as one.  Modifying this object will have undesirable results.
 var EmptyReservationSpecificReservationInstanceProperties *ReservationSpecificReservationInstanceProperties = &ReservationSpecificReservationInstanceProperties{empty: true}
 
+func (r *ReservationSpecificReservationInstanceProperties) Empty() bool {
+	return r.empty
+}
+
 func (r *ReservationSpecificReservationInstanceProperties) String() string {
 	return dcl.SprintResource(r)
 }
@@ -227,6 +235,10 @@ func (r *ReservationSpecificReservationInstancePropertiesGuestAccelerators) Unma
 // as one.  Modifying this object will have undesirable results.
 var EmptyReservationSpecificReservationInstancePropertiesGuestAccelerators *ReservationSpecificReservationInstancePropertiesGuestAccelerators = &ReservationSpecificReservationInstancePropertiesGuestAccelerators{empty: true}
 
+func (r *ReservationSpecificReservationInstancePropertiesGuestAccelerators) Empty() bool {
+	return r.empty
+}
+
 func (r *ReservationSpecificReservationInstancePropertiesGuestAccelerators) String() string {
 	return dcl.SprintResource(r)
 }
@@ -271,6 +283,10 @@ func (r *ReservationSpecificReservationInstancePropertiesLocalSsds) UnmarshalJSO
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyReservationSpecificReservationInstancePropertiesLocalSsds *ReservationSpecificReservationInstancePropertiesLocalSsds = &ReservationSpecificReservationInstancePropertiesLocalSsds{empty: true}
+
+func (r *ReservationSpecificReservationInstancePropertiesLocalSsds) Empty() bool {
+	return r.empty
+}
 
 func (r *ReservationSpecificReservationInstancePropertiesLocalSsds) String() string {
 	return dcl.SprintResource(r)

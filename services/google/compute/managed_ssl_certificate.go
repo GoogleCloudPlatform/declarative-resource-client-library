@@ -130,6 +130,10 @@ func (r *ManagedSslCertificateManaged) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyManagedSslCertificateManaged *ManagedSslCertificateManaged = &ManagedSslCertificateManaged{empty: true}
 
+func (r *ManagedSslCertificateManaged) Empty() bool {
+	return r.empty
+}
+
 func (r *ManagedSslCertificateManaged) String() string {
 	return dcl.SprintResource(r)
 }

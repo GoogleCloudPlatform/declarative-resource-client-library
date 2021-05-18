@@ -269,6 +269,10 @@ func (r *InstanceTemplateProperties) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceTemplateProperties *InstanceTemplateProperties = &InstanceTemplateProperties{empty: true}
 
+func (r *InstanceTemplateProperties) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceTemplateProperties) String() string {
 	return dcl.SprintResource(r)
 }
@@ -341,6 +345,10 @@ func (r *InstanceTemplatePropertiesDisks) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceTemplatePropertiesDisks *InstanceTemplatePropertiesDisks = &InstanceTemplatePropertiesDisks{empty: true}
 
+func (r *InstanceTemplatePropertiesDisks) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceTemplatePropertiesDisks) String() string {
 	return dcl.SprintResource(r)
 }
@@ -388,6 +396,10 @@ func (r *InstanceTemplatePropertiesDisksDiskEncryptionKey) UnmarshalJSON(data []
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceTemplatePropertiesDisksDiskEncryptionKey *InstanceTemplatePropertiesDisksDiskEncryptionKey = &InstanceTemplatePropertiesDisksDiskEncryptionKey{empty: true}
+
+func (r *InstanceTemplatePropertiesDisksDiskEncryptionKey) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceTemplatePropertiesDisksDiskEncryptionKey) String() string {
 	return dcl.SprintResource(r)
@@ -461,6 +473,10 @@ func (r *InstanceTemplatePropertiesDisksInitializeParams) UnmarshalJSON(data []b
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceTemplatePropertiesDisksInitializeParams *InstanceTemplatePropertiesDisksInitializeParams = &InstanceTemplatePropertiesDisksInitializeParams{empty: true}
 
+func (r *InstanceTemplatePropertiesDisksInitializeParams) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceTemplatePropertiesDisksInitializeParams) String() string {
 	return dcl.SprintResource(r)
 }
@@ -508,6 +524,10 @@ func (r *InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryption
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey *InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey = &InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey{empty: true}
+
+func (r *InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey) String() string {
 	return dcl.SprintResource(r)
@@ -557,6 +577,10 @@ func (r *InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey *InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey = &InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey{empty: true}
 
+func (r *InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey) String() string {
 	return dcl.SprintResource(r)
 }
@@ -598,6 +622,10 @@ func (r *InstanceTemplatePropertiesDisksGuestOsFeatures) UnmarshalJSON(data []by
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceTemplatePropertiesDisksGuestOsFeatures *InstanceTemplatePropertiesDisksGuestOsFeatures = &InstanceTemplatePropertiesDisksGuestOsFeatures{empty: true}
+
+func (r *InstanceTemplatePropertiesDisksGuestOsFeatures) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceTemplatePropertiesDisksGuestOsFeatures) String() string {
 	return dcl.SprintResource(r)
@@ -644,6 +672,10 @@ func (r *InstanceTemplatePropertiesReservationAffinity) UnmarshalJSON(data []byt
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceTemplatePropertiesReservationAffinity *InstanceTemplatePropertiesReservationAffinity = &InstanceTemplatePropertiesReservationAffinity{empty: true}
 
+func (r *InstanceTemplatePropertiesReservationAffinity) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceTemplatePropertiesReservationAffinity) String() string {
 	return dcl.SprintResource(r)
 }
@@ -688,6 +720,10 @@ func (r *InstanceTemplatePropertiesGuestAccelerators) UnmarshalJSON(data []byte)
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceTemplatePropertiesGuestAccelerators *InstanceTemplatePropertiesGuestAccelerators = &InstanceTemplatePropertiesGuestAccelerators{empty: true}
+
+func (r *InstanceTemplatePropertiesGuestAccelerators) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceTemplatePropertiesGuestAccelerators) String() string {
 	return dcl.SprintResource(r)
@@ -746,6 +782,10 @@ func (r *InstanceTemplatePropertiesNetworkInterfaces) UnmarshalJSON(data []byte)
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceTemplatePropertiesNetworkInterfaces *InstanceTemplatePropertiesNetworkInterfaces = &InstanceTemplatePropertiesNetworkInterfaces{empty: true}
 
+func (r *InstanceTemplatePropertiesNetworkInterfaces) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceTemplatePropertiesNetworkInterfaces) String() string {
 	return dcl.SprintResource(r)
 }
@@ -803,6 +843,10 @@ func (r *InstanceTemplatePropertiesNetworkInterfacesAccessConfigs) UnmarshalJSON
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceTemplatePropertiesNetworkInterfacesAccessConfigs *InstanceTemplatePropertiesNetworkInterfacesAccessConfigs = &InstanceTemplatePropertiesNetworkInterfacesAccessConfigs{empty: true}
 
+func (r *InstanceTemplatePropertiesNetworkInterfacesAccessConfigs) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceTemplatePropertiesNetworkInterfacesAccessConfigs) String() string {
 	return dcl.SprintResource(r)
 }
@@ -847,6 +891,10 @@ func (r *InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges) UnmarshalJSON
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceTemplatePropertiesNetworkInterfacesAliasIPRanges *InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges = &InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges{empty: true}
+
+func (r *InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges) String() string {
 	return dcl.SprintResource(r)
@@ -895,6 +943,10 @@ func (r *InstanceTemplatePropertiesShieldedInstanceConfig) UnmarshalJSON(data []
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceTemplatePropertiesShieldedInstanceConfig *InstanceTemplatePropertiesShieldedInstanceConfig = &InstanceTemplatePropertiesShieldedInstanceConfig{empty: true}
+
+func (r *InstanceTemplatePropertiesShieldedInstanceConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceTemplatePropertiesShieldedInstanceConfig) String() string {
 	return dcl.SprintResource(r)
@@ -947,6 +999,10 @@ func (r *InstanceTemplatePropertiesScheduling) UnmarshalJSON(data []byte) error 
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceTemplatePropertiesScheduling *InstanceTemplatePropertiesScheduling = &InstanceTemplatePropertiesScheduling{empty: true}
 
+func (r *InstanceTemplatePropertiesScheduling) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceTemplatePropertiesScheduling) String() string {
 	return dcl.SprintResource(r)
 }
@@ -995,6 +1051,10 @@ func (r *InstanceTemplatePropertiesSchedulingNodeAffinities) UnmarshalJSON(data 
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceTemplatePropertiesSchedulingNodeAffinities *InstanceTemplatePropertiesSchedulingNodeAffinities = &InstanceTemplatePropertiesSchedulingNodeAffinities{empty: true}
 
+func (r *InstanceTemplatePropertiesSchedulingNodeAffinities) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceTemplatePropertiesSchedulingNodeAffinities) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1039,6 +1099,10 @@ func (r *InstanceTemplatePropertiesServiceAccounts) UnmarshalJSON(data []byte) e
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceTemplatePropertiesServiceAccounts *InstanceTemplatePropertiesServiceAccounts = &InstanceTemplatePropertiesServiceAccounts{empty: true}
+
+func (r *InstanceTemplatePropertiesServiceAccounts) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceTemplatePropertiesServiceAccounts) String() string {
 	return dcl.SprintResource(r)

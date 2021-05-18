@@ -267,6 +267,10 @@ func (r *RouterNats) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyRouterNats *RouterNats = &RouterNats{empty: true}
 
+func (r *RouterNats) Empty() bool {
+	return r.empty
+}
+
 func (r *RouterNats) String() string {
 	return dcl.SprintResource(r)
 }
@@ -311,6 +315,10 @@ func (r *RouterNatsLogConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyRouterNatsLogConfig *RouterNatsLogConfig = &RouterNatsLogConfig{empty: true}
+
+func (r *RouterNatsLogConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *RouterNatsLogConfig) String() string {
 	return dcl.SprintResource(r)
@@ -359,6 +367,10 @@ func (r *RouterNatsSubnetworks) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyRouterNatsSubnetworks *RouterNatsSubnetworks = &RouterNatsSubnetworks{empty: true}
+
+func (r *RouterNatsSubnetworks) Empty() bool {
+	return r.empty
+}
 
 func (r *RouterNatsSubnetworks) String() string {
 	return dcl.SprintResource(r)
@@ -410,6 +422,10 @@ func (r *RouterInterfaces) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyRouterInterfaces *RouterInterfaces = &RouterInterfaces{empty: true}
+
+func (r *RouterInterfaces) Empty() bool {
+	return r.empty
+}
 
 func (r *RouterInterfaces) String() string {
 	return dcl.SprintResource(r)
@@ -480,6 +496,10 @@ func (r *RouterBgpPeers) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyRouterBgpPeers *RouterBgpPeers = &RouterBgpPeers{empty: true}
 
+func (r *RouterBgpPeers) Empty() bool {
+	return r.empty
+}
+
 func (r *RouterBgpPeers) String() string {
 	return dcl.SprintResource(r)
 }
@@ -524,6 +544,10 @@ func (r *RouterBgpPeersAdvertisedIPRanges) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyRouterBgpPeersAdvertisedIPRanges *RouterBgpPeersAdvertisedIPRanges = &RouterBgpPeersAdvertisedIPRanges{empty: true}
+
+func (r *RouterBgpPeersAdvertisedIPRanges) Empty() bool {
+	return r.empty
+}
 
 func (r *RouterBgpPeersAdvertisedIPRanges) String() string {
 	return dcl.SprintResource(r)
@@ -576,6 +600,10 @@ func (r *RouterBgp) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyRouterBgp *RouterBgp = &RouterBgp{empty: true}
 
+func (r *RouterBgp) Empty() bool {
+	return r.empty
+}
+
 func (r *RouterBgp) String() string {
 	return dcl.SprintResource(r)
 }
@@ -620,6 +648,10 @@ func (r *RouterBgpAdvertisedIPRanges) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyRouterBgpAdvertisedIPRanges *RouterBgpAdvertisedIPRanges = &RouterBgpAdvertisedIPRanges{empty: true}
+
+func (r *RouterBgpAdvertisedIPRanges) Empty() bool {
+	return r.empty
+}
 
 func (r *RouterBgpAdvertisedIPRanges) String() string {
 	return dcl.SprintResource(r)

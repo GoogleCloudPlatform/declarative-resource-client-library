@@ -72,6 +72,10 @@ func (r *TriggerDestination) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyTriggerDestination *TriggerDestination = &TriggerDestination{empty: true}
 
+func (r *TriggerDestination) Empty() bool {
+	return r.empty
+}
+
 func (r *TriggerDestination) String() string {
 	return dcl.SprintResource(r)
 }
@@ -120,6 +124,10 @@ func (r *TriggerDestinationCloudRunService) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyTriggerDestinationCloudRunService *TriggerDestinationCloudRunService = &TriggerDestinationCloudRunService{empty: true}
 
+func (r *TriggerDestinationCloudRunService) Empty() bool {
+	return r.empty
+}
+
 func (r *TriggerDestinationCloudRunService) String() string {
 	return dcl.SprintResource(r)
 }
@@ -161,6 +169,10 @@ func (r *TriggerTransport) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyTriggerTransport *TriggerTransport = &TriggerTransport{empty: true}
+
+func (r *TriggerTransport) Empty() bool {
+	return r.empty
+}
 
 func (r *TriggerTransport) String() string {
 	return dcl.SprintResource(r)
@@ -207,6 +219,10 @@ func (r *TriggerTransportPubsub) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyTriggerTransportPubsub *TriggerTransportPubsub = &TriggerTransportPubsub{empty: true}
 
+func (r *TriggerTransportPubsub) Empty() bool {
+	return r.empty
+}
+
 func (r *TriggerTransportPubsub) String() string {
 	return dcl.SprintResource(r)
 }
@@ -251,6 +267,10 @@ func (r *TriggerMatchingCriteria) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyTriggerMatchingCriteria *TriggerMatchingCriteria = &TriggerMatchingCriteria{empty: true}
+
+func (r *TriggerMatchingCriteria) Empty() bool {
+	return r.empty
+}
 
 func (r *TriggerMatchingCriteria) String() string {
 	return dcl.SprintResource(r)

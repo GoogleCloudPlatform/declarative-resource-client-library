@@ -2016,6 +2016,10 @@ func flattenLogMetricMetricDescriptor(c *Client, i interface{}) *LogMetricMetric
 	}
 
 	r := &LogMetricMetricDescriptor{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyLogMetricMetricDescriptor
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Type = dcl.FlattenString(m["type"])
 	r.DescriptorLabels = flattenLogMetricMetricDescriptorDescriptorLabelsSlice(c, m["labels"])
@@ -2142,6 +2146,10 @@ func flattenLogMetricMetricDescriptorDescriptorLabels(c *Client, i interface{}) 
 	}
 
 	r := &LogMetricMetricDescriptorDescriptorLabels{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyLogMetricMetricDescriptorDescriptorLabels
+	}
 	r.Key = dcl.FlattenString(m["key"])
 	r.ValueType = flattenLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum(m["valueType"])
 	r.Description = dcl.FlattenString(m["description"])
@@ -2260,6 +2268,10 @@ func flattenLogMetricMetricDescriptorMetadata(c *Client, i interface{}) *LogMetr
 	}
 
 	r := &LogMetricMetricDescriptorMetadata{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyLogMetricMetricDescriptorMetadata
+	}
 	r.LaunchStage = flattenLogMetricMetricDescriptorMetadataLaunchStageEnum(m["launchStage"])
 	r.SamplePeriod = dcl.FlattenString(m["samplePeriod"])
 	r.IngestDelay = dcl.FlattenString(m["ingestDelay"])
@@ -2384,6 +2396,10 @@ func flattenLogMetricBucketOptions(c *Client, i interface{}) *LogMetricBucketOpt
 	}
 
 	r := &LogMetricBucketOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyLogMetricBucketOptions
+	}
 	r.LinearBuckets = flattenLogMetricBucketOptionsLinearBuckets(c, m["linearBuckets"])
 	r.ExponentialBuckets = flattenLogMetricBucketOptionsExponentialBuckets(c, m["exponentialBuckets"])
 	r.ExplicitBuckets = flattenLogMetricBucketOptionsExplicitBuckets(c, m["explicitBuckets"])
@@ -2502,6 +2518,10 @@ func flattenLogMetricBucketOptionsLinearBuckets(c *Client, i interface{}) *LogMe
 	}
 
 	r := &LogMetricBucketOptionsLinearBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyLogMetricBucketOptionsLinearBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.Width = dcl.FlattenDouble(m["width"])
 	r.Offset = dcl.FlattenDouble(m["offset"])
@@ -2620,6 +2640,10 @@ func flattenLogMetricBucketOptionsExponentialBuckets(c *Client, i interface{}) *
 	}
 
 	r := &LogMetricBucketOptionsExponentialBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyLogMetricBucketOptionsExponentialBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.GrowthFactor = dcl.FlattenDouble(m["growthFactor"])
 	r.Scale = dcl.FlattenDouble(m["scale"])
@@ -2732,6 +2756,10 @@ func flattenLogMetricBucketOptionsExplicitBuckets(c *Client, i interface{}) *Log
 	}
 
 	r := &LogMetricBucketOptionsExplicitBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyLogMetricBucketOptionsExplicitBuckets
+	}
 	r.Bounds = dcl.FlattenFloatSlice(m["bounds"])
 
 	return r

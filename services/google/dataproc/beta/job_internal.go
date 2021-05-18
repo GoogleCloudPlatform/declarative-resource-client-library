@@ -4856,6 +4856,10 @@ func flattenJobReference(c *Client, i interface{}) *JobReference {
 	}
 
 	r := &JobReference{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobReference
+	}
 	r.ProjectId = dcl.FlattenString(m["projectId"])
 	r.JobId = dcl.FlattenString(m["jobId"])
 
@@ -4973,6 +4977,10 @@ func flattenJobPlacement(c *Client, i interface{}) *JobPlacement {
 	}
 
 	r := &JobPlacement{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobPlacement
+	}
 	r.ClusterName = dcl.FlattenString(m["clusterName"])
 	r.ClusterUuid = dcl.FlattenString(m["clusterUuid"])
 	r.ClusterLabels = dcl.FlattenKeyValuePairs(m["clusterLabels"])
@@ -5108,6 +5116,10 @@ func flattenJobHadoopJob(c *Client, i interface{}) *JobHadoopJob {
 	}
 
 	r := &JobHadoopJob{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobHadoopJob
+	}
 	r.MainJarFileUri = dcl.FlattenString(m["mainJarFileUri"])
 	r.MainClass = dcl.FlattenString(m["mainClass"])
 	r.Args = dcl.FlattenStringSlice(m["args"])
@@ -5225,6 +5237,10 @@ func flattenJobHadoopJobLoggingConfig(c *Client, i interface{}) *JobHadoopJobLog
 	}
 
 	r := &JobHadoopJobLoggingConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobHadoopJobLoggingConfig
+	}
 	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
@@ -5358,6 +5374,10 @@ func flattenJobSparkJob(c *Client, i interface{}) *JobSparkJob {
 	}
 
 	r := &JobSparkJob{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobSparkJob
+	}
 	r.MainJarFileUri = dcl.FlattenString(m["mainJarFileUri"])
 	r.MainClass = dcl.FlattenString(m["mainClass"])
 	r.Args = dcl.FlattenStringSlice(m["args"])
@@ -5475,6 +5495,10 @@ func flattenJobSparkJobLoggingConfig(c *Client, i interface{}) *JobSparkJobLoggi
 	}
 
 	r := &JobSparkJobLoggingConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobSparkJobLoggingConfig
+	}
 	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
@@ -5608,6 +5632,10 @@ func flattenJobPysparkJob(c *Client, i interface{}) *JobPysparkJob {
 	}
 
 	r := &JobPysparkJob{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobPysparkJob
+	}
 	r.MainPythonFileUri = dcl.FlattenString(m["mainPythonFileUri"])
 	r.Args = dcl.FlattenStringSlice(m["args"])
 	r.PythonFileUris = dcl.FlattenStringSlice(m["pythonFileUris"])
@@ -5725,6 +5753,10 @@ func flattenJobPysparkJobLoggingConfig(c *Client, i interface{}) *JobPysparkJobL
 	}
 
 	r := &JobPysparkJobLoggingConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobPysparkJobLoggingConfig
+	}
 	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
@@ -5852,6 +5884,10 @@ func flattenJobHiveJob(c *Client, i interface{}) *JobHiveJob {
 	}
 
 	r := &JobHiveJob{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobHiveJob
+	}
 	r.QueryFileUri = dcl.FlattenString(m["queryFileUri"])
 	r.QueryList = flattenJobHiveJobQueryList(c, m["queryList"])
 	r.ContinueOnFailure = dcl.FlattenBool(m["continueOnFailure"])
@@ -5967,6 +6003,10 @@ func flattenJobHiveJobQueryList(c *Client, i interface{}) *JobHiveJobQueryList {
 	}
 
 	r := &JobHiveJobQueryList{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobHiveJobQueryList
+	}
 	r.Queries = dcl.FlattenStringSlice(m["queries"])
 
 	return r
@@ -6099,6 +6139,10 @@ func flattenJobPigJob(c *Client, i interface{}) *JobPigJob {
 	}
 
 	r := &JobPigJob{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobPigJob
+	}
 	r.QueryFileUri = dcl.FlattenString(m["queryFileUri"])
 	r.QueryList = flattenJobPigJobQueryList(c, m["queryList"])
 	r.ContinueOnFailure = dcl.FlattenBool(m["continueOnFailure"])
@@ -6215,6 +6259,10 @@ func flattenJobPigJobQueryList(c *Client, i interface{}) *JobPigJobQueryList {
 	}
 
 	r := &JobPigJobQueryList{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobPigJobQueryList
+	}
 	r.Queries = dcl.FlattenStringSlice(m["queries"])
 
 	return r
@@ -6325,6 +6373,10 @@ func flattenJobPigJobLoggingConfig(c *Client, i interface{}) *JobPigJobLoggingCo
 	}
 
 	r := &JobPigJobLoggingConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobPigJobLoggingConfig
+	}
 	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
@@ -6452,6 +6504,10 @@ func flattenJobSparkRJob(c *Client, i interface{}) *JobSparkRJob {
 	}
 
 	r := &JobSparkRJob{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobSparkRJob
+	}
 	r.MainRFileUri = dcl.FlattenString(m["mainRFileUri"])
 	r.Args = dcl.FlattenStringSlice(m["args"])
 	r.FileUris = dcl.FlattenStringSlice(m["fileUris"])
@@ -6567,6 +6623,10 @@ func flattenJobSparkRJobLoggingConfig(c *Client, i interface{}) *JobSparkRJobLog
 	}
 
 	r := &JobSparkRJobLoggingConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobSparkRJobLoggingConfig
+	}
 	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
@@ -6696,6 +6756,10 @@ func flattenJobSparkSqlJob(c *Client, i interface{}) *JobSparkSqlJob {
 	}
 
 	r := &JobSparkSqlJob{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobSparkSqlJob
+	}
 	r.QueryFileUri = dcl.FlattenString(m["queryFileUri"])
 	r.QueryList = flattenJobSparkSqlJobQueryList(c, m["queryList"])
 	r.ScriptVariables = dcl.FlattenKeyValuePairs(m["scriptVariables"])
@@ -6811,6 +6875,10 @@ func flattenJobSparkSqlJobQueryList(c *Client, i interface{}) *JobSparkSqlJobQue
 	}
 
 	r := &JobSparkSqlJobQueryList{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobSparkSqlJobQueryList
+	}
 	r.Queries = dcl.FlattenStringSlice(m["queries"])
 
 	return r
@@ -6921,6 +6989,10 @@ func flattenJobSparkSqlJobLoggingConfig(c *Client, i interface{}) *JobSparkSqlJo
 	}
 
 	r := &JobSparkSqlJobLoggingConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobSparkSqlJobLoggingConfig
+	}
 	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
@@ -7053,6 +7125,10 @@ func flattenJobPrestoJob(c *Client, i interface{}) *JobPrestoJob {
 	}
 
 	r := &JobPrestoJob{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobPrestoJob
+	}
 	r.QueryFileUri = dcl.FlattenString(m["queryFileUri"])
 	r.QueryList = flattenJobPrestoJobQueryList(c, m["queryList"])
 	r.ContinueOnFailure = dcl.FlattenBool(m["continueOnFailure"])
@@ -7169,6 +7245,10 @@ func flattenJobPrestoJobQueryList(c *Client, i interface{}) *JobPrestoJobQueryLi
 	}
 
 	r := &JobPrestoJobQueryList{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobPrestoJobQueryList
+	}
 	r.Queries = dcl.FlattenStringSlice(m["queries"])
 
 	return r
@@ -7279,6 +7359,10 @@ func flattenJobPrestoJobLoggingConfig(c *Client, i interface{}) *JobPrestoJobLog
 	}
 
 	r := &JobPrestoJobLoggingConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobPrestoJobLoggingConfig
+	}
 	r.DriverLogLevels = dcl.FlattenKeyValuePairs(m["driverLogLevels"])
 
 	return r
@@ -7398,6 +7482,10 @@ func flattenJobStatus(c *Client, i interface{}) *JobStatus {
 	}
 
 	r := &JobStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobStatus
+	}
 	r.State = flattenJobStatusStateEnum(m["state"])
 	r.Details = dcl.FlattenString(m["details"])
 	r.StateStartTime = dcl.FlattenString(m["stateStartTime"])
@@ -7520,6 +7608,10 @@ func flattenJobStatusHistory(c *Client, i interface{}) *JobStatusHistory {
 	}
 
 	r := &JobStatusHistory{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobStatusHistory
+	}
 	r.State = flattenJobStatusHistoryStateEnum(m["state"])
 	r.Details = dcl.FlattenString(m["details"])
 	r.StateStartTime = dcl.FlattenString(m["stateStartTime"])
@@ -7642,6 +7734,10 @@ func flattenJobYarnApplications(c *Client, i interface{}) *JobYarnApplications {
 	}
 
 	r := &JobYarnApplications{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobYarnApplications
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.State = flattenJobYarnApplicationsStateEnum(m["state"])
 	r.Progress = dcl.FlattenDouble(m["progress"])
@@ -7758,6 +7854,10 @@ func flattenJobScheduling(c *Client, i interface{}) *JobScheduling {
 	}
 
 	r := &JobScheduling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyJobScheduling
+	}
 	r.MaxFailuresPerHour = dcl.FlattenInteger(m["maxFailuresPerHour"])
 	r.MaxFailuresTotal = dcl.FlattenInteger(m["maxFailuresTotal"])
 

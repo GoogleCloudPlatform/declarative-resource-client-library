@@ -234,6 +234,10 @@ func (r *InstanceServerCaCerts) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceServerCaCerts *InstanceServerCaCerts = &InstanceServerCaCerts{empty: true}
 
+func (r *InstanceServerCaCerts) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceServerCaCerts) String() string {
 	return dcl.SprintResource(r)
 }
@@ -285,6 +289,10 @@ func (r *InstanceMaintenancePolicy) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceMaintenancePolicy *InstanceMaintenancePolicy = &InstanceMaintenancePolicy{empty: true}
 
+func (r *InstanceMaintenancePolicy) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceMaintenancePolicy) String() string {
 	return dcl.SprintResource(r)
 }
@@ -332,6 +340,10 @@ func (r *InstanceMaintenancePolicyWeeklyMaintenanceWindow) UnmarshalJSON(data []
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceMaintenancePolicyWeeklyMaintenanceWindow *InstanceMaintenancePolicyWeeklyMaintenanceWindow = &InstanceMaintenancePolicyWeeklyMaintenanceWindow{empty: true}
+
+func (r *InstanceMaintenancePolicyWeeklyMaintenanceWindow) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceMaintenancePolicyWeeklyMaintenanceWindow) String() string {
 	return dcl.SprintResource(r)
@@ -384,6 +396,10 @@ func (r *InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime) UnmarshalJSO
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime *InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime = &InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime{empty: true}
 
+func (r *InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime) String() string {
 	return dcl.SprintResource(r)
 }
@@ -434,6 +450,10 @@ func (r *InstanceMaintenanceSchedule) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceMaintenanceSchedule *InstanceMaintenanceSchedule = &InstanceMaintenanceSchedule{empty: true}
+
+func (r *InstanceMaintenanceSchedule) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceMaintenanceSchedule) String() string {
 	return dcl.SprintResource(r)

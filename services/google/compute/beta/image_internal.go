@@ -3071,6 +3071,10 @@ func flattenImageGuestOsFeature(c *Client, i interface{}) *ImageGuestOsFeature {
 	}
 
 	r := &ImageGuestOsFeature{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyImageGuestOsFeature
+	}
 	r.Type = flattenImageGuestOsFeatureTypeEnum(m["type"])
 
 	return r
@@ -3190,6 +3194,10 @@ func flattenImageImageEncryptionKey(c *Client, i interface{}) *ImageImageEncrypt
 	}
 
 	r := &ImageImageEncryptionKey{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyImageImageEncryptionKey
+	}
 	r.RawKey = dcl.FlattenString(m["rawKey"])
 	r.KmsKeyName = dcl.FlattenString(m["kmsKeyName"])
 	r.Sha256 = dcl.FlattenString(m["sha256"])
@@ -3309,6 +3317,10 @@ func flattenImageRawDisk(c *Client, i interface{}) *ImageRawDisk {
 	}
 
 	r := &ImageRawDisk{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyImageRawDisk
+	}
 	r.Source = dcl.FlattenString(m["source"])
 	r.Sha1Checksum = dcl.FlattenString(m["sha1Checksum"])
 	r.ContainerType = flattenImageRawDiskContainerTypeEnum(m["containerType"])
@@ -3442,6 +3454,10 @@ func flattenImageShieldedInstanceInitialState(c *Client, i interface{}) *ImageSh
 	}
 
 	r := &ImageShieldedInstanceInitialState{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyImageShieldedInstanceInitialState
+	}
 	r.Pk = flattenImageShieldedInstanceInitialStatePk(c, m["pk"])
 	r.Kek = flattenImageShieldedInstanceInitialStateKekSlice(c, m["keks"])
 	r.Db = flattenImageShieldedInstanceInitialStateDbSlice(c, m["dbs"])
@@ -3558,6 +3574,10 @@ func flattenImageShieldedInstanceInitialStatePk(c *Client, i interface{}) *Image
 	}
 
 	r := &ImageShieldedInstanceInitialStatePk{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyImageShieldedInstanceInitialStatePk
+	}
 	r.Content = dcl.FlattenString(m["content"])
 	r.FileType = flattenImageShieldedInstanceInitialStatePkFileTypeEnum(m["fileType"])
 
@@ -3672,6 +3692,10 @@ func flattenImageShieldedInstanceInitialStateKek(c *Client, i interface{}) *Imag
 	}
 
 	r := &ImageShieldedInstanceInitialStateKek{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyImageShieldedInstanceInitialStateKek
+	}
 	r.Content = dcl.FlattenString(m["content"])
 	r.FileType = flattenImageShieldedInstanceInitialStateKekFileTypeEnum(m["fileType"])
 
@@ -3786,6 +3810,10 @@ func flattenImageShieldedInstanceInitialStateDb(c *Client, i interface{}) *Image
 	}
 
 	r := &ImageShieldedInstanceInitialStateDb{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyImageShieldedInstanceInitialStateDb
+	}
 	r.Content = dcl.FlattenString(m["content"])
 	r.FileType = flattenImageShieldedInstanceInitialStateDbFileTypeEnum(m["fileType"])
 
@@ -3900,6 +3928,10 @@ func flattenImageShieldedInstanceInitialStateDbx(c *Client, i interface{}) *Imag
 	}
 
 	r := &ImageShieldedInstanceInitialStateDbx{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyImageShieldedInstanceInitialStateDbx
+	}
 	r.Content = dcl.FlattenString(m["content"])
 	r.FileType = flattenImageShieldedInstanceInitialStateDbxFileTypeEnum(m["fileType"])
 
@@ -4020,6 +4052,10 @@ func flattenImageSourceDiskEncryptionKey(c *Client, i interface{}) *ImageSourceD
 	}
 
 	r := &ImageSourceDiskEncryptionKey{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyImageSourceDiskEncryptionKey
+	}
 	r.RawKey = dcl.FlattenString(m["rawKey"])
 	r.KmsKeyName = dcl.FlattenString(m["kmsKeyName"])
 	r.Sha256 = dcl.FlattenString(m["sha256"])
@@ -4142,6 +4178,10 @@ func flattenImageSourceImageEncryptionKey(c *Client, i interface{}) *ImageSource
 	}
 
 	r := &ImageSourceImageEncryptionKey{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyImageSourceImageEncryptionKey
+	}
 	r.RawKey = dcl.FlattenString(m["rawKey"])
 	r.KmsKeyName = dcl.FlattenString(m["kmsKeyName"])
 	r.Sha256 = dcl.FlattenString(m["sha256"])
@@ -4264,6 +4304,10 @@ func flattenImageSourceSnapshotEncryptionKey(c *Client, i interface{}) *ImageSou
 	}
 
 	r := &ImageSourceSnapshotEncryptionKey{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyImageSourceSnapshotEncryptionKey
+	}
 	r.RawKey = dcl.FlattenString(m["rawKey"])
 	r.KmsKeyName = dcl.FlattenString(m["kmsKeyName"])
 	r.Sha256 = dcl.FlattenString(m["sha256"])
@@ -4389,6 +4433,10 @@ func flattenImageDeprecated(c *Client, i interface{}) *ImageDeprecated {
 	}
 
 	r := &ImageDeprecated{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyImageDeprecated
+	}
 	r.State = flattenImageDeprecatedStateEnum(m["state"])
 	r.Replacement = dcl.FlattenString(m["replacement"])
 	r.Deprecated = dcl.FlattenString(m["deprecated"])

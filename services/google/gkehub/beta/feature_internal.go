@@ -1022,6 +1022,10 @@ func flattenFeatureSpec(c *Client, i interface{}) *FeatureSpec {
 	}
 
 	r := &FeatureSpec{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFeatureSpec
+	}
 	r.Multiclusteringress = flattenFeatureSpecMulticlusteringress(c, m["multiclusteringress"])
 
 	return r
@@ -1135,6 +1139,10 @@ func flattenFeatureSpecMulticlusteringress(c *Client, i interface{}) *FeatureSpe
 	}
 
 	r := &FeatureSpecMulticlusteringress{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFeatureSpecMulticlusteringress
+	}
 	r.ConfigMembership = dcl.FlattenString(m["configMembership"])
 	r.Billing = flattenFeatureSpecMulticlusteringressBillingEnum(m["billing"])
 

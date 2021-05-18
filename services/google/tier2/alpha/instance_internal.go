@@ -46166,6 +46166,10 @@ func flattenInstanceSku(c *Client, i interface{}) *InstanceSku {
 	}
 
 	r := &InstanceSku{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceSku
+	}
 	r.Tier = flattenInstanceSkuTierEnum(m["tier"])
 	r.Size = flattenInstanceSkuSizeEnum(m["size"])
 
@@ -46291,6 +46295,10 @@ func flattenInstanceReferences(c *Client, i interface{}) *InstanceReferences {
 	}
 
 	r := &InstanceReferences{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReferences
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Type = dcl.FlattenString(m["type"])
 	r.SourceResource = dcl.FlattenString(m["sourceResource"])
@@ -46408,6 +46416,10 @@ func flattenInstanceReferencesDetails(c *Client, i interface{}) *InstanceReferen
 	}
 
 	r := &InstanceReferencesDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReferencesDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -46542,6 +46554,10 @@ func flattenInstancePreprocessCreateRecipe(c *Client, i interface{}) *InstancePr
 	}
 
 	r := &InstancePreprocessCreateRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessCreateRecipe
+	}
 	r.Steps = flattenInstancePreprocessCreateRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -46719,6 +46735,10 @@ func flattenInstancePreprocessCreateRecipeSteps(c *Client, i interface{}) *Insta
 	}
 
 	r := &InstancePreprocessCreateRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessCreateRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstancePreprocessCreateRecipeStepsActionEnum(m["action"])
@@ -46853,6 +46873,10 @@ func flattenInstancePreprocessCreateRecipeStepsStatus(c *Client, i interface{}) 
 	}
 
 	r := &InstancePreprocessCreateRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessCreateRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstancePreprocessCreateRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -46968,6 +46992,10 @@ func flattenInstancePreprocessCreateRecipeStepsStatusDetails(c *Client, i interf
 	}
 
 	r := &InstancePreprocessCreateRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessCreateRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -47082,6 +47110,10 @@ func flattenInstancePreprocessCreateRecipeStepsQuotaRequestDeltas(c *Client, i i
 	}
 
 	r := &InstancePreprocessCreateRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessCreateRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -47196,6 +47228,10 @@ func flattenInstancePreprocessCreateRecipeStepsPreprocessUpdate(c *Client, i int
 	}
 
 	r := &InstancePreprocessCreateRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessCreateRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -47313,6 +47349,10 @@ func flattenInstancePreprocessCreateRecipeStepsRequestedTenantProject(c *Client,
 	}
 
 	r := &InstancePreprocessCreateRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessCreateRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -47440,6 +47480,10 @@ func flattenInstancePreprocessCreateRecipeStepsPermissionsInfo(c *Client, i inte
 	}
 
 	r := &InstancePreprocessCreateRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessCreateRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -47559,6 +47603,10 @@ func flattenInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName(c *Clie
 	}
 
 	r := &InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -47671,6 +47719,10 @@ func flattenInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions(c *
 	}
 
 	r := &InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -47778,6 +47830,10 @@ func flattenInstanceGoogleprotobufstruct(c *Client, i interface{}) *InstanceGoog
 	}
 
 	r := &InstanceGoogleprotobufstruct{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGoogleprotobufstruct
+	}
 
 	return r
 }
@@ -47889,6 +47945,10 @@ func flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate(c *Client,
 	}
 
 	r := &InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -48007,6 +48067,10 @@ func flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 
 	r := &InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -48125,6 +48189,10 @@ func flattenInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 
 	r := &InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -48260,6 +48328,10 @@ func flattenInstanceCreateRecipe(c *Client, i interface{}) *InstanceCreateRecipe
 	}
 
 	r := &InstanceCreateRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceCreateRecipe
+	}
 	r.Steps = flattenInstanceCreateRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -48437,6 +48509,10 @@ func flattenInstanceCreateRecipeSteps(c *Client, i interface{}) *InstanceCreateR
 	}
 
 	r := &InstanceCreateRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceCreateRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstanceCreateRecipeStepsActionEnum(m["action"])
@@ -48571,6 +48647,10 @@ func flattenInstanceCreateRecipeStepsStatus(c *Client, i interface{}) *InstanceC
 	}
 
 	r := &InstanceCreateRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceCreateRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstanceCreateRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -48686,6 +48766,10 @@ func flattenInstanceCreateRecipeStepsStatusDetails(c *Client, i interface{}) *In
 	}
 
 	r := &InstanceCreateRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceCreateRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -48800,6 +48884,10 @@ func flattenInstanceCreateRecipeStepsQuotaRequestDeltas(c *Client, i interface{}
 	}
 
 	r := &InstanceCreateRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceCreateRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -48914,6 +49002,10 @@ func flattenInstanceCreateRecipeStepsPreprocessUpdate(c *Client, i interface{}) 
 	}
 
 	r := &InstanceCreateRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceCreateRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -49031,6 +49123,10 @@ func flattenInstanceCreateRecipeStepsRequestedTenantProject(c *Client, i interfa
 	}
 
 	r := &InstanceCreateRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceCreateRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstanceCreateRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -49158,6 +49254,10 @@ func flattenInstanceCreateRecipeStepsPermissionsInfo(c *Client, i interface{}) *
 	}
 
 	r := &InstanceCreateRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceCreateRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstanceCreateRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstanceCreateRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -49277,6 +49377,10 @@ func flattenInstanceCreateRecipeStepsPermissionsInfoPolicyName(c *Client, i inte
 	}
 
 	r := &InstanceCreateRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceCreateRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -49389,6 +49493,10 @@ func flattenInstanceCreateRecipeStepsPermissionsInfoIamPermissions(c *Client, i 
 	}
 
 	r := &InstanceCreateRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceCreateRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -49501,6 +49609,10 @@ func flattenInstanceCreateRecipeStepsKeyNotificationsUpdate(c *Client, i interfa
 	}
 
 	r := &InstanceCreateRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceCreateRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -49619,6 +49731,10 @@ func flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
 	}
 
 	r := &InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -49737,6 +49853,10 @@ func flattenInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 	}
 
 	r := &InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -49872,6 +49992,10 @@ func flattenInstanceDeleteRecipe(c *Client, i interface{}) *InstanceDeleteRecipe
 	}
 
 	r := &InstanceDeleteRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceDeleteRecipe
+	}
 	r.Steps = flattenInstanceDeleteRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -50049,6 +50173,10 @@ func flattenInstanceDeleteRecipeSteps(c *Client, i interface{}) *InstanceDeleteR
 	}
 
 	r := &InstanceDeleteRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceDeleteRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstanceDeleteRecipeStepsActionEnum(m["action"])
@@ -50183,6 +50311,10 @@ func flattenInstanceDeleteRecipeStepsStatus(c *Client, i interface{}) *InstanceD
 	}
 
 	r := &InstanceDeleteRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceDeleteRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstanceDeleteRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -50298,6 +50430,10 @@ func flattenInstanceDeleteRecipeStepsStatusDetails(c *Client, i interface{}) *In
 	}
 
 	r := &InstanceDeleteRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceDeleteRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -50412,6 +50548,10 @@ func flattenInstanceDeleteRecipeStepsQuotaRequestDeltas(c *Client, i interface{}
 	}
 
 	r := &InstanceDeleteRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceDeleteRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -50526,6 +50666,10 @@ func flattenInstanceDeleteRecipeStepsPreprocessUpdate(c *Client, i interface{}) 
 	}
 
 	r := &InstanceDeleteRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceDeleteRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -50643,6 +50787,10 @@ func flattenInstanceDeleteRecipeStepsRequestedTenantProject(c *Client, i interfa
 	}
 
 	r := &InstanceDeleteRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceDeleteRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstanceDeleteRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -50770,6 +50918,10 @@ func flattenInstanceDeleteRecipeStepsPermissionsInfo(c *Client, i interface{}) *
 	}
 
 	r := &InstanceDeleteRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceDeleteRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstanceDeleteRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstanceDeleteRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -50889,6 +51041,10 @@ func flattenInstanceDeleteRecipeStepsPermissionsInfoPolicyName(c *Client, i inte
 	}
 
 	r := &InstanceDeleteRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceDeleteRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -51001,6 +51157,10 @@ func flattenInstanceDeleteRecipeStepsPermissionsInfoIamPermissions(c *Client, i 
 	}
 
 	r := &InstanceDeleteRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceDeleteRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -51113,6 +51273,10 @@ func flattenInstanceDeleteRecipeStepsKeyNotificationsUpdate(c *Client, i interfa
 	}
 
 	r := &InstanceDeleteRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceDeleteRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -51231,6 +51395,10 @@ func flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
 	}
 
 	r := &InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -51349,6 +51517,10 @@ func flattenInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 	}
 
 	r := &InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -51484,6 +51656,10 @@ func flattenInstanceUpdateRecipe(c *Client, i interface{}) *InstanceUpdateRecipe
 	}
 
 	r := &InstanceUpdateRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUpdateRecipe
+	}
 	r.Steps = flattenInstanceUpdateRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -51661,6 +51837,10 @@ func flattenInstanceUpdateRecipeSteps(c *Client, i interface{}) *InstanceUpdateR
 	}
 
 	r := &InstanceUpdateRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUpdateRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstanceUpdateRecipeStepsActionEnum(m["action"])
@@ -51795,6 +51975,10 @@ func flattenInstanceUpdateRecipeStepsStatus(c *Client, i interface{}) *InstanceU
 	}
 
 	r := &InstanceUpdateRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUpdateRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstanceUpdateRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -51910,6 +52094,10 @@ func flattenInstanceUpdateRecipeStepsStatusDetails(c *Client, i interface{}) *In
 	}
 
 	r := &InstanceUpdateRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUpdateRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -52024,6 +52212,10 @@ func flattenInstanceUpdateRecipeStepsQuotaRequestDeltas(c *Client, i interface{}
 	}
 
 	r := &InstanceUpdateRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUpdateRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -52138,6 +52330,10 @@ func flattenInstanceUpdateRecipeStepsPreprocessUpdate(c *Client, i interface{}) 
 	}
 
 	r := &InstanceUpdateRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUpdateRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -52255,6 +52451,10 @@ func flattenInstanceUpdateRecipeStepsRequestedTenantProject(c *Client, i interfa
 	}
 
 	r := &InstanceUpdateRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUpdateRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -52382,6 +52582,10 @@ func flattenInstanceUpdateRecipeStepsPermissionsInfo(c *Client, i interface{}) *
 	}
 
 	r := &InstanceUpdateRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUpdateRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstanceUpdateRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstanceUpdateRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -52501,6 +52705,10 @@ func flattenInstanceUpdateRecipeStepsPermissionsInfoPolicyName(c *Client, i inte
 	}
 
 	r := &InstanceUpdateRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUpdateRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -52613,6 +52821,10 @@ func flattenInstanceUpdateRecipeStepsPermissionsInfoIamPermissions(c *Client, i 
 	}
 
 	r := &InstanceUpdateRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUpdateRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -52725,6 +52937,10 @@ func flattenInstanceUpdateRecipeStepsKeyNotificationsUpdate(c *Client, i interfa
 	}
 
 	r := &InstanceUpdateRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUpdateRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -52843,6 +53059,10 @@ func flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
 	}
 
 	r := &InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -52961,6 +53181,10 @@ func flattenInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 	}
 
 	r := &InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -53096,6 +53320,10 @@ func flattenInstancePreprocessResetRecipe(c *Client, i interface{}) *InstancePre
 	}
 
 	r := &InstancePreprocessResetRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessResetRecipe
+	}
 	r.Steps = flattenInstancePreprocessResetRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -53273,6 +53501,10 @@ func flattenInstancePreprocessResetRecipeSteps(c *Client, i interface{}) *Instan
 	}
 
 	r := &InstancePreprocessResetRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessResetRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstancePreprocessResetRecipeStepsActionEnum(m["action"])
@@ -53407,6 +53639,10 @@ func flattenInstancePreprocessResetRecipeStepsStatus(c *Client, i interface{}) *
 	}
 
 	r := &InstancePreprocessResetRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessResetRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstancePreprocessResetRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -53522,6 +53758,10 @@ func flattenInstancePreprocessResetRecipeStepsStatusDetails(c *Client, i interfa
 	}
 
 	r := &InstancePreprocessResetRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessResetRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -53636,6 +53876,10 @@ func flattenInstancePreprocessResetRecipeStepsQuotaRequestDeltas(c *Client, i in
 	}
 
 	r := &InstancePreprocessResetRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessResetRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -53750,6 +53994,10 @@ func flattenInstancePreprocessResetRecipeStepsPreprocessUpdate(c *Client, i inte
 	}
 
 	r := &InstancePreprocessResetRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessResetRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -53867,6 +54115,10 @@ func flattenInstancePreprocessResetRecipeStepsRequestedTenantProject(c *Client, 
 	}
 
 	r := &InstancePreprocessResetRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessResetRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -53994,6 +54246,10 @@ func flattenInstancePreprocessResetRecipeStepsPermissionsInfo(c *Client, i inter
 	}
 
 	r := &InstancePreprocessResetRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessResetRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -54113,6 +54369,10 @@ func flattenInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName(c *Clien
 	}
 
 	r := &InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -54225,6 +54485,10 @@ func flattenInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions(c *C
 	}
 
 	r := &InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -54337,6 +54601,10 @@ func flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdate(c *Client, 
 	}
 
 	r := &InstancePreprocessResetRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessResetRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -54455,6 +54723,10 @@ func flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificat
 	}
 
 	r := &InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -54573,6 +54845,10 @@ func flattenInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificat
 	}
 
 	r := &InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -54708,6 +54984,10 @@ func flattenInstanceResetRecipe(c *Client, i interface{}) *InstanceResetRecipe {
 	}
 
 	r := &InstanceResetRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceResetRecipe
+	}
 	r.Steps = flattenInstanceResetRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -54885,6 +55165,10 @@ func flattenInstanceResetRecipeSteps(c *Client, i interface{}) *InstanceResetRec
 	}
 
 	r := &InstanceResetRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceResetRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstanceResetRecipeStepsActionEnum(m["action"])
@@ -55019,6 +55303,10 @@ func flattenInstanceResetRecipeStepsStatus(c *Client, i interface{}) *InstanceRe
 	}
 
 	r := &InstanceResetRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceResetRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstanceResetRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -55134,6 +55422,10 @@ func flattenInstanceResetRecipeStepsStatusDetails(c *Client, i interface{}) *Ins
 	}
 
 	r := &InstanceResetRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceResetRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -55248,6 +55540,10 @@ func flattenInstanceResetRecipeStepsQuotaRequestDeltas(c *Client, i interface{})
 	}
 
 	r := &InstanceResetRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceResetRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -55362,6 +55658,10 @@ func flattenInstanceResetRecipeStepsPreprocessUpdate(c *Client, i interface{}) *
 	}
 
 	r := &InstanceResetRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceResetRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -55479,6 +55779,10 @@ func flattenInstanceResetRecipeStepsRequestedTenantProject(c *Client, i interfac
 	}
 
 	r := &InstanceResetRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceResetRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstanceResetRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -55606,6 +55910,10 @@ func flattenInstanceResetRecipeStepsPermissionsInfo(c *Client, i interface{}) *I
 	}
 
 	r := &InstanceResetRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceResetRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstanceResetRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstanceResetRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -55725,6 +56033,10 @@ func flattenInstanceResetRecipeStepsPermissionsInfoPolicyName(c *Client, i inter
 	}
 
 	r := &InstanceResetRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceResetRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -55837,6 +56149,10 @@ func flattenInstanceResetRecipeStepsPermissionsInfoIamPermissions(c *Client, i i
 	}
 
 	r := &InstanceResetRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceResetRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -55949,6 +56265,10 @@ func flattenInstanceResetRecipeStepsKeyNotificationsUpdate(c *Client, i interfac
 	}
 
 	r := &InstanceResetRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceResetRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -56067,6 +56387,10 @@ func flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c
 	}
 
 	r := &InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -56185,6 +56509,10 @@ func flattenInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKe
 	}
 
 	r := &InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -56320,6 +56648,10 @@ func flattenInstancePreprocessRepairRecipe(c *Client, i interface{}) *InstancePr
 	}
 
 	r := &InstancePreprocessRepairRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessRepairRecipe
+	}
 	r.Steps = flattenInstancePreprocessRepairRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -56497,6 +56829,10 @@ func flattenInstancePreprocessRepairRecipeSteps(c *Client, i interface{}) *Insta
 	}
 
 	r := &InstancePreprocessRepairRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessRepairRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstancePreprocessRepairRecipeStepsActionEnum(m["action"])
@@ -56631,6 +56967,10 @@ func flattenInstancePreprocessRepairRecipeStepsStatus(c *Client, i interface{}) 
 	}
 
 	r := &InstancePreprocessRepairRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessRepairRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstancePreprocessRepairRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -56746,6 +57086,10 @@ func flattenInstancePreprocessRepairRecipeStepsStatusDetails(c *Client, i interf
 	}
 
 	r := &InstancePreprocessRepairRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessRepairRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -56860,6 +57204,10 @@ func flattenInstancePreprocessRepairRecipeStepsQuotaRequestDeltas(c *Client, i i
 	}
 
 	r := &InstancePreprocessRepairRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessRepairRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -56974,6 +57322,10 @@ func flattenInstancePreprocessRepairRecipeStepsPreprocessUpdate(c *Client, i int
 	}
 
 	r := &InstancePreprocessRepairRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessRepairRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -57091,6 +57443,10 @@ func flattenInstancePreprocessRepairRecipeStepsRequestedTenantProject(c *Client,
 	}
 
 	r := &InstancePreprocessRepairRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessRepairRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -57218,6 +57574,10 @@ func flattenInstancePreprocessRepairRecipeStepsPermissionsInfo(c *Client, i inte
 	}
 
 	r := &InstancePreprocessRepairRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessRepairRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -57337,6 +57697,10 @@ func flattenInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName(c *Clie
 	}
 
 	r := &InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -57449,6 +57813,10 @@ func flattenInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions(c *
 	}
 
 	r := &InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -57561,6 +57929,10 @@ func flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate(c *Client,
 	}
 
 	r := &InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -57679,6 +58051,10 @@ func flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 
 	r := &InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -57797,6 +58173,10 @@ func flattenInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 
 	r := &InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -57932,6 +58312,10 @@ func flattenInstanceRepairRecipe(c *Client, i interface{}) *InstanceRepairRecipe
 	}
 
 	r := &InstanceRepairRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceRepairRecipe
+	}
 	r.Steps = flattenInstanceRepairRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -58109,6 +58493,10 @@ func flattenInstanceRepairRecipeSteps(c *Client, i interface{}) *InstanceRepairR
 	}
 
 	r := &InstanceRepairRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceRepairRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstanceRepairRecipeStepsActionEnum(m["action"])
@@ -58243,6 +58631,10 @@ func flattenInstanceRepairRecipeStepsStatus(c *Client, i interface{}) *InstanceR
 	}
 
 	r := &InstanceRepairRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceRepairRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstanceRepairRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -58358,6 +58750,10 @@ func flattenInstanceRepairRecipeStepsStatusDetails(c *Client, i interface{}) *In
 	}
 
 	r := &InstanceRepairRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceRepairRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -58472,6 +58868,10 @@ func flattenInstanceRepairRecipeStepsQuotaRequestDeltas(c *Client, i interface{}
 	}
 
 	r := &InstanceRepairRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceRepairRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -58586,6 +58986,10 @@ func flattenInstanceRepairRecipeStepsPreprocessUpdate(c *Client, i interface{}) 
 	}
 
 	r := &InstanceRepairRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceRepairRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -58703,6 +59107,10 @@ func flattenInstanceRepairRecipeStepsRequestedTenantProject(c *Client, i interfa
 	}
 
 	r := &InstanceRepairRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceRepairRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstanceRepairRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -58830,6 +59238,10 @@ func flattenInstanceRepairRecipeStepsPermissionsInfo(c *Client, i interface{}) *
 	}
 
 	r := &InstanceRepairRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceRepairRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstanceRepairRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstanceRepairRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -58949,6 +59361,10 @@ func flattenInstanceRepairRecipeStepsPermissionsInfoPolicyName(c *Client, i inte
 	}
 
 	r := &InstanceRepairRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceRepairRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -59061,6 +59477,10 @@ func flattenInstanceRepairRecipeStepsPermissionsInfoIamPermissions(c *Client, i 
 	}
 
 	r := &InstanceRepairRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceRepairRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -59173,6 +59593,10 @@ func flattenInstanceRepairRecipeStepsKeyNotificationsUpdate(c *Client, i interfa
 	}
 
 	r := &InstanceRepairRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceRepairRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -59291,6 +59715,10 @@ func flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
 	}
 
 	r := &InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -59409,6 +59837,10 @@ func flattenInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 	}
 
 	r := &InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -59544,6 +59976,10 @@ func flattenInstancePreprocessDeleteRecipe(c *Client, i interface{}) *InstancePr
 	}
 
 	r := &InstancePreprocessDeleteRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessDeleteRecipe
+	}
 	r.Steps = flattenInstancePreprocessDeleteRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -59721,6 +60157,10 @@ func flattenInstancePreprocessDeleteRecipeSteps(c *Client, i interface{}) *Insta
 	}
 
 	r := &InstancePreprocessDeleteRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessDeleteRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstancePreprocessDeleteRecipeStepsActionEnum(m["action"])
@@ -59855,6 +60295,10 @@ func flattenInstancePreprocessDeleteRecipeStepsStatus(c *Client, i interface{}) 
 	}
 
 	r := &InstancePreprocessDeleteRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessDeleteRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstancePreprocessDeleteRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -59970,6 +60414,10 @@ func flattenInstancePreprocessDeleteRecipeStepsStatusDetails(c *Client, i interf
 	}
 
 	r := &InstancePreprocessDeleteRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessDeleteRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -60084,6 +60532,10 @@ func flattenInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(c *Client, i i
 	}
 
 	r := &InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -60198,6 +60650,10 @@ func flattenInstancePreprocessDeleteRecipeStepsPreprocessUpdate(c *Client, i int
 	}
 
 	r := &InstancePreprocessDeleteRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessDeleteRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -60315,6 +60771,10 @@ func flattenInstancePreprocessDeleteRecipeStepsRequestedTenantProject(c *Client,
 	}
 
 	r := &InstancePreprocessDeleteRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessDeleteRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -60442,6 +60902,10 @@ func flattenInstancePreprocessDeleteRecipeStepsPermissionsInfo(c *Client, i inte
 	}
 
 	r := &InstancePreprocessDeleteRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessDeleteRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -60561,6 +61025,10 @@ func flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName(c *Clie
 	}
 
 	r := &InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -60673,6 +61141,10 @@ func flattenInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions(c *
 	}
 
 	r := &InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -60785,6 +61257,10 @@ func flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate(c *Client,
 	}
 
 	r := &InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -60903,6 +61379,10 @@ func flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 
 	r := &InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -61021,6 +61501,10 @@ func flattenInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 
 	r := &InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -61156,6 +61640,10 @@ func flattenInstancePreprocessUpdateRecipe(c *Client, i interface{}) *InstancePr
 	}
 
 	r := &InstancePreprocessUpdateRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUpdateRecipe
+	}
 	r.Steps = flattenInstancePreprocessUpdateRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -61333,6 +61821,10 @@ func flattenInstancePreprocessUpdateRecipeSteps(c *Client, i interface{}) *Insta
 	}
 
 	r := &InstancePreprocessUpdateRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUpdateRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstancePreprocessUpdateRecipeStepsActionEnum(m["action"])
@@ -61467,6 +61959,10 @@ func flattenInstancePreprocessUpdateRecipeStepsStatus(c *Client, i interface{}) 
 	}
 
 	r := &InstancePreprocessUpdateRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUpdateRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstancePreprocessUpdateRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -61582,6 +62078,10 @@ func flattenInstancePreprocessUpdateRecipeStepsStatusDetails(c *Client, i interf
 	}
 
 	r := &InstancePreprocessUpdateRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUpdateRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -61696,6 +62196,10 @@ func flattenInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(c *Client, i i
 	}
 
 	r := &InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -61810,6 +62314,10 @@ func flattenInstancePreprocessUpdateRecipeStepsPreprocessUpdate(c *Client, i int
 	}
 
 	r := &InstancePreprocessUpdateRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUpdateRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -61927,6 +62435,10 @@ func flattenInstancePreprocessUpdateRecipeStepsRequestedTenantProject(c *Client,
 	}
 
 	r := &InstancePreprocessUpdateRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUpdateRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -62054,6 +62566,10 @@ func flattenInstancePreprocessUpdateRecipeStepsPermissionsInfo(c *Client, i inte
 	}
 
 	r := &InstancePreprocessUpdateRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUpdateRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -62173,6 +62689,10 @@ func flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName(c *Clie
 	}
 
 	r := &InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -62285,6 +62805,10 @@ func flattenInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions(c *
 	}
 
 	r := &InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -62397,6 +62921,10 @@ func flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate(c *Client,
 	}
 
 	r := &InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -62515,6 +63043,10 @@ func flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 
 	r := &InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -62633,6 +63165,10 @@ func flattenInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 
 	r := &InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -62768,6 +63304,10 @@ func flattenInstancePreprocessFreezeRecipe(c *Client, i interface{}) *InstancePr
 	}
 
 	r := &InstancePreprocessFreezeRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessFreezeRecipe
+	}
 	r.Steps = flattenInstancePreprocessFreezeRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -62945,6 +63485,10 @@ func flattenInstancePreprocessFreezeRecipeSteps(c *Client, i interface{}) *Insta
 	}
 
 	r := &InstancePreprocessFreezeRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessFreezeRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstancePreprocessFreezeRecipeStepsActionEnum(m["action"])
@@ -63079,6 +63623,10 @@ func flattenInstancePreprocessFreezeRecipeStepsStatus(c *Client, i interface{}) 
 	}
 
 	r := &InstancePreprocessFreezeRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessFreezeRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstancePreprocessFreezeRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -63194,6 +63742,10 @@ func flattenInstancePreprocessFreezeRecipeStepsStatusDetails(c *Client, i interf
 	}
 
 	r := &InstancePreprocessFreezeRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessFreezeRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -63308,6 +63860,10 @@ func flattenInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(c *Client, i i
 	}
 
 	r := &InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -63422,6 +63978,10 @@ func flattenInstancePreprocessFreezeRecipeStepsPreprocessUpdate(c *Client, i int
 	}
 
 	r := &InstancePreprocessFreezeRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessFreezeRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -63539,6 +64099,10 @@ func flattenInstancePreprocessFreezeRecipeStepsRequestedTenantProject(c *Client,
 	}
 
 	r := &InstancePreprocessFreezeRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessFreezeRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -63666,6 +64230,10 @@ func flattenInstancePreprocessFreezeRecipeStepsPermissionsInfo(c *Client, i inte
 	}
 
 	r := &InstancePreprocessFreezeRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessFreezeRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -63785,6 +64353,10 @@ func flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName(c *Clie
 	}
 
 	r := &InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -63897,6 +64469,10 @@ func flattenInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions(c *
 	}
 
 	r := &InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -64009,6 +64585,10 @@ func flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate(c *Client,
 	}
 
 	r := &InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -64127,6 +64707,10 @@ func flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 
 	r := &InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -64245,6 +64829,10 @@ func flattenInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotifica
 	}
 
 	r := &InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -64380,6 +64968,10 @@ func flattenInstanceFreezeRecipe(c *Client, i interface{}) *InstanceFreezeRecipe
 	}
 
 	r := &InstanceFreezeRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceFreezeRecipe
+	}
 	r.Steps = flattenInstanceFreezeRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -64557,6 +65149,10 @@ func flattenInstanceFreezeRecipeSteps(c *Client, i interface{}) *InstanceFreezeR
 	}
 
 	r := &InstanceFreezeRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceFreezeRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstanceFreezeRecipeStepsActionEnum(m["action"])
@@ -64691,6 +65287,10 @@ func flattenInstanceFreezeRecipeStepsStatus(c *Client, i interface{}) *InstanceF
 	}
 
 	r := &InstanceFreezeRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceFreezeRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstanceFreezeRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -64806,6 +65406,10 @@ func flattenInstanceFreezeRecipeStepsStatusDetails(c *Client, i interface{}) *In
 	}
 
 	r := &InstanceFreezeRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceFreezeRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -64920,6 +65524,10 @@ func flattenInstanceFreezeRecipeStepsQuotaRequestDeltas(c *Client, i interface{}
 	}
 
 	r := &InstanceFreezeRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceFreezeRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -65034,6 +65642,10 @@ func flattenInstanceFreezeRecipeStepsPreprocessUpdate(c *Client, i interface{}) 
 	}
 
 	r := &InstanceFreezeRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceFreezeRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -65151,6 +65763,10 @@ func flattenInstanceFreezeRecipeStepsRequestedTenantProject(c *Client, i interfa
 	}
 
 	r := &InstanceFreezeRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceFreezeRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -65278,6 +65894,10 @@ func flattenInstanceFreezeRecipeStepsPermissionsInfo(c *Client, i interface{}) *
 	}
 
 	r := &InstanceFreezeRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceFreezeRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstanceFreezeRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstanceFreezeRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -65397,6 +66017,10 @@ func flattenInstanceFreezeRecipeStepsPermissionsInfoPolicyName(c *Client, i inte
 	}
 
 	r := &InstanceFreezeRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceFreezeRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -65509,6 +66133,10 @@ func flattenInstanceFreezeRecipeStepsPermissionsInfoIamPermissions(c *Client, i 
 	}
 
 	r := &InstanceFreezeRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceFreezeRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -65621,6 +66249,10 @@ func flattenInstanceFreezeRecipeStepsKeyNotificationsUpdate(c *Client, i interfa
 	}
 
 	r := &InstanceFreezeRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceFreezeRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -65739,6 +66371,10 @@ func flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
 	}
 
 	r := &InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -65857,6 +66493,10 @@ func flattenInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 	}
 
 	r := &InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -65992,6 +66632,10 @@ func flattenInstancePreprocessUnfreezeRecipe(c *Client, i interface{}) *Instance
 	}
 
 	r := &InstancePreprocessUnfreezeRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUnfreezeRecipe
+	}
 	r.Steps = flattenInstancePreprocessUnfreezeRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -66169,6 +66813,10 @@ func flattenInstancePreprocessUnfreezeRecipeSteps(c *Client, i interface{}) *Ins
 	}
 
 	r := &InstancePreprocessUnfreezeRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUnfreezeRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstancePreprocessUnfreezeRecipeStepsActionEnum(m["action"])
@@ -66303,6 +66951,10 @@ func flattenInstancePreprocessUnfreezeRecipeStepsStatus(c *Client, i interface{}
 	}
 
 	r := &InstancePreprocessUnfreezeRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUnfreezeRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstancePreprocessUnfreezeRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -66418,6 +67070,10 @@ func flattenInstancePreprocessUnfreezeRecipeStepsStatusDetails(c *Client, i inte
 	}
 
 	r := &InstancePreprocessUnfreezeRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUnfreezeRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -66532,6 +67188,10 @@ func flattenInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(c *Client, i
 	}
 
 	r := &InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -66646,6 +67306,10 @@ func flattenInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate(c *Client, i i
 	}
 
 	r := &InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -66763,6 +67427,10 @@ func flattenInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject(c *Clien
 	}
 
 	r := &InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -66890,6 +67558,10 @@ func flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfo(c *Client, i in
 	}
 
 	r := &InstancePreprocessUnfreezeRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUnfreezeRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -67009,6 +67681,10 @@ func flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName(c *Cl
 	}
 
 	r := &InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -67121,6 +67797,10 @@ func flattenInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions(c
 	}
 
 	r := &InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -67233,6 +67913,10 @@ func flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate(c *Clien
 	}
 
 	r := &InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -67351,6 +68035,10 @@ func flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifi
 	}
 
 	r := &InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -67469,6 +68157,10 @@ func flattenInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifi
 	}
 
 	r := &InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -67604,6 +68296,10 @@ func flattenInstanceUnfreezeRecipe(c *Client, i interface{}) *InstanceUnfreezeRe
 	}
 
 	r := &InstanceUnfreezeRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUnfreezeRecipe
+	}
 	r.Steps = flattenInstanceUnfreezeRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -67781,6 +68477,10 @@ func flattenInstanceUnfreezeRecipeSteps(c *Client, i interface{}) *InstanceUnfre
 	}
 
 	r := &InstanceUnfreezeRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUnfreezeRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstanceUnfreezeRecipeStepsActionEnum(m["action"])
@@ -67915,6 +68615,10 @@ func flattenInstanceUnfreezeRecipeStepsStatus(c *Client, i interface{}) *Instanc
 	}
 
 	r := &InstanceUnfreezeRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUnfreezeRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstanceUnfreezeRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -68030,6 +68734,10 @@ func flattenInstanceUnfreezeRecipeStepsStatusDetails(c *Client, i interface{}) *
 	}
 
 	r := &InstanceUnfreezeRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUnfreezeRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -68144,6 +68852,10 @@ func flattenInstanceUnfreezeRecipeStepsQuotaRequestDeltas(c *Client, i interface
 	}
 
 	r := &InstanceUnfreezeRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUnfreezeRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -68258,6 +68970,10 @@ func flattenInstanceUnfreezeRecipeStepsPreprocessUpdate(c *Client, i interface{}
 	}
 
 	r := &InstanceUnfreezeRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUnfreezeRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -68375,6 +69091,10 @@ func flattenInstanceUnfreezeRecipeStepsRequestedTenantProject(c *Client, i inter
 	}
 
 	r := &InstanceUnfreezeRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUnfreezeRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -68502,6 +69222,10 @@ func flattenInstanceUnfreezeRecipeStepsPermissionsInfo(c *Client, i interface{})
 	}
 
 	r := &InstanceUnfreezeRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUnfreezeRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -68621,6 +69345,10 @@ func flattenInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName(c *Client, i in
 	}
 
 	r := &InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -68733,6 +69461,10 @@ func flattenInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions(c *Client, 
 	}
 
 	r := &InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -68845,6 +69577,10 @@ func flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdate(c *Client, i inter
 	}
 
 	r := &InstanceUnfreezeRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUnfreezeRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -68963,6 +69699,10 @@ func flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 	}
 
 	r := &InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -69081,6 +69821,10 @@ func flattenInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 	}
 
 	r := &InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -69216,6 +69960,10 @@ func flattenInstancePreprocessReportInstanceHealthRecipe(c *Client, i interface{
 	}
 
 	r := &InstancePreprocessReportInstanceHealthRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReportInstanceHealthRecipe
+	}
 	r.Steps = flattenInstancePreprocessReportInstanceHealthRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -69393,6 +70141,10 @@ func flattenInstancePreprocessReportInstanceHealthRecipeSteps(c *Client, i inter
 	}
 
 	r := &InstancePreprocessReportInstanceHealthRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReportInstanceHealthRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstancePreprocessReportInstanceHealthRecipeStepsActionEnum(m["action"])
@@ -69527,6 +70279,10 @@ func flattenInstancePreprocessReportInstanceHealthRecipeStepsStatus(c *Client, i
 	}
 
 	r := &InstancePreprocessReportInstanceHealthRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReportInstanceHealthRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstancePreprocessReportInstanceHealthRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -69642,6 +70398,10 @@ func flattenInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails(c *Cl
 	}
 
 	r := &InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -69756,6 +70516,10 @@ func flattenInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas(
 	}
 
 	r := &InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -69870,6 +70634,10 @@ func flattenInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate(c 
 	}
 
 	r := &InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -69987,6 +70755,10 @@ func flattenInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProj
 	}
 
 	r := &InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -70114,6 +70886,10 @@ func flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo(c *
 	}
 
 	r := &InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -70233,6 +71009,10 @@ func flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPoli
 	}
 
 	r := &InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -70345,6 +71125,10 @@ func flattenInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamP
 	}
 
 	r := &InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -70457,6 +71241,10 @@ func flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpd
 	}
 
 	r := &InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -70575,6 +71363,10 @@ func flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpd
 	}
 
 	r := &InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -70693,6 +71485,10 @@ func flattenInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpd
 	}
 
 	r := &InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -70828,6 +71624,10 @@ func flattenInstanceReportInstanceHealthRecipe(c *Client, i interface{}) *Instan
 	}
 
 	r := &InstanceReportInstanceHealthRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReportInstanceHealthRecipe
+	}
 	r.Steps = flattenInstanceReportInstanceHealthRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -71005,6 +71805,10 @@ func flattenInstanceReportInstanceHealthRecipeSteps(c *Client, i interface{}) *I
 	}
 
 	r := &InstanceReportInstanceHealthRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReportInstanceHealthRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstanceReportInstanceHealthRecipeStepsActionEnum(m["action"])
@@ -71139,6 +71943,10 @@ func flattenInstanceReportInstanceHealthRecipeStepsStatus(c *Client, i interface
 	}
 
 	r := &InstanceReportInstanceHealthRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReportInstanceHealthRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstanceReportInstanceHealthRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -71254,6 +72062,10 @@ func flattenInstanceReportInstanceHealthRecipeStepsStatusDetails(c *Client, i in
 	}
 
 	r := &InstanceReportInstanceHealthRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReportInstanceHealthRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -71368,6 +72180,10 @@ func flattenInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(c *Client,
 	}
 
 	r := &InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -71482,6 +72298,10 @@ func flattenInstanceReportInstanceHealthRecipeStepsPreprocessUpdate(c *Client, i
 	}
 
 	r := &InstanceReportInstanceHealthRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReportInstanceHealthRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -71599,6 +72419,10 @@ func flattenInstanceReportInstanceHealthRecipeStepsRequestedTenantProject(c *Cli
 	}
 
 	r := &InstanceReportInstanceHealthRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReportInstanceHealthRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -71726,6 +72550,10 @@ func flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfo(c *Client, i 
 	}
 
 	r := &InstanceReportInstanceHealthRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReportInstanceHealthRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -71845,6 +72673,10 @@ func flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(c *
 	}
 
 	r := &InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -71957,6 +72789,10 @@ func flattenInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions
 	}
 
 	r := &InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -72069,6 +72905,10 @@ func flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate(c *Cli
 	}
 
 	r := &InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -72187,6 +73027,10 @@ func flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNoti
 	}
 
 	r := &InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -72305,6 +73149,10 @@ func flattenInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNoti
 	}
 
 	r := &InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -72440,6 +73288,10 @@ func flattenInstancePreprocessGetRecipe(c *Client, i interface{}) *InstancePrepr
 	}
 
 	r := &InstancePreprocessGetRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessGetRecipe
+	}
 	r.Steps = flattenInstancePreprocessGetRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -72617,6 +73469,10 @@ func flattenInstancePreprocessGetRecipeSteps(c *Client, i interface{}) *Instance
 	}
 
 	r := &InstancePreprocessGetRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessGetRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstancePreprocessGetRecipeStepsActionEnum(m["action"])
@@ -72751,6 +73607,10 @@ func flattenInstancePreprocessGetRecipeStepsStatus(c *Client, i interface{}) *In
 	}
 
 	r := &InstancePreprocessGetRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessGetRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstancePreprocessGetRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -72866,6 +73726,10 @@ func flattenInstancePreprocessGetRecipeStepsStatusDetails(c *Client, i interface
 	}
 
 	r := &InstancePreprocessGetRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessGetRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -72980,6 +73844,10 @@ func flattenInstancePreprocessGetRecipeStepsQuotaRequestDeltas(c *Client, i inte
 	}
 
 	r := &InstancePreprocessGetRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessGetRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -73094,6 +73962,10 @@ func flattenInstancePreprocessGetRecipeStepsPreprocessUpdate(c *Client, i interf
 	}
 
 	r := &InstancePreprocessGetRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessGetRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -73211,6 +74083,10 @@ func flattenInstancePreprocessGetRecipeStepsRequestedTenantProject(c *Client, i 
 	}
 
 	r := &InstancePreprocessGetRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessGetRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -73338,6 +74214,10 @@ func flattenInstancePreprocessGetRecipeStepsPermissionsInfo(c *Client, i interfa
 	}
 
 	r := &InstancePreprocessGetRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessGetRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -73457,6 +74337,10 @@ func flattenInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName(c *Client,
 	}
 
 	r := &InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -73569,6 +74453,10 @@ func flattenInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions(c *Cli
 	}
 
 	r := &InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -73681,6 +74569,10 @@ func flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdate(c *Client, i 
 	}
 
 	r := &InstancePreprocessGetRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessGetRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -73799,6 +74691,10 @@ func flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificatio
 	}
 
 	r := &InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -73917,6 +74813,10 @@ func flattenInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificatio
 	}
 
 	r := &InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -74052,6 +74952,10 @@ func flattenInstanceNotifyKeyAvailableRecipe(c *Client, i interface{}) *Instance
 	}
 
 	r := &InstanceNotifyKeyAvailableRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyAvailableRecipe
+	}
 	r.Steps = flattenInstanceNotifyKeyAvailableRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -74229,6 +75133,10 @@ func flattenInstanceNotifyKeyAvailableRecipeSteps(c *Client, i interface{}) *Ins
 	}
 
 	r := &InstanceNotifyKeyAvailableRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyAvailableRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstanceNotifyKeyAvailableRecipeStepsActionEnum(m["action"])
@@ -74363,6 +75271,10 @@ func flattenInstanceNotifyKeyAvailableRecipeStepsStatus(c *Client, i interface{}
 	}
 
 	r := &InstanceNotifyKeyAvailableRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyAvailableRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstanceNotifyKeyAvailableRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -74478,6 +75390,10 @@ func flattenInstanceNotifyKeyAvailableRecipeStepsStatusDetails(c *Client, i inte
 	}
 
 	r := &InstanceNotifyKeyAvailableRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyAvailableRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -74592,6 +75508,10 @@ func flattenInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(c *Client, i
 	}
 
 	r := &InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -74706,6 +75626,10 @@ func flattenInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate(c *Client, i i
 	}
 
 	r := &InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -74823,6 +75747,10 @@ func flattenInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject(c *Clien
 	}
 
 	r := &InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -74950,6 +75878,10 @@ func flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(c *Client, i in
 	}
 
 	r := &InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -75069,6 +76001,10 @@ func flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName(c *Cl
 	}
 
 	r := &InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -75181,6 +76117,10 @@ func flattenInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions(c
 	}
 
 	r := &InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -75293,6 +76233,10 @@ func flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate(c *Clien
 	}
 
 	r := &InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -75411,6 +76355,10 @@ func flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotifi
 	}
 
 	r := &InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -75529,6 +76477,10 @@ func flattenInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotifi
 	}
 
 	r := &InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -75664,6 +76616,10 @@ func flattenInstanceNotifyKeyUnavailableRecipe(c *Client, i interface{}) *Instan
 	}
 
 	r := &InstanceNotifyKeyUnavailableRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyUnavailableRecipe
+	}
 	r.Steps = flattenInstanceNotifyKeyUnavailableRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -75841,6 +76797,10 @@ func flattenInstanceNotifyKeyUnavailableRecipeSteps(c *Client, i interface{}) *I
 	}
 
 	r := &InstanceNotifyKeyUnavailableRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyUnavailableRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstanceNotifyKeyUnavailableRecipeStepsActionEnum(m["action"])
@@ -75975,6 +76935,10 @@ func flattenInstanceNotifyKeyUnavailableRecipeStepsStatus(c *Client, i interface
 	}
 
 	r := &InstanceNotifyKeyUnavailableRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyUnavailableRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstanceNotifyKeyUnavailableRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -76090,6 +77054,10 @@ func flattenInstanceNotifyKeyUnavailableRecipeStepsStatusDetails(c *Client, i in
 	}
 
 	r := &InstanceNotifyKeyUnavailableRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyUnavailableRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -76204,6 +77172,10 @@ func flattenInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(c *Client,
 	}
 
 	r := &InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -76318,6 +77290,10 @@ func flattenInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate(c *Client, i
 	}
 
 	r := &InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -76435,6 +77411,10 @@ func flattenInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject(c *Cli
 	}
 
 	r := &InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -76562,6 +77542,10 @@ func flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(c *Client, i 
 	}
 
 	r := &InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -76681,6 +77665,10 @@ func flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName(c *
 	}
 
 	r := &InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -76793,6 +77781,10 @@ func flattenInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions
 	}
 
 	r := &InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -76905,6 +77897,10 @@ func flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate(c *Cli
 	}
 
 	r := &InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -77023,6 +78019,10 @@ func flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNoti
 	}
 
 	r := &InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -77141,6 +78141,10 @@ func flattenInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNoti
 	}
 
 	r := &InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -77276,6 +78280,10 @@ func flattenInstanceReadonlyRecipe(c *Client, i interface{}) *InstanceReadonlyRe
 	}
 
 	r := &InstanceReadonlyRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReadonlyRecipe
+	}
 	r.Steps = flattenInstanceReadonlyRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -77453,6 +78461,10 @@ func flattenInstanceReadonlyRecipeSteps(c *Client, i interface{}) *InstanceReado
 	}
 
 	r := &InstanceReadonlyRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReadonlyRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstanceReadonlyRecipeStepsActionEnum(m["action"])
@@ -77587,6 +78599,10 @@ func flattenInstanceReadonlyRecipeStepsStatus(c *Client, i interface{}) *Instanc
 	}
 
 	r := &InstanceReadonlyRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReadonlyRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstanceReadonlyRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -77702,6 +78718,10 @@ func flattenInstanceReadonlyRecipeStepsStatusDetails(c *Client, i interface{}) *
 	}
 
 	r := &InstanceReadonlyRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReadonlyRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -77816,6 +78836,10 @@ func flattenInstanceReadonlyRecipeStepsQuotaRequestDeltas(c *Client, i interface
 	}
 
 	r := &InstanceReadonlyRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReadonlyRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -77930,6 +78954,10 @@ func flattenInstanceReadonlyRecipeStepsPreprocessUpdate(c *Client, i interface{}
 	}
 
 	r := &InstanceReadonlyRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReadonlyRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -78047,6 +79075,10 @@ func flattenInstanceReadonlyRecipeStepsRequestedTenantProject(c *Client, i inter
 	}
 
 	r := &InstanceReadonlyRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReadonlyRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -78174,6 +79206,10 @@ func flattenInstanceReadonlyRecipeStepsPermissionsInfo(c *Client, i interface{})
 	}
 
 	r := &InstanceReadonlyRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReadonlyRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstanceReadonlyRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -78293,6 +79329,10 @@ func flattenInstanceReadonlyRecipeStepsPermissionsInfoPolicyName(c *Client, i in
 	}
 
 	r := &InstanceReadonlyRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReadonlyRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -78405,6 +79445,10 @@ func flattenInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions(c *Client, 
 	}
 
 	r := &InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -78517,6 +79561,10 @@ func flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdate(c *Client, i inter
 	}
 
 	r := &InstanceReadonlyRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReadonlyRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -78635,6 +79683,10 @@ func flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 	}
 
 	r := &InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -78753,6 +79805,10 @@ func flattenInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 	}
 
 	r := &InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -78888,6 +79944,10 @@ func flattenInstanceReconcileRecipe(c *Client, i interface{}) *InstanceReconcile
 	}
 
 	r := &InstanceReconcileRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReconcileRecipe
+	}
 	r.Steps = flattenInstanceReconcileRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -79065,6 +80125,10 @@ func flattenInstanceReconcileRecipeSteps(c *Client, i interface{}) *InstanceReco
 	}
 
 	r := &InstanceReconcileRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReconcileRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstanceReconcileRecipeStepsActionEnum(m["action"])
@@ -79199,6 +80263,10 @@ func flattenInstanceReconcileRecipeStepsStatus(c *Client, i interface{}) *Instan
 	}
 
 	r := &InstanceReconcileRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReconcileRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstanceReconcileRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -79314,6 +80382,10 @@ func flattenInstanceReconcileRecipeStepsStatusDetails(c *Client, i interface{}) 
 	}
 
 	r := &InstanceReconcileRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReconcileRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -79428,6 +80500,10 @@ func flattenInstanceReconcileRecipeStepsQuotaRequestDeltas(c *Client, i interfac
 	}
 
 	r := &InstanceReconcileRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReconcileRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -79542,6 +80618,10 @@ func flattenInstanceReconcileRecipeStepsPreprocessUpdate(c *Client, i interface{
 	}
 
 	r := &InstanceReconcileRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReconcileRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -79659,6 +80739,10 @@ func flattenInstanceReconcileRecipeStepsRequestedTenantProject(c *Client, i inte
 	}
 
 	r := &InstanceReconcileRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReconcileRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -79786,6 +80870,10 @@ func flattenInstanceReconcileRecipeStepsPermissionsInfo(c *Client, i interface{}
 	}
 
 	r := &InstanceReconcileRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReconcileRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstanceReconcileRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstanceReconcileRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -79905,6 +80993,10 @@ func flattenInstanceReconcileRecipeStepsPermissionsInfoPolicyName(c *Client, i i
 	}
 
 	r := &InstanceReconcileRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReconcileRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -80017,6 +81109,10 @@ func flattenInstanceReconcileRecipeStepsPermissionsInfoIamPermissions(c *Client,
 	}
 
 	r := &InstanceReconcileRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReconcileRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -80129,6 +81225,10 @@ func flattenInstanceReconcileRecipeStepsKeyNotificationsUpdate(c *Client, i inte
 	}
 
 	r := &InstanceReconcileRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReconcileRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -80247,6 +81347,10 @@ func flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 	}
 
 	r := &InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -80365,6 +81469,10 @@ func flattenInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 	}
 
 	r := &InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -80500,6 +81608,10 @@ func flattenInstancePreprocessPassthroughRecipe(c *Client, i interface{}) *Insta
 	}
 
 	r := &InstancePreprocessPassthroughRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessPassthroughRecipe
+	}
 	r.Steps = flattenInstancePreprocessPassthroughRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -80677,6 +81789,10 @@ func flattenInstancePreprocessPassthroughRecipeSteps(c *Client, i interface{}) *
 	}
 
 	r := &InstancePreprocessPassthroughRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessPassthroughRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstancePreprocessPassthroughRecipeStepsActionEnum(m["action"])
@@ -80811,6 +81927,10 @@ func flattenInstancePreprocessPassthroughRecipeStepsStatus(c *Client, i interfac
 	}
 
 	r := &InstancePreprocessPassthroughRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessPassthroughRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstancePreprocessPassthroughRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -80926,6 +82046,10 @@ func flattenInstancePreprocessPassthroughRecipeStepsStatusDetails(c *Client, i i
 	}
 
 	r := &InstancePreprocessPassthroughRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessPassthroughRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -81040,6 +82164,10 @@ func flattenInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(c *Client
 	}
 
 	r := &InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -81154,6 +82282,10 @@ func flattenInstancePreprocessPassthroughRecipeStepsPreprocessUpdate(c *Client, 
 	}
 
 	r := &InstancePreprocessPassthroughRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessPassthroughRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -81271,6 +82403,10 @@ func flattenInstancePreprocessPassthroughRecipeStepsRequestedTenantProject(c *Cl
 	}
 
 	r := &InstancePreprocessPassthroughRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessPassthroughRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -81398,6 +82534,10 @@ func flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfo(c *Client, i
 	}
 
 	r := &InstancePreprocessPassthroughRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessPassthroughRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -81517,6 +82657,10 @@ func flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName(c 
 	}
 
 	r := &InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -81629,6 +82773,10 @@ func flattenInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermission
 	}
 
 	r := &InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -81741,6 +82889,10 @@ func flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate(c *Cl
 	}
 
 	r := &InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -81859,6 +83011,10 @@ func flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNot
 	}
 
 	r := &InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -81977,6 +83133,10 @@ func flattenInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNot
 	}
 
 	r := &InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -82112,6 +83272,10 @@ func flattenInstancePreprocessReconcileRecipe(c *Client, i interface{}) *Instanc
 	}
 
 	r := &InstancePreprocessReconcileRecipe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReconcileRecipe
+	}
 	r.Steps = flattenInstancePreprocessReconcileRecipeStepsSlice(c, m["steps"])
 	r.HonorCancelRequest = dcl.FlattenBool(m["honorCancelRequest"])
 	r.IgnoreRecipeAfter = dcl.FlattenInteger(m["ignoreRecipeAfter"])
@@ -82289,6 +83453,10 @@ func flattenInstancePreprocessReconcileRecipeSteps(c *Client, i interface{}) *In
 	}
 
 	r := &InstancePreprocessReconcileRecipeSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReconcileRecipeSteps
+	}
 	r.RelativeTime = dcl.FlattenInteger(m["relativeTime"])
 	r.SleepDuration = dcl.FlattenInteger(m["sleepDuration"])
 	r.Action = flattenInstancePreprocessReconcileRecipeStepsActionEnum(m["action"])
@@ -82423,6 +83591,10 @@ func flattenInstancePreprocessReconcileRecipeStepsStatus(c *Client, i interface{
 	}
 
 	r := &InstancePreprocessReconcileRecipeStepsStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReconcileRecipeStepsStatus
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenInstancePreprocessReconcileRecipeStepsStatusDetailsSlice(c, m["details"])
@@ -82538,6 +83710,10 @@ func flattenInstancePreprocessReconcileRecipeStepsStatusDetails(c *Client, i int
 	}
 
 	r := &InstancePreprocessReconcileRecipeStepsStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReconcileRecipeStepsStatusDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -82652,6 +83828,10 @@ func flattenInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(c *Client, 
 	}
 
 	r := &InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas
+	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
 
@@ -82766,6 +83946,10 @@ func flattenInstancePreprocessReconcileRecipeStepsPreprocessUpdate(c *Client, i 
 	}
 
 	r := &InstancePreprocessReconcileRecipeStepsPreprocessUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReconcileRecipeStepsPreprocessUpdate
+	}
 	r.LatencySloBucketName = dcl.FlattenString(m["latencySloBucketName"])
 	r.PublicOperationMetadata = dcl.FlattenString(m["publicOperationMetadata"])
 
@@ -82883,6 +84067,10 @@ func flattenInstancePreprocessReconcileRecipeStepsRequestedTenantProject(c *Clie
 	}
 
 	r := &InstancePreprocessReconcileRecipeStepsRequestedTenantProject{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReconcileRecipeStepsRequestedTenantProject
+	}
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.Folder = dcl.FlattenString(m["folder"])
 	r.Scope = flattenInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum(m["scope"])
@@ -83010,6 +84198,10 @@ func flattenInstancePreprocessReconcileRecipeStepsPermissionsInfo(c *Client, i i
 	}
 
 	r := &InstancePreprocessReconcileRecipeStepsPermissionsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReconcileRecipeStepsPermissionsInfo
+	}
 	r.PolicyName = flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName(c, m["policyName"])
 	r.IamPermissions = flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissionsSlice(c, m["iamPermissions"])
 	r.ResourcePath = dcl.FlattenString(m["resourcePath"])
@@ -83129,6 +84321,10 @@ func flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName(c *C
 	}
 
 	r := &InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -83241,6 +84437,10 @@ func flattenInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions(
 	}
 
 	r := &InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions
+	}
 	r.Permission = dcl.FlattenString(m["permission"])
 
 	return r
@@ -83353,6 +84553,10 @@ func flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate(c *Clie
 	}
 
 	r := &InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate
+	}
 	r.KeyNotificationsInfo = flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(c, m["keyNotificationsInfo"])
 
 	return r
@@ -83471,6 +84675,10 @@ func flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotif
 	}
 
 	r := &InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
+	}
 	r.DataVersion = dcl.FlattenInteger(m["dataVersion"])
 	r.Delegate = dcl.FlattenString(m["delegate"])
 	r.KeyNotificationConfigs = flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsSlice(c, m["keyNotificationConfigs"])
@@ -83589,6 +84797,10 @@ func flattenInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotif
 	}
 
 	r := &InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs
+	}
 	r.KeyOrVersionName = dcl.FlattenString(m["keyOrVersionName"])
 	r.Grant = dcl.FlattenString(m["grant"])
 	r.DelegatorGaiaId = dcl.FlattenInteger(m["delegatorGaiaId"])
@@ -83719,6 +84931,10 @@ func flattenInstanceHistory(c *Client, i interface{}) *InstanceHistory {
 	}
 
 	r := &InstanceHistory{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceHistory
+	}
 	r.Timestamp = dcl.FlattenString(m["timestamp"])
 	r.OperationHandle = dcl.FlattenString(m["operationHandle"])
 	r.Description = dcl.FlattenString(m["description"])

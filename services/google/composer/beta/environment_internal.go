@@ -2620,6 +2620,10 @@ func flattenEnvironmentConfig(c *Client, i interface{}) *EnvironmentConfig {
 	}
 
 	r := &EnvironmentConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyEnvironmentConfig
+	}
 	r.GkeCluster = dcl.FlattenString(m["gkeCluster"])
 	r.DagGcsPrefix = dcl.FlattenString(m["dagGcsPrefix"])
 	r.NodeCount = dcl.FlattenInteger(m["nodeCount"])
@@ -2753,6 +2757,10 @@ func flattenEnvironmentConfigSoftwareConfig(c *Client, i interface{}) *Environme
 	}
 
 	r := &EnvironmentConfigSoftwareConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyEnvironmentConfigSoftwareConfig
+	}
 	r.ImageVersion = dcl.FlattenString(m["imageVersion"])
 	r.AirflowConfigOverrides = dcl.FlattenKeyValuePairs(m["airflowConfigOverrides"])
 	r.PypiPackages = dcl.FlattenKeyValuePairs(m["pypiPackages"])
@@ -2904,6 +2912,10 @@ func flattenEnvironmentConfigNodeConfig(c *Client, i interface{}) *EnvironmentCo
 	}
 
 	r := &EnvironmentConfigNodeConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyEnvironmentConfigNodeConfig
+	}
 	r.Location = dcl.FlattenString(m["location"])
 	r.MachineType = dcl.FlattenString(m["machineType"])
 	r.Network = dcl.FlattenString(m["network"])
@@ -3035,6 +3047,10 @@ func flattenEnvironmentConfigNodeConfigIPAllocationPolicy(c *Client, i interface
 	}
 
 	r := &EnvironmentConfigNodeConfigIPAllocationPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyEnvironmentConfigNodeConfigIPAllocationPolicy
+	}
 	r.UseIPAliases = dcl.FlattenBool(m["useIpAliases"])
 	r.ClusterSecondaryRangeName = dcl.FlattenString(m["clusterSecondaryRangeName"])
 	r.ClusterIPv4CidrBlock = dcl.FlattenString(m["clusterIpv4CidrBlock"])
@@ -3163,6 +3179,10 @@ func flattenEnvironmentConfigPrivateEnvironmentConfig(c *Client, i interface{}) 
 	}
 
 	r := &EnvironmentConfigPrivateEnvironmentConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyEnvironmentConfigPrivateEnvironmentConfig
+	}
 	r.EnablePrivateEnvironment = dcl.FlattenBool(m["enablePrivateEnvironment"])
 	r.PrivateClusterConfig = flattenEnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig(c, m["privateClusterConfig"])
 	r.WebServerIPv4CidrBlock = dcl.FlattenString(m["webServerIpv4CidrBlock"])
@@ -3283,6 +3303,10 @@ func flattenEnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig(c *Cli
 	}
 
 	r := &EnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyEnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig
+	}
 	r.EnablePrivateEndpoint = dcl.FlattenBool(m["enablePrivateEndpoint"])
 	r.MasterIPv4CidrBlock = dcl.FlattenString(m["masterIpv4CidrBlock"])
 	r.MasterIPv4ReservedRange = dcl.FlattenString(m["masterIpv4ReservedRange"])
@@ -3397,6 +3421,10 @@ func flattenEnvironmentConfigWebServerNetworkAccessControl(c *Client, i interfac
 	}
 
 	r := &EnvironmentConfigWebServerNetworkAccessControl{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyEnvironmentConfigWebServerNetworkAccessControl
+	}
 	r.AllowedIPRanges = flattenEnvironmentConfigWebServerNetworkAccessControlAllowedIPRangesSlice(c, m["allowedIpRanges"])
 
 	return r
@@ -3510,6 +3538,10 @@ func flattenEnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges(c *Cli
 	}
 
 	r := &EnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyEnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges
+	}
 	r.Value = dcl.FlattenString(m["value"])
 	r.Description = dcl.FlattenString(m["description"])
 
@@ -3621,6 +3653,10 @@ func flattenEnvironmentConfigDatabaseConfig(c *Client, i interface{}) *Environme
 	}
 
 	r := &EnvironmentConfigDatabaseConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyEnvironmentConfigDatabaseConfig
+	}
 	r.MachineType = dcl.FlattenString(m["machineType"])
 
 	return r
@@ -3731,6 +3767,10 @@ func flattenEnvironmentConfigWebServerConfig(c *Client, i interface{}) *Environm
 	}
 
 	r := &EnvironmentConfigWebServerConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyEnvironmentConfigWebServerConfig
+	}
 	r.MachineType = dcl.FlattenString(m["machineType"])
 
 	return r
@@ -3841,6 +3881,10 @@ func flattenEnvironmentConfigEncryptionConfig(c *Client, i interface{}) *Environ
 	}
 
 	r := &EnvironmentConfigEncryptionConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyEnvironmentConfigEncryptionConfig
+	}
 	r.KmsKeyName = dcl.FlattenString(m["kmsKeyName"])
 
 	return r
@@ -3957,6 +4001,10 @@ func flattenEnvironmentConfigMaintenanceWindow(c *Client, i interface{}) *Enviro
 	}
 
 	r := &EnvironmentConfigMaintenanceWindow{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyEnvironmentConfigMaintenanceWindow
+	}
 	r.StartTime = dcl.FlattenString(m["startTime"])
 	r.EndTime = dcl.FlattenString(m["endTime"])
 	r.Recurrence = dcl.FlattenString(m["recurrence"])

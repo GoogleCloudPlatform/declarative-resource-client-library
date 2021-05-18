@@ -72,6 +72,10 @@ func (r *RepoPubsubConfigs) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyRepoPubsubConfigs *RepoPubsubConfigs = &RepoPubsubConfigs{empty: true}
 
+func (r *RepoPubsubConfigs) Empty() bool {
+	return r.empty
+}
+
 func (r *RepoPubsubConfigs) String() string {
 	return dcl.SprintResource(r)
 }

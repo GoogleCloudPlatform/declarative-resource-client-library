@@ -6426,6 +6426,10 @@ func flattenInstanceMaxDiskSize(c *Client, i interface{}) *InstanceMaxDiskSize {
 	}
 
 	r := &InstanceMaxDiskSize{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceMaxDiskSize
+	}
 	r.Value = dcl.FlattenInteger(m["value"])
 
 	return r
@@ -6536,6 +6540,10 @@ func flattenInstanceCurrentDiskSize(c *Client, i interface{}) *InstanceCurrentDi
 	}
 
 	r := &InstanceCurrentDiskSize{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceCurrentDiskSize
+	}
 	r.Value = dcl.FlattenInteger(m["value"])
 
 	return r
@@ -6649,6 +6657,10 @@ func flattenInstanceDiskEncryptionConfiguration(c *Client, i interface{}) *Insta
 	}
 
 	r := &InstanceDiskEncryptionConfiguration{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceDiskEncryptionConfiguration
+	}
 	r.KmsKeyName = dcl.FlattenString(m["kmsKeyName"])
 	r.Kind = dcl.FlattenString(m["kind"])
 
@@ -6768,6 +6780,10 @@ func flattenInstanceFailoverReplica(c *Client, i interface{}) *InstanceFailoverR
 	}
 
 	r := &InstanceFailoverReplica{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceFailoverReplica
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Available = dcl.FlattenBool(m["available"])
 	r.FailoverInstance = flattenInstanceFailoverReplicaFailoverInstance(c, m["failoverInstance"])
@@ -6883,6 +6899,10 @@ func flattenInstanceFailoverReplicaFailoverInstance(c *Client, i interface{}) *I
 	}
 
 	r := &InstanceFailoverReplicaFailoverInstance{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceFailoverReplicaFailoverInstance
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Region = dcl.FlattenString(m["region"])
 
@@ -7002,6 +7022,10 @@ func flattenInstanceIPAddresses(c *Client, i interface{}) *InstanceIPAddresses {
 	}
 
 	r := &InstanceIPAddresses{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceIPAddresses
+	}
 	r.Type = flattenInstanceIPAddressesTypeEnum(m["type"])
 	r.IPAddress = dcl.FlattenString(m["ipAddress"])
 	r.TimeToRetire = flattenInstanceIPAddressesTimeToRetire(c, m["timeToRetire"])
@@ -7117,6 +7141,10 @@ func flattenInstanceIPAddressesTimeToRetire(c *Client, i interface{}) *InstanceI
 	}
 
 	r := &InstanceIPAddressesTimeToRetire{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceIPAddressesTimeToRetire
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -7231,6 +7259,10 @@ func flattenInstanceMasterInstance(c *Client, i interface{}) *InstanceMasterInst
 	}
 
 	r := &InstanceMasterInstance{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceMasterInstance
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Region = dcl.FlattenString(m["region"])
 
@@ -7355,6 +7387,10 @@ func flattenInstanceReplicaConfiguration(c *Client, i interface{}) *InstanceRepl
 	}
 
 	r := &InstanceReplicaConfiguration{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReplicaConfiguration
+	}
 	r.Kind = dcl.FlattenString(m["kind"])
 	r.MysqlReplicaConfiguration = flattenInstanceReplicaConfigurationMysqlReplicaConfiguration(c, m["mysqlReplicaConfiguration"])
 	r.FailoverTarget = dcl.FlattenBool(m["failoverTarget"])
@@ -7500,6 +7536,10 @@ func flattenInstanceReplicaConfigurationMysqlReplicaConfiguration(c *Client, i i
 	}
 
 	r := &InstanceReplicaConfigurationMysqlReplicaConfiguration{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReplicaConfigurationMysqlReplicaConfiguration
+	}
 	r.DumpFilePath = dcl.FlattenString(m["dumpFilePath"])
 	r.Username = dcl.FlattenString(m["username"])
 	r.Password = dcl.FlattenString(m["password"])
@@ -7620,6 +7660,10 @@ func flattenInstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeat
 	}
 
 	r := &InstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriod{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriod
+	}
 	r.Value = dcl.FlattenInteger(m["value"])
 
 	return r
@@ -7746,6 +7790,10 @@ func flattenInstanceReplicaConfigurationReplicaPoolConfiguration(c *Client, i in
 	}
 
 	r := &InstanceReplicaConfigurationReplicaPoolConfiguration{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReplicaConfigurationReplicaPoolConfiguration
+	}
 	r.Kind = dcl.FlattenString(m["kind"])
 	r.StaticPoolConfiguration = flattenInstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration(c, m["staticPoolConfiguration"])
 	r.AutoscalingPoolConfiguration = flattenInstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration(c, m["autoscalingPoolConfiguration"])
@@ -7866,6 +7914,10 @@ func flattenInstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfig
 	}
 
 	r := &InstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration
+	}
 	r.Kind = dcl.FlattenString(m["kind"])
 	r.ReplicaCount = dcl.FlattenInteger(m["replicaCount"])
 	r.ExposeReplicaIP = dcl.FlattenBool(m["exposeReplicaIP"])
@@ -7987,6 +8039,10 @@ func flattenInstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolC
 	}
 
 	r := &InstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration
+	}
 	r.Kind = dcl.FlattenString(m["kind"])
 	r.MinReplicaCount = dcl.FlattenInteger(m["minReplicaCount"])
 	r.MaxReplicaCount = dcl.FlattenInteger(m["maxReplicaCount"])
@@ -8108,6 +8164,10 @@ func flattenInstanceScheduledMaintenance(c *Client, i interface{}) *InstanceSche
 	}
 
 	r := &InstanceScheduledMaintenance{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceScheduledMaintenance
+	}
 	r.StartTime = flattenInstanceScheduledMaintenanceStartTime(c, m["startTime"])
 	r.CanDefer = dcl.FlattenBool(m["canDefer"])
 	r.CanReschedule = dcl.FlattenBool(m["canReschedule"])
@@ -8223,6 +8283,10 @@ func flattenInstanceScheduledMaintenanceStartTime(c *Client, i interface{}) *Ins
 	}
 
 	r := &InstanceScheduledMaintenanceStartTime{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceScheduledMaintenanceStartTime
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -8425,6 +8489,10 @@ func flattenInstanceSettings(c *Client, i interface{}) *InstanceSettings {
 	}
 
 	r := &InstanceSettings{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceSettings
+	}
 	r.AuthorizedGaeApplications = dcl.FlattenStringSlice(m["authorizedGaeApplications"])
 	r.Tier = dcl.FlattenString(m["tier"])
 	r.Kind = dcl.FlattenString(m["kind"])
@@ -8558,6 +8626,10 @@ func flattenInstanceSettingsSettingsVersion(c *Client, i interface{}) *InstanceS
 	}
 
 	r := &InstanceSettingsSettingsVersion{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceSettingsSettingsVersion
+	}
 	r.Value = dcl.FlattenInteger(m["value"])
 
 	return r
@@ -8668,6 +8740,10 @@ func flattenInstanceSettingsStorageAutoResizeLimit(c *Client, i interface{}) *In
 	}
 
 	r := &InstanceSettingsStorageAutoResizeLimit{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceSettingsStorageAutoResizeLimit
+	}
 	r.Value = dcl.FlattenInteger(m["value"])
 
 	return r
@@ -8789,6 +8865,10 @@ func flattenInstanceSettingsIPConfiguration(c *Client, i interface{}) *InstanceS
 	}
 
 	r := &InstanceSettingsIPConfiguration{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceSettingsIPConfiguration
+	}
 	r.IPv4Enabled = dcl.FlattenBool(m["ipv4Enabled"])
 	r.PrivateNetwork = dcl.FlattenString(m["privateNetwork"])
 	r.RequireSsl = dcl.FlattenBool(m["requireSsl"])
@@ -8911,6 +8991,10 @@ func flattenInstanceSettingsIPConfigurationAuthorizedNetworks(c *Client, i inter
 	}
 
 	r := &InstanceSettingsIPConfigurationAuthorizedNetworks{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceSettingsIPConfigurationAuthorizedNetworks
+	}
 	r.Value = dcl.FlattenString(m["value"])
 	r.ExpirationTime = dcl.FlattenString(m["expirationTime"])
 	r.Name = dcl.FlattenString(m["name"])
@@ -9027,6 +9111,10 @@ func flattenInstanceSettingsLocationPreference(c *Client, i interface{}) *Instan
 	}
 
 	r := &InstanceSettingsLocationPreference{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceSettingsLocationPreference
+	}
 	r.Zone = dcl.FlattenString(m["zone"])
 	r.Kind = dcl.FlattenString(m["kind"])
 
@@ -9141,6 +9229,10 @@ func flattenInstanceSettingsDatabaseFlags(c *Client, i interface{}) *InstanceSet
 	}
 
 	r := &InstanceSettingsDatabaseFlags{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceSettingsDatabaseFlags
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -9261,6 +9353,10 @@ func flattenInstanceSettingsMaintenanceWindow(c *Client, i interface{}) *Instanc
 	}
 
 	r := &InstanceSettingsMaintenanceWindow{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceSettingsMaintenanceWindow
+	}
 	r.Hour = dcl.FlattenInteger(m["hour"])
 	r.Day = dcl.FlattenInteger(m["day"])
 	r.UpdateTrack = flattenInstanceSettingsMaintenanceWindowUpdateTrackEnum(m["updateTrack"])
@@ -9394,6 +9490,10 @@ func flattenInstanceSettingsBackupConfiguration(c *Client, i interface{}) *Insta
 	}
 
 	r := &InstanceSettingsBackupConfiguration{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceSettingsBackupConfiguration
+	}
 	r.StartTime = dcl.FlattenString(m["startTime"])
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 	r.Kind = dcl.FlattenString(m["kind"])
@@ -9513,6 +9613,10 @@ func flattenInstanceSettingsBackupConfigurationBackupRetentionSettings(c *Client
 	}
 
 	r := &InstanceSettingsBackupConfigurationBackupRetentionSettings{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceSettingsBackupConfigurationBackupRetentionSettings
+	}
 	r.RetentionUnit = flattenInstanceSettingsBackupConfigurationBackupRetentionSettingsRetentionUnitEnum(m["retentionUnit"])
 	r.RetainedBackups = dcl.FlattenInteger(m["retainedBackups"])
 
@@ -9624,6 +9728,10 @@ func flattenInstanceSettingsDataDiskSizeGb(c *Client, i interface{}) *InstanceSe
 	}
 
 	r := &InstanceSettingsDataDiskSizeGb{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceSettingsDataDiskSizeGb
+	}
 	r.Value = dcl.FlattenInteger(m["value"])
 
 	return r
@@ -9737,6 +9845,10 @@ func flattenInstanceSettingsActiveDirectoryConfig(c *Client, i interface{}) *Ins
 	}
 
 	r := &InstanceSettingsActiveDirectoryConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceSettingsActiveDirectoryConfig
+	}
 	r.Kind = dcl.FlattenString(m["kind"])
 	r.Domain = dcl.FlattenString(m["domain"])
 
@@ -9854,6 +9966,10 @@ func flattenInstanceSettingsDenyMaintenancePeriods(c *Client, i interface{}) *In
 	}
 
 	r := &InstanceSettingsDenyMaintenancePeriods{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceSettingsDenyMaintenancePeriods
+	}
 	r.StartDate = dcl.FlattenString(m["startDate"])
 	r.EndDate = dcl.FlattenString(m["endDate"])
 	r.Time = dcl.FlattenString(m["time"])
@@ -9975,6 +10091,10 @@ func flattenInstanceSettingsInsightsConfig(c *Client, i interface{}) *InstanceSe
 	}
 
 	r := &InstanceSettingsInsightsConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceSettingsInsightsConfig
+	}
 	r.QueryInsightsEnabled = dcl.FlattenBool(m["queryInsightsEnabled"])
 	r.RecordClientAddress = dcl.FlattenBool(m["recordClientAddress"])
 	r.RecordApplicationTags = dcl.FlattenBool(m["recordApplicationTags"])
@@ -10091,6 +10211,10 @@ func flattenInstanceReplicaInstances(c *Client, i interface{}) *InstanceReplicaI
 	}
 
 	r := &InstanceReplicaInstances{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceReplicaInstances
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Region = dcl.FlattenString(m["region"])
 
@@ -10223,6 +10347,10 @@ func flattenInstanceServerCaCert(c *Client, i interface{}) *InstanceServerCaCert
 	}
 
 	r := &InstanceServerCaCert{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceServerCaCert
+	}
 	r.Kind = dcl.FlattenString(m["kind"])
 	r.CertSerialNumber = dcl.FlattenString(m["certSerialNumber"])
 	r.Cert = dcl.FlattenString(m["cert"])
@@ -10367,6 +10495,10 @@ func flattenInstanceOnPremisesConfiguration(c *Client, i interface{}) *InstanceO
 	}
 
 	r := &InstanceOnPremisesConfiguration{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceOnPremisesConfiguration
+	}
 	r.HostPort = dcl.FlattenString(m["hostPort"])
 	r.Kind = dcl.FlattenString(m["kind"])
 	r.Username = dcl.FlattenString(m["username"])
@@ -10489,6 +10621,10 @@ func flattenInstanceDiskEncryptionStatus(c *Client, i interface{}) *InstanceDisk
 	}
 
 	r := &InstanceDiskEncryptionStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceDiskEncryptionStatus
+	}
 	r.KmsKeyVersionName = dcl.FlattenString(m["kmsKeyVersionName"])
 	r.Kind = dcl.FlattenString(m["kind"])
 

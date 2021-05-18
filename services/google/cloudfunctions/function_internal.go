@@ -1759,6 +1759,10 @@ func flattenFunctionSourceRepository(c *Client, i interface{}) *FunctionSourceRe
 	}
 
 	r := &FunctionSourceRepository{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFunctionSourceRepository
+	}
 	r.Url = dcl.FlattenString(m["url"])
 	r.DeployedUrl = dcl.FlattenString(m["deployedUrl"])
 
@@ -1870,6 +1874,10 @@ func flattenFunctionHttpsTrigger(c *Client, i interface{}) *FunctionHttpsTrigger
 	}
 
 	r := &FunctionHttpsTrigger{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFunctionHttpsTrigger
+	}
 	r.Url = dcl.FlattenString(m["url"])
 
 	return r
@@ -1991,6 +1999,10 @@ func flattenFunctionEventTrigger(c *Client, i interface{}) *FunctionEventTrigger
 	}
 
 	r := &FunctionEventTrigger{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFunctionEventTrigger
+	}
 	r.EventType = dcl.FlattenString(m["eventType"])
 	r.Resource = dcl.FlattenString(m["resource"])
 	r.Service = dcl.FlattenString(m["service"])

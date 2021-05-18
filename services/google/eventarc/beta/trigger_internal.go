@@ -1604,6 +1604,10 @@ func flattenTriggerDestination(c *Client, i interface{}) *TriggerDestination {
 	}
 
 	r := &TriggerDestination{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTriggerDestination
+	}
 	r.CloudRunService = flattenTriggerDestinationCloudRunService(c, m["cloudRunService"])
 
 	return r
@@ -1720,6 +1724,10 @@ func flattenTriggerDestinationCloudRunService(c *Client, i interface{}) *Trigger
 	}
 
 	r := &TriggerDestinationCloudRunService{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTriggerDestinationCloudRunService
+	}
 	r.Service = dcl.FlattenString(m["service"])
 	r.Path = dcl.FlattenString(m["path"])
 	r.Region = dcl.FlattenString(m["region"])
@@ -1834,6 +1842,10 @@ func flattenTriggerTransport(c *Client, i interface{}) *TriggerTransport {
 	}
 
 	r := &TriggerTransport{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTriggerTransport
+	}
 	r.Pubsub = flattenTriggerTransportPubsub(c, m["pubsub"])
 
 	return r
@@ -1947,6 +1959,10 @@ func flattenTriggerTransportPubsub(c *Client, i interface{}) *TriggerTransportPu
 	}
 
 	r := &TriggerTransportPubsub{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTriggerTransportPubsub
+	}
 	r.Topic = dcl.FlattenString(m["topic"])
 	r.Subscription = dcl.FlattenString(m["subscription"])
 
@@ -2061,6 +2077,10 @@ func flattenTriggerMatchingCriteria(c *Client, i interface{}) *TriggerMatchingCr
 	}
 
 	r := &TriggerMatchingCriteria{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTriggerMatchingCriteria
+	}
 	r.Attribute = dcl.FlattenString(m["attribute"])
 	r.Value = dcl.FlattenString(m["value"])
 

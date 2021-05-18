@@ -1177,6 +1177,10 @@ func flattenMetricDescriptorDescriptorLabels(c *Client, i interface{}) *MetricDe
 	}
 
 	r := &MetricDescriptorDescriptorLabels{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyMetricDescriptorDescriptorLabels
+	}
 	r.Key = dcl.FlattenString(m["key"])
 	r.ValueType = flattenMetricDescriptorDescriptorLabelsValueTypeEnum(m["valueType"])
 	r.Description = dcl.FlattenString(m["description"])
@@ -1295,6 +1299,10 @@ func flattenMetricDescriptorMetadata(c *Client, i interface{}) *MetricDescriptor
 	}
 
 	r := &MetricDescriptorMetadata{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyMetricDescriptorMetadata
+	}
 	r.LaunchStage = flattenMetricDescriptorMetadataLaunchStageEnum(m["launchStage"])
 	r.SamplePeriod = dcl.FlattenString(m["samplePeriod"])
 	r.IngestDelay = dcl.FlattenString(m["ingestDelay"])

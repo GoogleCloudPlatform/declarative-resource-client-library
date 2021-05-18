@@ -133,6 +133,10 @@ func (r *ApplicationDispatchRules) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyApplicationDispatchRules *ApplicationDispatchRules = &ApplicationDispatchRules{empty: true}
 
+func (r *ApplicationDispatchRules) Empty() bool {
+	return r.empty
+}
+
 func (r *ApplicationDispatchRules) String() string {
 	return dcl.SprintResource(r)
 }
@@ -177,6 +181,10 @@ func (r *ApplicationFeatureSettings) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyApplicationFeatureSettings *ApplicationFeatureSettings = &ApplicationFeatureSettings{empty: true}
+
+func (r *ApplicationFeatureSettings) Empty() bool {
+	return r.empty
+}
 
 func (r *ApplicationFeatureSettings) String() string {
 	return dcl.SprintResource(r)
@@ -228,6 +236,10 @@ func (r *ApplicationIap) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyApplicationIap *ApplicationIap = &ApplicationIap{empty: true}
+
+func (r *ApplicationIap) Empty() bool {
+	return r.empty
+}
 
 func (r *ApplicationIap) String() string {
 	return dcl.SprintResource(r)

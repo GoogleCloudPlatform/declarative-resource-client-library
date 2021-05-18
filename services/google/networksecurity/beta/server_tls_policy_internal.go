@@ -1767,6 +1767,10 @@ func flattenServerTlsPolicyServerCertificate(c *Client, i interface{}) *ServerTl
 	}
 
 	r := &ServerTlsPolicyServerCertificate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServerTlsPolicyServerCertificate
+	}
 	r.GrpcEndpoint = flattenServerTlsPolicyServerCertificateGrpcEndpoint(c, m["grpcEndpoint"])
 	r.CertificateProviderInstance = flattenServerTlsPolicyServerCertificateCertificateProviderInstance(c, m["certificateProviderInstance"])
 
@@ -1878,6 +1882,10 @@ func flattenServerTlsPolicyServerCertificateGrpcEndpoint(c *Client, i interface{
 	}
 
 	r := &ServerTlsPolicyServerCertificateGrpcEndpoint{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServerTlsPolicyServerCertificateGrpcEndpoint
+	}
 	r.TargetUri = dcl.FlattenString(m["targetUri"])
 
 	return r
@@ -1988,6 +1996,10 @@ func flattenServerTlsPolicyServerCertificateCertificateProviderInstance(c *Clien
 	}
 
 	r := &ServerTlsPolicyServerCertificateCertificateProviderInstance{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServerTlsPolicyServerCertificateCertificateProviderInstance
+	}
 	r.PluginInstance = dcl.FlattenString(m["pluginInstance"])
 
 	return r
@@ -2100,6 +2112,10 @@ func flattenServerTlsPolicyMtlsPolicy(c *Client, i interface{}) *ServerTlsPolicy
 	}
 
 	r := &ServerTlsPolicyMtlsPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServerTlsPolicyMtlsPolicy
+	}
 	r.ClientValidationCa = flattenServerTlsPolicyMtlsPolicyClientValidationCaSlice(c, m["clientValidationCa"])
 
 	return r
@@ -2217,6 +2233,10 @@ func flattenServerTlsPolicyMtlsPolicyClientValidationCa(c *Client, i interface{}
 	}
 
 	r := &ServerTlsPolicyMtlsPolicyClientValidationCa{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServerTlsPolicyMtlsPolicyClientValidationCa
+	}
 	r.GrpcEndpoint = flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c, m["grpcEndpoint"])
 	r.CertificateProviderInstance = flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance(c, m["certificateProviderInstance"])
 
@@ -2328,6 +2348,10 @@ func flattenServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint(c *Client, i
 	}
 
 	r := &ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint
+	}
 	r.TargetUri = dcl.FlattenString(m["targetUri"])
 
 	return r
@@ -2438,6 +2462,10 @@ func flattenServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstan
 	}
 
 	r := &ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance
+	}
 	r.PluginInstance = dcl.FlattenString(m["pluginInstance"])
 
 	return r

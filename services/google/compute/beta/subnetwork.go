@@ -188,6 +188,10 @@ func (r *SubnetworkSecondaryIPRanges) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptySubnetworkSecondaryIPRanges *SubnetworkSecondaryIPRanges = &SubnetworkSecondaryIPRanges{empty: true}
 
+func (r *SubnetworkSecondaryIPRanges) Empty() bool {
+	return r.empty
+}
+
 func (r *SubnetworkSecondaryIPRanges) String() string {
 	return dcl.SprintResource(r)
 }
@@ -235,6 +239,10 @@ func (r *SubnetworkLogConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptySubnetworkLogConfig *SubnetworkLogConfig = &SubnetworkLogConfig{empty: true}
+
+func (r *SubnetworkLogConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *SubnetworkLogConfig) String() string {
 	return dcl.SprintResource(r)

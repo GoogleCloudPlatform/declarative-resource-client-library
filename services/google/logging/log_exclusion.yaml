@@ -63,6 +63,9 @@ components:
             resource: Cloudresourcemanager/Project
           - field: name
             parent: true
+            resource: Cloudresourcemanager/Folder
+          - field: name
+            parent: true
             resource: Cloudresourcemanager/Organization
           - field: name
             parent: true

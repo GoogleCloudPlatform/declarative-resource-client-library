@@ -234,6 +234,10 @@ func (r *DiskGuestOsFeature) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyDiskGuestOsFeature *DiskGuestOsFeature = &DiskGuestOsFeature{empty: true}
 
+func (r *DiskGuestOsFeature) Empty() bool {
+	return r.empty
+}
+
 func (r *DiskGuestOsFeature) String() string {
 	return dcl.SprintResource(r)
 }
@@ -285,6 +289,10 @@ func (r *DiskEncryptionKey) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyDiskEncryptionKey *DiskEncryptionKey = &DiskEncryptionKey{empty: true}
 
+func (r *DiskEncryptionKey) Empty() bool {
+	return r.empty
+}
+
 func (r *DiskEncryptionKey) String() string {
 	return dcl.SprintResource(r)
 }
@@ -329,6 +337,10 @@ func (r *DiskGuestOsFeatures) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyDiskGuestOsFeatures *DiskGuestOsFeatures = &DiskGuestOsFeatures{empty: true}
+
+func (r *DiskGuestOsFeatures) Empty() bool {
+	return r.empty
+}
 
 func (r *DiskGuestOsFeatures) String() string {
 	return dcl.SprintResource(r)

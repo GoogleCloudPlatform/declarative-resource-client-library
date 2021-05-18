@@ -2151,6 +2151,10 @@ func flattenAutoscalerAutoscalingPolicy(c *Client, i interface{}) *AutoscalerAut
 	}
 
 	r := &AutoscalerAutoscalingPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAutoscalerAutoscalingPolicy
+	}
 	r.MinNumReplicas = dcl.FlattenInteger(m["minNumReplicas"])
 	r.MaxNumReplicas = dcl.FlattenInteger(m["maxNumReplicas"])
 	r.ScaleInControl = flattenAutoscalerAutoscalingPolicyScaleInControl(c, m["scaleInControl"])
@@ -2281,6 +2285,10 @@ func flattenAutoscalerAutoscalingPolicyScaleInControl(c *Client, i interface{}) 
 	}
 
 	r := &AutoscalerAutoscalingPolicyScaleInControl{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAutoscalerAutoscalingPolicyScaleInControl
+	}
 	r.MaxScaledInReplicas = flattenAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(c, m["maxScaledInReplicas"])
 	r.TimeWindowSec = dcl.FlattenInteger(m["timeWindowSec"])
 
@@ -2398,6 +2406,10 @@ func flattenAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(c *Clie
 	}
 
 	r := &AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas
+	}
 	r.Fixed = dcl.FlattenInteger(m["fixed"])
 	r.Percent = dcl.FlattenInteger(m["percent"])
 	r.Calculated = dcl.FlattenInteger(m["calculated"])
@@ -2510,6 +2522,10 @@ func flattenAutoscalerAutoscalingPolicyCpuUtilization(c *Client, i interface{}) 
 	}
 
 	r := &AutoscalerAutoscalingPolicyCpuUtilization{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAutoscalerAutoscalingPolicyCpuUtilization
+	}
 	r.UtilizationTarget = dcl.FlattenDouble(m["utilizationTarget"])
 
 	return r
@@ -2632,6 +2648,10 @@ func flattenAutoscalerAutoscalingPolicyCustomMetricUtilizations(c *Client, i int
 	}
 
 	r := &AutoscalerAutoscalingPolicyCustomMetricUtilizations{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAutoscalerAutoscalingPolicyCustomMetricUtilizations
+	}
 	r.Metric = dcl.FlattenString(m["metric"])
 	r.UtilizationTarget = dcl.FlattenDouble(m["utilizationTarget"])
 	r.UtilizationTargetType = flattenAutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum(m["utilizationTargetType"])
@@ -2746,6 +2766,10 @@ func flattenAutoscalerAutoscalingPolicyLoadBalancingUtilization(c *Client, i int
 	}
 
 	r := &AutoscalerAutoscalingPolicyLoadBalancingUtilization{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAutoscalerAutoscalingPolicyLoadBalancingUtilization
+	}
 	r.UtilizationTarget = dcl.FlattenDouble(m["utilizationTarget"])
 
 	return r
@@ -2859,6 +2883,10 @@ func flattenAutoscalerStatusDetails(c *Client, i interface{}) *AutoscalerStatusD
 	}
 
 	r := &AutoscalerStatusDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAutoscalerStatusDetails
+	}
 	r.Message = dcl.FlattenString(m["message"])
 	r.Type = flattenAutoscalerStatusDetailsTypeEnum(m["type"])
 

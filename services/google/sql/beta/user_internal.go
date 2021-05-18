@@ -1008,6 +1008,10 @@ func flattenUserSqlserverUserDetails(c *Client, i interface{}) *UserSqlserverUse
 	}
 
 	r := &UserSqlserverUserDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUserSqlserverUserDetails
+	}
 	r.Disabled = dcl.FlattenBool(m["disabled"])
 	r.ServerRoles = dcl.FlattenStringSlice(m["serverRoles"])
 

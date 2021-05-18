@@ -99,6 +99,10 @@ func (r *AttestorUserOwnedGrafeasNote) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyAttestorUserOwnedGrafeasNote *AttestorUserOwnedGrafeasNote = &AttestorUserOwnedGrafeasNote{empty: true}
 
+func (r *AttestorUserOwnedGrafeasNote) Empty() bool {
+	return r.empty
+}
+
 func (r *AttestorUserOwnedGrafeasNote) String() string {
 	return dcl.SprintResource(r)
 }
@@ -150,6 +154,10 @@ func (r *AttestorUserOwnedGrafeasNotePublicKeys) UnmarshalJSON(data []byte) erro
 // as one.  Modifying this object will have undesirable results.
 var EmptyAttestorUserOwnedGrafeasNotePublicKeys *AttestorUserOwnedGrafeasNotePublicKeys = &AttestorUserOwnedGrafeasNotePublicKeys{empty: true}
 
+func (r *AttestorUserOwnedGrafeasNotePublicKeys) Empty() bool {
+	return r.empty
+}
+
 func (r *AttestorUserOwnedGrafeasNotePublicKeys) String() string {
 	return dcl.SprintResource(r)
 }
@@ -194,6 +202,10 @@ func (r *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) UnmarshalJSON(data
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey = &AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey{empty: true}
+
+func (r *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) Empty() bool {
+	return r.empty
+}
 
 func (r *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) String() string {
 	return dcl.SprintResource(r)

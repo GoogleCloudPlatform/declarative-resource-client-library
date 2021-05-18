@@ -884,6 +884,10 @@ func flattenIndexProperties(c *Client, i interface{}) *IndexProperties {
 	}
 
 	r := &IndexProperties{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyIndexProperties
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Direction = flattenIndexPropertiesDirectionEnum(m["direction"])
 

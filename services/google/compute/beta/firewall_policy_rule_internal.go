@@ -1171,6 +1171,10 @@ func flattenFirewallPolicyRuleMatch(c *Client, i interface{}) *FirewallPolicyRul
 	}
 
 	r := &FirewallPolicyRuleMatch{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFirewallPolicyRuleMatch
+	}
 	r.SrcIPRanges = dcl.FlattenStringSlice(m["srcIpRanges"])
 	r.DestIPRanges = dcl.FlattenStringSlice(m["destIpRanges"])
 	r.Layer4Configs = flattenFirewallPolicyRuleMatchLayer4ConfigsSlice(c, m["layer4Configs"])
@@ -1287,6 +1291,10 @@ func flattenFirewallPolicyRuleMatchLayer4Configs(c *Client, i interface{}) *Fire
 	}
 
 	r := &FirewallPolicyRuleMatchLayer4Configs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFirewallPolicyRuleMatchLayer4Configs
+	}
 	r.IPProtocol = dcl.FlattenString(m["ipProtocol"])
 	r.Ports = dcl.FlattenStringSlice(m["ports"])
 

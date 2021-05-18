@@ -1033,6 +1033,10 @@ func flattenTenantMfaConfig(c *Client, i interface{}) *TenantMfaConfig {
 	}
 
 	r := &TenantMfaConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTenantMfaConfig
+	}
 	r.State = flattenTenantMfaConfigStateEnum(m["state"])
 	r.EnabledProviders = flattenTenantMfaConfigEnabledProvidersEnumSlice(c, m["enabledProviders"])
 

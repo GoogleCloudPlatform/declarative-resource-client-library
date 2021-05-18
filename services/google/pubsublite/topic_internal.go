@@ -1175,6 +1175,10 @@ func flattenTopicPartitionConfig(c *Client, i interface{}) *TopicPartitionConfig
 	}
 
 	r := &TopicPartitionConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTopicPartitionConfig
+	}
 	r.Count = dcl.FlattenInteger(m["count"])
 	r.Capacity = flattenTopicPartitionConfigCapacity(c, m["capacity"])
 
@@ -1289,6 +1293,10 @@ func flattenTopicPartitionConfigCapacity(c *Client, i interface{}) *TopicPartiti
 	}
 
 	r := &TopicPartitionConfigCapacity{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTopicPartitionConfigCapacity
+	}
 	r.PublishMibPerSec = dcl.FlattenInteger(m["publishMibPerSec"])
 	r.SubscribeMibPerSec = dcl.FlattenInteger(m["subscribeMibPerSec"])
 
@@ -1403,6 +1411,10 @@ func flattenTopicRetentionConfig(c *Client, i interface{}) *TopicRetentionConfig
 	}
 
 	r := &TopicRetentionConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTopicRetentionConfig
+	}
 	r.PerPartitionBytes = dcl.FlattenInteger(m["perPartitionBytes"])
 	r.Period = dcl.FlattenString(m["period"])
 

@@ -75,6 +75,10 @@ func (r *ClientTlsPolicyClientCertificate) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClientTlsPolicyClientCertificate *ClientTlsPolicyClientCertificate = &ClientTlsPolicyClientCertificate{empty: true}
 
+func (r *ClientTlsPolicyClientCertificate) Empty() bool {
+	return r.empty
+}
+
 func (r *ClientTlsPolicyClientCertificate) String() string {
 	return dcl.SprintResource(r)
 }
@@ -117,6 +121,10 @@ func (r *ClientTlsPolicyClientCertificateGrpcEndpoint) UnmarshalJSON(data []byte
 // as one.  Modifying this object will have undesirable results.
 var EmptyClientTlsPolicyClientCertificateGrpcEndpoint *ClientTlsPolicyClientCertificateGrpcEndpoint = &ClientTlsPolicyClientCertificateGrpcEndpoint{empty: true}
 
+func (r *ClientTlsPolicyClientCertificateGrpcEndpoint) Empty() bool {
+	return r.empty
+}
+
 func (r *ClientTlsPolicyClientCertificateGrpcEndpoint) String() string {
 	return dcl.SprintResource(r)
 }
@@ -158,6 +166,10 @@ func (r *ClientTlsPolicyClientCertificateCertificateProviderInstance) UnmarshalJ
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClientTlsPolicyClientCertificateCertificateProviderInstance *ClientTlsPolicyClientCertificateCertificateProviderInstance = &ClientTlsPolicyClientCertificateCertificateProviderInstance{empty: true}
+
+func (r *ClientTlsPolicyClientCertificateCertificateProviderInstance) Empty() bool {
+	return r.empty
+}
 
 func (r *ClientTlsPolicyClientCertificateCertificateProviderInstance) String() string {
 	return dcl.SprintResource(r)
@@ -204,6 +216,10 @@ func (r *ClientTlsPolicyServerValidationCa) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClientTlsPolicyServerValidationCa *ClientTlsPolicyServerValidationCa = &ClientTlsPolicyServerValidationCa{empty: true}
 
+func (r *ClientTlsPolicyServerValidationCa) Empty() bool {
+	return r.empty
+}
+
 func (r *ClientTlsPolicyServerValidationCa) String() string {
 	return dcl.SprintResource(r)
 }
@@ -246,6 +262,10 @@ func (r *ClientTlsPolicyServerValidationCaGrpcEndpoint) UnmarshalJSON(data []byt
 // as one.  Modifying this object will have undesirable results.
 var EmptyClientTlsPolicyServerValidationCaGrpcEndpoint *ClientTlsPolicyServerValidationCaGrpcEndpoint = &ClientTlsPolicyServerValidationCaGrpcEndpoint{empty: true}
 
+func (r *ClientTlsPolicyServerValidationCaGrpcEndpoint) Empty() bool {
+	return r.empty
+}
+
 func (r *ClientTlsPolicyServerValidationCaGrpcEndpoint) String() string {
 	return dcl.SprintResource(r)
 }
@@ -287,6 +307,10 @@ func (r *ClientTlsPolicyServerValidationCaCertificateProviderInstance) Unmarshal
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClientTlsPolicyServerValidationCaCertificateProviderInstance *ClientTlsPolicyServerValidationCaCertificateProviderInstance = &ClientTlsPolicyServerValidationCaCertificateProviderInstance{empty: true}
+
+func (r *ClientTlsPolicyServerValidationCaCertificateProviderInstance) Empty() bool {
+	return r.empty
+}
 
 func (r *ClientTlsPolicyServerValidationCaCertificateProviderInstance) String() string {
 	return dcl.SprintResource(r)

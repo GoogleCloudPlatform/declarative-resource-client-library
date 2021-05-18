@@ -1109,6 +1109,10 @@ func flattenRoleLocalizedValues(c *Client, i interface{}) *RoleLocalizedValues {
 	}
 
 	r := &RoleLocalizedValues{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyRoleLocalizedValues
+	}
 	r.LocalizedTitle = dcl.FlattenString(m["localizedTitle"])
 	r.LocalizedDescription = dcl.FlattenString(m["localizedDescription"])
 

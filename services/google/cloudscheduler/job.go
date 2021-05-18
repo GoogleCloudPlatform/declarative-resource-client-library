@@ -164,6 +164,10 @@ func (r *JobPubsubTarget) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobPubsubTarget *JobPubsubTarget = &JobPubsubTarget{empty: true}
 
+func (r *JobPubsubTarget) Empty() bool {
+	return r.empty
+}
+
 func (r *JobPubsubTarget) String() string {
 	return dcl.SprintResource(r)
 }
@@ -218,6 +222,10 @@ func (r *JobAppEngineHttpTarget) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobAppEngineHttpTarget *JobAppEngineHttpTarget = &JobAppEngineHttpTarget{empty: true}
 
+func (r *JobAppEngineHttpTarget) Empty() bool {
+	return r.empty
+}
+
 func (r *JobAppEngineHttpTarget) String() string {
 	return dcl.SprintResource(r)
 }
@@ -268,6 +276,10 @@ func (r *JobAppEngineHttpTargetAppEngineRouting) UnmarshalJSON(data []byte) erro
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobAppEngineHttpTargetAppEngineRouting *JobAppEngineHttpTargetAppEngineRouting = &JobAppEngineHttpTargetAppEngineRouting{empty: true}
+
+func (r *JobAppEngineHttpTargetAppEngineRouting) Empty() bool {
+	return r.empty
+}
 
 func (r *JobAppEngineHttpTargetAppEngineRouting) String() string {
 	return dcl.SprintResource(r)
@@ -326,6 +338,10 @@ func (r *JobHttpTarget) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobHttpTarget *JobHttpTarget = &JobHttpTarget{empty: true}
 
+func (r *JobHttpTarget) Empty() bool {
+	return r.empty
+}
+
 func (r *JobHttpTarget) String() string {
 	return dcl.SprintResource(r)
 }
@@ -371,6 +387,10 @@ func (r *JobHttpTargetOAuthToken) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobHttpTargetOAuthToken *JobHttpTargetOAuthToken = &JobHttpTargetOAuthToken{empty: true}
 
+func (r *JobHttpTargetOAuthToken) Empty() bool {
+	return r.empty
+}
+
 func (r *JobHttpTargetOAuthToken) String() string {
 	return dcl.SprintResource(r)
 }
@@ -415,6 +435,10 @@ func (r *JobHttpTargetOidcToken) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobHttpTargetOidcToken *JobHttpTargetOidcToken = &JobHttpTargetOidcToken{empty: true}
+
+func (r *JobHttpTargetOidcToken) Empty() bool {
+	return r.empty
+}
 
 func (r *JobHttpTargetOidcToken) String() string {
 	return dcl.SprintResource(r)
@@ -464,6 +488,10 @@ func (r *JobStatus) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobStatus *JobStatus = &JobStatus{empty: true}
 
+func (r *JobStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *JobStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -508,6 +536,10 @@ func (r *JobStatusDetails) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobStatusDetails *JobStatusDetails = &JobStatusDetails{empty: true}
+
+func (r *JobStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *JobStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -562,6 +594,10 @@ func (r *JobRetryConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobRetryConfig *JobRetryConfig = &JobRetryConfig{empty: true}
+
+func (r *JobRetryConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *JobRetryConfig) String() string {
 	return dcl.SprintResource(r)

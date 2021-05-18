@@ -1468,6 +1468,10 @@ func flattenAuthorizationPolicyRules(c *Client, i interface{}) *AuthorizationPol
 	}
 
 	r := &AuthorizationPolicyRules{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAuthorizationPolicyRules
+	}
 	r.Sources = flattenAuthorizationPolicyRulesSourcesSlice(c, m["sources"])
 	r.Destinations = flattenAuthorizationPolicyRulesDestinationsSlice(c, m["destinations"])
 
@@ -1582,6 +1586,10 @@ func flattenAuthorizationPolicyRulesSources(c *Client, i interface{}) *Authoriza
 	}
 
 	r := &AuthorizationPolicyRulesSources{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAuthorizationPolicyRulesSources
+	}
 	r.Principals = dcl.FlattenStringSlice(m["principals"])
 	r.IPBlocks = dcl.FlattenStringSlice(m["ipBlocks"])
 
@@ -1707,6 +1715,10 @@ func flattenAuthorizationPolicyRulesDestinations(c *Client, i interface{}) *Auth
 	}
 
 	r := &AuthorizationPolicyRulesDestinations{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAuthorizationPolicyRulesDestinations
+	}
 	r.Hosts = dcl.FlattenStringSlice(m["hosts"])
 	r.Ports = dcl.FlattenIntSlice(m["ports"])
 	r.Paths = dcl.FlattenStringSlice(m["paths"])
@@ -1824,6 +1836,10 @@ func flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c *Client, i int
 	}
 
 	r := &AuthorizationPolicyRulesDestinationsHttpHeaderMatch{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAuthorizationPolicyRulesDestinationsHttpHeaderMatch
+	}
 	r.HeaderName = dcl.FlattenString(m["headerName"])
 	r.RegexMatch = dcl.FlattenString(m["regexMatch"])
 

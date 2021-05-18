@@ -2262,6 +2262,10 @@ func flattenRouterNats(c *Client, i interface{}) *RouterNats {
 	}
 
 	r := &RouterNats{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyRouterNats
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.LogConfig = flattenRouterNatsLogConfig(c, m["logConfig"])
 	r.SourceSubnetworkIPRangesToNat = flattenRouterNatsSourceSubnetworkIPRangesToNatEnum(m["sourceSubnetworkIPRangesToNat"])
@@ -2386,6 +2390,10 @@ func flattenRouterNatsLogConfig(c *Client, i interface{}) *RouterNatsLogConfig {
 	}
 
 	r := &RouterNatsLogConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyRouterNatsLogConfig
+	}
 	r.Enable = dcl.FlattenBool(m["enable"])
 	r.Filter = flattenRouterNatsLogConfigFilterEnum(m["filter"])
 
@@ -2503,6 +2511,10 @@ func flattenRouterNatsSubnetworks(c *Client, i interface{}) *RouterNatsSubnetwor
 	}
 
 	r := &RouterNatsSubnetworks{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyRouterNatsSubnetworks
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.SourceIPRangesToNat = dcl.FlattenString(m["sourceIPRangesToNat"])
 	r.SecondaryIPRangeNames = dcl.FlattenString(m["secondaryIPRangeNames"])
@@ -2624,6 +2636,10 @@ func flattenRouterInterfaces(c *Client, i interface{}) *RouterInterfaces {
 	}
 
 	r := &RouterInterfaces{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyRouterInterfaces
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.LinkedVpnTunnel = dcl.FlattenString(m["linkedVpnTunnel"])
 	r.IPRange = dcl.FlattenString(m["ipRange"])
@@ -2766,6 +2782,10 @@ func flattenRouterBgpPeers(c *Client, i interface{}) *RouterBgpPeers {
 	}
 
 	r := &RouterBgpPeers{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyRouterBgpPeers
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.InterfaceName = dcl.FlattenString(m["interfaceName"])
 	r.IPAddress = dcl.FlattenString(m["ipAddress"])
@@ -2888,6 +2908,10 @@ func flattenRouterBgpPeersAdvertisedIPRanges(c *Client, i interface{}) *RouterBg
 	}
 
 	r := &RouterBgpPeersAdvertisedIPRanges{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyRouterBgpPeersAdvertisedIPRanges
+	}
 	r.Range = dcl.FlattenString(m["range"])
 	r.Description = dcl.FlattenString(m["description"])
 
@@ -3010,6 +3034,10 @@ func flattenRouterBgp(c *Client, i interface{}) *RouterBgp {
 	}
 
 	r := &RouterBgp{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyRouterBgp
+	}
 	r.Asn = dcl.FlattenInteger(m["asn"])
 	r.AdvertiseMode = flattenRouterBgpAdvertiseModeEnum(m["advertiseMode"])
 	r.AdvertisedGroups = dcl.FlattenStringSlice(m["advertisedGroups"])
@@ -3126,6 +3154,10 @@ func flattenRouterBgpAdvertisedIPRanges(c *Client, i interface{}) *RouterBgpAdve
 	}
 
 	r := &RouterBgpAdvertisedIPRanges{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyRouterBgpAdvertisedIPRanges
+	}
 	r.Range = dcl.FlattenString(m["range"])
 	r.Description = dcl.FlattenString(m["description"])
 

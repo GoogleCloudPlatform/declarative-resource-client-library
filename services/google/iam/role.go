@@ -104,6 +104,10 @@ func (r *RoleLocalizedValues) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyRoleLocalizedValues *RoleLocalizedValues = &RoleLocalizedValues{empty: true}
 
+func (r *RoleLocalizedValues) Empty() bool {
+	return r.empty
+}
+
 func (r *RoleLocalizedValues) String() string {
 	return dcl.SprintResource(r)
 }

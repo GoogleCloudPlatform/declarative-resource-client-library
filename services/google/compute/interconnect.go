@@ -292,6 +292,10 @@ func (r *InterconnectExpectedOutages) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInterconnectExpectedOutages *InterconnectExpectedOutages = &InterconnectExpectedOutages{empty: true}
 
+func (r *InterconnectExpectedOutages) Empty() bool {
+	return r.empty
+}
+
 func (r *InterconnectExpectedOutages) String() string {
 	return dcl.SprintResource(r)
 }
@@ -339,6 +343,10 @@ func (r *InterconnectCircuitInfos) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInterconnectCircuitInfos *InterconnectCircuitInfos = &InterconnectCircuitInfos{empty: true}
+
+func (r *InterconnectCircuitInfos) Empty() bool {
+	return r.empty
+}
 
 func (r *InterconnectCircuitInfos) String() string {
 	return dcl.SprintResource(r)

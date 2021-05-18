@@ -488,11 +488,13 @@ components:
         createTime:
           description: 'The time the cluster was created, in RFC3339 text format. '
           format: date-time
+          readOnly: true
           type: string
           x-dcl-go-name: CreateTime
           x-kubernetes-immutable: true
         currentMasterVersion:
           description: The current software version of the master endpoint.
+          readOnly: true
           type: string
           x-dcl-go-name: CurrentMasterVersion
           x-kubernetes-immutable: true
@@ -500,6 +502,7 @@ components:
           description: The number of nodes currently in the cluster. Deprecated. Call
             Kubernetes API directly to retrieve node information.
           format: int64
+          readOnly: true
           type: integer
           x-dcl-go-name: CurrentNodeCount
           x-kubernetes-immutable: true
@@ -508,6 +511,7 @@ components:
             instead. The current version of the node software components. If they
             are currently at multiple versions because they're in the process of being
             upgraded, this reflects the minimum version of all nodes.
+          readOnly: true
           type: string
           x-dcl-go-name: CurrentNodeVersion
           x-kubernetes-immutable: true
@@ -566,6 +570,7 @@ components:
           description: 'The IP address of this cluster''s master endpoint.  The endpoint
             can be accessed from the internet at https://username:password@endpoint/  See
             the masterAuth property of this resource for username and password information. '
+          readOnly: true
           type: string
           x-dcl-go-name: Endpoint
           x-kubernetes-immutable: true
@@ -573,6 +578,7 @@ components:
           description: 'The time the cluster will be automatically deleted in RFC3339
             text format. '
           format: date-time
+          readOnly: true
           type: string
           x-dcl-go-name: ExpireTime
           x-kubernetes-immutable: true
@@ -853,6 +859,7 @@ components:
             clientCertificate:
               description: 'Base64-encoded public certificate used by clients to authenticate
                 to the cluster endpoint. '
+              readOnly: true
               type: string
               x-dcl-go-name: ClientCertificate
               x-kubernetes-immutable: true
@@ -873,12 +880,14 @@ components:
             clientKey:
               description: 'Base64-encoded private key used by clients to authenticate
                 to the cluster endpoint. '
+              readOnly: true
               type: string
               x-dcl-go-name: ClientKey
               x-kubernetes-immutable: true
             clusterCaCertificate:
               description: 'Base64-encoded public certificate that is the root of
                 trust for the cluster. '
+              readOnly: true
               type: string
               x-dcl-go-name: ClusterCaCertificate
               x-kubernetes-immutable: true
@@ -1456,6 +1465,7 @@ components:
           description: 'The size of the address space on each node for hosting containers.
             This is provisioned from within the container_ipv4_cidr range. '
           format: int64
+          readOnly: true
           type: integer
           x-dcl-go-name: NodeIPv4CidrSize
           x-kubernetes-immutable: true
@@ -2358,6 +2368,7 @@ components:
           x-kubernetes-immutable: true
         selfLink:
           description: Server-defined URL for the resource.
+          readOnly: true
           type: string
           x-dcl-go-name: SelfLink
           x-kubernetes-immutable: true
@@ -2365,6 +2376,7 @@ components:
           description: 'The IP address range of the Kubernetes services in this cluster,
             in CIDR notation (e.g. 1.2.3.4/29). Service addresses are typically put
             in the last /16 from the container CIDR. '
+          readOnly: true
           type: string
           x-dcl-go-name: ServicesIPv4Cidr
           x-kubernetes-immutable: true
@@ -2380,11 +2392,13 @@ components:
           x-dcl-go-type: ClusterShieldedNodes
         status:
           description: The current status of this cluster.
+          readOnly: true
           type: string
           x-dcl-go-name: Status
           x-kubernetes-immutable: true
         statusMessage:
           description: Any message associated with the current status of this cluster
+          readOnly: true
           type: string
           x-dcl-go-name: StatusMessage
           x-kubernetes-immutable: true
@@ -2420,6 +2434,7 @@ components:
           description: 'The IP address range of the Cloud TPUs in this cluster, in
             [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) notation
             (e.g. `1.2.3.4/29`). '
+          readOnly: true
           type: string
           x-dcl-go-name: TPUIPv4CidrBlock
           x-kubernetes-immutable: true
@@ -2462,6 +2477,7 @@ components:
         zone:
           description: (https://cloud.google.com/compute/docs/zones#available) in
             which the cluster resides. This field is deprecated, use location instead.
+          readOnly: true
           type: string
           x-dcl-go-name: Zone
           x-kubernetes-immutable: true

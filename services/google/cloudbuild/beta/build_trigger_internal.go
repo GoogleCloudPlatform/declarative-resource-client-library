@@ -3139,6 +3139,10 @@ func flattenBuildTriggerTriggerTemplate(c *Client, i interface{}) *BuildTriggerT
 	}
 
 	r := &BuildTriggerTriggerTemplate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBuildTriggerTriggerTemplate
+	}
 	r.ProjectId = dcl.FlattenString(m["projectId"])
 	r.RepoName = dcl.FlattenString(m["repoName"])
 	if dcl.IsEmptyValueIndirect(m["repoName"]) {
@@ -3272,6 +3276,10 @@ func flattenBuildTriggerGithub(c *Client, i interface{}) *BuildTriggerGithub {
 	}
 
 	r := &BuildTriggerGithub{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBuildTriggerGithub
+	}
 	r.Owner = dcl.FlattenString(m["owner"])
 	r.Name = dcl.FlattenString(m["name"])
 	r.PullRequest = flattenBuildTriggerGithubPullRequest(c, m["pullRequest"])
@@ -3391,6 +3399,10 @@ func flattenBuildTriggerGithubPullRequest(c *Client, i interface{}) *BuildTrigge
 	}
 
 	r := &BuildTriggerGithubPullRequest{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBuildTriggerGithubPullRequest
+	}
 	r.Branch = dcl.FlattenString(m["branch"])
 	r.CommentControl = flattenBuildTriggerGithubPullRequestCommentControlEnum(m["commentControl"])
 	r.InvertRegex = dcl.FlattenBool(m["invertRegex"])
@@ -3509,6 +3521,10 @@ func flattenBuildTriggerGithubPush(c *Client, i interface{}) *BuildTriggerGithub
 	}
 
 	r := &BuildTriggerGithubPush{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBuildTriggerGithubPush
+	}
 	r.Branch = dcl.FlattenString(m["branch"])
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.InvertRegex = dcl.FlattenBool(m["invertRegex"])
@@ -3651,6 +3667,10 @@ func flattenBuildTriggerBuild(c *Client, i interface{}) *BuildTriggerBuild {
 	}
 
 	r := &BuildTriggerBuild{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBuildTriggerBuild
+	}
 	r.Tags = dcl.FlattenStringSlice(m["tags"])
 	r.Images = dcl.FlattenStringSlice(m["images"])
 	r.Substitutions = dcl.FlattenKeyValuePairs(m["substitutions"])
@@ -3776,6 +3796,10 @@ func flattenBuildTriggerBuildSecrets(c *Client, i interface{}) *BuildTriggerBuil
 	}
 
 	r := &BuildTriggerBuildSecrets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBuildTriggerBuildSecrets
+	}
 	r.KmsKeyName = dcl.FlattenString(m["kmsKeyName"])
 	r.SecretEnv = dcl.FlattenKeyValuePairs(m["secretEnv"])
 
@@ -3929,6 +3953,10 @@ func flattenBuildTriggerBuildSteps(c *Client, i interface{}) *BuildTriggerBuildS
 	}
 
 	r := &BuildTriggerBuildSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBuildTriggerBuildSteps
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Env = dcl.FlattenStringSlice(m["env"])
 	r.Args = dcl.FlattenStringSlice(m["args"])
@@ -4058,6 +4086,10 @@ func flattenBuildTriggerBuildStepsVolumes(c *Client, i interface{}) *BuildTrigge
 	}
 
 	r := &BuildTriggerBuildStepsVolumes{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBuildTriggerBuildStepsVolumes
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Path = dcl.FlattenString(m["path"])
 
@@ -4172,6 +4204,10 @@ func flattenBuildTriggerBuildStepsTiming(c *Client, i interface{}) *BuildTrigger
 	}
 
 	r := &BuildTriggerBuildStepsTiming{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBuildTriggerBuildStepsTiming
+	}
 	r.StartTime = dcl.FlattenString(m["startTime"])
 	r.EndTime = dcl.FlattenString(m["endTime"])
 
@@ -4286,6 +4322,10 @@ func flattenBuildTriggerBuildStepsPullTiming(c *Client, i interface{}) *BuildTri
 	}
 
 	r := &BuildTriggerBuildStepsPullTiming{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBuildTriggerBuildStepsPullTiming
+	}
 	r.StartTime = dcl.FlattenString(m["startTime"])
 	r.EndTime = dcl.FlattenString(m["endTime"])
 
@@ -4404,6 +4444,10 @@ func flattenBuildTriggerBuildSource(c *Client, i interface{}) *BuildTriggerBuild
 	}
 
 	r := &BuildTriggerBuildSource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBuildTriggerBuildSource
+	}
 	r.StorageSource = flattenBuildTriggerBuildSourceStorageSource(c, m["storageSource"])
 	r.RepoSource = flattenBuildTriggerBuildSourceRepoSource(c, m["repoSource"])
 
@@ -4521,6 +4565,10 @@ func flattenBuildTriggerBuildSourceStorageSource(c *Client, i interface{}) *Buil
 	}
 
 	r := &BuildTriggerBuildSourceStorageSource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBuildTriggerBuildSourceStorageSource
+	}
 	r.Bucket = dcl.FlattenString(m["bucket"])
 	r.Object = dcl.FlattenString(m["object"])
 	r.Generation = dcl.FlattenString(m["generation"])
@@ -4654,6 +4702,10 @@ func flattenBuildTriggerBuildSourceRepoSource(c *Client, i interface{}) *BuildTr
 	}
 
 	r := &BuildTriggerBuildSourceRepoSource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBuildTriggerBuildSourceRepoSource
+	}
 	r.ProjectId = dcl.FlattenString(m["projectId"])
 	r.RepoName = dcl.FlattenString(m["repoName"])
 	r.BranchName = dcl.FlattenString(m["branchName"])

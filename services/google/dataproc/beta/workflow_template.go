@@ -75,6 +75,10 @@ func (r *WorkflowTemplatePlacement) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplatePlacement *WorkflowTemplatePlacement = &WorkflowTemplatePlacement{empty: true}
 
+func (r *WorkflowTemplatePlacement) Empty() bool {
+	return r.empty
+}
+
 func (r *WorkflowTemplatePlacement) String() string {
 	return dcl.SprintResource(r)
 }
@@ -123,6 +127,10 @@ func (r *WorkflowTemplatePlacementManagedCluster) UnmarshalJSON(data []byte) err
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplatePlacementManagedCluster *WorkflowTemplatePlacementManagedCluster = &WorkflowTemplatePlacementManagedCluster{empty: true}
 
+func (r *WorkflowTemplatePlacementManagedCluster) Empty() bool {
+	return r.empty
+}
+
 func (r *WorkflowTemplatePlacementManagedCluster) String() string {
 	return dcl.SprintResource(r)
 }
@@ -167,6 +175,10 @@ func (r *WorkflowTemplatePlacementClusterSelector) UnmarshalJSON(data []byte) er
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplatePlacementClusterSelector *WorkflowTemplatePlacementClusterSelector = &WorkflowTemplatePlacementClusterSelector{empty: true}
+
+func (r *WorkflowTemplatePlacementClusterSelector) Empty() bool {
+	return r.empty
+}
 
 func (r *WorkflowTemplatePlacementClusterSelector) String() string {
 	return dcl.SprintResource(r)
@@ -243,6 +255,10 @@ func (r *WorkflowTemplateJobs) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobs *WorkflowTemplateJobs = &WorkflowTemplateJobs{empty: true}
 
+func (r *WorkflowTemplateJobs) Empty() bool {
+	return r.empty
+}
+
 func (r *WorkflowTemplateJobs) String() string {
 	return dcl.SprintResource(r)
 }
@@ -306,6 +322,10 @@ func (r *WorkflowTemplateJobsHadoopJob) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsHadoopJob *WorkflowTemplateJobsHadoopJob = &WorkflowTemplateJobsHadoopJob{empty: true}
 
+func (r *WorkflowTemplateJobsHadoopJob) Empty() bool {
+	return r.empty
+}
+
 func (r *WorkflowTemplateJobsHadoopJob) String() string {
 	return dcl.SprintResource(r)
 }
@@ -347,6 +367,10 @@ func (r *WorkflowTemplateJobsHadoopJobLoggingConfig) UnmarshalJSON(data []byte) 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsHadoopJobLoggingConfig *WorkflowTemplateJobsHadoopJobLoggingConfig = &WorkflowTemplateJobsHadoopJobLoggingConfig{empty: true}
+
+func (r *WorkflowTemplateJobsHadoopJobLoggingConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *WorkflowTemplateJobsHadoopJobLoggingConfig) String() string {
 	return dcl.SprintResource(r)
@@ -411,6 +435,10 @@ func (r *WorkflowTemplateJobsSparkJob) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsSparkJob *WorkflowTemplateJobsSparkJob = &WorkflowTemplateJobsSparkJob{empty: true}
 
+func (r *WorkflowTemplateJobsSparkJob) Empty() bool {
+	return r.empty
+}
+
 func (r *WorkflowTemplateJobsSparkJob) String() string {
 	return dcl.SprintResource(r)
 }
@@ -452,6 +480,10 @@ func (r *WorkflowTemplateJobsSparkJobLoggingConfig) UnmarshalJSON(data []byte) e
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsSparkJobLoggingConfig *WorkflowTemplateJobsSparkJobLoggingConfig = &WorkflowTemplateJobsSparkJobLoggingConfig{empty: true}
+
+func (r *WorkflowTemplateJobsSparkJobLoggingConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *WorkflowTemplateJobsSparkJobLoggingConfig) String() string {
 	return dcl.SprintResource(r)
@@ -516,6 +548,10 @@ func (r *WorkflowTemplateJobsPysparkJob) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsPysparkJob *WorkflowTemplateJobsPysparkJob = &WorkflowTemplateJobsPysparkJob{empty: true}
 
+func (r *WorkflowTemplateJobsPysparkJob) Empty() bool {
+	return r.empty
+}
+
 func (r *WorkflowTemplateJobsPysparkJob) String() string {
 	return dcl.SprintResource(r)
 }
@@ -557,6 +593,10 @@ func (r *WorkflowTemplateJobsPysparkJobLoggingConfig) UnmarshalJSON(data []byte)
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsPysparkJobLoggingConfig *WorkflowTemplateJobsPysparkJobLoggingConfig = &WorkflowTemplateJobsPysparkJobLoggingConfig{empty: true}
+
+func (r *WorkflowTemplateJobsPysparkJobLoggingConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *WorkflowTemplateJobsPysparkJobLoggingConfig) String() string {
 	return dcl.SprintResource(r)
@@ -615,6 +655,10 @@ func (r *WorkflowTemplateJobsHiveJob) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsHiveJob *WorkflowTemplateJobsHiveJob = &WorkflowTemplateJobsHiveJob{empty: true}
 
+func (r *WorkflowTemplateJobsHiveJob) Empty() bool {
+	return r.empty
+}
+
 func (r *WorkflowTemplateJobsHiveJob) String() string {
 	return dcl.SprintResource(r)
 }
@@ -656,6 +700,10 @@ func (r *WorkflowTemplateJobsHiveJobQueryList) UnmarshalJSON(data []byte) error 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsHiveJobQueryList *WorkflowTemplateJobsHiveJobQueryList = &WorkflowTemplateJobsHiveJobQueryList{empty: true}
+
+func (r *WorkflowTemplateJobsHiveJobQueryList) Empty() bool {
+	return r.empty
+}
 
 func (r *WorkflowTemplateJobsHiveJobQueryList) String() string {
 	return dcl.SprintResource(r)
@@ -717,6 +765,10 @@ func (r *WorkflowTemplateJobsPigJob) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsPigJob *WorkflowTemplateJobsPigJob = &WorkflowTemplateJobsPigJob{empty: true}
 
+func (r *WorkflowTemplateJobsPigJob) Empty() bool {
+	return r.empty
+}
+
 func (r *WorkflowTemplateJobsPigJob) String() string {
 	return dcl.SprintResource(r)
 }
@@ -759,6 +811,10 @@ func (r *WorkflowTemplateJobsPigJobQueryList) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsPigJobQueryList *WorkflowTemplateJobsPigJobQueryList = &WorkflowTemplateJobsPigJobQueryList{empty: true}
 
+func (r *WorkflowTemplateJobsPigJobQueryList) Empty() bool {
+	return r.empty
+}
+
 func (r *WorkflowTemplateJobsPigJobQueryList) String() string {
 	return dcl.SprintResource(r)
 }
@@ -800,6 +856,10 @@ func (r *WorkflowTemplateJobsPigJobLoggingConfig) UnmarshalJSON(data []byte) err
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsPigJobLoggingConfig *WorkflowTemplateJobsPigJobLoggingConfig = &WorkflowTemplateJobsPigJobLoggingConfig{empty: true}
+
+func (r *WorkflowTemplateJobsPigJobLoggingConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *WorkflowTemplateJobsPigJobLoggingConfig) String() string {
 	return dcl.SprintResource(r)
@@ -858,6 +918,10 @@ func (r *WorkflowTemplateJobsSparkRJob) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsSparkRJob *WorkflowTemplateJobsSparkRJob = &WorkflowTemplateJobsSparkRJob{empty: true}
 
+func (r *WorkflowTemplateJobsSparkRJob) Empty() bool {
+	return r.empty
+}
+
 func (r *WorkflowTemplateJobsSparkRJob) String() string {
 	return dcl.SprintResource(r)
 }
@@ -899,6 +963,10 @@ func (r *WorkflowTemplateJobsSparkRJobLoggingConfig) UnmarshalJSON(data []byte) 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsSparkRJobLoggingConfig *WorkflowTemplateJobsSparkRJobLoggingConfig = &WorkflowTemplateJobsSparkRJobLoggingConfig{empty: true}
+
+func (r *WorkflowTemplateJobsSparkRJobLoggingConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *WorkflowTemplateJobsSparkRJobLoggingConfig) String() string {
 	return dcl.SprintResource(r)
@@ -957,6 +1025,10 @@ func (r *WorkflowTemplateJobsSparkSqlJob) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsSparkSqlJob *WorkflowTemplateJobsSparkSqlJob = &WorkflowTemplateJobsSparkSqlJob{empty: true}
 
+func (r *WorkflowTemplateJobsSparkSqlJob) Empty() bool {
+	return r.empty
+}
+
 func (r *WorkflowTemplateJobsSparkSqlJob) String() string {
 	return dcl.SprintResource(r)
 }
@@ -999,6 +1071,10 @@ func (r *WorkflowTemplateJobsSparkSqlJobQueryList) UnmarshalJSON(data []byte) er
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsSparkSqlJobQueryList *WorkflowTemplateJobsSparkSqlJobQueryList = &WorkflowTemplateJobsSparkSqlJobQueryList{empty: true}
 
+func (r *WorkflowTemplateJobsSparkSqlJobQueryList) Empty() bool {
+	return r.empty
+}
+
 func (r *WorkflowTemplateJobsSparkSqlJobQueryList) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1040,6 +1116,10 @@ func (r *WorkflowTemplateJobsSparkSqlJobLoggingConfig) UnmarshalJSON(data []byte
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsSparkSqlJobLoggingConfig *WorkflowTemplateJobsSparkSqlJobLoggingConfig = &WorkflowTemplateJobsSparkSqlJobLoggingConfig{empty: true}
+
+func (r *WorkflowTemplateJobsSparkSqlJobLoggingConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *WorkflowTemplateJobsSparkSqlJobLoggingConfig) String() string {
 	return dcl.SprintResource(r)
@@ -1101,6 +1181,10 @@ func (r *WorkflowTemplateJobsPrestoJob) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsPrestoJob *WorkflowTemplateJobsPrestoJob = &WorkflowTemplateJobsPrestoJob{empty: true}
 
+func (r *WorkflowTemplateJobsPrestoJob) Empty() bool {
+	return r.empty
+}
+
 func (r *WorkflowTemplateJobsPrestoJob) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1143,6 +1227,10 @@ func (r *WorkflowTemplateJobsPrestoJobQueryList) UnmarshalJSON(data []byte) erro
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsPrestoJobQueryList *WorkflowTemplateJobsPrestoJobQueryList = &WorkflowTemplateJobsPrestoJobQueryList{empty: true}
 
+func (r *WorkflowTemplateJobsPrestoJobQueryList) Empty() bool {
+	return r.empty
+}
+
 func (r *WorkflowTemplateJobsPrestoJobQueryList) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1184,6 +1272,10 @@ func (r *WorkflowTemplateJobsPrestoJobLoggingConfig) UnmarshalJSON(data []byte) 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsPrestoJobLoggingConfig *WorkflowTemplateJobsPrestoJobLoggingConfig = &WorkflowTemplateJobsPrestoJobLoggingConfig{empty: true}
+
+func (r *WorkflowTemplateJobsPrestoJobLoggingConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *WorkflowTemplateJobsPrestoJobLoggingConfig) String() string {
 	return dcl.SprintResource(r)
@@ -1229,6 +1321,10 @@ func (r *WorkflowTemplateJobsScheduling) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateJobsScheduling *WorkflowTemplateJobsScheduling = &WorkflowTemplateJobsScheduling{empty: true}
+
+func (r *WorkflowTemplateJobsScheduling) Empty() bool {
+	return r.empty
+}
 
 func (r *WorkflowTemplateJobsScheduling) String() string {
 	return dcl.SprintResource(r)
@@ -1281,6 +1377,10 @@ func (r *WorkflowTemplateParameters) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateParameters *WorkflowTemplateParameters = &WorkflowTemplateParameters{empty: true}
 
+func (r *WorkflowTemplateParameters) Empty() bool {
+	return r.empty
+}
+
 func (r *WorkflowTemplateParameters) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1326,6 +1426,10 @@ func (r *WorkflowTemplateParametersValidation) UnmarshalJSON(data []byte) error 
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateParametersValidation *WorkflowTemplateParametersValidation = &WorkflowTemplateParametersValidation{empty: true}
 
+func (r *WorkflowTemplateParametersValidation) Empty() bool {
+	return r.empty
+}
+
 func (r *WorkflowTemplateParametersValidation) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1368,6 +1472,10 @@ func (r *WorkflowTemplateParametersValidationRegex) UnmarshalJSON(data []byte) e
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateParametersValidationRegex *WorkflowTemplateParametersValidationRegex = &WorkflowTemplateParametersValidationRegex{empty: true}
 
+func (r *WorkflowTemplateParametersValidationRegex) Empty() bool {
+	return r.empty
+}
+
 func (r *WorkflowTemplateParametersValidationRegex) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1409,6 +1517,10 @@ func (r *WorkflowTemplateParametersValidationValues) UnmarshalJSON(data []byte) 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyWorkflowTemplateParametersValidationValues *WorkflowTemplateParametersValidationValues = &WorkflowTemplateParametersValidationValues{empty: true}
+
+func (r *WorkflowTemplateParametersValidationValues) Empty() bool {
+	return r.empty
+}
 
 func (r *WorkflowTemplateParametersValidationValues) String() string {
 	return dcl.SprintResource(r)

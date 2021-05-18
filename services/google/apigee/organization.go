@@ -187,6 +187,10 @@ func (r *OrganizationProperties) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyOrganizationProperties *OrganizationProperties = &OrganizationProperties{empty: true}
 
+func (r *OrganizationProperties) Empty() bool {
+	return r.empty
+}
+
 func (r *OrganizationProperties) String() string {
 	return dcl.SprintResource(r)
 }
@@ -231,6 +235,10 @@ func (r *OrganizationPropertiesProperty) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyOrganizationPropertiesProperty *OrganizationPropertiesProperty = &OrganizationPropertiesProperty{empty: true}
+
+func (r *OrganizationPropertiesProperty) Empty() bool {
+	return r.empty
+}
 
 func (r *OrganizationPropertiesProperty) String() string {
 	return dcl.SprintResource(r)

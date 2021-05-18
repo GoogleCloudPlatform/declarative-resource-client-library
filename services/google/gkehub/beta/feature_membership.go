@@ -77,6 +77,10 @@ func (r *FeatureMembershipConfigmanagement) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyFeatureMembershipConfigmanagement *FeatureMembershipConfigmanagement = &FeatureMembershipConfigmanagement{empty: true}
 
+func (r *FeatureMembershipConfigmanagement) Empty() bool {
+	return r.empty
+}
+
 func (r *FeatureMembershipConfigmanagement) String() string {
 	return dcl.SprintResource(r)
 }
@@ -121,6 +125,10 @@ func (r *FeatureMembershipConfigmanagementConfigSync) UnmarshalJSON(data []byte)
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyFeatureMembershipConfigmanagementConfigSync *FeatureMembershipConfigmanagementConfigSync = &FeatureMembershipConfigmanagementConfigSync{empty: true}
+
+func (r *FeatureMembershipConfigmanagementConfigSync) Empty() bool {
+	return r.empty
+}
 
 func (r *FeatureMembershipConfigmanagementConfigSync) String() string {
 	return dcl.SprintResource(r)
@@ -182,6 +190,10 @@ func (r *FeatureMembershipConfigmanagementConfigSyncGit) UnmarshalJSON(data []by
 // as one.  Modifying this object will have undesirable results.
 var EmptyFeatureMembershipConfigmanagementConfigSyncGit *FeatureMembershipConfigmanagementConfigSyncGit = &FeatureMembershipConfigmanagementConfigSyncGit{empty: true}
 
+func (r *FeatureMembershipConfigmanagementConfigSyncGit) Empty() bool {
+	return r.empty
+}
+
 func (r *FeatureMembershipConfigmanagementConfigSyncGit) String() string {
 	return dcl.SprintResource(r)
 }
@@ -239,6 +251,10 @@ func (r *FeatureMembershipConfigmanagementPolicyController) UnmarshalJSON(data [
 // as one.  Modifying this object will have undesirable results.
 var EmptyFeatureMembershipConfigmanagementPolicyController *FeatureMembershipConfigmanagementPolicyController = &FeatureMembershipConfigmanagementPolicyController{empty: true}
 
+func (r *FeatureMembershipConfigmanagementPolicyController) Empty() bool {
+	return r.empty
+}
+
 func (r *FeatureMembershipConfigmanagementPolicyController) String() string {
 	return dcl.SprintResource(r)
 }
@@ -280,6 +296,10 @@ func (r *FeatureMembershipConfigmanagementBinauthz) UnmarshalJSON(data []byte) e
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyFeatureMembershipConfigmanagementBinauthz *FeatureMembershipConfigmanagementBinauthz = &FeatureMembershipConfigmanagementBinauthz{empty: true}
+
+func (r *FeatureMembershipConfigmanagementBinauthz) Empty() bool {
+	return r.empty
+}
 
 func (r *FeatureMembershipConfigmanagementBinauthz) String() string {
 	return dcl.SprintResource(r)
@@ -328,6 +348,10 @@ func (r *FeatureMembershipConfigmanagementHierarchyController) UnmarshalJSON(dat
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyFeatureMembershipConfigmanagementHierarchyController *FeatureMembershipConfigmanagementHierarchyController = &FeatureMembershipConfigmanagementHierarchyController{empty: true}
+
+func (r *FeatureMembershipConfigmanagementHierarchyController) Empty() bool {
+	return r.empty
+}
 
 func (r *FeatureMembershipConfigmanagementHierarchyController) String() string {
 	return dcl.SprintResource(r)

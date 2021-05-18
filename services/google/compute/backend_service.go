@@ -289,6 +289,10 @@ func (r *BackendServiceBackends) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyBackendServiceBackends *BackendServiceBackends = &BackendServiceBackends{empty: true}
 
+func (r *BackendServiceBackends) Empty() bool {
+	return r.empty
+}
+
 func (r *BackendServiceBackends) String() string {
 	return dcl.SprintResource(r)
 }
@@ -337,6 +341,10 @@ func (r *BackendServiceFailoverPolicy) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyBackendServiceFailoverPolicy *BackendServiceFailoverPolicy = &BackendServiceFailoverPolicy{empty: true}
 
+func (r *BackendServiceFailoverPolicy) Empty() bool {
+	return r.empty
+}
+
 func (r *BackendServiceFailoverPolicy) String() string {
 	return dcl.SprintResource(r)
 }
@@ -378,6 +386,10 @@ func (r *BackendServiceConnectionDraining) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyBackendServiceConnectionDraining *BackendServiceConnectionDraining = &BackendServiceConnectionDraining{empty: true}
+
+func (r *BackendServiceConnectionDraining) Empty() bool {
+	return r.empty
+}
 
 func (r *BackendServiceConnectionDraining) String() string {
 	return dcl.SprintResource(r)
@@ -429,6 +441,10 @@ func (r *BackendServiceIap) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyBackendServiceIap *BackendServiceIap = &BackendServiceIap{empty: true}
+
+func (r *BackendServiceIap) Empty() bool {
+	return r.empty
+}
 
 func (r *BackendServiceIap) String() string {
 	return dcl.SprintResource(r)
@@ -505,6 +521,10 @@ func (r *BackendServiceCdnPolicy) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyBackendServiceCdnPolicy *BackendServiceCdnPolicy = &BackendServiceCdnPolicy{empty: true}
 
+func (r *BackendServiceCdnPolicy) Empty() bool {
+	return r.empty
+}
+
 func (r *BackendServiceCdnPolicy) String() string {
 	return dcl.SprintResource(r)
 }
@@ -565,6 +585,10 @@ func (r *BackendServiceCdnPolicyCacheKeyPolicy) UnmarshalJSON(data []byte) error
 // as one.  Modifying this object will have undesirable results.
 var EmptyBackendServiceCdnPolicyCacheKeyPolicy *BackendServiceCdnPolicyCacheKeyPolicy = &BackendServiceCdnPolicyCacheKeyPolicy{empty: true}
 
+func (r *BackendServiceCdnPolicyCacheKeyPolicy) Empty() bool {
+	return r.empty
+}
+
 func (r *BackendServiceCdnPolicyCacheKeyPolicy) String() string {
 	return dcl.SprintResource(r)
 }
@@ -610,6 +634,10 @@ func (r *BackendServiceCdnPolicyNegativeCachingPolicy) UnmarshalJSON(data []byte
 // as one.  Modifying this object will have undesirable results.
 var EmptyBackendServiceCdnPolicyNegativeCachingPolicy *BackendServiceCdnPolicyNegativeCachingPolicy = &BackendServiceCdnPolicyNegativeCachingPolicy{empty: true}
 
+func (r *BackendServiceCdnPolicyNegativeCachingPolicy) Empty() bool {
+	return r.empty
+}
+
 func (r *BackendServiceCdnPolicyNegativeCachingPolicy) String() string {
 	return dcl.SprintResource(r)
 }
@@ -651,6 +679,10 @@ func (r *BackendServiceCdnPolicyBypassCacheOnRequestHeaders) UnmarshalJSON(data 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyBackendServiceCdnPolicyBypassCacheOnRequestHeaders *BackendServiceCdnPolicyBypassCacheOnRequestHeaders = &BackendServiceCdnPolicyBypassCacheOnRequestHeaders{empty: true}
+
+func (r *BackendServiceCdnPolicyBypassCacheOnRequestHeaders) Empty() bool {
+	return r.empty
+}
 
 func (r *BackendServiceCdnPolicyBypassCacheOnRequestHeaders) String() string {
 	return dcl.SprintResource(r)
@@ -697,6 +729,10 @@ func (r *BackendServiceLogConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyBackendServiceLogConfig *BackendServiceLogConfig = &BackendServiceLogConfig{empty: true}
 
+func (r *BackendServiceLogConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *BackendServiceLogConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -741,6 +777,10 @@ func (r *BackendServiceSecuritySettings) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyBackendServiceSecuritySettings *BackendServiceSecuritySettings = &BackendServiceSecuritySettings{empty: true}
+
+func (r *BackendServiceSecuritySettings) Empty() bool {
+	return r.empty
+}
 
 func (r *BackendServiceSecuritySettings) String() string {
 	return dcl.SprintResource(r)
@@ -790,6 +830,10 @@ func (r *BackendServiceConsistentHash) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyBackendServiceConsistentHash *BackendServiceConsistentHash = &BackendServiceConsistentHash{empty: true}
 
+func (r *BackendServiceConsistentHash) Empty() bool {
+	return r.empty
+}
+
 func (r *BackendServiceConsistentHash) String() string {
 	return dcl.SprintResource(r)
 }
@@ -838,6 +882,10 @@ func (r *BackendServiceConsistentHashHttpCookie) UnmarshalJSON(data []byte) erro
 // as one.  Modifying this object will have undesirable results.
 var EmptyBackendServiceConsistentHashHttpCookie *BackendServiceConsistentHashHttpCookie = &BackendServiceConsistentHashHttpCookie{empty: true}
 
+func (r *BackendServiceConsistentHashHttpCookie) Empty() bool {
+	return r.empty
+}
+
 func (r *BackendServiceConsistentHashHttpCookie) String() string {
 	return dcl.SprintResource(r)
 }
@@ -882,6 +930,10 @@ func (r *BackendServiceConsistentHashHttpCookieTtl) UnmarshalJSON(data []byte) e
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyBackendServiceConsistentHashHttpCookieTtl *BackendServiceConsistentHashHttpCookieTtl = &BackendServiceConsistentHashHttpCookieTtl{empty: true}
+
+func (r *BackendServiceConsistentHashHttpCookieTtl) Empty() bool {
+	return r.empty
+}
 
 func (r *BackendServiceConsistentHashHttpCookieTtl) String() string {
 	return dcl.SprintResource(r)
@@ -936,6 +988,10 @@ func (r *BackendServiceCircuitBreakers) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyBackendServiceCircuitBreakers *BackendServiceCircuitBreakers = &BackendServiceCircuitBreakers{empty: true}
+
+func (r *BackendServiceCircuitBreakers) Empty() bool {
+	return r.empty
+}
 
 func (r *BackendServiceCircuitBreakers) String() string {
 	return dcl.SprintResource(r)
@@ -1009,6 +1065,10 @@ func (r *BackendServiceOutlierDetection) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyBackendServiceOutlierDetection *BackendServiceOutlierDetection = &BackendServiceOutlierDetection{empty: true}
 
+func (r *BackendServiceOutlierDetection) Empty() bool {
+	return r.empty
+}
+
 func (r *BackendServiceOutlierDetection) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1053,6 +1113,10 @@ func (r *BackendServiceOutlierDetectionInterval) UnmarshalJSON(data []byte) erro
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyBackendServiceOutlierDetectionInterval *BackendServiceOutlierDetectionInterval = &BackendServiceOutlierDetectionInterval{empty: true}
+
+func (r *BackendServiceOutlierDetectionInterval) Empty() bool {
+	return r.empty
+}
 
 func (r *BackendServiceOutlierDetectionInterval) String() string {
 	return dcl.SprintResource(r)
@@ -1099,6 +1163,10 @@ func (r *BackendServiceOutlierDetectionBaseEjectionTime) UnmarshalJSON(data []by
 // as one.  Modifying this object will have undesirable results.
 var EmptyBackendServiceOutlierDetectionBaseEjectionTime *BackendServiceOutlierDetectionBaseEjectionTime = &BackendServiceOutlierDetectionBaseEjectionTime{empty: true}
 
+func (r *BackendServiceOutlierDetectionBaseEjectionTime) Empty() bool {
+	return r.empty
+}
+
 func (r *BackendServiceOutlierDetectionBaseEjectionTime) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1143,6 +1211,10 @@ func (r *BackendServiceMaxStreamDuration) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyBackendServiceMaxStreamDuration *BackendServiceMaxStreamDuration = &BackendServiceMaxStreamDuration{empty: true}
+
+func (r *BackendServiceMaxStreamDuration) Empty() bool {
+	return r.empty
+}
 
 func (r *BackendServiceMaxStreamDuration) String() string {
 	return dcl.SprintResource(r)

@@ -221,6 +221,10 @@ func (r *JobReference) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobReference *JobReference = &JobReference{empty: true}
 
+func (r *JobReference) Empty() bool {
+	return r.empty
+}
+
 func (r *JobReference) String() string {
 	return dcl.SprintResource(r)
 }
@@ -268,6 +272,10 @@ func (r *JobPlacement) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobPlacement *JobPlacement = &JobPlacement{empty: true}
+
+func (r *JobPlacement) Empty() bool {
+	return r.empty
+}
 
 func (r *JobPlacement) String() string {
 	return dcl.SprintResource(r)
@@ -332,6 +340,10 @@ func (r *JobHadoopJob) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobHadoopJob *JobHadoopJob = &JobHadoopJob{empty: true}
 
+func (r *JobHadoopJob) Empty() bool {
+	return r.empty
+}
+
 func (r *JobHadoopJob) String() string {
 	return dcl.SprintResource(r)
 }
@@ -373,6 +385,10 @@ func (r *JobHadoopJobLoggingConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobHadoopJobLoggingConfig *JobHadoopJobLoggingConfig = &JobHadoopJobLoggingConfig{empty: true}
+
+func (r *JobHadoopJobLoggingConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *JobHadoopJobLoggingConfig) String() string {
 	return dcl.SprintResource(r)
@@ -437,6 +453,10 @@ func (r *JobSparkJob) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobSparkJob *JobSparkJob = &JobSparkJob{empty: true}
 
+func (r *JobSparkJob) Empty() bool {
+	return r.empty
+}
+
 func (r *JobSparkJob) String() string {
 	return dcl.SprintResource(r)
 }
@@ -478,6 +498,10 @@ func (r *JobSparkJobLoggingConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobSparkJobLoggingConfig *JobSparkJobLoggingConfig = &JobSparkJobLoggingConfig{empty: true}
+
+func (r *JobSparkJobLoggingConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *JobSparkJobLoggingConfig) String() string {
 	return dcl.SprintResource(r)
@@ -542,6 +566,10 @@ func (r *JobPysparkJob) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobPysparkJob *JobPysparkJob = &JobPysparkJob{empty: true}
 
+func (r *JobPysparkJob) Empty() bool {
+	return r.empty
+}
+
 func (r *JobPysparkJob) String() string {
 	return dcl.SprintResource(r)
 }
@@ -583,6 +611,10 @@ func (r *JobPysparkJobLoggingConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobPysparkJobLoggingConfig *JobPysparkJobLoggingConfig = &JobPysparkJobLoggingConfig{empty: true}
+
+func (r *JobPysparkJobLoggingConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *JobPysparkJobLoggingConfig) String() string {
 	return dcl.SprintResource(r)
@@ -641,6 +673,10 @@ func (r *JobHiveJob) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobHiveJob *JobHiveJob = &JobHiveJob{empty: true}
 
+func (r *JobHiveJob) Empty() bool {
+	return r.empty
+}
+
 func (r *JobHiveJob) String() string {
 	return dcl.SprintResource(r)
 }
@@ -682,6 +718,10 @@ func (r *JobHiveJobQueryList) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobHiveJobQueryList *JobHiveJobQueryList = &JobHiveJobQueryList{empty: true}
+
+func (r *JobHiveJobQueryList) Empty() bool {
+	return r.empty
+}
 
 func (r *JobHiveJobQueryList) String() string {
 	return dcl.SprintResource(r)
@@ -743,6 +783,10 @@ func (r *JobPigJob) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobPigJob *JobPigJob = &JobPigJob{empty: true}
 
+func (r *JobPigJob) Empty() bool {
+	return r.empty
+}
+
 func (r *JobPigJob) String() string {
 	return dcl.SprintResource(r)
 }
@@ -785,6 +829,10 @@ func (r *JobPigJobQueryList) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobPigJobQueryList *JobPigJobQueryList = &JobPigJobQueryList{empty: true}
 
+func (r *JobPigJobQueryList) Empty() bool {
+	return r.empty
+}
+
 func (r *JobPigJobQueryList) String() string {
 	return dcl.SprintResource(r)
 }
@@ -826,6 +874,10 @@ func (r *JobPigJobLoggingConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobPigJobLoggingConfig *JobPigJobLoggingConfig = &JobPigJobLoggingConfig{empty: true}
+
+func (r *JobPigJobLoggingConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *JobPigJobLoggingConfig) String() string {
 	return dcl.SprintResource(r)
@@ -884,6 +936,10 @@ func (r *JobSparkRJob) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobSparkRJob *JobSparkRJob = &JobSparkRJob{empty: true}
 
+func (r *JobSparkRJob) Empty() bool {
+	return r.empty
+}
+
 func (r *JobSparkRJob) String() string {
 	return dcl.SprintResource(r)
 }
@@ -925,6 +981,10 @@ func (r *JobSparkRJobLoggingConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobSparkRJobLoggingConfig *JobSparkRJobLoggingConfig = &JobSparkRJobLoggingConfig{empty: true}
+
+func (r *JobSparkRJobLoggingConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *JobSparkRJobLoggingConfig) String() string {
 	return dcl.SprintResource(r)
@@ -983,6 +1043,10 @@ func (r *JobSparkSqlJob) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobSparkSqlJob *JobSparkSqlJob = &JobSparkSqlJob{empty: true}
 
+func (r *JobSparkSqlJob) Empty() bool {
+	return r.empty
+}
+
 func (r *JobSparkSqlJob) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1025,6 +1089,10 @@ func (r *JobSparkSqlJobQueryList) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobSparkSqlJobQueryList *JobSparkSqlJobQueryList = &JobSparkSqlJobQueryList{empty: true}
 
+func (r *JobSparkSqlJobQueryList) Empty() bool {
+	return r.empty
+}
+
 func (r *JobSparkSqlJobQueryList) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1066,6 +1134,10 @@ func (r *JobSparkSqlJobLoggingConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobSparkSqlJobLoggingConfig *JobSparkSqlJobLoggingConfig = &JobSparkSqlJobLoggingConfig{empty: true}
+
+func (r *JobSparkSqlJobLoggingConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *JobSparkSqlJobLoggingConfig) String() string {
 	return dcl.SprintResource(r)
@@ -1127,6 +1199,10 @@ func (r *JobPrestoJob) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobPrestoJob *JobPrestoJob = &JobPrestoJob{empty: true}
 
+func (r *JobPrestoJob) Empty() bool {
+	return r.empty
+}
+
 func (r *JobPrestoJob) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1169,6 +1245,10 @@ func (r *JobPrestoJobQueryList) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobPrestoJobQueryList *JobPrestoJobQueryList = &JobPrestoJobQueryList{empty: true}
 
+func (r *JobPrestoJobQueryList) Empty() bool {
+	return r.empty
+}
+
 func (r *JobPrestoJobQueryList) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1210,6 +1290,10 @@ func (r *JobPrestoJobLoggingConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobPrestoJobLoggingConfig *JobPrestoJobLoggingConfig = &JobPrestoJobLoggingConfig{empty: true}
+
+func (r *JobPrestoJobLoggingConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *JobPrestoJobLoggingConfig) String() string {
 	return dcl.SprintResource(r)
@@ -1262,6 +1346,10 @@ func (r *JobStatus) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobStatus *JobStatus = &JobStatus{empty: true}
 
+func (r *JobStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *JobStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1312,6 +1400,10 @@ func (r *JobStatusHistory) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobStatusHistory *JobStatusHistory = &JobStatusHistory{empty: true}
+
+func (r *JobStatusHistory) Empty() bool {
+	return r.empty
+}
 
 func (r *JobStatusHistory) String() string {
 	return dcl.SprintResource(r)
@@ -1364,6 +1456,10 @@ func (r *JobYarnApplications) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobYarnApplications *JobYarnApplications = &JobYarnApplications{empty: true}
 
+func (r *JobYarnApplications) Empty() bool {
+	return r.empty
+}
+
 func (r *JobYarnApplications) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1408,6 +1504,10 @@ func (r *JobScheduling) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyJobScheduling *JobScheduling = &JobScheduling{empty: true}
+
+func (r *JobScheduling) Empty() bool {
+	return r.empty
+}
 
 func (r *JobScheduling) String() string {
 	return dcl.SprintResource(r)

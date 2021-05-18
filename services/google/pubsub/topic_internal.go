@@ -906,6 +906,10 @@ func flattenTopicMessageStoragePolicy(c *Client, i interface{}) *TopicMessageSto
 	}
 
 	r := &TopicMessageStoragePolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTopicMessageStoragePolicy
+	}
 	r.AllowedPersistenceRegions = dcl.FlattenStringSlice(m["allowedPersistenceRegions"])
 
 	return r

@@ -1442,6 +1442,10 @@ func flattenSubscriptionExpirationPolicy(c *Client, i interface{}) *Subscription
 	}
 
 	r := &SubscriptionExpirationPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptySubscriptionExpirationPolicy
+	}
 	r.Ttl = dcl.FlattenString(m["ttl"])
 
 	return r
@@ -1555,6 +1559,10 @@ func flattenSubscriptionDeadLetterPolicy(c *Client, i interface{}) *Subscription
 	}
 
 	r := &SubscriptionDeadLetterPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptySubscriptionDeadLetterPolicy
+	}
 	r.DeadLetterTopic = dcl.FlattenString(m["deadLetterTopic"])
 	r.MaxDeliveryAttempts = dcl.FlattenInteger(m["maxDeliveryAttempts"])
 
@@ -1674,6 +1682,10 @@ func flattenSubscriptionPushConfig(c *Client, i interface{}) *SubscriptionPushCo
 	}
 
 	r := &SubscriptionPushConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptySubscriptionPushConfig
+	}
 	r.PushEndpoint = dcl.FlattenString(m["pushEndpoint"])
 	r.Attributes = dcl.FlattenKeyValuePairs(m["attributes"])
 	if dcl.IsEmptyValueIndirect(m["attributes"]) {
@@ -1793,6 +1805,10 @@ func flattenSubscriptionPushConfigOidcToken(c *Client, i interface{}) *Subscript
 	}
 
 	r := &SubscriptionPushConfigOidcToken{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptySubscriptionPushConfigOidcToken
+	}
 	r.ServiceAccountEmail = dcl.FlattenString(m["serviceAccountEmail"])
 	r.Audience = dcl.FlattenString(m["audience"])
 

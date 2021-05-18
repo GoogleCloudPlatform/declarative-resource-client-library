@@ -1236,6 +1236,10 @@ func flattenSnapshotSnapshotEncryptionKey(c *Client, i interface{}) *SnapshotSna
 	}
 
 	r := &SnapshotSnapshotEncryptionKey{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptySnapshotSnapshotEncryptionKey
+	}
 	r.RawKey = dcl.FlattenSecretValue(m["rawKey"])
 	r.Sha256 = dcl.FlattenString(m["sha256"])
 
@@ -1347,6 +1351,10 @@ func flattenSnapshotSourceDiskEncryptionKey(c *Client, i interface{}) *SnapshotS
 	}
 
 	r := &SnapshotSourceDiskEncryptionKey{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptySnapshotSourceDiskEncryptionKey
+	}
 	r.RawKey = dcl.FlattenString(m["rawKey"])
 
 	return r

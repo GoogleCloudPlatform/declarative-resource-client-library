@@ -1651,6 +1651,10 @@ func flattenEndpointConfigSelectorHttpFilters(c *Client, i interface{}) *Endpoin
 	}
 
 	r := &EndpointConfigSelectorHttpFilters{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyEndpointConfigSelectorHttpFilters
+	}
 	r.HttpFilters = dcl.FlattenStringSlice(m["httpFilters"])
 
 	return r
@@ -1763,6 +1767,10 @@ func flattenEndpointConfigSelectorEndpointMatcher(c *Client, i interface{}) *End
 	}
 
 	r := &EndpointConfigSelectorEndpointMatcher{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyEndpointConfigSelectorEndpointMatcher
+	}
 	r.MetadataLabelMatcher = flattenEndpointConfigSelectorEndpointMatcherMetadataLabelMatcher(c, m["metadataLabelMatcher"])
 
 	return r
@@ -1878,6 +1886,10 @@ func flattenEndpointConfigSelectorEndpointMatcherMetadataLabelMatcher(c *Client,
 	}
 
 	r := &EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyEndpointConfigSelectorEndpointMatcherMetadataLabelMatcher
+	}
 	r.MetadataLabelMatchCriteria = flattenEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum(m["metadataLabelMatchCriteria"])
 	r.MetadataLabels = flattenEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelsSlice(c, m["metadataLabels"])
 
@@ -1992,6 +2004,10 @@ func flattenEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLab
 	}
 
 	r := &EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels
+	}
 	r.LabelName = dcl.FlattenString(m["labelName"])
 	r.LabelValue = dcl.FlattenString(m["labelValue"])
 
@@ -2103,6 +2119,10 @@ func flattenEndpointConfigSelectorTrafficPortSelector(c *Client, i interface{}) 
 	}
 
 	r := &EndpointConfigSelectorTrafficPortSelector{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyEndpointConfigSelectorTrafficPortSelector
+	}
 	r.Ports = dcl.FlattenStringSlice(m["ports"])
 
 	return r

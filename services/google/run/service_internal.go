@@ -7867,6 +7867,10 @@ func flattenServiceMetadata(c *Client, i interface{}) *ServiceMetadata {
 	}
 
 	r := &ServiceMetadata{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceMetadata
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.GenerateName = dcl.FlattenString(m["generateName"])
 	r.Namespace = dcl.FlattenString(m["namespace"])
@@ -7994,6 +7998,10 @@ func flattenServiceMetadataCreateTime(c *Client, i interface{}) *ServiceMetadata
 	}
 
 	r := &ServiceMetadataCreateTime{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceMetadataCreateTime
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -8120,6 +8128,10 @@ func flattenServiceMetadataOwnerReferences(c *Client, i interface{}) *ServiceMet
 	}
 
 	r := &ServiceMetadataOwnerReferences{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceMetadataOwnerReferences
+	}
 	r.ApiVersion = dcl.FlattenString(m["apiVersion"])
 	r.Kind = dcl.FlattenString(m["kind"])
 	r.Name = dcl.FlattenString(m["name"])
@@ -8238,6 +8250,10 @@ func flattenServiceMetadataDeleteTime(c *Client, i interface{}) *ServiceMetadata
 	}
 
 	r := &ServiceMetadataDeleteTime{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceMetadataDeleteTime
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -8356,6 +8372,10 @@ func flattenServiceSpec(c *Client, i interface{}) *ServiceSpec {
 	}
 
 	r := &ServiceSpec{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpec
+	}
 	r.Template = flattenServiceSpecTemplate(c, m["template"])
 	r.Traffic = flattenServiceSpecTrafficSlice(c, m["traffic"])
 
@@ -8474,6 +8494,10 @@ func flattenServiceSpecTemplate(c *Client, i interface{}) *ServiceSpecTemplate {
 	}
 
 	r := &ServiceSpecTemplate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplate
+	}
 	r.Metadata = flattenServiceSpecTemplateMetadata(c, m["metadata"])
 	r.Spec = flattenServiceSpecTemplateSpec(c, m["spec"])
 
@@ -8633,6 +8657,10 @@ func flattenServiceSpecTemplateMetadata(c *Client, i interface{}) *ServiceSpecTe
 	}
 
 	r := &ServiceSpecTemplateMetadata{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateMetadata
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.GenerateName = dcl.FlattenString(m["generateName"])
 	r.Namespace = dcl.FlattenString(m["namespace"])
@@ -8760,6 +8788,10 @@ func flattenServiceSpecTemplateMetadataCreateTime(c *Client, i interface{}) *Ser
 	}
 
 	r := &ServiceSpecTemplateMetadataCreateTime{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateMetadataCreateTime
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -8886,6 +8918,10 @@ func flattenServiceSpecTemplateMetadataOwnerReferences(c *Client, i interface{})
 	}
 
 	r := &ServiceSpecTemplateMetadataOwnerReferences{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateMetadataOwnerReferences
+	}
 	r.ApiVersion = dcl.FlattenString(m["apiVersion"])
 	r.Kind = dcl.FlattenString(m["kind"])
 	r.Name = dcl.FlattenString(m["name"])
@@ -9004,6 +9040,10 @@ func flattenServiceSpecTemplateMetadataDeleteTime(c *Client, i interface{}) *Ser
 	}
 
 	r := &ServiceSpecTemplateMetadataDeleteTime{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateMetadataDeleteTime
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -9131,6 +9171,10 @@ func flattenServiceSpecTemplateSpec(c *Client, i interface{}) *ServiceSpecTempla
 	}
 
 	r := &ServiceSpecTemplateSpec{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpec
+	}
 	r.ContainerConcurrency = dcl.FlattenInteger(m["containerConcurrency"])
 	r.TimeoutSeconds = dcl.FlattenInteger(m["timeoutSeconds"])
 	r.ServiceAccountName = dcl.FlattenString(m["serviceAccountName"])
@@ -9306,6 +9350,10 @@ func flattenServiceSpecTemplateSpecContainers(c *Client, i interface{}) *Service
 	}
 
 	r := &ServiceSpecTemplateSpecContainers{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainers
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Image = dcl.FlattenString(m["image"])
 	r.Command = dcl.FlattenStringSlice(m["command"])
@@ -9439,6 +9487,10 @@ func flattenServiceSpecTemplateSpecContainersEnv(c *Client, i interface{}) *Serv
 	}
 
 	r := &ServiceSpecTemplateSpecContainersEnv{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersEnv
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Value = dcl.FlattenString(m["value"])
 	r.ValueFrom = flattenServiceSpecTemplateSpecContainersEnvValueFrom(c, m["valueFrom"])
@@ -9558,6 +9610,10 @@ func flattenServiceSpecTemplateSpecContainersEnvValueFrom(c *Client, i interface
 	}
 
 	r := &ServiceSpecTemplateSpecContainersEnvValueFrom{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersEnvValueFrom
+	}
 	r.ConfigMapKeyRef = flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c, m["configMapKeyRef"])
 	r.SecretKeyRef = flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c, m["secretKeyRef"])
 
@@ -9680,6 +9736,10 @@ func flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(c *Clie
 	}
 
 	r := &ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef
+	}
 	r.LocalObjectReference = flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(c, m["localObjectReference"])
 	r.Key = dcl.FlattenString(m["key"])
 	r.Optional = dcl.FlattenBool(m["optional"])
@@ -9793,6 +9853,10 @@ func flattenServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObj
 	}
 
 	r := &ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference
+	}
 	r.Name = dcl.FlattenString(m["name"])
 
 	return r
@@ -9914,6 +9978,10 @@ func flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(c *Client,
 	}
 
 	r := &ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef
+	}
 	r.LocalObjectReference = flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(c, m["localObjectReference"])
 	r.Key = dcl.FlattenString(m["key"])
 	r.Optional = dcl.FlattenBool(m["optional"])
@@ -10027,6 +10095,10 @@ func flattenServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObject
 	}
 
 	r := &ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference
+	}
 	r.Name = dcl.FlattenString(m["name"])
 
 	return r
@@ -10140,6 +10212,10 @@ func flattenServiceSpecTemplateSpecContainersResources(c *Client, i interface{})
 	}
 
 	r := &ServiceSpecTemplateSpecContainersResources{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersResources
+	}
 	r.Limits = dcl.FlattenKeyValuePairs(m["limits"])
 	r.Requests = dcl.FlattenKeyValuePairs(m["requests"])
 
@@ -10257,6 +10333,10 @@ func flattenServiceSpecTemplateSpecContainersPorts(c *Client, i interface{}) *Se
 	}
 
 	r := &ServiceSpecTemplateSpecContainersPorts{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersPorts
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.ContainerPort = dcl.FlattenInteger(m["containerPort"])
 	r.Protocol = dcl.FlattenString(m["protocol"])
@@ -10379,6 +10459,10 @@ func flattenServiceSpecTemplateSpecContainersEnvFrom(c *Client, i interface{}) *
 	}
 
 	r := &ServiceSpecTemplateSpecContainersEnvFrom{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersEnvFrom
+	}
 	r.Prefix = dcl.FlattenString(m["prefix"])
 	r.ConfigMapRef = flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c, m["configMapRef"])
 	r.SecretRef = flattenServiceSpecTemplateSpecContainersEnvFromSecretRef(c, m["secretRef"])
@@ -10499,6 +10583,10 @@ func flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRef(c *Client, i in
 	}
 
 	r := &ServiceSpecTemplateSpecContainersEnvFromConfigMapRef{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersEnvFromConfigMapRef
+	}
 	r.LocalObjectReference = flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(c, m["localObjectReference"])
 	r.Optional = dcl.FlattenBool(m["optional"])
 	r.Name = dcl.FlattenString(m["name"])
@@ -10611,6 +10699,10 @@ func flattenServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectRefer
 	}
 
 	r := &ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference
+	}
 	r.Name = dcl.FlattenString(m["name"])
 
 	return r
@@ -10729,6 +10821,10 @@ func flattenServiceSpecTemplateSpecContainersEnvFromSecretRef(c *Client, i inter
 	}
 
 	r := &ServiceSpecTemplateSpecContainersEnvFromSecretRef{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersEnvFromSecretRef
+	}
 	r.LocalObjectReference = flattenServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(c, m["localObjectReference"])
 	r.Optional = dcl.FlattenBool(m["optional"])
 	r.Name = dcl.FlattenString(m["name"])
@@ -10841,6 +10937,10 @@ func flattenServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenc
 	}
 
 	r := &ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference
+	}
 	r.Name = dcl.FlattenString(m["name"])
 
 	return r
@@ -10960,6 +11060,10 @@ func flattenServiceSpecTemplateSpecContainersVolumeMounts(c *Client, i interface
 	}
 
 	r := &ServiceSpecTemplateSpecContainersVolumeMounts{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersVolumeMounts
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.ReadOnly = dcl.FlattenBool(m["readOnly"])
 	r.MountPath = dcl.FlattenString(m["mountPath"])
@@ -11100,6 +11204,10 @@ func flattenServiceSpecTemplateSpecContainersLivenessProbe(c *Client, i interfac
 	}
 
 	r := &ServiceSpecTemplateSpecContainersLivenessProbe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersLivenessProbe
+	}
 	r.InitialDelaySeconds = dcl.FlattenInteger(m["initialDelaySeconds"])
 	r.TimeoutSeconds = dcl.FlattenInteger(m["timeoutSeconds"])
 	r.PeriodSeconds = dcl.FlattenInteger(m["periodSeconds"])
@@ -11217,6 +11325,10 @@ func flattenServiceSpecTemplateSpecContainersLivenessProbeExec(c *Client, i inte
 	}
 
 	r := &ServiceSpecTemplateSpecContainersLivenessProbeExec{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersLivenessProbeExec
+	}
 	r.Command = dcl.FlattenString(m["command"])
 
 	return r
@@ -11338,6 +11450,10 @@ func flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGet(c *Client, i i
 	}
 
 	r := &ServiceSpecTemplateSpecContainersLivenessProbeHttpGet{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersLivenessProbeHttpGet
+	}
 	r.Path = dcl.FlattenString(m["path"])
 	r.Host = dcl.FlattenString(m["host"])
 	r.Scheme = dcl.FlattenString(m["scheme"])
@@ -11454,6 +11570,10 @@ func flattenServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(c *
 	}
 
 	r := &ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -11568,6 +11688,10 @@ func flattenServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(c *Client, i
 	}
 
 	r := &ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersLivenessProbeTcpSocket
+	}
 	r.Port = dcl.FlattenInteger(m["port"])
 	r.Host = dcl.FlattenString(m["host"])
 
@@ -11706,6 +11830,10 @@ func flattenServiceSpecTemplateSpecContainersReadinessProbe(c *Client, i interfa
 	}
 
 	r := &ServiceSpecTemplateSpecContainersReadinessProbe{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersReadinessProbe
+	}
 	r.InitialDelaySeconds = dcl.FlattenInteger(m["initialDelaySeconds"])
 	r.TimeoutSeconds = dcl.FlattenInteger(m["timeoutSeconds"])
 	r.PeriodSeconds = dcl.FlattenInteger(m["periodSeconds"])
@@ -11823,6 +11951,10 @@ func flattenServiceSpecTemplateSpecContainersReadinessProbeExec(c *Client, i int
 	}
 
 	r := &ServiceSpecTemplateSpecContainersReadinessProbeExec{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersReadinessProbeExec
+	}
 	r.Command = dcl.FlattenString(m["command"])
 
 	return r
@@ -11944,6 +12076,10 @@ func flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGet(c *Client, i 
 	}
 
 	r := &ServiceSpecTemplateSpecContainersReadinessProbeHttpGet{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersReadinessProbeHttpGet
+	}
 	r.Path = dcl.FlattenString(m["path"])
 	r.Host = dcl.FlattenString(m["host"])
 	r.Scheme = dcl.FlattenString(m["scheme"])
@@ -12060,6 +12196,10 @@ func flattenServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(c 
 	}
 
 	r := &ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -12174,6 +12314,10 @@ func flattenServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(c *Client, 
 	}
 
 	r := &ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersReadinessProbeTcpSocket
+	}
 	r.Port = dcl.FlattenInteger(m["port"])
 	r.Host = dcl.FlattenString(m["host"])
 
@@ -12285,6 +12429,10 @@ func flattenServiceSpecTemplateSpecContainersSecurityContext(c *Client, i interf
 	}
 
 	r := &ServiceSpecTemplateSpecContainersSecurityContext{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecContainersSecurityContext
+	}
 	r.RunAsUser = dcl.FlattenInteger(m["runAsUser"])
 
 	return r
@@ -12405,6 +12553,10 @@ func flattenServiceSpecTemplateSpecVolumes(c *Client, i interface{}) *ServiceSpe
 	}
 
 	r := &ServiceSpecTemplateSpecVolumes{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecVolumes
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Secret = flattenServiceSpecTemplateSpecVolumesSecret(c, m["secret"])
 	r.ConfigMap = flattenServiceSpecTemplateSpecVolumesConfigMap(c, m["configMap"])
@@ -12528,6 +12680,10 @@ func flattenServiceSpecTemplateSpecVolumesSecret(c *Client, i interface{}) *Serv
 	}
 
 	r := &ServiceSpecTemplateSpecVolumesSecret{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecVolumesSecret
+	}
 	r.SecretName = dcl.FlattenString(m["secretName"])
 	r.Items = flattenServiceSpecTemplateSpecVolumesSecretItemsSlice(c, m["items"])
 	r.DefaultMode = dcl.FlattenInteger(m["defaultMode"])
@@ -12647,6 +12803,10 @@ func flattenServiceSpecTemplateSpecVolumesSecretItems(c *Client, i interface{}) 
 	}
 
 	r := &ServiceSpecTemplateSpecVolumesSecretItems{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecVolumesSecretItems
+	}
 	r.Key = dcl.FlattenString(m["key"])
 	r.Path = dcl.FlattenString(m["path"])
 	r.Mode = dcl.FlattenInteger(m["mode"])
@@ -12770,6 +12930,10 @@ func flattenServiceSpecTemplateSpecVolumesConfigMap(c *Client, i interface{}) *S
 	}
 
 	r := &ServiceSpecTemplateSpecVolumesConfigMap{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecVolumesConfigMap
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Items = flattenServiceSpecTemplateSpecVolumesConfigMapItemsSlice(c, m["items"])
 	r.DefaultMode = dcl.FlattenInteger(m["defaultMode"])
@@ -12889,6 +13053,10 @@ func flattenServiceSpecTemplateSpecVolumesConfigMapItems(c *Client, i interface{
 	}
 
 	r := &ServiceSpecTemplateSpecVolumesConfigMapItems{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTemplateSpecVolumesConfigMapItems
+	}
 	r.Key = dcl.FlattenString(m["key"])
 	r.Path = dcl.FlattenString(m["path"])
 	r.Mode = dcl.FlattenInteger(m["mode"])
@@ -13016,6 +13184,10 @@ func flattenServiceSpecTraffic(c *Client, i interface{}) *ServiceSpecTraffic {
 	}
 
 	r := &ServiceSpecTraffic{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceSpecTraffic
+	}
 	r.ConfigurationName = dcl.FlattenString(m["configurationName"])
 	r.RevisionName = dcl.FlattenString(m["revisionName"])
 	r.Percent = dcl.FlattenInteger(m["percent"])
@@ -13155,6 +13327,10 @@ func flattenServiceStatus(c *Client, i interface{}) *ServiceStatus {
 	}
 
 	r := &ServiceStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceStatus
+	}
 	r.ObservedGeneration = dcl.FlattenInteger(m["observedGeneration"])
 	r.Conditions = flattenServiceStatusConditionsSlice(c, m["conditions"])
 	r.LatestReadyRevisionName = dcl.FlattenString(m["latestReadyRevisionName"])
@@ -13288,6 +13464,10 @@ func flattenServiceStatusConditions(c *Client, i interface{}) *ServiceStatusCond
 	}
 
 	r := &ServiceStatusConditions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceStatusConditions
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.Status = dcl.FlattenString(m["status"])
 	r.Reason = dcl.FlattenString(m["reason"])
@@ -13406,6 +13586,10 @@ func flattenServiceStatusConditionsLastTransitionTime(c *Client, i interface{}) 
 	}
 
 	r := &ServiceStatusConditionsLastTransitionTime{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceStatusConditionsLastTransitionTime
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -13532,6 +13716,10 @@ func flattenServiceStatusTraffic(c *Client, i interface{}) *ServiceStatusTraffic
 	}
 
 	r := &ServiceStatusTraffic{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceStatusTraffic
+	}
 	r.ConfigurationName = dcl.FlattenString(m["configurationName"])
 	r.RevisionName = dcl.FlattenString(m["revisionName"])
 	r.Percent = dcl.FlattenInteger(m["percent"])
@@ -13647,6 +13835,10 @@ func flattenServiceStatusAddress(c *Client, i interface{}) *ServiceStatusAddress
 	}
 
 	r := &ServiceStatusAddress{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServiceStatusAddress
+	}
 	r.Url = dcl.FlattenString(m["url"])
 
 	return r

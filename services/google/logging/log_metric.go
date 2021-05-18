@@ -238,6 +238,10 @@ func (r *LogMetricMetricDescriptor) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyLogMetricMetricDescriptor *LogMetricMetricDescriptor = &LogMetricMetricDescriptor{empty: true}
 
+func (r *LogMetricMetricDescriptor) Empty() bool {
+	return r.empty
+}
+
 func (r *LogMetricMetricDescriptor) String() string {
 	return dcl.SprintResource(r)
 }
@@ -285,6 +289,10 @@ func (r *LogMetricMetricDescriptorDescriptorLabels) UnmarshalJSON(data []byte) e
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyLogMetricMetricDescriptorDescriptorLabels *LogMetricMetricDescriptorDescriptorLabels = &LogMetricMetricDescriptorDescriptorLabels{empty: true}
+
+func (r *LogMetricMetricDescriptorDescriptorLabels) Empty() bool {
+	return r.empty
+}
 
 func (r *LogMetricMetricDescriptorDescriptorLabels) String() string {
 	return dcl.SprintResource(r)
@@ -334,6 +342,10 @@ func (r *LogMetricMetricDescriptorMetadata) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyLogMetricMetricDescriptorMetadata *LogMetricMetricDescriptorMetadata = &LogMetricMetricDescriptorMetadata{empty: true}
 
+func (r *LogMetricMetricDescriptorMetadata) Empty() bool {
+	return r.empty
+}
+
 func (r *LogMetricMetricDescriptorMetadata) String() string {
 	return dcl.SprintResource(r)
 }
@@ -381,6 +393,10 @@ func (r *LogMetricBucketOptions) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyLogMetricBucketOptions *LogMetricBucketOptions = &LogMetricBucketOptions{empty: true}
+
+func (r *LogMetricBucketOptions) Empty() bool {
+	return r.empty
+}
 
 func (r *LogMetricBucketOptions) String() string {
 	return dcl.SprintResource(r)
@@ -430,6 +446,10 @@ func (r *LogMetricBucketOptionsLinearBuckets) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyLogMetricBucketOptionsLinearBuckets *LogMetricBucketOptionsLinearBuckets = &LogMetricBucketOptionsLinearBuckets{empty: true}
 
+func (r *LogMetricBucketOptionsLinearBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *LogMetricBucketOptionsLinearBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -478,6 +498,10 @@ func (r *LogMetricBucketOptionsExponentialBuckets) UnmarshalJSON(data []byte) er
 // as one.  Modifying this object will have undesirable results.
 var EmptyLogMetricBucketOptionsExponentialBuckets *LogMetricBucketOptionsExponentialBuckets = &LogMetricBucketOptionsExponentialBuckets{empty: true}
 
+func (r *LogMetricBucketOptionsExponentialBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *LogMetricBucketOptionsExponentialBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -519,6 +543,10 @@ func (r *LogMetricBucketOptionsExplicitBuckets) UnmarshalJSON(data []byte) error
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyLogMetricBucketOptionsExplicitBuckets *LogMetricBucketOptionsExplicitBuckets = &LogMetricBucketOptionsExplicitBuckets{empty: true}
+
+func (r *LogMetricBucketOptionsExplicitBuckets) Empty() bool {
+	return r.empty
+}
 
 func (r *LogMetricBucketOptionsExplicitBuckets) String() string {
 	return dcl.SprintResource(r)

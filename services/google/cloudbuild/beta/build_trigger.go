@@ -147,6 +147,10 @@ func (r *BuildTriggerTriggerTemplate) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyBuildTriggerTriggerTemplate *BuildTriggerTriggerTemplate = &BuildTriggerTriggerTemplate{empty: true}
 
+func (r *BuildTriggerTriggerTemplate) Empty() bool {
+	return r.empty
+}
+
 func (r *BuildTriggerTriggerTemplate) String() string {
 	return dcl.SprintResource(r)
 }
@@ -198,6 +202,10 @@ func (r *BuildTriggerGithub) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyBuildTriggerGithub *BuildTriggerGithub = &BuildTriggerGithub{empty: true}
 
+func (r *BuildTriggerGithub) Empty() bool {
+	return r.empty
+}
+
 func (r *BuildTriggerGithub) String() string {
 	return dcl.SprintResource(r)
 }
@@ -246,6 +254,10 @@ func (r *BuildTriggerGithubPullRequest) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyBuildTriggerGithubPullRequest *BuildTriggerGithubPullRequest = &BuildTriggerGithubPullRequest{empty: true}
 
+func (r *BuildTriggerGithubPullRequest) Empty() bool {
+	return r.empty
+}
+
 func (r *BuildTriggerGithubPullRequest) String() string {
 	return dcl.SprintResource(r)
 }
@@ -293,6 +305,10 @@ func (r *BuildTriggerGithubPush) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyBuildTriggerGithubPush *BuildTriggerGithubPush = &BuildTriggerGithubPush{empty: true}
+
+func (r *BuildTriggerGithubPush) Empty() bool {
+	return r.empty
+}
 
 func (r *BuildTriggerGithubPush) String() string {
 	return dcl.SprintResource(r)
@@ -360,6 +376,10 @@ func (r *BuildTriggerBuild) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyBuildTriggerBuild *BuildTriggerBuild = &BuildTriggerBuild{empty: true}
 
+func (r *BuildTriggerBuild) Empty() bool {
+	return r.empty
+}
+
 func (r *BuildTriggerBuild) String() string {
 	return dcl.SprintResource(r)
 }
@@ -404,6 +424,10 @@ func (r *BuildTriggerBuildSecrets) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyBuildTriggerBuildSecrets *BuildTriggerBuildSecrets = &BuildTriggerBuildSecrets{empty: true}
+
+func (r *BuildTriggerBuildSecrets) Empty() bool {
+	return r.empty
+}
 
 func (r *BuildTriggerBuildSecrets) String() string {
 	return dcl.SprintResource(r)
@@ -483,6 +507,10 @@ func (r *BuildTriggerBuildSteps) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyBuildTriggerBuildSteps *BuildTriggerBuildSteps = &BuildTriggerBuildSteps{empty: true}
 
+func (r *BuildTriggerBuildSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *BuildTriggerBuildSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -527,6 +555,10 @@ func (r *BuildTriggerBuildStepsVolumes) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyBuildTriggerBuildStepsVolumes *BuildTriggerBuildStepsVolumes = &BuildTriggerBuildStepsVolumes{empty: true}
+
+func (r *BuildTriggerBuildStepsVolumes) Empty() bool {
+	return r.empty
+}
 
 func (r *BuildTriggerBuildStepsVolumes) String() string {
 	return dcl.SprintResource(r)
@@ -573,6 +605,10 @@ func (r *BuildTriggerBuildStepsTiming) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyBuildTriggerBuildStepsTiming *BuildTriggerBuildStepsTiming = &BuildTriggerBuildStepsTiming{empty: true}
 
+func (r *BuildTriggerBuildStepsTiming) Empty() bool {
+	return r.empty
+}
+
 func (r *BuildTriggerBuildStepsTiming) String() string {
 	return dcl.SprintResource(r)
 }
@@ -618,6 +654,10 @@ func (r *BuildTriggerBuildStepsPullTiming) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyBuildTriggerBuildStepsPullTiming *BuildTriggerBuildStepsPullTiming = &BuildTriggerBuildStepsPullTiming{empty: true}
 
+func (r *BuildTriggerBuildStepsPullTiming) Empty() bool {
+	return r.empty
+}
+
 func (r *BuildTriggerBuildStepsPullTiming) String() string {
 	return dcl.SprintResource(r)
 }
@@ -662,6 +702,10 @@ func (r *BuildTriggerBuildSource) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyBuildTriggerBuildSource *BuildTriggerBuildSource = &BuildTriggerBuildSource{empty: true}
+
+func (r *BuildTriggerBuildSource) Empty() bool {
+	return r.empty
+}
 
 func (r *BuildTriggerBuildSource) String() string {
 	return dcl.SprintResource(r)
@@ -710,6 +754,10 @@ func (r *BuildTriggerBuildSourceStorageSource) UnmarshalJSON(data []byte) error 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyBuildTriggerBuildSourceStorageSource *BuildTriggerBuildSourceStorageSource = &BuildTriggerBuildSourceStorageSource{empty: true}
+
+func (r *BuildTriggerBuildSourceStorageSource) Empty() bool {
+	return r.empty
+}
 
 func (r *BuildTriggerBuildSourceStorageSource) String() string {
 	return dcl.SprintResource(r)
@@ -773,6 +821,10 @@ func (r *BuildTriggerBuildSourceRepoSource) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyBuildTriggerBuildSourceRepoSource *BuildTriggerBuildSourceRepoSource = &BuildTriggerBuildSourceRepoSource{empty: true}
+
+func (r *BuildTriggerBuildSourceRepoSource) Empty() bool {
+	return r.empty
+}
 
 func (r *BuildTriggerBuildSourceRepoSource) String() string {
 	return dcl.SprintResource(r)

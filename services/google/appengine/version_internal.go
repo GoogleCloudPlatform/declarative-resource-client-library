@@ -5914,6 +5914,10 @@ func flattenVersionAutomaticScaling(c *Client, i interface{}) *VersionAutomaticS
 	}
 
 	r := &VersionAutomaticScaling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionAutomaticScaling
+	}
 	r.CoolDownPeriod = dcl.FlattenString(m["coolDownPeriod"])
 	r.CpuUtilization = flattenVersionAutomaticScalingCpuUtilization(c, m["cpuUtilization"])
 	r.MaxConcurrentRequests = dcl.FlattenInteger(m["maxConcurrentRequests"])
@@ -6039,6 +6043,10 @@ func flattenVersionAutomaticScalingCpuUtilization(c *Client, i interface{}) *Ver
 	}
 
 	r := &VersionAutomaticScalingCpuUtilization{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionAutomaticScalingCpuUtilization
+	}
 	r.AggregationWindowLength = dcl.FlattenString(m["aggregationWindowLength"])
 	r.TargetUtilization = dcl.FlattenDouble(m["targetUtilization"])
 
@@ -6153,6 +6161,10 @@ func flattenVersionAutomaticScalingRequestUtilization(c *Client, i interface{}) 
 	}
 
 	r := &VersionAutomaticScalingRequestUtilization{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionAutomaticScalingRequestUtilization
+	}
 	r.TargetRequestCountPerSecond = dcl.FlattenInteger(m["targetRequestCountPerSecond"])
 	r.TargetConcurrentRequests = dcl.FlattenInteger(m["targetConcurrentRequests"])
 
@@ -6273,6 +6285,10 @@ func flattenVersionAutomaticScalingDiskUtilization(c *Client, i interface{}) *Ve
 	}
 
 	r := &VersionAutomaticScalingDiskUtilization{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionAutomaticScalingDiskUtilization
+	}
 	r.TargetWriteBytesPerSecond = dcl.FlattenInteger(m["targetWriteBytesPerSecond"])
 	r.TargetWriteOpsPerSecond = dcl.FlattenInteger(m["targetWriteOpsPerSecond"])
 	r.TargetReadBytesPerSecond = dcl.FlattenInteger(m["targetReadBytesPerSecond"])
@@ -6395,6 +6411,10 @@ func flattenVersionAutomaticScalingNetworkUtilization(c *Client, i interface{}) 
 	}
 
 	r := &VersionAutomaticScalingNetworkUtilization{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionAutomaticScalingNetworkUtilization
+	}
 	r.TargetSentBytesPerSecond = dcl.FlattenInteger(m["targetSentBytesPerSecond"])
 	r.TargetSentPacketsPerSecond = dcl.FlattenInteger(m["targetSentPacketsPerSecond"])
 	r.TargetReceivedBytesPerSecond = dcl.FlattenInteger(m["targetReceivedBytesPerSecond"])
@@ -6517,6 +6537,10 @@ func flattenVersionAutomaticScalingStandardSchedulerSettings(c *Client, i interf
 	}
 
 	r := &VersionAutomaticScalingStandardSchedulerSettings{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionAutomaticScalingStandardSchedulerSettings
+	}
 	r.TargetCpuUtilization = dcl.FlattenDouble(m["targetCpuUtilization"])
 	r.TargetThroughputUtilization = dcl.FlattenDouble(m["targetThroughputUtilization"])
 	r.MinInstances = dcl.FlattenInteger(m["minInstances"])
@@ -6633,6 +6657,10 @@ func flattenVersionBasicScaling(c *Client, i interface{}) *VersionBasicScaling {
 	}
 
 	r := &VersionBasicScaling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionBasicScaling
+	}
 	r.IdleTimeout = dcl.FlattenString(m["idleTimeout"])
 	r.MaxInstances = dcl.FlattenInteger(m["maxInstances"])
 
@@ -6744,6 +6772,10 @@ func flattenVersionManualScaling(c *Client, i interface{}) *VersionManualScaling
 	}
 
 	r := &VersionManualScaling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionManualScaling
+	}
 	r.Instances = dcl.FlattenInteger(m["instances"])
 
 	return r
@@ -6866,6 +6898,10 @@ func flattenVersionNetwork(c *Client, i interface{}) *VersionNetwork {
 	}
 
 	r := &VersionNetwork{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionNetwork
+	}
 	r.ForwardedPorts = dcl.FlattenStringSlice(m["forwardedPorts"])
 	r.InstanceTag = dcl.FlattenString(m["instanceTag"])
 	r.Name = dcl.FlattenString(m["name"])
@@ -6991,6 +7027,10 @@ func flattenVersionResources(c *Client, i interface{}) *VersionResources {
 	}
 
 	r := &VersionResources{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionResources
+	}
 	r.Cpu = dcl.FlattenDouble(m["cpu"])
 	r.DiskGb = dcl.FlattenDouble(m["diskGb"])
 	r.MemoryGb = dcl.FlattenDouble(m["memoryGb"])
@@ -7110,6 +7150,10 @@ func flattenVersionResourcesVolumes(c *Client, i interface{}) *VersionResourcesV
 	}
 
 	r := &VersionResourcesVolumes{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionResourcesVolumes
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.VolumeType = dcl.FlattenString(m["volumeType"])
 	r.SizeGb = dcl.FlattenDouble(m["sizeGb"])
@@ -7249,6 +7293,10 @@ func flattenVersionHandlers(c *Client, i interface{}) *VersionHandlers {
 	}
 
 	r := &VersionHandlers{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionHandlers
+	}
 	r.UrlRegex = dcl.FlattenString(m["urlRegex"])
 	r.StaticFiles = flattenVersionHandlersStaticFiles(c, m["staticFiles"])
 	r.Script = flattenVersionHandlersScript(c, m["script"])
@@ -7384,6 +7432,10 @@ func flattenVersionHandlersStaticFiles(c *Client, i interface{}) *VersionHandler
 	}
 
 	r := &VersionHandlersStaticFiles{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionHandlersStaticFiles
+	}
 	r.Path = dcl.FlattenString(m["path"])
 	r.UploadPathRegex = dcl.FlattenString(m["uploadPathRegex"])
 	r.HttpHeaders = dcl.FlattenKeyValuePairs(m["httpHeaders"])
@@ -7500,6 +7552,10 @@ func flattenVersionHandlersScript(c *Client, i interface{}) *VersionHandlersScri
 	}
 
 	r := &VersionHandlersScript{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionHandlersScript
+	}
 	r.ScriptPath = dcl.FlattenString(m["scriptPath"])
 
 	return r
@@ -7610,6 +7666,10 @@ func flattenVersionHandlersApiEndpoint(c *Client, i interface{}) *VersionHandler
 	}
 
 	r := &VersionHandlersApiEndpoint{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionHandlersApiEndpoint
+	}
 	r.ScriptPath = dcl.FlattenString(m["scriptPath"])
 
 	return r
@@ -7726,6 +7786,10 @@ func flattenVersionErrorHandlers(c *Client, i interface{}) *VersionErrorHandlers
 	}
 
 	r := &VersionErrorHandlers{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionErrorHandlers
+	}
 	r.ErrorCode = flattenVersionErrorHandlersErrorCodeEnum(m["errorCode"])
 	r.StaticFile = dcl.FlattenString(m["staticFile"])
 	r.MimeType = dcl.FlattenString(m["mimeType"])
@@ -7841,6 +7905,10 @@ func flattenVersionLibraries(c *Client, i interface{}) *VersionLibraries {
 	}
 
 	r := &VersionLibraries{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionLibraries
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Version = dcl.FlattenString(m["version"])
 
@@ -7964,6 +8032,10 @@ func flattenVersionApiConfig(c *Client, i interface{}) *VersionApiConfig {
 	}
 
 	r := &VersionApiConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionApiConfig
+	}
 	r.AuthFailAction = flattenVersionApiConfigAuthFailActionEnum(m["authFailAction"])
 	r.Login = flattenVersionApiConfigLoginEnum(m["login"])
 	r.Script = dcl.FlattenString(m["script"])
@@ -8095,6 +8167,10 @@ func flattenVersionDeployment(c *Client, i interface{}) *VersionDeployment {
 	}
 
 	r := &VersionDeployment{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionDeployment
+	}
 	r.Files = flattenVersionDeploymentFilesMap(c, m["files"])
 	r.Container = flattenVersionDeploymentContainer(c, m["container"])
 	r.Zip = flattenVersionDeploymentZip(c, m["zip"])
@@ -8214,6 +8290,10 @@ func flattenVersionDeploymentFiles(c *Client, i interface{}) *VersionDeploymentF
 	}
 
 	r := &VersionDeploymentFiles{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionDeploymentFiles
+	}
 	r.SourceUrl = dcl.FlattenString(m["sourceUrl"])
 	r.Sha1Sum = dcl.FlattenString(m["sha1Sum"])
 	r.MimeType = dcl.FlattenString(m["mimeType"])
@@ -8326,6 +8406,10 @@ func flattenVersionDeploymentContainer(c *Client, i interface{}) *VersionDeploym
 	}
 
 	r := &VersionDeploymentContainer{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionDeploymentContainer
+	}
 	r.Image = dcl.FlattenString(m["image"])
 
 	return r
@@ -8439,6 +8523,10 @@ func flattenVersionDeploymentZip(c *Client, i interface{}) *VersionDeploymentZip
 	}
 
 	r := &VersionDeploymentZip{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionDeploymentZip
+	}
 	r.SourceUrl = dcl.FlattenString(m["sourceUrl"])
 	r.FilesCount = dcl.FlattenInteger(m["filesCount"])
 
@@ -8553,6 +8641,10 @@ func flattenVersionDeploymentCloudBuildOptions(c *Client, i interface{}) *Versio
 	}
 
 	r := &VersionDeploymentCloudBuildOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionDeploymentCloudBuildOptions
+	}
 	r.AppYamlPath = dcl.FlattenString(m["appYamlPath"])
 	r.CloudBuildTimeout = dcl.FlattenString(m["cloudBuildTimeout"])
 
@@ -8682,6 +8774,10 @@ func flattenVersionHealthCheck(c *Client, i interface{}) *VersionHealthCheck {
 	}
 
 	r := &VersionHealthCheck{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionHealthCheck
+	}
 	r.DisableHealthCheck = dcl.FlattenBool(m["disableHealthCheck"])
 	r.Host = dcl.FlattenString(m["host"])
 	r.HealthyThreshold = dcl.FlattenInteger(m["healthyThreshold"])
@@ -8816,6 +8912,10 @@ func flattenVersionReadinessCheck(c *Client, i interface{}) *VersionReadinessChe
 	}
 
 	r := &VersionReadinessCheck{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionReadinessCheck
+	}
 	r.Path = dcl.FlattenString(m["path"])
 	r.Host = dcl.FlattenString(m["host"])
 	r.FailureThreshold = dcl.FlattenInteger(m["failureThreshold"])
@@ -8950,6 +9050,10 @@ func flattenVersionLivenessCheck(c *Client, i interface{}) *VersionLivenessCheck
 	}
 
 	r := &VersionLivenessCheck{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionLivenessCheck
+	}
 	r.Path = dcl.FlattenString(m["path"])
 	r.Host = dcl.FlattenString(m["host"])
 	r.FailureThreshold = dcl.FlattenInteger(m["failureThreshold"])
@@ -9066,6 +9170,10 @@ func flattenVersionEntrypoint(c *Client, i interface{}) *VersionEntrypoint {
 	}
 
 	r := &VersionEntrypoint{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionEntrypoint
+	}
 	r.Shell = dcl.FlattenString(m["shell"])
 
 	return r
@@ -9176,6 +9284,10 @@ func flattenVersionVPCAccessConnector(c *Client, i interface{}) *VersionVPCAcces
 	}
 
 	r := &VersionVPCAccessConnector{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVersionVPCAccessConnector
+	}
 	r.Name = dcl.FlattenString(m["name"])
 
 	return r

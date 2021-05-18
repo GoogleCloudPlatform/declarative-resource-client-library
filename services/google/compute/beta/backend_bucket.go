@@ -71,6 +71,10 @@ func (r *BackendBucketCdnPolicy) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyBackendBucketCdnPolicy *BackendBucketCdnPolicy = &BackendBucketCdnPolicy{empty: true}
 
+func (r *BackendBucketCdnPolicy) Empty() bool {
+	return r.empty
+}
+
 func (r *BackendBucketCdnPolicy) String() string {
 	return dcl.SprintResource(r)
 }

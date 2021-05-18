@@ -1920,6 +1920,10 @@ func flattenBucketCors(c *Client, i interface{}) *BucketCors {
 	}
 
 	r := &BucketCors{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBucketCors
+	}
 	r.MaxAgeSeconds = dcl.FlattenInteger(m["maxAgeSeconds"])
 	r.Method = dcl.FlattenStringSlice(m["method"])
 	r.Origin = dcl.FlattenStringSlice(m["origin"])
@@ -2035,6 +2039,10 @@ func flattenBucketLifecycle(c *Client, i interface{}) *BucketLifecycle {
 	}
 
 	r := &BucketLifecycle{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBucketLifecycle
+	}
 	r.Rule = flattenBucketLifecycleRuleSlice(c, m["rule"])
 
 	return r
@@ -2152,6 +2160,10 @@ func flattenBucketLifecycleRule(c *Client, i interface{}) *BucketLifecycleRule {
 	}
 
 	r := &BucketLifecycleRule{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBucketLifecycleRule
+	}
 	r.Action = flattenBucketLifecycleRuleAction(c, m["action"])
 	r.Condition = flattenBucketLifecycleRuleCondition(c, m["condition"])
 
@@ -2266,6 +2278,10 @@ func flattenBucketLifecycleRuleAction(c *Client, i interface{}) *BucketLifecycle
 	}
 
 	r := &BucketLifecycleRuleAction{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBucketLifecycleRuleAction
+	}
 	r.StorageClass = dcl.FlattenString(m["storageClass"])
 	r.Type = flattenBucketLifecycleRuleActionTypeEnum(m["type"])
 
@@ -2391,6 +2407,10 @@ func flattenBucketLifecycleRuleCondition(c *Client, i interface{}) *BucketLifecy
 	}
 
 	r := &BucketLifecycleRuleCondition{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBucketLifecycleRuleCondition
+	}
 	r.Age = dcl.FlattenInteger(m["age"])
 	r.CreatedBefore = dcl.FlattenString(m["createdBefore"])
 	r.WithState = flattenStorageBucketLifecycleWithState(m["isLive"])
@@ -2508,6 +2528,10 @@ func flattenBucketLogging(c *Client, i interface{}) *BucketLogging {
 	}
 
 	r := &BucketLogging{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBucketLogging
+	}
 	r.LogBucket = dcl.FlattenString(m["logBucket"])
 	r.LogObjectPrefix = dcl.FlattenString(m["logObjectPrefix"])
 
@@ -2619,6 +2643,10 @@ func flattenBucketVersioning(c *Client, i interface{}) *BucketVersioning {
 	}
 
 	r := &BucketVersioning{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBucketVersioning
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 
 	return r
@@ -2732,6 +2760,10 @@ func flattenBucketWebsite(c *Client, i interface{}) *BucketWebsite {
 	}
 
 	r := &BucketWebsite{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBucketWebsite
+	}
 	r.MainPageSuffix = dcl.FlattenString(m["mainPageSuffix"])
 	r.NotFoundPage = dcl.FlattenString(m["notFoundPage"])
 

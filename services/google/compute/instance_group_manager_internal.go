@@ -2867,6 +2867,10 @@ func flattenInstanceGroupManagerDistributionPolicy(c *Client, i interface{}) *In
 	}
 
 	r := &InstanceGroupManagerDistributionPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGroupManagerDistributionPolicy
+	}
 	r.Zones = flattenInstanceGroupManagerDistributionPolicyZonesSlice(c, m["zones"])
 
 	return r
@@ -2977,6 +2981,10 @@ func flattenInstanceGroupManagerDistributionPolicyZones(c *Client, i interface{}
 	}
 
 	r := &InstanceGroupManagerDistributionPolicyZones{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGroupManagerDistributionPolicyZones
+	}
 	r.Zone = dcl.FlattenString(m["zone"])
 
 	return r
@@ -3108,6 +3116,10 @@ func flattenInstanceGroupManagerCurrentActions(c *Client, i interface{}) *Instan
 	}
 
 	r := &InstanceGroupManagerCurrentActions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGroupManagerCurrentActions
+	}
 	r.Abandoning = dcl.FlattenInteger(m["abandoning"])
 	r.Creating = dcl.FlattenInteger(m["creating"])
 	r.CreatingWithoutRetries = dcl.FlattenInteger(m["creatingWithoutRetries"])
@@ -3233,6 +3245,10 @@ func flattenInstanceGroupManagerVersions(c *Client, i interface{}) *InstanceGrou
 	}
 
 	r := &InstanceGroupManagerVersions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGroupManagerVersions
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.InstanceTemplate = dcl.FlattenString(m["instanceTemplate"])
 	r.TargetSize = flattenInstanceGroupManagerVersionsTargetSize(c, m["targetSize"])
@@ -3351,6 +3367,10 @@ func flattenInstanceGroupManagerVersionsTargetSize(c *Client, i interface{}) *In
 	}
 
 	r := &InstanceGroupManagerVersionsTargetSize{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGroupManagerVersionsTargetSize
+	}
 	r.Fixed = dcl.FlattenInteger(m["fixed"])
 	r.Percent = dcl.FlattenInteger(m["percent"])
 	r.Calculated = dcl.FlattenInteger(m["calculated"])
@@ -3466,6 +3486,10 @@ func flattenInstanceGroupManagerNamedPorts(c *Client, i interface{}) *InstanceGr
 	}
 
 	r := &InstanceGroupManagerNamedPorts{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGroupManagerNamedPorts
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Port = dcl.FlattenInteger(m["port"])
 
@@ -3585,6 +3609,10 @@ func flattenInstanceGroupManagerStatus(c *Client, i interface{}) *InstanceGroupM
 	}
 
 	r := &InstanceGroupManagerStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGroupManagerStatus
+	}
 	r.IsStable = dcl.FlattenBool(m["isStable"])
 	r.VersionTarget = flattenInstanceGroupManagerStatusVersionTarget(c, m["versionTarget"])
 	r.Autoscalar = dcl.FlattenString(m["autoscalar"])
@@ -3697,6 +3725,10 @@ func flattenInstanceGroupManagerStatusVersionTarget(c *Client, i interface{}) *I
 	}
 
 	r := &InstanceGroupManagerStatusVersionTarget{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGroupManagerStatusVersionTarget
+	}
 	r.IsReached = dcl.FlattenBool(m["isReached"])
 
 	return r
@@ -3810,6 +3842,10 @@ func flattenInstanceGroupManagerAutoHealingPolicies(c *Client, i interface{}) *I
 	}
 
 	r := &InstanceGroupManagerAutoHealingPolicies{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGroupManagerAutoHealingPolicies
+	}
 	r.HealthCheck = dcl.FlattenString(m["healthCheck"])
 	r.InitialDelaySec = dcl.FlattenInteger(m["initialDelaySec"])
 
@@ -3929,6 +3965,10 @@ func flattenInstanceGroupManagerUpdatePolicy(c *Client, i interface{}) *Instance
 	}
 
 	r := &InstanceGroupManagerUpdatePolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGroupManagerUpdatePolicy
+	}
 	r.InstanceRedistributionType = flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum(m["instanceRedistributionType"])
 	r.MinimalAction = flattenInstanceGroupManagerUpdatePolicyMinimalActionEnum(m["minimalAction"])
 	r.MaxSurge = flattenInstanceGroupManagerUpdatePolicyMaxSurge(c, m["maxSurge"])
@@ -4052,6 +4092,10 @@ func flattenInstanceGroupManagerUpdatePolicyMaxSurge(c *Client, i interface{}) *
 	}
 
 	r := &InstanceGroupManagerUpdatePolicyMaxSurge{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGroupManagerUpdatePolicyMaxSurge
+	}
 	r.Fixed = dcl.FlattenInteger(m["fixed"])
 	r.Percent = dcl.FlattenInteger(m["percent"])
 	r.Calculated = dcl.FlattenInteger(m["calculated"])
@@ -4171,6 +4215,10 @@ func flattenInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c *Client, i 
 	}
 
 	r := &InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable
+	}
 	r.Fixed = dcl.FlattenInteger(m["fixed"])
 	r.Percent = dcl.FlattenInteger(m["percent"])
 	r.Calculated = dcl.FlattenInteger(m["calculated"])

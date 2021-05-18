@@ -76,6 +76,10 @@ func (r *TenantOAuthIdpConfigResponseType) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyTenantOAuthIdpConfigResponseType *TenantOAuthIdpConfigResponseType = &TenantOAuthIdpConfigResponseType{empty: true}
 
+func (r *TenantOAuthIdpConfigResponseType) Empty() bool {
+	return r.empty
+}
+
 func (r *TenantOAuthIdpConfigResponseType) String() string {
 	return dcl.SprintResource(r)
 }

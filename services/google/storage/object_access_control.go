@@ -129,6 +129,10 @@ func (r *ObjectAccessControlProjectTeam) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyObjectAccessControlProjectTeam *ObjectAccessControlProjectTeam = &ObjectAccessControlProjectTeam{empty: true}
 
+func (r *ObjectAccessControlProjectTeam) Empty() bool {
+	return r.empty
+}
+
 func (r *ObjectAccessControlProjectTeam) String() string {
 	return dcl.SprintResource(r)
 }

@@ -1378,6 +1378,10 @@ func flattenReservationSpecificReservation(c *Client, i interface{}) *Reservatio
 	}
 
 	r := &ReservationSpecificReservation{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyReservationSpecificReservation
+	}
 	r.InstanceProperties = flattenReservationSpecificReservationInstanceProperties(c, m["instanceProperties"])
 	r.Count = dcl.FlattenInteger(m["count"])
 	r.InUseCount = dcl.FlattenInteger(m["inUseCount"])
@@ -1503,6 +1507,10 @@ func flattenReservationSpecificReservationInstanceProperties(c *Client, i interf
 	}
 
 	r := &ReservationSpecificReservationInstanceProperties{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyReservationSpecificReservationInstanceProperties
+	}
 	r.MachineType = dcl.FlattenString(m["machineType"])
 	r.GuestAccelerators = flattenReservationSpecificReservationInstancePropertiesGuestAcceleratorsSlice(c, m["guestAccelerators"])
 	r.MinCpuPlatform = dcl.FlattenString(m["minCpuPlatform"])
@@ -1619,6 +1627,10 @@ func flattenReservationSpecificReservationInstancePropertiesGuestAccelerators(c 
 	}
 
 	r := &ReservationSpecificReservationInstancePropertiesGuestAccelerators{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyReservationSpecificReservationInstancePropertiesGuestAccelerators
+	}
 	r.AcceleratorType = dcl.FlattenString(m["acceleratorType"])
 	r.AcceleratorCount = dcl.FlattenInteger(m["acceleratorCount"])
 
@@ -1733,6 +1745,10 @@ func flattenReservationSpecificReservationInstancePropertiesLocalSsds(c *Client,
 	}
 
 	r := &ReservationSpecificReservationInstancePropertiesLocalSsds{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyReservationSpecificReservationInstancePropertiesLocalSsds
+	}
 	r.DiskSizeGb = dcl.FlattenInteger(m["diskSizeGb"])
 	r.Interface = flattenReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum(m["interface"])
 

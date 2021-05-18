@@ -165,6 +165,10 @@ func (r *NodeCreateTime) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNodeCreateTime *NodeCreateTime = &NodeCreateTime{empty: true}
 
+func (r *NodeCreateTime) Empty() bool {
+	return r.empty
+}
+
 func (r *NodeCreateTime) String() string {
 	return dcl.SprintResource(r)
 }
@@ -210,6 +214,10 @@ func (r *NodeSchedulingConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNodeSchedulingConfig *NodeSchedulingConfig = &NodeSchedulingConfig{empty: true}
 
+func (r *NodeSchedulingConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *NodeSchedulingConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -254,6 +262,10 @@ func (r *NodeNetworkEndpoints) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyNodeNetworkEndpoints *NodeNetworkEndpoints = &NodeNetworkEndpoints{empty: true}
+
+func (r *NodeNetworkEndpoints) Empty() bool {
+	return r.empty
+}
 
 func (r *NodeNetworkEndpoints) String() string {
 	return dcl.SprintResource(r)
@@ -306,6 +318,10 @@ func (r *NodeSymptoms) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNodeSymptoms *NodeSymptoms = &NodeSymptoms{empty: true}
 
+func (r *NodeSymptoms) Empty() bool {
+	return r.empty
+}
+
 func (r *NodeSymptoms) String() string {
 	return dcl.SprintResource(r)
 }
@@ -350,6 +366,10 @@ func (r *NodeSymptomsCreateTime) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyNodeSymptomsCreateTime *NodeSymptomsCreateTime = &NodeSymptomsCreateTime{empty: true}
+
+func (r *NodeSymptomsCreateTime) Empty() bool {
+	return r.empty
+}
 
 func (r *NodeSymptomsCreateTime) String() string {
 	return dcl.SprintResource(r)

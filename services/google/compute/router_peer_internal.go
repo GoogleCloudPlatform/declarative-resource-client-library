@@ -1278,6 +1278,10 @@ func flattenRouterPeerAdvertisedIPRanges(c *Client, i interface{}) *RouterPeerAd
 	}
 
 	r := &RouterPeerAdvertisedIPRanges{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyRouterPeerAdvertisedIPRanges
+	}
 	r.Range = dcl.FlattenString(m["range"])
 	r.Description = dcl.FlattenString(m["description"])
 

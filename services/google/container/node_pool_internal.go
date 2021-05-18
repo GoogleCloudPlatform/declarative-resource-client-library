@@ -3158,6 +3158,10 @@ func flattenNodePoolConfig(c *Client, i interface{}) *NodePoolConfig {
 	}
 
 	r := &NodePoolConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNodePoolConfig
+	}
 	r.MachineType = dcl.FlattenString(m["machineType"])
 	r.DiskSizeGb = dcl.FlattenInteger(m["diskSizeGb"])
 	r.OAuthScopes = dcl.FlattenStringSlice(m["oauthScopes"])
@@ -3287,6 +3291,10 @@ func flattenNodePoolConfigAccelerators(c *Client, i interface{}) *NodePoolConfig
 	}
 
 	r := &NodePoolConfigAccelerators{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNodePoolConfigAccelerators
+	}
 	r.AcceleratorCount = dcl.FlattenInteger(m["acceleratorCount"])
 	r.AcceleratorType = dcl.FlattenString(m["acceleratorType"])
 
@@ -3404,6 +3412,10 @@ func flattenNodePoolConfigTaints(c *Client, i interface{}) *NodePoolConfigTaints
 	}
 
 	r := &NodePoolConfigTaints{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNodePoolConfigTaints
+	}
 	r.Key = dcl.FlattenString(m["key"])
 	r.Value = dcl.FlattenString(m["value"])
 	r.Effect = dcl.FlattenString(m["effect"])
@@ -3516,6 +3528,10 @@ func flattenNodePoolConfigSandboxConfig(c *Client, i interface{}) *NodePoolConfi
 	}
 
 	r := &NodePoolConfigSandboxConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNodePoolConfigSandboxConfig
+	}
 	r.Type = flattenNodePoolConfigSandboxConfigTypeEnum(m["type"])
 
 	return r
@@ -3632,6 +3648,10 @@ func flattenNodePoolConfigReservationAffinity(c *Client, i interface{}) *NodePoo
 	}
 
 	r := &NodePoolConfigReservationAffinity{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNodePoolConfigReservationAffinity
+	}
 	r.ConsumeReservationType = flattenNodePoolConfigReservationAffinityConsumeReservationTypeEnum(m["consumeReservationType"])
 	r.Key = dcl.FlattenString(m["key"])
 	r.Values = dcl.FlattenStringSlice(m["values"])
@@ -3747,6 +3767,10 @@ func flattenNodePoolConfigShieldedInstanceConfig(c *Client, i interface{}) *Node
 	}
 
 	r := &NodePoolConfigShieldedInstanceConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNodePoolConfigShieldedInstanceConfig
+	}
 	r.EnableSecureBoot = dcl.FlattenBool(m["enableSecureBoot"])
 	r.EnableIntegrityMonitoring = dcl.FlattenBool(m["enableIntegrityMonitoring"])
 
@@ -3867,6 +3891,10 @@ func flattenNodePoolAutoscaling(c *Client, i interface{}) *NodePoolAutoscaling {
 	}
 
 	r := &NodePoolAutoscaling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNodePoolAutoscaling
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 	r.MinNodeCount = dcl.FlattenInteger(m["minNodeCount"])
 	r.MaxNodeCount = dcl.FlattenInteger(m["maxNodeCount"])
@@ -3988,6 +4016,10 @@ func flattenNodePoolManagement(c *Client, i interface{}) *NodePoolManagement {
 	}
 
 	r := &NodePoolManagement{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNodePoolManagement
+	}
 	r.AutoUpgrade = dcl.FlattenBool(m["autoUpgrade"])
 	r.AutoRepair = dcl.FlattenBool(m["autoRepair"])
 	r.UpgradeOptions = flattenNodePoolManagementUpgradeOptions(c, m["upgradeOptions"])
@@ -4103,6 +4135,10 @@ func flattenNodePoolManagementUpgradeOptions(c *Client, i interface{}) *NodePool
 	}
 
 	r := &NodePoolManagementUpgradeOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNodePoolManagementUpgradeOptions
+	}
 	r.AutoUpgradeStartTime = dcl.FlattenString(m["autoUpgradeStartTime"])
 	r.Description = dcl.FlattenString(m["description"])
 
@@ -4214,6 +4250,10 @@ func flattenNodePoolMaxPodsConstraint(c *Client, i interface{}) *NodePoolMaxPods
 	}
 
 	r := &NodePoolMaxPodsConstraint{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNodePoolMaxPodsConstraint
+	}
 	r.MaxPodsPerNode = dcl.FlattenInteger(m["maxPodsPerNode"])
 
 	return r
@@ -4327,6 +4367,10 @@ func flattenNodePoolConditions(c *Client, i interface{}) *NodePoolConditions {
 	}
 
 	r := &NodePoolConditions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNodePoolConditions
+	}
 	r.Code = flattenNodePoolConditionsCodeEnum(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 
@@ -4441,6 +4485,10 @@ func flattenNodePoolUpgradeSettings(c *Client, i interface{}) *NodePoolUpgradeSe
 	}
 
 	r := &NodePoolUpgradeSettings{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNodePoolUpgradeSettings
+	}
 	r.MaxSurge = dcl.FlattenInteger(m["maxSurge"])
 	r.MaxUnavailable = dcl.FlattenInteger(m["maxUnavailable"])
 

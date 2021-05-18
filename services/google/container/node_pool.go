@@ -206,6 +206,10 @@ func (r *NodePoolConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNodePoolConfig *NodePoolConfig = &NodePoolConfig{empty: true}
 
+func (r *NodePoolConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *NodePoolConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -250,6 +254,10 @@ func (r *NodePoolConfigAccelerators) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyNodePoolConfigAccelerators *NodePoolConfigAccelerators = &NodePoolConfigAccelerators{empty: true}
+
+func (r *NodePoolConfigAccelerators) Empty() bool {
+	return r.empty
+}
 
 func (r *NodePoolConfigAccelerators) String() string {
 	return dcl.SprintResource(r)
@@ -299,6 +307,10 @@ func (r *NodePoolConfigTaints) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNodePoolConfigTaints *NodePoolConfigTaints = &NodePoolConfigTaints{empty: true}
 
+func (r *NodePoolConfigTaints) Empty() bool {
+	return r.empty
+}
+
 func (r *NodePoolConfigTaints) String() string {
 	return dcl.SprintResource(r)
 }
@@ -340,6 +352,10 @@ func (r *NodePoolConfigSandboxConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyNodePoolConfigSandboxConfig *NodePoolConfigSandboxConfig = &NodePoolConfigSandboxConfig{empty: true}
+
+func (r *NodePoolConfigSandboxConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *NodePoolConfigSandboxConfig) String() string {
 	return dcl.SprintResource(r)
@@ -389,6 +405,10 @@ func (r *NodePoolConfigReservationAffinity) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNodePoolConfigReservationAffinity *NodePoolConfigReservationAffinity = &NodePoolConfigReservationAffinity{empty: true}
 
+func (r *NodePoolConfigReservationAffinity) Empty() bool {
+	return r.empty
+}
+
 func (r *NodePoolConfigReservationAffinity) String() string {
 	return dcl.SprintResource(r)
 }
@@ -433,6 +453,10 @@ func (r *NodePoolConfigShieldedInstanceConfig) UnmarshalJSON(data []byte) error 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyNodePoolConfigShieldedInstanceConfig *NodePoolConfigShieldedInstanceConfig = &NodePoolConfigShieldedInstanceConfig{empty: true}
+
+func (r *NodePoolConfigShieldedInstanceConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *NodePoolConfigShieldedInstanceConfig) String() string {
 	return dcl.SprintResource(r)
@@ -485,6 +509,10 @@ func (r *NodePoolAutoscaling) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNodePoolAutoscaling *NodePoolAutoscaling = &NodePoolAutoscaling{empty: true}
 
+func (r *NodePoolAutoscaling) Empty() bool {
+	return r.empty
+}
+
 func (r *NodePoolAutoscaling) String() string {
 	return dcl.SprintResource(r)
 }
@@ -533,6 +561,10 @@ func (r *NodePoolManagement) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNodePoolManagement *NodePoolManagement = &NodePoolManagement{empty: true}
 
+func (r *NodePoolManagement) Empty() bool {
+	return r.empty
+}
+
 func (r *NodePoolManagement) String() string {
 	return dcl.SprintResource(r)
 }
@@ -578,6 +610,10 @@ func (r *NodePoolManagementUpgradeOptions) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNodePoolManagementUpgradeOptions *NodePoolManagementUpgradeOptions = &NodePoolManagementUpgradeOptions{empty: true}
 
+func (r *NodePoolManagementUpgradeOptions) Empty() bool {
+	return r.empty
+}
+
 func (r *NodePoolManagementUpgradeOptions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -619,6 +655,10 @@ func (r *NodePoolMaxPodsConstraint) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyNodePoolMaxPodsConstraint *NodePoolMaxPodsConstraint = &NodePoolMaxPodsConstraint{empty: true}
+
+func (r *NodePoolMaxPodsConstraint) Empty() bool {
+	return r.empty
+}
 
 func (r *NodePoolMaxPodsConstraint) String() string {
 	return dcl.SprintResource(r)
@@ -665,6 +705,10 @@ func (r *NodePoolConditions) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNodePoolConditions *NodePoolConditions = &NodePoolConditions{empty: true}
 
+func (r *NodePoolConditions) Empty() bool {
+	return r.empty
+}
+
 func (r *NodePoolConditions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -709,6 +753,10 @@ func (r *NodePoolUpgradeSettings) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyNodePoolUpgradeSettings *NodePoolUpgradeSettings = &NodePoolUpgradeSettings{empty: true}
+
+func (r *NodePoolUpgradeSettings) Empty() bool {
+	return r.empty
+}
 
 func (r *NodePoolUpgradeSettings) String() string {
 	return dcl.SprintResource(r)

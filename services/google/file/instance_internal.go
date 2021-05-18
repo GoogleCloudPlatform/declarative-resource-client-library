@@ -1440,6 +1440,10 @@ func flattenInstanceFileShares(c *Client, i interface{}) *InstanceFileShares {
 	}
 
 	r := &InstanceFileShares{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceFileShares
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.CapacityGb = dcl.FlattenInteger(m["capacityGb"])
 	r.SourceBackup = dcl.FlattenString(m["sourceBackup"])
@@ -1565,6 +1569,10 @@ func flattenInstanceFileSharesNfsExportOptions(c *Client, i interface{}) *Instan
 	}
 
 	r := &InstanceFileSharesNfsExportOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceFileSharesNfsExportOptions
+	}
 	r.IPRanges = dcl.FlattenStringSlice(m["ipRanges"])
 	r.AccessMode = flattenInstanceFileSharesNfsExportOptionsAccessModeEnum(m["accessMode"])
 	r.SquashMode = flattenInstanceFileSharesNfsExportOptionsSquashModeEnum(m["squashMode"])
@@ -1688,6 +1696,10 @@ func flattenInstanceNetworks(c *Client, i interface{}) *InstanceNetworks {
 	}
 
 	r := &InstanceNetworks{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceNetworks
+	}
 	r.Network = dcl.FlattenString(m["network"])
 	r.Modes = flattenInstanceNetworksModesEnumSlice(c, m["modes"])
 	r.ReservedIPRange = dcl.FlattenString(m["reservedIpRange"])

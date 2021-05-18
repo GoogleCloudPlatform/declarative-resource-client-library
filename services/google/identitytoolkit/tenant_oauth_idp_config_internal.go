@@ -1054,6 +1054,10 @@ func flattenTenantOAuthIdpConfigResponseType(c *Client, i interface{}) *TenantOA
 	}
 
 	r := &TenantOAuthIdpConfigResponseType{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTenantOAuthIdpConfigResponseType
+	}
 	r.IdToken = dcl.FlattenBool(m["idToken"])
 	r.Code = dcl.FlattenBool(m["code"])
 	r.Token = dcl.FlattenBool(m["token"])

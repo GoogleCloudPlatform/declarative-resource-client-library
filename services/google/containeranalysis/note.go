@@ -485,6 +485,10 @@ func (r *NoteRelatedUrl) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNoteRelatedUrl *NoteRelatedUrl = &NoteRelatedUrl{empty: true}
 
+func (r *NoteRelatedUrl) Empty() bool {
+	return r.empty
+}
+
 func (r *NoteRelatedUrl) String() string {
 	return dcl.SprintResource(r)
 }
@@ -541,6 +545,10 @@ func (r *NoteVulnerability) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyNoteVulnerability *NoteVulnerability = &NoteVulnerability{empty: true}
+
+func (r *NoteVulnerability) Empty() bool {
+	return r.empty
+}
 
 func (r *NoteVulnerability) String() string {
 	return dcl.SprintResource(r)
@@ -617,6 +625,10 @@ func (r *NoteVulnerabilityDetails) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNoteVulnerabilityDetails *NoteVulnerabilityDetails = &NoteVulnerabilityDetails{empty: true}
 
+func (r *NoteVulnerabilityDetails) Empty() bool {
+	return r.empty
+}
+
 func (r *NoteVulnerabilityDetails) String() string {
 	return dcl.SprintResource(r)
 }
@@ -670,6 +682,10 @@ func (r *NoteVulnerabilityDetailsAffectedVersionStart) UnmarshalJSON(data []byte
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyNoteVulnerabilityDetailsAffectedVersionStart *NoteVulnerabilityDetailsAffectedVersionStart = &NoteVulnerabilityDetailsAffectedVersionStart{empty: true}
+
+func (r *NoteVulnerabilityDetailsAffectedVersionStart) Empty() bool {
+	return r.empty
+}
 
 func (r *NoteVulnerabilityDetailsAffectedVersionStart) String() string {
 	return dcl.SprintResource(r)
@@ -725,6 +741,10 @@ func (r *NoteVulnerabilityDetailsAffectedVersionEnd) UnmarshalJSON(data []byte) 
 // as one.  Modifying this object will have undesirable results.
 var EmptyNoteVulnerabilityDetailsAffectedVersionEnd *NoteVulnerabilityDetailsAffectedVersionEnd = &NoteVulnerabilityDetailsAffectedVersionEnd{empty: true}
 
+func (r *NoteVulnerabilityDetailsAffectedVersionEnd) Empty() bool {
+	return r.empty
+}
+
 func (r *NoteVulnerabilityDetailsAffectedVersionEnd) String() string {
 	return dcl.SprintResource(r)
 }
@@ -778,6 +798,10 @@ func (r *NoteVulnerabilityDetailsFixedVersion) UnmarshalJSON(data []byte) error 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyNoteVulnerabilityDetailsFixedVersion *NoteVulnerabilityDetailsFixedVersion = &NoteVulnerabilityDetailsFixedVersion{empty: true}
+
+func (r *NoteVulnerabilityDetailsFixedVersion) Empty() bool {
+	return r.empty
+}
 
 func (r *NoteVulnerabilityDetailsFixedVersion) String() string {
 	return dcl.SprintResource(r)
@@ -851,6 +875,10 @@ func (r *NoteVulnerabilityCvssV3) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNoteVulnerabilityCvssV3 *NoteVulnerabilityCvssV3 = &NoteVulnerabilityCvssV3{empty: true}
 
+func (r *NoteVulnerabilityCvssV3) Empty() bool {
+	return r.empty
+}
+
 func (r *NoteVulnerabilityCvssV3) String() string {
 	return dcl.SprintResource(r)
 }
@@ -902,6 +930,10 @@ func (r *NoteVulnerabilityWindowsDetails) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNoteVulnerabilityWindowsDetails *NoteVulnerabilityWindowsDetails = &NoteVulnerabilityWindowsDetails{empty: true}
 
+func (r *NoteVulnerabilityWindowsDetails) Empty() bool {
+	return r.empty
+}
+
 func (r *NoteVulnerabilityWindowsDetails) String() string {
 	return dcl.SprintResource(r)
 }
@@ -947,6 +979,10 @@ func (r *NoteVulnerabilityWindowsDetailsFixingKbs) UnmarshalJSON(data []byte) er
 // as one.  Modifying this object will have undesirable results.
 var EmptyNoteVulnerabilityWindowsDetailsFixingKbs *NoteVulnerabilityWindowsDetailsFixingKbs = &NoteVulnerabilityWindowsDetailsFixingKbs{empty: true}
 
+func (r *NoteVulnerabilityWindowsDetailsFixingKbs) Empty() bool {
+	return r.empty
+}
+
 func (r *NoteVulnerabilityWindowsDetailsFixingKbs) String() string {
 	return dcl.SprintResource(r)
 }
@@ -988,6 +1024,10 @@ func (r *NoteBuild) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyNoteBuild *NoteBuild = &NoteBuild{empty: true}
+
+func (r *NoteBuild) Empty() bool {
+	return r.empty
+}
 
 func (r *NoteBuild) String() string {
 	return dcl.SprintResource(r)
@@ -1033,6 +1073,10 @@ func (r *NoteImage) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyNoteImage *NoteImage = &NoteImage{empty: true}
+
+func (r *NoteImage) Empty() bool {
+	return r.empty
+}
 
 func (r *NoteImage) String() string {
 	return dcl.SprintResource(r)
@@ -1082,6 +1126,10 @@ func (r *NoteImageFingerprint) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNoteImageFingerprint *NoteImageFingerprint = &NoteImageFingerprint{empty: true}
 
+func (r *NoteImageFingerprint) Empty() bool {
+	return r.empty
+}
+
 func (r *NoteImageFingerprint) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1126,6 +1174,10 @@ func (r *NotePackage) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyNotePackage *NotePackage = &NotePackage{empty: true}
+
+func (r *NotePackage) Empty() bool {
+	return r.empty
+}
 
 func (r *NotePackage) String() string {
 	return dcl.SprintResource(r)
@@ -1184,6 +1236,10 @@ func (r *NotePackageDistribution) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNotePackageDistribution *NotePackageDistribution = &NotePackageDistribution{empty: true}
 
+func (r *NotePackageDistribution) Empty() bool {
+	return r.empty
+}
+
 func (r *NotePackageDistribution) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1238,6 +1294,10 @@ func (r *NotePackageDistributionLatestVersion) UnmarshalJSON(data []byte) error 
 // as one.  Modifying this object will have undesirable results.
 var EmptyNotePackageDistributionLatestVersion *NotePackageDistributionLatestVersion = &NotePackageDistributionLatestVersion{empty: true}
 
+func (r *NotePackageDistributionLatestVersion) Empty() bool {
+	return r.empty
+}
+
 func (r *NotePackageDistributionLatestVersion) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1279,6 +1339,10 @@ func (r *NoteDiscovery) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyNoteDiscovery *NoteDiscovery = &NoteDiscovery{empty: true}
+
+func (r *NoteDiscovery) Empty() bool {
+	return r.empty
+}
 
 func (r *NoteDiscovery) String() string {
 	return dcl.SprintResource(r)
@@ -1322,6 +1386,10 @@ func (r *NoteDeployment) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNoteDeployment *NoteDeployment = &NoteDeployment{empty: true}
 
+func (r *NoteDeployment) Empty() bool {
+	return r.empty
+}
+
 func (r *NoteDeployment) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1364,6 +1432,10 @@ func (r *NoteAttestation) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNoteAttestation *NoteAttestation = &NoteAttestation{empty: true}
 
+func (r *NoteAttestation) Empty() bool {
+	return r.empty
+}
+
 func (r *NoteAttestation) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1405,6 +1477,10 @@ func (r *NoteAttestationHint) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyNoteAttestationHint *NoteAttestationHint = &NoteAttestationHint{empty: true}
+
+func (r *NoteAttestationHint) Empty() bool {
+	return r.empty
+}
 
 func (r *NoteAttestationHint) String() string {
 	return dcl.SprintResource(r)

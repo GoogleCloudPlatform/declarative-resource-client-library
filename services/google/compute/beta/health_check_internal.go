@@ -2076,6 +2076,10 @@ func flattenHealthCheckHttp2HealthCheck(c *Client, i interface{}) *HealthCheckHt
 	}
 
 	r := &HealthCheckHttp2HealthCheck{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyHealthCheckHttp2HealthCheck
+	}
 	r.Port = dcl.FlattenInteger(m["port"])
 	r.PortName = dcl.FlattenString(m["portName"])
 	r.PortSpecification = flattenHealthCheckHttp2HealthCheckPortSpecificationEnum(m["portSpecification"])
@@ -2210,6 +2214,10 @@ func flattenHealthCheckHttpHealthCheck(c *Client, i interface{}) *HealthCheckHtt
 	}
 
 	r := &HealthCheckHttpHealthCheck{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyHealthCheckHttpHealthCheck
+	}
 	r.Port = dcl.FlattenInteger(m["port"])
 	r.PortName = dcl.FlattenString(m["portName"])
 	r.PortSpecification = flattenHealthCheckHttpHealthCheckPortSpecificationEnum(m["portSpecification"])
@@ -2344,6 +2352,10 @@ func flattenHealthCheckHttpsHealthCheck(c *Client, i interface{}) *HealthCheckHt
 	}
 
 	r := &HealthCheckHttpsHealthCheck{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyHealthCheckHttpsHealthCheck
+	}
 	r.Port = dcl.FlattenInteger(m["port"])
 	r.PortName = dcl.FlattenString(m["portName"])
 	r.PortSpecification = flattenHealthCheckHttpsHealthCheckPortSpecificationEnum(m["portSpecification"])
@@ -2475,6 +2487,10 @@ func flattenHealthCheckSslHealthCheck(c *Client, i interface{}) *HealthCheckSslH
 	}
 
 	r := &HealthCheckSslHealthCheck{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyHealthCheckSslHealthCheck
+	}
 	r.Port = dcl.FlattenInteger(m["port"])
 	r.PortName = dcl.FlattenString(m["portName"])
 	r.PortSpecification = flattenHealthCheckSslHealthCheckPortSpecificationEnum(m["portSpecification"])
@@ -2605,6 +2621,10 @@ func flattenHealthCheckTcpHealthCheck(c *Client, i interface{}) *HealthCheckTcpH
 	}
 
 	r := &HealthCheckTcpHealthCheck{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyHealthCheckTcpHealthCheck
+	}
 	r.Port = dcl.FlattenInteger(m["port"])
 	r.PortName = dcl.FlattenString(m["portName"])
 	r.PortSpecification = flattenHealthCheckTcpHealthCheckPortSpecificationEnum(m["portSpecification"])

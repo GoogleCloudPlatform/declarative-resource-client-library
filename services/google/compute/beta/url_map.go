@@ -226,6 +226,10 @@ func (r *UrlMapDefaultRouteAction) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapDefaultRouteAction *UrlMapDefaultRouteAction = &UrlMapDefaultRouteAction{empty: true}
 
+func (r *UrlMapDefaultRouteAction) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapDefaultRouteAction) String() string {
 	return dcl.SprintResource(r)
 }
@@ -273,6 +277,10 @@ func (r *UrlMapDefaultRouteActionWeightedBackendService) UnmarshalJSON(data []by
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapDefaultRouteActionWeightedBackendService *UrlMapDefaultRouteActionWeightedBackendService = &UrlMapDefaultRouteActionWeightedBackendService{empty: true}
+
+func (r *UrlMapDefaultRouteActionWeightedBackendService) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapDefaultRouteActionWeightedBackendService) String() string {
 	return dcl.SprintResource(r)
@@ -325,6 +333,10 @@ func (r *UrlMapHeaderAction) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapHeaderAction *UrlMapHeaderAction = &UrlMapHeaderAction{empty: true}
 
+func (r *UrlMapHeaderAction) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapHeaderAction) String() string {
 	return dcl.SprintResource(r)
 }
@@ -372,6 +384,10 @@ func (r *UrlMapHeaderActionRequestHeadersToAdd) UnmarshalJSON(data []byte) error
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapHeaderActionRequestHeadersToAdd *UrlMapHeaderActionRequestHeadersToAdd = &UrlMapHeaderActionRequestHeadersToAdd{empty: true}
+
+func (r *UrlMapHeaderActionRequestHeadersToAdd) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapHeaderActionRequestHeadersToAdd) String() string {
 	return dcl.SprintResource(r)
@@ -421,6 +437,10 @@ func (r *UrlMapHeaderActionResponseHeadersToAdd) UnmarshalJSON(data []byte) erro
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapHeaderActionResponseHeadersToAdd *UrlMapHeaderActionResponseHeadersToAdd = &UrlMapHeaderActionResponseHeadersToAdd{empty: true}
 
+func (r *UrlMapHeaderActionResponseHeadersToAdd) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapHeaderActionResponseHeadersToAdd) String() string {
 	return dcl.SprintResource(r)
 }
@@ -466,6 +486,10 @@ func (r *UrlMapDefaultRouteActionUrlRewrite) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapDefaultRouteActionUrlRewrite *UrlMapDefaultRouteActionUrlRewrite = &UrlMapDefaultRouteActionUrlRewrite{empty: true}
 
+func (r *UrlMapDefaultRouteActionUrlRewrite) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapDefaultRouteActionUrlRewrite) String() string {
 	return dcl.SprintResource(r)
 }
@@ -510,6 +534,10 @@ func (r *UrlMapDefaultRouteActionTimeout) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapDefaultRouteActionTimeout *UrlMapDefaultRouteActionTimeout = &UrlMapDefaultRouteActionTimeout{empty: true}
+
+func (r *UrlMapDefaultRouteActionTimeout) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapDefaultRouteActionTimeout) String() string {
 	return dcl.SprintResource(r)
@@ -559,6 +587,10 @@ func (r *UrlMapDefaultRouteActionRetryPolicy) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapDefaultRouteActionRetryPolicy *UrlMapDefaultRouteActionRetryPolicy = &UrlMapDefaultRouteActionRetryPolicy{empty: true}
 
+func (r *UrlMapDefaultRouteActionRetryPolicy) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapDefaultRouteActionRetryPolicy) String() string {
 	return dcl.SprintResource(r)
 }
@@ -604,6 +636,10 @@ func (r *UrlMapDefaultRouteActionRetryPolicyPerTryTimeout) UnmarshalJSON(data []
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapDefaultRouteActionRetryPolicyPerTryTimeout *UrlMapDefaultRouteActionRetryPolicyPerTryTimeout = &UrlMapDefaultRouteActionRetryPolicyPerTryTimeout{empty: true}
 
+func (r *UrlMapDefaultRouteActionRetryPolicyPerTryTimeout) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapDefaultRouteActionRetryPolicyPerTryTimeout) String() string {
 	return dcl.SprintResource(r)
 }
@@ -645,6 +681,10 @@ func (r *UrlMapDefaultRouteActionRequestMirrorPolicy) UnmarshalJSON(data []byte)
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapDefaultRouteActionRequestMirrorPolicy *UrlMapDefaultRouteActionRequestMirrorPolicy = &UrlMapDefaultRouteActionRequestMirrorPolicy{empty: true}
+
+func (r *UrlMapDefaultRouteActionRequestMirrorPolicy) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapDefaultRouteActionRequestMirrorPolicy) String() string {
 	return dcl.SprintResource(r)
@@ -709,6 +749,10 @@ func (r *UrlMapDefaultRouteActionCorsPolicy) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapDefaultRouteActionCorsPolicy *UrlMapDefaultRouteActionCorsPolicy = &UrlMapDefaultRouteActionCorsPolicy{empty: true}
 
+func (r *UrlMapDefaultRouteActionCorsPolicy) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapDefaultRouteActionCorsPolicy) String() string {
 	return dcl.SprintResource(r)
 }
@@ -753,6 +797,10 @@ func (r *UrlMapDefaultRouteActionFaultInjectionPolicy) UnmarshalJSON(data []byte
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapDefaultRouteActionFaultInjectionPolicy *UrlMapDefaultRouteActionFaultInjectionPolicy = &UrlMapDefaultRouteActionFaultInjectionPolicy{empty: true}
+
+func (r *UrlMapDefaultRouteActionFaultInjectionPolicy) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapDefaultRouteActionFaultInjectionPolicy) String() string {
 	return dcl.SprintResource(r)
@@ -799,6 +847,10 @@ func (r *UrlMapDefaultRouteActionFaultInjectionPolicyDelay) UnmarshalJSON(data [
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapDefaultRouteActionFaultInjectionPolicyDelay *UrlMapDefaultRouteActionFaultInjectionPolicyDelay = &UrlMapDefaultRouteActionFaultInjectionPolicyDelay{empty: true}
 
+func (r *UrlMapDefaultRouteActionFaultInjectionPolicyDelay) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapDefaultRouteActionFaultInjectionPolicyDelay) String() string {
 	return dcl.SprintResource(r)
 }
@@ -844,6 +896,10 @@ func (r *UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay) UnmarshalJ
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay *UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay = &UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay{empty: true}
 
+func (r *UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay) String() string {
 	return dcl.SprintResource(r)
 }
@@ -888,6 +944,10 @@ func (r *UrlMapDefaultRouteActionFaultInjectionPolicyAbort) UnmarshalJSON(data [
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapDefaultRouteActionFaultInjectionPolicyAbort *UrlMapDefaultRouteActionFaultInjectionPolicyAbort = &UrlMapDefaultRouteActionFaultInjectionPolicyAbort{empty: true}
+
+func (r *UrlMapDefaultRouteActionFaultInjectionPolicyAbort) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapDefaultRouteActionFaultInjectionPolicyAbort) String() string {
 	return dcl.SprintResource(r)
@@ -946,6 +1006,10 @@ func (r *UrlMapDefaultUrlRedirect) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapDefaultUrlRedirect *UrlMapDefaultUrlRedirect = &UrlMapDefaultUrlRedirect{empty: true}
 
+func (r *UrlMapDefaultUrlRedirect) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapDefaultUrlRedirect) String() string {
 	return dcl.SprintResource(r)
 }
@@ -993,6 +1057,10 @@ func (r *UrlMapHostRule) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapHostRule *UrlMapHostRule = &UrlMapHostRule{empty: true}
+
+func (r *UrlMapHostRule) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapHostRule) String() string {
 	return dcl.SprintResource(r)
@@ -1057,6 +1125,10 @@ func (r *UrlMapPathMatcher) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcher *UrlMapPathMatcher = &UrlMapPathMatcher{empty: true}
 
+func (r *UrlMapPathMatcher) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcher) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1114,6 +1186,10 @@ func (r *UrlMapPathMatcherDefaultUrlRedirect) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherDefaultUrlRedirect *UrlMapPathMatcherDefaultUrlRedirect = &UrlMapPathMatcherDefaultUrlRedirect{empty: true}
 
+func (r *UrlMapPathMatcherDefaultUrlRedirect) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherDefaultUrlRedirect) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1164,6 +1240,10 @@ func (r *UrlMapPathMatcherPathRule) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherPathRule *UrlMapPathMatcherPathRule = &UrlMapPathMatcherPathRule{empty: true}
+
+func (r *UrlMapPathMatcherPathRule) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapPathMatcherPathRule) String() string {
 	return dcl.SprintResource(r)
@@ -1225,6 +1305,10 @@ func (r *UrlMapPathMatcherPathRuleRouteAction) UnmarshalJSON(data []byte) error 
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherPathRuleRouteAction *UrlMapPathMatcherPathRuleRouteAction = &UrlMapPathMatcherPathRuleRouteAction{empty: true}
 
+func (r *UrlMapPathMatcherPathRuleRouteAction) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherPathRuleRouteAction) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1273,6 +1357,10 @@ func (r *UrlMapPathMatcherPathRuleRouteActionWeightedBackendService) UnmarshalJS
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherPathRuleRouteActionWeightedBackendService *UrlMapPathMatcherPathRuleRouteActionWeightedBackendService = &UrlMapPathMatcherPathRuleRouteActionWeightedBackendService{empty: true}
 
+func (r *UrlMapPathMatcherPathRuleRouteActionWeightedBackendService) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherPathRuleRouteActionWeightedBackendService) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1318,6 +1406,10 @@ func (r *UrlMapPathMatcherPathRuleRouteActionUrlRewrite) UnmarshalJSON(data []by
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherPathRuleRouteActionUrlRewrite *UrlMapPathMatcherPathRuleRouteActionUrlRewrite = &UrlMapPathMatcherPathRuleRouteActionUrlRewrite{empty: true}
 
+func (r *UrlMapPathMatcherPathRuleRouteActionUrlRewrite) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherPathRuleRouteActionUrlRewrite) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1362,6 +1454,10 @@ func (r *UrlMapPathMatcherPathRuleRouteActionTimeout) UnmarshalJSON(data []byte)
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherPathRuleRouteActionTimeout *UrlMapPathMatcherPathRuleRouteActionTimeout = &UrlMapPathMatcherPathRuleRouteActionTimeout{empty: true}
+
+func (r *UrlMapPathMatcherPathRuleRouteActionTimeout) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapPathMatcherPathRuleRouteActionTimeout) String() string {
 	return dcl.SprintResource(r)
@@ -1411,6 +1507,10 @@ func (r *UrlMapPathMatcherPathRuleRouteActionRetryPolicy) UnmarshalJSON(data []b
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherPathRuleRouteActionRetryPolicy *UrlMapPathMatcherPathRuleRouteActionRetryPolicy = &UrlMapPathMatcherPathRuleRouteActionRetryPolicy{empty: true}
 
+func (r *UrlMapPathMatcherPathRuleRouteActionRetryPolicy) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherPathRuleRouteActionRetryPolicy) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1456,6 +1556,10 @@ func (r *UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout) Unmarshal
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout *UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout = &UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout{empty: true}
 
+func (r *UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1497,6 +1601,10 @@ func (r *UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy) UnmarshalJSON(
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy *UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy = &UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy{empty: true}
+
+func (r *UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy) String() string {
 	return dcl.SprintResource(r)
@@ -1561,6 +1669,10 @@ func (r *UrlMapPathMatcherPathRuleRouteActionCorsPolicy) UnmarshalJSON(data []by
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherPathRuleRouteActionCorsPolicy *UrlMapPathMatcherPathRuleRouteActionCorsPolicy = &UrlMapPathMatcherPathRuleRouteActionCorsPolicy{empty: true}
 
+func (r *UrlMapPathMatcherPathRuleRouteActionCorsPolicy) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherPathRuleRouteActionCorsPolicy) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1605,6 +1717,10 @@ func (r *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy) UnmarshalJSON
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy = &UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy{empty: true}
+
+func (r *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy) String() string {
 	return dcl.SprintResource(r)
@@ -1651,6 +1767,10 @@ func (r *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay) Unmarsha
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay = &UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay{empty: true}
 
+func (r *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1696,6 +1816,10 @@ func (r *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay = &UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay{empty: true}
 
+func (r *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1740,6 +1864,10 @@ func (r *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort) Unmarsha
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort = &UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort{empty: true}
+
+func (r *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort) String() string {
 	return dcl.SprintResource(r)
@@ -1797,6 +1925,10 @@ func (r *UrlMapPathMatcherPathRuleUrlRedirect) UnmarshalJSON(data []byte) error 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherPathRuleUrlRedirect *UrlMapPathMatcherPathRuleUrlRedirect = &UrlMapPathMatcherPathRuleUrlRedirect{empty: true}
+
+func (r *UrlMapPathMatcherPathRuleUrlRedirect) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapPathMatcherPathRuleUrlRedirect) String() string {
 	return dcl.SprintResource(r)
@@ -1858,6 +1990,10 @@ func (r *UrlMapPathMatcherRouteRule) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherRouteRule *UrlMapPathMatcherRouteRule = &UrlMapPathMatcherRouteRule{empty: true}
 
+func (r *UrlMapPathMatcherRouteRule) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherRouteRule) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1917,6 +2053,10 @@ func (r *UrlMapPathMatcherRouteRuleMatchRule) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherRouteRuleMatchRule *UrlMapPathMatcherRouteRuleMatchRule = &UrlMapPathMatcherRouteRuleMatchRule{empty: true}
+
+func (r *UrlMapPathMatcherRouteRuleMatchRule) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapPathMatcherRouteRuleMatchRule) String() string {
 	return dcl.SprintResource(r)
@@ -1981,6 +2121,10 @@ func (r *UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch) UnmarshalJSON(data []by
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherRouteRuleMatchRuleHeaderMatch *UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch = &UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch{empty: true}
 
+func (r *UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2025,6 +2169,10 @@ func (r *UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch) UnmarshalJSON
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch *UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch = &UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch{empty: true}
+
+func (r *UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch) String() string {
 	return dcl.SprintResource(r)
@@ -2077,6 +2225,10 @@ func (r *UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch) UnmarshalJSON(d
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch *UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch = &UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch{empty: true}
 
+func (r *UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2122,6 +2274,10 @@ func (r *UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter) UnmarshalJSON(data [
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherRouteRuleMatchRuleMetadataFilter *UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter = &UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter{empty: true}
 
+func (r *UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2166,6 +2322,10 @@ func (r *UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel) Unmarshal
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel *UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel = &UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel{empty: true}
+
+func (r *UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel) String() string {
 	return dcl.SprintResource(r)
@@ -2227,6 +2387,10 @@ func (r *UrlMapPathMatcherRouteRuleRouteAction) UnmarshalJSON(data []byte) error
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherRouteRuleRouteAction *UrlMapPathMatcherRouteRuleRouteAction = &UrlMapPathMatcherRouteRuleRouteAction{empty: true}
 
+func (r *UrlMapPathMatcherRouteRuleRouteAction) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherRouteRuleRouteAction) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2275,6 +2439,10 @@ func (r *UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService) UnmarshalJ
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherRouteRuleRouteActionWeightedBackendService *UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService = &UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService{empty: true}
 
+func (r *UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2320,6 +2488,10 @@ func (r *UrlMapPathMatcherRouteRuleRouteActionUrlRewrite) UnmarshalJSON(data []b
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherRouteRuleRouteActionUrlRewrite *UrlMapPathMatcherRouteRuleRouteActionUrlRewrite = &UrlMapPathMatcherRouteRuleRouteActionUrlRewrite{empty: true}
 
+func (r *UrlMapPathMatcherRouteRuleRouteActionUrlRewrite) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherRouteRuleRouteActionUrlRewrite) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2364,6 +2536,10 @@ func (r *UrlMapPathMatcherRouteRuleRouteActionTimeout) UnmarshalJSON(data []byte
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherRouteRuleRouteActionTimeout *UrlMapPathMatcherRouteRuleRouteActionTimeout = &UrlMapPathMatcherRouteRuleRouteActionTimeout{empty: true}
+
+func (r *UrlMapPathMatcherRouteRuleRouteActionTimeout) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapPathMatcherRouteRuleRouteActionTimeout) String() string {
 	return dcl.SprintResource(r)
@@ -2413,6 +2589,10 @@ func (r *UrlMapPathMatcherRouteRuleRouteActionRetryPolicy) UnmarshalJSON(data []
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherRouteRuleRouteActionRetryPolicy *UrlMapPathMatcherRouteRuleRouteActionRetryPolicy = &UrlMapPathMatcherRouteRuleRouteActionRetryPolicy{empty: true}
 
+func (r *UrlMapPathMatcherRouteRuleRouteActionRetryPolicy) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherRouteRuleRouteActionRetryPolicy) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2458,6 +2638,10 @@ func (r *UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout) Unmarsha
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout *UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout = &UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout{empty: true}
 
+func (r *UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2499,6 +2683,10 @@ func (r *UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy) UnmarshalJSON
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy *UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy = &UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy{empty: true}
+
+func (r *UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy) String() string {
 	return dcl.SprintResource(r)
@@ -2563,6 +2751,10 @@ func (r *UrlMapPathMatcherRouteRuleRouteActionCorsPolicy) UnmarshalJSON(data []b
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherRouteRuleRouteActionCorsPolicy *UrlMapPathMatcherRouteRuleRouteActionCorsPolicy = &UrlMapPathMatcherRouteRuleRouteActionCorsPolicy{empty: true}
 
+func (r *UrlMapPathMatcherRouteRuleRouteActionCorsPolicy) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherRouteRuleRouteActionCorsPolicy) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2607,6 +2799,10 @@ func (r *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy) UnmarshalJSO
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy = &UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy{empty: true}
+
+func (r *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy) String() string {
 	return dcl.SprintResource(r)
@@ -2653,6 +2849,10 @@ func (r *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay) Unmarsh
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay = &UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay{empty: true}
 
+func (r *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2698,6 +2898,10 @@ func (r *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDela
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay = &UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay{empty: true}
 
+func (r *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2742,6 +2946,10 @@ func (r *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort) Unmarsh
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort = &UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort{empty: true}
+
+func (r *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort) String() string {
 	return dcl.SprintResource(r)
@@ -2800,6 +3008,10 @@ func (r *UrlMapPathMatcherRouteRuleUrlRedirect) UnmarshalJSON(data []byte) error
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapPathMatcherRouteRuleUrlRedirect *UrlMapPathMatcherRouteRuleUrlRedirect = &UrlMapPathMatcherRouteRuleUrlRedirect{empty: true}
 
+func (r *UrlMapPathMatcherRouteRuleUrlRedirect) Empty() bool {
+	return r.empty
+}
+
 func (r *UrlMapPathMatcherRouteRuleUrlRedirect) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2850,6 +3062,10 @@ func (r *UrlMapTest) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyUrlMapTest *UrlMapTest = &UrlMapTest{empty: true}
+
+func (r *UrlMapTest) Empty() bool {
+	return r.empty
+}
 
 func (r *UrlMapTest) String() string {
 	return dcl.SprintResource(r)

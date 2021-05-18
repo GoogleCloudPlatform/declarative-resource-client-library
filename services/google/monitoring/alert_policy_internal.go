@@ -9198,6 +9198,10 @@ func flattenAlertPolicyDocumentation(c *Client, i interface{}) *AlertPolicyDocum
 	}
 
 	r := &AlertPolicyDocumentation{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyDocumentation
+	}
 	r.Content = dcl.FlattenString(m["content"])
 	r.MimeType = dcl.FlattenString(m["mimeType"])
 
@@ -9360,6 +9364,10 @@ func flattenAlertPolicyConditions(c *Client, i interface{}) *AlertPolicyConditio
 	}
 
 	r := &AlertPolicyConditions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditions
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.DisplayName = dcl.FlattenString(m["displayName"])
 	r.ResourceStateFilter = flattenAlertPolicyConditionsResourceStateFilterEnum(m["resourceStateFilter"])
@@ -9508,6 +9516,10 @@ func flattenAlertPolicyConditionsConditionThreshold(c *Client, i interface{}) *A
 	}
 
 	r := &AlertPolicyConditionsConditionThreshold{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionThreshold
+	}
 	r.Filter = dcl.FlattenString(m["filter"])
 	r.Aggregations = flattenAlertPolicyConditionsConditionThresholdAggregationsSlice(c, m["aggregations"])
 	r.DenominatorFilter = dcl.FlattenString(m["denominatorFilter"])
@@ -9644,6 +9656,10 @@ func flattenAlertPolicyConditionsConditionThresholdAggregations(c *Client, i int
 	}
 
 	r := &AlertPolicyConditionsConditionThresholdAggregations{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionThresholdAggregations
+	}
 	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenAlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenAlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum(m["crossSeriesReducer"])
@@ -9759,6 +9775,10 @@ func flattenAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLes
 	}
 
 	r := &AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams
+	}
 	r.Threshold = dcl.FlattenDouble(m["threshold"])
 
 	return r
@@ -9876,6 +9896,10 @@ func flattenAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 	}
 
 	r := &AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams
+	}
 	r.BucketOptions = flattenAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions(c, m["bucketOptions"])
 	r.ExemplarSampling = flattenAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling(c, m["exemplarSampling"])
 
@@ -9999,6 +10023,10 @@ func flattenAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 	}
 
 	r := &AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions
+	}
 	r.LinearBuckets = flattenAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, m["linearBuckets"])
 	r.ExponentialBuckets = flattenAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, m["exponentialBuckets"])
 	r.ExplicitBuckets = flattenAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, m["explicitBuckets"])
@@ -10117,6 +10145,10 @@ func flattenAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 	}
 
 	r := &AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.Width = dcl.FlattenDouble(m["width"])
 	r.Offset = dcl.FlattenDouble(m["offset"])
@@ -10235,6 +10267,10 @@ func flattenAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 	}
 
 	r := &AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.GrowthFactor = dcl.FlattenDouble(m["growthFactor"])
 	r.Scale = dcl.FlattenDouble(m["scale"])
@@ -10347,6 +10383,10 @@ func flattenAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 	}
 
 	r := &AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	}
 	r.Bounds = dcl.FlattenFloatSlice(m["bounds"])
 
 	return r
@@ -10457,6 +10497,10 @@ func flattenAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 	}
 
 	r := &AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling
+	}
 	r.MinimumValue = dcl.FlattenDouble(m["minimumValue"])
 
 	return r
@@ -10586,6 +10630,10 @@ func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregations(c *Cl
 	}
 
 	r := &AlertPolicyConditionsConditionThresholdDenominatorAggregations{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregations
+	}
 	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum(m["crossSeriesReducer"])
@@ -10701,6 +10749,10 @@ func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 	}
 
 	r := &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams
+	}
 	r.Threshold = dcl.FlattenDouble(m["threshold"])
 
 	return r
@@ -10818,6 +10870,10 @@ func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 	}
 
 	r := &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams
+	}
 	r.BucketOptions = flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions(c, m["bucketOptions"])
 	r.ExemplarSampling = flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling(c, m["exemplarSampling"])
 
@@ -10941,6 +10997,10 @@ func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 	}
 
 	r := &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions
+	}
 	r.LinearBuckets = flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, m["linearBuckets"])
 	r.ExponentialBuckets = flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, m["exponentialBuckets"])
 	r.ExplicitBuckets = flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, m["explicitBuckets"])
@@ -11059,6 +11119,10 @@ func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 	}
 
 	r := &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.Width = dcl.FlattenDouble(m["width"])
 	r.Offset = dcl.FlattenDouble(m["offset"])
@@ -11177,6 +11241,10 @@ func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 	}
 
 	r := &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.GrowthFactor = dcl.FlattenDouble(m["growthFactor"])
 	r.Scale = dcl.FlattenDouble(m["scale"])
@@ -11289,6 +11357,10 @@ func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 	}
 
 	r := &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	}
 	r.Bounds = dcl.FlattenFloatSlice(m["bounds"])
 
 	return r
@@ -11399,6 +11471,10 @@ func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 	}
 
 	r := &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling
+	}
 	r.MinimumValue = dcl.FlattenDouble(m["minimumValue"])
 
 	return r
@@ -11512,6 +11588,10 @@ func flattenAlertPolicyConditionsConditionThresholdTrigger(c *Client, i interfac
 	}
 
 	r := &AlertPolicyConditionsConditionThresholdTrigger{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionThresholdTrigger
+	}
 	r.Count = dcl.FlattenInteger(m["count"])
 	r.Percent = dcl.FlattenDouble(m["percent"])
 
@@ -11638,6 +11718,10 @@ func flattenAlertPolicyConditionsConditionAbsent(c *Client, i interface{}) *Aler
 	}
 
 	r := &AlertPolicyConditionsConditionAbsent{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionAbsent
+	}
 	r.Filter = dcl.FlattenString(m["filter"])
 	r.Aggregations = flattenAlertPolicyConditionsConditionAbsentAggregationsSlice(c, m["aggregations"])
 	r.Duration = flattenAlertPolicyConditionsConditionAbsentDuration(c, m["duration"])
@@ -11770,6 +11854,10 @@ func flattenAlertPolicyConditionsConditionAbsentAggregations(c *Client, i interf
 	}
 
 	r := &AlertPolicyConditionsConditionAbsentAggregations{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionAbsentAggregations
+	}
 	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenAlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenAlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum(m["crossSeriesReducer"])
@@ -11885,6 +11973,10 @@ func flattenAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessTh
 	}
 
 	r := &AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams
+	}
 	r.Threshold = dcl.FlattenDouble(m["threshold"])
 
 	return r
@@ -12002,6 +12094,10 @@ func flattenAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 	}
 
 	r := &AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams
+	}
 	r.BucketOptions = flattenAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions(c, m["bucketOptions"])
 	r.ExemplarSampling = flattenAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling(c, m["exemplarSampling"])
 
@@ -12125,6 +12221,10 @@ func flattenAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 	}
 
 	r := &AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions
+	}
 	r.LinearBuckets = flattenAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, m["linearBuckets"])
 	r.ExponentialBuckets = flattenAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, m["exponentialBuckets"])
 	r.ExplicitBuckets = flattenAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, m["explicitBuckets"])
@@ -12243,6 +12343,10 @@ func flattenAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 	}
 
 	r := &AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.Width = dcl.FlattenDouble(m["width"])
 	r.Offset = dcl.FlattenDouble(m["offset"])
@@ -12361,6 +12465,10 @@ func flattenAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 	}
 
 	r := &AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.GrowthFactor = dcl.FlattenDouble(m["growthFactor"])
 	r.Scale = dcl.FlattenDouble(m["scale"])
@@ -12473,6 +12581,10 @@ func flattenAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 	}
 
 	r := &AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	}
 	r.Bounds = dcl.FlattenFloatSlice(m["bounds"])
 
 	return r
@@ -12583,6 +12695,10 @@ func flattenAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 	}
 
 	r := &AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling
+	}
 	r.MinimumValue = dcl.FlattenDouble(m["minimumValue"])
 
 	return r
@@ -12696,6 +12812,10 @@ func flattenAlertPolicyConditionsConditionAbsentDuration(c *Client, i interface{
 	}
 
 	r := &AlertPolicyConditionsConditionAbsentDuration{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionAbsentDuration
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -12810,6 +12930,10 @@ func flattenAlertPolicyConditionsConditionAbsentTrigger(c *Client, i interface{}
 	}
 
 	r := &AlertPolicyConditionsConditionAbsentTrigger{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionAbsentTrigger
+	}
 	r.Count = dcl.FlattenInteger(m["count"])
 	r.Percent = dcl.FlattenDouble(m["percent"])
 
@@ -12924,6 +13048,10 @@ func flattenAlertPolicyConditionsConditionMatchedLog(c *Client, i interface{}) *
 	}
 
 	r := &AlertPolicyConditionsConditionMatchedLog{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionMatchedLog
+	}
 	r.Filter = dcl.FlattenString(m["filter"])
 	r.LabelExtractors = dcl.FlattenKeyValuePairs(m["labelExtractors"])
 
@@ -13035,6 +13163,10 @@ func flattenAlertPolicyConditionsConditionClusterOutlier(c *Client, i interface{
 	}
 
 	r := &AlertPolicyConditionsConditionClusterOutlier{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionClusterOutlier
+	}
 	r.Filter = dcl.FlattenString(m["filter"])
 
 	return r
@@ -13166,6 +13298,10 @@ func flattenAlertPolicyConditionsConditionRate(c *Client, i interface{}) *AlertP
 	}
 
 	r := &AlertPolicyConditionsConditionRate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionRate
+	}
 	r.Filter = dcl.FlattenString(m["filter"])
 	r.Aggregations = flattenAlertPolicyConditionsConditionRateAggregationsSlice(c, m["aggregations"])
 	r.Comparison = flattenAlertPolicyConditionsConditionRateComparisonEnum(m["comparison"])
@@ -13300,6 +13436,10 @@ func flattenAlertPolicyConditionsConditionRateAggregations(c *Client, i interfac
 	}
 
 	r := &AlertPolicyConditionsConditionRateAggregations{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionRateAggregations
+	}
 	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenAlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenAlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum(m["crossSeriesReducer"])
@@ -13415,6 +13555,10 @@ func flattenAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThan
 	}
 
 	r := &AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams
+	}
 	r.Threshold = dcl.FlattenDouble(m["threshold"])
 
 	return r
@@ -13532,6 +13676,10 @@ func flattenAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 	}
 
 	r := &AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams
+	}
 	r.BucketOptions = flattenAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions(c, m["bucketOptions"])
 	r.ExemplarSampling = flattenAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling(c, m["exemplarSampling"])
 
@@ -13655,6 +13803,10 @@ func flattenAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 	}
 
 	r := &AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions
+	}
 	r.LinearBuckets = flattenAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, m["linearBuckets"])
 	r.ExponentialBuckets = flattenAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, m["exponentialBuckets"])
 	r.ExplicitBuckets = flattenAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, m["explicitBuckets"])
@@ -13773,6 +13925,10 @@ func flattenAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 	}
 
 	r := &AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.Width = dcl.FlattenDouble(m["width"])
 	r.Offset = dcl.FlattenDouble(m["offset"])
@@ -13891,6 +14047,10 @@ func flattenAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 	}
 
 	r := &AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.GrowthFactor = dcl.FlattenDouble(m["growthFactor"])
 	r.Scale = dcl.FlattenDouble(m["scale"])
@@ -14003,6 +14163,10 @@ func flattenAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 	}
 
 	r := &AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	}
 	r.Bounds = dcl.FlattenFloatSlice(m["bounds"])
 
 	return r
@@ -14113,6 +14277,10 @@ func flattenAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 	}
 
 	r := &AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling
+	}
 	r.MinimumValue = dcl.FlattenDouble(m["minimumValue"])
 
 	return r
@@ -14226,6 +14394,10 @@ func flattenAlertPolicyConditionsConditionRateTimeWindow(c *Client, i interface{
 	}
 
 	r := &AlertPolicyConditionsConditionRateTimeWindow{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionRateTimeWindow
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -14340,6 +14512,10 @@ func flattenAlertPolicyConditionsConditionRateTrigger(c *Client, i interface{}) 
 	}
 
 	r := &AlertPolicyConditionsConditionRateTrigger{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionRateTrigger
+	}
 	r.Count = dcl.FlattenInteger(m["count"])
 	r.Percent = dcl.FlattenDouble(m["percent"])
 
@@ -14467,6 +14643,10 @@ func flattenAlertPolicyConditionsConditionUpMon(c *Client, i interface{}) *Alert
 	}
 
 	r := &AlertPolicyConditionsConditionUpMon{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionUpMon
+	}
 	r.Filter = dcl.FlattenString(m["filter"])
 	r.EndpointId = dcl.FlattenString(m["endpointId"])
 	r.CheckId = dcl.FlattenString(m["checkId"])
@@ -14584,6 +14764,10 @@ func flattenAlertPolicyConditionsConditionUpMonDuration(c *Client, i interface{}
 	}
 
 	r := &AlertPolicyConditionsConditionUpMonDuration{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionUpMonDuration
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -14698,6 +14882,10 @@ func flattenAlertPolicyConditionsConditionUpMonTrigger(c *Client, i interface{})
 	}
 
 	r := &AlertPolicyConditionsConditionUpMonTrigger{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionUpMonTrigger
+	}
 	r.Count = dcl.FlattenInteger(m["count"])
 	r.Percent = dcl.FlattenDouble(m["percent"])
 
@@ -14831,6 +15019,10 @@ func flattenAlertPolicyConditionsConditionProcessCount(c *Client, i interface{})
 	}
 
 	r := &AlertPolicyConditionsConditionProcessCount{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionProcessCount
+	}
 	r.Process = dcl.FlattenString(m["process"])
 	r.User = dcl.FlattenString(m["user"])
 	r.Filter = dcl.FlattenString(m["filter"])
@@ -14950,6 +15142,10 @@ func flattenAlertPolicyConditionsConditionProcessCountTrigger(c *Client, i inter
 	}
 
 	r := &AlertPolicyConditionsConditionProcessCountTrigger{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionProcessCountTrigger
+	}
 	r.Count = dcl.FlattenInteger(m["count"])
 	r.Percent = dcl.FlattenDouble(m["percent"])
 
@@ -15064,6 +15260,10 @@ func flattenAlertPolicyConditionsConditionProcessCountDuration(c *Client, i inte
 	}
 
 	r := &AlertPolicyConditionsConditionProcessCountDuration{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionProcessCountDuration
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -15178,6 +15378,10 @@ func flattenAlertPolicyConditionsConditionTimeSeriesQueryLanguage(c *Client, i i
 	}
 
 	r := &AlertPolicyConditionsConditionTimeSeriesQueryLanguage{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionTimeSeriesQueryLanguage
+	}
 	r.Query = dcl.FlattenString(m["query"])
 	r.Summary = dcl.FlattenString(m["summary"])
 
@@ -15299,6 +15503,10 @@ func flattenAlertPolicyConditionsConditionMonitoringQueryLanguage(c *Client, i i
 	}
 
 	r := &AlertPolicyConditionsConditionMonitoringQueryLanguage{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionMonitoringQueryLanguage
+	}
 	r.Query = dcl.FlattenString(m["query"])
 	r.Duration = flattenAlertPolicyConditionsConditionMonitoringQueryLanguageDuration(c, m["duration"])
 	r.Trigger = flattenAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger(c, m["trigger"])
@@ -15414,6 +15622,10 @@ func flattenAlertPolicyConditionsConditionMonitoringQueryLanguageDuration(c *Cli
 	}
 
 	r := &AlertPolicyConditionsConditionMonitoringQueryLanguageDuration{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionMonitoringQueryLanguageDuration
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -15528,6 +15740,10 @@ func flattenAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger(c *Clie
 	}
 
 	r := &AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger
+	}
 	r.Count = dcl.FlattenInteger(m["count"])
 	r.Percent = dcl.FlattenDouble(m["percent"])
 
@@ -15639,6 +15855,10 @@ func flattenAlertPolicyEnabled(c *Client, i interface{}) *AlertPolicyEnabled {
 	}
 
 	r := &AlertPolicyEnabled{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyEnabled
+	}
 	r.Value = dcl.FlattenBool(m["value"])
 
 	return r
@@ -15757,6 +15977,10 @@ func flattenAlertPolicyValidity(c *Client, i interface{}) *AlertPolicyValidity {
 	}
 
 	r := &AlertPolicyValidity{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyValidity
+	}
 	r.Code = dcl.FlattenInteger(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Details = flattenAlertPolicyValidityDetailsSlice(c, m["details"])
@@ -15872,6 +16096,10 @@ func flattenAlertPolicyValidityDetails(c *Client, i interface{}) *AlertPolicyVal
 	}
 
 	r := &AlertPolicyValidityDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyValidityDetails
+	}
 	r.TypeUrl = dcl.FlattenString(m["typeUrl"])
 	r.Value = dcl.FlattenString(m["value"])
 
@@ -15988,6 +16216,10 @@ func flattenAlertPolicyCreationRecord(c *Client, i interface{}) *AlertPolicyCrea
 	}
 
 	r := &AlertPolicyCreationRecord{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyCreationRecord
+	}
 	r.MutateTime = flattenAlertPolicyCreationRecordMutateTime(c, m["mutateTime"])
 	r.MutatedBy = dcl.FlattenString(m["mutatedBy"])
 
@@ -16102,6 +16334,10 @@ func flattenAlertPolicyCreationRecordMutateTime(c *Client, i interface{}) *Alert
 	}
 
 	r := &AlertPolicyCreationRecordMutateTime{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyCreationRecordMutateTime
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -16218,6 +16454,10 @@ func flattenAlertPolicyMutationRecord(c *Client, i interface{}) *AlertPolicyMuta
 	}
 
 	r := &AlertPolicyMutationRecord{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyMutationRecord
+	}
 	r.MutateTime = flattenAlertPolicyMutationRecordMutateTime(c, m["mutateTime"])
 	r.MutatedBy = dcl.FlattenString(m["mutatedBy"])
 
@@ -16332,6 +16572,10 @@ func flattenAlertPolicyMutationRecordMutateTime(c *Client, i interface{}) *Alert
 	}
 
 	r := &AlertPolicyMutationRecordMutateTime{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyMutationRecordMutateTime
+	}
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
 	r.Nanos = dcl.FlattenInteger(m["nanos"])
 
@@ -16443,6 +16687,10 @@ func flattenAlertPolicyIncidentStrategy(c *Client, i interface{}) *AlertPolicyIn
 	}
 
 	r := &AlertPolicyIncidentStrategy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyIncidentStrategy
+	}
 	r.Type = flattenAlertPolicyIncidentStrategyTypeEnum(m["type"])
 
 	return r
@@ -16553,6 +16801,10 @@ func flattenAlertPolicyMetadata(c *Client, i interface{}) *AlertPolicyMetadata {
 	}
 
 	r := &AlertPolicyMetadata{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAlertPolicyMetadata
+	}
 	r.SloNames = dcl.FlattenStringSlice(m["sloNames"])
 
 	return r

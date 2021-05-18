@@ -110,6 +110,10 @@ func (r *NetworkEndpointGroupCloudRun) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNetworkEndpointGroupCloudRun *NetworkEndpointGroupCloudRun = &NetworkEndpointGroupCloudRun{empty: true}
 
+func (r *NetworkEndpointGroupCloudRun) Empty() bool {
+	return r.empty
+}
+
 func (r *NetworkEndpointGroupCloudRun) String() string {
 	return dcl.SprintResource(r)
 }
@@ -158,6 +162,10 @@ func (r *NetworkEndpointGroupAppEngine) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyNetworkEndpointGroupAppEngine *NetworkEndpointGroupAppEngine = &NetworkEndpointGroupAppEngine{empty: true}
 
+func (r *NetworkEndpointGroupAppEngine) Empty() bool {
+	return r.empty
+}
+
 func (r *NetworkEndpointGroupAppEngine) String() string {
 	return dcl.SprintResource(r)
 }
@@ -202,6 +210,10 @@ func (r *NetworkEndpointGroupCloudFunction) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyNetworkEndpointGroupCloudFunction *NetworkEndpointGroupCloudFunction = &NetworkEndpointGroupCloudFunction{empty: true}
+
+func (r *NetworkEndpointGroupCloudFunction) Empty() bool {
+	return r.empty
+}
 
 func (r *NetworkEndpointGroupCloudFunction) String() string {
 	return dcl.SprintResource(r)

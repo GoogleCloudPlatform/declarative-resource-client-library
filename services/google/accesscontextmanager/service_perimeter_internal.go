@@ -1502,6 +1502,10 @@ func flattenServicePerimeterStatus(c *Client, i interface{}) *ServicePerimeterSt
 	}
 
 	r := &ServicePerimeterStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServicePerimeterStatus
+	}
 	r.Resources = dcl.FlattenStringSlice(m["resources"])
 	r.AccessLevels = dcl.FlattenStringSlice(m["accessLevels"])
 	r.RestrictedServices = dcl.FlattenStringSlice(m["restrictedServices"])
@@ -1618,6 +1622,10 @@ func flattenServicePerimeterStatusVPCAccessibleServices(c *Client, i interface{}
 	}
 
 	r := &ServicePerimeterStatusVPCAccessibleServices{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServicePerimeterStatusVPCAccessibleServices
+	}
 	r.EnableRestriction = dcl.FlattenBool(m["enableRestriction"])
 	r.AllowedServices = dcl.FlattenStringSlice(m["allowedServices"])
 
@@ -1740,6 +1748,10 @@ func flattenServicePerimeterSpec(c *Client, i interface{}) *ServicePerimeterSpec
 	}
 
 	r := &ServicePerimeterSpec{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServicePerimeterSpec
+	}
 	r.Resources = dcl.FlattenStringSlice(m["resources"])
 	r.AccessLevels = dcl.FlattenStringSlice(m["accessLevels"])
 	r.RestrictedServices = dcl.FlattenStringSlice(m["restrictedServices"])
@@ -1856,6 +1868,10 @@ func flattenServicePerimeterSpecVPCAccessibleServices(c *Client, i interface{}) 
 	}
 
 	r := &ServicePerimeterSpecVPCAccessibleServices{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyServicePerimeterSpecVPCAccessibleServices
+	}
 	r.EnableRestriction = dcl.FlattenBool(m["enableRestriction"])
 	r.AllowedServices = dcl.FlattenStringSlice(m["allowedServices"])
 

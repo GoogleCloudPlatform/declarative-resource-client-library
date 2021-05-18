@@ -945,6 +945,10 @@ func flattenSslCertificateSelfManaged(c *Client, i interface{}) *SslCertificateS
 	}
 
 	r := &SslCertificateSelfManaged{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptySslCertificateSelfManaged
+	}
 	r.Certificate = dcl.FlattenString(m["certificate"])
 	r.PrivateKey = dcl.FlattenSecretValue(m["privateKey"])
 

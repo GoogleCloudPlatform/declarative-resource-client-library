@@ -387,6 +387,10 @@ func (r *InstanceMaxDiskSize) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceMaxDiskSize *InstanceMaxDiskSize = &InstanceMaxDiskSize{empty: true}
 
+func (r *InstanceMaxDiskSize) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceMaxDiskSize) String() string {
 	return dcl.SprintResource(r)
 }
@@ -428,6 +432,10 @@ func (r *InstanceCurrentDiskSize) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceCurrentDiskSize *InstanceCurrentDiskSize = &InstanceCurrentDiskSize{empty: true}
+
+func (r *InstanceCurrentDiskSize) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceCurrentDiskSize) String() string {
 	return dcl.SprintResource(r)
@@ -473,6 +481,10 @@ func (r *InstanceDiskEncryptionConfiguration) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceDiskEncryptionConfiguration *InstanceDiskEncryptionConfiguration = &InstanceDiskEncryptionConfiguration{empty: true}
+
+func (r *InstanceDiskEncryptionConfiguration) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceDiskEncryptionConfiguration) String() string {
 	return dcl.SprintResource(r)
@@ -522,6 +534,10 @@ func (r *InstanceFailoverReplica) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceFailoverReplica *InstanceFailoverReplica = &InstanceFailoverReplica{empty: true}
 
+func (r *InstanceFailoverReplica) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceFailoverReplica) String() string {
 	return dcl.SprintResource(r)
 }
@@ -566,6 +582,10 @@ func (r *InstanceFailoverReplicaFailoverInstance) UnmarshalJSON(data []byte) err
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceFailoverReplicaFailoverInstance *InstanceFailoverReplicaFailoverInstance = &InstanceFailoverReplicaFailoverInstance{empty: true}
+
+func (r *InstanceFailoverReplicaFailoverInstance) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceFailoverReplicaFailoverInstance) String() string {
 	return dcl.SprintResource(r)
@@ -615,6 +635,10 @@ func (r *InstanceIPAddresses) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceIPAddresses *InstanceIPAddresses = &InstanceIPAddresses{empty: true}
 
+func (r *InstanceIPAddresses) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceIPAddresses) String() string {
 	return dcl.SprintResource(r)
 }
@@ -660,6 +684,10 @@ func (r *InstanceIPAddressesTimeToRetire) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceIPAddressesTimeToRetire *InstanceIPAddressesTimeToRetire = &InstanceIPAddressesTimeToRetire{empty: true}
 
+func (r *InstanceIPAddressesTimeToRetire) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceIPAddressesTimeToRetire) String() string {
 	return dcl.SprintResource(r)
 }
@@ -704,6 +732,10 @@ func (r *InstanceMasterInstance) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceMasterInstance *InstanceMasterInstance = &InstanceMasterInstance{empty: true}
+
+func (r *InstanceMasterInstance) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceMasterInstance) String() string {
 	return dcl.SprintResource(r)
@@ -755,6 +787,10 @@ func (r *InstanceReplicaConfiguration) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReplicaConfiguration *InstanceReplicaConfiguration = &InstanceReplicaConfiguration{empty: true}
+
+func (r *InstanceReplicaConfiguration) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReplicaConfiguration) String() string {
 	return dcl.SprintResource(r)
@@ -828,6 +864,10 @@ func (r *InstanceReplicaConfigurationMysqlReplicaConfiguration) UnmarshalJSON(da
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReplicaConfigurationMysqlReplicaConfiguration *InstanceReplicaConfigurationMysqlReplicaConfiguration = &InstanceReplicaConfigurationMysqlReplicaConfiguration{empty: true}
 
+func (r *InstanceReplicaConfigurationMysqlReplicaConfiguration) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReplicaConfigurationMysqlReplicaConfiguration) String() string {
 	return dcl.SprintResource(r)
 }
@@ -869,6 +909,10 @@ func (r *InstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPer
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriod *InstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriod = &InstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriod{empty: true}
+
+func (r *InstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriod) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriod) String() string {
 	return dcl.SprintResource(r)
@@ -924,6 +968,10 @@ func (r *InstanceReplicaConfigurationReplicaPoolConfiguration) UnmarshalJSON(dat
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReplicaConfigurationReplicaPoolConfiguration *InstanceReplicaConfigurationReplicaPoolConfiguration = &InstanceReplicaConfigurationReplicaPoolConfiguration{empty: true}
 
+func (r *InstanceReplicaConfigurationReplicaPoolConfiguration) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReplicaConfigurationReplicaPoolConfiguration) String() string {
 	return dcl.SprintResource(r)
 }
@@ -971,6 +1019,10 @@ func (r *InstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfigura
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration *InstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration = &InstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration{empty: true}
+
+func (r *InstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration) String() string {
 	return dcl.SprintResource(r)
@@ -1023,6 +1075,10 @@ func (r *InstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConf
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration *InstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration = &InstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration{empty: true}
 
+func (r *InstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1071,6 +1127,10 @@ func (r *InstanceScheduledMaintenance) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceScheduledMaintenance *InstanceScheduledMaintenance = &InstanceScheduledMaintenance{empty: true}
 
+func (r *InstanceScheduledMaintenance) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceScheduledMaintenance) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1115,6 +1175,10 @@ func (r *InstanceScheduledMaintenanceStartTime) UnmarshalJSON(data []byte) error
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceScheduledMaintenanceStartTime *InstanceScheduledMaintenanceStartTime = &InstanceScheduledMaintenanceStartTime{empty: true}
+
+func (r *InstanceScheduledMaintenanceStartTime) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceScheduledMaintenanceStartTime) String() string {
 	return dcl.SprintResource(r)
@@ -1227,6 +1291,10 @@ func (r *InstanceSettings) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceSettings *InstanceSettings = &InstanceSettings{empty: true}
 
+func (r *InstanceSettings) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceSettings) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1269,6 +1337,10 @@ func (r *InstanceSettingsSettingsVersion) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceSettingsSettingsVersion *InstanceSettingsSettingsVersion = &InstanceSettingsSettingsVersion{empty: true}
 
+func (r *InstanceSettingsSettingsVersion) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceSettingsSettingsVersion) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1310,6 +1382,10 @@ func (r *InstanceSettingsStorageAutoResizeLimit) UnmarshalJSON(data []byte) erro
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceSettingsStorageAutoResizeLimit *InstanceSettingsStorageAutoResizeLimit = &InstanceSettingsStorageAutoResizeLimit{empty: true}
+
+func (r *InstanceSettingsStorageAutoResizeLimit) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceSettingsStorageAutoResizeLimit) String() string {
 	return dcl.SprintResource(r)
@@ -1362,6 +1438,10 @@ func (r *InstanceSettingsIPConfiguration) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceSettingsIPConfiguration *InstanceSettingsIPConfiguration = &InstanceSettingsIPConfiguration{empty: true}
 
+func (r *InstanceSettingsIPConfiguration) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceSettingsIPConfiguration) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1413,6 +1493,10 @@ func (r *InstanceSettingsIPConfigurationAuthorizedNetworks) UnmarshalJSON(data [
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceSettingsIPConfigurationAuthorizedNetworks *InstanceSettingsIPConfigurationAuthorizedNetworks = &InstanceSettingsIPConfigurationAuthorizedNetworks{empty: true}
 
+func (r *InstanceSettingsIPConfigurationAuthorizedNetworks) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceSettingsIPConfigurationAuthorizedNetworks) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1458,6 +1542,10 @@ func (r *InstanceSettingsLocationPreference) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceSettingsLocationPreference *InstanceSettingsLocationPreference = &InstanceSettingsLocationPreference{empty: true}
 
+func (r *InstanceSettingsLocationPreference) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceSettingsLocationPreference) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1502,6 +1590,10 @@ func (r *InstanceSettingsDatabaseFlags) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceSettingsDatabaseFlags *InstanceSettingsDatabaseFlags = &InstanceSettingsDatabaseFlags{empty: true}
+
+func (r *InstanceSettingsDatabaseFlags) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceSettingsDatabaseFlags) String() string {
 	return dcl.SprintResource(r)
@@ -1553,6 +1645,10 @@ func (r *InstanceSettingsMaintenanceWindow) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceSettingsMaintenanceWindow *InstanceSettingsMaintenanceWindow = &InstanceSettingsMaintenanceWindow{empty: true}
+
+func (r *InstanceSettingsMaintenanceWindow) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceSettingsMaintenanceWindow) String() string {
 	return dcl.SprintResource(r)
@@ -1614,6 +1710,10 @@ func (r *InstanceSettingsBackupConfiguration) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceSettingsBackupConfiguration *InstanceSettingsBackupConfiguration = &InstanceSettingsBackupConfiguration{empty: true}
 
+func (r *InstanceSettingsBackupConfiguration) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceSettingsBackupConfiguration) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1659,6 +1759,10 @@ func (r *InstanceSettingsBackupConfigurationBackupRetentionSettings) UnmarshalJS
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceSettingsBackupConfigurationBackupRetentionSettings *InstanceSettingsBackupConfigurationBackupRetentionSettings = &InstanceSettingsBackupConfigurationBackupRetentionSettings{empty: true}
 
+func (r *InstanceSettingsBackupConfigurationBackupRetentionSettings) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceSettingsBackupConfigurationBackupRetentionSettings) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1700,6 +1804,10 @@ func (r *InstanceSettingsDataDiskSizeGb) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceSettingsDataDiskSizeGb *InstanceSettingsDataDiskSizeGb = &InstanceSettingsDataDiskSizeGb{empty: true}
+
+func (r *InstanceSettingsDataDiskSizeGb) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceSettingsDataDiskSizeGb) String() string {
 	return dcl.SprintResource(r)
@@ -1745,6 +1853,10 @@ func (r *InstanceSettingsActiveDirectoryConfig) UnmarshalJSON(data []byte) error
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceSettingsActiveDirectoryConfig *InstanceSettingsActiveDirectoryConfig = &InstanceSettingsActiveDirectoryConfig{empty: true}
+
+func (r *InstanceSettingsActiveDirectoryConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceSettingsActiveDirectoryConfig) String() string {
 	return dcl.SprintResource(r)
@@ -1793,6 +1905,10 @@ func (r *InstanceSettingsDenyMaintenancePeriods) UnmarshalJSON(data []byte) erro
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceSettingsDenyMaintenancePeriods *InstanceSettingsDenyMaintenancePeriods = &InstanceSettingsDenyMaintenancePeriods{empty: true}
+
+func (r *InstanceSettingsDenyMaintenancePeriods) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceSettingsDenyMaintenancePeriods) String() string {
 	return dcl.SprintResource(r)
@@ -1845,6 +1961,10 @@ func (r *InstanceSettingsInsightsConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceSettingsInsightsConfig *InstanceSettingsInsightsConfig = &InstanceSettingsInsightsConfig{empty: true}
 
+func (r *InstanceSettingsInsightsConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceSettingsInsightsConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1889,6 +2009,10 @@ func (r *InstanceReplicaInstances) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReplicaInstances *InstanceReplicaInstances = &InstanceReplicaInstances{empty: true}
+
+func (r *InstanceReplicaInstances) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReplicaInstances) String() string {
 	return dcl.SprintResource(r)
@@ -1952,6 +2076,10 @@ func (r *InstanceServerCaCert) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceServerCaCert *InstanceServerCaCert = &InstanceServerCaCert{empty: true}
+
+func (r *InstanceServerCaCert) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceServerCaCert) String() string {
 	return dcl.SprintResource(r)
@@ -2022,6 +2150,10 @@ func (r *InstanceOnPremisesConfiguration) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceOnPremisesConfiguration *InstanceOnPremisesConfiguration = &InstanceOnPremisesConfiguration{empty: true}
 
+func (r *InstanceOnPremisesConfiguration) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceOnPremisesConfiguration) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2066,6 +2198,10 @@ func (r *InstanceDiskEncryptionStatus) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceDiskEncryptionStatus *InstanceDiskEncryptionStatus = &InstanceDiskEncryptionStatus{empty: true}
+
+func (r *InstanceDiskEncryptionStatus) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceDiskEncryptionStatus) String() string {
 	return dcl.SprintResource(r)

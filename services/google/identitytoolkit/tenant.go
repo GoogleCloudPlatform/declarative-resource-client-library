@@ -127,6 +127,10 @@ func (r *TenantMfaConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyTenantMfaConfig *TenantMfaConfig = &TenantMfaConfig{empty: true}
 
+func (r *TenantMfaConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *TenantMfaConfig) String() string {
 	return dcl.SprintResource(r)
 }

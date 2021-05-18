@@ -71,6 +71,10 @@ func (r *SubscriptionExpirationPolicy) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptySubscriptionExpirationPolicy *SubscriptionExpirationPolicy = &SubscriptionExpirationPolicy{empty: true}
 
+func (r *SubscriptionExpirationPolicy) Empty() bool {
+	return r.empty
+}
+
 func (r *SubscriptionExpirationPolicy) String() string {
 	return dcl.SprintResource(r)
 }
@@ -115,6 +119,10 @@ func (r *SubscriptionDeadLetterPolicy) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptySubscriptionDeadLetterPolicy *SubscriptionDeadLetterPolicy = &SubscriptionDeadLetterPolicy{empty: true}
+
+func (r *SubscriptionDeadLetterPolicy) Empty() bool {
+	return r.empty
+}
 
 func (r *SubscriptionDeadLetterPolicy) String() string {
 	return dcl.SprintResource(r)
@@ -164,6 +172,10 @@ func (r *SubscriptionPushConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptySubscriptionPushConfig *SubscriptionPushConfig = &SubscriptionPushConfig{empty: true}
 
+func (r *SubscriptionPushConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *SubscriptionPushConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -208,6 +220,10 @@ func (r *SubscriptionPushConfigOidcToken) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptySubscriptionPushConfigOidcToken *SubscriptionPushConfigOidcToken = &SubscriptionPushConfigOidcToken{empty: true}
+
+func (r *SubscriptionPushConfigOidcToken) Empty() bool {
+	return r.empty
+}
 
 func (r *SubscriptionPushConfigOidcToken) String() string {
 	return dcl.SprintResource(r)

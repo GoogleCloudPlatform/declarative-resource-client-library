@@ -160,6 +160,10 @@ func (r *BucketCors) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyBucketCors *BucketCors = &BucketCors{empty: true}
 
+func (r *BucketCors) Empty() bool {
+	return r.empty
+}
+
 func (r *BucketCors) String() string {
 	return dcl.SprintResource(r)
 }
@@ -201,6 +205,10 @@ func (r *BucketLifecycle) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyBucketLifecycle *BucketLifecycle = &BucketLifecycle{empty: true}
+
+func (r *BucketLifecycle) Empty() bool {
+	return r.empty
+}
 
 func (r *BucketLifecycle) String() string {
 	return dcl.SprintResource(r)
@@ -247,6 +255,10 @@ func (r *BucketLifecycleRule) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyBucketLifecycleRule *BucketLifecycleRule = &BucketLifecycleRule{empty: true}
 
+func (r *BucketLifecycleRule) Empty() bool {
+	return r.empty
+}
+
 func (r *BucketLifecycleRule) String() string {
 	return dcl.SprintResource(r)
 }
@@ -291,6 +303,10 @@ func (r *BucketLifecycleRuleAction) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyBucketLifecycleRuleAction *BucketLifecycleRuleAction = &BucketLifecycleRuleAction{empty: true}
+
+func (r *BucketLifecycleRuleAction) Empty() bool {
+	return r.empty
+}
 
 func (r *BucketLifecycleRuleAction) String() string {
 	return dcl.SprintResource(r)
@@ -346,6 +362,10 @@ func (r *BucketLifecycleRuleCondition) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyBucketLifecycleRuleCondition *BucketLifecycleRuleCondition = &BucketLifecycleRuleCondition{empty: true}
 
+func (r *BucketLifecycleRuleCondition) Empty() bool {
+	return r.empty
+}
+
 func (r *BucketLifecycleRuleCondition) String() string {
 	return dcl.SprintResource(r)
 }
@@ -391,6 +411,10 @@ func (r *BucketLogging) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyBucketLogging *BucketLogging = &BucketLogging{empty: true}
 
+func (r *BucketLogging) Empty() bool {
+	return r.empty
+}
+
 func (r *BucketLogging) String() string {
 	return dcl.SprintResource(r)
 }
@@ -432,6 +456,10 @@ func (r *BucketVersioning) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyBucketVersioning *BucketVersioning = &BucketVersioning{empty: true}
+
+func (r *BucketVersioning) Empty() bool {
+	return r.empty
+}
 
 func (r *BucketVersioning) String() string {
 	return dcl.SprintResource(r)
@@ -477,6 +505,10 @@ func (r *BucketWebsite) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyBucketWebsite *BucketWebsite = &BucketWebsite{empty: true}
+
+func (r *BucketWebsite) Empty() bool {
+	return r.empty
+}
 
 func (r *BucketWebsite) String() string {
 	return dcl.SprintResource(r)

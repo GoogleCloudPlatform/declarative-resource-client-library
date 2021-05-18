@@ -82,6 +82,10 @@ func (r *KeyRestrictions) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyKeyRestrictions *KeyRestrictions = &KeyRestrictions{empty: true}
 
+func (r *KeyRestrictions) Empty() bool {
+	return r.empty
+}
+
 func (r *KeyRestrictions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -123,6 +127,10 @@ func (r *KeyRestrictionsBrowserKeyRestrictions) UnmarshalJSON(data []byte) error
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyKeyRestrictionsBrowserKeyRestrictions *KeyRestrictionsBrowserKeyRestrictions = &KeyRestrictionsBrowserKeyRestrictions{empty: true}
+
+func (r *KeyRestrictionsBrowserKeyRestrictions) Empty() bool {
+	return r.empty
+}
 
 func (r *KeyRestrictionsBrowserKeyRestrictions) String() string {
 	return dcl.SprintResource(r)
@@ -166,6 +174,10 @@ func (r *KeyRestrictionsServerKeyRestrictions) UnmarshalJSON(data []byte) error 
 // as one.  Modifying this object will have undesirable results.
 var EmptyKeyRestrictionsServerKeyRestrictions *KeyRestrictionsServerKeyRestrictions = &KeyRestrictionsServerKeyRestrictions{empty: true}
 
+func (r *KeyRestrictionsServerKeyRestrictions) Empty() bool {
+	return r.empty
+}
+
 func (r *KeyRestrictionsServerKeyRestrictions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -207,6 +219,10 @@ func (r *KeyRestrictionsAndroidKeyRestrictions) UnmarshalJSON(data []byte) error
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyKeyRestrictionsAndroidKeyRestrictions *KeyRestrictionsAndroidKeyRestrictions = &KeyRestrictionsAndroidKeyRestrictions{empty: true}
+
+func (r *KeyRestrictionsAndroidKeyRestrictions) Empty() bool {
+	return r.empty
+}
 
 func (r *KeyRestrictionsAndroidKeyRestrictions) String() string {
 	return dcl.SprintResource(r)
@@ -253,6 +269,10 @@ func (r *KeyRestrictionsAndroidKeyRestrictionsAllowedApplications) UnmarshalJSON
 // as one.  Modifying this object will have undesirable results.
 var EmptyKeyRestrictionsAndroidKeyRestrictionsAllowedApplications *KeyRestrictionsAndroidKeyRestrictionsAllowedApplications = &KeyRestrictionsAndroidKeyRestrictionsAllowedApplications{empty: true}
 
+func (r *KeyRestrictionsAndroidKeyRestrictionsAllowedApplications) Empty() bool {
+	return r.empty
+}
+
 func (r *KeyRestrictionsAndroidKeyRestrictionsAllowedApplications) String() string {
 	return dcl.SprintResource(r)
 }
@@ -294,6 +314,10 @@ func (r *KeyRestrictionsIosKeyRestrictions) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyKeyRestrictionsIosKeyRestrictions *KeyRestrictionsIosKeyRestrictions = &KeyRestrictionsIosKeyRestrictions{empty: true}
+
+func (r *KeyRestrictionsIosKeyRestrictions) Empty() bool {
+	return r.empty
+}
 
 func (r *KeyRestrictionsIosKeyRestrictions) String() string {
 	return dcl.SprintResource(r)
@@ -339,6 +363,10 @@ func (r *KeyRestrictionsApiTargets) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyKeyRestrictionsApiTargets *KeyRestrictionsApiTargets = &KeyRestrictionsApiTargets{empty: true}
+
+func (r *KeyRestrictionsApiTargets) Empty() bool {
+	return r.empty
+}
 
 func (r *KeyRestrictionsApiTargets) String() string {
 	return dcl.SprintResource(r)

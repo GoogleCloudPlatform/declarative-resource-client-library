@@ -99,6 +99,10 @@ func (r *UserSqlserverUserDetails) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyUserSqlserverUserDetails *UserSqlserverUserDetails = &UserSqlserverUserDetails{empty: true}
 
+func (r *UserSqlserverUserDetails) Empty() bool {
+	return r.empty
+}
+
 func (r *UserSqlserverUserDetails) String() string {
 	return dcl.SprintResource(r)
 }

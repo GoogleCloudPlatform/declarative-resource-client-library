@@ -1060,6 +1060,10 @@ func flattenDomainMappingSslSettings(c *Client, i interface{}) *DomainMappingSsl
 	}
 
 	r := &DomainMappingSslSettings{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDomainMappingSslSettings
+	}
 	r.CertificateId = dcl.FlattenString(m["certificateId"])
 	r.SslManagementType = flattenDomainMappingSslSettingsSslManagementTypeEnum(m["sslManagementType"])
 	r.PendingManagedCertificateId = dcl.FlattenString(m["pendingManagedCertificateId"])
@@ -1178,6 +1182,10 @@ func flattenDomainMappingResourceRecords(c *Client, i interface{}) *DomainMappin
 	}
 
 	r := &DomainMappingResourceRecords{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDomainMappingResourceRecords
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Rrdata = dcl.FlattenString(m["rrdata"])
 	r.Type = flattenDomainMappingResourceRecordsTypeEnum(m["type"])

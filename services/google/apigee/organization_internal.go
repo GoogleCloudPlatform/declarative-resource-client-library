@@ -1317,6 +1317,10 @@ func flattenOrganizationProperties(c *Client, i interface{}) *OrganizationProper
 	}
 
 	r := &OrganizationProperties{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyOrganizationProperties
+	}
 	r.Property = flattenOrganizationPropertiesPropertySlice(c, m["property"])
 
 	return r
@@ -1430,6 +1434,10 @@ func flattenOrganizationPropertiesProperty(c *Client, i interface{}) *Organizati
 	}
 
 	r := &OrganizationPropertiesProperty{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyOrganizationPropertiesProperty
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Value = dcl.FlattenString(m["value"])
 

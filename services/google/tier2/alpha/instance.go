@@ -1436,6 +1436,10 @@ func (r *InstanceSku) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceSku *InstanceSku = &InstanceSku{empty: true}
 
+func (r *InstanceSku) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceSku) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1490,6 +1494,10 @@ func (r *InstanceReferences) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReferences *InstanceReferences = &InstanceReferences{empty: true}
 
+func (r *InstanceReferences) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReferences) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1534,6 +1542,10 @@ func (r *InstanceReferencesDetails) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReferencesDetails *InstanceReferencesDetails = &InstanceReferencesDetails{empty: true}
+
+func (r *InstanceReferencesDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReferencesDetails) String() string {
 	return dcl.SprintResource(r)
@@ -1597,6 +1609,10 @@ func (r *InstancePreprocessCreateRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessCreateRecipe *InstancePreprocessCreateRecipe = &InstancePreprocessCreateRecipe{empty: true}
+
+func (r *InstancePreprocessCreateRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessCreateRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -1688,6 +1704,10 @@ func (r *InstancePreprocessCreateRecipeSteps) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessCreateRecipeSteps *InstancePreprocessCreateRecipeSteps = &InstancePreprocessCreateRecipeSteps{empty: true}
 
+func (r *InstancePreprocessCreateRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessCreateRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1736,6 +1756,10 @@ func (r *InstancePreprocessCreateRecipeStepsStatus) UnmarshalJSON(data []byte) e
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessCreateRecipeStepsStatus *InstancePreprocessCreateRecipeStepsStatus = &InstancePreprocessCreateRecipeStepsStatus{empty: true}
 
+func (r *InstancePreprocessCreateRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessCreateRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1780,6 +1804,10 @@ func (r *InstancePreprocessCreateRecipeStepsStatusDetails) UnmarshalJSON(data []
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessCreateRecipeStepsStatusDetails *InstancePreprocessCreateRecipeStepsStatusDetails = &InstancePreprocessCreateRecipeStepsStatusDetails{empty: true}
+
+func (r *InstancePreprocessCreateRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessCreateRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -1826,6 +1854,10 @@ func (r *InstancePreprocessCreateRecipeStepsQuotaRequestDeltas) UnmarshalJSON(da
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessCreateRecipeStepsQuotaRequestDeltas *InstancePreprocessCreateRecipeStepsQuotaRequestDeltas = &InstancePreprocessCreateRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstancePreprocessCreateRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessCreateRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1870,6 +1902,10 @@ func (r *InstancePreprocessCreateRecipeStepsPreprocessUpdate) UnmarshalJSON(data
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessCreateRecipeStepsPreprocessUpdate *InstancePreprocessCreateRecipeStepsPreprocessUpdate = &InstancePreprocessCreateRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstancePreprocessCreateRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessCreateRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -1918,6 +1954,10 @@ func (r *InstancePreprocessCreateRecipeStepsRequestedTenantProject) UnmarshalJSO
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessCreateRecipeStepsRequestedTenantProject *InstancePreprocessCreateRecipeStepsRequestedTenantProject = &InstancePreprocessCreateRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstancePreprocessCreateRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessCreateRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -1970,6 +2010,10 @@ func (r *InstancePreprocessCreateRecipeStepsPermissionsInfo) UnmarshalJSON(data 
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessCreateRecipeStepsPermissionsInfo *InstancePreprocessCreateRecipeStepsPermissionsInfo = &InstancePreprocessCreateRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstancePreprocessCreateRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessCreateRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2018,6 +2062,10 @@ func (r *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName) Unmarshal
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName = &InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2060,6 +2108,10 @@ func (r *InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions) Unmar
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions *InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions = &InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2098,6 +2150,10 @@ func (r *InstanceGoogleprotobufstruct) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceGoogleprotobufstruct *InstanceGoogleprotobufstruct = &InstanceGoogleprotobufstruct{empty: true}
+
+func (r *InstanceGoogleprotobufstruct) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceGoogleprotobufstruct) String() string {
 	return dcl.SprintResource(r)
@@ -2140,6 +2196,10 @@ func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate) UnmarshalJSO
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate = &InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -2189,6 +2249,10 @@ func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificatio
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2236,6 +2300,10 @@ func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificatio
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -2299,6 +2367,10 @@ func (r *InstanceCreateRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceCreateRecipe *InstanceCreateRecipe = &InstanceCreateRecipe{empty: true}
+
+func (r *InstanceCreateRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceCreateRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -2390,6 +2462,10 @@ func (r *InstanceCreateRecipeSteps) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceCreateRecipeSteps *InstanceCreateRecipeSteps = &InstanceCreateRecipeSteps{empty: true}
 
+func (r *InstanceCreateRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceCreateRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2438,6 +2514,10 @@ func (r *InstanceCreateRecipeStepsStatus) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceCreateRecipeStepsStatus *InstanceCreateRecipeStepsStatus = &InstanceCreateRecipeStepsStatus{empty: true}
 
+func (r *InstanceCreateRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceCreateRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2482,6 +2562,10 @@ func (r *InstanceCreateRecipeStepsStatusDetails) UnmarshalJSON(data []byte) erro
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceCreateRecipeStepsStatusDetails *InstanceCreateRecipeStepsStatusDetails = &InstanceCreateRecipeStepsStatusDetails{empty: true}
+
+func (r *InstanceCreateRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceCreateRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -2528,6 +2612,10 @@ func (r *InstanceCreateRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte)
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceCreateRecipeStepsQuotaRequestDeltas *InstanceCreateRecipeStepsQuotaRequestDeltas = &InstanceCreateRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstanceCreateRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceCreateRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2572,6 +2660,10 @@ func (r *InstanceCreateRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) e
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceCreateRecipeStepsPreprocessUpdate *InstanceCreateRecipeStepsPreprocessUpdate = &InstanceCreateRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstanceCreateRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceCreateRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -2620,6 +2712,10 @@ func (r *InstanceCreateRecipeStepsRequestedTenantProject) UnmarshalJSON(data []b
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceCreateRecipeStepsRequestedTenantProject *InstanceCreateRecipeStepsRequestedTenantProject = &InstanceCreateRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstanceCreateRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceCreateRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -2672,6 +2768,10 @@ func (r *InstanceCreateRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) er
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceCreateRecipeStepsPermissionsInfo *InstanceCreateRecipeStepsPermissionsInfo = &InstanceCreateRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstanceCreateRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceCreateRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2720,6 +2820,10 @@ func (r *InstanceCreateRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data 
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceCreateRecipeStepsPermissionsInfoPolicyName *InstanceCreateRecipeStepsPermissionsInfoPolicyName = &InstanceCreateRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstanceCreateRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceCreateRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2762,6 +2866,10 @@ func (r *InstanceCreateRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(d
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceCreateRecipeStepsPermissionsInfoIamPermissions *InstanceCreateRecipeStepsPermissionsInfoIamPermissions = &InstanceCreateRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstanceCreateRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceCreateRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2803,6 +2911,10 @@ func (r *InstanceCreateRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []b
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceCreateRecipeStepsKeyNotificationsUpdate *InstanceCreateRecipeStepsKeyNotificationsUpdate = &InstanceCreateRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstanceCreateRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceCreateRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -2852,6 +2964,10 @@ func (r *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Un
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2899,6 +3015,10 @@ func (r *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyN
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -2962,6 +3082,10 @@ func (r *InstanceDeleteRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceDeleteRecipe *InstanceDeleteRecipe = &InstanceDeleteRecipe{empty: true}
+
+func (r *InstanceDeleteRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceDeleteRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -3053,6 +3177,10 @@ func (r *InstanceDeleteRecipeSteps) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceDeleteRecipeSteps *InstanceDeleteRecipeSteps = &InstanceDeleteRecipeSteps{empty: true}
 
+func (r *InstanceDeleteRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceDeleteRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3101,6 +3229,10 @@ func (r *InstanceDeleteRecipeStepsStatus) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceDeleteRecipeStepsStatus *InstanceDeleteRecipeStepsStatus = &InstanceDeleteRecipeStepsStatus{empty: true}
 
+func (r *InstanceDeleteRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceDeleteRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3145,6 +3277,10 @@ func (r *InstanceDeleteRecipeStepsStatusDetails) UnmarshalJSON(data []byte) erro
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceDeleteRecipeStepsStatusDetails *InstanceDeleteRecipeStepsStatusDetails = &InstanceDeleteRecipeStepsStatusDetails{empty: true}
+
+func (r *InstanceDeleteRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceDeleteRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -3191,6 +3327,10 @@ func (r *InstanceDeleteRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte)
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceDeleteRecipeStepsQuotaRequestDeltas *InstanceDeleteRecipeStepsQuotaRequestDeltas = &InstanceDeleteRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstanceDeleteRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceDeleteRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3235,6 +3375,10 @@ func (r *InstanceDeleteRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) e
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceDeleteRecipeStepsPreprocessUpdate *InstanceDeleteRecipeStepsPreprocessUpdate = &InstanceDeleteRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstanceDeleteRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceDeleteRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -3283,6 +3427,10 @@ func (r *InstanceDeleteRecipeStepsRequestedTenantProject) UnmarshalJSON(data []b
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceDeleteRecipeStepsRequestedTenantProject *InstanceDeleteRecipeStepsRequestedTenantProject = &InstanceDeleteRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstanceDeleteRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceDeleteRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -3335,6 +3483,10 @@ func (r *InstanceDeleteRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) er
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceDeleteRecipeStepsPermissionsInfo *InstanceDeleteRecipeStepsPermissionsInfo = &InstanceDeleteRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstanceDeleteRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceDeleteRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3383,6 +3535,10 @@ func (r *InstanceDeleteRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data 
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceDeleteRecipeStepsPermissionsInfoPolicyName *InstanceDeleteRecipeStepsPermissionsInfoPolicyName = &InstanceDeleteRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstanceDeleteRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceDeleteRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3425,6 +3581,10 @@ func (r *InstanceDeleteRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(d
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceDeleteRecipeStepsPermissionsInfoIamPermissions *InstanceDeleteRecipeStepsPermissionsInfoIamPermissions = &InstanceDeleteRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstanceDeleteRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceDeleteRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3466,6 +3626,10 @@ func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []b
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceDeleteRecipeStepsKeyNotificationsUpdate *InstanceDeleteRecipeStepsKeyNotificationsUpdate = &InstanceDeleteRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -3515,6 +3679,10 @@ func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Un
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3562,6 +3730,10 @@ func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyN
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -3625,6 +3797,10 @@ func (r *InstanceUpdateRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUpdateRecipe *InstanceUpdateRecipe = &InstanceUpdateRecipe{empty: true}
+
+func (r *InstanceUpdateRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceUpdateRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -3716,6 +3892,10 @@ func (r *InstanceUpdateRecipeSteps) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUpdateRecipeSteps *InstanceUpdateRecipeSteps = &InstanceUpdateRecipeSteps{empty: true}
 
+func (r *InstanceUpdateRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceUpdateRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3764,6 +3944,10 @@ func (r *InstanceUpdateRecipeStepsStatus) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUpdateRecipeStepsStatus *InstanceUpdateRecipeStepsStatus = &InstanceUpdateRecipeStepsStatus{empty: true}
 
+func (r *InstanceUpdateRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceUpdateRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3808,6 +3992,10 @@ func (r *InstanceUpdateRecipeStepsStatusDetails) UnmarshalJSON(data []byte) erro
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUpdateRecipeStepsStatusDetails *InstanceUpdateRecipeStepsStatusDetails = &InstanceUpdateRecipeStepsStatusDetails{empty: true}
+
+func (r *InstanceUpdateRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceUpdateRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -3854,6 +4042,10 @@ func (r *InstanceUpdateRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte)
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUpdateRecipeStepsQuotaRequestDeltas *InstanceUpdateRecipeStepsQuotaRequestDeltas = &InstanceUpdateRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstanceUpdateRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceUpdateRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3898,6 +4090,10 @@ func (r *InstanceUpdateRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) e
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUpdateRecipeStepsPreprocessUpdate *InstanceUpdateRecipeStepsPreprocessUpdate = &InstanceUpdateRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstanceUpdateRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceUpdateRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -3946,6 +4142,10 @@ func (r *InstanceUpdateRecipeStepsRequestedTenantProject) UnmarshalJSON(data []b
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUpdateRecipeStepsRequestedTenantProject *InstanceUpdateRecipeStepsRequestedTenantProject = &InstanceUpdateRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstanceUpdateRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceUpdateRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -3998,6 +4198,10 @@ func (r *InstanceUpdateRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) er
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUpdateRecipeStepsPermissionsInfo *InstanceUpdateRecipeStepsPermissionsInfo = &InstanceUpdateRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstanceUpdateRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceUpdateRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4046,6 +4250,10 @@ func (r *InstanceUpdateRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data 
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUpdateRecipeStepsPermissionsInfoPolicyName *InstanceUpdateRecipeStepsPermissionsInfoPolicyName = &InstanceUpdateRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstanceUpdateRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceUpdateRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4088,6 +4296,10 @@ func (r *InstanceUpdateRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(d
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUpdateRecipeStepsPermissionsInfoIamPermissions *InstanceUpdateRecipeStepsPermissionsInfoIamPermissions = &InstanceUpdateRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstanceUpdateRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceUpdateRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4129,6 +4341,10 @@ func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []b
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUpdateRecipeStepsKeyNotificationsUpdate *InstanceUpdateRecipeStepsKeyNotificationsUpdate = &InstanceUpdateRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -4178,6 +4394,10 @@ func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Un
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4225,6 +4445,10 @@ func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyN
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -4288,6 +4512,10 @@ func (r *InstancePreprocessResetRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessResetRecipe *InstancePreprocessResetRecipe = &InstancePreprocessResetRecipe{empty: true}
+
+func (r *InstancePreprocessResetRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessResetRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -4379,6 +4607,10 @@ func (r *InstancePreprocessResetRecipeSteps) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessResetRecipeSteps *InstancePreprocessResetRecipeSteps = &InstancePreprocessResetRecipeSteps{empty: true}
 
+func (r *InstancePreprocessResetRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessResetRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4427,6 +4659,10 @@ func (r *InstancePreprocessResetRecipeStepsStatus) UnmarshalJSON(data []byte) er
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessResetRecipeStepsStatus *InstancePreprocessResetRecipeStepsStatus = &InstancePreprocessResetRecipeStepsStatus{empty: true}
 
+func (r *InstancePreprocessResetRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessResetRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4471,6 +4707,10 @@ func (r *InstancePreprocessResetRecipeStepsStatusDetails) UnmarshalJSON(data []b
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessResetRecipeStepsStatusDetails *InstancePreprocessResetRecipeStepsStatusDetails = &InstancePreprocessResetRecipeStepsStatusDetails{empty: true}
+
+func (r *InstancePreprocessResetRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessResetRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -4517,6 +4757,10 @@ func (r *InstancePreprocessResetRecipeStepsQuotaRequestDeltas) UnmarshalJSON(dat
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessResetRecipeStepsQuotaRequestDeltas *InstancePreprocessResetRecipeStepsQuotaRequestDeltas = &InstancePreprocessResetRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstancePreprocessResetRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessResetRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4561,6 +4805,10 @@ func (r *InstancePreprocessResetRecipeStepsPreprocessUpdate) UnmarshalJSON(data 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessResetRecipeStepsPreprocessUpdate *InstancePreprocessResetRecipeStepsPreprocessUpdate = &InstancePreprocessResetRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstancePreprocessResetRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessResetRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -4609,6 +4857,10 @@ func (r *InstancePreprocessResetRecipeStepsRequestedTenantProject) UnmarshalJSON
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessResetRecipeStepsRequestedTenantProject *InstancePreprocessResetRecipeStepsRequestedTenantProject = &InstancePreprocessResetRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstancePreprocessResetRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessResetRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -4661,6 +4913,10 @@ func (r *InstancePreprocessResetRecipeStepsPermissionsInfo) UnmarshalJSON(data [
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessResetRecipeStepsPermissionsInfo *InstancePreprocessResetRecipeStepsPermissionsInfo = &InstancePreprocessResetRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstancePreprocessResetRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessResetRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4709,6 +4965,10 @@ func (r *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName) UnmarshalJ
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName = &InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4751,6 +5011,10 @@ func (r *InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions) Unmars
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions *InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions = &InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4792,6 +5056,10 @@ func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdate) UnmarshalJSON
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessResetRecipeStepsKeyNotificationsUpdate *InstancePreprocessResetRecipeStepsKeyNotificationsUpdate = &InstancePreprocessResetRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -4841,6 +5109,10 @@ func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotification
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4888,6 +5160,10 @@ func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotification
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -4951,6 +5227,10 @@ func (r *InstanceResetRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceResetRecipe *InstanceResetRecipe = &InstanceResetRecipe{empty: true}
+
+func (r *InstanceResetRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceResetRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -5042,6 +5322,10 @@ func (r *InstanceResetRecipeSteps) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceResetRecipeSteps *InstanceResetRecipeSteps = &InstanceResetRecipeSteps{empty: true}
 
+func (r *InstanceResetRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceResetRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5090,6 +5374,10 @@ func (r *InstanceResetRecipeStepsStatus) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceResetRecipeStepsStatus *InstanceResetRecipeStepsStatus = &InstanceResetRecipeStepsStatus{empty: true}
 
+func (r *InstanceResetRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceResetRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5134,6 +5422,10 @@ func (r *InstanceResetRecipeStepsStatusDetails) UnmarshalJSON(data []byte) error
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceResetRecipeStepsStatusDetails *InstanceResetRecipeStepsStatusDetails = &InstanceResetRecipeStepsStatusDetails{empty: true}
+
+func (r *InstanceResetRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceResetRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -5180,6 +5472,10 @@ func (r *InstanceResetRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) 
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceResetRecipeStepsQuotaRequestDeltas *InstanceResetRecipeStepsQuotaRequestDeltas = &InstanceResetRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstanceResetRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceResetRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5224,6 +5520,10 @@ func (r *InstanceResetRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) er
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceResetRecipeStepsPreprocessUpdate *InstanceResetRecipeStepsPreprocessUpdate = &InstanceResetRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstanceResetRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceResetRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -5272,6 +5572,10 @@ func (r *InstanceResetRecipeStepsRequestedTenantProject) UnmarshalJSON(data []by
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceResetRecipeStepsRequestedTenantProject *InstanceResetRecipeStepsRequestedTenantProject = &InstanceResetRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstanceResetRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceResetRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -5324,6 +5628,10 @@ func (r *InstanceResetRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) err
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceResetRecipeStepsPermissionsInfo *InstanceResetRecipeStepsPermissionsInfo = &InstanceResetRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstanceResetRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceResetRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5372,6 +5680,10 @@ func (r *InstanceResetRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data [
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceResetRecipeStepsPermissionsInfoPolicyName *InstanceResetRecipeStepsPermissionsInfoPolicyName = &InstanceResetRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstanceResetRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceResetRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5414,6 +5726,10 @@ func (r *InstanceResetRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(da
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceResetRecipeStepsPermissionsInfoIamPermissions *InstanceResetRecipeStepsPermissionsInfoIamPermissions = &InstanceResetRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstanceResetRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceResetRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5455,6 +5771,10 @@ func (r *InstanceResetRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []by
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceResetRecipeStepsKeyNotificationsUpdate *InstanceResetRecipeStepsKeyNotificationsUpdate = &InstanceResetRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstanceResetRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceResetRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -5504,6 +5824,10 @@ func (r *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Unm
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5551,6 +5875,10 @@ func (r *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNo
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -5614,6 +5942,10 @@ func (r *InstancePreprocessRepairRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessRepairRecipe *InstancePreprocessRepairRecipe = &InstancePreprocessRepairRecipe{empty: true}
+
+func (r *InstancePreprocessRepairRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessRepairRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -5705,6 +6037,10 @@ func (r *InstancePreprocessRepairRecipeSteps) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessRepairRecipeSteps *InstancePreprocessRepairRecipeSteps = &InstancePreprocessRepairRecipeSteps{empty: true}
 
+func (r *InstancePreprocessRepairRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessRepairRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5753,6 +6089,10 @@ func (r *InstancePreprocessRepairRecipeStepsStatus) UnmarshalJSON(data []byte) e
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessRepairRecipeStepsStatus *InstancePreprocessRepairRecipeStepsStatus = &InstancePreprocessRepairRecipeStepsStatus{empty: true}
 
+func (r *InstancePreprocessRepairRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessRepairRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5797,6 +6137,10 @@ func (r *InstancePreprocessRepairRecipeStepsStatusDetails) UnmarshalJSON(data []
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessRepairRecipeStepsStatusDetails *InstancePreprocessRepairRecipeStepsStatusDetails = &InstancePreprocessRepairRecipeStepsStatusDetails{empty: true}
+
+func (r *InstancePreprocessRepairRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessRepairRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -5843,6 +6187,10 @@ func (r *InstancePreprocessRepairRecipeStepsQuotaRequestDeltas) UnmarshalJSON(da
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessRepairRecipeStepsQuotaRequestDeltas *InstancePreprocessRepairRecipeStepsQuotaRequestDeltas = &InstancePreprocessRepairRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstancePreprocessRepairRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessRepairRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -5887,6 +6235,10 @@ func (r *InstancePreprocessRepairRecipeStepsPreprocessUpdate) UnmarshalJSON(data
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessRepairRecipeStepsPreprocessUpdate *InstancePreprocessRepairRecipeStepsPreprocessUpdate = &InstancePreprocessRepairRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstancePreprocessRepairRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessRepairRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -5935,6 +6287,10 @@ func (r *InstancePreprocessRepairRecipeStepsRequestedTenantProject) UnmarshalJSO
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessRepairRecipeStepsRequestedTenantProject *InstancePreprocessRepairRecipeStepsRequestedTenantProject = &InstancePreprocessRepairRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstancePreprocessRepairRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessRepairRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -5987,6 +6343,10 @@ func (r *InstancePreprocessRepairRecipeStepsPermissionsInfo) UnmarshalJSON(data 
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessRepairRecipeStepsPermissionsInfo *InstancePreprocessRepairRecipeStepsPermissionsInfo = &InstancePreprocessRepairRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstancePreprocessRepairRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessRepairRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6035,6 +6395,10 @@ func (r *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName) Unmarshal
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName = &InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6077,6 +6441,10 @@ func (r *InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions) Unmar
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions *InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions = &InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6118,6 +6486,10 @@ func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate) UnmarshalJSO
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate = &InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -6167,6 +6539,10 @@ func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificatio
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6214,6 +6590,10 @@ func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificatio
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -6277,6 +6657,10 @@ func (r *InstanceRepairRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceRepairRecipe *InstanceRepairRecipe = &InstanceRepairRecipe{empty: true}
+
+func (r *InstanceRepairRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceRepairRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -6368,6 +6752,10 @@ func (r *InstanceRepairRecipeSteps) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceRepairRecipeSteps *InstanceRepairRecipeSteps = &InstanceRepairRecipeSteps{empty: true}
 
+func (r *InstanceRepairRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceRepairRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6416,6 +6804,10 @@ func (r *InstanceRepairRecipeStepsStatus) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceRepairRecipeStepsStatus *InstanceRepairRecipeStepsStatus = &InstanceRepairRecipeStepsStatus{empty: true}
 
+func (r *InstanceRepairRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceRepairRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6460,6 +6852,10 @@ func (r *InstanceRepairRecipeStepsStatusDetails) UnmarshalJSON(data []byte) erro
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceRepairRecipeStepsStatusDetails *InstanceRepairRecipeStepsStatusDetails = &InstanceRepairRecipeStepsStatusDetails{empty: true}
+
+func (r *InstanceRepairRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceRepairRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -6506,6 +6902,10 @@ func (r *InstanceRepairRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte)
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceRepairRecipeStepsQuotaRequestDeltas *InstanceRepairRecipeStepsQuotaRequestDeltas = &InstanceRepairRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstanceRepairRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceRepairRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6550,6 +6950,10 @@ func (r *InstanceRepairRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) e
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceRepairRecipeStepsPreprocessUpdate *InstanceRepairRecipeStepsPreprocessUpdate = &InstanceRepairRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstanceRepairRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceRepairRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -6598,6 +7002,10 @@ func (r *InstanceRepairRecipeStepsRequestedTenantProject) UnmarshalJSON(data []b
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceRepairRecipeStepsRequestedTenantProject *InstanceRepairRecipeStepsRequestedTenantProject = &InstanceRepairRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstanceRepairRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceRepairRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -6650,6 +7058,10 @@ func (r *InstanceRepairRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) er
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceRepairRecipeStepsPermissionsInfo *InstanceRepairRecipeStepsPermissionsInfo = &InstanceRepairRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstanceRepairRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceRepairRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6698,6 +7110,10 @@ func (r *InstanceRepairRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data 
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceRepairRecipeStepsPermissionsInfoPolicyName *InstanceRepairRecipeStepsPermissionsInfoPolicyName = &InstanceRepairRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstanceRepairRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceRepairRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6740,6 +7156,10 @@ func (r *InstanceRepairRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(d
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceRepairRecipeStepsPermissionsInfoIamPermissions *InstanceRepairRecipeStepsPermissionsInfoIamPermissions = &InstanceRepairRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstanceRepairRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceRepairRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6781,6 +7201,10 @@ func (r *InstanceRepairRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []b
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceRepairRecipeStepsKeyNotificationsUpdate *InstanceRepairRecipeStepsKeyNotificationsUpdate = &InstanceRepairRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstanceRepairRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceRepairRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -6830,6 +7254,10 @@ func (r *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Un
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -6877,6 +7305,10 @@ func (r *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyN
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -6940,6 +7372,10 @@ func (r *InstancePreprocessDeleteRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessDeleteRecipe *InstancePreprocessDeleteRecipe = &InstancePreprocessDeleteRecipe{empty: true}
+
+func (r *InstancePreprocessDeleteRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessDeleteRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -7031,6 +7467,10 @@ func (r *InstancePreprocessDeleteRecipeSteps) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessDeleteRecipeSteps *InstancePreprocessDeleteRecipeSteps = &InstancePreprocessDeleteRecipeSteps{empty: true}
 
+func (r *InstancePreprocessDeleteRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessDeleteRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7079,6 +7519,10 @@ func (r *InstancePreprocessDeleteRecipeStepsStatus) UnmarshalJSON(data []byte) e
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessDeleteRecipeStepsStatus *InstancePreprocessDeleteRecipeStepsStatus = &InstancePreprocessDeleteRecipeStepsStatus{empty: true}
 
+func (r *InstancePreprocessDeleteRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessDeleteRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7123,6 +7567,10 @@ func (r *InstancePreprocessDeleteRecipeStepsStatusDetails) UnmarshalJSON(data []
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessDeleteRecipeStepsStatusDetails *InstancePreprocessDeleteRecipeStepsStatusDetails = &InstancePreprocessDeleteRecipeStepsStatusDetails{empty: true}
+
+func (r *InstancePreprocessDeleteRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessDeleteRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -7169,6 +7617,10 @@ func (r *InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas) UnmarshalJSON(da
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas *InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas = &InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7213,6 +7665,10 @@ func (r *InstancePreprocessDeleteRecipeStepsPreprocessUpdate) UnmarshalJSON(data
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessDeleteRecipeStepsPreprocessUpdate *InstancePreprocessDeleteRecipeStepsPreprocessUpdate = &InstancePreprocessDeleteRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstancePreprocessDeleteRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessDeleteRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -7261,6 +7717,10 @@ func (r *InstancePreprocessDeleteRecipeStepsRequestedTenantProject) UnmarshalJSO
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessDeleteRecipeStepsRequestedTenantProject *InstancePreprocessDeleteRecipeStepsRequestedTenantProject = &InstancePreprocessDeleteRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstancePreprocessDeleteRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessDeleteRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -7313,6 +7773,10 @@ func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfo) UnmarshalJSON(data 
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessDeleteRecipeStepsPermissionsInfo *InstancePreprocessDeleteRecipeStepsPermissionsInfo = &InstancePreprocessDeleteRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7361,6 +7825,10 @@ func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName) Unmarshal
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName = &InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7403,6 +7871,10 @@ func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions) Unmar
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions *InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions = &InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7444,6 +7916,10 @@ func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate) UnmarshalJSO
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate = &InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -7493,6 +7969,10 @@ func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificatio
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7540,6 +8020,10 @@ func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificatio
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -7603,6 +8087,10 @@ func (r *InstancePreprocessUpdateRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUpdateRecipe *InstancePreprocessUpdateRecipe = &InstancePreprocessUpdateRecipe{empty: true}
+
+func (r *InstancePreprocessUpdateRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessUpdateRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -7694,6 +8182,10 @@ func (r *InstancePreprocessUpdateRecipeSteps) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUpdateRecipeSteps *InstancePreprocessUpdateRecipeSteps = &InstancePreprocessUpdateRecipeSteps{empty: true}
 
+func (r *InstancePreprocessUpdateRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessUpdateRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7742,6 +8234,10 @@ func (r *InstancePreprocessUpdateRecipeStepsStatus) UnmarshalJSON(data []byte) e
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUpdateRecipeStepsStatus *InstancePreprocessUpdateRecipeStepsStatus = &InstancePreprocessUpdateRecipeStepsStatus{empty: true}
 
+func (r *InstancePreprocessUpdateRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessUpdateRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7786,6 +8282,10 @@ func (r *InstancePreprocessUpdateRecipeStepsStatusDetails) UnmarshalJSON(data []
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUpdateRecipeStepsStatusDetails *InstancePreprocessUpdateRecipeStepsStatusDetails = &InstancePreprocessUpdateRecipeStepsStatusDetails{empty: true}
+
+func (r *InstancePreprocessUpdateRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessUpdateRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -7832,6 +8332,10 @@ func (r *InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas) UnmarshalJSON(da
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas *InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas = &InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -7876,6 +8380,10 @@ func (r *InstancePreprocessUpdateRecipeStepsPreprocessUpdate) UnmarshalJSON(data
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUpdateRecipeStepsPreprocessUpdate *InstancePreprocessUpdateRecipeStepsPreprocessUpdate = &InstancePreprocessUpdateRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstancePreprocessUpdateRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessUpdateRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -7924,6 +8432,10 @@ func (r *InstancePreprocessUpdateRecipeStepsRequestedTenantProject) UnmarshalJSO
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUpdateRecipeStepsRequestedTenantProject *InstancePreprocessUpdateRecipeStepsRequestedTenantProject = &InstancePreprocessUpdateRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstancePreprocessUpdateRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessUpdateRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -7976,6 +8488,10 @@ func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfo) UnmarshalJSON(data 
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUpdateRecipeStepsPermissionsInfo *InstancePreprocessUpdateRecipeStepsPermissionsInfo = &InstancePreprocessUpdateRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -8024,6 +8540,10 @@ func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName) Unmarshal
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName = &InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -8066,6 +8586,10 @@ func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions) Unmar
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions *InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions = &InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -8107,6 +8631,10 @@ func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate) UnmarshalJSO
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate = &InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -8156,6 +8684,10 @@ func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificatio
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -8203,6 +8735,10 @@ func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificatio
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -8266,6 +8802,10 @@ func (r *InstancePreprocessFreezeRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessFreezeRecipe *InstancePreprocessFreezeRecipe = &InstancePreprocessFreezeRecipe{empty: true}
+
+func (r *InstancePreprocessFreezeRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessFreezeRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -8357,6 +8897,10 @@ func (r *InstancePreprocessFreezeRecipeSteps) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessFreezeRecipeSteps *InstancePreprocessFreezeRecipeSteps = &InstancePreprocessFreezeRecipeSteps{empty: true}
 
+func (r *InstancePreprocessFreezeRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessFreezeRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -8405,6 +8949,10 @@ func (r *InstancePreprocessFreezeRecipeStepsStatus) UnmarshalJSON(data []byte) e
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessFreezeRecipeStepsStatus *InstancePreprocessFreezeRecipeStepsStatus = &InstancePreprocessFreezeRecipeStepsStatus{empty: true}
 
+func (r *InstancePreprocessFreezeRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessFreezeRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -8449,6 +8997,10 @@ func (r *InstancePreprocessFreezeRecipeStepsStatusDetails) UnmarshalJSON(data []
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessFreezeRecipeStepsStatusDetails *InstancePreprocessFreezeRecipeStepsStatusDetails = &InstancePreprocessFreezeRecipeStepsStatusDetails{empty: true}
+
+func (r *InstancePreprocessFreezeRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessFreezeRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -8495,6 +9047,10 @@ func (r *InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas) UnmarshalJSON(da
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas *InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas = &InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -8539,6 +9095,10 @@ func (r *InstancePreprocessFreezeRecipeStepsPreprocessUpdate) UnmarshalJSON(data
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessFreezeRecipeStepsPreprocessUpdate *InstancePreprocessFreezeRecipeStepsPreprocessUpdate = &InstancePreprocessFreezeRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstancePreprocessFreezeRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessFreezeRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -8587,6 +9147,10 @@ func (r *InstancePreprocessFreezeRecipeStepsRequestedTenantProject) UnmarshalJSO
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessFreezeRecipeStepsRequestedTenantProject *InstancePreprocessFreezeRecipeStepsRequestedTenantProject = &InstancePreprocessFreezeRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstancePreprocessFreezeRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessFreezeRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -8639,6 +9203,10 @@ func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfo) UnmarshalJSON(data 
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessFreezeRecipeStepsPermissionsInfo *InstancePreprocessFreezeRecipeStepsPermissionsInfo = &InstancePreprocessFreezeRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -8687,6 +9255,10 @@ func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName) Unmarshal
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName = &InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -8729,6 +9301,10 @@ func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions) Unmar
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions *InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions = &InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -8770,6 +9346,10 @@ func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate) UnmarshalJSO
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate = &InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -8819,6 +9399,10 @@ func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificatio
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -8866,6 +9450,10 @@ func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificatio
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -8929,6 +9517,10 @@ func (r *InstanceFreezeRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceFreezeRecipe *InstanceFreezeRecipe = &InstanceFreezeRecipe{empty: true}
+
+func (r *InstanceFreezeRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceFreezeRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -9020,6 +9612,10 @@ func (r *InstanceFreezeRecipeSteps) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceFreezeRecipeSteps *InstanceFreezeRecipeSteps = &InstanceFreezeRecipeSteps{empty: true}
 
+func (r *InstanceFreezeRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceFreezeRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -9068,6 +9664,10 @@ func (r *InstanceFreezeRecipeStepsStatus) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceFreezeRecipeStepsStatus *InstanceFreezeRecipeStepsStatus = &InstanceFreezeRecipeStepsStatus{empty: true}
 
+func (r *InstanceFreezeRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceFreezeRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -9112,6 +9712,10 @@ func (r *InstanceFreezeRecipeStepsStatusDetails) UnmarshalJSON(data []byte) erro
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceFreezeRecipeStepsStatusDetails *InstanceFreezeRecipeStepsStatusDetails = &InstanceFreezeRecipeStepsStatusDetails{empty: true}
+
+func (r *InstanceFreezeRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceFreezeRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -9158,6 +9762,10 @@ func (r *InstanceFreezeRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte)
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceFreezeRecipeStepsQuotaRequestDeltas *InstanceFreezeRecipeStepsQuotaRequestDeltas = &InstanceFreezeRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstanceFreezeRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceFreezeRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -9202,6 +9810,10 @@ func (r *InstanceFreezeRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte) e
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceFreezeRecipeStepsPreprocessUpdate *InstanceFreezeRecipeStepsPreprocessUpdate = &InstanceFreezeRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstanceFreezeRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceFreezeRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -9250,6 +9862,10 @@ func (r *InstanceFreezeRecipeStepsRequestedTenantProject) UnmarshalJSON(data []b
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceFreezeRecipeStepsRequestedTenantProject *InstanceFreezeRecipeStepsRequestedTenantProject = &InstanceFreezeRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstanceFreezeRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceFreezeRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -9302,6 +9918,10 @@ func (r *InstanceFreezeRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) er
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceFreezeRecipeStepsPermissionsInfo *InstanceFreezeRecipeStepsPermissionsInfo = &InstanceFreezeRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstanceFreezeRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceFreezeRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -9350,6 +9970,10 @@ func (r *InstanceFreezeRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(data 
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceFreezeRecipeStepsPermissionsInfoPolicyName *InstanceFreezeRecipeStepsPermissionsInfoPolicyName = &InstanceFreezeRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstanceFreezeRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceFreezeRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -9392,6 +10016,10 @@ func (r *InstanceFreezeRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON(d
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceFreezeRecipeStepsPermissionsInfoIamPermissions *InstanceFreezeRecipeStepsPermissionsInfoIamPermissions = &InstanceFreezeRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstanceFreezeRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceFreezeRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -9433,6 +10061,10 @@ func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data []b
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceFreezeRecipeStepsKeyNotificationsUpdate *InstanceFreezeRecipeStepsKeyNotificationsUpdate = &InstanceFreezeRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -9482,6 +10114,10 @@ func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Un
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -9529,6 +10165,10 @@ func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyN
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -9592,6 +10232,10 @@ func (r *InstancePreprocessUnfreezeRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUnfreezeRecipe *InstancePreprocessUnfreezeRecipe = &InstancePreprocessUnfreezeRecipe{empty: true}
+
+func (r *InstancePreprocessUnfreezeRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessUnfreezeRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -9683,6 +10327,10 @@ func (r *InstancePreprocessUnfreezeRecipeSteps) UnmarshalJSON(data []byte) error
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUnfreezeRecipeSteps *InstancePreprocessUnfreezeRecipeSteps = &InstancePreprocessUnfreezeRecipeSteps{empty: true}
 
+func (r *InstancePreprocessUnfreezeRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessUnfreezeRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -9731,6 +10379,10 @@ func (r *InstancePreprocessUnfreezeRecipeStepsStatus) UnmarshalJSON(data []byte)
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUnfreezeRecipeStepsStatus *InstancePreprocessUnfreezeRecipeStepsStatus = &InstancePreprocessUnfreezeRecipeStepsStatus{empty: true}
 
+func (r *InstancePreprocessUnfreezeRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessUnfreezeRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -9775,6 +10427,10 @@ func (r *InstancePreprocessUnfreezeRecipeStepsStatusDetails) UnmarshalJSON(data 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUnfreezeRecipeStepsStatusDetails *InstancePreprocessUnfreezeRecipeStepsStatusDetails = &InstancePreprocessUnfreezeRecipeStepsStatusDetails{empty: true}
+
+func (r *InstancePreprocessUnfreezeRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessUnfreezeRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -9821,6 +10477,10 @@ func (r *InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas) UnmarshalJSON(
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas *InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas = &InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -9865,6 +10525,10 @@ func (r *InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate) UnmarshalJSON(da
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate *InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate = &InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -9913,6 +10577,10 @@ func (r *InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject) UnmarshalJ
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject *InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject = &InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -9965,6 +10633,10 @@ func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfo) UnmarshalJSON(dat
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUnfreezeRecipeStepsPermissionsInfo *InstancePreprocessUnfreezeRecipeStepsPermissionsInfo = &InstancePreprocessUnfreezeRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -10013,6 +10685,10 @@ func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName) Unmarsh
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName = &InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -10055,6 +10731,10 @@ func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions) Unm
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions = &InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -10096,6 +10776,10 @@ func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate) UnmarshalJ
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate = &InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -10145,6 +10829,10 @@ func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificat
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -10192,6 +10880,10 @@ func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificat
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -10255,6 +10947,10 @@ func (r *InstanceUnfreezeRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUnfreezeRecipe *InstanceUnfreezeRecipe = &InstanceUnfreezeRecipe{empty: true}
+
+func (r *InstanceUnfreezeRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceUnfreezeRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -10346,6 +11042,10 @@ func (r *InstanceUnfreezeRecipeSteps) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUnfreezeRecipeSteps *InstanceUnfreezeRecipeSteps = &InstanceUnfreezeRecipeSteps{empty: true}
 
+func (r *InstanceUnfreezeRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceUnfreezeRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -10394,6 +11094,10 @@ func (r *InstanceUnfreezeRecipeStepsStatus) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUnfreezeRecipeStepsStatus *InstanceUnfreezeRecipeStepsStatus = &InstanceUnfreezeRecipeStepsStatus{empty: true}
 
+func (r *InstanceUnfreezeRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceUnfreezeRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -10438,6 +11142,10 @@ func (r *InstanceUnfreezeRecipeStepsStatusDetails) UnmarshalJSON(data []byte) er
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUnfreezeRecipeStepsStatusDetails *InstanceUnfreezeRecipeStepsStatusDetails = &InstanceUnfreezeRecipeStepsStatusDetails{empty: true}
+
+func (r *InstanceUnfreezeRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceUnfreezeRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -10484,6 +11192,10 @@ func (r *InstanceUnfreezeRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byt
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUnfreezeRecipeStepsQuotaRequestDeltas *InstanceUnfreezeRecipeStepsQuotaRequestDeltas = &InstanceUnfreezeRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstanceUnfreezeRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceUnfreezeRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -10528,6 +11240,10 @@ func (r *InstanceUnfreezeRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte)
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUnfreezeRecipeStepsPreprocessUpdate *InstanceUnfreezeRecipeStepsPreprocessUpdate = &InstanceUnfreezeRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstanceUnfreezeRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceUnfreezeRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -10576,6 +11292,10 @@ func (r *InstanceUnfreezeRecipeStepsRequestedTenantProject) UnmarshalJSON(data [
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUnfreezeRecipeStepsRequestedTenantProject *InstanceUnfreezeRecipeStepsRequestedTenantProject = &InstanceUnfreezeRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstanceUnfreezeRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceUnfreezeRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -10628,6 +11348,10 @@ func (r *InstanceUnfreezeRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) 
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUnfreezeRecipeStepsPermissionsInfo *InstanceUnfreezeRecipeStepsPermissionsInfo = &InstanceUnfreezeRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstanceUnfreezeRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceUnfreezeRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -10676,6 +11400,10 @@ func (r *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(dat
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName = &InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -10718,6 +11446,10 @@ func (r *InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions *InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions = &InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -10759,6 +11491,10 @@ func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data [
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUnfreezeRecipeStepsKeyNotificationsUpdate *InstanceUnfreezeRecipeStepsKeyNotificationsUpdate = &InstanceUnfreezeRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -10808,6 +11544,10 @@ func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) 
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -10855,6 +11595,10 @@ func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKe
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -10918,6 +11662,10 @@ func (r *InstancePreprocessReportInstanceHealthRecipe) UnmarshalJSON(data []byte
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReportInstanceHealthRecipe *InstancePreprocessReportInstanceHealthRecipe = &InstancePreprocessReportInstanceHealthRecipe{empty: true}
+
+func (r *InstancePreprocessReportInstanceHealthRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessReportInstanceHealthRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -11009,6 +11757,10 @@ func (r *InstancePreprocessReportInstanceHealthRecipeSteps) UnmarshalJSON(data [
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReportInstanceHealthRecipeSteps *InstancePreprocessReportInstanceHealthRecipeSteps = &InstancePreprocessReportInstanceHealthRecipeSteps{empty: true}
 
+func (r *InstancePreprocessReportInstanceHealthRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessReportInstanceHealthRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -11057,6 +11809,10 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsStatus) UnmarshalJSON(
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReportInstanceHealthRecipeStepsStatus *InstancePreprocessReportInstanceHealthRecipeStepsStatus = &InstancePreprocessReportInstanceHealthRecipeStepsStatus{empty: true}
 
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessReportInstanceHealthRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -11101,6 +11857,10 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails) Unmarsh
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails *InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails = &InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails{empty: true}
+
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -11147,6 +11907,10 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas) Un
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas *InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas = &InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -11191,6 +11955,10 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate) Unma
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate *InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate = &InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -11239,6 +12007,10 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject *InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject = &InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -11291,6 +12063,10 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo) Unmar
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo = &InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -11339,6 +12115,10 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyN
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName = &InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -11381,6 +12161,10 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPerm
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions = &InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -11422,6 +12206,10 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate = &InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -11471,6 +12259,10 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -11518,6 +12310,10 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -11581,6 +12377,10 @@ func (r *InstanceReportInstanceHealthRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReportInstanceHealthRecipe *InstanceReportInstanceHealthRecipe = &InstanceReportInstanceHealthRecipe{empty: true}
+
+func (r *InstanceReportInstanceHealthRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReportInstanceHealthRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -11672,6 +12472,10 @@ func (r *InstanceReportInstanceHealthRecipeSteps) UnmarshalJSON(data []byte) err
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReportInstanceHealthRecipeSteps *InstanceReportInstanceHealthRecipeSteps = &InstanceReportInstanceHealthRecipeSteps{empty: true}
 
+func (r *InstanceReportInstanceHealthRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReportInstanceHealthRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -11720,6 +12524,10 @@ func (r *InstanceReportInstanceHealthRecipeStepsStatus) UnmarshalJSON(data []byt
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReportInstanceHealthRecipeStepsStatus *InstanceReportInstanceHealthRecipeStepsStatus = &InstanceReportInstanceHealthRecipeStepsStatus{empty: true}
 
+func (r *InstanceReportInstanceHealthRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReportInstanceHealthRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -11764,6 +12572,10 @@ func (r *InstanceReportInstanceHealthRecipeStepsStatusDetails) UnmarshalJSON(dat
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReportInstanceHealthRecipeStepsStatusDetails *InstanceReportInstanceHealthRecipeStepsStatusDetails = &InstanceReportInstanceHealthRecipeStepsStatusDetails{empty: true}
+
+func (r *InstanceReportInstanceHealthRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReportInstanceHealthRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -11810,6 +12622,10 @@ func (r *InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas) UnmarshalJSO
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas *InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas = &InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -11854,6 +12670,10 @@ func (r *InstanceReportInstanceHealthRecipeStepsPreprocessUpdate) UnmarshalJSON(
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReportInstanceHealthRecipeStepsPreprocessUpdate *InstanceReportInstanceHealthRecipeStepsPreprocessUpdate = &InstanceReportInstanceHealthRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstanceReportInstanceHealthRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReportInstanceHealthRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -11902,6 +12722,10 @@ func (r *InstanceReportInstanceHealthRecipeStepsRequestedTenantProject) Unmarsha
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReportInstanceHealthRecipeStepsRequestedTenantProject *InstanceReportInstanceHealthRecipeStepsRequestedTenantProject = &InstanceReportInstanceHealthRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstanceReportInstanceHealthRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReportInstanceHealthRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -11954,6 +12778,10 @@ func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfo) UnmarshalJSON(d
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReportInstanceHealthRecipeStepsPermissionsInfo *InstanceReportInstanceHealthRecipeStepsPermissionsInfo = &InstanceReportInstanceHealthRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -12002,6 +12830,10 @@ func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName) Unmar
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName *InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName = &InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -12044,6 +12876,10 @@ func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) U
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions *InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions = &InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -12085,6 +12921,10 @@ func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate) Unmarsha
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate = &InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -12134,6 +12974,10 @@ func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotific
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -12181,6 +13025,10 @@ func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotific
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -12244,6 +13092,10 @@ func (r *InstancePreprocessGetRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessGetRecipe *InstancePreprocessGetRecipe = &InstancePreprocessGetRecipe{empty: true}
+
+func (r *InstancePreprocessGetRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessGetRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -12335,6 +13187,10 @@ func (r *InstancePreprocessGetRecipeSteps) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessGetRecipeSteps *InstancePreprocessGetRecipeSteps = &InstancePreprocessGetRecipeSteps{empty: true}
 
+func (r *InstancePreprocessGetRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessGetRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -12383,6 +13239,10 @@ func (r *InstancePreprocessGetRecipeStepsStatus) UnmarshalJSON(data []byte) erro
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessGetRecipeStepsStatus *InstancePreprocessGetRecipeStepsStatus = &InstancePreprocessGetRecipeStepsStatus{empty: true}
 
+func (r *InstancePreprocessGetRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessGetRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -12427,6 +13287,10 @@ func (r *InstancePreprocessGetRecipeStepsStatusDetails) UnmarshalJSON(data []byt
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessGetRecipeStepsStatusDetails *InstancePreprocessGetRecipeStepsStatusDetails = &InstancePreprocessGetRecipeStepsStatusDetails{empty: true}
+
+func (r *InstancePreprocessGetRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessGetRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -12473,6 +13337,10 @@ func (r *InstancePreprocessGetRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data 
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessGetRecipeStepsQuotaRequestDeltas *InstancePreprocessGetRecipeStepsQuotaRequestDeltas = &InstancePreprocessGetRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstancePreprocessGetRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessGetRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -12517,6 +13385,10 @@ func (r *InstancePreprocessGetRecipeStepsPreprocessUpdate) UnmarshalJSON(data []
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessGetRecipeStepsPreprocessUpdate *InstancePreprocessGetRecipeStepsPreprocessUpdate = &InstancePreprocessGetRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstancePreprocessGetRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessGetRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -12565,6 +13437,10 @@ func (r *InstancePreprocessGetRecipeStepsRequestedTenantProject) UnmarshalJSON(d
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessGetRecipeStepsRequestedTenantProject *InstancePreprocessGetRecipeStepsRequestedTenantProject = &InstancePreprocessGetRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstancePreprocessGetRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessGetRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -12617,6 +13493,10 @@ func (r *InstancePreprocessGetRecipeStepsPermissionsInfo) UnmarshalJSON(data []b
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessGetRecipeStepsPermissionsInfo *InstancePreprocessGetRecipeStepsPermissionsInfo = &InstancePreprocessGetRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstancePreprocessGetRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessGetRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -12665,6 +13545,10 @@ func (r *InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName) UnmarshalJSO
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName *InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName = &InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -12707,6 +13591,10 @@ func (r *InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions) Unmarsha
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions *InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions = &InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -12748,6 +13636,10 @@ func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(d
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessGetRecipeStepsKeyNotificationsUpdate *InstancePreprocessGetRecipeStepsKeyNotificationsUpdate = &InstancePreprocessGetRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -12797,6 +13689,10 @@ func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsI
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -12844,6 +13740,10 @@ func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsI
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -12907,6 +13807,10 @@ func (r *InstanceNotifyKeyAvailableRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyAvailableRecipe *InstanceNotifyKeyAvailableRecipe = &InstanceNotifyKeyAvailableRecipe{empty: true}
+
+func (r *InstanceNotifyKeyAvailableRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceNotifyKeyAvailableRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -12998,6 +13902,10 @@ func (r *InstanceNotifyKeyAvailableRecipeSteps) UnmarshalJSON(data []byte) error
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyAvailableRecipeSteps *InstanceNotifyKeyAvailableRecipeSteps = &InstanceNotifyKeyAvailableRecipeSteps{empty: true}
 
+func (r *InstanceNotifyKeyAvailableRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceNotifyKeyAvailableRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -13046,6 +13954,10 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsStatus) UnmarshalJSON(data []byte)
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyAvailableRecipeStepsStatus *InstanceNotifyKeyAvailableRecipeStepsStatus = &InstanceNotifyKeyAvailableRecipeStepsStatus{empty: true}
 
+func (r *InstanceNotifyKeyAvailableRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceNotifyKeyAvailableRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -13090,6 +14002,10 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsStatusDetails) UnmarshalJSON(data 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyAvailableRecipeStepsStatusDetails *InstanceNotifyKeyAvailableRecipeStepsStatusDetails = &InstanceNotifyKeyAvailableRecipeStepsStatusDetails{empty: true}
+
+func (r *InstanceNotifyKeyAvailableRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceNotifyKeyAvailableRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -13136,6 +14052,10 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas) UnmarshalJSON(
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas *InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas = &InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -13180,6 +14100,10 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate) UnmarshalJSON(da
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate *InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate = &InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -13228,6 +14152,10 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject) UnmarshalJ
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject *InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject = &InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -13280,6 +14208,10 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo) UnmarshalJSON(dat
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo = &InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -13328,6 +14260,10 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName) Unmarsh
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName = &InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -13370,6 +14306,10 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions) Unm
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions = &InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -13411,6 +14351,10 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate) UnmarshalJ
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate = &InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -13460,6 +14404,10 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificat
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -13507,6 +14455,10 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificat
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -13570,6 +14522,10 @@ func (r *InstanceNotifyKeyUnavailableRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyUnavailableRecipe *InstanceNotifyKeyUnavailableRecipe = &InstanceNotifyKeyUnavailableRecipe{empty: true}
+
+func (r *InstanceNotifyKeyUnavailableRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceNotifyKeyUnavailableRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -13661,6 +14617,10 @@ func (r *InstanceNotifyKeyUnavailableRecipeSteps) UnmarshalJSON(data []byte) err
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyUnavailableRecipeSteps *InstanceNotifyKeyUnavailableRecipeSteps = &InstanceNotifyKeyUnavailableRecipeSteps{empty: true}
 
+func (r *InstanceNotifyKeyUnavailableRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceNotifyKeyUnavailableRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -13709,6 +14669,10 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsStatus) UnmarshalJSON(data []byt
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyUnavailableRecipeStepsStatus *InstanceNotifyKeyUnavailableRecipeStepsStatus = &InstanceNotifyKeyUnavailableRecipeStepsStatus{empty: true}
 
+func (r *InstanceNotifyKeyUnavailableRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceNotifyKeyUnavailableRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -13753,6 +14717,10 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsStatusDetails) UnmarshalJSON(dat
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyUnavailableRecipeStepsStatusDetails *InstanceNotifyKeyUnavailableRecipeStepsStatusDetails = &InstanceNotifyKeyUnavailableRecipeStepsStatusDetails{empty: true}
+
+func (r *InstanceNotifyKeyUnavailableRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceNotifyKeyUnavailableRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -13799,6 +14767,10 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas) UnmarshalJSO
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas *InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas = &InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -13843,6 +14815,10 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate) UnmarshalJSON(
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate *InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate = &InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -13891,6 +14867,10 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject) Unmarsha
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject *InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject = &InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -13943,6 +14923,10 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo) UnmarshalJSON(d
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo = &InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -13991,6 +14975,10 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName) Unmar
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName = &InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -14033,6 +15021,10 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions) U
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions = &InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -14074,6 +15066,10 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate) Unmarsha
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate = &InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -14123,6 +15119,10 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotific
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -14170,6 +15170,10 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotific
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -14233,6 +15237,10 @@ func (r *InstanceReadonlyRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReadonlyRecipe *InstanceReadonlyRecipe = &InstanceReadonlyRecipe{empty: true}
+
+func (r *InstanceReadonlyRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReadonlyRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -14324,6 +15332,10 @@ func (r *InstanceReadonlyRecipeSteps) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReadonlyRecipeSteps *InstanceReadonlyRecipeSteps = &InstanceReadonlyRecipeSteps{empty: true}
 
+func (r *InstanceReadonlyRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReadonlyRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -14372,6 +15384,10 @@ func (r *InstanceReadonlyRecipeStepsStatus) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReadonlyRecipeStepsStatus *InstanceReadonlyRecipeStepsStatus = &InstanceReadonlyRecipeStepsStatus{empty: true}
 
+func (r *InstanceReadonlyRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReadonlyRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -14416,6 +15432,10 @@ func (r *InstanceReadonlyRecipeStepsStatusDetails) UnmarshalJSON(data []byte) er
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReadonlyRecipeStepsStatusDetails *InstanceReadonlyRecipeStepsStatusDetails = &InstanceReadonlyRecipeStepsStatusDetails{empty: true}
+
+func (r *InstanceReadonlyRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReadonlyRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -14462,6 +15482,10 @@ func (r *InstanceReadonlyRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byt
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReadonlyRecipeStepsQuotaRequestDeltas *InstanceReadonlyRecipeStepsQuotaRequestDeltas = &InstanceReadonlyRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstanceReadonlyRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReadonlyRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -14506,6 +15530,10 @@ func (r *InstanceReadonlyRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte)
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReadonlyRecipeStepsPreprocessUpdate *InstanceReadonlyRecipeStepsPreprocessUpdate = &InstanceReadonlyRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstanceReadonlyRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReadonlyRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -14554,6 +15582,10 @@ func (r *InstanceReadonlyRecipeStepsRequestedTenantProject) UnmarshalJSON(data [
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReadonlyRecipeStepsRequestedTenantProject *InstanceReadonlyRecipeStepsRequestedTenantProject = &InstanceReadonlyRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstanceReadonlyRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReadonlyRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -14606,6 +15638,10 @@ func (r *InstanceReadonlyRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte) 
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReadonlyRecipeStepsPermissionsInfo *InstanceReadonlyRecipeStepsPermissionsInfo = &InstanceReadonlyRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstanceReadonlyRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReadonlyRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -14654,6 +15690,10 @@ func (r *InstanceReadonlyRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(dat
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReadonlyRecipeStepsPermissionsInfoPolicyName *InstanceReadonlyRecipeStepsPermissionsInfoPolicyName = &InstanceReadonlyRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstanceReadonlyRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReadonlyRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -14696,6 +15736,10 @@ func (r *InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSON
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions *InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions = &InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -14737,6 +15781,10 @@ func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data [
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReadonlyRecipeStepsKeyNotificationsUpdate *InstanceReadonlyRecipeStepsKeyNotificationsUpdate = &InstanceReadonlyRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -14786,6 +15834,10 @@ func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) 
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -14833,6 +15885,10 @@ func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKe
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -14896,6 +15952,10 @@ func (r *InstanceReconcileRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReconcileRecipe *InstanceReconcileRecipe = &InstanceReconcileRecipe{empty: true}
+
+func (r *InstanceReconcileRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReconcileRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -14987,6 +16047,10 @@ func (r *InstanceReconcileRecipeSteps) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReconcileRecipeSteps *InstanceReconcileRecipeSteps = &InstanceReconcileRecipeSteps{empty: true}
 
+func (r *InstanceReconcileRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReconcileRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -15035,6 +16099,10 @@ func (r *InstanceReconcileRecipeStepsStatus) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReconcileRecipeStepsStatus *InstanceReconcileRecipeStepsStatus = &InstanceReconcileRecipeStepsStatus{empty: true}
 
+func (r *InstanceReconcileRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReconcileRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -15079,6 +16147,10 @@ func (r *InstanceReconcileRecipeStepsStatusDetails) UnmarshalJSON(data []byte) e
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReconcileRecipeStepsStatusDetails *InstanceReconcileRecipeStepsStatusDetails = &InstanceReconcileRecipeStepsStatusDetails{empty: true}
+
+func (r *InstanceReconcileRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReconcileRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -15125,6 +16197,10 @@ func (r *InstanceReconcileRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []by
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReconcileRecipeStepsQuotaRequestDeltas *InstanceReconcileRecipeStepsQuotaRequestDeltas = &InstanceReconcileRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstanceReconcileRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReconcileRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -15169,6 +16245,10 @@ func (r *InstanceReconcileRecipeStepsPreprocessUpdate) UnmarshalJSON(data []byte
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReconcileRecipeStepsPreprocessUpdate *InstanceReconcileRecipeStepsPreprocessUpdate = &InstanceReconcileRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstanceReconcileRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReconcileRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -15217,6 +16297,10 @@ func (r *InstanceReconcileRecipeStepsRequestedTenantProject) UnmarshalJSON(data 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReconcileRecipeStepsRequestedTenantProject *InstanceReconcileRecipeStepsRequestedTenantProject = &InstanceReconcileRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstanceReconcileRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReconcileRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -15269,6 +16353,10 @@ func (r *InstanceReconcileRecipeStepsPermissionsInfo) UnmarshalJSON(data []byte)
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReconcileRecipeStepsPermissionsInfo *InstanceReconcileRecipeStepsPermissionsInfo = &InstanceReconcileRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstanceReconcileRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReconcileRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -15317,6 +16405,10 @@ func (r *InstanceReconcileRecipeStepsPermissionsInfoPolicyName) UnmarshalJSON(da
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReconcileRecipeStepsPermissionsInfoPolicyName *InstanceReconcileRecipeStepsPermissionsInfoPolicyName = &InstanceReconcileRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstanceReconcileRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReconcileRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -15359,6 +16451,10 @@ func (r *InstanceReconcileRecipeStepsPermissionsInfoIamPermissions) UnmarshalJSO
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReconcileRecipeStepsPermissionsInfoIamPermissions *InstanceReconcileRecipeStepsPermissionsInfoIamPermissions = &InstanceReconcileRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstanceReconcileRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReconcileRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -15400,6 +16496,10 @@ func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdate) UnmarshalJSON(data 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReconcileRecipeStepsKeyNotificationsUpdate *InstanceReconcileRecipeStepsKeyNotificationsUpdate = &InstanceReconcileRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -15449,6 +16549,10 @@ func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo)
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -15496,6 +16600,10 @@ func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -15559,6 +16667,10 @@ func (r *InstancePreprocessPassthroughRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessPassthroughRecipe *InstancePreprocessPassthroughRecipe = &InstancePreprocessPassthroughRecipe{empty: true}
+
+func (r *InstancePreprocessPassthroughRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessPassthroughRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -15650,6 +16762,10 @@ func (r *InstancePreprocessPassthroughRecipeSteps) UnmarshalJSON(data []byte) er
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessPassthroughRecipeSteps *InstancePreprocessPassthroughRecipeSteps = &InstancePreprocessPassthroughRecipeSteps{empty: true}
 
+func (r *InstancePreprocessPassthroughRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessPassthroughRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -15698,6 +16814,10 @@ func (r *InstancePreprocessPassthroughRecipeStepsStatus) UnmarshalJSON(data []by
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessPassthroughRecipeStepsStatus *InstancePreprocessPassthroughRecipeStepsStatus = &InstancePreprocessPassthroughRecipeStepsStatus{empty: true}
 
+func (r *InstancePreprocessPassthroughRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessPassthroughRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -15742,6 +16862,10 @@ func (r *InstancePreprocessPassthroughRecipeStepsStatusDetails) UnmarshalJSON(da
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessPassthroughRecipeStepsStatusDetails *InstancePreprocessPassthroughRecipeStepsStatusDetails = &InstancePreprocessPassthroughRecipeStepsStatusDetails{empty: true}
+
+func (r *InstancePreprocessPassthroughRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessPassthroughRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -15788,6 +16912,10 @@ func (r *InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas) UnmarshalJS
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas *InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas = &InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -15832,6 +16960,10 @@ func (r *InstancePreprocessPassthroughRecipeStepsPreprocessUpdate) UnmarshalJSON
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessPassthroughRecipeStepsPreprocessUpdate *InstancePreprocessPassthroughRecipeStepsPreprocessUpdate = &InstancePreprocessPassthroughRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstancePreprocessPassthroughRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessPassthroughRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -15880,6 +17012,10 @@ func (r *InstancePreprocessPassthroughRecipeStepsRequestedTenantProject) Unmarsh
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessPassthroughRecipeStepsRequestedTenantProject *InstancePreprocessPassthroughRecipeStepsRequestedTenantProject = &InstancePreprocessPassthroughRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstancePreprocessPassthroughRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessPassthroughRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -15932,6 +17068,10 @@ func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfo) UnmarshalJSON(
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessPassthroughRecipeStepsPermissionsInfo *InstancePreprocessPassthroughRecipeStepsPermissionsInfo = &InstancePreprocessPassthroughRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -15980,6 +17120,10 @@ func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName) Unma
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName *InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName = &InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -16022,6 +17166,10 @@ func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions) 
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions *InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions = &InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -16063,6 +17211,10 @@ func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate) Unmarsh
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate = &InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -16112,6 +17264,10 @@ func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotifi
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -16159,6 +17315,10 @@ func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotifi
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -16222,6 +17382,10 @@ func (r *InstancePreprocessReconcileRecipe) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReconcileRecipe *InstancePreprocessReconcileRecipe = &InstancePreprocessReconcileRecipe{empty: true}
+
+func (r *InstancePreprocessReconcileRecipe) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessReconcileRecipe) String() string {
 	return dcl.SprintResource(r)
@@ -16313,6 +17477,10 @@ func (r *InstancePreprocessReconcileRecipeSteps) UnmarshalJSON(data []byte) erro
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReconcileRecipeSteps *InstancePreprocessReconcileRecipeSteps = &InstancePreprocessReconcileRecipeSteps{empty: true}
 
+func (r *InstancePreprocessReconcileRecipeSteps) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessReconcileRecipeSteps) String() string {
 	return dcl.SprintResource(r)
 }
@@ -16361,6 +17529,10 @@ func (r *InstancePreprocessReconcileRecipeStepsStatus) UnmarshalJSON(data []byte
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReconcileRecipeStepsStatus *InstancePreprocessReconcileRecipeStepsStatus = &InstancePreprocessReconcileRecipeStepsStatus{empty: true}
 
+func (r *InstancePreprocessReconcileRecipeStepsStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessReconcileRecipeStepsStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -16405,6 +17577,10 @@ func (r *InstancePreprocessReconcileRecipeStepsStatusDetails) UnmarshalJSON(data
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReconcileRecipeStepsStatusDetails *InstancePreprocessReconcileRecipeStepsStatusDetails = &InstancePreprocessReconcileRecipeStepsStatusDetails{empty: true}
+
+func (r *InstancePreprocessReconcileRecipeStepsStatusDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessReconcileRecipeStepsStatusDetails) String() string {
 	return dcl.SprintResource(r)
@@ -16451,6 +17627,10 @@ func (r *InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas) UnmarshalJSON
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas *InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas = &InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas{empty: true}
 
+func (r *InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas) String() string {
 	return dcl.SprintResource(r)
 }
@@ -16495,6 +17675,10 @@ func (r *InstancePreprocessReconcileRecipeStepsPreprocessUpdate) UnmarshalJSON(d
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReconcileRecipeStepsPreprocessUpdate *InstancePreprocessReconcileRecipeStepsPreprocessUpdate = &InstancePreprocessReconcileRecipeStepsPreprocessUpdate{empty: true}
+
+func (r *InstancePreprocessReconcileRecipeStepsPreprocessUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessReconcileRecipeStepsPreprocessUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -16543,6 +17727,10 @@ func (r *InstancePreprocessReconcileRecipeStepsRequestedTenantProject) Unmarshal
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReconcileRecipeStepsRequestedTenantProject *InstancePreprocessReconcileRecipeStepsRequestedTenantProject = &InstancePreprocessReconcileRecipeStepsRequestedTenantProject{empty: true}
+
+func (r *InstancePreprocessReconcileRecipeStepsRequestedTenantProject) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessReconcileRecipeStepsRequestedTenantProject) String() string {
 	return dcl.SprintResource(r)
@@ -16595,6 +17783,10 @@ func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfo) UnmarshalJSON(da
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReconcileRecipeStepsPermissionsInfo *InstancePreprocessReconcileRecipeStepsPermissionsInfo = &InstancePreprocessReconcileRecipeStepsPermissionsInfo{empty: true}
 
+func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -16643,6 +17835,10 @@ func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName) Unmars
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName *InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName = &InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName{empty: true}
 
+func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName) String() string {
 	return dcl.SprintResource(r)
 }
@@ -16685,6 +17881,10 @@ func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions) Un
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions *InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions = &InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions{empty: true}
 
+func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -16726,6 +17926,10 @@ func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate) Unmarshal
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate = &InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate{empty: true}
+
+func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate) String() string {
 	return dcl.SprintResource(r)
@@ -16775,6 +17979,10 @@ func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotifica
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo = &InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo{empty: true}
 
+func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) Empty() bool {
+	return r.empty
+}
+
 func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo) String() string {
 	return dcl.SprintResource(r)
 }
@@ -16822,6 +18030,10 @@ func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotifica
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs = &InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs{empty: true}
+
+func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) Empty() bool {
+	return r.empty
+}
 
 func (r *InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs) String() string {
 	return dcl.SprintResource(r)
@@ -16882,6 +18094,10 @@ func (r *InstanceHistory) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyInstanceHistory *InstanceHistory = &InstanceHistory{empty: true}
+
+func (r *InstanceHistory) Empty() bool {
+	return r.empty
+}
 
 func (r *InstanceHistory) String() string {
 	return dcl.SprintResource(r)

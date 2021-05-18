@@ -131,54 +131,17 @@ type instanceApiOperation interface {
 func newUpdateInstanceUpdateInstanceRequest(ctx context.Context, f *Instance, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	if v, err := dcl.DeriveField("projects/%s/locations/%s/instances/%s", f.Name, f.Project, f.Location, f.Name); err != nil {
-		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["name"] = v
-	}
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
 	}
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
 	}
-	if v := f.LocationId; !dcl.IsEmptyValueIndirect(v) {
-		req["locationId"] = v
-	}
-	if v := f.AlternativeLocationId; !dcl.IsEmptyValueIndirect(v) {
-		req["alternativeLocationId"] = v
-	}
-	if v := f.RedisVersion; !dcl.IsEmptyValueIndirect(v) {
-		req["redisVersion"] = v
-	}
-	if v := f.ReservedIPRange; !dcl.IsEmptyValueIndirect(v) {
-		req["reservedIpRange"] = v
-	}
 	if v := f.RedisConfigs; !dcl.IsEmptyValueIndirect(v) {
 		req["redisConfigs"] = v
 	}
-	if v := f.Tier; !dcl.IsEmptyValueIndirect(v) {
-		req["tier"] = v
-	}
 	if v := f.MemorySizeGb; !dcl.IsEmptyValueIndirect(v) {
 		req["memorySizeGb"] = v
-	}
-	if v := f.AuthorizedNetwork; !dcl.IsEmptyValueIndirect(v) {
-		req["authorizedNetwork"] = v
-	}
-	if v := f.ConnectMode; !dcl.IsEmptyValueIndirect(v) {
-		req["connectMode"] = v
-	}
-	if v := f.AuthEnabled; !dcl.IsEmptyValueIndirect(v) {
-		req["authEnabled"] = v
-	}
-	if v := f.TransitEncryptionMode; !dcl.IsEmptyValueIndirect(v) {
-		req["transitEncryptionMode"] = v
-	}
-	if v, err := expandInstanceMaintenancePolicy(c, f.MaintenancePolicy); err != nil {
-		return nil, fmt.Errorf("error expanding MaintenancePolicy into maintenancePolicy: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["maintenancePolicy"] = v
 	}
 	req["name"] = fmt.Sprintf("projects/%s/locations/%s/instances/%s", *f.Project, *f.Location, *f.Name)
 
@@ -213,7 +176,7 @@ func (op *updateInstanceUpdateInstanceOperation) do(ctx context.Context, r *Inst
 	if err != nil {
 		return err
 	}
-	mask := strings.Join([]string{"name", "displayName", "labels", "locationId", "alternativeLocationId", "redisVersion", "reservedIpRange", "redisConfigs", "tier", "memorySizeGb", "authorizedNetwork", "connectMode", "authEnabled", "transitEncryptionMode", "maintenancePolicy"}, ",")
+	mask := strings.Join([]string{"displayName", "labels", "redisConfigs", "memorySizeGb"}, ",")
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -512,7 +475,7 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 
 		return rawDesired, nil
 	}
-	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
@@ -570,7 +533,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
-		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
 		}
 	}
@@ -1188,7 +1151,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1227,7 +1190,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.LocationId, actual.LocationId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LocationId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LocationId, actual.LocationId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocationId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1240,7 +1203,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.AlternativeLocationId, actual.AlternativeLocationId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("AlternativeLocationId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlternativeLocationId, actual.AlternativeLocationId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AlternativeLocationId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1253,7 +1216,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.RedisVersion, actual.RedisVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RedisVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RedisVersion, actual.RedisVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RedisVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1266,7 +1229,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReservedIPRange, actual.ReservedIPRange, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReservedIPRange")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReservedIPRange, actual.ReservedIPRange, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReservedIPRange")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1370,7 +1333,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Tier, actual.Tier, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tier")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tier, actual.Tier, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tier")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1396,7 +1359,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.AuthorizedNetwork, actual.AuthorizedNetwork, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("AuthorizedNetwork")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AuthorizedNetwork, actual.AuthorizedNetwork, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AuthorizedNetwork")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1422,7 +1385,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConnectMode, actual.ConnectMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ConnectMode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConnectMode, actual.ConnectMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConnectMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1435,7 +1398,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.AuthEnabled, actual.AuthEnabled, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("AuthEnabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AuthEnabled, actual.AuthEnabled, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AuthEnabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1461,7 +1424,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.TransitEncryptionMode, actual.TransitEncryptionMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TransitEncryptionMode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TransitEncryptionMode, actual.TransitEncryptionMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TransitEncryptionMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1474,7 +1437,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaintenancePolicy, actual.MaintenancePolicy, dcl.Info{ObjectFunction: compareInstanceMaintenancePolicyNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MaintenancePolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaintenancePolicy, actual.MaintenancePolicy, dcl.Info{ObjectFunction: compareInstanceMaintenancePolicyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaintenancePolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1879,9 +1842,7 @@ func unmarshalMapInstance(m map[string]interface{}, c *Client) (*Instance, error
 // expandInstance expands Instance into a JSON request object.
 func expandInstance(c *Client, f *Instance) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("projects/%s/locations/%s/instances/%s", f.Name, f.Project, f.Location, f.Name); err != nil {
-		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if v != nil {
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
@@ -2132,6 +2093,10 @@ func flattenInstanceServerCaCerts(c *Client, i interface{}) *InstanceServerCaCer
 	}
 
 	r := &InstanceServerCaCerts{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceServerCaCerts
+	}
 	r.SerialNumber = dcl.FlattenString(m["serialNumber"])
 	r.Cert = dcl.FlattenString(m["cert"])
 	r.CreateTime = dcl.FlattenString(m["createTime"])
@@ -2257,6 +2222,10 @@ func flattenInstanceMaintenancePolicy(c *Client, i interface{}) *InstanceMainten
 	}
 
 	r := &InstanceMaintenancePolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceMaintenancePolicy
+	}
 	r.CreateTime = dcl.FlattenString(m["createTime"])
 	r.UpdateTime = dcl.FlattenString(m["updateTime"])
 	r.Description = dcl.FlattenString(m["description"])
@@ -2378,6 +2347,10 @@ func flattenInstanceMaintenancePolicyWeeklyMaintenanceWindow(c *Client, i interf
 	}
 
 	r := &InstanceMaintenancePolicyWeeklyMaintenanceWindow{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceMaintenancePolicyWeeklyMaintenanceWindow
+	}
 	r.Day = flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum(m["day"])
 	r.StartTime = flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c, m["startTime"])
 	r.Duration = dcl.FlattenString(m["duration"])
@@ -2499,6 +2472,10 @@ func flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(c *Client,
 	}
 
 	r := &InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime
+	}
 	r.Hours = dcl.FlattenInteger(m["hours"])
 	r.Minutes = dcl.FlattenInteger(m["minutes"])
 	r.Seconds = dcl.FlattenInteger(m["seconds"])
@@ -2621,6 +2598,10 @@ func flattenInstanceMaintenanceSchedule(c *Client, i interface{}) *InstanceMaint
 	}
 
 	r := &InstanceMaintenanceSchedule{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceMaintenanceSchedule
+	}
 	r.StartTime = dcl.FlattenString(m["startTime"])
 	r.EndTime = dcl.FlattenString(m["endTime"])
 	r.CanReschedule = dcl.FlattenBool(m["canReschedule"])

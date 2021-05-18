@@ -457,6 +457,10 @@ func (r *AlertPolicyDocumentation) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyDocumentation *AlertPolicyDocumentation = &AlertPolicyDocumentation{empty: true}
 
+func (r *AlertPolicyDocumentation) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyDocumentation) String() string {
 	return dcl.SprintResource(r)
 }
@@ -532,6 +536,10 @@ func (r *AlertPolicyConditions) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditions *AlertPolicyConditions = &AlertPolicyConditions{empty: true}
 
+func (r *AlertPolicyConditions) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -595,6 +603,10 @@ func (r *AlertPolicyConditionsConditionThreshold) UnmarshalJSON(data []byte) err
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionThreshold *AlertPolicyConditionsConditionThreshold = &AlertPolicyConditionsConditionThreshold{empty: true}
 
+func (r *AlertPolicyConditionsConditionThreshold) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionThreshold) String() string {
 	return dcl.SprintResource(r)
 }
@@ -652,6 +664,10 @@ func (r *AlertPolicyConditionsConditionThresholdAggregations) UnmarshalJSON(data
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionThresholdAggregations *AlertPolicyConditionsConditionThresholdAggregations = &AlertPolicyConditionsConditionThresholdAggregations{empty: true}
 
+func (r *AlertPolicyConditionsConditionThresholdAggregations) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionThresholdAggregations) String() string {
 	return dcl.SprintResource(r)
 }
@@ -693,6 +709,10 @@ func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessTh
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams *AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams = &AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams{empty: true}
+
+func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams) String() string {
 	return dcl.SprintResource(r)
@@ -738,6 +758,10 @@ func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributi
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams = &AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams{empty: true}
+
+func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams) String() string {
 	return dcl.SprintResource(r)
@@ -787,6 +811,10 @@ func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributi
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions = &AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions{empty: true}
 
+func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -834,6 +862,10 @@ func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributi
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets = &AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets{empty: true}
+
+func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) String() string {
 	return dcl.SprintResource(r)
@@ -883,6 +915,10 @@ func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributi
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets = &AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets{empty: true}
 
+func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -925,6 +961,10 @@ func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributi
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets = &AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets{empty: true}
 
+func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -966,6 +1006,10 @@ func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributi
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling = &AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling{empty: true}
+
+func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling) String() string {
 	return dcl.SprintResource(r)
@@ -1024,6 +1068,10 @@ func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregations) Unmarsh
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregations *AlertPolicyConditionsConditionThresholdDenominatorAggregations = &AlertPolicyConditionsConditionThresholdDenominatorAggregations{empty: true}
 
+func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregations) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregations) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1065,6 +1113,10 @@ func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFra
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams = &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams{empty: true}
+
+func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams) String() string {
 	return dcl.SprintResource(r)
@@ -1110,6 +1162,10 @@ func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMak
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams = &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams{empty: true}
+
+func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams) String() string {
 	return dcl.SprintResource(r)
@@ -1159,6 +1215,10 @@ func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMak
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions = &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions{empty: true}
 
+func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1206,6 +1266,10 @@ func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMak
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets = &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets{empty: true}
+
+func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) String() string {
 	return dcl.SprintResource(r)
@@ -1255,6 +1319,10 @@ func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMak
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets = &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets{empty: true}
 
+func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1297,6 +1365,10 @@ func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMak
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets = &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets{empty: true}
 
+func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1338,6 +1410,10 @@ func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMak
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling = &AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling{empty: true}
+
+func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling) String() string {
 	return dcl.SprintResource(r)
@@ -1383,6 +1459,10 @@ func (r *AlertPolicyConditionsConditionThresholdTrigger) UnmarshalJSON(data []by
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionThresholdTrigger *AlertPolicyConditionsConditionThresholdTrigger = &AlertPolicyConditionsConditionThresholdTrigger{empty: true}
+
+func (r *AlertPolicyConditionsConditionThresholdTrigger) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionThresholdTrigger) String() string {
 	return dcl.SprintResource(r)
@@ -1434,6 +1514,10 @@ func (r *AlertPolicyConditionsConditionAbsent) UnmarshalJSON(data []byte) error 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionAbsent *AlertPolicyConditionsConditionAbsent = &AlertPolicyConditionsConditionAbsent{empty: true}
+
+func (r *AlertPolicyConditionsConditionAbsent) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionAbsent) String() string {
 	return dcl.SprintResource(r)
@@ -1492,6 +1576,10 @@ func (r *AlertPolicyConditionsConditionAbsentAggregations) UnmarshalJSON(data []
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionAbsentAggregations *AlertPolicyConditionsConditionAbsentAggregations = &AlertPolicyConditionsConditionAbsentAggregations{empty: true}
 
+func (r *AlertPolicyConditionsConditionAbsentAggregations) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionAbsentAggregations) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1533,6 +1621,10 @@ func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanP
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams *AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams = &AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams{empty: true}
+
+func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams) String() string {
 	return dcl.SprintResource(r)
@@ -1578,6 +1670,10 @@ func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionP
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams = &AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams{empty: true}
+
+func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams) String() string {
 	return dcl.SprintResource(r)
@@ -1627,6 +1723,10 @@ func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionP
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions = &AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions{empty: true}
 
+func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1674,6 +1774,10 @@ func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionP
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets = &AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets{empty: true}
+
+func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) String() string {
 	return dcl.SprintResource(r)
@@ -1723,6 +1827,10 @@ func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionP
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets = &AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets{empty: true}
 
+func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1765,6 +1873,10 @@ func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionP
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets = &AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets{empty: true}
 
+func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1806,6 +1918,10 @@ func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionP
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling = &AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling{empty: true}
+
+func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling) String() string {
 	return dcl.SprintResource(r)
@@ -1852,6 +1968,10 @@ func (r *AlertPolicyConditionsConditionAbsentDuration) UnmarshalJSON(data []byte
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionAbsentDuration *AlertPolicyConditionsConditionAbsentDuration = &AlertPolicyConditionsConditionAbsentDuration{empty: true}
 
+func (r *AlertPolicyConditionsConditionAbsentDuration) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionAbsentDuration) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1896,6 +2016,10 @@ func (r *AlertPolicyConditionsConditionAbsentTrigger) UnmarshalJSON(data []byte)
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionAbsentTrigger *AlertPolicyConditionsConditionAbsentTrigger = &AlertPolicyConditionsConditionAbsentTrigger{empty: true}
+
+func (r *AlertPolicyConditionsConditionAbsentTrigger) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionAbsentTrigger) String() string {
 	return dcl.SprintResource(r)
@@ -1942,6 +2066,10 @@ func (r *AlertPolicyConditionsConditionMatchedLog) UnmarshalJSON(data []byte) er
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionMatchedLog *AlertPolicyConditionsConditionMatchedLog = &AlertPolicyConditionsConditionMatchedLog{empty: true}
 
+func (r *AlertPolicyConditionsConditionMatchedLog) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionMatchedLog) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1983,6 +2111,10 @@ func (r *AlertPolicyConditionsConditionClusterOutlier) UnmarshalJSON(data []byte
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionClusterOutlier *AlertPolicyConditionsConditionClusterOutlier = &AlertPolicyConditionsConditionClusterOutlier{empty: true}
+
+func (r *AlertPolicyConditionsConditionClusterOutlier) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionClusterOutlier) String() string {
 	return dcl.SprintResource(r)
@@ -2041,6 +2173,10 @@ func (r *AlertPolicyConditionsConditionRate) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionRate *AlertPolicyConditionsConditionRate = &AlertPolicyConditionsConditionRate{empty: true}
 
+func (r *AlertPolicyConditionsConditionRate) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionRate) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2098,6 +2234,10 @@ func (r *AlertPolicyConditionsConditionRateAggregations) UnmarshalJSON(data []by
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionRateAggregations *AlertPolicyConditionsConditionRateAggregations = &AlertPolicyConditionsConditionRateAggregations{empty: true}
 
+func (r *AlertPolicyConditionsConditionRateAggregations) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionRateAggregations) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2139,6 +2279,10 @@ func (r *AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanPar
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams *AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams = &AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams{empty: true}
+
+func (r *AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams) String() string {
 	return dcl.SprintResource(r)
@@ -2184,6 +2328,10 @@ func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionPar
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams = &AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams{empty: true}
+
+func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams) String() string {
 	return dcl.SprintResource(r)
@@ -2233,6 +2381,10 @@ func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionPar
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions = &AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions{empty: true}
 
+func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2280,6 +2432,10 @@ func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionPar
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets = &AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets{empty: true}
+
+func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets) String() string {
 	return dcl.SprintResource(r)
@@ -2329,6 +2485,10 @@ func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionPar
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets = &AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets{empty: true}
 
+func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2371,6 +2531,10 @@ func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionPar
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets = &AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets{empty: true}
 
+func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2412,6 +2576,10 @@ func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionPar
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling = &AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling{empty: true}
+
+func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling) String() string {
 	return dcl.SprintResource(r)
@@ -2458,6 +2626,10 @@ func (r *AlertPolicyConditionsConditionRateTimeWindow) UnmarshalJSON(data []byte
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionRateTimeWindow *AlertPolicyConditionsConditionRateTimeWindow = &AlertPolicyConditionsConditionRateTimeWindow{empty: true}
 
+func (r *AlertPolicyConditionsConditionRateTimeWindow) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionRateTimeWindow) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2502,6 +2674,10 @@ func (r *AlertPolicyConditionsConditionRateTrigger) UnmarshalJSON(data []byte) e
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionRateTrigger *AlertPolicyConditionsConditionRateTrigger = &AlertPolicyConditionsConditionRateTrigger{empty: true}
+
+func (r *AlertPolicyConditionsConditionRateTrigger) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionRateTrigger) String() string {
 	return dcl.SprintResource(r)
@@ -2557,6 +2733,10 @@ func (r *AlertPolicyConditionsConditionUpMon) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionUpMon *AlertPolicyConditionsConditionUpMon = &AlertPolicyConditionsConditionUpMon{empty: true}
 
+func (r *AlertPolicyConditionsConditionUpMon) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionUpMon) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2602,6 +2782,10 @@ func (r *AlertPolicyConditionsConditionUpMonDuration) UnmarshalJSON(data []byte)
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionUpMonDuration *AlertPolicyConditionsConditionUpMonDuration = &AlertPolicyConditionsConditionUpMonDuration{empty: true}
 
+func (r *AlertPolicyConditionsConditionUpMonDuration) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionUpMonDuration) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2646,6 +2830,10 @@ func (r *AlertPolicyConditionsConditionUpMonTrigger) UnmarshalJSON(data []byte) 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionUpMonTrigger *AlertPolicyConditionsConditionUpMonTrigger = &AlertPolicyConditionsConditionUpMonTrigger{empty: true}
+
+func (r *AlertPolicyConditionsConditionUpMonTrigger) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionUpMonTrigger) String() string {
 	return dcl.SprintResource(r)
@@ -2707,6 +2895,10 @@ func (r *AlertPolicyConditionsConditionProcessCount) UnmarshalJSON(data []byte) 
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionProcessCount *AlertPolicyConditionsConditionProcessCount = &AlertPolicyConditionsConditionProcessCount{empty: true}
 
+func (r *AlertPolicyConditionsConditionProcessCount) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionProcessCount) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2751,6 +2943,10 @@ func (r *AlertPolicyConditionsConditionProcessCountTrigger) UnmarshalJSON(data [
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionProcessCountTrigger *AlertPolicyConditionsConditionProcessCountTrigger = &AlertPolicyConditionsConditionProcessCountTrigger{empty: true}
+
+func (r *AlertPolicyConditionsConditionProcessCountTrigger) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionProcessCountTrigger) String() string {
 	return dcl.SprintResource(r)
@@ -2797,6 +2993,10 @@ func (r *AlertPolicyConditionsConditionProcessCountDuration) UnmarshalJSON(data 
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionProcessCountDuration *AlertPolicyConditionsConditionProcessCountDuration = &AlertPolicyConditionsConditionProcessCountDuration{empty: true}
 
+func (r *AlertPolicyConditionsConditionProcessCountDuration) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionProcessCountDuration) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2841,6 +3041,10 @@ func (r *AlertPolicyConditionsConditionTimeSeriesQueryLanguage) UnmarshalJSON(da
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionTimeSeriesQueryLanguage *AlertPolicyConditionsConditionTimeSeriesQueryLanguage = &AlertPolicyConditionsConditionTimeSeriesQueryLanguage{empty: true}
+
+func (r *AlertPolicyConditionsConditionTimeSeriesQueryLanguage) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionTimeSeriesQueryLanguage) String() string {
 	return dcl.SprintResource(r)
@@ -2890,6 +3094,10 @@ func (r *AlertPolicyConditionsConditionMonitoringQueryLanguage) UnmarshalJSON(da
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionMonitoringQueryLanguage *AlertPolicyConditionsConditionMonitoringQueryLanguage = &AlertPolicyConditionsConditionMonitoringQueryLanguage{empty: true}
 
+func (r *AlertPolicyConditionsConditionMonitoringQueryLanguage) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionMonitoringQueryLanguage) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2934,6 +3142,10 @@ func (r *AlertPolicyConditionsConditionMonitoringQueryLanguageDuration) Unmarsha
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionMonitoringQueryLanguageDuration *AlertPolicyConditionsConditionMonitoringQueryLanguageDuration = &AlertPolicyConditionsConditionMonitoringQueryLanguageDuration{empty: true}
+
+func (r *AlertPolicyConditionsConditionMonitoringQueryLanguageDuration) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyConditionsConditionMonitoringQueryLanguageDuration) String() string {
 	return dcl.SprintResource(r)
@@ -2980,6 +3192,10 @@ func (r *AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger) Unmarshal
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger *AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger = &AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger{empty: true}
 
+func (r *AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3021,6 +3237,10 @@ func (r *AlertPolicyEnabled) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyEnabled *AlertPolicyEnabled = &AlertPolicyEnabled{empty: true}
+
+func (r *AlertPolicyEnabled) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyEnabled) String() string {
 	return dcl.SprintResource(r)
@@ -3070,6 +3290,10 @@ func (r *AlertPolicyValidity) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyValidity *AlertPolicyValidity = &AlertPolicyValidity{empty: true}
 
+func (r *AlertPolicyValidity) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyValidity) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3114,6 +3338,10 @@ func (r *AlertPolicyValidityDetails) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyValidityDetails *AlertPolicyValidityDetails = &AlertPolicyValidityDetails{empty: true}
+
+func (r *AlertPolicyValidityDetails) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyValidityDetails) String() string {
 	return dcl.SprintResource(r)
@@ -3160,6 +3388,10 @@ func (r *AlertPolicyCreationRecord) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyCreationRecord *AlertPolicyCreationRecord = &AlertPolicyCreationRecord{empty: true}
 
+func (r *AlertPolicyCreationRecord) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyCreationRecord) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3204,6 +3436,10 @@ func (r *AlertPolicyCreationRecordMutateTime) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyCreationRecordMutateTime *AlertPolicyCreationRecordMutateTime = &AlertPolicyCreationRecordMutateTime{empty: true}
+
+func (r *AlertPolicyCreationRecordMutateTime) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyCreationRecordMutateTime) String() string {
 	return dcl.SprintResource(r)
@@ -3250,6 +3486,10 @@ func (r *AlertPolicyMutationRecord) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyMutationRecord *AlertPolicyMutationRecord = &AlertPolicyMutationRecord{empty: true}
 
+func (r *AlertPolicyMutationRecord) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyMutationRecord) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3295,6 +3535,10 @@ func (r *AlertPolicyMutationRecordMutateTime) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyMutationRecordMutateTime *AlertPolicyMutationRecordMutateTime = &AlertPolicyMutationRecordMutateTime{empty: true}
 
+func (r *AlertPolicyMutationRecordMutateTime) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyMutationRecordMutateTime) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3337,6 +3581,10 @@ func (r *AlertPolicyIncidentStrategy) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyIncidentStrategy *AlertPolicyIncidentStrategy = &AlertPolicyIncidentStrategy{empty: true}
 
+func (r *AlertPolicyIncidentStrategy) Empty() bool {
+	return r.empty
+}
+
 func (r *AlertPolicyIncidentStrategy) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3378,6 +3626,10 @@ func (r *AlertPolicyMetadata) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAlertPolicyMetadata *AlertPolicyMetadata = &AlertPolicyMetadata{empty: true}
+
+func (r *AlertPolicyMetadata) Empty() bool {
+	return r.empty
+}
 
 func (r *AlertPolicyMetadata) String() string {
 	return dcl.SprintResource(r)

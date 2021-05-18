@@ -110,6 +110,10 @@ func (r *FirewallPolicyRuleMatch) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyFirewallPolicyRuleMatch *FirewallPolicyRuleMatch = &FirewallPolicyRuleMatch{empty: true}
 
+func (r *FirewallPolicyRuleMatch) Empty() bool {
+	return r.empty
+}
+
 func (r *FirewallPolicyRuleMatch) String() string {
 	return dcl.SprintResource(r)
 }
@@ -154,6 +158,10 @@ func (r *FirewallPolicyRuleMatchLayer4Configs) UnmarshalJSON(data []byte) error 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyFirewallPolicyRuleMatchLayer4Configs *FirewallPolicyRuleMatchLayer4Configs = &FirewallPolicyRuleMatchLayer4Configs{empty: true}
+
+func (r *FirewallPolicyRuleMatchLayer4Configs) Empty() bool {
+	return r.empty
+}
 
 func (r *FirewallPolicyRuleMatchLayer4Configs) String() string {
 	return dcl.SprintResource(r)

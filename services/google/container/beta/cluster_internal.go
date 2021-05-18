@@ -2111,38 +2111,14 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 	rawDesired.DatabaseEncryption = canonicalizeClusterDatabaseEncryption(rawDesired.DatabaseEncryption, rawInitial.DatabaseEncryption, opts...)
 	rawDesired.VerticalPodAutoscaling = canonicalizeClusterVerticalPodAutoscaling(rawDesired.VerticalPodAutoscaling, rawInitial.VerticalPodAutoscaling, opts...)
 	rawDesired.ShieldedNodes = canonicalizeClusterShieldedNodes(rawDesired.ShieldedNodes, rawInitial.ShieldedNodes, opts...)
-	if dcl.StringCanonicalize(rawDesired.Endpoint, rawInitial.Endpoint) {
-		rawDesired.Endpoint = rawInitial.Endpoint
-	}
 	if dcl.MatchingSemverInterface(rawDesired.MasterVersion, rawInitial.MasterVersion) {
 		rawDesired.MasterVersion = rawInitial.MasterVersion
-	}
-	if dcl.IsZeroValue(rawDesired.CreateTime) {
-		rawDesired.CreateTime = rawInitial.CreateTime
-	}
-	if dcl.IsZeroValue(rawDesired.Status) {
-		rawDesired.Status = rawInitial.Status
-	}
-	if dcl.StringCanonicalize(rawDesired.StatusMessage, rawInitial.StatusMessage) {
-		rawDesired.StatusMessage = rawInitial.StatusMessage
-	}
-	if dcl.IsZeroValue(rawDesired.NodeIPv4CidrSize) {
-		rawDesired.NodeIPv4CidrSize = rawInitial.NodeIPv4CidrSize
-	}
-	if dcl.StringCanonicalize(rawDesired.ServicesIPv4Cidr, rawInitial.ServicesIPv4Cidr) {
-		rawDesired.ServicesIPv4Cidr = rawInitial.ServicesIPv4Cidr
-	}
-	if dcl.IsZeroValue(rawDesired.ExpireTime) {
-		rawDesired.ExpireTime = rawInitial.ExpireTime
 	}
 	if dcl.StringCanonicalize(rawDesired.Location, rawInitial.Location) {
 		rawDesired.Location = rawInitial.Location
 	}
 	if dcl.BoolCanonicalize(rawDesired.EnableTPU, rawInitial.EnableTPU) {
 		rawDesired.EnableTPU = rawInitial.EnableTPU
-	}
-	if dcl.StringCanonicalize(rawDesired.TPUIPv4CidrBlock, rawInitial.TPUIPv4CidrBlock) {
-		rawDesired.TPUIPv4CidrBlock = rawInitial.TPUIPv4CidrBlock
 	}
 	if dcl.IsZeroValue(rawDesired.Conditions) {
 		rawDesired.Conditions = rawInitial.Conditions
@@ -2156,26 +2132,11 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 	rawDesired.WorkloadIdentityConfig = canonicalizeClusterWorkloadIdentityConfig(rawDesired.WorkloadIdentityConfig, rawInitial.WorkloadIdentityConfig, opts...)
 	rawDesired.NotificationConfig = canonicalizeClusterNotificationConfig(rawDesired.NotificationConfig, rawInitial.NotificationConfig, opts...)
 	rawDesired.ConfidentialNodes = canonicalizeClusterConfidentialNodes(rawDesired.ConfidentialNodes, rawInitial.ConfidentialNodes, opts...)
-	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
-		rawDesired.SelfLink = rawInitial.SelfLink
-	}
-	if dcl.StringCanonicalize(rawDesired.Zone, rawInitial.Zone) {
-		rawDesired.Zone = rawInitial.Zone
-	}
 	if dcl.StringCanonicalize(rawDesired.InitialClusterVersion, rawInitial.InitialClusterVersion) {
 		rawDesired.InitialClusterVersion = rawInitial.InitialClusterVersion
 	}
-	if dcl.StringCanonicalize(rawDesired.CurrentMasterVersion, rawInitial.CurrentMasterVersion) {
-		rawDesired.CurrentMasterVersion = rawInitial.CurrentMasterVersion
-	}
-	if dcl.StringCanonicalize(rawDesired.CurrentNodeVersion, rawInitial.CurrentNodeVersion) {
-		rawDesired.CurrentNodeVersion = rawInitial.CurrentNodeVersion
-	}
 	if dcl.IsZeroValue(rawDesired.InstanceGroupUrls) {
 		rawDesired.InstanceGroupUrls = rawInitial.InstanceGroupUrls
-	}
-	if dcl.IsZeroValue(rawDesired.CurrentNodeCount) {
-		rawDesired.CurrentNodeCount = rawInitial.CurrentNodeCount
 	}
 	rawDesired.PodSecurityPolicyConfig = canonicalizeClusterPodSecurityPolicyConfig(rawDesired.PodSecurityPolicyConfig, rawInitial.PodSecurityPolicyConfig, opts...)
 	if dcl.BoolCanonicalize(rawDesired.PrivateCluster, rawInitial.PrivateCluster) {
@@ -2628,15 +2589,6 @@ func canonicalizeClusterMasterAuth(des, initial *ClusterMasterAuth, opts ...dcl.
 		des.Password = initial.Password
 	}
 	des.ClientCertificateConfig = canonicalizeClusterMasterAuthClientCertificateConfig(des.ClientCertificateConfig, initial.ClientCertificateConfig, opts...)
-	if dcl.StringCanonicalize(des.ClusterCaCertificate, initial.ClusterCaCertificate) || dcl.IsZeroValue(des.ClusterCaCertificate) {
-		des.ClusterCaCertificate = initial.ClusterCaCertificate
-	}
-	if dcl.StringCanonicalize(des.ClientCertificate, initial.ClientCertificate) || dcl.IsZeroValue(des.ClientCertificate) {
-		des.ClientCertificate = initial.ClientCertificate
-	}
-	if dcl.StringCanonicalize(des.ClientKey, initial.ClientKey) || dcl.IsZeroValue(des.ClientKey) {
-		des.ClientKey = initial.ClientKey
-	}
 
 	return des
 }
@@ -9897,7 +9849,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Endpoint, actual.Endpoint, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Endpoint")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Endpoint, actual.Endpoint, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Endpoint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9923,7 +9875,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9936,7 +9888,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9949,7 +9901,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StatusMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StatusMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9962,7 +9914,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.NodeIPv4CidrSize, actual.NodeIPv4CidrSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeIPv4CidrSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NodeIPv4CidrSize, actual.NodeIPv4CidrSize, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeIPv4CidrSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9975,7 +9927,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServicesIPv4Cidr, actual.ServicesIPv4Cidr, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServicesIPv4Cidr")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServicesIPv4Cidr, actual.ServicesIPv4Cidr, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServicesIPv4Cidr")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9988,7 +9940,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExpireTime, actual.ExpireTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExpireTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExpireTime, actual.ExpireTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExpireTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10027,7 +9979,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.TPUIPv4CidrBlock, actual.TPUIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TPUIPv4CidrBlock")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TPUIPv4CidrBlock, actual.TPUIPv4CidrBlock, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TPUIPv4CidrBlock")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10144,7 +10096,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10157,7 +10109,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10183,7 +10135,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CurrentMasterVersion, actual.CurrentMasterVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CurrentMasterVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CurrentMasterVersion, actual.CurrentMasterVersion, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CurrentMasterVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10196,7 +10148,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CurrentNodeVersion, actual.CurrentNodeVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CurrentNodeVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CurrentNodeVersion, actual.CurrentNodeVersion, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CurrentNodeVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10222,7 +10174,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.CurrentNodeCount, actual.CurrentNodeCount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CurrentNodeCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CurrentNodeCount, actual.CurrentNodeCount, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CurrentNodeCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10391,21 +10343,21 @@ func compareClusterMasterAuthNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterCaCertificate, actual.ClusterCaCertificate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterCaCertificate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterCaCertificate, actual.ClusterCaCertificate, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterCaCertificate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClientCertificate, actual.ClientCertificate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClientCertificate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClientCertificate, actual.ClientCertificate, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClientCertificate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClientKey, actual.ClientKey, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClientKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClientKey, actual.ClientKey, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClientKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -14553,6 +14505,10 @@ func flattenClusterMasterAuth(c *Client, i interface{}) *ClusterMasterAuth {
 	}
 
 	r := &ClusterMasterAuth{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterMasterAuth
+	}
 	r.Username = dcl.FlattenString(m["username"])
 	r.Password = dcl.FlattenString(m["password"])
 	r.ClientCertificateConfig = flattenClusterMasterAuthClientCertificateConfig(c, m["clientCertificateConfig"])
@@ -14668,6 +14624,10 @@ func flattenClusterMasterAuthClientCertificateConfig(c *Client, i interface{}) *
 	}
 
 	r := &ClusterMasterAuthClientCertificateConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterMasterAuthClientCertificateConfig
+	}
 	r.IssueClientCertificate = dcl.FlattenBool(m["issueClientCertificate"])
 
 	return r
@@ -14825,6 +14785,10 @@ func flattenClusterAddonsConfig(c *Client, i interface{}) *ClusterAddonsConfig {
 	}
 
 	r := &ClusterAddonsConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterAddonsConfig
+	}
 	r.HttpLoadBalancing = flattenClusterAddonsConfigHttpLoadBalancing(c, m["httpLoadBalancing"])
 	r.HorizontalPodAutoscaling = flattenClusterAddonsConfigHorizontalPodAutoscaling(c, m["horizontalPodAutoscaling"])
 	r.KubernetesDashboard = flattenClusterAddonsConfigKubernetesDashboard(c, m["kubernetesDashboard"])
@@ -14942,6 +14906,10 @@ func flattenClusterAddonsConfigHttpLoadBalancing(c *Client, i interface{}) *Clus
 	}
 
 	r := &ClusterAddonsConfigHttpLoadBalancing{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterAddonsConfigHttpLoadBalancing
+	}
 	r.Disabled = dcl.FlattenBool(m["disabled"])
 
 	return r
@@ -15050,6 +15018,10 @@ func flattenClusterAddonsConfigHorizontalPodAutoscaling(c *Client, i interface{}
 	}
 
 	r := &ClusterAddonsConfigHorizontalPodAutoscaling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterAddonsConfigHorizontalPodAutoscaling
+	}
 	r.Disabled = dcl.FlattenBool(m["disabled"])
 
 	return r
@@ -15158,6 +15130,10 @@ func flattenClusterAddonsConfigKubernetesDashboard(c *Client, i interface{}) *Cl
 	}
 
 	r := &ClusterAddonsConfigKubernetesDashboard{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterAddonsConfigKubernetesDashboard
+	}
 	r.Disabled = dcl.FlattenBool(m["disabled"])
 
 	return r
@@ -15266,6 +15242,10 @@ func flattenClusterAddonsConfigNetworkPolicyConfig(c *Client, i interface{}) *Cl
 	}
 
 	r := &ClusterAddonsConfigNetworkPolicyConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterAddonsConfigNetworkPolicyConfig
+	}
 	r.Disabled = dcl.FlattenBool(m["disabled"])
 
 	return r
@@ -15377,6 +15357,10 @@ func flattenClusterAddonsConfigCloudRunConfig(c *Client, i interface{}) *Cluster
 	}
 
 	r := &ClusterAddonsConfigCloudRunConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterAddonsConfigCloudRunConfig
+	}
 	r.Disabled = dcl.FlattenBool(m["disabled"])
 	r.LoadBalancerType = flattenClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnum(m["loadBalancerType"])
 
@@ -15488,6 +15472,10 @@ func flattenClusterAddonsConfigDnsCacheConfig(c *Client, i interface{}) *Cluster
 	}
 
 	r := &ClusterAddonsConfigDnsCacheConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterAddonsConfigDnsCacheConfig
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 
 	return r
@@ -15598,6 +15586,10 @@ func flattenClusterAddonsConfigConfigConnectorConfig(c *Client, i interface{}) *
 	}
 
 	r := &ClusterAddonsConfigConfigConnectorConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterAddonsConfigConfigConnectorConfig
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 
 	return r
@@ -15708,6 +15700,10 @@ func flattenClusterAddonsConfigGcePersistentDiskCsiDriverConfig(c *Client, i int
 	}
 
 	r := &ClusterAddonsConfigGcePersistentDiskCsiDriverConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterAddonsConfigGcePersistentDiskCsiDriverConfig
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 
 	return r
@@ -15821,6 +15817,10 @@ func flattenClusterAddonsConfigIstioConfig(c *Client, i interface{}) *ClusterAdd
 	}
 
 	r := &ClusterAddonsConfigIstioConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterAddonsConfigIstioConfig
+	}
 	r.Disabled = dcl.FlattenBool(m["disabled"])
 	r.Auth = flattenClusterAddonsConfigIstioConfigAuthEnum(m["auth"])
 
@@ -15932,6 +15932,10 @@ func flattenClusterAddonsConfigKalmConfig(c *Client, i interface{}) *ClusterAddo
 	}
 
 	r := &ClusterAddonsConfigKalmConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterAddonsConfigKalmConfig
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 
 	return r
@@ -16101,6 +16105,10 @@ func flattenClusterNodePools(c *Client, i interface{}) *ClusterNodePools {
 	}
 
 	r := &ClusterNodePools{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodePools
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Config = flattenClusterNodePoolsConfig(c, m["config"])
 	r.InitialNodeCount = dcl.FlattenInteger(m["initialNodeCount"])
@@ -16310,6 +16318,10 @@ func flattenClusterNodePoolsConfig(c *Client, i interface{}) *ClusterNodePoolsCo
 	}
 
 	r := &ClusterNodePoolsConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodePoolsConfig
+	}
 	r.MachineType = dcl.FlattenString(m["machineType"])
 	r.DiskSizeGb = dcl.FlattenInteger(m["diskSizeGb"])
 	r.OAuthScopes = dcl.FlattenStringSlice(m["oauthScopes"])
@@ -16445,6 +16457,10 @@ func flattenClusterNodePoolsConfigAccelerators(c *Client, i interface{}) *Cluste
 	}
 
 	r := &ClusterNodePoolsConfigAccelerators{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodePoolsConfigAccelerators
+	}
 	r.AcceleratorCount = dcl.FlattenInteger(m["acceleratorCount"])
 	r.AcceleratorType = dcl.FlattenString(m["acceleratorType"])
 
@@ -16559,6 +16575,10 @@ func flattenClusterNodePoolsConfigWorkloadMetadataConfig(c *Client, i interface{
 	}
 
 	r := &ClusterNodePoolsConfigWorkloadMetadataConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodePoolsConfigWorkloadMetadataConfig
+	}
 	r.Mode = flattenClusterNodePoolsConfigWorkloadMetadataConfigModeEnum(m["mode"])
 	r.NodeMetadata = flattenClusterNodePoolsConfigWorkloadMetadataConfigNodeMetadataEnum(m["nodeMetadata"])
 
@@ -16676,6 +16696,10 @@ func flattenClusterNodePoolsConfigTaints(c *Client, i interface{}) *ClusterNodeP
 	}
 
 	r := &ClusterNodePoolsConfigTaints{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodePoolsConfigTaints
+	}
 	r.Key = dcl.FlattenString(m["key"])
 	r.Value = dcl.FlattenString(m["value"])
 	r.Effect = flattenClusterNodePoolsConfigTaintsEffectEnum(m["effect"])
@@ -16791,6 +16815,10 @@ func flattenClusterNodePoolsConfigSandboxConfig(c *Client, i interface{}) *Clust
 	}
 
 	r := &ClusterNodePoolsConfigSandboxConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodePoolsConfigSandboxConfig
+	}
 	r.Type = flattenClusterNodePoolsConfigSandboxConfigTypeEnum(m["type"])
 	r.SandboxType = dcl.FlattenString(m["sandboxType"])
 
@@ -16908,6 +16936,10 @@ func flattenClusterNodePoolsConfigReservationAffinity(c *Client, i interface{}) 
 	}
 
 	r := &ClusterNodePoolsConfigReservationAffinity{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodePoolsConfigReservationAffinity
+	}
 	r.ConsumeReservationType = flattenClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnum(m["consumeReservationType"])
 	r.Key = dcl.FlattenString(m["key"])
 	r.Values = dcl.FlattenStringSlice(m["values"])
@@ -17023,6 +17055,10 @@ func flattenClusterNodePoolsConfigShieldedInstanceConfig(c *Client, i interface{
 	}
 
 	r := &ClusterNodePoolsConfigShieldedInstanceConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodePoolsConfigShieldedInstanceConfig
+	}
 	r.EnableSecureBoot = dcl.FlattenBool(m["enableSecureBoot"])
 	r.EnableIntegrityMonitoring = dcl.FlattenBool(m["enableIntegrityMonitoring"])
 
@@ -17134,6 +17170,10 @@ func flattenClusterNodePoolsConfigLinuxNodeConfig(c *Client, i interface{}) *Clu
 	}
 
 	r := &ClusterNodePoolsConfigLinuxNodeConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodePoolsConfigLinuxNodeConfig
+	}
 	r.Sysctls = dcl.FlattenKeyValuePairs(m["sysctls"])
 
 	return r
@@ -17250,6 +17290,10 @@ func flattenClusterNodePoolsConfigKubeletConfig(c *Client, i interface{}) *Clust
 	}
 
 	r := &ClusterNodePoolsConfigKubeletConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodePoolsConfigKubeletConfig
+	}
 	r.CpuManagerPolicy = dcl.FlattenString(m["cpuManagerPolicy"])
 	r.CpuCfsQuota = dcl.FlattenBool(m["cpuCfsQuota"])
 	r.CpuCfsQuotaPeriod = dcl.FlattenString(m["cpuCfsQuotaPeriod"])
@@ -17362,6 +17406,10 @@ func flattenClusterNodePoolsConfigEphemeralStorageConfig(c *Client, i interface{
 	}
 
 	r := &ClusterNodePoolsConfigEphemeralStorageConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodePoolsConfigEphemeralStorageConfig
+	}
 	r.LocalSsdCount = dcl.FlattenInteger(m["localSsdCount"])
 
 	return r
@@ -17481,6 +17529,10 @@ func flattenClusterNodePoolsAutoscaling(c *Client, i interface{}) *ClusterNodePo
 	}
 
 	r := &ClusterNodePoolsAutoscaling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodePoolsAutoscaling
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 	r.MinNodeCount = dcl.FlattenInteger(m["minNodeCount"])
 	r.MaxNodeCount = dcl.FlattenInteger(m["maxNodeCount"])
@@ -17602,6 +17654,10 @@ func flattenClusterNodePoolsManagement(c *Client, i interface{}) *ClusterNodePoo
 	}
 
 	r := &ClusterNodePoolsManagement{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodePoolsManagement
+	}
 	r.AutoUpgrade = dcl.FlattenBool(m["autoUpgrade"])
 	r.AutoRepair = dcl.FlattenBool(m["autoRepair"])
 	r.UpgradeOptions = flattenClusterNodePoolsManagementUpgradeOptions(c, m["upgradeOptions"])
@@ -17717,6 +17773,10 @@ func flattenClusterNodePoolsManagementUpgradeOptions(c *Client, i interface{}) *
 	}
 
 	r := &ClusterNodePoolsManagementUpgradeOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodePoolsManagementUpgradeOptions
+	}
 	r.AutoUpgradeStartTime = dcl.FlattenString(m["autoUpgradeStartTime"])
 	r.Description = dcl.FlattenString(m["description"])
 
@@ -17828,6 +17888,10 @@ func flattenClusterNodePoolsMaxPodsConstraint(c *Client, i interface{}) *Cluster
 	}
 
 	r := &ClusterNodePoolsMaxPodsConstraint{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodePoolsMaxPodsConstraint
+	}
 	r.MaxPodsPerNode = dcl.FlattenInteger(m["maxPodsPerNode"])
 
 	return r
@@ -17944,6 +18008,10 @@ func flattenClusterNodePoolsConditions(c *Client, i interface{}) *ClusterNodePoo
 	}
 
 	r := &ClusterNodePoolsConditions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodePoolsConditions
+	}
 	r.Code = flattenClusterNodePoolsConditionsCodeEnum(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.CanonicalCode = flattenClusterNodePoolsConditionsCanonicalCodeEnum(m["canonicalCode"])
@@ -18059,6 +18127,10 @@ func flattenClusterNodePoolsUpgradeSettings(c *Client, i interface{}) *ClusterNo
 	}
 
 	r := &ClusterNodePoolsUpgradeSettings{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodePoolsUpgradeSettings
+	}
 	r.MaxSurge = dcl.FlattenInteger(m["maxSurge"])
 	r.MaxUnavailable = dcl.FlattenInteger(m["maxUnavailable"])
 
@@ -18176,6 +18248,10 @@ func flattenClusterNodePoolsNetworkConfig(c *Client, i interface{}) *ClusterNode
 	}
 
 	r := &ClusterNodePoolsNetworkConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodePoolsNetworkConfig
+	}
 	r.CreatePodRange = dcl.FlattenBool(m["createPodRange"])
 	r.PodRange = dcl.FlattenString(m["podRange"])
 	r.PodIPv4CidrBlock = dcl.FlattenString(m["podIpv4CidrBlock"])
@@ -18288,6 +18364,10 @@ func flattenClusterLegacyAbac(c *Client, i interface{}) *ClusterLegacyAbac {
 	}
 
 	r := &ClusterLegacyAbac{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterLegacyAbac
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 
 	return r
@@ -18401,6 +18481,10 @@ func flattenClusterNetworkPolicy(c *Client, i interface{}) *ClusterNetworkPolicy
 	}
 
 	r := &ClusterNetworkPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNetworkPolicy
+	}
 	r.Provider = flattenClusterNetworkPolicyProviderEnum(m["provider"])
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 
@@ -18551,6 +18635,10 @@ func flattenClusterIPAllocationPolicy(c *Client, i interface{}) *ClusterIPAlloca
 	}
 
 	r := &ClusterIPAllocationPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterIPAllocationPolicy
+	}
 	r.UseIPAliases = dcl.FlattenBool(m["useIpAliases"])
 	r.CreateSubnetwork = dcl.FlattenBool(m["createSubnetwork"])
 	r.SubnetworkName = dcl.FlattenString(m["subnetworkName"])
@@ -18679,6 +18767,10 @@ func flattenClusterMasterAuthorizedNetworksConfig(c *Client, i interface{}) *Clu
 	}
 
 	r := &ClusterMasterAuthorizedNetworksConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterMasterAuthorizedNetworksConfig
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 	r.CidrBlocks = flattenClusterMasterAuthorizedNetworksConfigCidrBlocksSlice(c, m["cidrBlocks"])
 
@@ -18793,6 +18885,10 @@ func flattenClusterMasterAuthorizedNetworksConfigCidrBlocks(c *Client, i interfa
 	}
 
 	r := &ClusterMasterAuthorizedNetworksConfigCidrBlocks{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterMasterAuthorizedNetworksConfigCidrBlocks
+	}
 	r.DisplayName = dcl.FlattenString(m["displayName"])
 	r.CidrBlock = dcl.FlattenString(m["cidrBlock"])
 
@@ -18904,6 +19000,10 @@ func flattenClusterBinaryAuthorization(c *Client, i interface{}) *ClusterBinaryA
 	}
 
 	r := &ClusterBinaryAuthorization{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterBinaryAuthorization
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 
 	return r
@@ -19030,6 +19130,10 @@ func flattenClusterAutoscaling(c *Client, i interface{}) *ClusterAutoscaling {
 	}
 
 	r := &ClusterAutoscaling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterAutoscaling
+	}
 	r.EnableNodeAutoprovisioning = dcl.FlattenBool(m["enableNodeAutoprovisioning"])
 	r.ResourceLimits = flattenClusterAutoscalingResourceLimitsSlice(c, m["resourceLimits"])
 	r.AutoprovisioningNodePoolDefaults = flattenClusterAutoscalingAutoprovisioningNodePoolDefaults(c, m["autoprovisioningNodePoolDefaults"])
@@ -19150,6 +19254,10 @@ func flattenClusterAutoscalingResourceLimits(c *Client, i interface{}) *ClusterA
 	}
 
 	r := &ClusterAutoscalingResourceLimits{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterAutoscalingResourceLimits
+	}
 	r.ResourceType = dcl.FlattenString(m["resourceType"])
 	r.Minimum = dcl.FlattenInteger(m["minimum"])
 	r.Maximum = dcl.FlattenInteger(m["maximum"])
@@ -19292,6 +19400,10 @@ func flattenClusterAutoscalingAutoprovisioningNodePoolDefaults(c *Client, i inte
 	}
 
 	r := &ClusterAutoscalingAutoprovisioningNodePoolDefaults{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterAutoscalingAutoprovisioningNodePoolDefaults
+	}
 	r.OAuthScopes = dcl.FlattenStringSlice(m["oauthScopes"])
 	r.ServiceAccount = dcl.FlattenString(m["serviceAccount"])
 	r.UpgradeSettings = flattenClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings(c, m["upgradeSettings"])
@@ -19413,6 +19525,10 @@ func flattenClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings(c 
 	}
 
 	r := &ClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings
+	}
 	r.MaxSurge = dcl.FlattenInteger(m["maxSurge"])
 	r.MaxUnavailable = dcl.FlattenInteger(m["maxUnavailable"])
 
@@ -19532,6 +19648,10 @@ func flattenClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement(c *Clie
 	}
 
 	r := &ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement
+	}
 	r.AutoUpgrade = dcl.FlattenBool(m["autoUpgrade"])
 	r.AutoRepair = dcl.FlattenBool(m["autoRepair"])
 	r.UpgradeOptions = flattenClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions(c, m["upgradeOptions"])
@@ -19647,6 +19767,10 @@ func flattenClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeO
 	}
 
 	r := &ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions
+	}
 	r.AutoUpgradeStartTime = dcl.FlattenString(m["autoUpgradeStartTime"])
 	r.Description = dcl.FlattenString(m["description"])
 
@@ -19761,6 +19885,10 @@ func flattenClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceCo
 	}
 
 	r := &ClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig
+	}
 	r.EnableSecureBoot = dcl.FlattenBool(m["enableSecureBoot"])
 	r.EnableIntegrityMonitoring = dcl.FlattenBool(m["enableIntegrityMonitoring"])
 
@@ -19889,6 +20017,10 @@ func flattenClusterNetworkConfig(c *Client, i interface{}) *ClusterNetworkConfig
 	}
 
 	r := &ClusterNetworkConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNetworkConfig
+	}
 	r.Network = dcl.FlattenString(m["network"])
 	r.Subnetwork = dcl.FlattenString(m["subnetwork"])
 	r.EnableIntraNodeVisibility = dcl.FlattenBool(m["enableIntraNodeVisibility"])
@@ -20004,6 +20136,10 @@ func flattenClusterNetworkConfigDefaultSnatStatus(c *Client, i interface{}) *Clu
 	}
 
 	r := &ClusterNetworkConfigDefaultSnatStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNetworkConfigDefaultSnatStatus
+	}
 	r.Disabled = dcl.FlattenBool(m["disabled"])
 
 	return r
@@ -20119,6 +20255,10 @@ func flattenClusterMaintenancePolicy(c *Client, i interface{}) *ClusterMaintenan
 	}
 
 	r := &ClusterMaintenancePolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterMaintenancePolicy
+	}
 	r.Window = flattenClusterMaintenancePolicyWindow(c, m["window"])
 	r.ResourceVersion = dcl.FlattenString(m["resourceVersion"])
 
@@ -20240,6 +20380,10 @@ func flattenClusterMaintenancePolicyWindow(c *Client, i interface{}) *ClusterMai
 	}
 
 	r := &ClusterMaintenancePolicyWindow{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterMaintenancePolicyWindow
+	}
 	r.DailyMaintenanceWindow = flattenClusterMaintenancePolicyWindowDailyMaintenanceWindow(c, m["dailyMaintenanceWindow"])
 	r.RecurringWindow = flattenClusterMaintenancePolicyWindowRecurringWindow(c, m["recurringWindow"])
 	r.MaintenanceExclusions = dcl.FlattenKeyValuePairs(m["maintenanceExclusions"])
@@ -20355,6 +20499,10 @@ func flattenClusterMaintenancePolicyWindowDailyMaintenanceWindow(c *Client, i in
 	}
 
 	r := &ClusterMaintenancePolicyWindowDailyMaintenanceWindow{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterMaintenancePolicyWindowDailyMaintenanceWindow
+	}
 	r.StartTime = dcl.FlattenString(m["startTime"])
 	r.Duration = dcl.FlattenString(m["duration"])
 
@@ -20471,6 +20619,10 @@ func flattenClusterMaintenancePolicyWindowRecurringWindow(c *Client, i interface
 	}
 
 	r := &ClusterMaintenancePolicyWindowRecurringWindow{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterMaintenancePolicyWindowRecurringWindow
+	}
 	r.Window = flattenClusterMaintenancePolicyWindowRecurringWindowWindow(c, m["window"])
 	r.Recurrence = dcl.FlattenString(m["recurrence"])
 
@@ -20585,6 +20737,10 @@ func flattenClusterMaintenancePolicyWindowRecurringWindowWindow(c *Client, i int
 	}
 
 	r := &ClusterMaintenancePolicyWindowRecurringWindowWindow{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterMaintenancePolicyWindowRecurringWindowWindow
+	}
 	r.StartTime = dcl.FlattenString(m["startTime"])
 	r.EndTime = dcl.FlattenString(m["endTime"])
 
@@ -20696,6 +20852,10 @@ func flattenClusterDefaultMaxPodsConstraint(c *Client, i interface{}) *ClusterDe
 	}
 
 	r := &ClusterDefaultMaxPodsConstraint{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterDefaultMaxPodsConstraint
+	}
 	r.MaxPodsPerNode = dcl.FlattenString(m["maxPodsPerNode"])
 
 	return r
@@ -20819,6 +20979,10 @@ func flattenClusterResourceUsageExportConfig(c *Client, i interface{}) *ClusterR
 	}
 
 	r := &ClusterResourceUsageExportConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterResourceUsageExportConfig
+	}
 	r.BigqueryDestination = flattenClusterResourceUsageExportConfigBigqueryDestination(c, m["bigqueryDestination"])
 	r.EnableNetworkEgressMonitoring = dcl.FlattenBool(m["enableNetworkEgressMonitoring"])
 	r.ConsumptionMeteringConfig = flattenClusterResourceUsageExportConfigConsumptionMeteringConfig(c, m["consumptionMeteringConfig"])
@@ -20932,6 +21096,10 @@ func flattenClusterResourceUsageExportConfigBigqueryDestination(c *Client, i int
 	}
 
 	r := &ClusterResourceUsageExportConfigBigqueryDestination{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterResourceUsageExportConfigBigqueryDestination
+	}
 	r.DatasetId = dcl.FlattenString(m["datasetId"])
 
 	return r
@@ -21042,6 +21210,10 @@ func flattenClusterResourceUsageExportConfigConsumptionMeteringConfig(c *Client,
 	}
 
 	r := &ClusterResourceUsageExportConfigConsumptionMeteringConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterResourceUsageExportConfigConsumptionMeteringConfig
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 
 	return r
@@ -21155,6 +21327,10 @@ func flattenClusterAuthenticatorGroupsConfig(c *Client, i interface{}) *ClusterA
 	}
 
 	r := &ClusterAuthenticatorGroupsConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterAuthenticatorGroupsConfig
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 	r.SecurityGroup = dcl.FlattenString(m["securityGroup"])
 
@@ -21286,6 +21462,10 @@ func flattenClusterPrivateClusterConfig(c *Client, i interface{}) *ClusterPrivat
 	}
 
 	r := &ClusterPrivateClusterConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterPrivateClusterConfig
+	}
 	r.EnablePrivateNodes = dcl.FlattenBool(m["enablePrivateNodes"])
 	r.EnablePrivateEndpoint = dcl.FlattenBool(m["enablePrivateEndpoint"])
 	r.MasterIPv4CidrBlock = dcl.FlattenString(m["masterIpv4CidrBlock"])
@@ -21402,6 +21582,10 @@ func flattenClusterPrivateClusterConfigMasterGlobalAccessConfig(c *Client, i int
 	}
 
 	r := &ClusterPrivateClusterConfigMasterGlobalAccessConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterPrivateClusterConfigMasterGlobalAccessConfig
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 
 	return r
@@ -21515,6 +21699,10 @@ func flattenClusterDatabaseEncryption(c *Client, i interface{}) *ClusterDatabase
 	}
 
 	r := &ClusterDatabaseEncryption{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterDatabaseEncryption
+	}
 	r.State = flattenClusterDatabaseEncryptionStateEnum(m["state"])
 	r.KeyName = dcl.FlattenString(m["keyName"])
 
@@ -21629,6 +21817,10 @@ func flattenClusterVerticalPodAutoscaling(c *Client, i interface{}) *ClusterVert
 	}
 
 	r := &ClusterVerticalPodAutoscaling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterVerticalPodAutoscaling
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 	r.EnableExperimentalFeatures = dcl.FlattenBool(m["enableExperimentalFeatures"])
 
@@ -21740,6 +21932,10 @@ func flattenClusterShieldedNodes(c *Client, i interface{}) *ClusterShieldedNodes
 	}
 
 	r := &ClusterShieldedNodes{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterShieldedNodes
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 
 	return r
@@ -21856,6 +22052,10 @@ func flattenClusterConditions(c *Client, i interface{}) *ClusterConditions {
 	}
 
 	r := &ClusterConditions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterConditions
+	}
 	r.Code = dcl.FlattenString(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.CanonicalCode = flattenClusterConditionsCanonicalCodeEnum(m["canonicalCode"])
@@ -21968,6 +22168,10 @@ func flattenClusterAutopilot(c *Client, i interface{}) *ClusterAutopilot {
 	}
 
 	r := &ClusterAutopilot{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterAutopilot
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 
 	return r
@@ -22162,6 +22366,10 @@ func flattenClusterNodeConfig(c *Client, i interface{}) *ClusterNodeConfig {
 	}
 
 	r := &ClusterNodeConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodeConfig
+	}
 	r.MachineType = dcl.FlattenString(m["machineType"])
 	r.DiskSizeGb = dcl.FlattenInteger(m["diskSizeGb"])
 	r.OAuthScopes = dcl.FlattenStringSlice(m["oauthScopes"])
@@ -22297,6 +22505,10 @@ func flattenClusterNodeConfigAccelerators(c *Client, i interface{}) *ClusterNode
 	}
 
 	r := &ClusterNodeConfigAccelerators{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodeConfigAccelerators
+	}
 	r.AcceleratorCount = dcl.FlattenInteger(m["acceleratorCount"])
 	r.AcceleratorType = dcl.FlattenString(m["acceleratorType"])
 
@@ -22411,6 +22623,10 @@ func flattenClusterNodeConfigWorkloadMetadataConfig(c *Client, i interface{}) *C
 	}
 
 	r := &ClusterNodeConfigWorkloadMetadataConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodeConfigWorkloadMetadataConfig
+	}
 	r.Mode = flattenClusterNodeConfigWorkloadMetadataConfigModeEnum(m["mode"])
 	r.NodeMetadata = flattenClusterNodeConfigWorkloadMetadataConfigNodeMetadataEnum(m["nodeMetadata"])
 
@@ -22528,6 +22744,10 @@ func flattenClusterNodeConfigTaints(c *Client, i interface{}) *ClusterNodeConfig
 	}
 
 	r := &ClusterNodeConfigTaints{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodeConfigTaints
+	}
 	r.Key = dcl.FlattenString(m["key"])
 	r.Value = dcl.FlattenString(m["value"])
 	r.Effect = flattenClusterNodeConfigTaintsEffectEnum(m["effect"])
@@ -22643,6 +22863,10 @@ func flattenClusterNodeConfigSandboxConfig(c *Client, i interface{}) *ClusterNod
 	}
 
 	r := &ClusterNodeConfigSandboxConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodeConfigSandboxConfig
+	}
 	r.Type = flattenClusterNodeConfigSandboxConfigTypeEnum(m["type"])
 	r.SandboxType = dcl.FlattenString(m["sandboxType"])
 
@@ -22760,6 +22984,10 @@ func flattenClusterNodeConfigReservationAffinity(c *Client, i interface{}) *Clus
 	}
 
 	r := &ClusterNodeConfigReservationAffinity{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodeConfigReservationAffinity
+	}
 	r.ConsumeReservationType = flattenClusterNodeConfigReservationAffinityConsumeReservationTypeEnum(m["consumeReservationType"])
 	r.Key = dcl.FlattenString(m["key"])
 	r.Values = dcl.FlattenStringSlice(m["values"])
@@ -22875,6 +23103,10 @@ func flattenClusterNodeConfigShieldedInstanceConfig(c *Client, i interface{}) *C
 	}
 
 	r := &ClusterNodeConfigShieldedInstanceConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodeConfigShieldedInstanceConfig
+	}
 	r.EnableSecureBoot = dcl.FlattenBool(m["enableSecureBoot"])
 	r.EnableIntegrityMonitoring = dcl.FlattenBool(m["enableIntegrityMonitoring"])
 
@@ -22986,6 +23218,10 @@ func flattenClusterNodeConfigLinuxNodeConfig(c *Client, i interface{}) *ClusterN
 	}
 
 	r := &ClusterNodeConfigLinuxNodeConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodeConfigLinuxNodeConfig
+	}
 	r.Sysctls = dcl.FlattenKeyValuePairs(m["sysctls"])
 
 	return r
@@ -23102,6 +23338,10 @@ func flattenClusterNodeConfigKubeletConfig(c *Client, i interface{}) *ClusterNod
 	}
 
 	r := &ClusterNodeConfigKubeletConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodeConfigKubeletConfig
+	}
 	r.CpuManagerPolicy = dcl.FlattenString(m["cpuManagerPolicy"])
 	r.CpuCfsQuota = dcl.FlattenBool(m["cpuCfsQuota"])
 	r.CpuCfsQuotaPeriod = dcl.FlattenString(m["cpuCfsQuotaPeriod"])
@@ -23214,6 +23454,10 @@ func flattenClusterNodeConfigEphemeralStorageConfig(c *Client, i interface{}) *C
 	}
 
 	r := &ClusterNodeConfigEphemeralStorageConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodeConfigEphemeralStorageConfig
+	}
 	r.LocalSsdCount = dcl.FlattenInteger(m["localSsdCount"])
 
 	return r
@@ -23324,6 +23568,10 @@ func flattenClusterReleaseChannel(c *Client, i interface{}) *ClusterReleaseChann
 	}
 
 	r := &ClusterReleaseChannel{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterReleaseChannel
+	}
 	r.Channel = flattenClusterReleaseChannelChannelEnum(m["channel"])
 
 	return r
@@ -23440,6 +23688,10 @@ func flattenClusterWorkloadIdentityConfig(c *Client, i interface{}) *ClusterWork
 	}
 
 	r := &ClusterWorkloadIdentityConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterWorkloadIdentityConfig
+	}
 	r.WorkloadPool = dcl.FlattenString(m["workloadPool"])
 	r.IdentityNamespace = dcl.FlattenString(m["identityNamespace"])
 	r.IdentityProvider = dcl.FlattenString(m["identityProvider"])
@@ -23554,6 +23806,10 @@ func flattenClusterNotificationConfig(c *Client, i interface{}) *ClusterNotifica
 	}
 
 	r := &ClusterNotificationConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNotificationConfig
+	}
 	r.Pubsub = flattenClusterNotificationConfigPubsub(c, m["pubsub"])
 
 	return r
@@ -23667,6 +23923,10 @@ func flattenClusterNotificationConfigPubsub(c *Client, i interface{}) *ClusterNo
 	}
 
 	r := &ClusterNotificationConfigPubsub{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNotificationConfigPubsub
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 	r.Topic = dcl.FlattenString(m["topic"])
 
@@ -23778,6 +24038,10 @@ func flattenClusterConfidentialNodes(c *Client, i interface{}) *ClusterConfident
 	}
 
 	r := &ClusterConfidentialNodes{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterConfidentialNodes
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 
 	return r
@@ -23888,6 +24152,10 @@ func flattenClusterPodSecurityPolicyConfig(c *Client, i interface{}) *ClusterPod
 	}
 
 	r := &ClusterPodSecurityPolicyConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterPodSecurityPolicyConfig
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 
 	return r
@@ -23998,6 +24266,10 @@ func flattenClusterClusterTelemetry(c *Client, i interface{}) *ClusterClusterTel
 	}
 
 	r := &ClusterClusterTelemetry{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterClusterTelemetry
+	}
 	r.Type = flattenClusterClusterTelemetryTypeEnum(m["type"])
 
 	return r
@@ -24114,6 +24386,10 @@ func flattenClusterTPUConfig(c *Client, i interface{}) *ClusterTPUConfig {
 	}
 
 	r := &ClusterTPUConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterTPUConfig
+	}
 	r.Enabled = dcl.FlattenBool(m["enabled"])
 	r.UseServiceNetworking = dcl.FlattenBool(m["useServiceNetworking"])
 	r.IPv4CidrBlock = dcl.FlattenString(m["ipv4CidrBlock"])
@@ -24223,6 +24499,10 @@ func flattenClusterMaster(c *Client, i interface{}) *ClusterMaster {
 	}
 
 	r := &ClusterMaster{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterMaster
+	}
 
 	return r
 }

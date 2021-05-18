@@ -919,6 +919,10 @@ func flattenSubscriptionDeliveryConfig(c *Client, i interface{}) *SubscriptionDe
 	}
 
 	r := &SubscriptionDeliveryConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptySubscriptionDeliveryConfig
+	}
 	r.DeliveryRequirement = flattenSubscriptionDeliveryConfigDeliveryRequirementEnum(m["deliveryRequirement"])
 
 	return r

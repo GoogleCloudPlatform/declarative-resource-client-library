@@ -78,6 +78,10 @@ func (r *RouterPeerAdvertisedIPRanges) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyRouterPeerAdvertisedIPRanges *RouterPeerAdvertisedIPRanges = &RouterPeerAdvertisedIPRanges{empty: true}
 
+func (r *RouterPeerAdvertisedIPRanges) Empty() bool {
+	return r.empty
+}
+
 func (r *RouterPeerAdvertisedIPRanges) String() string {
 	return dcl.SprintResource(r)
 }

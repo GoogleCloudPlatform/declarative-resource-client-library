@@ -19567,6 +19567,10 @@ func flattenDashboardGridLayout(c *Client, i interface{}) *DashboardGridLayout {
 	}
 
 	r := &DashboardGridLayout{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardGridLayout
+	}
 	r.Columns = dcl.FlattenInteger(m["columns"])
 	r.Widgets = flattenDashboardWidgetSlice(c, m["widgets"])
 
@@ -19683,6 +19687,10 @@ func flattenDashboardMosaicLayout(c *Client, i interface{}) *DashboardMosaicLayo
 	}
 
 	r := &DashboardMosaicLayout{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardMosaicLayout
+	}
 	r.Columns = dcl.FlattenInteger(m["columns"])
 	r.Tiles = flattenDashboardMosaicLayoutTilesSlice(c, m["tiles"])
 
@@ -19808,6 +19816,10 @@ func flattenDashboardMosaicLayoutTiles(c *Client, i interface{}) *DashboardMosai
 	}
 
 	r := &DashboardMosaicLayoutTiles{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardMosaicLayoutTiles
+	}
 	r.XPos = dcl.FlattenInteger(m["xPos"])
 	r.YPos = dcl.FlattenInteger(m["yPos"])
 	r.Width = dcl.FlattenInteger(m["width"])
@@ -19924,6 +19936,10 @@ func flattenDashboardRowLayout(c *Client, i interface{}) *DashboardRowLayout {
 	}
 
 	r := &DashboardRowLayout{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardRowLayout
+	}
 	r.Rows = flattenDashboardRowLayoutRowsSlice(c, m["rows"])
 
 	return r
@@ -20037,6 +20053,10 @@ func flattenDashboardRowLayoutRows(c *Client, i interface{}) *DashboardRowLayout
 	}
 
 	r := &DashboardRowLayoutRows{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardRowLayoutRows
+	}
 	r.Weight = dcl.FlattenInteger(m["weight"])
 	r.Widgets = flattenDashboardWidgetSlice(c, m["widgets"])
 
@@ -20150,6 +20170,10 @@ func flattenDashboardColumnLayout(c *Client, i interface{}) *DashboardColumnLayo
 	}
 
 	r := &DashboardColumnLayout{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardColumnLayout
+	}
 	r.Columns = flattenDashboardColumnLayoutColumnsSlice(c, m["columns"])
 
 	return r
@@ -20265,6 +20289,10 @@ func flattenDashboardColumnLayoutColumns(c *Client, i interface{}) *DashboardCol
 	}
 
 	r := &DashboardColumnLayoutColumns{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardColumnLayoutColumns
+	}
 	r.Weight = dcl.FlattenInteger(m["weight"])
 	r.Widgets = flattenDashboardWidgetSlice(c, m["widgets"])
 
@@ -20396,6 +20424,10 @@ func flattenDashboardWidget(c *Client, i interface{}) *DashboardWidget {
 	}
 
 	r := &DashboardWidget{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidget
+	}
 	r.Title = dcl.FlattenString(m["title"])
 	r.XyChart = flattenDashboardWidgetXyChart(c, m["xyChart"])
 	r.Scorecard = flattenDashboardWidgetScorecard(c, m["scorecard"])
@@ -20545,6 +20577,10 @@ func flattenDashboardWidgetXyChart(c *Client, i interface{}) *DashboardWidgetXyC
 	}
 
 	r := &DashboardWidgetXyChart{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChart
+	}
 	r.DataSets = flattenDashboardWidgetXyChartDataSetsSlice(c, m["dataSets"])
 	r.SourceDrilldown = flattenDashboardWidgetXyChartSourceDrilldown(c, m["sourceDrilldown"])
 	r.MetricDrilldown = flattenDashboardWidgetXyChartMetricDrilldown(c, m["metricDrilldown"])
@@ -20673,6 +20709,10 @@ func flattenDashboardWidgetXyChartDataSets(c *Client, i interface{}) *DashboardW
 	}
 
 	r := &DashboardWidgetXyChartDataSets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSets
+	}
 	r.TimeSeriesQuery = flattenDashboardWidgetXyChartDataSetsTimeSeriesQuery(c, m["timeSeriesQuery"])
 	r.PlotType = flattenDashboardWidgetXyChartDataSetsPlotTypeEnum(m["plotType"])
 	r.LegendTemplate = dcl.FlattenString(m["legendTemplate"])
@@ -20802,6 +20842,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQuery(c *Client, i interface
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQuery{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQuery
+	}
 	r.TimeSeriesFilter = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c, m["timeSeriesFilter"])
 	r.TimeSeriesFilterRatio = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c, m["timeSeriesFilterRatio"])
 	r.TimeSeriesQueryLanguage = dcl.FlattenString(m["timeSeriesQueryLanguage"])
@@ -20931,6 +20975,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(c *Cli
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
+	}
 	r.Filter = dcl.FlattenString(m["filter"])
 	r.Aggregation = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(c, m["aggregation"])
 	r.SecondaryAggregation = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, m["secondaryAggregation"])
@@ -21063,6 +21111,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
+	}
 	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(m["crossSeriesReducer"])
@@ -21178,6 +21230,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams
+	}
 	r.Threshold = dcl.FlattenDouble(m["threshold"])
 
 	return r
@@ -21295,6 +21351,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams
+	}
 	r.BucketOptions = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c, m["bucketOptions"])
 	r.ExemplarSampling = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(c, m["exemplarSampling"])
 
@@ -21418,6 +21478,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions
+	}
 	r.LinearBuckets = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, m["linearBuckets"])
 	r.ExponentialBuckets = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, m["exponentialBuckets"])
 	r.ExplicitBuckets = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, m["explicitBuckets"])
@@ -21536,6 +21600,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.Width = dcl.FlattenDouble(m["width"])
 	r.Offset = dcl.FlattenDouble(m["offset"])
@@ -21654,6 +21722,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.GrowthFactor = dcl.FlattenDouble(m["growthFactor"])
 	r.Scale = dcl.FlattenDouble(m["scale"])
@@ -21766,6 +21838,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	}
 	r.Bounds = dcl.FlattenFloatSlice(m["bounds"])
 
 	return r
@@ -21876,6 +21952,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling
+	}
 	r.MinimumValue = dcl.FlattenDouble(m["minimumValue"])
 
 	return r
@@ -22005,6 +22085,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+	}
 	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(m["crossSeriesReducer"])
@@ -22120,6 +22204,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams
+	}
 	r.Threshold = dcl.FlattenDouble(m["threshold"])
 
 	return r
@@ -22237,6 +22325,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams
+	}
 	r.BucketOptions = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, m["bucketOptions"])
 	r.ExemplarSampling = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, m["exemplarSampling"])
 
@@ -22360,6 +22452,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions
+	}
 	r.LinearBuckets = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, m["linearBuckets"])
 	r.ExponentialBuckets = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, m["exponentialBuckets"])
 	r.ExplicitBuckets = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, m["explicitBuckets"])
@@ -22478,6 +22574,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.Width = dcl.FlattenDouble(m["width"])
 	r.Offset = dcl.FlattenDouble(m["offset"])
@@ -22596,6 +22696,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.GrowthFactor = dcl.FlattenDouble(m["growthFactor"])
 	r.Scale = dcl.FlattenDouble(m["scale"])
@@ -22708,6 +22812,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	}
 	r.Bounds = dcl.FlattenFloatSlice(m["bounds"])
 
 	return r
@@ -22818,6 +22926,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
+	}
 	r.MinimumValue = dcl.FlattenDouble(m["minimumValue"])
 
 	return r
@@ -22934,6 +23046,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+	}
 	r.RankingMethod = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(m["rankingMethod"])
 	r.NumTimeSeries = dcl.FlattenInteger(m["numTimeSeries"])
 	r.Direction = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(m["direction"])
@@ -23063,6 +23179,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(c
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
+	}
 	r.Numerator = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, m["numerator"])
 	r.Denominator = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, m["denominator"])
 	r.SecondaryAggregation = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, m["secondaryAggregation"])
@@ -23181,6 +23301,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
+	}
 	r.Filter = dcl.FlattenString(m["filter"])
 	r.Aggregation = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, m["aggregation"])
 
@@ -23311,6 +23435,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+	}
 	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(m["crossSeriesReducer"])
@@ -23426,6 +23554,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams
+	}
 	r.Threshold = dcl.FlattenDouble(m["threshold"])
 
 	return r
@@ -23543,6 +23675,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams
+	}
 	r.BucketOptions = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c, m["bucketOptions"])
 	r.ExemplarSampling = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(c, m["exemplarSampling"])
 
@@ -23666,6 +23802,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions
+	}
 	r.LinearBuckets = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, m["linearBuckets"])
 	r.ExponentialBuckets = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, m["exponentialBuckets"])
 	r.ExplicitBuckets = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, m["explicitBuckets"])
@@ -23784,6 +23924,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.Width = dcl.FlattenDouble(m["width"])
 	r.Offset = dcl.FlattenDouble(m["offset"])
@@ -23902,6 +24046,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.GrowthFactor = dcl.FlattenDouble(m["growthFactor"])
 	r.Scale = dcl.FlattenDouble(m["scale"])
@@ -24014,6 +24162,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	}
 	r.Bounds = dcl.FlattenFloatSlice(m["bounds"])
 
 	return r
@@ -24124,6 +24276,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling
+	}
 	r.MinimumValue = dcl.FlattenDouble(m["minimumValue"])
 
 	return r
@@ -24239,6 +24395,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
+	}
 	r.Filter = dcl.FlattenString(m["filter"])
 	r.Aggregation = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, m["aggregation"])
 
@@ -24369,6 +24529,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+	}
 	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(m["crossSeriesReducer"])
@@ -24484,6 +24648,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams
+	}
 	r.Threshold = dcl.FlattenDouble(m["threshold"])
 
 	return r
@@ -24601,6 +24769,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams
+	}
 	r.BucketOptions = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c, m["bucketOptions"])
 	r.ExemplarSampling = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(c, m["exemplarSampling"])
 
@@ -24724,6 +24896,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions
+	}
 	r.LinearBuckets = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, m["linearBuckets"])
 	r.ExponentialBuckets = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, m["exponentialBuckets"])
 	r.ExplicitBuckets = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, m["explicitBuckets"])
@@ -24842,6 +25018,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.Width = dcl.FlattenDouble(m["width"])
 	r.Offset = dcl.FlattenDouble(m["offset"])
@@ -24960,6 +25140,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.GrowthFactor = dcl.FlattenDouble(m["growthFactor"])
 	r.Scale = dcl.FlattenDouble(m["scale"])
@@ -25072,6 +25256,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	}
 	r.Bounds = dcl.FlattenFloatSlice(m["bounds"])
 
 	return r
@@ -25182,6 +25370,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling
+	}
 	r.MinimumValue = dcl.FlattenDouble(m["minimumValue"])
 
 	return r
@@ -25311,6 +25503,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+	}
 	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(m["crossSeriesReducer"])
@@ -25426,6 +25622,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams
+	}
 	r.Threshold = dcl.FlattenDouble(m["threshold"])
 
 	return r
@@ -25543,6 +25743,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams
+	}
 	r.BucketOptions = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, m["bucketOptions"])
 	r.ExemplarSampling = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, m["exemplarSampling"])
 
@@ -25666,6 +25870,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions
+	}
 	r.LinearBuckets = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, m["linearBuckets"])
 	r.ExponentialBuckets = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, m["exponentialBuckets"])
 	r.ExplicitBuckets = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, m["explicitBuckets"])
@@ -25784,6 +25992,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.Width = dcl.FlattenDouble(m["width"])
 	r.Offset = dcl.FlattenDouble(m["offset"])
@@ -25902,6 +26114,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.GrowthFactor = dcl.FlattenDouble(m["growthFactor"])
 	r.Scale = dcl.FlattenDouble(m["scale"])
@@ -26014,6 +26230,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	}
 	r.Bounds = dcl.FlattenFloatSlice(m["bounds"])
 
 	return r
@@ -26124,6 +26344,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
+	}
 	r.MinimumValue = dcl.FlattenDouble(m["minimumValue"])
 
 	return r
@@ -26240,6 +26464,10 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 	}
 
 	r := &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+	}
 	r.RankingMethod = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(m["rankingMethod"])
 	r.NumTimeSeries = dcl.FlattenInteger(m["numTimeSeries"])
 	r.Direction = flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(m["direction"])
@@ -26384,6 +26612,10 @@ func flattenDashboardWidgetXyChartSourceDrilldown(c *Client, i interface{}) *Das
 	}
 
 	r := &DashboardWidgetXyChartSourceDrilldown{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartSourceDrilldown
+	}
 	r.ResourceTypeDrilldown = flattenDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown(c, m["resourceTypeDrilldown"])
 	r.ResourceLabelDrilldowns = flattenDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsSlice(c, m["resourceLabelDrilldowns"])
 	r.MetadataSystemLabelDrilldowns = flattenDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsSlice(c, m["metadataSystemLabelDrilldowns"])
@@ -26500,6 +26732,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown(c *Client
 	}
 
 	r := &DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown
+	}
 	r.TargetValues = dcl.FlattenStringSlice(m["targetValues"])
 
 	return r
@@ -26618,6 +26854,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns(c *Clie
 	}
 
 	r := &DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns
+	}
 	r.Label = dcl.FlattenString(m["label"])
 	r.LogicalOperator = flattenDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsLogicalOperatorEnum(m["logicalOperator"])
 	r.ValueRestrictions = flattenDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictionsSlice(c, m["valueRestrictions"])
@@ -26733,6 +26973,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRes
 	}
 
 	r := &DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions
+	}
 	r.TargetValue = dcl.FlattenString(m["targetValue"])
 	r.Comparator = flattenDashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum(m["comparator"])
 
@@ -26852,6 +27096,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns(c
 	}
 
 	r := &DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns
+	}
 	r.Label = dcl.FlattenString(m["label"])
 	r.LogicalOperator = flattenDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsLogicalOperatorEnum(m["logicalOperator"])
 	r.ValueRestrictions = flattenDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsSlice(c, m["valueRestrictions"])
@@ -26967,6 +27215,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsVa
 	}
 
 	r := &DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions
+	}
 	r.TargetValue = dcl.FlattenString(m["targetValue"])
 	r.Comparator = flattenDashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum(m["comparator"])
 
@@ -27086,6 +27338,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns(c *
 	}
 
 	r := &DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns
+	}
 	r.Label = dcl.FlattenString(m["label"])
 	r.LogicalOperator = flattenDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsLogicalOperatorEnum(m["logicalOperator"])
 	r.ValueRestrictions = flattenDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsSlice(c, m["valueRestrictions"])
@@ -27201,6 +27457,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValu
 	}
 
 	r := &DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions
+	}
 	r.TargetValue = dcl.FlattenString(m["targetValue"])
 	r.Comparator = flattenDashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum(m["comparator"])
 
@@ -27312,6 +27572,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown(c *Client, i
 	}
 
 	r := &DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartSourceDrilldownGroupNameDrilldown
+	}
 	r.TargetValues = dcl.FlattenStringSlice(m["targetValues"])
 
 	return r
@@ -27422,6 +27686,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown(c *Client,
 	}
 
 	r := &DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartSourceDrilldownServiceNameDrilldown
+	}
 	r.TargetValues = dcl.FlattenStringSlice(m["targetValues"])
 
 	return r
@@ -27532,6 +27800,10 @@ func flattenDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown(c *Client,
 	}
 
 	r := &DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown
+	}
 	r.Types = flattenDashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownTypesEnumSlice(c, m["types"])
 
 	return r
@@ -27654,6 +27926,10 @@ func flattenDashboardWidgetXyChartMetricDrilldown(c *Client, i interface{}) *Das
 	}
 
 	r := &DashboardWidgetXyChartMetricDrilldown{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartMetricDrilldown
+	}
 	r.MetricTypeDrilldown = flattenDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown(c, m["metricTypeDrilldown"])
 	r.MetricLabelDrilldowns = flattenDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsSlice(c, m["metricLabelDrilldowns"])
 	r.MetricGroupByDrilldown = flattenDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(c, m["metricGroupByDrilldown"])
@@ -27766,6 +28042,10 @@ func flattenDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown(c *Client, 
 	}
 
 	r := &DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown
+	}
 	r.TargetValue = dcl.FlattenString(m["targetValue"])
 
 	return r
@@ -27884,6 +28164,10 @@ func flattenDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns(c *Client
 	}
 
 	r := &DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns
+	}
 	r.Label = dcl.FlattenString(m["label"])
 	r.LogicalOperator = flattenDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsLogicalOperatorEnum(m["logicalOperator"])
 	r.ValueRestrictions = flattenDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictionsSlice(c, m["valueRestrictions"])
@@ -27999,6 +28283,10 @@ func flattenDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestr
 	}
 
 	r := &DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions
+	}
 	r.TargetValue = dcl.FlattenString(m["targetValue"])
 	r.Comparator = flattenDashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum(m["comparator"])
 
@@ -28122,6 +28410,10 @@ func flattenDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown(c *Clien
 	}
 
 	r := &DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown
+	}
 	r.ResourceLabels = dcl.FlattenStringSlice(m["resourceLabels"])
 	r.MetricLabels = dcl.FlattenStringSlice(m["metricLabels"])
 	r.MetadataSystemLabels = dcl.FlattenStringSlice(m["metadataSystemLabels"])
@@ -28245,6 +28537,10 @@ func flattenDashboardWidgetXyChartThresholds(c *Client, i interface{}) *Dashboar
 	}
 
 	r := &DashboardWidgetXyChartThresholds{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartThresholds
+	}
 	r.Label = dcl.FlattenString(m["label"])
 	r.Value = dcl.FlattenDouble(m["value"])
 	r.Color = flattenDashboardWidgetXyChartThresholdsColorEnum(m["color"])
@@ -28361,6 +28657,10 @@ func flattenDashboardWidgetXyChartXAxis(c *Client, i interface{}) *DashboardWidg
 	}
 
 	r := &DashboardWidgetXyChartXAxis{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartXAxis
+	}
 	r.Label = dcl.FlattenString(m["label"])
 	r.Scale = flattenDashboardWidgetXyChartXAxisScaleEnum(m["scale"])
 
@@ -28475,6 +28775,10 @@ func flattenDashboardWidgetXyChartYAxis(c *Client, i interface{}) *DashboardWidg
 	}
 
 	r := &DashboardWidgetXyChartYAxis{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartYAxis
+	}
 	r.Label = dcl.FlattenString(m["label"])
 	r.Scale = flattenDashboardWidgetXyChartYAxisScaleEnum(m["scale"])
 
@@ -28589,6 +28893,10 @@ func flattenDashboardWidgetXyChartChartOptions(c *Client, i interface{}) *Dashbo
 	}
 
 	r := &DashboardWidgetXyChartChartOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetXyChartChartOptions
+	}
 	r.Mode = flattenDashboardWidgetXyChartChartOptionsModeEnum(m["mode"])
 	r.ShowLegend = dcl.FlattenBool(m["showLegend"])
 
@@ -28727,6 +29035,10 @@ func flattenDashboardWidgetScorecard(c *Client, i interface{}) *DashboardWidgetS
 	}
 
 	r := &DashboardWidgetScorecard{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecard
+	}
 	r.TimeSeriesQuery = flattenDashboardWidgetScorecardTimeSeriesQuery(c, m["timeSeriesQuery"])
 	r.SourceDrilldown = flattenDashboardWidgetScorecardSourceDrilldown(c, m["sourceDrilldown"])
 	r.MetricDrilldown = flattenDashboardWidgetScorecardMetricDrilldown(c, m["metricDrilldown"])
@@ -28858,6 +29170,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQuery(c *Client, i interface{}) *D
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQuery{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQuery
+	}
 	r.TimeSeriesFilter = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c, m["timeSeriesFilter"])
 	r.TimeSeriesFilterRatio = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c, m["timeSeriesFilterRatio"])
 	r.TimeSeriesQueryLanguage = dcl.FlattenString(m["timeSeriesQueryLanguage"])
@@ -28987,6 +29303,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(c *Client, i
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter
+	}
 	r.Filter = dcl.FlattenString(m["filter"])
 	r.Aggregation = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c, m["aggregation"])
 	r.SecondaryAggregation = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(c, m["secondaryAggregation"])
@@ -29119,6 +29439,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(c
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation
+	}
 	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(m["crossSeriesReducer"])
@@ -29234,6 +29558,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams
+	}
 	r.Threshold = dcl.FlattenDouble(m["threshold"])
 
 	return r
@@ -29351,6 +29679,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams
+	}
 	r.BucketOptions = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(c, m["bucketOptions"])
 	r.ExemplarSampling = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(c, m["exemplarSampling"])
 
@@ -29474,6 +29806,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions
+	}
 	r.LinearBuckets = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, m["linearBuckets"])
 	r.ExponentialBuckets = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, m["exponentialBuckets"])
 	r.ExplicitBuckets = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, m["explicitBuckets"])
@@ -29592,6 +29928,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.Width = dcl.FlattenDouble(m["width"])
 	r.Offset = dcl.FlattenDouble(m["offset"])
@@ -29710,6 +30050,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.GrowthFactor = dcl.FlattenDouble(m["growthFactor"])
 	r.Scale = dcl.FlattenDouble(m["scale"])
@@ -29822,6 +30166,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	}
 	r.Bounds = dcl.FlattenFloatSlice(m["bounds"])
 
 	return r
@@ -29932,6 +30280,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationRe
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling
+	}
 	r.MinimumValue = dcl.FlattenDouble(m["minimumValue"])
 
 	return r
@@ -30061,6 +30413,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+	}
 	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(m["crossSeriesReducer"])
@@ -30176,6 +30532,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams
+	}
 	r.Threshold = dcl.FlattenDouble(m["threshold"])
 
 	return r
@@ -30293,6 +30653,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams
+	}
 	r.BucketOptions = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, m["bucketOptions"])
 	r.ExemplarSampling = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, m["exemplarSampling"])
 
@@ -30416,6 +30780,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions
+	}
 	r.LinearBuckets = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, m["linearBuckets"])
 	r.ExponentialBuckets = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, m["exponentialBuckets"])
 	r.ExplicitBuckets = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, m["explicitBuckets"])
@@ -30534,6 +30902,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.Width = dcl.FlattenDouble(m["width"])
 	r.Offset = dcl.FlattenDouble(m["offset"])
@@ -30652,6 +31024,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.GrowthFactor = dcl.FlattenDouble(m["growthFactor"])
 	r.Scale = dcl.FlattenDouble(m["scale"])
@@ -30764,6 +31140,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	}
 	r.Bounds = dcl.FlattenFloatSlice(m["bounds"])
 
 	return r
@@ -30874,6 +31254,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
+	}
 	r.MinimumValue = dcl.FlattenDouble(m["minimumValue"])
 
 	return r
@@ -30990,6 +31374,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+	}
 	r.RankingMethod = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(m["rankingMethod"])
 	r.NumTimeSeries = dcl.FlattenInteger(m["numTimeSeries"])
 	r.Direction = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(m["direction"])
@@ -31119,6 +31507,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(c *Clie
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
+	}
 	r.Numerator = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(c, m["numerator"])
 	r.Denominator = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(c, m["denominator"])
 	r.SecondaryAggregation = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(c, m["secondaryAggregation"])
@@ -31237,6 +31629,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
+	}
 	r.Filter = dcl.FlattenString(m["filter"])
 	r.Aggregation = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(c, m["aggregation"])
 
@@ -31367,6 +31763,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+	}
 	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(m["crossSeriesReducer"])
@@ -31482,6 +31882,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams
+	}
 	r.Threshold = dcl.FlattenDouble(m["threshold"])
 
 	return r
@@ -31599,6 +32003,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams
+	}
 	r.BucketOptions = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(c, m["bucketOptions"])
 	r.ExemplarSampling = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(c, m["exemplarSampling"])
 
@@ -31722,6 +32130,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions
+	}
 	r.LinearBuckets = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, m["linearBuckets"])
 	r.ExponentialBuckets = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, m["exponentialBuckets"])
 	r.ExplicitBuckets = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, m["explicitBuckets"])
@@ -31840,6 +32252,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.Width = dcl.FlattenDouble(m["width"])
 	r.Offset = dcl.FlattenDouble(m["offset"])
@@ -31958,6 +32374,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.GrowthFactor = dcl.FlattenDouble(m["growthFactor"])
 	r.Scale = dcl.FlattenDouble(m["scale"])
@@ -32070,6 +32490,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	}
 	r.Bounds = dcl.FlattenFloatSlice(m["bounds"])
 
 	return r
@@ -32180,6 +32604,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling
+	}
 	r.MinimumValue = dcl.FlattenDouble(m["minimumValue"])
 
 	return r
@@ -32295,6 +32723,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
+	}
 	r.Filter = dcl.FlattenString(m["filter"])
 	r.Aggregation = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(c, m["aggregation"])
 
@@ -32425,6 +32857,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+	}
 	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(m["crossSeriesReducer"])
@@ -32540,6 +32976,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams
+	}
 	r.Threshold = dcl.FlattenDouble(m["threshold"])
 
 	return r
@@ -32657,6 +33097,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams
+	}
 	r.BucketOptions = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(c, m["bucketOptions"])
 	r.ExemplarSampling = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(c, m["exemplarSampling"])
 
@@ -32780,6 +33224,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions
+	}
 	r.LinearBuckets = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, m["linearBuckets"])
 	r.ExponentialBuckets = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, m["exponentialBuckets"])
 	r.ExplicitBuckets = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, m["explicitBuckets"])
@@ -32898,6 +33346,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.Width = dcl.FlattenDouble(m["width"])
 	r.Offset = dcl.FlattenDouble(m["offset"])
@@ -33016,6 +33468,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.GrowthFactor = dcl.FlattenDouble(m["growthFactor"])
 	r.Scale = dcl.FlattenDouble(m["scale"])
@@ -33128,6 +33584,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	}
 	r.Bounds = dcl.FlattenFloatSlice(m["bounds"])
 
 	return r
@@ -33238,6 +33698,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling
+	}
 	r.MinimumValue = dcl.FlattenDouble(m["minimumValue"])
 
 	return r
@@ -33367,6 +33831,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+	}
 	r.AlignmentPeriod = dcl.FlattenString(m["alignmentPeriod"])
 	r.PerSeriesAligner = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(m["perSeriesAligner"])
 	r.CrossSeriesReducer = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(m["crossSeriesReducer"])
@@ -33482,6 +33950,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams
+	}
 	r.Threshold = dcl.FlattenDouble(m["threshold"])
 
 	return r
@@ -33599,6 +34071,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams
+	}
 	r.BucketOptions = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(c, m["bucketOptions"])
 	r.ExemplarSampling = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(c, m["exemplarSampling"])
 
@@ -33722,6 +34198,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions
+	}
 	r.LinearBuckets = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(c, m["linearBuckets"])
 	r.ExponentialBuckets = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(c, m["exponentialBuckets"])
 	r.ExplicitBuckets = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(c, m["explicitBuckets"])
@@ -33840,6 +34320,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.Width = dcl.FlattenDouble(m["width"])
 	r.Offset = dcl.FlattenDouble(m["offset"])
@@ -33958,6 +34442,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+	}
 	r.NumFiniteBuckets = dcl.FlattenInteger(m["numFiniteBuckets"])
 	r.GrowthFactor = dcl.FlattenDouble(m["growthFactor"])
 	r.Scale = dcl.FlattenDouble(m["scale"])
@@ -34070,6 +34558,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+	}
 	r.Bounds = dcl.FlattenFloatSlice(m["bounds"])
 
 	return r
@@ -34180,6 +34672,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling
+	}
 	r.MinimumValue = dcl.FlattenDouble(m["minimumValue"])
 
 	return r
@@ -34296,6 +34792,10 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 	}
 
 	r := &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+	}
 	r.RankingMethod = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(m["rankingMethod"])
 	r.NumTimeSeries = dcl.FlattenInteger(m["numTimeSeries"])
 	r.Direction = flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(m["direction"])
@@ -34440,6 +34940,10 @@ func flattenDashboardWidgetScorecardSourceDrilldown(c *Client, i interface{}) *D
 	}
 
 	r := &DashboardWidgetScorecardSourceDrilldown{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardSourceDrilldown
+	}
 	r.ResourceTypeDrilldown = flattenDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown(c, m["resourceTypeDrilldown"])
 	r.ResourceLabelDrilldowns = flattenDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsSlice(c, m["resourceLabelDrilldowns"])
 	r.MetadataSystemLabelDrilldowns = flattenDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsSlice(c, m["metadataSystemLabelDrilldowns"])
@@ -34556,6 +35060,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown(c *Clie
 	}
 
 	r := &DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown
+	}
 	r.TargetValues = dcl.FlattenStringSlice(m["targetValues"])
 
 	return r
@@ -34674,6 +35182,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns(c *Cl
 	}
 
 	r := &DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns
+	}
 	r.Label = dcl.FlattenString(m["label"])
 	r.LogicalOperator = flattenDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsLogicalOperatorEnum(m["logicalOperator"])
 	r.ValueRestrictions = flattenDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictionsSlice(c, m["valueRestrictions"])
@@ -34789,6 +35301,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueR
 	}
 
 	r := &DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions
+	}
 	r.TargetValue = dcl.FlattenString(m["targetValue"])
 	r.Comparator = flattenDashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum(m["comparator"])
 
@@ -34908,6 +35424,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 	}
 
 	r := &DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
+	}
 	r.Label = dcl.FlattenString(m["label"])
 	r.LogicalOperator = flattenDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsLogicalOperatorEnum(m["logicalOperator"])
 	r.ValueRestrictions = flattenDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsSlice(c, m["valueRestrictions"])
@@ -35023,6 +35543,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
 	}
 
 	r := &DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions
+	}
 	r.TargetValue = dcl.FlattenString(m["targetValue"])
 	r.Comparator = flattenDashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum(m["comparator"])
 
@@ -35142,6 +35666,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns(c
 	}
 
 	r := &DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns
+	}
 	r.Label = dcl.FlattenString(m["label"])
 	r.LogicalOperator = flattenDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsLogicalOperatorEnum(m["logicalOperator"])
 	r.ValueRestrictions = flattenDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsSlice(c, m["valueRestrictions"])
@@ -35257,6 +35785,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsVa
 	}
 
 	r := &DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions
+	}
 	r.TargetValue = dcl.FlattenString(m["targetValue"])
 	r.Comparator = flattenDashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum(m["comparator"])
 
@@ -35368,6 +35900,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown(c *Client,
 	}
 
 	r := &DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardSourceDrilldownGroupNameDrilldown
+	}
 	r.TargetValues = dcl.FlattenStringSlice(m["targetValues"])
 
 	return r
@@ -35478,6 +36014,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown(c *Clien
 	}
 
 	r := &DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardSourceDrilldownServiceNameDrilldown
+	}
 	r.TargetValues = dcl.FlattenStringSlice(m["targetValues"])
 
 	return r
@@ -35588,6 +36128,10 @@ func flattenDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown(c *Clien
 	}
 
 	r := &DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown
+	}
 	r.Types = flattenDashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownTypesEnumSlice(c, m["types"])
 
 	return r
@@ -35710,6 +36254,10 @@ func flattenDashboardWidgetScorecardMetricDrilldown(c *Client, i interface{}) *D
 	}
 
 	r := &DashboardWidgetScorecardMetricDrilldown{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardMetricDrilldown
+	}
 	r.MetricTypeDrilldown = flattenDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown(c, m["metricTypeDrilldown"])
 	r.MetricLabelDrilldowns = flattenDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsSlice(c, m["metricLabelDrilldowns"])
 	r.MetricGroupByDrilldown = flattenDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown(c, m["metricGroupByDrilldown"])
@@ -35822,6 +36370,10 @@ func flattenDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown(c *Client
 	}
 
 	r := &DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown
+	}
 	r.TargetValue = dcl.FlattenString(m["targetValue"])
 
 	return r
@@ -35940,6 +36492,10 @@ func flattenDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns(c *Clie
 	}
 
 	r := &DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns
+	}
 	r.Label = dcl.FlattenString(m["label"])
 	r.LogicalOperator = flattenDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsLogicalOperatorEnum(m["logicalOperator"])
 	r.ValueRestrictions = flattenDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictionsSlice(c, m["valueRestrictions"])
@@ -36055,6 +36611,10 @@ func flattenDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRes
 	}
 
 	r := &DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions
+	}
 	r.TargetValue = dcl.FlattenString(m["targetValue"])
 	r.Comparator = flattenDashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum(m["comparator"])
 
@@ -36178,6 +36738,10 @@ func flattenDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown(c *Cli
 	}
 
 	r := &DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown
+	}
 	r.ResourceLabels = dcl.FlattenStringSlice(m["resourceLabels"])
 	r.MetricLabels = dcl.FlattenStringSlice(m["metricLabels"])
 	r.MetadataSystemLabels = dcl.FlattenStringSlice(m["metadataSystemLabels"])
@@ -36295,6 +36859,10 @@ func flattenDashboardWidgetScorecardGaugeView(c *Client, i interface{}) *Dashboa
 	}
 
 	r := &DashboardWidgetScorecardGaugeView{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardGaugeView
+	}
 	r.LowerBound = dcl.FlattenDouble(m["lowerBound"])
 	r.UpperBound = dcl.FlattenDouble(m["upperBound"])
 
@@ -36409,6 +36977,10 @@ func flattenDashboardWidgetScorecardSparkChartView(c *Client, i interface{}) *Da
 	}
 
 	r := &DashboardWidgetScorecardSparkChartView{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardSparkChartView
+	}
 	r.SparkChartType = flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnum(m["sparkChartType"])
 	r.MinAlignmentPeriod = dcl.FlattenString(m["minAlignmentPeriod"])
 
@@ -36529,6 +37101,10 @@ func flattenDashboardWidgetScorecardThresholds(c *Client, i interface{}) *Dashbo
 	}
 
 	r := &DashboardWidgetScorecardThresholds{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetScorecardThresholds
+	}
 	r.Label = dcl.FlattenString(m["label"])
 	r.Value = dcl.FlattenDouble(m["value"])
 	r.Color = flattenDashboardWidgetScorecardThresholdsColorEnum(m["color"])
@@ -36645,6 +37221,10 @@ func flattenDashboardWidgetText(c *Client, i interface{}) *DashboardWidgetText {
 	}
 
 	r := &DashboardWidgetText{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetText
+	}
 	r.Content = dcl.FlattenString(m["content"])
 	r.Format = flattenDashboardWidgetTextFormatEnum(m["format"])
 
@@ -36753,6 +37333,10 @@ func flattenDashboardWidgetBlank(c *Client, i interface{}) *DashboardWidgetBlank
 	}
 
 	r := &DashboardWidgetBlank{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardWidgetBlank
+	}
 
 	return r
 }

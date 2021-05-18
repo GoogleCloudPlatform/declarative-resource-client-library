@@ -4968,6 +4968,10 @@ func flattenGuestPolicyAssignment(c *Client, i interface{}) *GuestPolicyAssignme
 	}
 
 	r := &GuestPolicyAssignment{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyAssignment
+	}
 	r.GroupLabels = flattenGuestPolicyAssignmentGroupLabelsSlice(c, m["groupLabels"])
 	r.Zones = dcl.FlattenStringSlice(m["zones"])
 	r.Instances = flattenGuestPolicyInstances(m["instances"])
@@ -5082,6 +5086,10 @@ func flattenGuestPolicyAssignmentGroupLabels(c *Client, i interface{}) *GuestPol
 	}
 
 	r := &GuestPolicyAssignmentGroupLabels{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyAssignmentGroupLabels
+	}
 	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 
 	return r
@@ -5198,6 +5206,10 @@ func flattenGuestPolicyAssignmentOsTypes(c *Client, i interface{}) *GuestPolicyA
 	}
 
 	r := &GuestPolicyAssignmentOsTypes{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyAssignmentOsTypes
+	}
 	r.OsShortName = dcl.FlattenString(m["osShortName"])
 	r.OsVersion = dcl.FlattenString(m["osVersion"])
 	r.OsArchitecture = dcl.FlattenString(m["osArchitecture"])
@@ -5316,6 +5328,10 @@ func flattenGuestPolicyPackages(c *Client, i interface{}) *GuestPolicyPackages {
 	}
 
 	r := &GuestPolicyPackages{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyPackages
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.DesiredState = flattenGuestPolicyPackagesDesiredStateEnum(m["desiredState"])
 	r.Manager = flattenGuestPolicyPackagesManagerEnum(m["manager"])
@@ -5445,6 +5461,10 @@ func flattenGuestPolicyPackageRepositories(c *Client, i interface{}) *GuestPolic
 	}
 
 	r := &GuestPolicyPackageRepositories{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyPackageRepositories
+	}
 	r.Apt = flattenGuestPolicyPackageRepositoriesApt(c, m["apt"])
 	r.Yum = flattenGuestPolicyPackageRepositoriesYum(c, m["yum"])
 	r.Zypper = flattenGuestPolicyPackageRepositoriesZypper(c, m["zypper"])
@@ -5570,6 +5590,10 @@ func flattenGuestPolicyPackageRepositoriesApt(c *Client, i interface{}) *GuestPo
 	}
 
 	r := &GuestPolicyPackageRepositoriesApt{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyPackageRepositoriesApt
+	}
 	r.ArchiveType = flattenGuestPolicyPackageRepositoriesAptArchiveTypeEnum(m["archiveType"])
 	r.Uri = dcl.FlattenString(m["uri"])
 	r.Distribution = dcl.FlattenString(m["distribution"])
@@ -5693,6 +5717,10 @@ func flattenGuestPolicyPackageRepositoriesYum(c *Client, i interface{}) *GuestPo
 	}
 
 	r := &GuestPolicyPackageRepositoriesYum{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyPackageRepositoriesYum
+	}
 	r.Id = dcl.FlattenString(m["id"])
 	r.DisplayName = dcl.FlattenString(m["displayName"])
 	r.BaseUrl = dcl.FlattenString(m["baseUrl"])
@@ -5815,6 +5843,10 @@ func flattenGuestPolicyPackageRepositoriesZypper(c *Client, i interface{}) *Gues
 	}
 
 	r := &GuestPolicyPackageRepositoriesZypper{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyPackageRepositoriesZypper
+	}
 	r.Id = dcl.FlattenString(m["id"])
 	r.DisplayName = dcl.FlattenString(m["displayName"])
 	r.BaseUrl = dcl.FlattenString(m["baseUrl"])
@@ -5931,6 +5963,10 @@ func flattenGuestPolicyPackageRepositoriesGoo(c *Client, i interface{}) *GuestPo
 	}
 
 	r := &GuestPolicyPackageRepositoriesGoo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyPackageRepositoriesGoo
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Url = dcl.FlattenString(m["url"])
 
@@ -6063,6 +6099,10 @@ func flattenGuestPolicyRecipes(c *Client, i interface{}) *GuestPolicyRecipes {
 	}
 
 	r := &GuestPolicyRecipes{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyRecipes
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Version = dcl.FlattenString(m["version"])
 	r.Artifacts = flattenGuestPolicyRecipesArtifactsSlice(c, m["artifacts"])
@@ -6191,6 +6231,10 @@ func flattenGuestPolicyRecipesArtifacts(c *Client, i interface{}) *GuestPolicyRe
 	}
 
 	r := &GuestPolicyRecipesArtifacts{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyRecipesArtifacts
+	}
 	r.Id = dcl.FlattenString(m["id"])
 	r.Remote = flattenGuestPolicyRecipesArtifactsRemote(c, m["remote"])
 	r.Gcs = flattenGuestPolicyRecipesArtifactsGcs(c, m["gcs"])
@@ -6307,6 +6351,10 @@ func flattenGuestPolicyRecipesArtifactsRemote(c *Client, i interface{}) *GuestPo
 	}
 
 	r := &GuestPolicyRecipesArtifactsRemote{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyRecipesArtifactsRemote
+	}
 	r.Uri = dcl.FlattenString(m["uri"])
 	r.Checksum = dcl.FlattenString(m["checksum"])
 
@@ -6424,6 +6472,10 @@ func flattenGuestPolicyRecipesArtifactsGcs(c *Client, i interface{}) *GuestPolic
 	}
 
 	r := &GuestPolicyRecipesArtifactsGcs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyRecipesArtifactsGcs
+	}
 	r.Bucket = dcl.FlattenString(m["bucket"])
 	r.Object = dcl.FlattenString(m["object"])
 	r.Generation = dcl.FlattenInteger(m["generation"])
@@ -6568,6 +6620,10 @@ func flattenGuestPolicyRecipesInstallSteps(c *Client, i interface{}) *GuestPolic
 	}
 
 	r := &GuestPolicyRecipesInstallSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyRecipesInstallSteps
+	}
 	r.FileCopy = flattenGuestPolicyRecipesInstallStepsFileCopy(c, m["fileCopy"])
 	r.ArchiveExtraction = flattenGuestPolicyRecipesInstallStepsArchiveExtraction(c, m["archiveExtraction"])
 	r.MsiInstallation = flattenGuestPolicyRecipesInstallStepsMsiInstallation(c, m["msiInstallation"])
@@ -6693,6 +6749,10 @@ func flattenGuestPolicyRecipesInstallStepsFileCopy(c *Client, i interface{}) *Gu
 	}
 
 	r := &GuestPolicyRecipesInstallStepsFileCopy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyRecipesInstallStepsFileCopy
+	}
 	r.ArtifactId = dcl.FlattenString(m["artifactId"])
 	r.Destination = dcl.FlattenString(m["destination"])
 	r.Overwrite = dcl.FlattenBool(m["overwrite"])
@@ -6812,6 +6872,10 @@ func flattenGuestPolicyRecipesInstallStepsArchiveExtraction(c *Client, i interfa
 	}
 
 	r := &GuestPolicyRecipesInstallStepsArchiveExtraction{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyRecipesInstallStepsArchiveExtraction
+	}
 	r.ArtifactId = dcl.FlattenString(m["artifactId"])
 	r.Destination = dcl.FlattenString(m["destination"])
 	r.Type = flattenGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum(m["type"])
@@ -6930,6 +6994,10 @@ func flattenGuestPolicyRecipesInstallStepsMsiInstallation(c *Client, i interface
 	}
 
 	r := &GuestPolicyRecipesInstallStepsMsiInstallation{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyRecipesInstallStepsMsiInstallation
+	}
 	r.ArtifactId = dcl.FlattenString(m["artifactId"])
 	r.Flags = dcl.FlattenStringSlice(m["flags"])
 	r.AllowedExitCodes = dcl.FlattenIntSlice(m["allowedExitCodes"])
@@ -7042,6 +7110,10 @@ func flattenGuestPolicyRecipesInstallStepsDpkgInstallation(c *Client, i interfac
 	}
 
 	r := &GuestPolicyRecipesInstallStepsDpkgInstallation{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyRecipesInstallStepsDpkgInstallation
+	}
 	r.ArtifactId = dcl.FlattenString(m["artifactId"])
 
 	return r
@@ -7152,6 +7224,10 @@ func flattenGuestPolicyRecipesInstallStepsRpmInstallation(c *Client, i interface
 	}
 
 	r := &GuestPolicyRecipesInstallStepsRpmInstallation{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyRecipesInstallStepsRpmInstallation
+	}
 	r.ArtifactId = dcl.FlattenString(m["artifactId"])
 
 	return r
@@ -7271,6 +7347,10 @@ func flattenGuestPolicyRecipesInstallStepsFileExec(c *Client, i interface{}) *Gu
 	}
 
 	r := &GuestPolicyRecipesInstallStepsFileExec{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyRecipesInstallStepsFileExec
+	}
 	r.ArtifactId = dcl.FlattenString(m["artifactId"])
 	r.LocalPath = dcl.FlattenString(m["localPath"])
 	r.Args = dcl.FlattenStringSlice(m["args"])
@@ -7390,6 +7470,10 @@ func flattenGuestPolicyRecipesInstallStepsScriptRun(c *Client, i interface{}) *G
 	}
 
 	r := &GuestPolicyRecipesInstallStepsScriptRun{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyRecipesInstallStepsScriptRun
+	}
 	r.Script = dcl.FlattenString(m["script"])
 	r.AllowedExitCodes = dcl.FlattenIntSlice(m["allowedExitCodes"])
 	r.Interpreter = flattenGuestPolicyRecipesInstallStepsScriptRunInterpreterEnum(m["interpreter"])
@@ -7534,6 +7618,10 @@ func flattenGuestPolicyRecipesUpdateSteps(c *Client, i interface{}) *GuestPolicy
 	}
 
 	r := &GuestPolicyRecipesUpdateSteps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyRecipesUpdateSteps
+	}
 	r.FileCopy = flattenGuestPolicyRecipesUpdateStepsFileCopy(c, m["fileCopy"])
 	r.ArchiveExtraction = flattenGuestPolicyRecipesUpdateStepsArchiveExtraction(c, m["archiveExtraction"])
 	r.MsiInstallation = flattenGuestPolicyRecipesUpdateStepsMsiInstallation(c, m["msiInstallation"])
@@ -7659,6 +7747,10 @@ func flattenGuestPolicyRecipesUpdateStepsFileCopy(c *Client, i interface{}) *Gue
 	}
 
 	r := &GuestPolicyRecipesUpdateStepsFileCopy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyRecipesUpdateStepsFileCopy
+	}
 	r.ArtifactId = dcl.FlattenString(m["artifactId"])
 	r.Destination = dcl.FlattenString(m["destination"])
 	r.Overwrite = dcl.FlattenBool(m["overwrite"])
@@ -7778,6 +7870,10 @@ func flattenGuestPolicyRecipesUpdateStepsArchiveExtraction(c *Client, i interfac
 	}
 
 	r := &GuestPolicyRecipesUpdateStepsArchiveExtraction{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyRecipesUpdateStepsArchiveExtraction
+	}
 	r.ArtifactId = dcl.FlattenString(m["artifactId"])
 	r.Destination = dcl.FlattenString(m["destination"])
 	r.Type = flattenGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum(m["type"])
@@ -7896,6 +7992,10 @@ func flattenGuestPolicyRecipesUpdateStepsMsiInstallation(c *Client, i interface{
 	}
 
 	r := &GuestPolicyRecipesUpdateStepsMsiInstallation{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyRecipesUpdateStepsMsiInstallation
+	}
 	r.ArtifactId = dcl.FlattenString(m["artifactId"])
 	r.Flags = dcl.FlattenStringSlice(m["flags"])
 	r.AllowedExitCodes = dcl.FlattenIntSlice(m["allowedExitCodes"])
@@ -8008,6 +8108,10 @@ func flattenGuestPolicyRecipesUpdateStepsDpkgInstallation(c *Client, i interface
 	}
 
 	r := &GuestPolicyRecipesUpdateStepsDpkgInstallation{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyRecipesUpdateStepsDpkgInstallation
+	}
 	r.ArtifactId = dcl.FlattenString(m["artifactId"])
 
 	return r
@@ -8118,6 +8222,10 @@ func flattenGuestPolicyRecipesUpdateStepsRpmInstallation(c *Client, i interface{
 	}
 
 	r := &GuestPolicyRecipesUpdateStepsRpmInstallation{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyRecipesUpdateStepsRpmInstallation
+	}
 	r.ArtifactId = dcl.FlattenString(m["artifactId"])
 
 	return r
@@ -8237,6 +8345,10 @@ func flattenGuestPolicyRecipesUpdateStepsFileExec(c *Client, i interface{}) *Gue
 	}
 
 	r := &GuestPolicyRecipesUpdateStepsFileExec{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyRecipesUpdateStepsFileExec
+	}
 	r.ArtifactId = dcl.FlattenString(m["artifactId"])
 	r.LocalPath = dcl.FlattenString(m["localPath"])
 	r.Args = dcl.FlattenStringSlice(m["args"])
@@ -8356,6 +8468,10 @@ func flattenGuestPolicyRecipesUpdateStepsScriptRun(c *Client, i interface{}) *Gu
 	}
 
 	r := &GuestPolicyRecipesUpdateStepsScriptRun{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGuestPolicyRecipesUpdateStepsScriptRun
+	}
 	r.Script = dcl.FlattenString(m["script"])
 	r.AllowedExitCodes = dcl.FlattenIntSlice(m["allowedExitCodes"])
 	r.Interpreter = flattenGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum(m["interpreter"])

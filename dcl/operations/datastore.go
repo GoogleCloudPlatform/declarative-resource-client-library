@@ -49,6 +49,7 @@ func (op *DatastoreOperation) Wait(ctx context.Context, c *dcl.Config, _, _ stri
 	op.config = c
 	return dcl.Do(ctx, op.operate, c.RetryProvider)
 }
+
 func (op *DatastoreOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) {
 	u := dcl.URL(op.Name, "https://datastore.googleapis.com/v1/", op.config.BasePath, nil)
 	resp, err := dcl.SendRequest(ctx, op.config, "GET", u, &bytes.Buffer{}, nil)
@@ -70,16 +71,6 @@ func (op *DatastoreOperation) operate(ctx context.Context) (*dcl.RetryDetails, e
 	return resp, nil
 }
 
-// FetchIndexID will fetch the operation and return the indexId of the resource created.
-// Datastore index uses a machine generated id as a param.
-// It must be called after the resource has been created.
-func (op *DatastoreOperation) FetchIndexID() (*string, error) {
-	if op.Metadata.IndexID == "" {
-		return nil, fmt.Errorf("this operation (%s) has no IndexID and probably hasn't been run before", op.Name)
-	}
-	return &op.Metadata.IndexID, nil
-}
-
 // IsDatastoreRetryableError checks for additional retryable errors that are
 // specific to Datastore.
 func IsDatastoreRetryableError(c *dcl.Config, err error) bool {
@@ -95,5 +86,7 @@ func IsDatastoreRetryableError(c *dcl.Config, err error) bool {
 // FirstResponse returns the first response that this operation receives with the resource.
 // This response may contain special information.
 func (op *DatastoreOperation) FirstResponse() (map[string]interface{}, bool) {
-	return make(map[string]interface{}), false
+	return map[string]interface{}{
+		"indexId": op.Metadata.IndexID,
+	}, false
 }

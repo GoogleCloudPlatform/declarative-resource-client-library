@@ -1660,6 +1660,10 @@ func flattenClientTlsPolicyClientCertificate(c *Client, i interface{}) *ClientTl
 	}
 
 	r := &ClientTlsPolicyClientCertificate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClientTlsPolicyClientCertificate
+	}
 	r.GrpcEndpoint = flattenClientTlsPolicyClientCertificateGrpcEndpoint(c, m["grpcEndpoint"])
 	r.CertificateProviderInstance = flattenClientTlsPolicyClientCertificateCertificateProviderInstance(c, m["certificateProviderInstance"])
 
@@ -1771,6 +1775,10 @@ func flattenClientTlsPolicyClientCertificateGrpcEndpoint(c *Client, i interface{
 	}
 
 	r := &ClientTlsPolicyClientCertificateGrpcEndpoint{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClientTlsPolicyClientCertificateGrpcEndpoint
+	}
 	r.TargetUri = dcl.FlattenString(m["targetUri"])
 
 	return r
@@ -1881,6 +1889,10 @@ func flattenClientTlsPolicyClientCertificateCertificateProviderInstance(c *Clien
 	}
 
 	r := &ClientTlsPolicyClientCertificateCertificateProviderInstance{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClientTlsPolicyClientCertificateCertificateProviderInstance
+	}
 	r.PluginInstance = dcl.FlattenString(m["pluginInstance"])
 
 	return r
@@ -1998,6 +2010,10 @@ func flattenClientTlsPolicyServerValidationCa(c *Client, i interface{}) *ClientT
 	}
 
 	r := &ClientTlsPolicyServerValidationCa{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClientTlsPolicyServerValidationCa
+	}
 	r.GrpcEndpoint = flattenClientTlsPolicyServerValidationCaGrpcEndpoint(c, m["grpcEndpoint"])
 	r.CertificateProviderInstance = flattenClientTlsPolicyServerValidationCaCertificateProviderInstance(c, m["certificateProviderInstance"])
 
@@ -2109,6 +2125,10 @@ func flattenClientTlsPolicyServerValidationCaGrpcEndpoint(c *Client, i interface
 	}
 
 	r := &ClientTlsPolicyServerValidationCaGrpcEndpoint{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClientTlsPolicyServerValidationCaGrpcEndpoint
+	}
 	r.TargetUri = dcl.FlattenString(m["targetUri"])
 
 	return r
@@ -2219,6 +2239,10 @@ func flattenClientTlsPolicyServerValidationCaCertificateProviderInstance(c *Clie
 	}
 
 	r := &ClientTlsPolicyServerValidationCaCertificateProviderInstance{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClientTlsPolicyServerValidationCaCertificateProviderInstance
+	}
 	r.PluginInstance = dcl.FlattenString(m["pluginInstance"])
 
 	return r

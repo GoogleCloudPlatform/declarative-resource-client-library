@@ -107,6 +107,10 @@ func (r *ServicePerimeterStatus) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyServicePerimeterStatus *ServicePerimeterStatus = &ServicePerimeterStatus{empty: true}
 
+func (r *ServicePerimeterStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *ServicePerimeterStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -151,6 +155,10 @@ func (r *ServicePerimeterStatusVPCAccessibleServices) UnmarshalJSON(data []byte)
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServicePerimeterStatusVPCAccessibleServices *ServicePerimeterStatusVPCAccessibleServices = &ServicePerimeterStatusVPCAccessibleServices{empty: true}
+
+func (r *ServicePerimeterStatusVPCAccessibleServices) Empty() bool {
+	return r.empty
+}
 
 func (r *ServicePerimeterStatusVPCAccessibleServices) String() string {
 	return dcl.SprintResource(r)
@@ -203,6 +211,10 @@ func (r *ServicePerimeterSpec) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyServicePerimeterSpec *ServicePerimeterSpec = &ServicePerimeterSpec{empty: true}
 
+func (r *ServicePerimeterSpec) Empty() bool {
+	return r.empty
+}
+
 func (r *ServicePerimeterSpec) String() string {
 	return dcl.SprintResource(r)
 }
@@ -247,6 +259,10 @@ func (r *ServicePerimeterSpecVPCAccessibleServices) UnmarshalJSON(data []byte) e
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServicePerimeterSpecVPCAccessibleServices *ServicePerimeterSpecVPCAccessibleServices = &ServicePerimeterSpecVPCAccessibleServices{empty: true}
+
+func (r *ServicePerimeterSpecVPCAccessibleServices) Empty() bool {
+	return r.empty
+}
 
 func (r *ServicePerimeterSpecVPCAccessibleServices) String() string {
 	return dcl.SprintResource(r)

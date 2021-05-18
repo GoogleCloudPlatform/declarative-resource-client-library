@@ -107,6 +107,10 @@ func (r *FirewallLogConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyFirewallLogConfig *FirewallLogConfig = &FirewallLogConfig{empty: true}
 
+func (r *FirewallLogConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *FirewallLogConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -155,6 +159,10 @@ func (r *FirewallAllowed) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyFirewallAllowed *FirewallAllowed = &FirewallAllowed{empty: true}
 
+func (r *FirewallAllowed) Empty() bool {
+	return r.empty
+}
+
 func (r *FirewallAllowed) String() string {
 	return dcl.SprintResource(r)
 }
@@ -202,6 +210,10 @@ func (r *FirewallDenied) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyFirewallDenied *FirewallDenied = &FirewallDenied{empty: true}
+
+func (r *FirewallDenied) Empty() bool {
+	return r.empty
+}
 
 func (r *FirewallDenied) String() string {
 	return dcl.SprintResource(r)

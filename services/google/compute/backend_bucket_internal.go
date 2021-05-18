@@ -982,6 +982,10 @@ func flattenBackendBucketCdnPolicy(c *Client, i interface{}) *BackendBucketCdnPo
 	}
 
 	r := &BackendBucketCdnPolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyBackendBucketCdnPolicy
+	}
 	r.SignedUrlKeyNames = dcl.FlattenStringSlice(m["signedUrlKeyNames"])
 	r.SignedUrlCacheMaxAgeSec = dcl.FlattenInteger(m["signedUrlCacheMaxAgeSec"])
 

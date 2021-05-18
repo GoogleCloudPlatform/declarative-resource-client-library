@@ -1934,6 +1934,10 @@ func flattenManagedZoneDnssecConfig(c *Client, i interface{}) *ManagedZoneDnssec
 	}
 
 	r := &ManagedZoneDnssecConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyManagedZoneDnssecConfig
+	}
 	r.Kind = dcl.FlattenString(m["kind"])
 	r.NonExistence = flattenManagedZoneDnssecConfigNonExistenceEnum(m["nonExistence"])
 	r.State = flattenManagedZoneDnssecConfigStateEnum(m["state"])
@@ -2056,6 +2060,10 @@ func flattenManagedZoneDnssecConfigDefaultKeySpecs(c *Client, i interface{}) *Ma
 	}
 
 	r := &ManagedZoneDnssecConfigDefaultKeySpecs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyManagedZoneDnssecConfigDefaultKeySpecs
+	}
 	r.Algorithm = flattenManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnum(m["algorithm"])
 	r.KeyLength = dcl.FlattenInteger(m["keyLength"])
 	r.KeyType = flattenManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnum(m["keyType"])
@@ -2171,6 +2179,10 @@ func flattenManagedZonePrivateVisibilityConfig(c *Client, i interface{}) *Manage
 	}
 
 	r := &ManagedZonePrivateVisibilityConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyManagedZonePrivateVisibilityConfig
+	}
 	r.Networks = flattenManagedZonePrivateVisibilityConfigNetworksSlice(c, m["networks"])
 
 	return r
@@ -2281,6 +2293,10 @@ func flattenManagedZonePrivateVisibilityConfigNetworks(c *Client, i interface{})
 	}
 
 	r := &ManagedZonePrivateVisibilityConfigNetworks{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyManagedZonePrivateVisibilityConfigNetworks
+	}
 	r.NetworkUrl = dcl.FlattenString(m["networkUrl"])
 
 	return r
@@ -2393,6 +2409,10 @@ func flattenManagedZoneForwardingConfig(c *Client, i interface{}) *ManagedZoneFo
 	}
 
 	r := &ManagedZoneForwardingConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyManagedZoneForwardingConfig
+	}
 	r.TargetNameServers = flattenManagedZoneForwardingConfigTargetNameServersSlice(c, m["targetNameServers"])
 
 	return r
@@ -2506,6 +2526,10 @@ func flattenManagedZoneForwardingConfigTargetNameServers(c *Client, i interface{
 	}
 
 	r := &ManagedZoneForwardingConfigTargetNameServers{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyManagedZoneForwardingConfigTargetNameServers
+	}
 	r.IPv4Address = dcl.FlattenString(m["ipv4Address"])
 	r.ForwardingPath = flattenManagedZoneForwardingConfigTargetNameServersForwardingPathEnum(m["forwardingPath"])
 
@@ -2619,6 +2643,10 @@ func flattenManagedZonePeeringConfig(c *Client, i interface{}) *ManagedZonePeeri
 	}
 
 	r := &ManagedZonePeeringConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyManagedZonePeeringConfig
+	}
 	r.TargetNetwork = flattenManagedZonePeeringConfigTargetNetwork(c, m["targetNetwork"])
 
 	return r
@@ -2729,6 +2757,10 @@ func flattenManagedZonePeeringConfigTargetNetwork(c *Client, i interface{}) *Man
 	}
 
 	r := &ManagedZonePeeringConfigTargetNetwork{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyManagedZonePeeringConfigTargetNetwork
+	}
 	r.NetworkUrl = dcl.FlattenString(m["networkUrl"])
 
 	return r

@@ -223,6 +223,10 @@ func (r *ForwardingRuleMetadataFilter) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyForwardingRuleMetadataFilter *ForwardingRuleMetadataFilter = &ForwardingRuleMetadataFilter{empty: true}
 
+func (r *ForwardingRuleMetadataFilter) Empty() bool {
+	return r.empty
+}
+
 func (r *ForwardingRuleMetadataFilter) String() string {
 	return dcl.SprintResource(r)
 }
@@ -267,6 +271,10 @@ func (r *ForwardingRuleMetadataFilterFilterLabel) UnmarshalJSON(data []byte) err
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyForwardingRuleMetadataFilterFilterLabel *ForwardingRuleMetadataFilterFilterLabel = &ForwardingRuleMetadataFilterFilterLabel{empty: true}
+
+func (r *ForwardingRuleMetadataFilterFilterLabel) Empty() bool {
+	return r.empty
+}
 
 func (r *ForwardingRuleMetadataFilterFilterLabel) String() string {
 	return dcl.SprintResource(r)

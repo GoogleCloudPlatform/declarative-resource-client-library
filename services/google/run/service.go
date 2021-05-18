@@ -110,6 +110,10 @@ func (r *ServiceMetadata) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceMetadata *ServiceMetadata = &ServiceMetadata{empty: true}
 
+func (r *ServiceMetadata) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceMetadata) String() string {
 	return dcl.SprintResource(r)
 }
@@ -154,6 +158,10 @@ func (r *ServiceMetadataCreateTime) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceMetadataCreateTime *ServiceMetadataCreateTime = &ServiceMetadataCreateTime{empty: true}
+
+func (r *ServiceMetadataCreateTime) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceMetadataCreateTime) String() string {
 	return dcl.SprintResource(r)
@@ -212,6 +220,10 @@ func (r *ServiceMetadataOwnerReferences) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceMetadataOwnerReferences *ServiceMetadataOwnerReferences = &ServiceMetadataOwnerReferences{empty: true}
 
+func (r *ServiceMetadataOwnerReferences) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceMetadataOwnerReferences) String() string {
 	return dcl.SprintResource(r)
 }
@@ -256,6 +268,10 @@ func (r *ServiceMetadataDeleteTime) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceMetadataDeleteTime *ServiceMetadataDeleteTime = &ServiceMetadataDeleteTime{empty: true}
+
+func (r *ServiceMetadataDeleteTime) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceMetadataDeleteTime) String() string {
 	return dcl.SprintResource(r)
@@ -302,6 +318,10 @@ func (r *ServiceSpec) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpec *ServiceSpec = &ServiceSpec{empty: true}
 
+func (r *ServiceSpec) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceSpec) String() string {
 	return dcl.SprintResource(r)
 }
@@ -346,6 +366,10 @@ func (r *ServiceSpecTemplate) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplate *ServiceSpecTemplate = &ServiceSpecTemplate{empty: true}
+
+func (r *ServiceSpecTemplate) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTemplate) String() string {
 	return dcl.SprintResource(r)
@@ -431,6 +455,10 @@ func (r *ServiceSpecTemplateMetadata) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateMetadata *ServiceSpecTemplateMetadata = &ServiceSpecTemplateMetadata{empty: true}
 
+func (r *ServiceSpecTemplateMetadata) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceSpecTemplateMetadata) String() string {
 	return dcl.SprintResource(r)
 }
@@ -475,6 +503,10 @@ func (r *ServiceSpecTemplateMetadataCreateTime) UnmarshalJSON(data []byte) error
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateMetadataCreateTime *ServiceSpecTemplateMetadataCreateTime = &ServiceSpecTemplateMetadataCreateTime{empty: true}
+
+func (r *ServiceSpecTemplateMetadataCreateTime) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTemplateMetadataCreateTime) String() string {
 	return dcl.SprintResource(r)
@@ -533,6 +565,10 @@ func (r *ServiceSpecTemplateMetadataOwnerReferences) UnmarshalJSON(data []byte) 
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateMetadataOwnerReferences *ServiceSpecTemplateMetadataOwnerReferences = &ServiceSpecTemplateMetadataOwnerReferences{empty: true}
 
+func (r *ServiceSpecTemplateMetadataOwnerReferences) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceSpecTemplateMetadataOwnerReferences) String() string {
 	return dcl.SprintResource(r)
 }
@@ -577,6 +613,10 @@ func (r *ServiceSpecTemplateMetadataDeleteTime) UnmarshalJSON(data []byte) error
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateMetadataDeleteTime *ServiceSpecTemplateMetadataDeleteTime = &ServiceSpecTemplateMetadataDeleteTime{empty: true}
+
+func (r *ServiceSpecTemplateMetadataDeleteTime) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTemplateMetadataDeleteTime) String() string {
 	return dcl.SprintResource(r)
@@ -631,6 +671,10 @@ func (r *ServiceSpecTemplateSpec) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpec *ServiceSpecTemplateSpec = &ServiceSpecTemplateSpec{empty: true}
+
+func (r *ServiceSpecTemplateSpec) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTemplateSpec) String() string {
 	return dcl.SprintResource(r)
@@ -719,6 +763,10 @@ func (r *ServiceSpecTemplateSpecContainers) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainers *ServiceSpecTemplateSpecContainers = &ServiceSpecTemplateSpecContainers{empty: true}
 
+func (r *ServiceSpecTemplateSpecContainers) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceSpecTemplateSpecContainers) String() string {
 	return dcl.SprintResource(r)
 }
@@ -767,6 +815,10 @@ func (r *ServiceSpecTemplateSpecContainersEnv) UnmarshalJSON(data []byte) error 
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersEnv *ServiceSpecTemplateSpecContainersEnv = &ServiceSpecTemplateSpecContainersEnv{empty: true}
 
+func (r *ServiceSpecTemplateSpecContainersEnv) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceSpecTemplateSpecContainersEnv) String() string {
 	return dcl.SprintResource(r)
 }
@@ -811,6 +863,10 @@ func (r *ServiceSpecTemplateSpecContainersEnvValueFrom) UnmarshalJSON(data []byt
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersEnvValueFrom *ServiceSpecTemplateSpecContainersEnvValueFrom = &ServiceSpecTemplateSpecContainersEnvValueFrom{empty: true}
+
+func (r *ServiceSpecTemplateSpecContainersEnvValueFrom) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTemplateSpecContainersEnvValueFrom) String() string {
 	return dcl.SprintResource(r)
@@ -863,6 +919,10 @@ func (r *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef) Unmarshal
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef = &ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef{empty: true}
 
+func (r *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef) String() string {
 	return dcl.SprintResource(r)
 }
@@ -904,6 +964,10 @@ func (r *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObject
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference = &ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference{empty: true}
+
+func (r *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference) String() string {
 	return dcl.SprintResource(r)
@@ -956,6 +1020,10 @@ func (r *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef) UnmarshalJSO
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef = &ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef{empty: true}
 
+func (r *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef) String() string {
 	return dcl.SprintResource(r)
 }
@@ -997,6 +1065,10 @@ func (r *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectRef
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference = &ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference{empty: true}
+
+func (r *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference) String() string {
 	return dcl.SprintResource(r)
@@ -1042,6 +1114,10 @@ func (r *ServiceSpecTemplateSpecContainersResources) UnmarshalJSON(data []byte) 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersResources *ServiceSpecTemplateSpecContainersResources = &ServiceSpecTemplateSpecContainersResources{empty: true}
+
+func (r *ServiceSpecTemplateSpecContainersResources) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTemplateSpecContainersResources) String() string {
 	return dcl.SprintResource(r)
@@ -1091,6 +1167,10 @@ func (r *ServiceSpecTemplateSpecContainersPorts) UnmarshalJSON(data []byte) erro
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersPorts *ServiceSpecTemplateSpecContainersPorts = &ServiceSpecTemplateSpecContainersPorts{empty: true}
 
+func (r *ServiceSpecTemplateSpecContainersPorts) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceSpecTemplateSpecContainersPorts) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1138,6 +1218,10 @@ func (r *ServiceSpecTemplateSpecContainersEnvFrom) UnmarshalJSON(data []byte) er
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersEnvFrom *ServiceSpecTemplateSpecContainersEnvFrom = &ServiceSpecTemplateSpecContainersEnvFrom{empty: true}
+
+func (r *ServiceSpecTemplateSpecContainersEnvFrom) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTemplateSpecContainersEnvFrom) String() string {
 	return dcl.SprintResource(r)
@@ -1187,6 +1271,10 @@ func (r *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef) UnmarshalJSON(dat
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersEnvFromConfigMapRef *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef = &ServiceSpecTemplateSpecContainersEnvFromConfigMapRef{empty: true}
 
+func (r *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceSpecTemplateSpecContainersEnvFromConfigMapRef) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1228,6 +1316,10 @@ func (r *ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenc
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference *ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference = &ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference{empty: true}
+
+func (r *ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference) String() string {
 	return dcl.SprintResource(r)
@@ -1277,6 +1369,10 @@ func (r *ServiceSpecTemplateSpecContainersEnvFromSecretRef) UnmarshalJSON(data [
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersEnvFromSecretRef *ServiceSpecTemplateSpecContainersEnvFromSecretRef = &ServiceSpecTemplateSpecContainersEnvFromSecretRef{empty: true}
 
+func (r *ServiceSpecTemplateSpecContainersEnvFromSecretRef) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceSpecTemplateSpecContainersEnvFromSecretRef) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1318,6 +1414,10 @@ func (r *ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference) 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference *ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference = &ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference{empty: true}
+
+func (r *ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference) String() string {
 	return dcl.SprintResource(r)
@@ -1369,6 +1469,10 @@ func (r *ServiceSpecTemplateSpecContainersVolumeMounts) UnmarshalJSON(data []byt
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersVolumeMounts *ServiceSpecTemplateSpecContainersVolumeMounts = &ServiceSpecTemplateSpecContainersVolumeMounts{empty: true}
+
+func (r *ServiceSpecTemplateSpecContainersVolumeMounts) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTemplateSpecContainersVolumeMounts) String() string {
 	return dcl.SprintResource(r)
@@ -1433,6 +1537,10 @@ func (r *ServiceSpecTemplateSpecContainersLivenessProbe) UnmarshalJSON(data []by
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersLivenessProbe *ServiceSpecTemplateSpecContainersLivenessProbe = &ServiceSpecTemplateSpecContainersLivenessProbe{empty: true}
 
+func (r *ServiceSpecTemplateSpecContainersLivenessProbe) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceSpecTemplateSpecContainersLivenessProbe) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1474,6 +1582,10 @@ func (r *ServiceSpecTemplateSpecContainersLivenessProbeExec) UnmarshalJSON(data 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersLivenessProbeExec *ServiceSpecTemplateSpecContainersLivenessProbeExec = &ServiceSpecTemplateSpecContainersLivenessProbeExec{empty: true}
+
+func (r *ServiceSpecTemplateSpecContainersLivenessProbeExec) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTemplateSpecContainersLivenessProbeExec) String() string {
 	return dcl.SprintResource(r)
@@ -1526,6 +1638,10 @@ func (r *ServiceSpecTemplateSpecContainersLivenessProbeHttpGet) UnmarshalJSON(da
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersLivenessProbeHttpGet *ServiceSpecTemplateSpecContainersLivenessProbeHttpGet = &ServiceSpecTemplateSpecContainersLivenessProbeHttpGet{empty: true}
 
+func (r *ServiceSpecTemplateSpecContainersLivenessProbeHttpGet) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceSpecTemplateSpecContainersLivenessProbeHttpGet) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1571,6 +1687,10 @@ func (r *ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders) Unmar
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders *ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders = &ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders{empty: true}
 
+func (r *ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1615,6 +1735,10 @@ func (r *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket) UnmarshalJSON(
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersLivenessProbeTcpSocket *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket = &ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket{empty: true}
+
+func (r *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket) String() string {
 	return dcl.SprintResource(r)
@@ -1679,6 +1803,10 @@ func (r *ServiceSpecTemplateSpecContainersReadinessProbe) UnmarshalJSON(data []b
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersReadinessProbe *ServiceSpecTemplateSpecContainersReadinessProbe = &ServiceSpecTemplateSpecContainersReadinessProbe{empty: true}
 
+func (r *ServiceSpecTemplateSpecContainersReadinessProbe) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceSpecTemplateSpecContainersReadinessProbe) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1720,6 +1848,10 @@ func (r *ServiceSpecTemplateSpecContainersReadinessProbeExec) UnmarshalJSON(data
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersReadinessProbeExec *ServiceSpecTemplateSpecContainersReadinessProbeExec = &ServiceSpecTemplateSpecContainersReadinessProbeExec{empty: true}
+
+func (r *ServiceSpecTemplateSpecContainersReadinessProbeExec) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTemplateSpecContainersReadinessProbeExec) String() string {
 	return dcl.SprintResource(r)
@@ -1772,6 +1904,10 @@ func (r *ServiceSpecTemplateSpecContainersReadinessProbeHttpGet) UnmarshalJSON(d
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersReadinessProbeHttpGet *ServiceSpecTemplateSpecContainersReadinessProbeHttpGet = &ServiceSpecTemplateSpecContainersReadinessProbeHttpGet{empty: true}
 
+func (r *ServiceSpecTemplateSpecContainersReadinessProbeHttpGet) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceSpecTemplateSpecContainersReadinessProbeHttpGet) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1816,6 +1952,10 @@ func (r *ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders) Unma
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders *ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders = &ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders{empty: true}
+
+func (r *ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders) String() string {
 	return dcl.SprintResource(r)
@@ -1862,6 +2002,10 @@ func (r *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket) UnmarshalJSON
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersReadinessProbeTcpSocket *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket = &ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket{empty: true}
 
+func (r *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1903,6 +2047,10 @@ func (r *ServiceSpecTemplateSpecContainersSecurityContext) UnmarshalJSON(data []
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecContainersSecurityContext *ServiceSpecTemplateSpecContainersSecurityContext = &ServiceSpecTemplateSpecContainersSecurityContext{empty: true}
+
+func (r *ServiceSpecTemplateSpecContainersSecurityContext) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTemplateSpecContainersSecurityContext) String() string {
 	return dcl.SprintResource(r)
@@ -1951,6 +2099,10 @@ func (r *ServiceSpecTemplateSpecVolumes) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecVolumes *ServiceSpecTemplateSpecVolumes = &ServiceSpecTemplateSpecVolumes{empty: true}
+
+func (r *ServiceSpecTemplateSpecVolumes) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTemplateSpecVolumes) String() string {
 	return dcl.SprintResource(r)
@@ -2003,6 +2155,10 @@ func (r *ServiceSpecTemplateSpecVolumesSecret) UnmarshalJSON(data []byte) error 
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecVolumesSecret *ServiceSpecTemplateSpecVolumesSecret = &ServiceSpecTemplateSpecVolumesSecret{empty: true}
 
+func (r *ServiceSpecTemplateSpecVolumesSecret) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceSpecTemplateSpecVolumesSecret) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2050,6 +2206,10 @@ func (r *ServiceSpecTemplateSpecVolumesSecretItems) UnmarshalJSON(data []byte) e
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecVolumesSecretItems *ServiceSpecTemplateSpecVolumesSecretItems = &ServiceSpecTemplateSpecVolumesSecretItems{empty: true}
+
+func (r *ServiceSpecTemplateSpecVolumesSecretItems) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTemplateSpecVolumesSecretItems) String() string {
 	return dcl.SprintResource(r)
@@ -2102,6 +2262,10 @@ func (r *ServiceSpecTemplateSpecVolumesConfigMap) UnmarshalJSON(data []byte) err
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecVolumesConfigMap *ServiceSpecTemplateSpecVolumesConfigMap = &ServiceSpecTemplateSpecVolumesConfigMap{empty: true}
 
+func (r *ServiceSpecTemplateSpecVolumesConfigMap) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceSpecTemplateSpecVolumesConfigMap) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2149,6 +2313,10 @@ func (r *ServiceSpecTemplateSpecVolumesConfigMapItems) UnmarshalJSON(data []byte
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTemplateSpecVolumesConfigMapItems *ServiceSpecTemplateSpecVolumesConfigMapItems = &ServiceSpecTemplateSpecVolumesConfigMapItems{empty: true}
+
+func (r *ServiceSpecTemplateSpecVolumesConfigMapItems) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTemplateSpecVolumesConfigMapItems) String() string {
 	return dcl.SprintResource(r)
@@ -2206,6 +2374,10 @@ func (r *ServiceSpecTraffic) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceSpecTraffic *ServiceSpecTraffic = &ServiceSpecTraffic{empty: true}
+
+func (r *ServiceSpecTraffic) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceSpecTraffic) String() string {
 	return dcl.SprintResource(r)
@@ -2267,6 +2439,10 @@ func (r *ServiceStatus) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceStatus *ServiceStatus = &ServiceStatus{empty: true}
 
+func (r *ServiceStatus) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceStatus) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2324,6 +2500,10 @@ func (r *ServiceStatusConditions) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceStatusConditions *ServiceStatusConditions = &ServiceStatusConditions{empty: true}
 
+func (r *ServiceStatusConditions) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceStatusConditions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2368,6 +2548,10 @@ func (r *ServiceStatusConditionsLastTransitionTime) UnmarshalJSON(data []byte) e
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceStatusConditionsLastTransitionTime *ServiceStatusConditionsLastTransitionTime = &ServiceStatusConditionsLastTransitionTime{empty: true}
+
+func (r *ServiceStatusConditionsLastTransitionTime) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceStatusConditionsLastTransitionTime) String() string {
 	return dcl.SprintResource(r)
@@ -2426,6 +2610,10 @@ func (r *ServiceStatusTraffic) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceStatusTraffic *ServiceStatusTraffic = &ServiceStatusTraffic{empty: true}
 
+func (r *ServiceStatusTraffic) Empty() bool {
+	return r.empty
+}
+
 func (r *ServiceStatusTraffic) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2467,6 +2655,10 @@ func (r *ServiceStatusAddress) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyServiceStatusAddress *ServiceStatusAddress = &ServiceStatusAddress{empty: true}
+
+func (r *ServiceStatusAddress) Empty() bool {
+	return r.empty
+}
 
 func (r *ServiceStatusAddress) String() string {
 	return dcl.SprintResource(r)

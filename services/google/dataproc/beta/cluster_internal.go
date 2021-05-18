@@ -4206,6 +4206,10 @@ func flattenClusterClusterConfig(c *Client, i interface{}) *ClusterClusterConfig
 	}
 
 	r := &ClusterClusterConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterClusterConfig
+	}
 	r.StagingBucket = dcl.FlattenString(m["configBucket"])
 	r.TempBucket = dcl.FlattenString(m["tempBucket"])
 	r.GceClusterConfig = flattenClusterClusterConfigGceClusterConfig(c, m["gceClusterConfig"])
@@ -4364,6 +4368,10 @@ func flattenClusterClusterConfigGceClusterConfig(c *Client, i interface{}) *Clus
 	}
 
 	r := &ClusterClusterConfigGceClusterConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterClusterConfigGceClusterConfig
+	}
 	r.Zone = dcl.FlattenString(m["zoneUri"])
 	r.Network = dcl.FlattenString(m["networkUri"])
 	r.Subnetwork = dcl.FlattenString(m["subnetworkUri"])
@@ -4490,6 +4498,10 @@ func flattenClusterClusterConfigGceClusterConfigReservationAffinity(c *Client, i
 	}
 
 	r := &ClusterClusterConfigGceClusterConfigReservationAffinity{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterClusterConfigGceClusterConfigReservationAffinity
+	}
 	r.ConsumeReservationType = flattenClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum(m["consumeReservationType"])
 	r.Key = dcl.FlattenString(m["key"])
 	r.Values = dcl.FlattenStringSlice(m["values"])
@@ -4602,6 +4614,10 @@ func flattenClusterClusterConfigGceClusterConfigNodeGroupAffinity(c *Client, i i
 	}
 
 	r := &ClusterClusterConfigGceClusterConfigNodeGroupAffinity{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterClusterConfigGceClusterConfigNodeGroupAffinity
+	}
 	r.NodeGroup = dcl.FlattenString(m["nodeGroupUri"])
 
 	return r
@@ -4745,6 +4761,10 @@ func flattenClusterInstanceGroupConfig(c *Client, i interface{}) *ClusterInstanc
 	}
 
 	r := &ClusterInstanceGroupConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterInstanceGroupConfig
+	}
 	r.NumInstances = dcl.FlattenInteger(m["numInstances"])
 	r.InstanceNames = dcl.FlattenStringSlice(m["instanceNames"])
 	r.Image = dcl.FlattenString(m["imageUri"])
@@ -4870,6 +4890,10 @@ func flattenClusterInstanceGroupConfigDiskConfig(c *Client, i interface{}) *Clus
 	}
 
 	r := &ClusterInstanceGroupConfigDiskConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterInstanceGroupConfigDiskConfig
+	}
 	r.BootDiskType = dcl.FlattenString(m["bootDiskType"])
 	r.BootDiskSizeGb = dcl.FlattenInteger(m["bootDiskSizeGb"])
 	r.NumLocalSsds = dcl.FlattenInteger(m["numLocalSsds"])
@@ -4985,6 +5009,10 @@ func flattenClusterInstanceGroupConfigManagedGroupConfig(c *Client, i interface{
 	}
 
 	r := &ClusterInstanceGroupConfigManagedGroupConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterInstanceGroupConfigManagedGroupConfig
+	}
 	r.InstanceTemplateName = dcl.FlattenString(m["instanceTemplateName"])
 	r.InstanceGroupManagerName = dcl.FlattenString(m["instanceGroupManagerName"])
 
@@ -5099,6 +5127,10 @@ func flattenClusterInstanceGroupConfigAccelerators(c *Client, i interface{}) *Cl
 	}
 
 	r := &ClusterInstanceGroupConfigAccelerators{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterInstanceGroupConfigAccelerators
+	}
 	r.AcceleratorType = dcl.FlattenString(m["acceleratorTypeUri"])
 	r.AcceleratorCount = dcl.FlattenInteger(m["acceleratorCount"])
 
@@ -5216,6 +5248,10 @@ func flattenClusterClusterConfigSoftwareConfig(c *Client, i interface{}) *Cluste
 	}
 
 	r := &ClusterClusterConfigSoftwareConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterClusterConfigSoftwareConfig
+	}
 	r.ImageVersion = dcl.FlattenString(m["imageVersion"])
 	r.Properties = dcl.FlattenKeyValuePairs(m["properties"])
 	r.OptionalComponents = flattenClusterClusterConfigSoftwareConfigOptionalComponentsEnumSlice(c, m["optionalComponents"])
@@ -5331,6 +5367,10 @@ func flattenClusterClusterConfigInitializationActions(c *Client, i interface{}) 
 	}
 
 	r := &ClusterClusterConfigInitializationActions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterClusterConfigInitializationActions
+	}
 	r.ExecutableFile = dcl.FlattenString(m["executableFile"])
 	r.ExecutionTimeout = dcl.FlattenString(m["executionTimeout"])
 
@@ -5442,6 +5482,10 @@ func flattenClusterClusterConfigEncryptionConfig(c *Client, i interface{}) *Clus
 	}
 
 	r := &ClusterClusterConfigEncryptionConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterClusterConfigEncryptionConfig
+	}
 	r.GcePdKmsKeyName = dcl.FlattenString(m["gcePdKmsKeyName"])
 
 	return r
@@ -5552,6 +5596,10 @@ func flattenClusterClusterConfigAutoscalingConfig(c *Client, i interface{}) *Clu
 	}
 
 	r := &ClusterClusterConfigAutoscalingConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterClusterConfigAutoscalingConfig
+	}
 	r.Policy = dcl.FlattenString(m["policyUri"])
 
 	return r
@@ -5664,6 +5712,10 @@ func flattenClusterClusterConfigSecurityConfig(c *Client, i interface{}) *Cluste
 	}
 
 	r := &ClusterClusterConfigSecurityConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterClusterConfigSecurityConfig
+	}
 	r.KerberosConfig = flattenClusterClusterConfigSecurityConfigKerberosConfig(c, m["kerberosConfig"])
 
 	return r
@@ -5816,6 +5868,10 @@ func flattenClusterClusterConfigSecurityConfigKerberosConfig(c *Client, i interf
 	}
 
 	r := &ClusterClusterConfigSecurityConfigKerberosConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterClusterConfigSecurityConfigKerberosConfig
+	}
 	r.EnableKerberos = dcl.FlattenBool(m["enableKerberos"])
 	r.RootPrincipalPassword = dcl.FlattenString(m["rootPrincipalPasswordUri"])
 	r.KmsKey = dcl.FlattenString(m["kmsKeyUri"])
@@ -5949,6 +6005,10 @@ func flattenClusterClusterConfigLifecycleConfig(c *Client, i interface{}) *Clust
 	}
 
 	r := &ClusterClusterConfigLifecycleConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterClusterConfigLifecycleConfig
+	}
 	r.IdleDeleteTtl = dcl.FlattenString(m["idleDeleteTtl"])
 	r.AutoDeleteTime = dcl.FlattenString(m["autoDeleteTime"])
 	r.AutoDeleteTtl = dcl.FlattenString(m["autoDeleteTtl"])
@@ -6065,6 +6125,10 @@ func flattenClusterClusterConfigEndpointConfig(c *Client, i interface{}) *Cluste
 	}
 
 	r := &ClusterClusterConfigEndpointConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterClusterConfigEndpointConfig
+	}
 	r.HttpPorts = dcl.FlattenKeyValuePairs(m["httpPorts"])
 	r.EnableHttpPortAccess = dcl.FlattenBool(m["enableHttpPortAccess"])
 
@@ -6178,6 +6242,10 @@ func flattenClusterClusterConfigGkeClusterConfig(c *Client, i interface{}) *Clus
 	}
 
 	r := &ClusterClusterConfigGkeClusterConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterClusterConfigGkeClusterConfig
+	}
 	r.NamespacedGkeDeploymentTarget = flattenClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(c, m["namespacedGkeDeploymentTarget"])
 
 	return r
@@ -6291,6 +6359,10 @@ func flattenClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(c 
 	}
 
 	r := &ClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget
+	}
 	r.TargetGkeCluster = dcl.FlattenString(m["targetGkeCluster"])
 	r.ClusterNamespace = dcl.FlattenString(m["clusterNamespace"])
 
@@ -6402,6 +6474,10 @@ func flattenClusterClusterConfigMetastoreConfig(c *Client, i interface{}) *Clust
 	}
 
 	r := &ClusterClusterConfigMetastoreConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterClusterConfigMetastoreConfig
+	}
 	r.DataprocMetastoreService = dcl.FlattenString(m["dataprocMetastoreService"])
 
 	return r
@@ -6521,6 +6597,10 @@ func flattenClusterStatus(c *Client, i interface{}) *ClusterStatus {
 	}
 
 	r := &ClusterStatus{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterStatus
+	}
 	r.State = flattenClusterStatusStateEnum(m["state"])
 	r.Detail = dcl.FlattenString(m["detail"])
 	r.StateStartTime = dcl.FlattenString(m["stateStartTime"])
@@ -6643,6 +6723,10 @@ func flattenClusterStatusHistory(c *Client, i interface{}) *ClusterStatusHistory
 	}
 
 	r := &ClusterStatusHistory{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterStatusHistory
+	}
 	r.State = flattenClusterStatusHistoryStateEnum(m["state"])
 	r.Detail = dcl.FlattenString(m["detail"])
 	r.StateStartTime = dcl.FlattenString(m["stateStartTime"])
@@ -6759,6 +6843,10 @@ func flattenClusterMetrics(c *Client, i interface{}) *ClusterMetrics {
 	}
 
 	r := &ClusterMetrics{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterMetrics
+	}
 	r.HdfsMetrics = dcl.FlattenKeyValuePairs(m["hdfsMetrics"])
 	r.YarnMetrics = dcl.FlattenKeyValuePairs(m["yarnMetrics"])
 

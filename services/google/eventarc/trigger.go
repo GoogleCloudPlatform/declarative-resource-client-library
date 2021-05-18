@@ -76,6 +76,10 @@ func (r *TriggerEventFilters) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyTriggerEventFilters *TriggerEventFilters = &TriggerEventFilters{empty: true}
 
+func (r *TriggerEventFilters) Empty() bool {
+	return r.empty
+}
+
 func (r *TriggerEventFilters) String() string {
 	return dcl.SprintResource(r)
 }
@@ -124,6 +128,10 @@ func (r *TriggerDestination) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyTriggerDestination *TriggerDestination = &TriggerDestination{empty: true}
 
+func (r *TriggerDestination) Empty() bool {
+	return r.empty
+}
+
 func (r *TriggerDestination) String() string {
 	return dcl.SprintResource(r)
 }
@@ -171,6 +179,10 @@ func (r *TriggerDestinationCloudRun) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyTriggerDestinationCloudRun *TriggerDestinationCloudRun = &TriggerDestinationCloudRun{empty: true}
+
+func (r *TriggerDestinationCloudRun) Empty() bool {
+	return r.empty
+}
 
 func (r *TriggerDestinationCloudRun) String() string {
 	return dcl.SprintResource(r)
@@ -226,6 +238,10 @@ func (r *TriggerDestinationGke) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyTriggerDestinationGke *TriggerDestinationGke = &TriggerDestinationGke{empty: true}
 
+func (r *TriggerDestinationGke) Empty() bool {
+	return r.empty
+}
+
 func (r *TriggerDestinationGke) String() string {
 	return dcl.SprintResource(r)
 }
@@ -267,6 +283,10 @@ func (r *TriggerTransport) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyTriggerTransport *TriggerTransport = &TriggerTransport{empty: true}
+
+func (r *TriggerTransport) Empty() bool {
+	return r.empty
+}
 
 func (r *TriggerTransport) String() string {
 	return dcl.SprintResource(r)
@@ -312,6 +332,10 @@ func (r *TriggerTransportPubsub) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyTriggerTransportPubsub *TriggerTransportPubsub = &TriggerTransportPubsub{empty: true}
+
+func (r *TriggerTransportPubsub) Empty() bool {
+	return r.empty
+}
 
 func (r *TriggerTransportPubsub) String() string {
 	return dcl.SprintResource(r)

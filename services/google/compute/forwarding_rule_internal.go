@@ -1503,6 +1503,10 @@ func flattenForwardingRuleMetadataFilter(c *Client, i interface{}) *ForwardingRu
 	}
 
 	r := &ForwardingRuleMetadataFilter{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyForwardingRuleMetadataFilter
+	}
 	r.FilterMatchCriteria = flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnum(m["filterMatchCriteria"])
 	r.FilterLabel = flattenForwardingRuleMetadataFilterFilterLabelSlice(c, m["filterLabels"])
 
@@ -1617,6 +1621,10 @@ func flattenForwardingRuleMetadataFilterFilterLabel(c *Client, i interface{}) *F
 	}
 
 	r := &ForwardingRuleMetadataFilterFilterLabel{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyForwardingRuleMetadataFilterFilterLabel
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Value = dcl.FlattenString(m["value"])
 

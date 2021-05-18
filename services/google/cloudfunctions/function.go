@@ -168,6 +168,10 @@ func (r *FunctionSourceRepository) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyFunctionSourceRepository *FunctionSourceRepository = &FunctionSourceRepository{empty: true}
 
+func (r *FunctionSourceRepository) Empty() bool {
+	return r.empty
+}
+
 func (r *FunctionSourceRepository) String() string {
 	return dcl.SprintResource(r)
 }
@@ -209,6 +213,10 @@ func (r *FunctionHttpsTrigger) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyFunctionHttpsTrigger *FunctionHttpsTrigger = &FunctionHttpsTrigger{empty: true}
+
+func (r *FunctionHttpsTrigger) Empty() bool {
+	return r.empty
+}
 
 func (r *FunctionHttpsTrigger) String() string {
 	return dcl.SprintResource(r)
@@ -260,6 +268,10 @@ func (r *FunctionEventTrigger) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyFunctionEventTrigger *FunctionEventTrigger = &FunctionEventTrigger{empty: true}
+
+func (r *FunctionEventTrigger) Empty() bool {
+	return r.empty
+}
 
 func (r *FunctionEventTrigger) String() string {
 	return dcl.SprintResource(r)

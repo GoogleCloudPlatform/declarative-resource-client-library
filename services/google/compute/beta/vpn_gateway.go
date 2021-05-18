@@ -73,6 +73,10 @@ func (r *VpnGatewayVpnInterface) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyVpnGatewayVpnInterface *VpnGatewayVpnInterface = &VpnGatewayVpnInterface{empty: true}
 
+func (r *VpnGatewayVpnInterface) Empty() bool {
+	return r.empty
+}
+
 func (r *VpnGatewayVpnInterface) String() string {
 	return dcl.SprintResource(r)
 }

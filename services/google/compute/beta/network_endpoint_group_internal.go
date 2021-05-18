@@ -1486,6 +1486,10 @@ func flattenNetworkEndpointGroupCloudRun(c *Client, i interface{}) *NetworkEndpo
 	}
 
 	r := &NetworkEndpointGroupCloudRun{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNetworkEndpointGroupCloudRun
+	}
 	r.Service = dcl.FlattenString(m["service"])
 	r.Tag = dcl.FlattenString(m["tag"])
 	r.UrlMask = dcl.FlattenString(m["urlMask"])
@@ -1604,6 +1608,10 @@ func flattenNetworkEndpointGroupAppEngine(c *Client, i interface{}) *NetworkEndp
 	}
 
 	r := &NetworkEndpointGroupAppEngine{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNetworkEndpointGroupAppEngine
+	}
 	r.Service = dcl.FlattenString(m["service"])
 	r.Version = dcl.FlattenString(m["version"])
 	r.UrlMask = dcl.FlattenString(m["urlMask"])
@@ -1719,6 +1727,10 @@ func flattenNetworkEndpointGroupCloudFunction(c *Client, i interface{}) *Network
 	}
 
 	r := &NetworkEndpointGroupCloudFunction{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNetworkEndpointGroupCloudFunction
+	}
 	r.Function = dcl.FlattenString(m["function"])
 	r.UrlMask = dcl.FlattenString(m["urlMask"])
 

@@ -70,6 +70,10 @@ func (r *AutoscalingPolicyBasicAlgorithm) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyAutoscalingPolicyBasicAlgorithm *AutoscalingPolicyBasicAlgorithm = &AutoscalingPolicyBasicAlgorithm{empty: true}
 
+func (r *AutoscalingPolicyBasicAlgorithm) Empty() bool {
+	return r.empty
+}
+
 func (r *AutoscalingPolicyBasicAlgorithm) String() string {
 	return dcl.SprintResource(r)
 }
@@ -124,6 +128,10 @@ func (r *AutoscalingPolicyBasicAlgorithmYarnConfig) UnmarshalJSON(data []byte) e
 // as one.  Modifying this object will have undesirable results.
 var EmptyAutoscalingPolicyBasicAlgorithmYarnConfig *AutoscalingPolicyBasicAlgorithmYarnConfig = &AutoscalingPolicyBasicAlgorithmYarnConfig{empty: true}
 
+func (r *AutoscalingPolicyBasicAlgorithmYarnConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *AutoscalingPolicyBasicAlgorithmYarnConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -172,6 +180,10 @@ func (r *AutoscalingPolicyWorkerConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyAutoscalingPolicyWorkerConfig *AutoscalingPolicyWorkerConfig = &AutoscalingPolicyWorkerConfig{empty: true}
 
+func (r *AutoscalingPolicyWorkerConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *AutoscalingPolicyWorkerConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -219,6 +231,10 @@ func (r *AutoscalingPolicySecondaryWorkerConfig) UnmarshalJSON(data []byte) erro
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAutoscalingPolicySecondaryWorkerConfig *AutoscalingPolicySecondaryWorkerConfig = &AutoscalingPolicySecondaryWorkerConfig{empty: true}
+
+func (r *AutoscalingPolicySecondaryWorkerConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *AutoscalingPolicySecondaryWorkerConfig) String() string {
 	return dcl.SprintResource(r)

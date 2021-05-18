@@ -127,6 +127,10 @@ func (r *EnvironmentConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyEnvironmentConfig *EnvironmentConfig = &EnvironmentConfig{empty: true}
 
+func (r *EnvironmentConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *EnvironmentConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -180,6 +184,10 @@ func (r *EnvironmentConfigSoftwareConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyEnvironmentConfigSoftwareConfig *EnvironmentConfigSoftwareConfig = &EnvironmentConfigSoftwareConfig{empty: true}
+
+func (r *EnvironmentConfigSoftwareConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *EnvironmentConfigSoftwareConfig) String() string {
 	return dcl.SprintResource(r)
@@ -247,6 +255,10 @@ func (r *EnvironmentConfigNodeConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyEnvironmentConfigNodeConfig *EnvironmentConfigNodeConfig = &EnvironmentConfigNodeConfig{empty: true}
 
+func (r *EnvironmentConfigNodeConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *EnvironmentConfigNodeConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -300,6 +312,10 @@ func (r *EnvironmentConfigNodeConfigIPAllocationPolicy) UnmarshalJSON(data []byt
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyEnvironmentConfigNodeConfigIPAllocationPolicy *EnvironmentConfigNodeConfigIPAllocationPolicy = &EnvironmentConfigNodeConfigIPAllocationPolicy{empty: true}
+
+func (r *EnvironmentConfigNodeConfigIPAllocationPolicy) Empty() bool {
+	return r.empty
+}
 
 func (r *EnvironmentConfigNodeConfigIPAllocationPolicy) String() string {
 	return dcl.SprintResource(r)
@@ -355,6 +371,10 @@ func (r *EnvironmentConfigPrivateEnvironmentConfig) UnmarshalJSON(data []byte) e
 // as one.  Modifying this object will have undesirable results.
 var EmptyEnvironmentConfigPrivateEnvironmentConfig *EnvironmentConfigPrivateEnvironmentConfig = &EnvironmentConfigPrivateEnvironmentConfig{empty: true}
 
+func (r *EnvironmentConfigPrivateEnvironmentConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *EnvironmentConfigPrivateEnvironmentConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -403,6 +423,10 @@ func (r *EnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig) Unmarsha
 // as one.  Modifying this object will have undesirable results.
 var EmptyEnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig *EnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig = &EnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig{empty: true}
 
+func (r *EnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *EnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -444,6 +468,10 @@ func (r *EnvironmentConfigWebServerNetworkAccessControl) UnmarshalJSON(data []by
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyEnvironmentConfigWebServerNetworkAccessControl *EnvironmentConfigWebServerNetworkAccessControl = &EnvironmentConfigWebServerNetworkAccessControl{empty: true}
+
+func (r *EnvironmentConfigWebServerNetworkAccessControl) Empty() bool {
+	return r.empty
+}
 
 func (r *EnvironmentConfigWebServerNetworkAccessControl) String() string {
 	return dcl.SprintResource(r)
@@ -490,6 +518,10 @@ func (r *EnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges) Unmarsha
 // as one.  Modifying this object will have undesirable results.
 var EmptyEnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges *EnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges = &EnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges{empty: true}
 
+func (r *EnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges) Empty() bool {
+	return r.empty
+}
+
 func (r *EnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges) String() string {
 	return dcl.SprintResource(r)
 }
@@ -531,6 +563,10 @@ func (r *EnvironmentConfigDatabaseConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyEnvironmentConfigDatabaseConfig *EnvironmentConfigDatabaseConfig = &EnvironmentConfigDatabaseConfig{empty: true}
+
+func (r *EnvironmentConfigDatabaseConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *EnvironmentConfigDatabaseConfig) String() string {
 	return dcl.SprintResource(r)
@@ -574,6 +610,10 @@ func (r *EnvironmentConfigWebServerConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyEnvironmentConfigWebServerConfig *EnvironmentConfigWebServerConfig = &EnvironmentConfigWebServerConfig{empty: true}
 
+func (r *EnvironmentConfigWebServerConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *EnvironmentConfigWebServerConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -615,6 +655,10 @@ func (r *EnvironmentConfigEncryptionConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyEnvironmentConfigEncryptionConfig *EnvironmentConfigEncryptionConfig = &EnvironmentConfigEncryptionConfig{empty: true}
+
+func (r *EnvironmentConfigEncryptionConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *EnvironmentConfigEncryptionConfig) String() string {
 	return dcl.SprintResource(r)

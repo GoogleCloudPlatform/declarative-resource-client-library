@@ -405,6 +405,10 @@ func (r *VersionAutomaticScaling) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionAutomaticScaling *VersionAutomaticScaling = &VersionAutomaticScaling{empty: true}
 
+func (r *VersionAutomaticScaling) Empty() bool {
+	return r.empty
+}
+
 func (r *VersionAutomaticScaling) String() string {
 	return dcl.SprintResource(r)
 }
@@ -450,6 +454,10 @@ func (r *VersionAutomaticScalingCpuUtilization) UnmarshalJSON(data []byte) error
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionAutomaticScalingCpuUtilization *VersionAutomaticScalingCpuUtilization = &VersionAutomaticScalingCpuUtilization{empty: true}
 
+func (r *VersionAutomaticScalingCpuUtilization) Empty() bool {
+	return r.empty
+}
+
 func (r *VersionAutomaticScalingCpuUtilization) String() string {
 	return dcl.SprintResource(r)
 }
@@ -494,6 +502,10 @@ func (r *VersionAutomaticScalingRequestUtilization) UnmarshalJSON(data []byte) e
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionAutomaticScalingRequestUtilization *VersionAutomaticScalingRequestUtilization = &VersionAutomaticScalingRequestUtilization{empty: true}
+
+func (r *VersionAutomaticScalingRequestUtilization) Empty() bool {
+	return r.empty
+}
 
 func (r *VersionAutomaticScalingRequestUtilization) String() string {
 	return dcl.SprintResource(r)
@@ -546,6 +558,10 @@ func (r *VersionAutomaticScalingDiskUtilization) UnmarshalJSON(data []byte) erro
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionAutomaticScalingDiskUtilization *VersionAutomaticScalingDiskUtilization = &VersionAutomaticScalingDiskUtilization{empty: true}
 
+func (r *VersionAutomaticScalingDiskUtilization) Empty() bool {
+	return r.empty
+}
+
 func (r *VersionAutomaticScalingDiskUtilization) String() string {
 	return dcl.SprintResource(r)
 }
@@ -596,6 +612,10 @@ func (r *VersionAutomaticScalingNetworkUtilization) UnmarshalJSON(data []byte) e
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionAutomaticScalingNetworkUtilization *VersionAutomaticScalingNetworkUtilization = &VersionAutomaticScalingNetworkUtilization{empty: true}
+
+func (r *VersionAutomaticScalingNetworkUtilization) Empty() bool {
+	return r.empty
+}
 
 func (r *VersionAutomaticScalingNetworkUtilization) String() string {
 	return dcl.SprintResource(r)
@@ -648,6 +668,10 @@ func (r *VersionAutomaticScalingStandardSchedulerSettings) UnmarshalJSON(data []
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionAutomaticScalingStandardSchedulerSettings *VersionAutomaticScalingStandardSchedulerSettings = &VersionAutomaticScalingStandardSchedulerSettings{empty: true}
 
+func (r *VersionAutomaticScalingStandardSchedulerSettings) Empty() bool {
+	return r.empty
+}
+
 func (r *VersionAutomaticScalingStandardSchedulerSettings) String() string {
 	return dcl.SprintResource(r)
 }
@@ -693,6 +717,10 @@ func (r *VersionBasicScaling) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionBasicScaling *VersionBasicScaling = &VersionBasicScaling{empty: true}
 
+func (r *VersionBasicScaling) Empty() bool {
+	return r.empty
+}
+
 func (r *VersionBasicScaling) String() string {
 	return dcl.SprintResource(r)
 }
@@ -734,6 +762,10 @@ func (r *VersionManualScaling) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionManualScaling *VersionManualScaling = &VersionManualScaling{empty: true}
+
+func (r *VersionManualScaling) Empty() bool {
+	return r.empty
+}
 
 func (r *VersionManualScaling) String() string {
 	return dcl.SprintResource(r)
@@ -789,6 +821,10 @@ func (r *VersionNetwork) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionNetwork *VersionNetwork = &VersionNetwork{empty: true}
 
+func (r *VersionNetwork) Empty() bool {
+	return r.empty
+}
+
 func (r *VersionNetwork) String() string {
 	return dcl.SprintResource(r)
 }
@@ -840,6 +876,10 @@ func (r *VersionResources) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionResources *VersionResources = &VersionResources{empty: true}
 
+func (r *VersionResources) Empty() bool {
+	return r.empty
+}
+
 func (r *VersionResources) String() string {
 	return dcl.SprintResource(r)
 }
@@ -887,6 +927,10 @@ func (r *VersionResourcesVolumes) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionResourcesVolumes *VersionResourcesVolumes = &VersionResourcesVolumes{empty: true}
+
+func (r *VersionResourcesVolumes) Empty() bool {
+	return r.empty
+}
 
 func (r *VersionResourcesVolumes) String() string {
 	return dcl.SprintResource(r)
@@ -951,6 +995,10 @@ func (r *VersionHandlers) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionHandlers *VersionHandlers = &VersionHandlers{empty: true}
 
+func (r *VersionHandlers) Empty() bool {
+	return r.empty
+}
+
 func (r *VersionHandlers) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1011,6 +1059,10 @@ func (r *VersionHandlersStaticFiles) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionHandlersStaticFiles *VersionHandlersStaticFiles = &VersionHandlersStaticFiles{empty: true}
 
+func (r *VersionHandlersStaticFiles) Empty() bool {
+	return r.empty
+}
+
 func (r *VersionHandlersStaticFiles) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1053,6 +1105,10 @@ func (r *VersionHandlersScript) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionHandlersScript *VersionHandlersScript = &VersionHandlersScript{empty: true}
 
+func (r *VersionHandlersScript) Empty() bool {
+	return r.empty
+}
+
 func (r *VersionHandlersScript) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1094,6 +1150,10 @@ func (r *VersionHandlersApiEndpoint) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionHandlersApiEndpoint *VersionHandlersApiEndpoint = &VersionHandlersApiEndpoint{empty: true}
+
+func (r *VersionHandlersApiEndpoint) Empty() bool {
+	return r.empty
+}
 
 func (r *VersionHandlersApiEndpoint) String() string {
 	return dcl.SprintResource(r)
@@ -1143,6 +1203,10 @@ func (r *VersionErrorHandlers) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionErrorHandlers *VersionErrorHandlers = &VersionErrorHandlers{empty: true}
 
+func (r *VersionErrorHandlers) Empty() bool {
+	return r.empty
+}
+
 func (r *VersionErrorHandlers) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1187,6 +1251,10 @@ func (r *VersionLibraries) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionLibraries *VersionLibraries = &VersionLibraries{empty: true}
+
+func (r *VersionLibraries) Empty() bool {
+	return r.empty
+}
 
 func (r *VersionLibraries) String() string {
 	return dcl.SprintResource(r)
@@ -1242,6 +1310,10 @@ func (r *VersionApiConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionApiConfig *VersionApiConfig = &VersionApiConfig{empty: true}
 
+func (r *VersionApiConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *VersionApiConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1293,6 +1365,10 @@ func (r *VersionDeployment) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionDeployment *VersionDeployment = &VersionDeployment{empty: true}
 
+func (r *VersionDeployment) Empty() bool {
+	return r.empty
+}
+
 func (r *VersionDeployment) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1341,6 +1417,10 @@ func (r *VersionDeploymentFiles) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionDeploymentFiles *VersionDeploymentFiles = &VersionDeploymentFiles{empty: true}
 
+func (r *VersionDeploymentFiles) Empty() bool {
+	return r.empty
+}
+
 func (r *VersionDeploymentFiles) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1382,6 +1462,10 @@ func (r *VersionDeploymentContainer) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionDeploymentContainer *VersionDeploymentContainer = &VersionDeploymentContainer{empty: true}
+
+func (r *VersionDeploymentContainer) Empty() bool {
+	return r.empty
+}
 
 func (r *VersionDeploymentContainer) String() string {
 	return dcl.SprintResource(r)
@@ -1428,6 +1512,10 @@ func (r *VersionDeploymentZip) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionDeploymentZip *VersionDeploymentZip = &VersionDeploymentZip{empty: true}
 
+func (r *VersionDeploymentZip) Empty() bool {
+	return r.empty
+}
+
 func (r *VersionDeploymentZip) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1472,6 +1560,10 @@ func (r *VersionDeploymentCloudBuildOptions) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionDeploymentCloudBuildOptions *VersionDeploymentCloudBuildOptions = &VersionDeploymentCloudBuildOptions{empty: true}
+
+func (r *VersionDeploymentCloudBuildOptions) Empty() bool {
+	return r.empty
+}
 
 func (r *VersionDeploymentCloudBuildOptions) String() string {
 	return dcl.SprintResource(r)
@@ -1533,6 +1625,10 @@ func (r *VersionHealthCheck) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionHealthCheck *VersionHealthCheck = &VersionHealthCheck{empty: true}
 
+func (r *VersionHealthCheck) Empty() bool {
+	return r.empty
+}
+
 func (r *VersionHealthCheck) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1592,6 +1688,10 @@ func (r *VersionReadinessCheck) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionReadinessCheck *VersionReadinessCheck = &VersionReadinessCheck{empty: true}
+
+func (r *VersionReadinessCheck) Empty() bool {
+	return r.empty
+}
 
 func (r *VersionReadinessCheck) String() string {
 	return dcl.SprintResource(r)
@@ -1653,6 +1753,10 @@ func (r *VersionLivenessCheck) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionLivenessCheck *VersionLivenessCheck = &VersionLivenessCheck{empty: true}
 
+func (r *VersionLivenessCheck) Empty() bool {
+	return r.empty
+}
+
 func (r *VersionLivenessCheck) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1695,6 +1799,10 @@ func (r *VersionEntrypoint) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionEntrypoint *VersionEntrypoint = &VersionEntrypoint{empty: true}
 
+func (r *VersionEntrypoint) Empty() bool {
+	return r.empty
+}
+
 func (r *VersionEntrypoint) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1736,6 +1844,10 @@ func (r *VersionVPCAccessConnector) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyVersionVPCAccessConnector *VersionVPCAccessConnector = &VersionVPCAccessConnector{empty: true}
+
+func (r *VersionVPCAccessConnector) Empty() bool {
+	return r.empty
+}
 
 func (r *VersionVPCAccessConnector) String() string {
 	return dcl.SprintResource(r)

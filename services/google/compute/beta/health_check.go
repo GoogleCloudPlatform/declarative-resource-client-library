@@ -392,6 +392,10 @@ func (r *HealthCheckHttp2HealthCheck) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyHealthCheckHttp2HealthCheck *HealthCheckHttp2HealthCheck = &HealthCheckHttp2HealthCheck{empty: true}
 
+func (r *HealthCheckHttp2HealthCheck) Empty() bool {
+	return r.empty
+}
+
 func (r *HealthCheckHttp2HealthCheck) String() string {
 	return dcl.SprintResource(r)
 }
@@ -451,6 +455,10 @@ func (r *HealthCheckHttpHealthCheck) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyHealthCheckHttpHealthCheck *HealthCheckHttpHealthCheck = &HealthCheckHttpHealthCheck{empty: true}
+
+func (r *HealthCheckHttpHealthCheck) Empty() bool {
+	return r.empty
+}
 
 func (r *HealthCheckHttpHealthCheck) String() string {
 	return dcl.SprintResource(r)
@@ -512,6 +520,10 @@ func (r *HealthCheckHttpsHealthCheck) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyHealthCheckHttpsHealthCheck *HealthCheckHttpsHealthCheck = &HealthCheckHttpsHealthCheck{empty: true}
 
+func (r *HealthCheckHttpsHealthCheck) Empty() bool {
+	return r.empty
+}
+
 func (r *HealthCheckHttpsHealthCheck) String() string {
 	return dcl.SprintResource(r)
 }
@@ -569,6 +581,10 @@ func (r *HealthCheckSslHealthCheck) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyHealthCheckSslHealthCheck *HealthCheckSslHealthCheck = &HealthCheckSslHealthCheck{empty: true}
 
+func (r *HealthCheckSslHealthCheck) Empty() bool {
+	return r.empty
+}
+
 func (r *HealthCheckSslHealthCheck) String() string {
 	return dcl.SprintResource(r)
 }
@@ -625,6 +641,10 @@ func (r *HealthCheckTcpHealthCheck) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyHealthCheckTcpHealthCheck *HealthCheckTcpHealthCheck = &HealthCheckTcpHealthCheck{empty: true}
+
+func (r *HealthCheckTcpHealthCheck) Empty() bool {
+	return r.empty
+}
 
 func (r *HealthCheckTcpHealthCheck) String() string {
 	return dcl.SprintResource(r)

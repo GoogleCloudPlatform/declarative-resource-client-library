@@ -1209,6 +1209,10 @@ func flattenSslPolicyWarning(c *Client, i interface{}) *SslPolicyWarning {
 	}
 
 	r := &SslPolicyWarning{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptySslPolicyWarning
+	}
 	r.Code = dcl.FlattenString(m["code"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.Data = flattenSslPolicyWarningDataSlice(c, m["data"])
@@ -1324,6 +1328,10 @@ func flattenSslPolicyWarningData(c *Client, i interface{}) *SslPolicyWarningData
 	}
 
 	r := &SslPolicyWarningData{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptySslPolicyWarningData
+	}
 	r.Key = dcl.FlattenString(m["key"])
 	r.Value = dcl.FlattenString(m["value"])
 

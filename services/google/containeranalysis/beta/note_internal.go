@@ -4202,6 +4202,10 @@ func flattenNoteRelatedUrl(c *Client, i interface{}) *NoteRelatedUrl {
 	}
 
 	r := &NoteRelatedUrl{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteRelatedUrl
+	}
 	r.Url = dcl.FlattenString(m["url"])
 	r.Label = dcl.FlattenString(m["label"])
 
@@ -4334,6 +4338,10 @@ func flattenNoteVulnerability(c *Client, i interface{}) *NoteVulnerability {
 	}
 
 	r := &NoteVulnerability{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteVulnerability
+	}
 	r.CvssScore = dcl.FlattenDouble(m["cvssScore"])
 	r.Severity = flattenNoteVulnerabilitySeverityEnum(m["severity"])
 	r.Details = flattenNoteVulnerabilityDetailsSlice(c, m["details"])
@@ -4488,6 +4496,10 @@ func flattenNoteVulnerabilityDetails(c *Client, i interface{}) *NoteVulnerabilit
 	}
 
 	r := &NoteVulnerabilityDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteVulnerabilityDetails
+	}
 	r.SeverityName = dcl.FlattenString(m["severityName"])
 	r.Description = dcl.FlattenString(m["description"])
 	r.PackageType = dcl.FlattenString(m["packageType"])
@@ -4621,6 +4633,10 @@ func flattenNoteVulnerabilityDetailsAffectedVersionStart(c *Client, i interface{
 	}
 
 	r := &NoteVulnerabilityDetailsAffectedVersionStart{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteVulnerabilityDetailsAffectedVersionStart
+	}
 	r.Epoch = dcl.FlattenInteger(m["epoch"])
 	r.Name = dcl.FlattenString(m["name"])
 	r.Revision = dcl.FlattenString(m["revision"])
@@ -4747,6 +4763,10 @@ func flattenNoteVulnerabilityDetailsAffectedVersionEnd(c *Client, i interface{})
 	}
 
 	r := &NoteVulnerabilityDetailsAffectedVersionEnd{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteVulnerabilityDetailsAffectedVersionEnd
+	}
 	r.Epoch = dcl.FlattenInteger(m["epoch"])
 	r.Name = dcl.FlattenString(m["name"])
 	r.Revision = dcl.FlattenString(m["revision"])
@@ -4873,6 +4893,10 @@ func flattenNoteVulnerabilityDetailsFixedVersion(c *Client, i interface{}) *Note
 	}
 
 	r := &NoteVulnerabilityDetailsFixedVersion{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteVulnerabilityDetailsFixedVersion
+	}
 	r.Epoch = dcl.FlattenInteger(m["epoch"])
 	r.Name = dcl.FlattenString(m["name"])
 	r.Revision = dcl.FlattenString(m["revision"])
@@ -5017,6 +5041,10 @@ func flattenNoteVulnerabilityCvssV3(c *Client, i interface{}) *NoteVulnerability
 	}
 
 	r := &NoteVulnerabilityCvssV3{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteVulnerabilityCvssV3
+	}
 	r.BaseScore = dcl.FlattenDouble(m["baseScore"])
 	r.ExploitabilityScore = dcl.FlattenDouble(m["exploitabilityScore"])
 	r.ImpactScore = dcl.FlattenDouble(m["impactScore"])
@@ -5148,6 +5176,10 @@ func flattenNoteVulnerabilityWindowsDetails(c *Client, i interface{}) *NoteVulne
 	}
 
 	r := &NoteVulnerabilityWindowsDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteVulnerabilityWindowsDetails
+	}
 	r.CpeUri = dcl.FlattenString(m["cpeUri"])
 	r.Name = dcl.FlattenString(m["name"])
 	r.Description = dcl.FlattenString(m["description"])
@@ -5264,6 +5296,10 @@ func flattenNoteVulnerabilityWindowsDetailsFixingKbs(c *Client, i interface{}) *
 	}
 
 	r := &NoteVulnerabilityWindowsDetailsFixingKbs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteVulnerabilityWindowsDetailsFixingKbs
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Url = dcl.FlattenString(m["url"])
 
@@ -5380,6 +5416,10 @@ func flattenNoteBuild(c *Client, i interface{}) *NoteBuild {
 	}
 
 	r := &NoteBuild{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteBuild
+	}
 	r.BuilderVersion = dcl.FlattenString(m["builderVersion"])
 	r.Signature = flattenNoteBuildSignature(c, m["signature"])
 
@@ -5500,6 +5540,10 @@ func flattenNoteBuildSignature(c *Client, i interface{}) *NoteBuildSignature {
 	}
 
 	r := &NoteBuildSignature{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteBuildSignature
+	}
 	r.PublicKey = dcl.FlattenString(m["publicKey"])
 	r.Signature = dcl.FlattenString(m["signature"])
 	r.KeyId = dcl.FlattenString(m["keyId"])
@@ -5618,6 +5662,10 @@ func flattenNoteImage(c *Client, i interface{}) *NoteImage {
 	}
 
 	r := &NoteImage{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteImage
+	}
 	r.ResourceUrl = dcl.FlattenString(m["resourceUrl"])
 	r.Fingerprint = flattenNoteImageFingerprint(c, m["fingerprint"])
 
@@ -5735,6 +5783,10 @@ func flattenNoteImageFingerprint(c *Client, i interface{}) *NoteImageFingerprint
 	}
 
 	r := &NoteImageFingerprint{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteImageFingerprint
+	}
 	r.V1Name = dcl.FlattenString(m["v1Name"])
 	r.V2Blob = dcl.FlattenStringSlice(m["v2Blob"])
 	r.V2Name = dcl.FlattenString(m["v2Name"])
@@ -5852,6 +5904,10 @@ func flattenNotePackage(c *Client, i interface{}) *NotePackage {
 	}
 
 	r := &NotePackage{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNotePackage
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Distribution = flattenNotePackageDistributionSlice(c, m["distribution"])
 
@@ -5980,6 +6036,10 @@ func flattenNotePackageDistribution(c *Client, i interface{}) *NotePackageDistri
 	}
 
 	r := &NotePackageDistribution{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNotePackageDistribution
+	}
 	r.CpeUri = dcl.FlattenString(m["cpeUri"])
 	r.Architecture = flattenNotePackageDistributionArchitectureEnum(m["architecture"])
 	r.LatestVersion = flattenNotePackageDistributionLatestVersion(c, m["latestVersion"])
@@ -6107,6 +6167,10 @@ func flattenNotePackageDistributionLatestVersion(c *Client, i interface{}) *Note
 	}
 
 	r := &NotePackageDistributionLatestVersion{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNotePackageDistributionLatestVersion
+	}
 	r.Epoch = dcl.FlattenInteger(m["epoch"])
 	r.Name = dcl.FlattenString(m["name"])
 	r.Revision = dcl.FlattenString(m["revision"])
@@ -6221,6 +6285,10 @@ func flattenNoteDiscovery(c *Client, i interface{}) *NoteDiscovery {
 	}
 
 	r := &NoteDiscovery{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteDiscovery
+	}
 	r.AnalysisKind = flattenNoteDiscoveryAnalysisKindEnum(m["analysisKind"])
 
 	return r
@@ -6331,6 +6399,10 @@ func flattenNoteDeployment(c *Client, i interface{}) *NoteDeployment {
 	}
 
 	r := &NoteDeployment{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteDeployment
+	}
 	r.ResourceUri = dcl.FlattenStringSlice(m["resourceUri"])
 
 	return r
@@ -6443,6 +6515,10 @@ func flattenNoteAttestation(c *Client, i interface{}) *NoteAttestation {
 	}
 
 	r := &NoteAttestation{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteAttestation
+	}
 	r.Hint = flattenNoteAttestationHint(c, m["hint"])
 
 	return r
@@ -6553,6 +6629,10 @@ func flattenNoteAttestationHint(c *Client, i interface{}) *NoteAttestationHint {
 	}
 
 	r := &NoteAttestationHint{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteAttestationHint
+	}
 	r.HumanReadableName = dcl.FlattenString(m["humanReadableName"])
 
 	return r

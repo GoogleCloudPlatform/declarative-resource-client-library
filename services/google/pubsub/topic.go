@@ -66,6 +66,10 @@ func (r *TopicMessageStoragePolicy) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyTopicMessageStoragePolicy *TopicMessageStoragePolicy = &TopicMessageStoragePolicy{empty: true}
 
+func (r *TopicMessageStoragePolicy) Empty() bool {
+	return r.empty
+}
+
 func (r *TopicMessageStoragePolicy) String() string {
 	return dcl.SprintResource(r)
 }

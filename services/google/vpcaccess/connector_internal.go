@@ -1045,6 +1045,10 @@ func flattenConnectorSubnet(c *Client, i interface{}) *ConnectorSubnet {
 	}
 
 	r := &ConnectorSubnet{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyConnectorSubnet
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.ProjectId = dcl.FlattenString(m["projectId"])
 

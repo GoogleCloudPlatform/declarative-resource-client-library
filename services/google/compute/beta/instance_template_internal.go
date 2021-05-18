@@ -3380,6 +3380,10 @@ func flattenInstanceTemplateProperties(c *Client, i interface{}) *InstanceTempla
 	}
 
 	r := &InstanceTemplateProperties{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceTemplateProperties
+	}
 	r.CanIPForward = dcl.FlattenBool(m["canIPForward"])
 	r.Description = dcl.FlattenString(m["description"])
 	r.Disks = flattenInstanceTemplatePropertiesDisksSlice(c, m["disks"])
@@ -3539,6 +3543,10 @@ func flattenInstanceTemplatePropertiesDisks(c *Client, i interface{}) *InstanceT
 	}
 
 	r := &InstanceTemplatePropertiesDisks{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceTemplatePropertiesDisks
+	}
 	r.AutoDelete = dcl.FlattenBool(m["autoDelete"])
 	r.Boot = dcl.FlattenBool(m["boot"])
 	r.DeviceName = dcl.FlattenString(m["deviceName"])
@@ -3665,6 +3673,10 @@ func flattenInstanceTemplatePropertiesDisksDiskEncryptionKey(c *Client, i interf
 	}
 
 	r := &InstanceTemplatePropertiesDisksDiskEncryptionKey{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceTemplatePropertiesDisksDiskEncryptionKey
+	}
 	r.RawKey = dcl.FlattenString(m["rawKey"])
 	r.RsaEncryptedKey = dcl.FlattenString(m["rsaEncryptedKey"])
 	r.Sha256 = dcl.FlattenString(m["sha256"])
@@ -3811,6 +3823,10 @@ func flattenInstanceTemplatePropertiesDisksInitializeParams(c *Client, i interfa
 	}
 
 	r := &InstanceTemplatePropertiesDisksInitializeParams{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceTemplatePropertiesDisksInitializeParams
+	}
 	r.DiskName = dcl.FlattenString(m["diskName"])
 	r.DiskSizeGb = dcl.FlattenInteger(m["diskSizeGb"])
 	r.DiskType = dcl.FlattenString(m["diskType"])
@@ -3937,6 +3953,10 @@ func flattenInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncrypt
 	}
 
 	r := &InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey
+	}
 	r.RawKey = dcl.FlattenString(m["rawKey"])
 	r.Sha256 = dcl.FlattenString(m["sha256"])
 	r.KmsKeyName = dcl.FlattenString(m["kmsKeyName"])
@@ -4055,6 +4075,10 @@ func flattenInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryption
 	}
 
 	r := &InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey
+	}
 	r.RawKey = dcl.FlattenString(m["rawKey"])
 	r.Sha256 = dcl.FlattenString(m["sha256"])
 	r.KmsKeyName = dcl.FlattenString(m["kmsKeyName"])
@@ -4167,6 +4191,10 @@ func flattenInstanceTemplatePropertiesDisksGuestOsFeatures(c *Client, i interfac
 	}
 
 	r := &InstanceTemplatePropertiesDisksGuestOsFeatures{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceTemplatePropertiesDisksGuestOsFeatures
+	}
 	r.Type = dcl.FlattenString(m["type"])
 
 	return r
@@ -4280,6 +4308,10 @@ func flattenInstanceTemplatePropertiesReservationAffinity(c *Client, i interface
 	}
 
 	r := &InstanceTemplatePropertiesReservationAffinity{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceTemplatePropertiesReservationAffinity
+	}
 	r.Key = dcl.FlattenString(m["key"])
 	r.Value = dcl.FlattenStringSlice(m["value"])
 
@@ -4394,6 +4426,10 @@ func flattenInstanceTemplatePropertiesGuestAccelerators(c *Client, i interface{}
 	}
 
 	r := &InstanceTemplatePropertiesGuestAccelerators{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceTemplatePropertiesGuestAccelerators
+	}
 	r.AcceleratorCount = dcl.FlattenInteger(m["acceleratorCount"])
 	r.AcceleratorType = dcl.FlattenString(m["acceleratorType"])
 
@@ -4524,6 +4560,10 @@ func flattenInstanceTemplatePropertiesNetworkInterfaces(c *Client, i interface{}
 	}
 
 	r := &InstanceTemplatePropertiesNetworkInterfaces{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceTemplatePropertiesNetworkInterfaces
+	}
 	r.AccessConfigs = flattenInstanceTemplatePropertiesNetworkInterfacesAccessConfigsSlice(c, m["accessConfigs"])
 	r.AliasIPRanges = flattenInstanceTemplatePropertiesNetworkInterfacesAliasIPRangesSlice(c, m["aliasIPRanges"])
 	r.Name = dcl.FlattenString(m["name"])
@@ -4654,6 +4694,10 @@ func flattenInstanceTemplatePropertiesNetworkInterfacesAccessConfigs(c *Client, 
 	}
 
 	r := &InstanceTemplatePropertiesNetworkInterfacesAccessConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceTemplatePropertiesNetworkInterfacesAccessConfigs
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.NatIP = dcl.FlattenString(m["natIP"])
 	r.Type = flattenInstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum(m["type"])
@@ -4772,6 +4816,10 @@ func flattenInstanceTemplatePropertiesNetworkInterfacesAliasIPRanges(c *Client, 
 	}
 
 	r := &InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceTemplatePropertiesNetworkInterfacesAliasIPRanges
+	}
 	r.IPCidrRange = dcl.FlattenString(m["ipCidrRange"])
 	r.SubnetworkRangeName = dcl.FlattenString(m["subnetworkRangeName"])
 
@@ -4889,6 +4937,10 @@ func flattenInstanceTemplatePropertiesShieldedInstanceConfig(c *Client, i interf
 	}
 
 	r := &InstanceTemplatePropertiesShieldedInstanceConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceTemplatePropertiesShieldedInstanceConfig
+	}
 	r.EnableSecureBoot = dcl.FlattenBool(m["enableSecureBoot"])
 	r.EnableVtpm = dcl.FlattenBool(m["enableVtpm"])
 	r.EnableIntegrityMonitoring = dcl.FlattenBool(m["enableIntegrityMonitoring"])
@@ -5012,6 +5064,10 @@ func flattenInstanceTemplatePropertiesScheduling(c *Client, i interface{}) *Inst
 	}
 
 	r := &InstanceTemplatePropertiesScheduling{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceTemplatePropertiesScheduling
+	}
 	r.AutomaticRestart = dcl.FlattenBool(m["automaticRestart"])
 	r.OnHostMaintenance = dcl.FlattenString(m["onHostMaintenance"])
 	r.Preemptible = dcl.FlattenBool(m["preemptible"])
@@ -5131,6 +5187,10 @@ func flattenInstanceTemplatePropertiesSchedulingNodeAffinities(c *Client, i inte
 	}
 
 	r := &InstanceTemplatePropertiesSchedulingNodeAffinities{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceTemplatePropertiesSchedulingNodeAffinities
+	}
 	r.Key = dcl.FlattenString(m["key"])
 	r.Operator = flattenInstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum(m["operator"])
 	r.Values = dcl.FlattenStringSlice(m["values"])
@@ -5246,6 +5306,10 @@ func flattenInstanceTemplatePropertiesServiceAccounts(c *Client, i interface{}) 
 	}
 
 	r := &InstanceTemplatePropertiesServiceAccounts{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceTemplatePropertiesServiceAccounts
+	}
 	r.Email = dcl.FlattenString(m["email"])
 	r.Scopes = dcl.FlattenStringSlice(m["scopes"])
 

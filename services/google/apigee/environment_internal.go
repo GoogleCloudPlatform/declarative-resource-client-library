@@ -1098,6 +1098,10 @@ func flattenEnvironmentProperties(c *Client, i interface{}) *EnvironmentProperti
 	}
 
 	r := &EnvironmentProperties{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyEnvironmentProperties
+	}
 	r.Property = flattenEnvironmentPropertiesPropertySlice(c, m["property"])
 
 	return r
@@ -1211,6 +1215,10 @@ func flattenEnvironmentPropertiesProperty(c *Client, i interface{}) *Environment
 	}
 
 	r := &EnvironmentPropertiesProperty{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyEnvironmentPropertiesProperty
+	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Value = dcl.FlattenString(m["value"])
 

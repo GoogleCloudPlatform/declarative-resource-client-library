@@ -1471,6 +1471,10 @@ func flattenAccessLevelBasic(c *Client, i interface{}) *AccessLevelBasic {
 	}
 
 	r := &AccessLevelBasic{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAccessLevelBasic
+	}
 	r.CombiningFunction = flattenAccessLevelBasicCombiningFunctionEnum(m["combiningFunction"])
 	if dcl.IsEmptyValueIndirect(m["combiningFunction"]) {
 		c.Config.Logger.Info("Using default value for combiningFunction.")
@@ -1603,6 +1607,10 @@ func flattenAccessLevelBasicConditions(c *Client, i interface{}) *AccessLevelBas
 	}
 
 	r := &AccessLevelBasicConditions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAccessLevelBasicConditions
+	}
 	r.Regions = dcl.FlattenStringSlice(m["regions"])
 	r.IPSubnetworks = dcl.FlattenStringSlice(m["ipSubnetworks"])
 	r.RequiredAccessLevels = dcl.FlattenStringSlice(m["requiredAccessLevels"])
@@ -1735,6 +1743,10 @@ func flattenAccessLevelBasicConditionsDevicePolicy(c *Client, i interface{}) *Ac
 	}
 
 	r := &AccessLevelBasicConditionsDevicePolicy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAccessLevelBasicConditionsDevicePolicy
+	}
 	r.RequireScreenlock = dcl.FlattenBool(m["requireScreenlock"])
 	r.RequireAdminApproval = dcl.FlattenBool(m["requireAdminApproval"])
 	r.RequireCorpOwned = dcl.FlattenBool(m["requireCorpOwned"])
@@ -1856,6 +1868,10 @@ func flattenAccessLevelBasicConditionsDevicePolicyOsConstraints(c *Client, i int
 	}
 
 	r := &AccessLevelBasicConditionsDevicePolicyOsConstraints{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAccessLevelBasicConditionsDevicePolicyOsConstraints
+	}
 	r.MinimumVersion = dcl.FlattenString(m["minimumVersion"])
 	r.OsType = flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum(m["osType"])
 	r.RequireVerifiedChromeOs = dcl.FlattenBool(m["requireVerifiedChromeOs"])

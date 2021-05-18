@@ -1399,6 +1399,10 @@ func flattenAutoscalingPolicyBasicAlgorithm(c *Client, i interface{}) *Autoscali
 	}
 
 	r := &AutoscalingPolicyBasicAlgorithm{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAutoscalingPolicyBasicAlgorithm
+	}
 	r.YarnConfig = flattenAutoscalingPolicyBasicAlgorithmYarnConfig(c, m["yarnConfig"])
 	r.CooldownPeriod = dcl.FlattenString(m["cooldownPeriod"])
 
@@ -1522,6 +1526,10 @@ func flattenAutoscalingPolicyBasicAlgorithmYarnConfig(c *Client, i interface{}) 
 	}
 
 	r := &AutoscalingPolicyBasicAlgorithmYarnConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAutoscalingPolicyBasicAlgorithmYarnConfig
+	}
 	r.GracefulDecommissionTimeout = dcl.FlattenString(m["gracefulDecommissionTimeout"])
 	r.ScaleUpFactor = dcl.FlattenDouble(m["scaleUpFactor"])
 	r.ScaleDownFactor = dcl.FlattenDouble(m["scaleDownFactor"])
@@ -1642,6 +1650,10 @@ func flattenAutoscalingPolicyWorkerConfig(c *Client, i interface{}) *Autoscaling
 	}
 
 	r := &AutoscalingPolicyWorkerConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAutoscalingPolicyWorkerConfig
+	}
 	r.MinInstances = dcl.FlattenInteger(m["minInstances"])
 	r.MaxInstances = dcl.FlattenInteger(m["maxInstances"])
 	r.Weight = dcl.FlattenInteger(m["weight"])
@@ -1760,6 +1772,10 @@ func flattenAutoscalingPolicySecondaryWorkerConfig(c *Client, i interface{}) *Au
 	}
 
 	r := &AutoscalingPolicySecondaryWorkerConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyAutoscalingPolicySecondaryWorkerConfig
+	}
 	r.MinInstances = dcl.FlattenInteger(m["minInstances"])
 	r.MaxInstances = dcl.FlattenInteger(m["maxInstances"])
 	r.Weight = dcl.FlattenInteger(m["weight"])

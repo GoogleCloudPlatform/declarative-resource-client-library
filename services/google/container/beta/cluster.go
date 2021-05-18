@@ -760,6 +760,10 @@ func (r *ClusterMasterAuth) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterMasterAuth *ClusterMasterAuth = &ClusterMasterAuth{empty: true}
 
+func (r *ClusterMasterAuth) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterMasterAuth) String() string {
 	return dcl.SprintResource(r)
 }
@@ -801,6 +805,10 @@ func (r *ClusterMasterAuthClientCertificateConfig) UnmarshalJSON(data []byte) er
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterMasterAuthClientCertificateConfig *ClusterMasterAuthClientCertificateConfig = &ClusterMasterAuthClientCertificateConfig{empty: true}
+
+func (r *ClusterMasterAuthClientCertificateConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterMasterAuthClientCertificateConfig) String() string {
 	return dcl.SprintResource(r)
@@ -871,6 +879,10 @@ func (r *ClusterAddonsConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterAddonsConfig *ClusterAddonsConfig = &ClusterAddonsConfig{empty: true}
 
+func (r *ClusterAddonsConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterAddonsConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -912,6 +924,10 @@ func (r *ClusterAddonsConfigHttpLoadBalancing) UnmarshalJSON(data []byte) error 
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterAddonsConfigHttpLoadBalancing *ClusterAddonsConfigHttpLoadBalancing = &ClusterAddonsConfigHttpLoadBalancing{empty: true}
+
+func (r *ClusterAddonsConfigHttpLoadBalancing) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterAddonsConfigHttpLoadBalancing) String() string {
 	return dcl.SprintResource(r)
@@ -955,6 +971,10 @@ func (r *ClusterAddonsConfigHorizontalPodAutoscaling) UnmarshalJSON(data []byte)
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterAddonsConfigHorizontalPodAutoscaling *ClusterAddonsConfigHorizontalPodAutoscaling = &ClusterAddonsConfigHorizontalPodAutoscaling{empty: true}
 
+func (r *ClusterAddonsConfigHorizontalPodAutoscaling) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterAddonsConfigHorizontalPodAutoscaling) String() string {
 	return dcl.SprintResource(r)
 }
@@ -997,6 +1017,10 @@ func (r *ClusterAddonsConfigKubernetesDashboard) UnmarshalJSON(data []byte) erro
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterAddonsConfigKubernetesDashboard *ClusterAddonsConfigKubernetesDashboard = &ClusterAddonsConfigKubernetesDashboard{empty: true}
 
+func (r *ClusterAddonsConfigKubernetesDashboard) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterAddonsConfigKubernetesDashboard) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1038,6 +1062,10 @@ func (r *ClusterAddonsConfigNetworkPolicyConfig) UnmarshalJSON(data []byte) erro
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterAddonsConfigNetworkPolicyConfig *ClusterAddonsConfigNetworkPolicyConfig = &ClusterAddonsConfigNetworkPolicyConfig{empty: true}
+
+func (r *ClusterAddonsConfigNetworkPolicyConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterAddonsConfigNetworkPolicyConfig) String() string {
 	return dcl.SprintResource(r)
@@ -1084,6 +1112,10 @@ func (r *ClusterAddonsConfigCloudRunConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterAddonsConfigCloudRunConfig *ClusterAddonsConfigCloudRunConfig = &ClusterAddonsConfigCloudRunConfig{empty: true}
 
+func (r *ClusterAddonsConfigCloudRunConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterAddonsConfigCloudRunConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1125,6 +1157,10 @@ func (r *ClusterAddonsConfigDnsCacheConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterAddonsConfigDnsCacheConfig *ClusterAddonsConfigDnsCacheConfig = &ClusterAddonsConfigDnsCacheConfig{empty: true}
+
+func (r *ClusterAddonsConfigDnsCacheConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterAddonsConfigDnsCacheConfig) String() string {
 	return dcl.SprintResource(r)
@@ -1168,6 +1204,10 @@ func (r *ClusterAddonsConfigConfigConnectorConfig) UnmarshalJSON(data []byte) er
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterAddonsConfigConfigConnectorConfig *ClusterAddonsConfigConfigConnectorConfig = &ClusterAddonsConfigConfigConnectorConfig{empty: true}
 
+func (r *ClusterAddonsConfigConfigConnectorConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterAddonsConfigConfigConnectorConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1209,6 +1249,10 @@ func (r *ClusterAddonsConfigGcePersistentDiskCsiDriverConfig) UnmarshalJSON(data
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterAddonsConfigGcePersistentDiskCsiDriverConfig *ClusterAddonsConfigGcePersistentDiskCsiDriverConfig = &ClusterAddonsConfigGcePersistentDiskCsiDriverConfig{empty: true}
+
+func (r *ClusterAddonsConfigGcePersistentDiskCsiDriverConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterAddonsConfigGcePersistentDiskCsiDriverConfig) String() string {
 	return dcl.SprintResource(r)
@@ -1255,6 +1299,10 @@ func (r *ClusterAddonsConfigIstioConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterAddonsConfigIstioConfig *ClusterAddonsConfigIstioConfig = &ClusterAddonsConfigIstioConfig{empty: true}
 
+func (r *ClusterAddonsConfigIstioConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterAddonsConfigIstioConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1296,6 +1344,10 @@ func (r *ClusterAddonsConfigKalmConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterAddonsConfigKalmConfig *ClusterAddonsConfigKalmConfig = &ClusterAddonsConfigKalmConfig{empty: true}
+
+func (r *ClusterAddonsConfigKalmConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterAddonsConfigKalmConfig) String() string {
 	return dcl.SprintResource(r)
@@ -1383,6 +1435,10 @@ func (r *ClusterNodePools) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodePools *ClusterNodePools = &ClusterNodePools{empty: true}
+
+func (r *ClusterNodePools) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterNodePools) String() string {
 	return dcl.SprintResource(r)
@@ -1492,6 +1548,10 @@ func (r *ClusterNodePoolsConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodePoolsConfig *ClusterNodePoolsConfig = &ClusterNodePoolsConfig{empty: true}
 
+func (r *ClusterNodePoolsConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterNodePoolsConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1537,6 +1597,10 @@ func (r *ClusterNodePoolsConfigAccelerators) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodePoolsConfigAccelerators *ClusterNodePoolsConfigAccelerators = &ClusterNodePoolsConfigAccelerators{empty: true}
 
+func (r *ClusterNodePoolsConfigAccelerators) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterNodePoolsConfigAccelerators) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1581,6 +1645,10 @@ func (r *ClusterNodePoolsConfigWorkloadMetadataConfig) UnmarshalJSON(data []byte
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodePoolsConfigWorkloadMetadataConfig *ClusterNodePoolsConfigWorkloadMetadataConfig = &ClusterNodePoolsConfigWorkloadMetadataConfig{empty: true}
+
+func (r *ClusterNodePoolsConfigWorkloadMetadataConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterNodePoolsConfigWorkloadMetadataConfig) String() string {
 	return dcl.SprintResource(r)
@@ -1630,6 +1698,10 @@ func (r *ClusterNodePoolsConfigTaints) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodePoolsConfigTaints *ClusterNodePoolsConfigTaints = &ClusterNodePoolsConfigTaints{empty: true}
 
+func (r *ClusterNodePoolsConfigTaints) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterNodePoolsConfigTaints) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1674,6 +1746,10 @@ func (r *ClusterNodePoolsConfigSandboxConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodePoolsConfigSandboxConfig *ClusterNodePoolsConfigSandboxConfig = &ClusterNodePoolsConfigSandboxConfig{empty: true}
+
+func (r *ClusterNodePoolsConfigSandboxConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterNodePoolsConfigSandboxConfig) String() string {
 	return dcl.SprintResource(r)
@@ -1723,6 +1799,10 @@ func (r *ClusterNodePoolsConfigReservationAffinity) UnmarshalJSON(data []byte) e
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodePoolsConfigReservationAffinity *ClusterNodePoolsConfigReservationAffinity = &ClusterNodePoolsConfigReservationAffinity{empty: true}
 
+func (r *ClusterNodePoolsConfigReservationAffinity) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterNodePoolsConfigReservationAffinity) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1768,6 +1848,10 @@ func (r *ClusterNodePoolsConfigShieldedInstanceConfig) UnmarshalJSON(data []byte
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodePoolsConfigShieldedInstanceConfig *ClusterNodePoolsConfigShieldedInstanceConfig = &ClusterNodePoolsConfigShieldedInstanceConfig{empty: true}
 
+func (r *ClusterNodePoolsConfigShieldedInstanceConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterNodePoolsConfigShieldedInstanceConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1809,6 +1893,10 @@ func (r *ClusterNodePoolsConfigLinuxNodeConfig) UnmarshalJSON(data []byte) error
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodePoolsConfigLinuxNodeConfig *ClusterNodePoolsConfigLinuxNodeConfig = &ClusterNodePoolsConfigLinuxNodeConfig{empty: true}
+
+func (r *ClusterNodePoolsConfigLinuxNodeConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterNodePoolsConfigLinuxNodeConfig) String() string {
 	return dcl.SprintResource(r)
@@ -1858,6 +1946,10 @@ func (r *ClusterNodePoolsConfigKubeletConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodePoolsConfigKubeletConfig *ClusterNodePoolsConfigKubeletConfig = &ClusterNodePoolsConfigKubeletConfig{empty: true}
 
+func (r *ClusterNodePoolsConfigKubeletConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterNodePoolsConfigKubeletConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1899,6 +1991,10 @@ func (r *ClusterNodePoolsConfigEphemeralStorageConfig) UnmarshalJSON(data []byte
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodePoolsConfigEphemeralStorageConfig *ClusterNodePoolsConfigEphemeralStorageConfig = &ClusterNodePoolsConfigEphemeralStorageConfig{empty: true}
+
+func (r *ClusterNodePoolsConfigEphemeralStorageConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterNodePoolsConfigEphemeralStorageConfig) String() string {
 	return dcl.SprintResource(r)
@@ -1951,6 +2047,10 @@ func (r *ClusterNodePoolsAutoscaling) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodePoolsAutoscaling *ClusterNodePoolsAutoscaling = &ClusterNodePoolsAutoscaling{empty: true}
 
+func (r *ClusterNodePoolsAutoscaling) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterNodePoolsAutoscaling) String() string {
 	return dcl.SprintResource(r)
 }
@@ -1999,6 +2099,10 @@ func (r *ClusterNodePoolsManagement) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodePoolsManagement *ClusterNodePoolsManagement = &ClusterNodePoolsManagement{empty: true}
 
+func (r *ClusterNodePoolsManagement) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterNodePoolsManagement) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2044,6 +2148,10 @@ func (r *ClusterNodePoolsManagementUpgradeOptions) UnmarshalJSON(data []byte) er
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodePoolsManagementUpgradeOptions *ClusterNodePoolsManagementUpgradeOptions = &ClusterNodePoolsManagementUpgradeOptions{empty: true}
 
+func (r *ClusterNodePoolsManagementUpgradeOptions) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterNodePoolsManagementUpgradeOptions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2085,6 +2193,10 @@ func (r *ClusterNodePoolsMaxPodsConstraint) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodePoolsMaxPodsConstraint *ClusterNodePoolsMaxPodsConstraint = &ClusterNodePoolsMaxPodsConstraint{empty: true}
+
+func (r *ClusterNodePoolsMaxPodsConstraint) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterNodePoolsMaxPodsConstraint) String() string {
 	return dcl.SprintResource(r)
@@ -2134,6 +2246,10 @@ func (r *ClusterNodePoolsConditions) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodePoolsConditions *ClusterNodePoolsConditions = &ClusterNodePoolsConditions{empty: true}
 
+func (r *ClusterNodePoolsConditions) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterNodePoolsConditions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2178,6 +2294,10 @@ func (r *ClusterNodePoolsUpgradeSettings) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodePoolsUpgradeSettings *ClusterNodePoolsUpgradeSettings = &ClusterNodePoolsUpgradeSettings{empty: true}
+
+func (r *ClusterNodePoolsUpgradeSettings) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterNodePoolsUpgradeSettings) String() string {
 	return dcl.SprintResource(r)
@@ -2227,6 +2347,10 @@ func (r *ClusterNodePoolsNetworkConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodePoolsNetworkConfig *ClusterNodePoolsNetworkConfig = &ClusterNodePoolsNetworkConfig{empty: true}
 
+func (r *ClusterNodePoolsNetworkConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterNodePoolsNetworkConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2268,6 +2392,10 @@ func (r *ClusterLegacyAbac) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterLegacyAbac *ClusterLegacyAbac = &ClusterLegacyAbac{empty: true}
+
+func (r *ClusterLegacyAbac) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterLegacyAbac) String() string {
 	return dcl.SprintResource(r)
@@ -2313,6 +2441,10 @@ func (r *ClusterNetworkPolicy) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNetworkPolicy *ClusterNetworkPolicy = &ClusterNetworkPolicy{empty: true}
+
+func (r *ClusterNetworkPolicy) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterNetworkPolicy) String() string {
 	return dcl.SprintResource(r)
@@ -2395,6 +2527,10 @@ func (r *ClusterIPAllocationPolicy) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterIPAllocationPolicy *ClusterIPAllocationPolicy = &ClusterIPAllocationPolicy{empty: true}
 
+func (r *ClusterIPAllocationPolicy) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterIPAllocationPolicy) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2439,6 +2575,10 @@ func (r *ClusterMasterAuthorizedNetworksConfig) UnmarshalJSON(data []byte) error
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterMasterAuthorizedNetworksConfig *ClusterMasterAuthorizedNetworksConfig = &ClusterMasterAuthorizedNetworksConfig{empty: true}
+
+func (r *ClusterMasterAuthorizedNetworksConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterMasterAuthorizedNetworksConfig) String() string {
 	return dcl.SprintResource(r)
@@ -2485,6 +2625,10 @@ func (r *ClusterMasterAuthorizedNetworksConfigCidrBlocks) UnmarshalJSON(data []b
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterMasterAuthorizedNetworksConfigCidrBlocks *ClusterMasterAuthorizedNetworksConfigCidrBlocks = &ClusterMasterAuthorizedNetworksConfigCidrBlocks{empty: true}
 
+func (r *ClusterMasterAuthorizedNetworksConfigCidrBlocks) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterMasterAuthorizedNetworksConfigCidrBlocks) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2526,6 +2670,10 @@ func (r *ClusterBinaryAuthorization) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterBinaryAuthorization *ClusterBinaryAuthorization = &ClusterBinaryAuthorization{empty: true}
+
+func (r *ClusterBinaryAuthorization) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterBinaryAuthorization) String() string {
 	return dcl.SprintResource(r)
@@ -2581,6 +2729,10 @@ func (r *ClusterAutoscaling) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterAutoscaling *ClusterAutoscaling = &ClusterAutoscaling{empty: true}
 
+func (r *ClusterAutoscaling) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterAutoscaling) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2628,6 +2780,10 @@ func (r *ClusterAutoscalingResourceLimits) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterAutoscalingResourceLimits *ClusterAutoscalingResourceLimits = &ClusterAutoscalingResourceLimits{empty: true}
+
+func (r *ClusterAutoscalingResourceLimits) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterAutoscalingResourceLimits) String() string {
 	return dcl.SprintResource(r)
@@ -2695,6 +2851,10 @@ func (r *ClusterAutoscalingAutoprovisioningNodePoolDefaults) UnmarshalJSON(data 
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterAutoscalingAutoprovisioningNodePoolDefaults *ClusterAutoscalingAutoprovisioningNodePoolDefaults = &ClusterAutoscalingAutoprovisioningNodePoolDefaults{empty: true}
 
+func (r *ClusterAutoscalingAutoprovisioningNodePoolDefaults) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterAutoscalingAutoprovisioningNodePoolDefaults) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2739,6 +2899,10 @@ func (r *ClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings) Unma
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings *ClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings = &ClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings{empty: true}
+
+func (r *ClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings) String() string {
 	return dcl.SprintResource(r)
@@ -2788,6 +2952,10 @@ func (r *ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement) Unmarshal
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement *ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement = &ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement{empty: true}
 
+func (r *ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2833,6 +3001,10 @@ func (r *ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOpti
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions *ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions = &ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions{empty: true}
 
+func (r *ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2877,6 +3049,10 @@ func (r *ClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfi
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig *ClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig = &ClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig{empty: true}
+
+func (r *ClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig) String() string {
 	return dcl.SprintResource(r)
@@ -2935,6 +3111,10 @@ func (r *ClusterNetworkConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNetworkConfig *ClusterNetworkConfig = &ClusterNetworkConfig{empty: true}
 
+func (r *ClusterNetworkConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterNetworkConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -2976,6 +3156,10 @@ func (r *ClusterNetworkConfigDefaultSnatStatus) UnmarshalJSON(data []byte) error
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNetworkConfigDefaultSnatStatus *ClusterNetworkConfigDefaultSnatStatus = &ClusterNetworkConfigDefaultSnatStatus{empty: true}
+
+func (r *ClusterNetworkConfigDefaultSnatStatus) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterNetworkConfigDefaultSnatStatus) String() string {
 	return dcl.SprintResource(r)
@@ -3021,6 +3205,10 @@ func (r *ClusterMaintenancePolicy) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterMaintenancePolicy *ClusterMaintenancePolicy = &ClusterMaintenancePolicy{empty: true}
+
+func (r *ClusterMaintenancePolicy) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterMaintenancePolicy) String() string {
 	return dcl.SprintResource(r)
@@ -3070,6 +3258,10 @@ func (r *ClusterMaintenancePolicyWindow) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterMaintenancePolicyWindow *ClusterMaintenancePolicyWindow = &ClusterMaintenancePolicyWindow{empty: true}
 
+func (r *ClusterMaintenancePolicyWindow) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterMaintenancePolicyWindow) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3114,6 +3306,10 @@ func (r *ClusterMaintenancePolicyWindowDailyMaintenanceWindow) UnmarshalJSON(dat
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterMaintenancePolicyWindowDailyMaintenanceWindow *ClusterMaintenancePolicyWindowDailyMaintenanceWindow = &ClusterMaintenancePolicyWindowDailyMaintenanceWindow{empty: true}
+
+func (r *ClusterMaintenancePolicyWindowDailyMaintenanceWindow) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterMaintenancePolicyWindowDailyMaintenanceWindow) String() string {
 	return dcl.SprintResource(r)
@@ -3160,6 +3356,10 @@ func (r *ClusterMaintenancePolicyWindowRecurringWindow) UnmarshalJSON(data []byt
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterMaintenancePolicyWindowRecurringWindow *ClusterMaintenancePolicyWindowRecurringWindow = &ClusterMaintenancePolicyWindowRecurringWindow{empty: true}
 
+func (r *ClusterMaintenancePolicyWindowRecurringWindow) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterMaintenancePolicyWindowRecurringWindow) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3205,6 +3405,10 @@ func (r *ClusterMaintenancePolicyWindowRecurringWindowWindow) UnmarshalJSON(data
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterMaintenancePolicyWindowRecurringWindowWindow *ClusterMaintenancePolicyWindowRecurringWindowWindow = &ClusterMaintenancePolicyWindowRecurringWindowWindow{empty: true}
 
+func (r *ClusterMaintenancePolicyWindowRecurringWindowWindow) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterMaintenancePolicyWindowRecurringWindowWindow) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3246,6 +3450,10 @@ func (r *ClusterDefaultMaxPodsConstraint) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterDefaultMaxPodsConstraint *ClusterDefaultMaxPodsConstraint = &ClusterDefaultMaxPodsConstraint{empty: true}
+
+func (r *ClusterDefaultMaxPodsConstraint) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterDefaultMaxPodsConstraint) String() string {
 	return dcl.SprintResource(r)
@@ -3298,6 +3506,10 @@ func (r *ClusterResourceUsageExportConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterResourceUsageExportConfig *ClusterResourceUsageExportConfig = &ClusterResourceUsageExportConfig{empty: true}
 
+func (r *ClusterResourceUsageExportConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterResourceUsageExportConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3340,6 +3552,10 @@ func (r *ClusterResourceUsageExportConfigBigqueryDestination) UnmarshalJSON(data
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterResourceUsageExportConfigBigqueryDestination *ClusterResourceUsageExportConfigBigqueryDestination = &ClusterResourceUsageExportConfigBigqueryDestination{empty: true}
 
+func (r *ClusterResourceUsageExportConfigBigqueryDestination) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterResourceUsageExportConfigBigqueryDestination) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3381,6 +3597,10 @@ func (r *ClusterResourceUsageExportConfigConsumptionMeteringConfig) UnmarshalJSO
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterResourceUsageExportConfigConsumptionMeteringConfig *ClusterResourceUsageExportConfigConsumptionMeteringConfig = &ClusterResourceUsageExportConfigConsumptionMeteringConfig{empty: true}
+
+func (r *ClusterResourceUsageExportConfigConsumptionMeteringConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterResourceUsageExportConfigConsumptionMeteringConfig) String() string {
 	return dcl.SprintResource(r)
@@ -3426,6 +3646,10 @@ func (r *ClusterAuthenticatorGroupsConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterAuthenticatorGroupsConfig *ClusterAuthenticatorGroupsConfig = &ClusterAuthenticatorGroupsConfig{empty: true}
+
+func (r *ClusterAuthenticatorGroupsConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterAuthenticatorGroupsConfig) String() string {
 	return dcl.SprintResource(r)
@@ -3487,6 +3711,10 @@ func (r *ClusterPrivateClusterConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterPrivateClusterConfig *ClusterPrivateClusterConfig = &ClusterPrivateClusterConfig{empty: true}
 
+func (r *ClusterPrivateClusterConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterPrivateClusterConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3528,6 +3756,10 @@ func (r *ClusterPrivateClusterConfigMasterGlobalAccessConfig) UnmarshalJSON(data
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterPrivateClusterConfigMasterGlobalAccessConfig *ClusterPrivateClusterConfigMasterGlobalAccessConfig = &ClusterPrivateClusterConfigMasterGlobalAccessConfig{empty: true}
+
+func (r *ClusterPrivateClusterConfigMasterGlobalAccessConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterPrivateClusterConfigMasterGlobalAccessConfig) String() string {
 	return dcl.SprintResource(r)
@@ -3574,6 +3806,10 @@ func (r *ClusterDatabaseEncryption) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterDatabaseEncryption *ClusterDatabaseEncryption = &ClusterDatabaseEncryption{empty: true}
 
+func (r *ClusterDatabaseEncryption) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterDatabaseEncryption) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3619,6 +3855,10 @@ func (r *ClusterVerticalPodAutoscaling) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterVerticalPodAutoscaling *ClusterVerticalPodAutoscaling = &ClusterVerticalPodAutoscaling{empty: true}
 
+func (r *ClusterVerticalPodAutoscaling) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterVerticalPodAutoscaling) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3660,6 +3900,10 @@ func (r *ClusterShieldedNodes) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterShieldedNodes *ClusterShieldedNodes = &ClusterShieldedNodes{empty: true}
+
+func (r *ClusterShieldedNodes) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterShieldedNodes) String() string {
 	return dcl.SprintResource(r)
@@ -3709,6 +3953,10 @@ func (r *ClusterConditions) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterConditions *ClusterConditions = &ClusterConditions{empty: true}
 
+func (r *ClusterConditions) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterConditions) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3750,6 +3998,10 @@ func (r *ClusterAutopilot) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterAutopilot *ClusterAutopilot = &ClusterAutopilot{empty: true}
+
+func (r *ClusterAutopilot) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterAutopilot) String() string {
 	return dcl.SprintResource(r)
@@ -3859,6 +4111,10 @@ func (r *ClusterNodeConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodeConfig *ClusterNodeConfig = &ClusterNodeConfig{empty: true}
 
+func (r *ClusterNodeConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterNodeConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3904,6 +4160,10 @@ func (r *ClusterNodeConfigAccelerators) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodeConfigAccelerators *ClusterNodeConfigAccelerators = &ClusterNodeConfigAccelerators{empty: true}
 
+func (r *ClusterNodeConfigAccelerators) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterNodeConfigAccelerators) String() string {
 	return dcl.SprintResource(r)
 }
@@ -3948,6 +4208,10 @@ func (r *ClusterNodeConfigWorkloadMetadataConfig) UnmarshalJSON(data []byte) err
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodeConfigWorkloadMetadataConfig *ClusterNodeConfigWorkloadMetadataConfig = &ClusterNodeConfigWorkloadMetadataConfig{empty: true}
+
+func (r *ClusterNodeConfigWorkloadMetadataConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterNodeConfigWorkloadMetadataConfig) String() string {
 	return dcl.SprintResource(r)
@@ -3997,6 +4261,10 @@ func (r *ClusterNodeConfigTaints) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodeConfigTaints *ClusterNodeConfigTaints = &ClusterNodeConfigTaints{empty: true}
 
+func (r *ClusterNodeConfigTaints) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterNodeConfigTaints) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4041,6 +4309,10 @@ func (r *ClusterNodeConfigSandboxConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodeConfigSandboxConfig *ClusterNodeConfigSandboxConfig = &ClusterNodeConfigSandboxConfig{empty: true}
+
+func (r *ClusterNodeConfigSandboxConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterNodeConfigSandboxConfig) String() string {
 	return dcl.SprintResource(r)
@@ -4090,6 +4362,10 @@ func (r *ClusterNodeConfigReservationAffinity) UnmarshalJSON(data []byte) error 
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodeConfigReservationAffinity *ClusterNodeConfigReservationAffinity = &ClusterNodeConfigReservationAffinity{empty: true}
 
+func (r *ClusterNodeConfigReservationAffinity) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterNodeConfigReservationAffinity) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4135,6 +4411,10 @@ func (r *ClusterNodeConfigShieldedInstanceConfig) UnmarshalJSON(data []byte) err
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodeConfigShieldedInstanceConfig *ClusterNodeConfigShieldedInstanceConfig = &ClusterNodeConfigShieldedInstanceConfig{empty: true}
 
+func (r *ClusterNodeConfigShieldedInstanceConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterNodeConfigShieldedInstanceConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4176,6 +4456,10 @@ func (r *ClusterNodeConfigLinuxNodeConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodeConfigLinuxNodeConfig *ClusterNodeConfigLinuxNodeConfig = &ClusterNodeConfigLinuxNodeConfig{empty: true}
+
+func (r *ClusterNodeConfigLinuxNodeConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterNodeConfigLinuxNodeConfig) String() string {
 	return dcl.SprintResource(r)
@@ -4225,6 +4509,10 @@ func (r *ClusterNodeConfigKubeletConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodeConfigKubeletConfig *ClusterNodeConfigKubeletConfig = &ClusterNodeConfigKubeletConfig{empty: true}
 
+func (r *ClusterNodeConfigKubeletConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterNodeConfigKubeletConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4267,6 +4555,10 @@ func (r *ClusterNodeConfigEphemeralStorageConfig) UnmarshalJSON(data []byte) err
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNodeConfigEphemeralStorageConfig *ClusterNodeConfigEphemeralStorageConfig = &ClusterNodeConfigEphemeralStorageConfig{empty: true}
 
+func (r *ClusterNodeConfigEphemeralStorageConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterNodeConfigEphemeralStorageConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4308,6 +4600,10 @@ func (r *ClusterReleaseChannel) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterReleaseChannel *ClusterReleaseChannel = &ClusterReleaseChannel{empty: true}
+
+func (r *ClusterReleaseChannel) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterReleaseChannel) String() string {
 	return dcl.SprintResource(r)
@@ -4357,6 +4653,10 @@ func (r *ClusterWorkloadIdentityConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterWorkloadIdentityConfig *ClusterWorkloadIdentityConfig = &ClusterWorkloadIdentityConfig{empty: true}
 
+func (r *ClusterWorkloadIdentityConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterWorkloadIdentityConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4398,6 +4698,10 @@ func (r *ClusterNotificationConfig) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNotificationConfig *ClusterNotificationConfig = &ClusterNotificationConfig{empty: true}
+
+func (r *ClusterNotificationConfig) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterNotificationConfig) String() string {
 	return dcl.SprintResource(r)
@@ -4444,6 +4748,10 @@ func (r *ClusterNotificationConfigPubsub) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterNotificationConfigPubsub *ClusterNotificationConfigPubsub = &ClusterNotificationConfigPubsub{empty: true}
 
+func (r *ClusterNotificationConfigPubsub) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterNotificationConfigPubsub) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4485,6 +4793,10 @@ func (r *ClusterConfidentialNodes) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterConfidentialNodes *ClusterConfidentialNodes = &ClusterConfidentialNodes{empty: true}
+
+func (r *ClusterConfidentialNodes) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterConfidentialNodes) String() string {
 	return dcl.SprintResource(r)
@@ -4528,6 +4840,10 @@ func (r *ClusterPodSecurityPolicyConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterPodSecurityPolicyConfig *ClusterPodSecurityPolicyConfig = &ClusterPodSecurityPolicyConfig{empty: true}
 
+func (r *ClusterPodSecurityPolicyConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterPodSecurityPolicyConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4569,6 +4885,10 @@ func (r *ClusterClusterTelemetry) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterClusterTelemetry *ClusterClusterTelemetry = &ClusterClusterTelemetry{empty: true}
+
+func (r *ClusterClusterTelemetry) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterClusterTelemetry) String() string {
 	return dcl.SprintResource(r)
@@ -4618,6 +4938,10 @@ func (r *ClusterTPUConfig) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterTPUConfig *ClusterTPUConfig = &ClusterTPUConfig{empty: true}
 
+func (r *ClusterTPUConfig) Empty() bool {
+	return r.empty
+}
+
 func (r *ClusterTPUConfig) String() string {
 	return dcl.SprintResource(r)
 }
@@ -4656,6 +4980,10 @@ func (r *ClusterMaster) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyClusterMaster *ClusterMaster = &ClusterMaster{empty: true}
+
+func (r *ClusterMaster) Empty() bool {
+	return r.empty
+}
 
 func (r *ClusterMaster) String() string {
 	return dcl.SprintResource(r)

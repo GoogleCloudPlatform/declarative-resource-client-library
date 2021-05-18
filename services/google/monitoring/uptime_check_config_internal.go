@@ -1878,6 +1878,10 @@ func flattenUptimeCheckConfigMonitoredResource(c *Client, i interface{}) *Uptime
 	}
 
 	r := &UptimeCheckConfigMonitoredResource{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUptimeCheckConfigMonitoredResource
+	}
 	r.Type = dcl.FlattenString(m["type"])
 	r.FilterLabels = dcl.FlattenKeyValuePairs(m["labels"])
 
@@ -1994,6 +1998,10 @@ func flattenUptimeCheckConfigResourceGroup(c *Client, i interface{}) *UptimeChec
 	}
 
 	r := &UptimeCheckConfigResourceGroup{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUptimeCheckConfigResourceGroup
+	}
 	r.GroupId = dcl.FlattenString(m["groupId"])
 	r.ResourceType = flattenUptimeCheckConfigResourceGroupResourceTypeEnum(m["resourceType"])
 
@@ -2134,6 +2142,10 @@ func flattenUptimeCheckConfigHttpCheck(c *Client, i interface{}) *UptimeCheckCon
 	}
 
 	r := &UptimeCheckConfigHttpCheck{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUptimeCheckConfigHttpCheck
+	}
 	r.RequestMethod = flattenUptimeCheckConfigHttpCheckRequestMethodEnum(m["requestMethod"])
 	if dcl.IsEmptyValueIndirect(m["requestMethod"]) {
 		c.Config.Logger.Info("Using default value for requestMethod.")
@@ -2264,6 +2276,10 @@ func flattenUptimeCheckConfigHttpCheckAuthInfo(c *Client, i interface{}) *Uptime
 	}
 
 	r := &UptimeCheckConfigHttpCheckAuthInfo{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUptimeCheckConfigHttpCheckAuthInfo
+	}
 	r.Username = dcl.FlattenString(m["username"])
 	r.Password = dcl.FlattenString(m["password"])
 
@@ -2375,6 +2391,10 @@ func flattenUptimeCheckConfigTcpCheck(c *Client, i interface{}) *UptimeCheckConf
 	}
 
 	r := &UptimeCheckConfigTcpCheck{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUptimeCheckConfigTcpCheck
+	}
 	r.Port = dcl.FlattenInteger(m["port"])
 
 	return r
@@ -2488,6 +2508,10 @@ func flattenUptimeCheckConfigContentMatchers(c *Client, i interface{}) *UptimeCh
 	}
 
 	r := &UptimeCheckConfigContentMatchers{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyUptimeCheckConfigContentMatchers
+	}
 	r.Content = dcl.FlattenString(m["content"])
 	r.Matcher = flattenUptimeCheckConfigContentMatchersMatcherEnum(m["matcher"])
 	if dcl.IsEmptyValueIndirect(m["matcher"]) {

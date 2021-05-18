@@ -101,6 +101,10 @@ func (r *AuthorizationPolicyRules) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyAuthorizationPolicyRules *AuthorizationPolicyRules = &AuthorizationPolicyRules{empty: true}
 
+func (r *AuthorizationPolicyRules) Empty() bool {
+	return r.empty
+}
+
 func (r *AuthorizationPolicyRules) String() string {
 	return dcl.SprintResource(r)
 }
@@ -145,6 +149,10 @@ func (r *AuthorizationPolicyRulesSources) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAuthorizationPolicyRulesSources *AuthorizationPolicyRulesSources = &AuthorizationPolicyRulesSources{empty: true}
+
+func (r *AuthorizationPolicyRulesSources) Empty() bool {
+	return r.empty
+}
 
 func (r *AuthorizationPolicyRulesSources) String() string {
 	return dcl.SprintResource(r)
@@ -200,6 +208,10 @@ func (r *AuthorizationPolicyRulesDestinations) UnmarshalJSON(data []byte) error 
 // as one.  Modifying this object will have undesirable results.
 var EmptyAuthorizationPolicyRulesDestinations *AuthorizationPolicyRulesDestinations = &AuthorizationPolicyRulesDestinations{empty: true}
 
+func (r *AuthorizationPolicyRulesDestinations) Empty() bool {
+	return r.empty
+}
+
 func (r *AuthorizationPolicyRulesDestinations) String() string {
 	return dcl.SprintResource(r)
 }
@@ -244,6 +256,10 @@ func (r *AuthorizationPolicyRulesDestinationsHttpHeaderMatch) UnmarshalJSON(data
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAuthorizationPolicyRulesDestinationsHttpHeaderMatch *AuthorizationPolicyRulesDestinationsHttpHeaderMatch = &AuthorizationPolicyRulesDestinationsHttpHeaderMatch{empty: true}
+
+func (r *AuthorizationPolicyRulesDestinationsHttpHeaderMatch) Empty() bool {
+	return r.empty
+}
 
 func (r *AuthorizationPolicyRulesDestinationsHttpHeaderMatch) String() string {
 	return dcl.SprintResource(r)

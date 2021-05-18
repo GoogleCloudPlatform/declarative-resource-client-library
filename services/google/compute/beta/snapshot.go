@@ -77,6 +77,10 @@ func (r *SnapshotSnapshotEncryptionKey) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptySnapshotSnapshotEncryptionKey *SnapshotSnapshotEncryptionKey = &SnapshotSnapshotEncryptionKey{empty: true}
 
+func (r *SnapshotSnapshotEncryptionKey) Empty() bool {
+	return r.empty
+}
+
 func (r *SnapshotSnapshotEncryptionKey) String() string {
 	return dcl.SprintResource(r)
 }
@@ -118,6 +122,10 @@ func (r *SnapshotSourceDiskEncryptionKey) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptySnapshotSourceDiskEncryptionKey *SnapshotSourceDiskEncryptionKey = &SnapshotSourceDiskEncryptionKey{empty: true}
+
+func (r *SnapshotSourceDiskEncryptionKey) Empty() bool {
+	return r.empty
+}
 
 func (r *SnapshotSourceDiskEncryptionKey) String() string {
 	return dcl.SprintResource(r)

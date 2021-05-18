@@ -1581,6 +1581,10 @@ func flattenFirewallLogConfig(c *Client, i interface{}) *FirewallLogConfig {
 	}
 
 	r := &FirewallLogConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFirewallLogConfig
+	}
 	r.Enable = dcl.FlattenBool(m["enable"])
 
 	return r
@@ -1697,6 +1701,10 @@ func flattenFirewallAllowed(c *Client, i interface{}) *FirewallAllowed {
 	}
 
 	r := &FirewallAllowed{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFirewallAllowed
+	}
 	r.IPProtocol = dcl.FlattenString(m["IPProtocol"])
 	r.Ports = dcl.FlattenStringSlice(m["ports"])
 	r.IPProtocolAlt = dcl.FlattenStringSlice(m["ipProtocolAlt"])
@@ -1815,6 +1823,10 @@ func flattenFirewallDenied(c *Client, i interface{}) *FirewallDenied {
 	}
 
 	r := &FirewallDenied{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFirewallDenied
+	}
 	r.IPProtocol = dcl.FlattenString(m["IPProtocol"])
 	r.Ports = dcl.FlattenStringSlice(m["ports"])
 	r.IPProtocolAlt = dcl.FlattenStringSlice(m["ipProtocolAlt"])

@@ -179,6 +179,10 @@ func (r *AccessLevelBasic) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyAccessLevelBasic *AccessLevelBasic = &AccessLevelBasic{empty: true}
 
+func (r *AccessLevelBasic) Empty() bool {
+	return r.empty
+}
+
 func (r *AccessLevelBasic) String() string {
 	return dcl.SprintResource(r)
 }
@@ -235,6 +239,10 @@ func (r *AccessLevelBasicConditions) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAccessLevelBasicConditions *AccessLevelBasicConditions = &AccessLevelBasicConditions{empty: true}
+
+func (r *AccessLevelBasicConditions) Empty() bool {
+	return r.empty
+}
 
 func (r *AccessLevelBasicConditions) String() string {
 	return dcl.SprintResource(r)
@@ -293,6 +301,10 @@ func (r *AccessLevelBasicConditionsDevicePolicy) UnmarshalJSON(data []byte) erro
 // as one.  Modifying this object will have undesirable results.
 var EmptyAccessLevelBasicConditionsDevicePolicy *AccessLevelBasicConditionsDevicePolicy = &AccessLevelBasicConditionsDevicePolicy{empty: true}
 
+func (r *AccessLevelBasicConditionsDevicePolicy) Empty() bool {
+	return r.empty
+}
+
 func (r *AccessLevelBasicConditionsDevicePolicy) String() string {
 	return dcl.SprintResource(r)
 }
@@ -340,6 +352,10 @@ func (r *AccessLevelBasicConditionsDevicePolicyOsConstraints) UnmarshalJSON(data
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyAccessLevelBasicConditionsDevicePolicyOsConstraints *AccessLevelBasicConditionsDevicePolicyOsConstraints = &AccessLevelBasicConditionsDevicePolicyOsConstraints{empty: true}
+
+func (r *AccessLevelBasicConditionsDevicePolicyOsConstraints) Empty() bool {
+	return r.empty
+}
 
 func (r *AccessLevelBasicConditionsDevicePolicyOsConstraints) String() string {
 	return dcl.SprintResource(r)

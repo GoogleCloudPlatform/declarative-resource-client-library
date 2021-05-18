@@ -1551,6 +1551,10 @@ func flattenSubnetworkSecondaryIPRanges(c *Client, i interface{}) *SubnetworkSec
 	}
 
 	r := &SubnetworkSecondaryIPRanges{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptySubnetworkSecondaryIPRanges
+	}
 	r.RangeName = dcl.FlattenString(m["rangeName"])
 	r.IPCidrRange = dcl.FlattenString(m["ipCidrRange"])
 
@@ -1668,6 +1672,10 @@ func flattenSubnetworkLogConfig(c *Client, i interface{}) *SubnetworkLogConfig {
 	}
 
 	r := &SubnetworkLogConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptySubnetworkLogConfig
+	}
 	r.AggregationInterval = flattenSubnetworkLogConfigAggregationIntervalEnum(m["aggregationInterval"])
 	if dcl.IsEmptyValueIndirect(m["aggregationInterval"]) {
 		c.Config.Logger.Info("Using default value for aggregationInterval.")

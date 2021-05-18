@@ -1020,6 +1020,10 @@ func flattenOAuthIdpConfigResponseType(c *Client, i interface{}) *OAuthIdpConfig
 	}
 
 	r := &OAuthIdpConfigResponseType{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyOAuthIdpConfigResponseType
+	}
 	r.IdToken = dcl.FlattenBool(m["idToken"])
 	r.Code = dcl.FlattenBool(m["code"])
 	r.Token = dcl.FlattenBool(m["token"])

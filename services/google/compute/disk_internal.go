@@ -2130,6 +2130,10 @@ func flattenDiskGuestOsFeature(c *Client, i interface{}) *DiskGuestOsFeature {
 	}
 
 	r := &DiskGuestOsFeature{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDiskGuestOsFeature
+	}
 	r.Type = flattenDiskGuestOsFeatureTypeEnum(m["type"])
 	r.TypeAlt = flattenDiskGuestOsFeatureTypeAltEnumSlice(c, m["typeAlt"])
 
@@ -2250,6 +2254,10 @@ func flattenDiskEncryptionKey(c *Client, i interface{}) *DiskEncryptionKey {
 	}
 
 	r := &DiskEncryptionKey{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDiskEncryptionKey
+	}
 	r.RawKey = dcl.FlattenSecretValue(m["rawKey"])
 	r.KmsKeyName = dcl.FlattenString(m["kmsKeyName"])
 	r.Sha256 = dcl.FlattenString(m["sha256"])
@@ -2366,6 +2374,10 @@ func flattenDiskGuestOsFeatures(c *Client, i interface{}) *DiskGuestOsFeatures {
 	}
 
 	r := &DiskGuestOsFeatures{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDiskGuestOsFeatures
+	}
 	r.Type = flattenDiskGuestOsFeaturesTypeEnum(m["type"])
 	r.TypeAlts = flattenDiskGuestOsFeaturesTypeAltsEnumSlice(c, m["typeAlts"])
 

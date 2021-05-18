@@ -1033,6 +1033,10 @@ func flattenVpnGatewayVpnInterface(c *Client, i interface{}) *VpnGatewayVpnInter
 	}
 
 	r := &VpnGatewayVpnInterface{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyVpnGatewayVpnInterface
+	}
 	r.Id = dcl.FlattenInteger(m["id"])
 	r.IPAddress = dcl.FlattenString(m["ipAddress"])
 

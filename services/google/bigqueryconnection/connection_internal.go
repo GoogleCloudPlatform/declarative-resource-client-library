@@ -1197,6 +1197,10 @@ func flattenConnectionCloudSql(c *Client, i interface{}) *ConnectionCloudSql {
 	}
 
 	r := &ConnectionCloudSql{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyConnectionCloudSql
+	}
 	r.InstanceId = dcl.FlattenString(m["instanceId"])
 	r.Database = dcl.FlattenString(m["database"])
 	r.Type = flattenConnectionCloudSqlTypeEnum(m["type"])
@@ -1313,6 +1317,10 @@ func flattenConnectionCloudSqlCredential(c *Client, i interface{}) *ConnectionCl
 	}
 
 	r := &ConnectionCloudSqlCredential{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyConnectionCloudSqlCredential
+	}
 	r.Username = dcl.FlattenString(m["username"])
 	r.Password = dcl.FlattenString(m["password"])
 

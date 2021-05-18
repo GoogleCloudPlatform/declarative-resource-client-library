@@ -992,6 +992,10 @@ func flattenNetworkRoutingConfig(c *Client, i interface{}) *NetworkRoutingConfig
 	}
 
 	r := &NetworkRoutingConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNetworkRoutingConfig
+	}
 	r.RoutingMode = flattenNetworkRoutingConfigRoutingModeEnum(m["routingMode"])
 
 	return r

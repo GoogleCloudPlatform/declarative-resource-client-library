@@ -1743,6 +1743,10 @@ func flattenKeyRestrictions(c *Client, i interface{}) *KeyRestrictions {
 	}
 
 	r := &KeyRestrictions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyKeyRestrictions
+	}
 	r.BrowserKeyRestrictions = flattenKeyRestrictionsBrowserKeyRestrictions(c, m["browserKeyRestrictions"])
 	r.ServerKeyRestrictions = flattenKeyRestrictionsServerKeyRestrictions(c, m["serverKeyRestrictions"])
 	r.AndroidKeyRestrictions = flattenKeyRestrictionsAndroidKeyRestrictions(c, m["androidKeyRestrictions"])
@@ -1857,6 +1861,10 @@ func flattenKeyRestrictionsBrowserKeyRestrictions(c *Client, i interface{}) *Key
 	}
 
 	r := &KeyRestrictionsBrowserKeyRestrictions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyKeyRestrictionsBrowserKeyRestrictions
+	}
 	r.AllowedReferrers = dcl.FlattenStringSlice(m["allowedReferrers"])
 
 	return r
@@ -1967,6 +1975,10 @@ func flattenKeyRestrictionsServerKeyRestrictions(c *Client, i interface{}) *KeyR
 	}
 
 	r := &KeyRestrictionsServerKeyRestrictions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyKeyRestrictionsServerKeyRestrictions
+	}
 	r.AllowedIps = dcl.FlattenStringSlice(m["allowedIps"])
 
 	return r
@@ -2079,6 +2091,10 @@ func flattenKeyRestrictionsAndroidKeyRestrictions(c *Client, i interface{}) *Key
 	}
 
 	r := &KeyRestrictionsAndroidKeyRestrictions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyKeyRestrictionsAndroidKeyRestrictions
+	}
 	r.AllowedApplications = flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsSlice(c, m["allowedApplications"])
 
 	return r
@@ -2192,6 +2208,10 @@ func flattenKeyRestrictionsAndroidKeyRestrictionsAllowedApplications(c *Client, 
 	}
 
 	r := &KeyRestrictionsAndroidKeyRestrictionsAllowedApplications{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyKeyRestrictionsAndroidKeyRestrictionsAllowedApplications
+	}
 	r.Sha1Fingerprint = dcl.FlattenString(m["sha1Fingerprint"])
 	r.PackageName = dcl.FlattenString(m["packageName"])
 
@@ -2303,6 +2323,10 @@ func flattenKeyRestrictionsIosKeyRestrictions(c *Client, i interface{}) *KeyRest
 	}
 
 	r := &KeyRestrictionsIosKeyRestrictions{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyKeyRestrictionsIosKeyRestrictions
+	}
 	r.AllowedBundleIds = dcl.FlattenStringSlice(m["allowedBundleIds"])
 
 	return r
@@ -2416,6 +2440,10 @@ func flattenKeyRestrictionsApiTargets(c *Client, i interface{}) *KeyRestrictions
 	}
 
 	r := &KeyRestrictionsApiTargets{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyKeyRestrictionsApiTargets
+	}
 	r.Service = dcl.FlattenString(m["service"])
 	r.Methods = dcl.FlattenStringSlice(m["methods"])
 

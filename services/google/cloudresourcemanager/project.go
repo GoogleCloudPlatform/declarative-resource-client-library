@@ -98,6 +98,10 @@ func (r *ProjectParent) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyProjectParent *ProjectParent = &ProjectParent{empty: true}
 
+func (r *ProjectParent) Empty() bool {
+	return r.empty
+}
+
 func (r *ProjectParent) String() string {
 	return dcl.SprintResource(r)
 }

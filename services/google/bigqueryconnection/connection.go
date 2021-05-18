@@ -107,6 +107,10 @@ func (r *ConnectionCloudSql) UnmarshalJSON(data []byte) error {
 // as one.  Modifying this object will have undesirable results.
 var EmptyConnectionCloudSql *ConnectionCloudSql = &ConnectionCloudSql{empty: true}
 
+func (r *ConnectionCloudSql) Empty() bool {
+	return r.empty
+}
+
 func (r *ConnectionCloudSql) String() string {
 	return dcl.SprintResource(r)
 }
@@ -151,6 +155,10 @@ func (r *ConnectionCloudSqlCredential) UnmarshalJSON(data []byte) error {
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
 var EmptyConnectionCloudSqlCredential *ConnectionCloudSqlCredential = &ConnectionCloudSqlCredential{empty: true}
+
+func (r *ConnectionCloudSqlCredential) Empty() bool {
+	return r.empty
+}
 
 func (r *ConnectionCloudSqlCredential) String() string {
 	return dcl.SprintResource(r)
