@@ -146,18 +146,7 @@ func Diff(desired, actual interface{}, info Info, fn FieldName) ([]*FieldDiff, e
 		return diffs, nil
 	}
 
-	if info.Type == "ReferenceType" {
-		dStr, aStr, err := strs(desired, actual)
-		if err != nil {
-			return nil, err
-		}
-		if !StringEqualsWithSelfLink(dStr, aStr) {
-			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: dStr, Actual: aStr})
-			addOperationToDiffs(diffs, info)
-			return diffs, nil
-		}
-		return nil, nil
-	} else if info.Type == "EnumType" {
+	if info.Type == "EnumType" {
 		if !reflect.DeepEqual(desired, actual) {
 			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: desired, Actual: actual})
 			addOperationToDiffs(diffs, info)
@@ -183,8 +172,15 @@ func Diff(desired, actual interface{}, info Info, fn FieldName) ([]*FieldDiff, e
 		if err != nil {
 			return nil, err
 		}
-		if !StringCanonicalize(dStr, aStr) {
-			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: dStr, Actual: aStr})
+
+		if info.Type == "ReferenceType" {
+			if !StringEqualsWithSelfLink(dStr, aStr) {
+				diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: dStr, Actual: aStr})
+			}
+		} else {
+			if !StringCanonicalize(dStr, aStr) {
+				diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: dStr, Actual: aStr})
+			}
 		}
 
 	case "map":

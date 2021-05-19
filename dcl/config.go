@@ -15,6 +15,7 @@ package dcl
 
 import (
 	"fmt"
+	"math/rand"
 	"net/http"
 	"net/http/httputil"
 	"time"
@@ -101,21 +102,22 @@ type loggingTransport struct {
 
 func (t loggingTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	reqDump, err := httputil.DumpRequestOut(req, true)
+	randString := randomString(5)
 	if err == nil {
-		t.logger.Infof("Google API Request:\n-----------[REQUEST]----------\n%s\n-------[END REQUEST]--------", reqDump)
+		t.logger.Infof("Google API Request: (id %s)\n-----------[REQUEST]----------\n%s\n-------[END REQUEST]--------", randString, reqDump)
 	} else {
-		t.logger.Warningf("Failed to make request: %s", err)
+		t.logger.Warningf("Failed to make request (id %s): %s", randString, err)
 	}
 	resp, err := t.underlyingTransport.RoundTrip(req)
 	if err == nil {
 		respDump, err := httputil.DumpResponse(resp, true)
 		if err == nil {
-			t.logger.Infof("Google API Response:\n-----------[RESPONSE]----------\n%s\n-------[END RESPONSE]--------", respDump)
+			t.logger.Infof("Google API Response: (id %s) \n-----------[RESPONSE]----------\n%s\n-------[END RESPONSE]--------", randString, respDump)
 		} else {
-			t.logger.Warningf("Failed to parse response: %s", err)
+			t.logger.Warningf("Failed to parse response (id %s): %s", randString, err)
 		}
 	} else {
-		t.logger.Warningf("Failed to get response: %s", err)
+		t.logger.Warningf("Failed to get response (id %s): %s", randString, err)
 	}
 	return resp, err
 }
@@ -345,4 +347,16 @@ func (l glogger) Warningf(format string, args ...interface{}) {
 // Warning records Warning errors.
 func (l glogger) Warning(args ...interface{}) {
 	glog.Warning(args...)
+}
+
+func randomString(length int) string {
+	charset := "abcdefghijklmnoqrstuvwxyz0123456789"
+	var seededRand *rand.Rand = rand.New(
+		rand.NewSource(time.Now().UnixNano()))
+
+	b := make([]byte, length)
+	for i := range b {
+		b[i] = charset[seededRand.Intn(len(charset))]
+	}
+	return string(b)
 }
