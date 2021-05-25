@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -36,33 +37,6 @@ type Feature struct {
 
 func (r *Feature) String() string {
 	return dcl.SprintResource(r)
-}
-
-// The enum FeatureSpecMulticlusteringressBillingEnum.
-type FeatureSpecMulticlusteringressBillingEnum string
-
-// FeatureSpecMulticlusteringressBillingEnumRef returns a *FeatureSpecMulticlusteringressBillingEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func FeatureSpecMulticlusteringressBillingEnumRef(s string) *FeatureSpecMulticlusteringressBillingEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := FeatureSpecMulticlusteringressBillingEnum(s)
-	return &v
-}
-
-func (v FeatureSpecMulticlusteringressBillingEnum) Validate() error {
-	for _, s := range []string{"BILLING_UNSPECIFIED", "PAY_AS_YOU_GO", "ANTHOS_LICENSE"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "FeatureSpecMulticlusteringressBillingEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
 }
 
 type FeatureSpec struct {
@@ -112,9 +86,8 @@ func (r *FeatureSpec) HashCode() string {
 }
 
 type FeatureSpecMulticlusteringress struct {
-	empty            bool                                       `json:"-"`
-	ConfigMembership *string                                    `json:"configMembership"`
-	Billing          *FeatureSpecMulticlusteringressBillingEnum `json:"billing"`
+	empty            bool    `json:"-"`
+	ConfigMembership *string `json:"configMembership"`
 }
 
 type jsonFeatureSpecMulticlusteringress FeatureSpecMulticlusteringress
@@ -133,8 +106,6 @@ func (r *FeatureSpecMulticlusteringress) UnmarshalJSON(data []byte) error {
 	} else {
 
 		r.ConfigMembership = res.ConfigMembership
-
-		r.Billing = res.Billing
 
 	}
 	return nil
@@ -189,7 +160,7 @@ func (l *FeatureList) HasNext() bool {
 }
 
 func (l *FeatureList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -205,7 +176,7 @@ func (l *FeatureList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListFeature(ctx context.Context, project, location string) (*FeatureList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListFeatureWithMaxResults(ctx, project, location, FeatureMaxPage)
@@ -213,7 +184,7 @@ func (c *Client) ListFeature(ctx context.Context, project, location string) (*Fe
 }
 
 func (c *Client) ListFeatureWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*FeatureList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listFeature(ctx, project, location, "", pageSize)
@@ -232,7 +203,7 @@ func (c *Client) ListFeatureWithMaxResults(ctx context.Context, project, locatio
 }
 
 func (c *Client) GetFeature(ctx context.Context, r *Feature) (*Feature, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getFeatureRaw(ctx, r)
@@ -265,7 +236,7 @@ func (c *Client) GetFeature(ctx context.Context, r *Feature) (*Feature, error) {
 }
 
 func (c *Client) DeleteFeature(ctx context.Context, r *Feature) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -278,9 +249,6 @@ func (c *Client) DeleteFeature(ctx context.Context, r *Feature) error {
 
 // DeleteAllFeature deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllFeature(ctx context.Context, project, location string, filter func(*Feature) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListFeature(ctx, project, location)
 	if err != nil {
 		return err
@@ -304,10 +272,29 @@ func (c *Client) DeleteAllFeature(ctx context.Context, project, location string,
 }
 
 func (c *Client) ApplyFeature(ctx context.Context, rawDesired *Feature, opts ...dcl.ApplyOption) (*Feature, error) {
+
+	var resultNewState *Feature
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyFeatureHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyFeatureHelper(c *Client, ctx context.Context, rawDesired *Feature, opts ...dcl.ApplyOption) (*Feature, error) {
 	c.Config.Logger.Info("Beginning ApplyFeature...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

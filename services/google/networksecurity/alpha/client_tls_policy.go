@@ -19,6 +19,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -407,7 +408,7 @@ func (l *ClientTlsPolicyList) HasNext() bool {
 }
 
 func (l *ClientTlsPolicyList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -423,7 +424,7 @@ func (l *ClientTlsPolicyList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListClientTlsPolicy(ctx context.Context, project, location string) (*ClientTlsPolicyList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListClientTlsPolicyWithMaxResults(ctx, project, location, ClientTlsPolicyMaxPage)
@@ -431,7 +432,7 @@ func (c *Client) ListClientTlsPolicy(ctx context.Context, project, location stri
 }
 
 func (c *Client) ListClientTlsPolicyWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*ClientTlsPolicyList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listClientTlsPolicy(ctx, project, location, "", pageSize)
@@ -450,7 +451,7 @@ func (c *Client) ListClientTlsPolicyWithMaxResults(ctx context.Context, project,
 }
 
 func (c *Client) GetClientTlsPolicy(ctx context.Context, r *ClientTlsPolicy) (*ClientTlsPolicy, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getClientTlsPolicyRaw(ctx, r)
@@ -483,7 +484,7 @@ func (c *Client) GetClientTlsPolicy(ctx context.Context, r *ClientTlsPolicy) (*C
 }
 
 func (c *Client) DeleteClientTlsPolicy(ctx context.Context, r *ClientTlsPolicy) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -496,9 +497,6 @@ func (c *Client) DeleteClientTlsPolicy(ctx context.Context, r *ClientTlsPolicy) 
 
 // DeleteAllClientTlsPolicy deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllClientTlsPolicy(ctx context.Context, project, location string, filter func(*ClientTlsPolicy) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListClientTlsPolicy(ctx, project, location)
 	if err != nil {
 		return err
@@ -522,10 +520,29 @@ func (c *Client) DeleteAllClientTlsPolicy(ctx context.Context, project, location
 }
 
 func (c *Client) ApplyClientTlsPolicy(ctx context.Context, rawDesired *ClientTlsPolicy, opts ...dcl.ApplyOption) (*ClientTlsPolicy, error) {
+
+	var resultNewState *ClientTlsPolicy
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyClientTlsPolicyHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyClientTlsPolicyHelper(c *Client, ctx context.Context, rawDesired *ClientTlsPolicy, opts ...dcl.ApplyOption) (*ClientTlsPolicy, error) {
 	c.Config.Logger.Info("Beginning ApplyClientTlsPolicy...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

@@ -18,13 +18,6 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
-enum GkehubBetaFeatureSpecMulticlusteringressBillingEnum {
-  GkehubBetaFeatureSpecMulticlusteringressBillingEnumNO_VALUE_DO_NOT_USE = 0;
-  GkehubBetaFeatureSpecMulticlusteringressBillingEnumBILLING_UNSPECIFIED = 1;
-  GkehubBetaFeatureSpecMulticlusteringressBillingEnumPAY_AS_YOU_GO = 2;
-  GkehubBetaFeatureSpecMulticlusteringressBillingEnumANTHOS_LICENSE = 3;
-}
-
 message GkehubBetaFeature {
   string name = 1;
   map<string, string> labels = 2;
@@ -42,7 +35,6 @@ message GkehubBetaFeatureSpec {
 
 message GkehubBetaFeatureSpecMulticlusteringress {
   string config_membership = 1;
-  GkehubBetaFeatureSpecMulticlusteringressBillingEnum billing = 2;
 }
 
 message ApplyGkehubBetaFeatureRequest {

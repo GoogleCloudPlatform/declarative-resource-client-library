@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -693,7 +694,7 @@ func (l *RouterList) HasNext() bool {
 }
 
 func (l *RouterList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -709,7 +710,7 @@ func (l *RouterList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListRouter(ctx context.Context, project, region string) (*RouterList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListRouterWithMaxResults(ctx, project, region, RouterMaxPage)
@@ -717,7 +718,7 @@ func (c *Client) ListRouter(ctx context.Context, project, region string) (*Route
 }
 
 func (c *Client) ListRouterWithMaxResults(ctx context.Context, project, region string, pageSize int32) (*RouterList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listRouter(ctx, project, region, "", pageSize)
@@ -736,7 +737,7 @@ func (c *Client) ListRouterWithMaxResults(ctx context.Context, project, region s
 }
 
 func (c *Client) GetRouter(ctx context.Context, r *Router) (*Router, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getRouterRaw(ctx, r)
@@ -769,7 +770,7 @@ func (c *Client) GetRouter(ctx context.Context, r *Router) (*Router, error) {
 }
 
 func (c *Client) DeleteRouter(ctx context.Context, r *Router) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -782,9 +783,6 @@ func (c *Client) DeleteRouter(ctx context.Context, r *Router) error {
 
 // DeleteAllRouter deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllRouter(ctx context.Context, project, region string, filter func(*Router) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListRouter(ctx, project, region)
 	if err != nil {
 		return err
@@ -808,10 +806,29 @@ func (c *Client) DeleteAllRouter(ctx context.Context, project, region string, fi
 }
 
 func (c *Client) ApplyRouter(ctx context.Context, rawDesired *Router, opts ...dcl.ApplyOption) (*Router, error) {
+
+	var resultNewState *Router
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyRouterHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyRouterHelper(c *Client, ctx context.Context, rawDesired *Router, opts ...dcl.ApplyOption) (*Router, error) {
 	c.Config.Logger.Info("Beginning ApplyRouter...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

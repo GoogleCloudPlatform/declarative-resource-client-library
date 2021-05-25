@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -253,7 +254,7 @@ func (l *FirewallList) HasNext() bool {
 }
 
 func (l *FirewallList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -269,7 +270,7 @@ func (l *FirewallList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListFirewall(ctx context.Context, project string) (*FirewallList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListFirewallWithMaxResults(ctx, project, FirewallMaxPage)
@@ -277,7 +278,7 @@ func (c *Client) ListFirewall(ctx context.Context, project string) (*FirewallLis
 }
 
 func (c *Client) ListFirewallWithMaxResults(ctx context.Context, project string, pageSize int32) (*FirewallList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listFirewall(ctx, project, "", pageSize)
@@ -294,7 +295,7 @@ func (c *Client) ListFirewallWithMaxResults(ctx context.Context, project string,
 }
 
 func (c *Client) GetFirewall(ctx context.Context, r *Firewall) (*Firewall, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getFirewallRaw(ctx, r)
@@ -329,7 +330,7 @@ func (c *Client) GetFirewall(ctx context.Context, r *Firewall) (*Firewall, error
 }
 
 func (c *Client) DeleteFirewall(ctx context.Context, r *Firewall) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -342,9 +343,6 @@ func (c *Client) DeleteFirewall(ctx context.Context, r *Firewall) error {
 
 // DeleteAllFirewall deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllFirewall(ctx context.Context, project string, filter func(*Firewall) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListFirewall(ctx, project)
 	if err != nil {
 		return err
@@ -368,10 +366,29 @@ func (c *Client) DeleteAllFirewall(ctx context.Context, project string, filter f
 }
 
 func (c *Client) ApplyFirewall(ctx context.Context, rawDesired *Firewall, opts ...dcl.ApplyOption) (*Firewall, error) {
+
+	var resultNewState *Firewall
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyFirewallHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyFirewallHelper(c *Client, ctx context.Context, rawDesired *Firewall, opts ...dcl.ApplyOption) (*Firewall, error) {
 	c.Config.Logger.Info("Beginning ApplyFirewall...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

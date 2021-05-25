@@ -11,79 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    ResourceRecordSet:
-      properties:
-        dnsName:
-          description: For example, www.example.com.
-          type: string
-          x-dcl-go-name: DnsName
-        dnsType:
-          description: One of valid DNS resource types.
-          type: string
-          x-dcl-go-name: DnsType
-        managedZone:
-          description: 'Identifies the managed zone addressed by this request. '
-          type: string
-          x-dcl-go-name: ManagedZone
-          x-dcl-references:
-          - field: name
-            resource: Dns/ManagedZone
-          x-kubernetes-immutable: true
-        project:
-          description: The project id of the resource.
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        target:
-          description: 'As defined in RFC 1035 (section 5) and RFC 1034 (section 3.6.1) '
-          items:
-            type: string
-            x-dcl-go-type: string
-          type: array
-          x-dcl-go-name: Target
-          x-dcl-list-type: list
-        ttl:
-          description: 'Number of seconds that this ResourceRecordSet can be cached
-            by resolvers. '
-          format: int64
-          type: integer
-          x-dcl-go-name: Ttl
-      required:
-      - dnsName
-      - dnsType
-      - ttl
-      - target
-      - managedZone
-      - project
-      title: ResourceRecordSet
-      type: object
-      x-dcl-id: projects/{{project}}/managedZones/{{managed_zone}}/rrsets?name={{dns_name}}&type={{dns_type}}
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: true
 info:
-  description: DCL Specification for the Dns ResourceRecordSet resource
   title: Dns/ResourceRecordSet
+  description: DCL Specification for the Dns ResourceRecordSet resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a ResourceRecordSet
+    parameters:
+    - name: ResourceRecordSet
+      required: true
+      description: A full instance of a ResourceRecordSet
   apply:
     description: The function used to apply information about a ResourceRecordSet
     parameters:
-    - description: A full instance of a ResourceRecordSet
-      name: ResourceRecordSet
+    - name: ResourceRecordSet
       required: true
+      description: A full instance of a ResourceRecordSet
   delete:
     description: The function used to delete a ResourceRecordSet
     parameters:
-    - description: A full instance of a ResourceRecordSet
-      name: ResourceRecordSet
+    - name: ResourceRecordSet
       required: true
+      description: A full instance of a ResourceRecordSet
   deleteAll:
     description: The function used to delete all ResourceRecordSet
     parameters:
@@ -95,12 +45,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a ResourceRecordSet
-    parameters:
-    - description: A full instance of a ResourceRecordSet
-      name: ResourceRecordSet
-      required: true
   list:
     description: The function used to list information about many ResourceRecordSet
     parameters:
@@ -112,3 +56,58 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    ResourceRecordSet:
+      title: ResourceRecordSet
+      x-dcl-id: projects/{{project}}/managedZones/{{managed_zone}}/rrsets?name={{dns_name}}&type={{dns_type}}
+      x-dcl-uses-state-hint: true
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - dnsName
+      - dnsType
+      - ttl
+      - target
+      - managedZone
+      - project
+      properties:
+        dnsName:
+          type: string
+          x-dcl-go-name: DnsName
+          description: For example, www.example.com.
+        dnsType:
+          type: string
+          x-dcl-go-name: DnsType
+          description: One of valid DNS resource types.
+        managedZone:
+          type: string
+          x-dcl-go-name: ManagedZone
+          description: 'Identifies the managed zone addressed by this request. '
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Dns/ManagedZone
+            field: name
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project id of the resource.
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        target:
+          type: array
+          x-dcl-go-name: Target
+          description: 'As defined in RFC 1035 (section 5) and RFC 1034 (section 3.6.1) '
+          x-dcl-list-type: list
+          items:
+            type: string
+            x-dcl-go-type: string
+        ttl:
+          type: integer
+          format: int64
+          x-dcl-go-name: Ttl
+          description: 'Number of seconds that this ResourceRecordSet can be cached
+            by resolvers. '

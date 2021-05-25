@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -363,7 +364,7 @@ func (l *EndpointConfigSelectorList) HasNext() bool {
 }
 
 func (l *EndpointConfigSelectorList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -379,7 +380,7 @@ func (l *EndpointConfigSelectorList) Next(ctx context.Context, c *Client) error 
 }
 
 func (c *Client) ListEndpointConfigSelector(ctx context.Context, project, location string) (*EndpointConfigSelectorList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListEndpointConfigSelectorWithMaxResults(ctx, project, location, EndpointConfigSelectorMaxPage)
@@ -387,7 +388,7 @@ func (c *Client) ListEndpointConfigSelector(ctx context.Context, project, locati
 }
 
 func (c *Client) ListEndpointConfigSelectorWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*EndpointConfigSelectorList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listEndpointConfigSelector(ctx, project, location, "", pageSize)
@@ -406,7 +407,7 @@ func (c *Client) ListEndpointConfigSelectorWithMaxResults(ctx context.Context, p
 }
 
 func (c *Client) GetEndpointConfigSelector(ctx context.Context, r *EndpointConfigSelector) (*EndpointConfigSelector, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getEndpointConfigSelectorRaw(ctx, r)
@@ -439,7 +440,7 @@ func (c *Client) GetEndpointConfigSelector(ctx context.Context, r *EndpointConfi
 }
 
 func (c *Client) DeleteEndpointConfigSelector(ctx context.Context, r *EndpointConfigSelector) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -452,9 +453,6 @@ func (c *Client) DeleteEndpointConfigSelector(ctx context.Context, r *EndpointCo
 
 // DeleteAllEndpointConfigSelector deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllEndpointConfigSelector(ctx context.Context, project, location string, filter func(*EndpointConfigSelector) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListEndpointConfigSelector(ctx, project, location)
 	if err != nil {
 		return err
@@ -478,10 +476,29 @@ func (c *Client) DeleteAllEndpointConfigSelector(ctx context.Context, project, l
 }
 
 func (c *Client) ApplyEndpointConfigSelector(ctx context.Context, rawDesired *EndpointConfigSelector, opts ...dcl.ApplyOption) (*EndpointConfigSelector, error) {
+
+	var resultNewState *EndpointConfigSelector
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyEndpointConfigSelectorHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyEndpointConfigSelectorHelper(c *Client, ctx context.Context, rawDesired *EndpointConfigSelector, opts ...dcl.ApplyOption) (*EndpointConfigSelector, error) {
 	c.Config.Logger.Info("Beginning ApplyEndpointConfigSelector...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

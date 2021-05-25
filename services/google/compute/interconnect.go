@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -386,7 +387,7 @@ func (l *InterconnectList) HasNext() bool {
 }
 
 func (l *InterconnectList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -402,7 +403,7 @@ func (l *InterconnectList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListInterconnect(ctx context.Context, project string) (*InterconnectList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListInterconnectWithMaxResults(ctx, project, InterconnectMaxPage)
@@ -410,7 +411,7 @@ func (c *Client) ListInterconnect(ctx context.Context, project string) (*Interco
 }
 
 func (c *Client) ListInterconnectWithMaxResults(ctx context.Context, project string, pageSize int32) (*InterconnectList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listInterconnect(ctx, project, "", pageSize)
@@ -427,7 +428,7 @@ func (c *Client) ListInterconnectWithMaxResults(ctx context.Context, project str
 }
 
 func (c *Client) GetInterconnect(ctx context.Context, r *Interconnect) (*Interconnect, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getInterconnectRaw(ctx, r)
@@ -459,7 +460,7 @@ func (c *Client) GetInterconnect(ctx context.Context, r *Interconnect) (*Interco
 }
 
 func (c *Client) DeleteInterconnect(ctx context.Context, r *Interconnect) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -472,9 +473,6 @@ func (c *Client) DeleteInterconnect(ctx context.Context, r *Interconnect) error 
 
 // DeleteAllInterconnect deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllInterconnect(ctx context.Context, project string, filter func(*Interconnect) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListInterconnect(ctx, project)
 	if err != nil {
 		return err
@@ -498,10 +496,29 @@ func (c *Client) DeleteAllInterconnect(ctx context.Context, project string, filt
 }
 
 func (c *Client) ApplyInterconnect(ctx context.Context, rawDesired *Interconnect, opts ...dcl.ApplyOption) (*Interconnect, error) {
+
+	var resultNewState *Interconnect
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyInterconnectHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyInterconnectHelper(c *Client, ctx context.Context, rawDesired *Interconnect, opts ...dcl.ApplyOption) (*Interconnect, error) {
 	c.Config.Logger.Info("Beginning ApplyInterconnect...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

@@ -16,6 +16,7 @@ package dns
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -62,7 +63,7 @@ func (l *ResourceRecordSetList) HasNext() bool {
 }
 
 func (l *ResourceRecordSetList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -78,7 +79,7 @@ func (l *ResourceRecordSetList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListResourceRecordSet(ctx context.Context, project, managedZone string) (*ResourceRecordSetList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListResourceRecordSetWithMaxResults(ctx, project, managedZone, ResourceRecordSetMaxPage)
@@ -86,7 +87,7 @@ func (c *Client) ListResourceRecordSet(ctx context.Context, project, managedZone
 }
 
 func (c *Client) ListResourceRecordSetWithMaxResults(ctx context.Context, project, managedZone string, pageSize int32) (*ResourceRecordSetList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listResourceRecordSet(ctx, project, managedZone, "", pageSize)
@@ -105,7 +106,7 @@ func (c *Client) ListResourceRecordSetWithMaxResults(ctx context.Context, projec
 }
 
 func (c *Client) DeleteResourceRecordSet(ctx context.Context, r *ResourceRecordSet) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -118,9 +119,6 @@ func (c *Client) DeleteResourceRecordSet(ctx context.Context, r *ResourceRecordS
 
 // DeleteAllResourceRecordSet deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllResourceRecordSet(ctx context.Context, project, managedZone string, filter func(*ResourceRecordSet) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListResourceRecordSet(ctx, project, managedZone)
 	if err != nil {
 		return err
@@ -144,10 +142,29 @@ func (c *Client) DeleteAllResourceRecordSet(ctx context.Context, project, manage
 }
 
 func (c *Client) ApplyResourceRecordSet(ctx context.Context, rawDesired *ResourceRecordSet, opts ...dcl.ApplyOption) (*ResourceRecordSet, error) {
+
+	var resultNewState *ResourceRecordSet
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyResourceRecordSetHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyResourceRecordSetHelper(c *Client, ctx context.Context, rawDesired *ResourceRecordSet, opts ...dcl.ApplyOption) (*ResourceRecordSet, error) {
 	c.Config.Logger.Info("Beginning ApplyResourceRecordSet...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

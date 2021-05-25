@@ -1889,7 +1889,7 @@ func instanceGetURL(userBasePath string, r *Instance) (string, error) {
 		"location": dcl.ValueOrEmptyString(r.Location),
 		"name":     dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/instances/{{name}}", "https://arcus2tier2.sandbox.googleapis.com/v1alpha2/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/instances/{{name}}", "https://arcus2tier2.sandbox.googleapis.com/v1alpha1/", userBasePath, params), nil
 }
 
 func instanceListURL(userBasePath, project, location string) (string, error) {
@@ -1897,7 +1897,7 @@ func instanceListURL(userBasePath, project, location string) (string, error) {
 		"project":  project,
 		"location": location,
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/instances", "https://arcus2tier2.sandbox.googleapis.com/v1alpha2/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/instances", "https://arcus2tier2.sandbox.googleapis.com/v1alpha1/", userBasePath, params), nil
 
 }
 
@@ -1907,7 +1907,7 @@ func instanceCreateURL(userBasePath, project, location, name string) (string, er
 		"location": location,
 		"name":     name,
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/instances?instanceId={{name}}", "https://arcus2tier2.sandbox.googleapis.com/v1alpha2/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/instances?instanceId={{name}}", "https://arcus2tier2.sandbox.googleapis.com/v1alpha1/", userBasePath, params), nil
 
 }
 
@@ -1917,7 +1917,7 @@ func instanceDeleteURL(userBasePath string, r *Instance) (string, error) {
 		"location": dcl.ValueOrEmptyString(r.Location),
 		"name":     dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/instances/{{name}}", "https://arcus2tier2.sandbox.googleapis.com/v1alpha2/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/instances/{{name}}", "https://arcus2tier2.sandbox.googleapis.com/v1alpha1/", userBasePath, params), nil
 }
 
 // instanceApiOperation represents a mutable operation in the underlying REST
@@ -2169,7 +2169,7 @@ func (op *updateInstanceUpdateInstanceOperation) do(ctx context.Context, r *Inst
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	err = o.Wait(ctx, c.Config, "https://arcus2tier2.sandbox.googleapis.com/v1alpha2/", "GET")
+	err = o.Wait(ctx, c.Config, "https://arcus2tier2.sandbox.googleapis.com/v1alpha1/", "GET")
 
 	if err != nil {
 		return err
@@ -2282,7 +2282,7 @@ func (op *deleteInstanceOperation) do(ctx context.Context, r *Instance, c *Clien
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://arcus2tier2.sandbox.googleapis.com/v1alpha2/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, "https://arcus2tier2.sandbox.googleapis.com/v1alpha1/", "GET"); err != nil {
 		return err
 	}
 
@@ -2337,7 +2337,7 @@ func (op *createInstanceOperation) do(ctx context.Context, r *Instance, c *Clien
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://arcus2tier2.sandbox.googleapis.com/v1alpha2/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, "https://arcus2tier2.sandbox.googleapis.com/v1alpha1/", "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
@@ -2957,7 +2957,7 @@ func canonicalizeNewInstanceReferences(c *Client, des, nw *InstanceReferences) *
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) {
+	if dcl.IsZeroValue(nw.Name) {
 		nw.Name = des.Name
 	}
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
@@ -30603,7 +30603,7 @@ func compareInstanceReferencesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -45749,7 +45749,7 @@ func (r *Instance) updateURL(userBasePath, updateName string) (string, error) {
 			"location": dcl.ValueOrEmptyString(n.Location),
 			"name":     dcl.ValueOrEmptyString(n.Name),
 		}
-		return dcl.URL("projects/{{project}}/locations/{{location}}/instances/{{name}}", "https://arcus2tier2.sandbox.googleapis.com/v1alpha2/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/locations/{{location}}/instances/{{name}}", "https://arcus2tier2.sandbox.googleapis.com/v1alpha1/", userBasePath, fields), nil
 
 	}
 	return "", fmt.Errorf("unknown update name: %s", updateName)
@@ -46299,7 +46299,7 @@ func flattenInstanceReferences(c *Client, i interface{}) *InstanceReferences {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyInstanceReferences
 	}
-	r.Name = dcl.FlattenString(m["name"])
+	r.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
 	r.Type = dcl.FlattenString(m["type"])
 	r.SourceResource = dcl.FlattenString(m["sourceResource"])
 	r.Details = flattenInstanceReferencesDetailsSlice(c, m["details"])

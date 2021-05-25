@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -953,7 +954,7 @@ func (l *ImageList) HasNext() bool {
 }
 
 func (l *ImageList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -969,7 +970,7 @@ func (l *ImageList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListImage(ctx context.Context, project string) (*ImageList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListImageWithMaxResults(ctx, project, ImageMaxPage)
@@ -977,7 +978,7 @@ func (c *Client) ListImage(ctx context.Context, project string) (*ImageList, err
 }
 
 func (c *Client) ListImageWithMaxResults(ctx context.Context, project string, pageSize int32) (*ImageList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listImage(ctx, project, "", pageSize)
@@ -994,7 +995,7 @@ func (c *Client) ListImageWithMaxResults(ctx context.Context, project string, pa
 }
 
 func (c *Client) GetImage(ctx context.Context, r *Image) (*Image, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getImageRaw(ctx, r)
@@ -1026,7 +1027,7 @@ func (c *Client) GetImage(ctx context.Context, r *Image) (*Image, error) {
 }
 
 func (c *Client) DeleteImage(ctx context.Context, r *Image) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -1039,9 +1040,6 @@ func (c *Client) DeleteImage(ctx context.Context, r *Image) error {
 
 // DeleteAllImage deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllImage(ctx context.Context, project string, filter func(*Image) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListImage(ctx, project)
 	if err != nil {
 		return err
@@ -1065,10 +1063,29 @@ func (c *Client) DeleteAllImage(ctx context.Context, project string, filter func
 }
 
 func (c *Client) ApplyImage(ctx context.Context, rawDesired *Image, opts ...dcl.ApplyOption) (*Image, error) {
+
+	var resultNewState *Image
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyImageHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyImageHelper(c *Client, ctx context.Context, rawDesired *Image, opts ...dcl.ApplyOption) (*Image, error) {
 	c.Config.Logger.Info("Beginning ApplyImage...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

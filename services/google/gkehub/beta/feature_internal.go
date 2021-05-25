@@ -500,11 +500,8 @@ func canonicalizeFeatureSpecMulticlusteringress(des, initial *FeatureSpecMulticl
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.ConfigMembership, initial.ConfigMembership) || dcl.IsZeroValue(des.ConfigMembership) {
+	if dcl.NameToSelfLink(des.ConfigMembership, initial.ConfigMembership) || dcl.IsZeroValue(des.ConfigMembership) {
 		des.ConfigMembership = initial.ConfigMembership
-	}
-	if dcl.IsZeroValue(des.Billing) {
-		des.Billing = initial.Billing
 	}
 
 	return des
@@ -515,11 +512,8 @@ func canonicalizeNewFeatureSpecMulticlusteringress(c *Client, des, nw *FeatureSp
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.ConfigMembership, nw.ConfigMembership) {
+	if dcl.NameToSelfLink(des.ConfigMembership, nw.ConfigMembership) {
 		nw.ConfigMembership = des.ConfigMembership
-	}
-	if dcl.IsZeroValue(nw.Billing) {
-		nw.Billing = des.Billing
 	}
 
 	return nw
@@ -770,14 +764,7 @@ func compareFeatureSpecMulticlusteringressNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ConfigMembership, actual.ConfigMembership, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigMembership")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Billing, actual.Billing, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Billing")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConfigMembership, actual.ConfigMembership, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigMembership")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1123,9 +1110,6 @@ func expandFeatureSpecMulticlusteringress(c *Client, f *FeatureSpecMulticlusteri
 	if v := f.ConfigMembership; !dcl.IsEmptyValueIndirect(v) {
 		m["configMembership"] = v
 	}
-	if v := f.Billing; !dcl.IsEmptyValueIndirect(v) {
-		m["billing"] = v
-	}
 
 	return m, nil
 }
@@ -1144,40 +1128,8 @@ func flattenFeatureSpecMulticlusteringress(c *Client, i interface{}) *FeatureSpe
 		return EmptyFeatureSpecMulticlusteringress
 	}
 	r.ConfigMembership = dcl.FlattenString(m["configMembership"])
-	r.Billing = flattenFeatureSpecMulticlusteringressBillingEnum(m["billing"])
 
 	return r
-}
-
-// flattenFeatureSpecMulticlusteringressBillingEnumSlice flattens the contents of FeatureSpecMulticlusteringressBillingEnum from a JSON
-// response object.
-func flattenFeatureSpecMulticlusteringressBillingEnumSlice(c *Client, i interface{}) []FeatureSpecMulticlusteringressBillingEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []FeatureSpecMulticlusteringressBillingEnum{}
-	}
-
-	if len(a) == 0 {
-		return []FeatureSpecMulticlusteringressBillingEnum{}
-	}
-
-	items := make([]FeatureSpecMulticlusteringressBillingEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenFeatureSpecMulticlusteringressBillingEnum(item.(interface{})))
-	}
-
-	return items
-}
-
-// flattenFeatureSpecMulticlusteringressBillingEnum asserts that an interface is a string, and returns a
-// pointer to a *FeatureSpecMulticlusteringressBillingEnum with the same value as that string.
-func flattenFeatureSpecMulticlusteringressBillingEnum(i interface{}) *FeatureSpecMulticlusteringressBillingEnum {
-	s, ok := i.(string)
-	if !ok {
-		return FeatureSpecMulticlusteringressBillingEnumRef("")
-	}
-
-	return FeatureSpecMulticlusteringressBillingEnumRef(s)
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource

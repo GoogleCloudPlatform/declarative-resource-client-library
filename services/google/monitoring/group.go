@@ -16,6 +16,7 @@ package monitoring
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -61,7 +62,7 @@ func (l *GroupList) HasNext() bool {
 }
 
 func (l *GroupList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -77,7 +78,7 @@ func (l *GroupList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListGroup(ctx context.Context, project string) (*GroupList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListGroupWithMaxResults(ctx, project, GroupMaxPage)
@@ -85,7 +86,7 @@ func (c *Client) ListGroup(ctx context.Context, project string) (*GroupList, err
 }
 
 func (c *Client) ListGroupWithMaxResults(ctx context.Context, project string, pageSize int32) (*GroupList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listGroup(ctx, project, "", pageSize)
@@ -102,7 +103,7 @@ func (c *Client) ListGroupWithMaxResults(ctx context.Context, project string, pa
 }
 
 func (c *Client) GetGroup(ctx context.Context, r *Group) (*Group, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getGroupRaw(ctx, r)
@@ -134,7 +135,7 @@ func (c *Client) GetGroup(ctx context.Context, r *Group) (*Group, error) {
 }
 
 func (c *Client) DeleteGroup(ctx context.Context, r *Group) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -147,9 +148,6 @@ func (c *Client) DeleteGroup(ctx context.Context, r *Group) error {
 
 // DeleteAllGroup deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllGroup(ctx context.Context, project string, filter func(*Group) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListGroup(ctx, project)
 	if err != nil {
 		return err
@@ -173,10 +171,29 @@ func (c *Client) DeleteAllGroup(ctx context.Context, project string, filter func
 }
 
 func (c *Client) ApplyGroup(ctx context.Context, rawDesired *Group, opts ...dcl.ApplyOption) (*Group, error) {
+
+	var resultNewState *Group
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyGroupHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyGroupHelper(c *Client, ctx context.Context, rawDesired *Group, opts ...dcl.ApplyOption) (*Group, error) {
 	c.Config.Logger.Info("Beginning ApplyGroup...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

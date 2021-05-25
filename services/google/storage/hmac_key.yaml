@@ -11,86 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    HmacKey:
-      properties:
-        name:
-          description: The server-generated name (access ID) of the HMAC Key.
-          type: string
-          x-dcl-go-name: Name
-          x-dcl-server-generated-parameter: true
-          x-kubernetes-immutable: true
-        project:
-          description: The project id of the resource.
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        secret:
-          description: HMAC secret key material.
-          readOnly: true
-          type: string
-          x-dcl-go-name: Secret
-          x-dcl-sensitive: true
-          x-kubernetes-immutable: true
-        serviceAccountEmail:
-          description: The email address of the key's associated service account.
-          type: string
-          x-dcl-go-name: ServiceAccountEmail
-          x-kubernetes-immutable: true
-        state:
-          default: ACTIVE
-          description: State of the key. One of ACTIVE, INACTIVE, or DELETED.
-          enum:
-          - ACTIVE
-          - INACTIVE
-          - DELETED
-          type: string
-          x-dcl-go-name: State
-          x-dcl-go-type: HmacKeyStateEnum
-        timeCreated:
-          description: The creation time of the HMAC key in RFC 3339 format.
-          readOnly: true
-          type: string
-          x-dcl-go-name: TimeCreated
-          x-kubernetes-immutable: true
-        updated:
-          description: The last modification time of the HMAC key metadata in RFC
-            3339 format.
-          readOnly: true
-          type: string
-          x-dcl-go-name: Updated
-          x-kubernetes-immutable: true
-      required:
-      - project
-      - serviceAccountEmail
-      title: HmacKey
-      type: object
-      x-dcl-id: projects/{{project}}/hmacKeys/{{name}}
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Storage HmacKey resource
   title: Storage/HmacKey
+  description: DCL Specification for the Storage HmacKey resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a HmacKey
+    parameters:
+    - name: HmacKey
+      required: true
+      description: A full instance of a HmacKey
   apply:
     description: The function used to apply information about a HmacKey
     parameters:
-    - description: A full instance of a HmacKey
-      name: HmacKey
+    - name: HmacKey
       required: true
+      description: A full instance of a HmacKey
   delete:
     description: The function used to delete a HmacKey
     parameters:
-    - description: A full instance of a HmacKey
-      name: HmacKey
+    - name: HmacKey
       required: true
+      description: A full instance of a HmacKey
   deleteAll:
     description: The function used to delete all HmacKey
     parameters:
@@ -98,12 +41,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a HmacKey
-    parameters:
-    - description: A full instance of a HmacKey
-      name: HmacKey
-      required: true
   list:
     description: The function used to list information about many HmacKey
     parameters:
@@ -111,3 +48,64 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    HmacKey:
+      title: HmacKey
+      x-dcl-id: projects/{{project}}/hmacKeys/{{name}}
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - project
+      - serviceAccountEmail
+      properties:
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: The server-generated name (access ID) of the HMAC Key.
+          x-kubernetes-immutable: true
+          x-dcl-server-generated-parameter: true
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project id of the resource.
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        secret:
+          type: string
+          x-dcl-go-name: Secret
+          readOnly: true
+          description: HMAC secret key material.
+          x-kubernetes-immutable: true
+          x-dcl-sensitive: true
+        serviceAccountEmail:
+          type: string
+          x-dcl-go-name: ServiceAccountEmail
+          description: The email address of the key's associated service account.
+          x-kubernetes-immutable: true
+        state:
+          type: string
+          x-dcl-go-name: State
+          x-dcl-go-type: HmacKeyStateEnum
+          description: State of the key. One of ACTIVE, INACTIVE, or DELETED.
+          default: ACTIVE
+          enum:
+          - ACTIVE
+          - INACTIVE
+          - DELETED
+        timeCreated:
+          type: string
+          x-dcl-go-name: TimeCreated
+          readOnly: true
+          description: The creation time of the HMAC key in RFC 3339 format.
+          x-kubernetes-immutable: true
+        updated:
+          type: string
+          x-dcl-go-name: Updated
+          readOnly: true
+          description: The last modification time of the HMAC key metadata in RFC
+            3339 format.
+          x-kubernetes-immutable: true

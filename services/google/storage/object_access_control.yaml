@@ -11,134 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    ObjectAccessControl:
-      properties:
-        bucket:
-          description: The name of the bucket.
-          type: string
-          x-dcl-go-name: Bucket
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Storage/Bucket
-        domain:
-          description: The domain associated with the entity, if any.
-          readOnly: true
-          type: string
-          x-dcl-go-name: Domain
-          x-kubernetes-immutable: true
-        email:
-          description: The email address associated with the entity, if any.
-          readOnly: true
-          type: string
-          x-dcl-go-name: Email
-          x-kubernetes-immutable: true
-        entity:
-          description: 'The entity holding the permission, in one of the following
-            forms: * user-{{userId}} * user-{{email}} (such as "user-liz@example.com")
-            * group-{{groupId}} * group-{{email}} (such as "group-example@googlegroups.com")
-            * domain-{{domain}} (such as "domain-example.com") * project-team-{{projectId}}
-            * allUsers * allAuthenticatedUsers'
-          type: string
-          x-dcl-go-name: Entity
-        entityId:
-          description: The ID for the entity, if any.
-          readOnly: true
-          type: string
-          x-dcl-go-name: EntityId
-          x-kubernetes-immutable: true
-        generation:
-          description: The content generation of the object, if applied to an object.
-          format: int64
-          readOnly: true
-          type: integer
-          x-dcl-go-name: Generation
-          x-kubernetes-immutable: true
-        id:
-          description: The ID of the access-control entry.
-          readOnly: true
-          type: string
-          x-dcl-go-name: Id
-          x-kubernetes-immutable: true
-        object:
-          description: The name of the object, if applied to an object.
-          type: string
-          x-dcl-go-name: Object
-        project:
-          description: The project id of the resource.
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        projectTeam:
-          description: The project team associated with the entity, if any.
-          properties:
-            projectNumber:
-              description: The project number.
-              type: string
-              x-dcl-go-name: ProjectNumber
-              x-dcl-references:
-              - field: projectNumber
-                resource: Cloudresourcemanager/Project
-              x-kubernetes-immutable: true
-            team:
-              description: 'The team. Possible values: editors, owners, viewers'
-              enum:
-              - editors
-              - owners
-              - viewers
-              type: string
-              x-dcl-go-name: Team
-              x-dcl-go-type: ObjectAccessControlProjectTeamTeamEnum
-              x-kubernetes-immutable: true
-          readOnly: true
-          type: object
-          x-dcl-go-name: ProjectTeam
-          x-dcl-go-type: ObjectAccessControlProjectTeam
-          x-kubernetes-immutable: true
-        role:
-          description: 'The access permission for the entity. Possible values: OWNER,
-            READER'
-          enum:
-          - OWNER
-          - READER
-          type: string
-          x-dcl-go-name: Role
-          x-dcl-go-type: ObjectAccessControlRoleEnum
-      required:
-      - project
-      - bucket
-      - entity
-      - role
-      - object
-      title: ObjectAccessControl
-      type: object
-      x-dcl-id: b/{{bucket}}/o/{{object}}/acl/{{entity}}?userProject={{project}}
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Storage ObjectAccessControl resource
   title: Storage/ObjectAccessControl
+  description: DCL Specification for the Storage ObjectAccessControl resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a ObjectAccessControl
+    parameters:
+    - name: ObjectAccessControl
+      required: true
+      description: A full instance of a ObjectAccessControl
   apply:
     description: The function used to apply information about a ObjectAccessControl
     parameters:
-    - description: A full instance of a ObjectAccessControl
-      name: ObjectAccessControl
+    - name: ObjectAccessControl
       required: true
+      description: A full instance of a ObjectAccessControl
   delete:
     description: The function used to delete a ObjectAccessControl
     parameters:
-    - description: A full instance of a ObjectAccessControl
-      name: ObjectAccessControl
+    - name: ObjectAccessControl
       required: true
+      description: A full instance of a ObjectAccessControl
   deleteAll:
     description: The function used to delete all ObjectAccessControl
     parameters:
@@ -154,12 +49,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a ObjectAccessControl
-    parameters:
-    - description: A full instance of a ObjectAccessControl
-      name: ObjectAccessControl
-      required: true
   list:
     description: The function used to list information about many ObjectAccessControl
     parameters:
@@ -175,3 +64,112 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    ObjectAccessControl:
+      title: ObjectAccessControl
+      x-dcl-id: b/{{bucket}}/o/{{object}}/acl/{{entity}}?userProject={{project}}
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - project
+      - bucket
+      - entity
+      - role
+      - object
+      properties:
+        bucket:
+          type: string
+          x-dcl-go-name: Bucket
+          description: The name of the bucket.
+          x-dcl-references:
+          - resource: Storage/Bucket
+            field: name
+            parent: true
+        domain:
+          type: string
+          x-dcl-go-name: Domain
+          readOnly: true
+          description: The domain associated with the entity, if any.
+          x-kubernetes-immutable: true
+        email:
+          type: string
+          x-dcl-go-name: Email
+          readOnly: true
+          description: The email address associated with the entity, if any.
+          x-kubernetes-immutable: true
+        entity:
+          type: string
+          x-dcl-go-name: Entity
+          description: 'The entity holding the permission, in one of the following
+            forms: * user-{{userId}} * user-{{email}} (such as "user-liz@example.com")
+            * group-{{groupId}} * group-{{email}} (such as "group-example@googlegroups.com")
+            * domain-{{domain}} (such as "domain-example.com") * project-team-{{projectId}}
+            * allUsers * allAuthenticatedUsers'
+        entityId:
+          type: string
+          x-dcl-go-name: EntityId
+          readOnly: true
+          description: The ID for the entity, if any.
+          x-kubernetes-immutable: true
+        generation:
+          type: integer
+          format: int64
+          x-dcl-go-name: Generation
+          readOnly: true
+          description: The content generation of the object, if applied to an object.
+          x-kubernetes-immutable: true
+        id:
+          type: string
+          x-dcl-go-name: Id
+          readOnly: true
+          description: The ID of the access-control entry.
+          x-kubernetes-immutable: true
+        object:
+          type: string
+          x-dcl-go-name: Object
+          description: The name of the object, if applied to an object.
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project id of the resource.
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        projectTeam:
+          type: object
+          x-dcl-go-name: ProjectTeam
+          x-dcl-go-type: ObjectAccessControlProjectTeam
+          readOnly: true
+          description: The project team associated with the entity, if any.
+          x-kubernetes-immutable: true
+          properties:
+            projectNumber:
+              type: string
+              x-dcl-go-name: ProjectNumber
+              description: The project number.
+              x-kubernetes-immutable: true
+              x-dcl-references:
+              - resource: Cloudresourcemanager/Project
+                field: projectNumber
+            team:
+              type: string
+              x-dcl-go-name: Team
+              x-dcl-go-type: ObjectAccessControlProjectTeamTeamEnum
+              description: 'The team. Possible values: editors, owners, viewers'
+              x-kubernetes-immutable: true
+              enum:
+              - editors
+              - owners
+              - viewers
+        role:
+          type: string
+          x-dcl-go-name: Role
+          x-dcl-go-type: ObjectAccessControlRoleEnum
+          description: 'The access permission for the entity. Possible values: OWNER,
+            READER'
+          enum:
+          - OWNER
+          - READER

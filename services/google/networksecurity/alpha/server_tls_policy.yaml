@@ -11,206 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    ServerTlsPolicy:
-      properties:
-        allowOpen:
-          description: Optional. Determines if server allows plaintext connections.
-            If set to true, server allows plain text connections. By default, it is
-            set to false. This setting is not exclusive of other encryption modes.
-            For example, if allow_open and mtls_policy are set, server allows both
-            plain text and mTLS connections. See documentation of other encryption
-            modes to confirm compatibility.
-          type: boolean
-          x-dcl-go-name: AllowOpen
-        createTime:
-          description: Output only. The timestamp when the resource was created.
-          format: date-time
-          readOnly: true
-          type: string
-          x-dcl-go-name: CreateTime
-          x-kubernetes-immutable: true
-        description:
-          description: Optional. Free-text description of the resource.
-          type: string
-          x-dcl-go-name: Description
-        labels:
-          additionalProperties:
-            type: string
-          description: Optional. Set of label tags associated with the resource.
-          type: object
-          x-dcl-go-name: Labels
-        location:
-          description: The location for the resource
-          type: string
-          x-dcl-go-name: Location
-          x-kubernetes-immutable: true
-        mtlsPolicy:
-          description: Optional. Defines a mechanism to provision peer validation
-            certificates for peer to peer authentication (Mutual TLS - mTLS). If not
-            specified, client certificate will not be requested. The connection is
-            treated as TLS and not mTLS. If allow_open and mtls_policy are set, server
-            allows both plain text and mTLS connections.
-          properties:
-            clientValidationCa:
-              description: Required. Defines the mechanism to obtain the Certificate
-                Authority certificate to validate the client certificate.
-              items:
-                properties:
-                  caCertPath:
-                    description: The path to the file holding the CA certificate to
-                      validate the client or server certificate.
-                    type: string
-                    x-dcl-go-name: CaCertPath
-                  certificateProviderInstance:
-                    description: The certificate provider instance specification that
-                      will be passed to the data plane, which will be used to load
-                      necessary credential information.
-                    properties:
-                      pluginInstance:
-                        description: Required. Plugin instance name, used to locate
-                          and load CertificateProvider instance configuration. Set
-                          to "google_cloud_private_spiffe" to use Certificate Authority
-                          Service certificate provider instance.
-                        type: string
-                        x-dcl-go-name: PluginInstance
-                    required:
-                    - pluginInstance
-                    type: object
-                    x-dcl-go-name: CertificateProviderInstance
-                    x-dcl-go-type: ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance
-                  grpcEndpoint:
-                    description: gRPC specific configuration to access the gRPC server
-                      to obtain the CA certificate.
-                    properties:
-                      targetUri:
-                        description: Required. The target URI of the gRPC endpoint.
-                          Only UDS path is supported, and should start with “unix:”.
-                        type: string
-                        x-dcl-go-name: TargetUri
-                    required:
-                    - targetUri
-                    type: object
-                    x-dcl-go-name: GrpcEndpoint
-                    x-dcl-go-type: ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint
-                type: object
-                x-dcl-go-type: ServerTlsPolicyMtlsPolicyClientValidationCa
-              type: array
-              x-dcl-go-name: ClientValidationCa
-              x-dcl-list-type: list
-          required:
-          - clientValidationCa
-          type: object
-          x-dcl-go-name: MtlsPolicy
-          x-dcl-go-type: ServerTlsPolicyMtlsPolicy
-        name:
-          description: Required. Name of the ServerTlsPolicy resource.
-          type: string
-          x-dcl-go-name: Name
-          x-kubernetes-immutable: true
-        project:
-          description: The project for the resource
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        serverCertificate:
-          description: Optional. Defines a mechanism to provision server identity
-            (public and private keys). Cannot be combined with allow_open as a permissive
-            mode that allows both plain text and TLS is not supported.
-          properties:
-            certificateProviderInstance:
-              description: The certificate provider instance specification that will
-                be passed to the data plane, which will be used to load necessary
-                credential information.
-              properties:
-                pluginInstance:
-                  description: Required. Plugin instance name, used to locate and
-                    load CertificateProvider instance configuration. Set to "google_cloud_private_spiffe"
-                    to use Certificate Authority Service certificate provider instance.
-                  type: string
-                  x-dcl-go-name: PluginInstance
-              required:
-              - pluginInstance
-              type: object
-              x-dcl-go-name: CertificateProviderInstance
-              x-dcl-go-type: ServerTlsPolicyServerCertificateCertificateProviderInstance
-            grpcEndpoint:
-              description: gRPC specific configuration to access the gRPC server to
-                obtain the cert and private key.
-              properties:
-                targetUri:
-                  description: Required. The target URI of the gRPC endpoint. Only
-                    UDS path is supported, and should start with “unix:”.
-                  type: string
-                  x-dcl-go-name: TargetUri
-              required:
-              - targetUri
-              type: object
-              x-dcl-go-name: GrpcEndpoint
-              x-dcl-go-type: ServerTlsPolicyServerCertificateGrpcEndpoint
-            localFilepath:
-              description: Obtain certificates and private key from a locally mounted
-                filesystem path.
-              properties:
-                certificatePath:
-                  description: Required. The path to the file that has the certificate
-                    containing public key.
-                  type: string
-                  x-dcl-go-name: CertificatePath
-                privateKeyPath:
-                  description: Required. The path to the file that has the private
-                    key.
-                  type: string
-                  x-dcl-go-name: PrivateKeyPath
-              required:
-              - certificatePath
-              - privateKeyPath
-              type: object
-              x-dcl-go-name: LocalFilepath
-              x-dcl-go-type: ServerTlsPolicyServerCertificateLocalFilepath
-          type: object
-          x-dcl-go-name: ServerCertificate
-          x-dcl-go-type: ServerTlsPolicyServerCertificate
-        updateTime:
-          description: Output only. The timestamp when the resource was updated.
-          format: date-time
-          readOnly: true
-          type: string
-          x-dcl-go-name: UpdateTime
-          x-kubernetes-immutable: true
-      required:
-      - name
-      - project
-      - location
-      title: ServerTlsPolicy
-      type: object
-      x-dcl-id: projects/{{project}}/locations/{{location}}/serverTlsPolicies/{{name}}
-      x-dcl-labels: labels
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the NetworkSecurity ServerTlsPolicy resource
   title: NetworkSecurity/ServerTlsPolicy
+  description: DCL Specification for the NetworkSecurity ServerTlsPolicy resource
   x-dcl-has-iam: true
 paths:
+  get:
+    description: The function used to get information about a ServerTlsPolicy
+    parameters:
+    - name: ServerTlsPolicy
+      required: true
+      description: A full instance of a ServerTlsPolicy
   apply:
     description: The function used to apply information about a ServerTlsPolicy
     parameters:
-    - description: A full instance of a ServerTlsPolicy
-      name: ServerTlsPolicy
+    - name: ServerTlsPolicy
       required: true
+      description: A full instance of a ServerTlsPolicy
   delete:
     description: The function used to delete a ServerTlsPolicy
     parameters:
-    - description: A full instance of a ServerTlsPolicy
-      name: ServerTlsPolicy
+    - name: ServerTlsPolicy
       required: true
+      description: A full instance of a ServerTlsPolicy
   deleteAll:
     description: The function used to delete all ServerTlsPolicy
     parameters:
@@ -222,12 +45,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a ServerTlsPolicy
-    parameters:
-    - description: A full instance of a ServerTlsPolicy
-      name: ServerTlsPolicy
-      required: true
   list:
     description: The function used to list information about many ServerTlsPolicy
     parameters:
@@ -239,3 +56,184 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    ServerTlsPolicy:
+      title: ServerTlsPolicy
+      x-dcl-id: projects/{{project}}/locations/{{location}}/serverTlsPolicies/{{name}}
+      x-dcl-parent-container: project
+      x-dcl-labels: labels
+      type: object
+      required:
+      - name
+      - project
+      - location
+      properties:
+        allowOpen:
+          type: boolean
+          x-dcl-go-name: AllowOpen
+          description: Optional. Determines if server allows plaintext connections.
+            If set to true, server allows plain text connections. By default, it is
+            set to false. This setting is not exclusive of other encryption modes.
+            For example, if allow_open and mtls_policy are set, server allows both
+            plain text and mTLS connections. See documentation of other encryption
+            modes to confirm compatibility.
+        createTime:
+          type: string
+          format: date-time
+          x-dcl-go-name: CreateTime
+          readOnly: true
+          description: Output only. The timestamp when the resource was created.
+          x-kubernetes-immutable: true
+        description:
+          type: string
+          x-dcl-go-name: Description
+          description: Optional. Free-text description of the resource.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          x-dcl-go-name: Labels
+          description: Optional. Set of label tags associated with the resource.
+        location:
+          type: string
+          x-dcl-go-name: Location
+          description: The location for the resource
+          x-kubernetes-immutable: true
+        mtlsPolicy:
+          type: object
+          x-dcl-go-name: MtlsPolicy
+          x-dcl-go-type: ServerTlsPolicyMtlsPolicy
+          description: Optional. Defines a mechanism to provision peer validation
+            certificates for peer to peer authentication (Mutual TLS - mTLS). If not
+            specified, client certificate will not be requested. The connection is
+            treated as TLS and not mTLS. If allow_open and mtls_policy are set, server
+            allows both plain text and mTLS connections.
+          required:
+          - clientValidationCa
+          properties:
+            clientValidationCa:
+              type: array
+              x-dcl-go-name: ClientValidationCa
+              description: Required. Defines the mechanism to obtain the Certificate
+                Authority certificate to validate the client certificate.
+              x-dcl-list-type: list
+              items:
+                type: object
+                x-dcl-go-type: ServerTlsPolicyMtlsPolicyClientValidationCa
+                properties:
+                  caCertPath:
+                    type: string
+                    x-dcl-go-name: CaCertPath
+                    description: The path to the file holding the CA certificate to
+                      validate the client or server certificate.
+                  certificateProviderInstance:
+                    type: object
+                    x-dcl-go-name: CertificateProviderInstance
+                    x-dcl-go-type: ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance
+                    description: The certificate provider instance specification that
+                      will be passed to the data plane, which will be used to load
+                      necessary credential information.
+                    required:
+                    - pluginInstance
+                    properties:
+                      pluginInstance:
+                        type: string
+                        x-dcl-go-name: PluginInstance
+                        description: Required. Plugin instance name, used to locate
+                          and load CertificateProvider instance configuration. Set
+                          to "google_cloud_private_spiffe" to use Certificate Authority
+                          Service certificate provider instance.
+                  grpcEndpoint:
+                    type: object
+                    x-dcl-go-name: GrpcEndpoint
+                    x-dcl-go-type: ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint
+                    description: gRPC specific configuration to access the gRPC server
+                      to obtain the CA certificate.
+                    required:
+                    - targetUri
+                    properties:
+                      targetUri:
+                        type: string
+                        x-dcl-go-name: TargetUri
+                        description: Required. The target URI of the gRPC endpoint.
+                          Only UDS path is supported, and should start with “unix:”.
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: Required. Name of the ServerTlsPolicy resource.
+          x-kubernetes-immutable: true
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project for the resource
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        serverCertificate:
+          type: object
+          x-dcl-go-name: ServerCertificate
+          x-dcl-go-type: ServerTlsPolicyServerCertificate
+          description: Optional. Defines a mechanism to provision server identity
+            (public and private keys). Cannot be combined with allow_open as a permissive
+            mode that allows both plain text and TLS is not supported.
+          properties:
+            certificateProviderInstance:
+              type: object
+              x-dcl-go-name: CertificateProviderInstance
+              x-dcl-go-type: ServerTlsPolicyServerCertificateCertificateProviderInstance
+              description: The certificate provider instance specification that will
+                be passed to the data plane, which will be used to load necessary
+                credential information.
+              required:
+              - pluginInstance
+              properties:
+                pluginInstance:
+                  type: string
+                  x-dcl-go-name: PluginInstance
+                  description: Required. Plugin instance name, used to locate and
+                    load CertificateProvider instance configuration. Set to "google_cloud_private_spiffe"
+                    to use Certificate Authority Service certificate provider instance.
+            grpcEndpoint:
+              type: object
+              x-dcl-go-name: GrpcEndpoint
+              x-dcl-go-type: ServerTlsPolicyServerCertificateGrpcEndpoint
+              description: gRPC specific configuration to access the gRPC server to
+                obtain the cert and private key.
+              required:
+              - targetUri
+              properties:
+                targetUri:
+                  type: string
+                  x-dcl-go-name: TargetUri
+                  description: Required. The target URI of the gRPC endpoint. Only
+                    UDS path is supported, and should start with “unix:”.
+            localFilepath:
+              type: object
+              x-dcl-go-name: LocalFilepath
+              x-dcl-go-type: ServerTlsPolicyServerCertificateLocalFilepath
+              description: Obtain certificates and private key from a locally mounted
+                filesystem path.
+              required:
+              - certificatePath
+              - privateKeyPath
+              properties:
+                certificatePath:
+                  type: string
+                  x-dcl-go-name: CertificatePath
+                  description: Required. The path to the file that has the certificate
+                    containing public key.
+                privateKeyPath:
+                  type: string
+                  x-dcl-go-name: PrivateKeyPath
+                  description: Required. The path to the file that has the private
+                    key.
+        updateTime:
+          type: string
+          format: date-time
+          x-dcl-go-name: UpdateTime
+          readOnly: true
+          description: Output only. The timestamp when the resource was updated.
+          x-kubernetes-immutable: true

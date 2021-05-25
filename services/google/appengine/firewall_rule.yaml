@@ -11,46 +11,90 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+info:
+  title: AppEngine/FirewallRule
+  description: DCL Specification for the AppEngine FirewallRule resource
+  x-dcl-has-iam: false
+paths:
+  get:
+    description: The function used to get information about a FirewallRule
+    parameters:
+    - name: FirewallRule
+      required: true
+      description: A full instance of a FirewallRule
+  apply:
+    description: The function used to apply information about a FirewallRule
+    parameters:
+    - name: FirewallRule
+      required: true
+      description: A full instance of a FirewallRule
+  delete:
+    description: The function used to delete a FirewallRule
+    parameters:
+    - name: FirewallRule
+      required: true
+      description: A full instance of a FirewallRule
+  deleteAll:
+    description: The function used to delete all FirewallRule
+    parameters:
+    - name: app
+      required: true
+      schema:
+        type: string
+  list:
+    description: The function used to list information about many FirewallRule
+    parameters:
+    - name: app
+      required: true
+      schema:
+        type: string
 components:
   schemas:
     FirewallRule:
+      title: FirewallRule
+      x-dcl-id: apps/{{app}}/firewall/ingressRules/{{priority}}
+      type: object
+      required:
+      - app
       properties:
         action:
+          type: string
+          x-dcl-go-name: Action
+          x-dcl-go-type: FirewallRuleActionEnum
           description: 'The action to take on matched requests. Possible values: UNSPECIFIED_ACTION,
             ALLOW, DENY'
+          x-kubernetes-immutable: true
           enum:
           - UNSPECIFIED_ACTION
           - ALLOW
           - DENY
-          type: string
-          x-dcl-go-name: Action
-          x-dcl-go-type: FirewallRuleActionEnum
-          x-kubernetes-immutable: true
         app:
-          description: The app for the resource
           type: string
           x-dcl-go-name: App
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Appengine/Application
+          description: The app for the resource
           x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Appengine/Application
+            field: name
+            parent: true
         description:
-          description: An optional string description of this rule. This field has
-            a maximum length of 100 characters.
           type: string
           x-dcl-go-name: Description
+          description: An optional string description of this rule. This field has
+            a maximum length of 100 characters.
           x-kubernetes-immutable: true
         priority:
+          type: integer
+          format: int64
+          x-dcl-go-name: Priority
           description: A positive integer between that defines the order of rule evaluation.
             Rules with the lowest priority are evaluated first. A default rule at
             priority Int32.MaxValue matches all IPv4 and IPv6 traffic when no previous
             rule matches. Only the action of this rule can be modified by the user.
-          format: int64
-          type: integer
-          x-dcl-go-name: Priority
           x-kubernetes-immutable: true
         sourceRange:
+          type: string
+          x-dcl-go-name: SourceRange
           description: 'IP address or range, defined using CIDR notation, of requests
             that this rule applies to. You can use the wildcard character "*" to match
             all IPs equivalent to "0/0" and "::/0" together. Examples: `192.168.1.1`
@@ -59,50 +103,4 @@ components:
             truncated. For example, `1.2.3.4/24` is accepted as the same address as
             `1.2.3.0/24`. Similarly, for IPv6, `2001:db8::1/32` is accepted as the
             same address as `2001:db8::/32`.'
-          type: string
-          x-dcl-go-name: SourceRange
           x-kubernetes-immutable: true
-      required:
-      - app
-      title: FirewallRule
-      type: object
-      x-dcl-id: apps/{{app}}/firewall/ingressRules/{{priority}}
-      x-dcl-locations: []
-      x-dcl-uses-state-hint: false
-info:
-  description: DCL Specification for the AppEngine FirewallRule resource
-  title: AppEngine/FirewallRule
-  x-dcl-has-iam: false
-paths:
-  apply:
-    description: The function used to apply information about a FirewallRule
-    parameters:
-    - description: A full instance of a FirewallRule
-      name: FirewallRule
-      required: true
-  delete:
-    description: The function used to delete a FirewallRule
-    parameters:
-    - description: A full instance of a FirewallRule
-      name: FirewallRule
-      required: true
-  deleteAll:
-    description: The function used to delete all FirewallRule
-    parameters:
-    - name: app
-      required: true
-      schema:
-        type: string
-  get:
-    description: The function used to get information about a FirewallRule
-    parameters:
-    - description: A full instance of a FirewallRule
-      name: FirewallRule
-      required: true
-  list:
-    description: The function used to list information about many FirewallRule
-    parameters:
-    - name: app
-      required: true
-      schema:
-        type: string

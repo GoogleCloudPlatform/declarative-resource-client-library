@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -284,7 +285,7 @@ func (l *SubnetworkList) HasNext() bool {
 }
 
 func (l *SubnetworkList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -300,7 +301,7 @@ func (l *SubnetworkList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListSubnetwork(ctx context.Context, project, region string) (*SubnetworkList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListSubnetworkWithMaxResults(ctx, project, region, SubnetworkMaxPage)
@@ -308,7 +309,7 @@ func (c *Client) ListSubnetwork(ctx context.Context, project, region string) (*S
 }
 
 func (c *Client) ListSubnetworkWithMaxResults(ctx context.Context, project, region string, pageSize int32) (*SubnetworkList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listSubnetwork(ctx, project, region, "", pageSize)
@@ -327,7 +328,7 @@ func (c *Client) ListSubnetworkWithMaxResults(ctx context.Context, project, regi
 }
 
 func (c *Client) GetSubnetwork(ctx context.Context, r *Subnetwork) (*Subnetwork, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getSubnetworkRaw(ctx, r)
@@ -360,7 +361,7 @@ func (c *Client) GetSubnetwork(ctx context.Context, r *Subnetwork) (*Subnetwork,
 }
 
 func (c *Client) DeleteSubnetwork(ctx context.Context, r *Subnetwork) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -373,9 +374,6 @@ func (c *Client) DeleteSubnetwork(ctx context.Context, r *Subnetwork) error {
 
 // DeleteAllSubnetwork deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllSubnetwork(ctx context.Context, project, region string, filter func(*Subnetwork) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListSubnetwork(ctx, project, region)
 	if err != nil {
 		return err
@@ -399,10 +397,29 @@ func (c *Client) DeleteAllSubnetwork(ctx context.Context, project, region string
 }
 
 func (c *Client) ApplySubnetwork(ctx context.Context, rawDesired *Subnetwork, opts ...dcl.ApplyOption) (*Subnetwork, error) {
+
+	var resultNewState *Subnetwork
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applySubnetworkHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applySubnetworkHelper(c *Client, ctx context.Context, rawDesired *Subnetwork, opts ...dcl.ApplyOption) (*Subnetwork, error) {
 	c.Config.Logger.Info("Beginning ApplySubnetwork...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

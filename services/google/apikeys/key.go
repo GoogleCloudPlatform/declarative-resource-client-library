@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -406,7 +407,7 @@ func (l *KeyList) HasNext() bool {
 }
 
 func (l *KeyList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -422,7 +423,7 @@ func (l *KeyList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListKey(ctx context.Context, project string) (*KeyList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListKeyWithMaxResults(ctx, project, KeyMaxPage)
@@ -430,7 +431,7 @@ func (c *Client) ListKey(ctx context.Context, project string) (*KeyList, error) 
 }
 
 func (c *Client) ListKeyWithMaxResults(ctx context.Context, project string, pageSize int32) (*KeyList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listKey(ctx, project, "", pageSize)
@@ -447,7 +448,7 @@ func (c *Client) ListKeyWithMaxResults(ctx context.Context, project string, page
 }
 
 func (c *Client) DeleteKey(ctx context.Context, r *Key) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -460,9 +461,6 @@ func (c *Client) DeleteKey(ctx context.Context, r *Key) error {
 
 // DeleteAllKey deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllKey(ctx context.Context, project string, filter func(*Key) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListKey(ctx, project)
 	if err != nil {
 		return err
@@ -486,10 +484,29 @@ func (c *Client) DeleteAllKey(ctx context.Context, project string, filter func(*
 }
 
 func (c *Client) ApplyKey(ctx context.Context, rawDesired *Key, opts ...dcl.ApplyOption) (*Key, error) {
+
+	var resultNewState *Key
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyKeyHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyKeyHelper(c *Client, ctx context.Context, rawDesired *Key, opts ...dcl.ApplyOption) (*Key, error) {
 	c.Config.Logger.Info("Beginning ApplyKey...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

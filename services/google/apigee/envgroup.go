@@ -16,6 +16,7 @@ package apigee
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -88,7 +89,7 @@ func (l *EnvgroupList) HasNext() bool {
 }
 
 func (l *EnvgroupList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -104,7 +105,7 @@ func (l *EnvgroupList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListEnvgroup(ctx context.Context, organization string) (*EnvgroupList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListEnvgroupWithMaxResults(ctx, organization, EnvgroupMaxPage)
@@ -112,7 +113,7 @@ func (c *Client) ListEnvgroup(ctx context.Context, organization string) (*Envgro
 }
 
 func (c *Client) ListEnvgroupWithMaxResults(ctx context.Context, organization string, pageSize int32) (*EnvgroupList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listEnvgroup(ctx, organization, "", pageSize)
@@ -129,7 +130,7 @@ func (c *Client) ListEnvgroupWithMaxResults(ctx context.Context, organization st
 }
 
 func (c *Client) GetEnvgroup(ctx context.Context, r *Envgroup) (*Envgroup, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getEnvgroupRaw(ctx, r)
@@ -161,7 +162,7 @@ func (c *Client) GetEnvgroup(ctx context.Context, r *Envgroup) (*Envgroup, error
 }
 
 func (c *Client) DeleteEnvgroup(ctx context.Context, r *Envgroup) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -174,9 +175,6 @@ func (c *Client) DeleteEnvgroup(ctx context.Context, r *Envgroup) error {
 
 // DeleteAllEnvgroup deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllEnvgroup(ctx context.Context, organization string, filter func(*Envgroup) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListEnvgroup(ctx, organization)
 	if err != nil {
 		return err
@@ -200,10 +198,29 @@ func (c *Client) DeleteAllEnvgroup(ctx context.Context, organization string, fil
 }
 
 func (c *Client) ApplyEnvgroup(ctx context.Context, rawDesired *Envgroup, opts ...dcl.ApplyOption) (*Envgroup, error) {
+
+	var resultNewState *Envgroup
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyEnvgroupHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyEnvgroupHelper(c *Client, ctx context.Context, rawDesired *Envgroup, opts ...dcl.ApplyOption) (*Envgroup, error) {
 	c.Config.Logger.Info("Beginning ApplyEnvgroup...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

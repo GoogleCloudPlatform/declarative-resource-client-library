@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -245,7 +246,7 @@ func (l *AttestorList) HasNext() bool {
 }
 
 func (l *AttestorList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -261,7 +262,7 @@ func (l *AttestorList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListAttestor(ctx context.Context, project string) (*AttestorList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListAttestorWithMaxResults(ctx, project, AttestorMaxPage)
@@ -269,7 +270,7 @@ func (c *Client) ListAttestor(ctx context.Context, project string) (*AttestorLis
 }
 
 func (c *Client) ListAttestorWithMaxResults(ctx context.Context, project string, pageSize int32) (*AttestorList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listAttestor(ctx, project, "", pageSize)
@@ -286,7 +287,7 @@ func (c *Client) ListAttestorWithMaxResults(ctx context.Context, project string,
 }
 
 func (c *Client) GetAttestor(ctx context.Context, r *Attestor) (*Attestor, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getAttestorRaw(ctx, r)
@@ -318,7 +319,7 @@ func (c *Client) GetAttestor(ctx context.Context, r *Attestor) (*Attestor, error
 }
 
 func (c *Client) DeleteAttestor(ctx context.Context, r *Attestor) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -331,9 +332,6 @@ func (c *Client) DeleteAttestor(ctx context.Context, r *Attestor) error {
 
 // DeleteAllAttestor deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllAttestor(ctx context.Context, project string, filter func(*Attestor) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListAttestor(ctx, project)
 	if err != nil {
 		return err
@@ -357,10 +355,29 @@ func (c *Client) DeleteAllAttestor(ctx context.Context, project string, filter f
 }
 
 func (c *Client) ApplyAttestor(ctx context.Context, rawDesired *Attestor, opts ...dcl.ApplyOption) (*Attestor, error) {
+
+	var resultNewState *Attestor
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyAttestorHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyAttestorHelper(c *Client, ctx context.Context, rawDesired *Attestor, opts ...dcl.ApplyOption) (*Attestor, error) {
 	c.Config.Logger.Info("Beginning ApplyAttestor...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

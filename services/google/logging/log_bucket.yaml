@@ -11,118 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    LogBucket:
-      properties:
-        createTime:
-          description: Output only. The creation timestamp of the bucket. This is
-            not set for any of the default buckets.
-          format: date-time
-          readOnly: true
-          type: string
-          x-dcl-go-name: CreateTime
-          x-kubernetes-immutable: true
-        description:
-          description: Describes this bucket.
-          type: string
-          x-dcl-go-name: Description
-        lifecycleState:
-          description: 'Output only. The bucket lifecycle state. Possible values:
-            LIFECYCLE_STATE_UNSPECIFIED, ACTIVE, DELETE_REQUESTED'
-          enum:
-          - LIFECYCLE_STATE_UNSPECIFIED
-          - ACTIVE
-          - DELETE_REQUESTED
-          readOnly: true
-          type: string
-          x-dcl-go-name: LifecycleState
-          x-dcl-go-type: LogBucketLifecycleStateEnum
-          x-kubernetes-immutable: true
-        location:
-          description: 'The location of the resource. The supported locations are:
-            global, us-central1, us-east1, us-west1, asia-east1, europe-west1.'
-          type: string
-          x-dcl-go-name: Location
-          x-kubernetes-immutable: true
-        locked:
-          description: Whether the bucket has been locked. The retention period on
-            a locked bucket may not be changed. Locked buckets may only be deleted
-            if they are empty.
-          type: boolean
-          x-dcl-go-name: Locked
-          x-kubernetes-immutable: true
-        name:
-          description: The bucket id of the resource.
-          type: string
-          x-dcl-go-name: Name
-          x-kubernetes-immutable: true
-        parent:
-          description: The parent of the resource.
-          type: string
-          x-dcl-go-name: Parent
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/BillingAccount
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Folder
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Organization
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        retentionDays:
-          description: Logs will be retained by default for this amount of time, after
-            which they will automatically be deleted. The minimum retention period
-            is 1 day. If this value is set to zero at bucket creation time, the default
-            time of 30 days will be used.
-          format: int64
-          type: integer
-          x-dcl-go-name: RetentionDays
-        selfLink:
-          description: 'Output only. The resource name of the bucket. For example:
-            "projects/my-project-id/locations/my-location/buckets/my-bucket-id" The
-            supported locations are: `global`, `us-central1`, `us-east1`, `us-west1`,
-            `asia-east1`, `europe-west1`. For the location of `global` it is unspecified
-            where logs are actually stored. Once a bucket has been created, the location
-            can not be changed.'
-          readOnly: true
-          type: string
-          x-dcl-go-name: SelfLink
-          x-kubernetes-immutable: true
-        updateTime:
-          description: Output only. The last update timestamp of the bucket.
-          format: date-time
-          readOnly: true
-          type: string
-          x-dcl-go-name: UpdateTime
-          x-kubernetes-immutable: true
-      title: LogBucket
-      type: object
-      x-dcl-id: '{{parent}}/locations/{{location}}/buckets/{{name}}'
-      x-dcl-locations: []
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Logging LogBucket resource
   title: Logging/LogBucket
+  description: DCL Specification for the Logging LogBucket resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a LogBucket
+    parameters:
+    - name: LogBucket
+      required: true
+      description: A full instance of a LogBucket
   apply:
     description: The function used to apply information about a LogBucket
     parameters:
-    - description: A full instance of a LogBucket
-      name: LogBucket
+    - name: LogBucket
       required: true
+      description: A full instance of a LogBucket
   delete:
     description: The function used to delete a LogBucket
     parameters:
-    - description: A full instance of a LogBucket
-      name: LogBucket
+    - name: LogBucket
       required: true
+      description: A full instance of a LogBucket
   deleteAll:
     description: The function used to delete all LogBucket
     parameters:
@@ -134,12 +45,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a LogBucket
-    parameters:
-    - description: A full instance of a LogBucket
-      name: LogBucket
-      required: true
   list:
     description: The function used to list information about many LogBucket
     parameters:
@@ -151,3 +56,96 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    LogBucket:
+      title: LogBucket
+      x-dcl-id: '{{parent}}/locations/{{location}}/buckets/{{name}}'
+      type: object
+      properties:
+        createTime:
+          type: string
+          format: date-time
+          x-dcl-go-name: CreateTime
+          readOnly: true
+          description: Output only. The creation timestamp of the bucket. This is
+            not set for any of the default buckets.
+          x-kubernetes-immutable: true
+        description:
+          type: string
+          x-dcl-go-name: Description
+          description: Describes this bucket.
+        lifecycleState:
+          type: string
+          x-dcl-go-name: LifecycleState
+          x-dcl-go-type: LogBucketLifecycleStateEnum
+          readOnly: true
+          description: 'Output only. The bucket lifecycle state. Possible values:
+            LIFECYCLE_STATE_UNSPECIFIED, ACTIVE, DELETE_REQUESTED'
+          x-kubernetes-immutable: true
+          enum:
+          - LIFECYCLE_STATE_UNSPECIFIED
+          - ACTIVE
+          - DELETE_REQUESTED
+        location:
+          type: string
+          x-dcl-go-name: Location
+          description: 'The location of the resource. The supported locations are:
+            global, us-central1, us-east1, us-west1, asia-east1, europe-west1.'
+          x-kubernetes-immutable: true
+        locked:
+          type: boolean
+          x-dcl-go-name: Locked
+          description: Whether the bucket has been locked. The retention period on
+            a locked bucket may not be changed. Locked buckets may only be deleted
+            if they are empty.
+          x-kubernetes-immutable: true
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: The bucket id of the resource.
+          x-kubernetes-immutable: true
+        parent:
+          type: string
+          x-dcl-go-name: Parent
+          description: The parent of the resource.
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/BillingAccount
+            field: name
+            parent: true
+          - resource: Cloudresourcemanager/Folder
+            field: name
+            parent: true
+          - resource: Cloudresourcemanager/Organization
+            field: name
+            parent: true
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        retentionDays:
+          type: integer
+          format: int64
+          x-dcl-go-name: RetentionDays
+          description: Logs will be retained by default for this amount of time, after
+            which they will automatically be deleted. The minimum retention period
+            is 1 day. If this value is set to zero at bucket creation time, the default
+            time of 30 days will be used.
+        selfLink:
+          type: string
+          x-dcl-go-name: SelfLink
+          readOnly: true
+          description: 'Output only. The resource name of the bucket. For example:
+            "projects/my-project-id/locations/my-location/buckets/my-bucket-id" The
+            supported locations are: `global`, `us-central1`, `us-east1`, `us-west1`,
+            `asia-east1`, `europe-west1`. For the location of `global` it is unspecified
+            where logs are actually stored. Once a bucket has been created, the location
+            can not be changed.'
+          x-kubernetes-immutable: true
+        updateTime:
+          type: string
+          format: date-time
+          x-dcl-go-name: UpdateTime
+          readOnly: true
+          description: Output only. The last update timestamp of the bucket.
+          x-kubernetes-immutable: true

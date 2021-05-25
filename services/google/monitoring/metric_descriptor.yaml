@@ -11,66 +11,116 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+info:
+  title: Monitoring/MetricDescriptor
+  description: DCL Specification for the Monitoring MetricDescriptor resource
+  x-dcl-has-iam: false
+paths:
+  get:
+    description: The function used to get information about a MetricDescriptor
+    parameters:
+    - name: MetricDescriptor
+      required: true
+      description: A full instance of a MetricDescriptor
+  apply:
+    description: The function used to apply information about a MetricDescriptor
+    parameters:
+    - name: MetricDescriptor
+      required: true
+      description: A full instance of a MetricDescriptor
+  delete:
+    description: The function used to delete a MetricDescriptor
+    parameters:
+    - name: MetricDescriptor
+      required: true
+      description: A full instance of a MetricDescriptor
+  deleteAll:
+    description: The function used to delete all MetricDescriptor
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+  list:
+    description: The function used to list information about many MetricDescriptor
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
 components:
   schemas:
     MetricDescriptor:
+      title: MetricDescriptor
+      x-dcl-id: v3/projects/{{project}}/metricDescriptors/{{type}}
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - type
+      - metricKind
+      - valueType
+      - project
       properties:
         description:
-          description: A detailed description of the metric, which can be used in
-            documentation.
           type: string
           x-dcl-go-name: Description
+          description: A detailed description of the metric, which can be used in
+            documentation.
           x-kubernetes-immutable: true
         descriptorLabels:
+          type: array
+          x-dcl-go-name: DescriptorLabels
           description: The set of labels that can be used to describe a specific instance
             of this metric type. For example, the `appengine.googleapis.com/http/server/response_latencies`
             metric type has a label for the HTTP response code, `response_code`, so
             you can look at latencies for successful responses or just for responses
             that failed.
+          x-dcl-list-type: set
           items:
+            type: object
+            x-dcl-go-type: MetricDescriptorDescriptorLabels
             properties:
               description:
-                description: A human-readable description for the label.
                 type: string
                 x-dcl-go-name: Description
+                description: A human-readable description for the label.
                 x-kubernetes-immutable: true
               key:
+                type: string
+                x-dcl-go-name: Key
                 description: 'The key for this label. The key must meet the following
                   criteria: * Does not exceed 100 characters. * Matches the following
                   regular expression: `[a-zA-Z][a-zA-Z0-9_]*` * The first character
                   must be an upper- or lower-case letter. * The remaining characters
                   must be letters, digits, or underscores.'
-                type: string
-                x-dcl-go-name: Key
                 x-kubernetes-immutable: true
               valueType:
+                type: string
+                x-dcl-go-name: ValueType
+                x-dcl-go-type: MetricDescriptorDescriptorLabelsValueTypeEnum
                 description: 'The type of data that can be assigned to the label.
                   Possible values: STRING, BOOL, INT64'
+                x-kubernetes-immutable: true
                 enum:
                 - STRING
                 - BOOL
                 - INT64
-                type: string
-                x-dcl-go-name: ValueType
-                x-dcl-go-type: MetricDescriptorDescriptorLabelsValueTypeEnum
-                x-kubernetes-immutable: true
-            type: object
-            x-dcl-go-type: MetricDescriptorDescriptorLabels
-          type: array
-          x-dcl-go-name: DescriptorLabels
-          x-dcl-list-type: set
         displayName:
+          type: string
+          x-dcl-go-name: DisplayName
           description: A concise name for the metric, which can be displayed in user
             interfaces. Use sentence case without an ending period, for example "Request
             count". This field is optional but it is recommended to be set for any
             metrics associated with user-visible concepts, such as Quota.
-          type: string
-          x-dcl-go-name: DisplayName
           x-kubernetes-immutable: true
         launchStage:
+          type: string
+          x-dcl-go-name: LaunchStage
+          x-dcl-go-type: MetricDescriptorLaunchStageEnum
           description: 'Optional. The launch stage of the metric definition. Possible
             values: LAUNCH_STAGE_UNSPECIFIED, UNIMPLEMENTED, PRELAUNCH, EARLY_ACCESS,
             ALPHA, BETA, GA, DEPRECATED'
+          x-kubernetes-immutable: true
           enum:
           - LAUNCH_STAGE_UNSPECIFIED
           - UNIMPLEMENTED
@@ -80,25 +130,29 @@ components:
           - BETA
           - GA
           - DEPRECATED
-          type: string
-          x-dcl-go-name: LaunchStage
-          x-dcl-go-type: MetricDescriptorLaunchStageEnum
-          x-kubernetes-immutable: true
         metadata:
+          type: object
+          x-dcl-go-name: Metadata
+          x-dcl-go-type: MetricDescriptorMetadata
           description: Optional. Metadata which can be used to guide usage of the
             metric.
+          x-kubernetes-immutable: true
           properties:
             ingestDelay:
+              type: string
+              x-dcl-go-name: IngestDelay
               description: The delay of data points caused by ingestion. Data points
                 older than this age are guaranteed to be ingested and available to
                 be read, excluding data loss due to errors.
-              type: string
-              x-dcl-go-name: IngestDelay
               x-kubernetes-immutable: true
             launchStage:
+              type: string
+              x-dcl-go-name: LaunchStage
+              x-dcl-go-type: MetricDescriptorMetadataLaunchStageEnum
               description: 'Deprecated. Must use the `MetricDescriptor.launch_stage`
                 instead. Possible values: LAUNCH_STAGE_UNSPECIFIED, UNIMPLEMENTED,
                 PRELAUNCH, EARLY_ACCESS, ALPHA, BETA, GA, DEPRECATED'
+              x-kubernetes-immutable: true
               enum:
               - LAUNCH_STAGE_UNSPECIFIED
               - UNIMPLEMENTED
@@ -108,74 +162,68 @@ components:
               - BETA
               - GA
               - DEPRECATED
-              type: string
-              x-dcl-go-name: LaunchStage
-              x-dcl-go-type: MetricDescriptorMetadataLaunchStageEnum
-              x-kubernetes-immutable: true
             samplePeriod:
+              type: string
+              x-dcl-go-name: SamplePeriod
               description: The sampling period of metric data points. For metrics
                 which are written periodically, consecutive data points are stored
                 at this time interval, excluding data loss due to errors. Metrics
                 with a higher granularity have a smaller sampling period.
-              type: string
-              x-dcl-go-name: SamplePeriod
               x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: Metadata
-          x-dcl-go-type: MetricDescriptorMetadata
-          x-kubernetes-immutable: true
         metricKind:
+          type: string
+          x-dcl-go-name: MetricKind
+          x-dcl-go-type: MetricDescriptorMetricKindEnum
           description: 'Whether the metric records instantaneous values, changes to
             a value, etc. Some combinations of `metric_kind` and `value_type` might
             not be supported. Possible values: METRIC_KIND_UNSPECIFIED, GAUGE, DELTA,
             CUMULATIVE'
+          x-kubernetes-immutable: true
           enum:
           - METRIC_KIND_UNSPECIFIED
           - GAUGE
           - DELTA
           - CUMULATIVE
-          type: string
-          x-dcl-go-name: MetricKind
-          x-dcl-go-type: MetricDescriptorMetricKindEnum
-          x-kubernetes-immutable: true
         monitoredResourceTypes:
+          type: array
+          x-dcl-go-name: MonitoredResourceTypes
+          readOnly: true
           description: Read-only. If present, then a , that is associated with this
             metric type can only be associated with one of the monitored resource
             types listed here.
+          x-kubernetes-immutable: true
+          x-dcl-list-type: list
           items:
             type: string
             x-dcl-go-type: string
-          readOnly: true
-          type: array
-          x-dcl-go-name: MonitoredResourceTypes
-          x-dcl-list-type: list
-          x-kubernetes-immutable: true
         project:
-          description: The project for the resource
           type: string
           x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
+          description: The project for the resource
           x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
         selfLink:
-          description: The resource name of the metric descriptor.
-          readOnly: true
           type: string
           x-dcl-go-name: SelfLink
+          readOnly: true
+          description: The resource name of the metric descriptor.
           x-kubernetes-immutable: true
         type:
+          type: string
+          x-dcl-go-name: Type
           description: 'The metric type, including its DNS name prefix. The type is
             not URL-encoded. All user-defined metric types have the DNS name `custom.googleapis.com`
             or `external.googleapis.com`. Metric types should use a natural hierarchical
             grouping. For example: "custom.googleapis.com/invoice/paid/amount" "external.googleapis.com/prometheus/up"
             "appengine.googleapis.com/http/server/response_latencies"'
-          type: string
-          x-dcl-forward-slash-allowed: true
-          x-dcl-go-name: Type
           x-kubernetes-immutable: true
+          x-dcl-forward-slash-allowed: true
         unit:
+          type: string
+          x-dcl-go-name: Unit
           description: The units in which the metric value is reported. It is only
             applicable if the `value_type` is `INT64`, `DOUBLE`, or `DISTRIBUTION`.
             The `unit` defines the representation of the stored metric values. Different
@@ -203,66 +251,16 @@ components:
             indicates a metric contains a ratio, typically in the range 0..1, that
             will be multiplied by 100 and displayed as a percentage (so a metric value
             `0.03` means "3 percent").
-          type: string
-          x-dcl-go-name: Unit
           x-kubernetes-immutable: true
         valueType:
+          type: string
+          x-dcl-go-name: ValueType
+          x-dcl-go-type: MetricDescriptorValueTypeEnum
           description: 'Whether the measurement is an integer, a floating-point number,
             etc. Some combinations of `metric_kind` and `value_type` might not be
             supported. Possible values: STRING, BOOL, INT64'
+          x-kubernetes-immutable: true
           enum:
           - STRING
           - BOOL
           - INT64
-          type: string
-          x-dcl-go-name: ValueType
-          x-dcl-go-type: MetricDescriptorValueTypeEnum
-          x-kubernetes-immutable: true
-      required:
-      - type
-      - metricKind
-      - valueType
-      - project
-      title: MetricDescriptor
-      type: object
-      x-dcl-id: v3/projects/{{project}}/metricDescriptors/{{type}}
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
-info:
-  description: DCL Specification for the Monitoring MetricDescriptor resource
-  title: Monitoring/MetricDescriptor
-  x-dcl-has-iam: false
-paths:
-  apply:
-    description: The function used to apply information about a MetricDescriptor
-    parameters:
-    - description: A full instance of a MetricDescriptor
-      name: MetricDescriptor
-      required: true
-  delete:
-    description: The function used to delete a MetricDescriptor
-    parameters:
-    - description: A full instance of a MetricDescriptor
-      name: MetricDescriptor
-      required: true
-  deleteAll:
-    description: The function used to delete all MetricDescriptor
-    parameters:
-    - name: project
-      required: true
-      schema:
-        type: string
-  get:
-    description: The function used to get information about a MetricDescriptor
-    parameters:
-    - description: A full instance of a MetricDescriptor
-      name: MetricDescriptor
-      required: true
-  list:
-    description: The function used to list information about many MetricDescriptor
-    parameters:
-    - name: project
-      required: true
-      schema:
-        type: string

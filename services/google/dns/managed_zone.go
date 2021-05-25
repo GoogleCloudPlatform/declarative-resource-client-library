@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -620,7 +621,7 @@ func (l *ManagedZoneList) HasNext() bool {
 }
 
 func (l *ManagedZoneList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -636,7 +637,7 @@ func (l *ManagedZoneList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListManagedZone(ctx context.Context, project string) (*ManagedZoneList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListManagedZoneWithMaxResults(ctx, project, ManagedZoneMaxPage)
@@ -644,7 +645,7 @@ func (c *Client) ListManagedZone(ctx context.Context, project string) (*ManagedZ
 }
 
 func (c *Client) ListManagedZoneWithMaxResults(ctx context.Context, project string, pageSize int32) (*ManagedZoneList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listManagedZone(ctx, project, "", pageSize)
@@ -661,7 +662,7 @@ func (c *Client) ListManagedZoneWithMaxResults(ctx context.Context, project stri
 }
 
 func (c *Client) GetManagedZone(ctx context.Context, r *ManagedZone) (*ManagedZone, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getManagedZoneRaw(ctx, r)
@@ -693,7 +694,7 @@ func (c *Client) GetManagedZone(ctx context.Context, r *ManagedZone) (*ManagedZo
 }
 
 func (c *Client) DeleteManagedZone(ctx context.Context, r *ManagedZone) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -706,9 +707,6 @@ func (c *Client) DeleteManagedZone(ctx context.Context, r *ManagedZone) error {
 
 // DeleteAllManagedZone deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllManagedZone(ctx context.Context, project string, filter func(*ManagedZone) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListManagedZone(ctx, project)
 	if err != nil {
 		return err
@@ -732,10 +730,29 @@ func (c *Client) DeleteAllManagedZone(ctx context.Context, project string, filte
 }
 
 func (c *Client) ApplyManagedZone(ctx context.Context, rawDesired *ManagedZone, opts ...dcl.ApplyOption) (*ManagedZone, error) {
+
+	var resultNewState *ManagedZone
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyManagedZoneHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyManagedZoneHelper(c *Client, ctx context.Context, rawDesired *ManagedZone, opts ...dcl.ApplyOption) (*ManagedZone, error) {
 	c.Config.Logger.Info("Beginning ApplyManagedZone...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

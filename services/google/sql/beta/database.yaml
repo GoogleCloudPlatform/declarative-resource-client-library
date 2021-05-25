@@ -11,74 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    Database:
-      properties:
-        charset:
-          description: The Cloud SQL charset value.
-          type: string
-          x-dcl-go-name: Charset
-          x-dcl-server-default: true
-        collation:
-          description: The Cloud SQL collation value.
-          type: string
-          x-dcl-go-name: Collation
-          x-dcl-server-default: true
-        instance:
-          description: The name of the Cloud SQL instance. This does not include the
-            project ID.
-          type: string
-          x-dcl-go-name: Instance
-          x-kubernetes-immutable: true
-        name:
-          description: The name of the database in the Cloud SQL instance. This does
-            not include the project ID or instance name.
-          type: string
-          x-dcl-go-name: Name
-          x-kubernetes-immutable: true
-        project:
-          description: The project ID of the project containing the Cloud SQL database.
-            The Google apps domain is prefixed if applicable.
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        selfLink:
-          description: The URI of this resource.
-          readOnly: true
-          type: string
-          x-dcl-go-name: SelfLink
-          x-kubernetes-immutable: true
-      required:
-      - instance
-      - name
-      title: Database
-      type: object
-      x-dcl-id: projects/{{project}}/instances/{{instance}}/databases/{{name}}
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Sql Database resource
   title: Sql/Database
+  description: DCL Specification for the Sql Database resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a Database
+    parameters:
+    - name: Database
+      required: true
+      description: A full instance of a Database
   apply:
     description: The function used to apply information about a Database
     parameters:
-    - description: A full instance of a Database
-      name: Database
+    - name: Database
       required: true
+      description: A full instance of a Database
   delete:
     description: The function used to delete a Database
     parameters:
-    - description: A full instance of a Database
-      name: Database
+    - name: Database
       required: true
+      description: A full instance of a Database
   deleteAll:
     description: The function used to delete all Database
     parameters:
@@ -90,12 +45,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a Database
-    parameters:
-    - description: A full instance of a Database
-      name: Database
-      required: true
   list:
     description: The function used to list information about many Database
     parameters:
@@ -107,3 +56,52 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    Database:
+      title: Database
+      x-dcl-id: projects/{{project}}/instances/{{instance}}/databases/{{name}}
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - instance
+      - name
+      properties:
+        charset:
+          type: string
+          x-dcl-go-name: Charset
+          description: The Cloud SQL charset value.
+          x-dcl-server-default: true
+        collation:
+          type: string
+          x-dcl-go-name: Collation
+          description: The Cloud SQL collation value.
+          x-dcl-server-default: true
+        instance:
+          type: string
+          x-dcl-go-name: Instance
+          description: The name of the Cloud SQL instance. This does not include the
+            project ID.
+          x-kubernetes-immutable: true
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: The name of the database in the Cloud SQL instance. This does
+            not include the project ID or instance name.
+          x-kubernetes-immutable: true
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project ID of the project containing the Cloud SQL database.
+            The Google apps domain is prefixed if applicable.
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        selfLink:
+          type: string
+          x-dcl-go-name: SelfLink
+          readOnly: true
+          description: The URI of this resource.
+          x-kubernetes-immutable: true

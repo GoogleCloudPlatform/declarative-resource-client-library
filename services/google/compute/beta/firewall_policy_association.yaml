@@ -11,62 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    FirewallPolicyAssociation:
-      properties:
-        attachmentTarget:
-          description: The target that the firewall policy is attached to.
-          type: string
-          x-dcl-go-name: AttachmentTarget
-          x-dcl-references:
-          - field: name
-            resource: Cloudresourcemanager/Folder
-          - field: name
-            resource: Cloudresourcemanager/Organization
-          x-kubernetes-immutable: true
-        displayName:
-          description: The display name of the firewall policy of the association.
-          readOnly: true
-          type: string
-          x-dcl-go-name: DisplayName
-          x-kubernetes-immutable: true
-        firewallPolicy:
-          description: The firewall policy ID of the association.
-          type: string
-          x-dcl-go-name: FirewallPolicy
-          x-dcl-references:
-          - field: name
-            resource: Compute/FirewallPolicy
-          x-kubernetes-immutable: true
-        name:
-          description: The name for an association.
-          type: string
-          x-dcl-go-name: Name
-          x-kubernetes-immutable: true
-      title: FirewallPolicyAssociation
-      type: object
-      x-dcl-id: locations/global/firewallPolicies/{{firewall_policy}}/getAssociation?name={{name}}
-      x-dcl-locations:
-      - global
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Compute FirewallPolicyAssociation resource
   title: Compute/FirewallPolicyAssociation
+  description: DCL Specification for the Compute FirewallPolicyAssociation resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a FirewallPolicyAssociation
+    parameters:
+    - name: FirewallPolicyAssociation
+      required: true
+      description: A full instance of a FirewallPolicyAssociation
   apply:
     description: The function used to apply information about a FirewallPolicyAssociation
     parameters:
-    - description: A full instance of a FirewallPolicyAssociation
-      name: FirewallPolicyAssociation
+    - name: FirewallPolicyAssociation
       required: true
+      description: A full instance of a FirewallPolicyAssociation
   delete:
     description: The function used to delete a FirewallPolicyAssociation
     parameters:
-    - description: A full instance of a FirewallPolicyAssociation
-      name: FirewallPolicyAssociation
+    - name: FirewallPolicyAssociation
       required: true
+      description: A full instance of a FirewallPolicyAssociation
   deleteAll:
     description: The function used to delete all FirewallPolicyAssociation
     parameters:
@@ -74,12 +41,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a FirewallPolicyAssociation
-    parameters:
-    - description: A full instance of a FirewallPolicyAssociation
-      name: FirewallPolicyAssociation
-      required: true
   list:
     description: The function used to list information about many FirewallPolicyAssociation
     parameters:
@@ -87,3 +48,41 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    FirewallPolicyAssociation:
+      title: FirewallPolicyAssociation
+      x-dcl-id: locations/global/firewallPolicies/{{firewall_policy}}/getAssociation?name={{name}}
+      x-dcl-locations:
+      - global
+      type: object
+      properties:
+        attachmentTarget:
+          type: string
+          x-dcl-go-name: AttachmentTarget
+          description: The target that the firewall policy is attached to.
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Folder
+            field: name
+          - resource: Cloudresourcemanager/Organization
+            field: name
+        displayName:
+          type: string
+          x-dcl-go-name: DisplayName
+          readOnly: true
+          description: The display name of the firewall policy of the association.
+          x-kubernetes-immutable: true
+        firewallPolicy:
+          type: string
+          x-dcl-go-name: FirewallPolicy
+          description: The firewall policy ID of the association.
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Compute/FirewallPolicy
+            field: name
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: The name for an association.
+          x-kubernetes-immutable: true

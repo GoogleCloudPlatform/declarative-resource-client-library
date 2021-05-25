@@ -1,0 +1,11 @@
+{
+  "project": "{{project}}",
+  "location": "global",
+  "name": "{{name2}}",
+  "description": "description",
+  "endpoint": {
+    "gkeCluster": {
+      "resourceLink": "{{ref:secondservice.container.cluster.json:selfLink}}"
+    }
+  }
+}

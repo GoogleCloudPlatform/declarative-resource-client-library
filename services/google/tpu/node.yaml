@@ -11,17 +11,76 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+info:
+  title: TPU/Node
+  description: DCL Specification for the TPU Node resource
+  x-dcl-has-iam: false
+paths:
+  get:
+    description: The function used to get information about a Node
+    parameters:
+    - name: Node
+      required: true
+      description: A full instance of a Node
+  apply:
+    description: The function used to apply information about a Node
+    parameters:
+    - name: Node
+      required: true
+      description: A full instance of a Node
+  delete:
+    description: The function used to delete a Node
+    parameters:
+    - name: Node
+      required: true
+      description: A full instance of a Node
+  deleteAll:
+    description: The function used to delete all Node
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string
+  list:
+    description: The function used to list information about many Node
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string
 components:
   schemas:
     Node:
+      title: Node
+      x-dcl-id: projects/{{project}}/locations/{{location}}/nodes/{{name}}
+      x-dcl-parent-container: project
+      x-dcl-labels: labels
+      type: object
+      required:
+      - name
+      - acceleratorType
+      - tensorflowVersion
+      - cidrBlock
+      - project
+      - location
       properties:
         acceleratorType:
-          description: The type of hardware accelerators associated with this node.
-            Required.
           type: string
           x-dcl-go-name: AcceleratorType
+          description: The type of hardware accelerators associated with this node.
+            Required.
           x-kubernetes-immutable: true
         cidrBlock:
+          type: string
+          x-dcl-go-name: CidrBlock
           description: The CIDR block that the TPU node will use when selecting an
             IP address. This CIDR block must be a /29 block; the Compute Engine networks
             API forbids a smaller block, and using a larger block would be wasteful
@@ -30,41 +89,44 @@ components:
             block conflicts with any subnetworks in the user's provided network, or
             the provided network is peered with another network that is using that
             CIDR block.
-          type: string
-          x-dcl-go-name: CidrBlock
           x-kubernetes-immutable: true
         createTime:
+          type: object
+          x-dcl-go-name: CreateTime
+          x-dcl-go-type: NodeCreateTime
+          readOnly: true
           description: Output only. The time when the node was created.
+          x-kubernetes-immutable: true
           properties:
             nanos:
+              type: integer
+              format: int64
+              x-dcl-go-name: Nanos
               description: Non-negative fractions of a second at nanosecond resolution.
                 Negative second values with fractions must still have non-negative
                 nanos values that count forward in time. Must be from 0 to 999,999,999
                 inclusive.
-              format: int64
-              type: integer
-              x-dcl-go-name: Nanos
               x-kubernetes-immutable: true
             seconds:
+              type: integer
+              format: int64
+              x-dcl-go-name: Seconds
               description: Represents seconds of UTC time since Unix epoch 1970-01-01T00:00:00Z.
                 Must be from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59Z inclusive.
-              format: int64
-              type: integer
-              x-dcl-go-name: Seconds
               x-kubernetes-immutable: true
-          readOnly: true
-          type: object
-          x-dcl-go-name: CreateTime
-          x-dcl-go-type: NodeCreateTime
-          x-kubernetes-immutable: true
         description:
-          description: The user-supplied description of the TPU. Maximum of 512 characters.
           type: string
           x-dcl-go-name: Description
+          description: The user-supplied description of the TPU. Maximum of 512 characters.
           x-kubernetes-immutable: true
         health:
+          type: string
+          x-dcl-go-name: Health
+          x-dcl-go-type: NodeHealthEnum
+          readOnly: true
           description: 'The health status of the TPU node. Possible values: HEALTH_UNSPECIFIED,
             HEALTHY, DEPRECATED_UNHEALTHY, TIMEOUT, UNHEALTHY_TENSORFLOW, UNHEALTHY_MAINTENANCE'
+          x-kubernetes-immutable: true
           enum:
           - HEALTH_UNSPECIFIED
           - HEALTHY
@@ -72,128 +134,128 @@ components:
           - TIMEOUT
           - UNHEALTHY_TENSORFLOW
           - UNHEALTHY_MAINTENANCE
-          readOnly: true
-          type: string
-          x-dcl-go-name: Health
-          x-dcl-go-type: NodeHealthEnum
-          x-kubernetes-immutable: true
         healthDescription:
-          description: Output only. If this field is populated, it contains a description
-            of why the TPU Node is unhealthy.
-          readOnly: true
           type: string
           x-dcl-go-name: HealthDescription
+          readOnly: true
+          description: Output only. If this field is populated, it contains a description
+            of why the TPU Node is unhealthy.
           x-kubernetes-immutable: true
         ipAddress:
-          description: Output only. DEPRECATED! Use network_endpoints instead. The
-            network address for the TPU Node as visible to Compute Engine instances.
-          readOnly: true
           type: string
           x-dcl-go-name: IPAddress
+          readOnly: true
+          description: Output only. DEPRECATED! Use network_endpoints instead. The
+            network address for the TPU Node as visible to Compute Engine instances.
           x-kubernetes-immutable: true
         labels:
+          type: object
           additionalProperties:
             type: string
-          description: Resource labels to represent user-provided metadata.
-          type: object
           x-dcl-go-name: Labels
+          description: Resource labels to represent user-provided metadata.
           x-kubernetes-immutable: true
         location:
-          description: The location for the resource
           type: string
           x-dcl-go-name: Location
+          description: The location for the resource
           x-kubernetes-immutable: true
         name:
-          description: Output only. The immutable name of the TPU
           type: string
           x-dcl-go-name: Name
+          description: Output only. The immutable name of the TPU
           x-kubernetes-immutable: true
         network:
+          type: string
+          x-dcl-go-name: Network
           description: The name of a network they wish to peer the TPU node to. It
             must be a preexisting Compute Engine network inside of the project on
             which this API has been activated. If none is provided, "default" will
             be used.
-          type: string
-          x-dcl-go-name: Network
-          x-dcl-references:
-          - field: selfLink
-            resource: Compute/Network
-          x-dcl-server-default: true
           x-kubernetes-immutable: true
+          x-dcl-server-default: true
+          x-dcl-references:
+          - resource: Compute/Network
+            field: selfLink
         networkEndpoints:
+          type: array
+          x-dcl-go-name: NetworkEndpoints
+          readOnly: true
           description: Output only. The network endpoints where TPU workers can be
             accessed and sent work. It is recommended that Tensorflow clients of the
             node reach out to the 0th entry in this map first.
+          x-kubernetes-immutable: true
+          x-dcl-list-type: list
           items:
-            properties:
-              ipAddress:
-                description: The IP address of this network endpoint.
-                readOnly: true
-                type: string
-                x-dcl-go-name: IPAddress
-                x-kubernetes-immutable: true
-              port:
-                description: The port of this network endpoint.
-                format: int64
-                readOnly: true
-                type: integer
-                x-dcl-go-name: Port
-                x-kubernetes-immutable: true
             type: object
             x-dcl-go-type: NodeNetworkEndpoints
-          readOnly: true
-          type: array
-          x-dcl-go-name: NetworkEndpoints
-          x-dcl-list-type: list
-          x-kubernetes-immutable: true
+            properties:
+              ipAddress:
+                type: string
+                x-dcl-go-name: IPAddress
+                readOnly: true
+                description: The IP address of this network endpoint.
+                x-kubernetes-immutable: true
+              port:
+                type: integer
+                format: int64
+                x-dcl-go-name: Port
+                readOnly: true
+                description: The port of this network endpoint.
+                x-kubernetes-immutable: true
         port:
-          description: Output only. DEPRECATED! Use network_endpoints instead. The
-            network port for the TPU Node as visible to Compute Engine instances.
-          readOnly: true
           type: string
           x-dcl-go-name: Port
+          readOnly: true
+          description: Output only. DEPRECATED! Use network_endpoints instead. The
+            network port for the TPU Node as visible to Compute Engine instances.
           x-kubernetes-immutable: true
         project:
-          description: The project for the resource
           type: string
           x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
+          description: The project for the resource
           x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
         schedulingConfig:
-          properties:
-            preemptible:
-              description: Defines whether the node is preemptible.
-              type: boolean
-              x-dcl-go-name: Preemptible
-              x-kubernetes-immutable: true
-            reserved:
-              description: Whether the node is created under a reservation.
-              type: boolean
-              x-dcl-go-name: Reserved
-              x-kubernetes-immutable: true
-          required:
-          - preemptible
           type: object
           x-dcl-go-name: SchedulingConfig
           x-dcl-go-type: NodeSchedulingConfig
           x-kubernetes-immutable: true
+          required:
+          - preemptible
+          properties:
+            preemptible:
+              type: boolean
+              x-dcl-go-name: Preemptible
+              description: Defines whether the node is preemptible.
+              x-kubernetes-immutable: true
+            reserved:
+              type: boolean
+              x-dcl-go-name: Reserved
+              description: Whether the node is created under a reservation.
+              x-kubernetes-immutable: true
         serviceAccount:
+          type: string
+          x-dcl-go-name: ServiceAccount
+          readOnly: true
           description: Output only. The service account used to run the tensor flow
             services within the node. To share resources, including Google Cloud Storage
             data, with the Tensorflow job running in the Node, this account must have
             permissions to that data.
-          readOnly: true
-          type: string
-          x-dcl-go-name: ServiceAccount
           x-kubernetes-immutable: true
         state:
+          type: string
+          x-dcl-go-name: State
+          x-dcl-go-type: NodeStateEnum
+          readOnly: true
           description: 'Output only. The current state for the TPU Node. Possible
             values: STATE_UNSPECIFIED, CREATING, READY, RESTARTING, REIMAGING, DELETING,
             REPAIRING, STOPPED, STOPPING, STARTING, PREEMPTED, TERMINATED, HIDING,
             HIDDEN, UNHIDING'
+          x-kubernetes-immutable: true
           enum:
           - STATE_UNSPECIFIED
           - CREATING
@@ -210,46 +272,52 @@ components:
           - HIDING
           - HIDDEN
           - UNHIDING
-          readOnly: true
-          type: string
-          x-dcl-go-name: State
-          x-dcl-go-type: NodeStateEnum
-          x-kubernetes-immutable: true
         symptoms:
+          type: array
+          x-dcl-go-name: Symptoms
+          readOnly: true
           description: Output only. The Symptoms that have occurred to the TPU Node.
+          x-kubernetes-immutable: true
+          x-dcl-list-type: list
           items:
+            type: object
+            x-dcl-go-type: NodeSymptoms
             properties:
               createTime:
+                type: object
+                x-dcl-go-name: CreateTime
+                x-dcl-go-type: NodeSymptomsCreateTime
                 description: Timestamp when the Symptom is created.
+                x-kubernetes-immutable: true
                 properties:
                   nanos:
+                    type: integer
+                    format: int64
+                    x-dcl-go-name: Nanos
                     description: Non-negative fractions of a second at nanosecond
                       resolution. Negative second values with fractions must still
                       have non-negative nanos values that count forward in time. Must
                       be from 0 to 999,999,999 inclusive.
-                    format: int64
-                    type: integer
-                    x-dcl-go-name: Nanos
                     x-kubernetes-immutable: true
                   seconds:
+                    type: integer
+                    format: int64
+                    x-dcl-go-name: Seconds
                     description: Represents seconds of UTC time since Unix epoch 1970-01-01T00:00:00Z.
                       Must be from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59Z inclusive.
-                    format: int64
-                    type: integer
-                    x-dcl-go-name: Seconds
                     x-kubernetes-immutable: true
-                type: object
-                x-dcl-go-name: CreateTime
-                x-dcl-go-type: NodeSymptomsCreateTime
-                x-kubernetes-immutable: true
               details:
-                description: Detailed information of the current Symptom.
                 type: string
                 x-dcl-go-name: Details
+                description: Detailed information of the current Symptom.
                 x-kubernetes-immutable: true
               symptomType:
+                type: string
+                x-dcl-go-name: SymptomType
+                x-dcl-go-type: NodeSymptomsSymptomTypeEnum
                 description: 'Type of the Symptom. Possible values: SYMPTOM_TYPE_UNSPECIFIED,
                   LOW_MEMORY, OUT_OF_MEMORY, EXECUTE_TIMED_OUT, MESH_BUILD_FAIL, HBM_OUT_OF_MEMORY'
+                x-kubernetes-immutable: true
                 enum:
                 - SYMPTOM_TYPE_UNSPECIFIED
                 - LOW_MEMORY
@@ -257,92 +325,22 @@ components:
                 - EXECUTE_TIMED_OUT
                 - MESH_BUILD_FAIL
                 - HBM_OUT_OF_MEMORY
-                type: string
-                x-dcl-go-name: SymptomType
-                x-dcl-go-type: NodeSymptomsSymptomTypeEnum
-                x-kubernetes-immutable: true
               workerId:
-                description: A string used to uniquely distinguish a worker within
-                  a TPU node.
                 type: string
                 x-dcl-go-name: WorkerId
+                description: A string used to uniquely distinguish a worker within
+                  a TPU node.
                 x-kubernetes-immutable: true
-            type: object
-            x-dcl-go-type: NodeSymptoms
-          readOnly: true
-          type: array
-          x-dcl-go-name: Symptoms
-          x-dcl-list-type: list
-          x-kubernetes-immutable: true
         tensorflowVersion:
-          description: The version of Tensorflow running in the Node. Required.
           type: string
           x-dcl-go-name: TensorflowVersion
+          description: The version of Tensorflow running in the Node. Required.
         useServiceNetworking:
+          type: boolean
+          x-dcl-go-name: UseServiceNetworking
           description: Whether the VPC peering for the node is set up through Service
             Networking API. The VPC Peering should be set up before provisioning the
             node. If this field is set, cidr_block field should not be specified.
             If the network, that you want to peer the TPU Node to, is Shared VPC networks,
             the node must be created with this this field enabled.
-          type: boolean
-          x-dcl-go-name: UseServiceNetworking
           x-kubernetes-immutable: true
-      required:
-      - name
-      - acceleratorType
-      - tensorflowVersion
-      - cidrBlock
-      - project
-      - location
-      title: Node
-      type: object
-      x-dcl-id: projects/{{project}}/locations/{{location}}/nodes/{{name}}
-      x-dcl-labels: labels
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
-info:
-  description: DCL Specification for the TPU Node resource
-  title: TPU/Node
-  x-dcl-has-iam: false
-paths:
-  apply:
-    description: The function used to apply information about a Node
-    parameters:
-    - description: A full instance of a Node
-      name: Node
-      required: true
-  delete:
-    description: The function used to delete a Node
-    parameters:
-    - description: A full instance of a Node
-      name: Node
-      required: true
-  deleteAll:
-    description: The function used to delete all Node
-    parameters:
-    - name: project
-      required: true
-      schema:
-        type: string
-    - name: location
-      required: true
-      schema:
-        type: string
-  get:
-    description: The function used to get information about a Node
-    parameters:
-    - description: A full instance of a Node
-      name: Node
-      required: true
-  list:
-    description: The function used to list information about many Node
-    parameters:
-    - name: project
-      required: true
-      schema:
-        type: string
-    - name: location
-      required: true
-      schema:
-        type: string

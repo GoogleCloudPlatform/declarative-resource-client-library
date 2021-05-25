@@ -11,137 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    RouterPeer:
-      properties:
-        advertiseMode:
-          description: User-specified flag to indicate which mode to use for advertisement.
-          type: string
-          x-dcl-go-name: AdvertiseMode
-        advertisedGroups:
-          description: User-specified list of prefix groups to advertise in custom
-            mode
-          items:
-            type: string
-            x-dcl-go-type: string
-          type: array
-          x-dcl-go-name: AdvertisedGroups
-          x-dcl-list-type: list
-        advertisedIPRanges:
-          description: User-specified list of individual IP ranges to advertise in
-            custom mode. This field can only be populated if advertiseMode is CUSTOM
-          items:
-            properties:
-              description:
-                description: User-specified description for the IP range.
-                type: string
-                x-dcl-go-name: Description
-              range:
-                description: The IP range to advertise. The value must be a CIDR-formatted
-                  string.
-                type: string
-                x-dcl-go-name: Range
-            type: object
-            x-dcl-go-type: RouterPeerAdvertisedIPRanges
-          type: array
-          x-dcl-go-name: AdvertisedIPRanges
-          x-dcl-list-type: list
-        advertisedRoutePriority:
-          description: The priority of routes advertised to this BGP peer. Where there
-            is more than one matching route of maximum length, the routes with the
-            lowest priority value win.
-          format: int64
-          type: integer
-          x-dcl-go-name: AdvertisedRoutePriority
-        creationTimestamp:
-          description: Creation timestamp in RFC3339 text format.
-          format: date-time
-          readOnly: true
-          type: string
-          x-dcl-go-name: CreationTimestamp
-          x-kubernetes-immutable: true
-        interfaceName:
-          description: Name of the interface the BGP peer is associated with.
-          type: string
-          x-dcl-go-name: InterfaceName
-        ipAddress:
-          description: IP address of the interface inside Google Cloud Platform. Only
-            IPv4 is supported.
-          type: string
-          x-dcl-go-name: IPAddress
-        managementType:
-          description: The resource that configures and manages this BGP peer
-          readOnly: true
-          type: string
-          x-dcl-go-name: ManagementType
-          x-kubernetes-immutable: true
-        name:
-          description: Name of this BGP peer
-          type: string
-          x-dcl-go-name: Name
-        peerAsn:
-          description: Peer BGP Autonomous System Number (ASN). Each BGP interface
-            may use a different value.
-          format: int64
-          type: integer
-          x-dcl-go-name: PeerAsn
-        peerIPAddress:
-          description: IP address of the BGP interface outside Google Cloud Platform.
-            Only IPv4 is supported.
-          type: string
-          x-dcl-go-name: PeerIPAddress
-        project:
-          description: The project id of the resource.
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        region:
-          description: Region where the router resides.
-          type: string
-          x-dcl-go-name: Region
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Compute/Region
-        router:
-          description: 'Name of the router. The name must be 1-63 characters long,
-            and comply with RFC1035. Specifically, the name must be 1-63 characters
-            long and match the regular expression `[a-z]([-a-z0-9]*[a-z0-9])?` which
-            means the first character must be a lowercase letter, and all following
-            characters must be a dash, lowercase letter, or digit, except the last
-            character, which cannot be a dash. '
-          type: string
-          x-dcl-go-name: Router
-          x-kubernetes-immutable: true
-      title: RouterPeer
-      type: object
-      x-dcl-id: projects/{{project}}/regions/{{region}}/routers/{{router}}
-      x-dcl-locations:
-      - region
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Compute RouterPeer resource
   title: Compute/RouterPeer
+  description: DCL Specification for the Compute RouterPeer resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a RouterPeer
+    parameters:
+    - name: RouterPeer
+      required: true
+      description: A full instance of a RouterPeer
   apply:
     description: The function used to apply information about a RouterPeer
     parameters:
-    - description: A full instance of a RouterPeer
-      name: RouterPeer
+    - name: RouterPeer
       required: true
+      description: A full instance of a RouterPeer
   delete:
     description: The function used to delete a RouterPeer
     parameters:
-    - description: A full instance of a RouterPeer
-      name: RouterPeer
+    - name: RouterPeer
       required: true
+      description: A full instance of a RouterPeer
   deleteAll:
     description: The function used to delete all RouterPeer
     parameters:
@@ -153,12 +45,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a RouterPeer
-    parameters:
-    - description: A full instance of a RouterPeer
-      name: RouterPeer
-      required: true
   list:
     description: The function used to list information about many RouterPeer
     parameters:
@@ -170,3 +56,116 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    RouterPeer:
+      title: RouterPeer
+      x-dcl-id: projects/{{project}}/regions/{{region}}/routers/{{router}}
+      x-dcl-locations:
+      - region
+      x-dcl-parent-container: project
+      type: object
+      properties:
+        advertiseMode:
+          type: string
+          x-dcl-go-name: AdvertiseMode
+          description: User-specified flag to indicate which mode to use for advertisement.
+        advertisedGroups:
+          type: array
+          x-dcl-go-name: AdvertisedGroups
+          description: User-specified list of prefix groups to advertise in custom
+            mode
+          x-dcl-list-type: list
+          items:
+            type: string
+            x-dcl-go-type: string
+        advertisedIPRanges:
+          type: array
+          x-dcl-go-name: AdvertisedIPRanges
+          description: User-specified list of individual IP ranges to advertise in
+            custom mode. This field can only be populated if advertiseMode is CUSTOM
+          x-dcl-list-type: list
+          items:
+            type: object
+            x-dcl-go-type: RouterPeerAdvertisedIPRanges
+            properties:
+              description:
+                type: string
+                x-dcl-go-name: Description
+                description: User-specified description for the IP range.
+              range:
+                type: string
+                x-dcl-go-name: Range
+                description: The IP range to advertise. The value must be a CIDR-formatted
+                  string.
+        advertisedRoutePriority:
+          type: integer
+          format: int64
+          x-dcl-go-name: AdvertisedRoutePriority
+          description: The priority of routes advertised to this BGP peer. Where there
+            is more than one matching route of maximum length, the routes with the
+            lowest priority value win.
+        creationTimestamp:
+          type: string
+          format: date-time
+          x-dcl-go-name: CreationTimestamp
+          readOnly: true
+          description: Creation timestamp in RFC3339 text format.
+          x-kubernetes-immutable: true
+        interfaceName:
+          type: string
+          x-dcl-go-name: InterfaceName
+          description: Name of the interface the BGP peer is associated with.
+        ipAddress:
+          type: string
+          x-dcl-go-name: IPAddress
+          description: IP address of the interface inside Google Cloud Platform. Only
+            IPv4 is supported.
+        managementType:
+          type: string
+          x-dcl-go-name: ManagementType
+          readOnly: true
+          description: The resource that configures and manages this BGP peer
+          x-kubernetes-immutable: true
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: Name of this BGP peer
+        peerAsn:
+          type: integer
+          format: int64
+          x-dcl-go-name: PeerAsn
+          description: Peer BGP Autonomous System Number (ASN). Each BGP interface
+            may use a different value.
+        peerIPAddress:
+          type: string
+          x-dcl-go-name: PeerIPAddress
+          description: IP address of the BGP interface outside Google Cloud Platform.
+            Only IPv4 is supported.
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project id of the resource.
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        region:
+          type: string
+          x-dcl-go-name: Region
+          description: Region where the router resides.
+          x-dcl-references:
+          - resource: Compute/Region
+            field: name
+            parent: true
+        router:
+          type: string
+          x-dcl-go-name: Router
+          description: 'Name of the router. The name must be 1-63 characters long,
+            and comply with RFC1035. Specifically, the name must be 1-63 characters
+            long and match the regular expression `[a-z]([-a-z0-9]*[a-z0-9])?` which
+            means the first character must be a lowercase letter, and all following
+            characters must be a dash, lowercase letter, or digit, except the last
+            character, which cannot be a dash. '
+          x-kubernetes-immutable: true

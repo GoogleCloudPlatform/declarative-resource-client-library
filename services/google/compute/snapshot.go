@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -165,7 +166,7 @@ func (l *SnapshotList) HasNext() bool {
 }
 
 func (l *SnapshotList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -181,7 +182,7 @@ func (l *SnapshotList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListSnapshot(ctx context.Context, project string) (*SnapshotList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListSnapshotWithMaxResults(ctx, project, SnapshotMaxPage)
@@ -189,7 +190,7 @@ func (c *Client) ListSnapshot(ctx context.Context, project string) (*SnapshotLis
 }
 
 func (c *Client) ListSnapshotWithMaxResults(ctx context.Context, project string, pageSize int32) (*SnapshotList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listSnapshot(ctx, project, "", pageSize)
@@ -206,7 +207,7 @@ func (c *Client) ListSnapshotWithMaxResults(ctx context.Context, project string,
 }
 
 func (c *Client) GetSnapshot(ctx context.Context, r *Snapshot) (*Snapshot, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getSnapshotRaw(ctx, r)
@@ -238,7 +239,7 @@ func (c *Client) GetSnapshot(ctx context.Context, r *Snapshot) (*Snapshot, error
 }
 
 func (c *Client) DeleteSnapshot(ctx context.Context, r *Snapshot) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -251,9 +252,6 @@ func (c *Client) DeleteSnapshot(ctx context.Context, r *Snapshot) error {
 
 // DeleteAllSnapshot deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllSnapshot(ctx context.Context, project string, filter func(*Snapshot) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListSnapshot(ctx, project)
 	if err != nil {
 		return err
@@ -277,10 +275,29 @@ func (c *Client) DeleteAllSnapshot(ctx context.Context, project string, filter f
 }
 
 func (c *Client) ApplySnapshot(ctx context.Context, rawDesired *Snapshot, opts ...dcl.ApplyOption) (*Snapshot, error) {
+
+	var resultNewState *Snapshot
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applySnapshotHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applySnapshotHelper(c *Client, ctx context.Context, rawDesired *Snapshot, opts ...dcl.ApplyOption) (*Snapshot, error) {
 	c.Config.Logger.Info("Beginning ApplySnapshot...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

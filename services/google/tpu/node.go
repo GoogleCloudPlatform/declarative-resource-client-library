@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -411,7 +412,7 @@ func (l *NodeList) HasNext() bool {
 }
 
 func (l *NodeList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -427,7 +428,7 @@ func (l *NodeList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListNode(ctx context.Context, project, location string) (*NodeList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListNodeWithMaxResults(ctx, project, location, NodeMaxPage)
@@ -435,7 +436,7 @@ func (c *Client) ListNode(ctx context.Context, project, location string) (*NodeL
 }
 
 func (c *Client) ListNodeWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*NodeList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listNode(ctx, project, location, "", pageSize)
@@ -454,7 +455,7 @@ func (c *Client) ListNodeWithMaxResults(ctx context.Context, project, location s
 }
 
 func (c *Client) GetNode(ctx context.Context, r *Node) (*Node, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getNodeRaw(ctx, r)
@@ -487,7 +488,7 @@ func (c *Client) GetNode(ctx context.Context, r *Node) (*Node, error) {
 }
 
 func (c *Client) DeleteNode(ctx context.Context, r *Node) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -500,9 +501,6 @@ func (c *Client) DeleteNode(ctx context.Context, r *Node) error {
 
 // DeleteAllNode deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllNode(ctx context.Context, project, location string, filter func(*Node) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListNode(ctx, project, location)
 	if err != nil {
 		return err
@@ -526,10 +524,29 @@ func (c *Client) DeleteAllNode(ctx context.Context, project, location string, fi
 }
 
 func (c *Client) ApplyNode(ctx context.Context, rawDesired *Node, opts ...dcl.ApplyOption) (*Node, error) {
+
+	var resultNewState *Node
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyNodeHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyNodeHelper(c *Client, ctx context.Context, rawDesired *Node, opts ...dcl.ApplyOption) (*Node, error) {
 	c.Config.Logger.Info("Beginning ApplyNode...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

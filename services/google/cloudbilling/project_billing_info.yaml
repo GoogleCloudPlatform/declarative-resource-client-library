@@ -11,45 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    ProjectBillingInfo:
-      properties:
-        billingAccountName:
-          type: string
-          x-dcl-go-name: BillingAccountName
-          x-dcl-send-empty: true
-        billingEnabled:
-          readOnly: true
-          type: string
-          x-dcl-go-name: BillingEnabled
-          x-kubernetes-immutable: true
-        name:
-          type: string
-          x-dcl-go-name: Name
-          x-kubernetes-immutable: true
-      title: ProjectBillingInfo
-      type: object
-      x-dcl-id: projects/{{name}}/billingInfo
-      x-dcl-locations: []
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the CloudBilling ProjectBillingInfo resource
   title: CloudBilling/ProjectBillingInfo
+  description: DCL Specification for the CloudBilling ProjectBillingInfo resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a ProjectBillingInfo
+    parameters:
+    - name: ProjectBillingInfo
+      required: true
+      description: A full instance of a ProjectBillingInfo
   apply:
     description: The function used to apply information about a ProjectBillingInfo
     parameters:
-    - description: A full instance of a ProjectBillingInfo
-      name: ProjectBillingInfo
+    - name: ProjectBillingInfo
       required: true
+      description: A full instance of a ProjectBillingInfo
   delete:
     description: The function used to delete a ProjectBillingInfo
     parameters:
-    - description: A full instance of a ProjectBillingInfo
-      name: ProjectBillingInfo
+    - name: ProjectBillingInfo
       required: true
+      description: A full instance of a ProjectBillingInfo
   deleteAll:
     description: The function used to delete all ProjectBillingInfo
     parameters:
@@ -57,12 +41,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a ProjectBillingInfo
-    parameters:
-    - description: A full instance of a ProjectBillingInfo
-      name: ProjectBillingInfo
-      required: true
   list:
     description: The function used to list information about many ProjectBillingInfo
     parameters:
@@ -70,3 +48,23 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    ProjectBillingInfo:
+      title: ProjectBillingInfo
+      x-dcl-id: projects/{{name}}/billingInfo
+      type: object
+      properties:
+        billingAccountName:
+          type: string
+          x-dcl-go-name: BillingAccountName
+          x-dcl-send-empty: true
+        billingEnabled:
+          type: string
+          x-dcl-go-name: BillingEnabled
+          readOnly: true
+          x-kubernetes-immutable: true
+        name:
+          type: string
+          x-dcl-go-name: Name
+          x-kubernetes-immutable: true

@@ -694,6 +694,12 @@ func MatchingSemver(lp, rp *string) bool {
 	if l == "latest" || r == "latest" {
 		return true
 	}
+
+	// If default version chosen, we should assume API returned the default version.
+	if l == "-" {
+		return true
+	}
+
 	ld := strings.Split(l, "-")
 	rd := strings.Split(r, "-")
 	if ld[0] == rd[0] {

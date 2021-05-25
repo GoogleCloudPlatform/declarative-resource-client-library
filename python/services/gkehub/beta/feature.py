@@ -160,9 +160,8 @@ class FeatureSpecArray(object):
 
 
 class FeatureSpecMulticlusteringress(object):
-    def __init__(self, config_membership: str = None, billing: str = None):
+    def __init__(self, config_membership: str = None):
         self.config_membership = config_membership
-        self.billing = billing
 
     @classmethod
     def to_proto(self, resource):
@@ -172,10 +171,6 @@ class FeatureSpecMulticlusteringress(object):
         res = feature_pb2.GkehubBetaFeatureSpecMulticlusteringress()
         if Primitive.to_proto(resource.config_membership):
             res.config_membership = Primitive.to_proto(resource.config_membership)
-        if FeatureSpecMulticlusteringressBillingEnum.to_proto(resource.billing):
-            res.billing = FeatureSpecMulticlusteringressBillingEnum.to_proto(
-                resource.billing
-            )
         return res
 
     @classmethod
@@ -184,7 +179,7 @@ class FeatureSpecMulticlusteringress(object):
             return None
 
         return FeatureSpecMulticlusteringress(
-            config_membership=resource.config_membership, billing=resource.billing,
+            config_membership=resource.config_membership,
         )
 
 
@@ -198,24 +193,6 @@ class FeatureSpecMulticlusteringressArray(object):
     @classmethod
     def from_proto(self, resources):
         return [FeatureSpecMulticlusteringress.from_proto(i) for i in resources]
-
-
-class FeatureSpecMulticlusteringressBillingEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return feature_pb2.GkehubBetaFeatureSpecMulticlusteringressBillingEnum.Value(
-            "GkehubBetaFeatureSpecMulticlusteringressBillingEnum%s" % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return feature_pb2.GkehubBetaFeatureSpecMulticlusteringressBillingEnum.Name(
-            resource
-        )[len("GkehubBetaFeatureSpecMulticlusteringressBillingEnum") :]
 
 
 class Primitive(object):

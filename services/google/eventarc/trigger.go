@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -377,7 +378,7 @@ func (l *TriggerList) HasNext() bool {
 }
 
 func (l *TriggerList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -393,7 +394,7 @@ func (l *TriggerList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListTrigger(ctx context.Context, project, location string) (*TriggerList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListTriggerWithMaxResults(ctx, project, location, TriggerMaxPage)
@@ -401,7 +402,7 @@ func (c *Client) ListTrigger(ctx context.Context, project, location string) (*Tr
 }
 
 func (c *Client) ListTriggerWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*TriggerList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listTrigger(ctx, project, location, "", pageSize)
@@ -420,7 +421,7 @@ func (c *Client) ListTriggerWithMaxResults(ctx context.Context, project, locatio
 }
 
 func (c *Client) GetTrigger(ctx context.Context, r *Trigger) (*Trigger, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getTriggerRaw(ctx, r)
@@ -453,7 +454,7 @@ func (c *Client) GetTrigger(ctx context.Context, r *Trigger) (*Trigger, error) {
 }
 
 func (c *Client) DeleteTrigger(ctx context.Context, r *Trigger) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -466,9 +467,6 @@ func (c *Client) DeleteTrigger(ctx context.Context, r *Trigger) error {
 
 // DeleteAllTrigger deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllTrigger(ctx context.Context, project, location string, filter func(*Trigger) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListTrigger(ctx, project, location)
 	if err != nil {
 		return err
@@ -492,10 +490,29 @@ func (c *Client) DeleteAllTrigger(ctx context.Context, project, location string,
 }
 
 func (c *Client) ApplyTrigger(ctx context.Context, rawDesired *Trigger, opts ...dcl.ApplyOption) (*Trigger, error) {
+
+	var resultNewState *Trigger
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyTriggerHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyTriggerHelper(c *Client, ctx context.Context, rawDesired *Trigger, opts ...dcl.ApplyOption) (*Trigger, error) {
 	c.Config.Logger.Info("Beginning ApplyTrigger...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

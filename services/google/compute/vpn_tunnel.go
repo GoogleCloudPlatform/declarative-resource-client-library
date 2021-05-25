@@ -16,6 +16,7 @@ package compute
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -105,7 +106,7 @@ func (l *VpnTunnelList) HasNext() bool {
 }
 
 func (l *VpnTunnelList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -121,7 +122,7 @@ func (l *VpnTunnelList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListVpnTunnel(ctx context.Context, project, region string) (*VpnTunnelList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListVpnTunnelWithMaxResults(ctx, project, region, VpnTunnelMaxPage)
@@ -129,7 +130,7 @@ func (c *Client) ListVpnTunnel(ctx context.Context, project, region string) (*Vp
 }
 
 func (c *Client) ListVpnTunnelWithMaxResults(ctx context.Context, project, region string, pageSize int32) (*VpnTunnelList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listVpnTunnel(ctx, project, region, "", pageSize)
@@ -148,7 +149,7 @@ func (c *Client) ListVpnTunnelWithMaxResults(ctx context.Context, project, regio
 }
 
 func (c *Client) GetVpnTunnel(ctx context.Context, r *VpnTunnel) (*VpnTunnel, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getVpnTunnelRaw(ctx, r)
@@ -184,7 +185,7 @@ func (c *Client) GetVpnTunnel(ctx context.Context, r *VpnTunnel) (*VpnTunnel, er
 }
 
 func (c *Client) DeleteVpnTunnel(ctx context.Context, r *VpnTunnel) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -197,9 +198,6 @@ func (c *Client) DeleteVpnTunnel(ctx context.Context, r *VpnTunnel) error {
 
 // DeleteAllVpnTunnel deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllVpnTunnel(ctx context.Context, project, region string, filter func(*VpnTunnel) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListVpnTunnel(ctx, project, region)
 	if err != nil {
 		return err
@@ -223,10 +221,29 @@ func (c *Client) DeleteAllVpnTunnel(ctx context.Context, project, region string,
 }
 
 func (c *Client) ApplyVpnTunnel(ctx context.Context, rawDesired *VpnTunnel, opts ...dcl.ApplyOption) (*VpnTunnel, error) {
+
+	var resultNewState *VpnTunnel
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyVpnTunnelHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyVpnTunnelHelper(c *Client, ctx context.Context, rawDesired *VpnTunnel, opts ...dcl.ApplyOption) (*VpnTunnel, error) {
 	c.Config.Logger.Info("Beginning ApplyVpnTunnel...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

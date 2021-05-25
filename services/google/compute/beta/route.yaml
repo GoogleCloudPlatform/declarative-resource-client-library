@@ -11,32 +11,82 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+info:
+  title: Compute/Route
+  description: DCL Specification for the Compute Route resource
+  x-dcl-has-iam: false
+paths:
+  get:
+    description: The function used to get information about a Route
+    parameters:
+    - name: Route
+      required: true
+      description: A full instance of a Route
+  apply:
+    description: The function used to apply information about a Route
+    parameters:
+    - name: Route
+      required: true
+      description: A full instance of a Route
+  delete:
+    description: The function used to delete a Route
+    parameters:
+    - name: Route
+      required: true
+      description: A full instance of a Route
+  deleteAll:
+    description: The function used to delete all Route
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+  list:
+    description: The function used to list information about many Route
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
 components:
   schemas:
     Route:
+      title: Route
+      x-dcl-id: projects/{{project}}/global/routes/{{name}}
+      x-dcl-locations:
+      - global
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - name
+      - network
+      - destRange
+      - project
       properties:
         description:
+          type: string
+          x-dcl-go-name: Description
           description: |-
             An optional description of this resource. Provide this field when you
             create the resource.
-          type: string
-          x-dcl-go-name: Description
           x-kubernetes-immutable: true
         destRange:
-          description: The destination range of the route.
           type: string
           x-dcl-go-name: DestRange
+          description: The destination range of the route.
           x-kubernetes-immutable: true
         id:
+          type: integer
+          format: int64
+          x-dcl-go-name: Id
+          readOnly: true
           description: |-
             [Output Only] The unique identifier for the resource. This identifier is
             defined by the server.
-          format: int64
-          readOnly: true
-          type: integer
-          x-dcl-go-name: Id
           x-kubernetes-immutable: true
         name:
+          type: string
+          x-dcl-go-name: Name
           description: |-
             Name of the resource. Provided by the client when the resource is created.
             The name must be 1-63 characters long, and comply with
@@ -46,34 +96,34 @@ components:
             lowercase letter, and all following characters (except for the last
             character) must be a dash, lowercase letter, or digit. The last character
             must be a lowercase letter or digit.
-          type: string
-          x-dcl-go-name: Name
           x-kubernetes-immutable: true
         network:
-          description: Fully-qualified URL of the network that this route applies
-            to.
           type: string
           x-dcl-go-name: Network
+          description: Fully-qualified URL of the network that this route applies
+            to.
           x-kubernetes-immutable: true
         nextHopGateway:
+          type: string
+          x-dcl-go-name: NextHopGateway
           description: |-
             The URL to a gateway that should handle matching packets.
             You can only specify the internet gateway using a full or
             partial valid URL: </br>
             <code>projects/<var
             class="apiparam">project</var>/global/gateways/default-internet-gateway</code>
-          type: string
-          x-dcl-go-name: NextHopGateway
           x-kubernetes-immutable: true
         nextHopIP:
+          type: string
+          x-dcl-go-name: NextHopIP
           description: |-
             The network IP address of an instance that should handle matching packets.
             Only IPv4 is supported.
-          type: string
-          x-dcl-go-name: NextHopIP
-          x-dcl-server-default: true
           x-kubernetes-immutable: true
+          x-dcl-server-default: true
         nextHopIlb:
+          type: string
+          x-dcl-go-name: NextHopIlb
           description: |-
             The URL to a forwarding rule of type
             <code>loadBalancingScheme=INTERNAL</code> that should handle matching
@@ -87,10 +137,10 @@ components:
                class="apiparam">region</var>/forwardingRules/<var
                class="apiparam">forwardingRule</var></code></li>
             </ul>
-          type: string
-          x-dcl-go-name: NextHopIlb
           x-kubernetes-immutable: true
         nextHopInstance:
+          type: string
+          x-dcl-go-name: NextHopInstance
           description: |-
             The URL to an instance that should handle matching packets. You can specify
             this as a full or partial URL.
@@ -98,70 +148,80 @@ components:
             <code>https://www.googleapis.com/compute/v1/projects/<var
             class="apiparam">project</var>/zones/<var
             class="apiparam">zone</var>/instances/<instance-name></code>
-          type: string
-          x-dcl-go-name: NextHopInstance
           x-kubernetes-immutable: true
         nextHopNetwork:
-          description: The URL of the local network if it should handle matching packets.
           type: string
           x-dcl-go-name: NextHopNetwork
+          description: The URL of the local network if it should handle matching packets.
           x-kubernetes-immutable: true
         nextHopPeering:
+          type: string
+          x-dcl-go-name: NextHopPeering
+          readOnly: true
           description: |-
             [Output Only] The network peering name that should handle matching packets,
             which should conform to RFC1035.
-          readOnly: true
-          type: string
-          x-dcl-go-name: NextHopPeering
           x-kubernetes-immutable: true
         nextHopVpnTunnel:
-          description: The URL to a VpnTunnel that should handle matching packets.
           type: string
           x-dcl-go-name: NextHopVpnTunnel
+          description: The URL to a VpnTunnel that should handle matching packets.
           x-kubernetes-immutable: true
         priority:
-          default: 1000
-          description: The priority of the peering route.
-          format: int64
           type: integer
+          format: int64
           x-dcl-go-name: Priority
+          description: The priority of the peering route.
           x-kubernetes-immutable: true
+          default: 1000
         project:
-          description: The project for the resource
           type: string
           x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
+          description: The project for the resource
           x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
         selfLink:
-          description: '[Output Only] Server-defined fully-qualified URL for this
-            resource.'
-          readOnly: true
           type: string
           x-dcl-go-name: SelfLink
+          readOnly: true
+          description: '[Output Only] Server-defined fully-qualified URL for this
+            resource.'
           x-kubernetes-immutable: true
         tag:
+          type: array
+          x-dcl-go-name: Tag
           description: A list of instance tags to which this route applies.
+          x-kubernetes-immutable: true
+          x-dcl-list-type: list
           items:
             type: string
             x-dcl-go-type: string
-          type: array
-          x-dcl-go-name: Tag
-          x-dcl-list-type: list
-          x-kubernetes-immutable: true
         warning:
+          type: array
+          x-dcl-go-name: Warning
+          readOnly: true
           description: |-
             [Output Only] If potential misconfigurations are detected for this
             route, this field will be populated with warning messages.
+          x-kubernetes-immutable: true
+          x-dcl-list-type: list
           items:
+            type: object
+            x-dcl-go-type: RouteWarning
             properties:
               code:
+                type: string
+                x-dcl-go-name: Code
+                x-dcl-go-type: RouteWarningCodeEnum
+                readOnly: true
                 description: |-
                   [Output Only] A warning code, if applicable. For example, Compute
                   Engine returns <code>NO_RESULTS_ON_PAGE</code> if there
                   are no results in the response. Possible values: BAD_REQUEST, FORBIDDEN, NOT_FOUND, CONFLICT, GONE, PRECONDITION_FAILED, INTERNAL_ERROR, SERVICE_UNAVAILABLE
+                x-kubernetes-immutable: true
                 enum:
                 - BAD_REQUEST
                 - FORBIDDEN
@@ -171,14 +231,12 @@ components:
                 - PRECONDITION_FAILED
                 - INTERNAL_ERROR
                 - SERVICE_UNAVAILABLE
-                readOnly: true
-                type: string
-                x-dcl-go-name: Code
-                x-dcl-go-type: RouteWarningCodeEnum
-                x-kubernetes-immutable: true
               data:
+                type: object
                 additionalProperties:
                   type: string
+                x-dcl-go-name: Data
+                readOnly: true
                 description: |-
                   [Output Only] Metadata about this warning in <code class="lang-html">key:
                   value</code> format. For example:
@@ -187,70 +245,11 @@ components:
                      "key": "scope",
                      "value": "zones/us-east1-d"
                     }</pre>
-                readOnly: true
-                type: object
-                x-dcl-go-name: Data
                 x-kubernetes-immutable: true
               message:
-                description: '[Output Only] A human-readable description of the warning
-                  code.'
-                readOnly: true
                 type: string
                 x-dcl-go-name: Message
+                readOnly: true
+                description: '[Output Only] A human-readable description of the warning
+                  code.'
                 x-kubernetes-immutable: true
-            type: object
-            x-dcl-go-type: RouteWarning
-          readOnly: true
-          type: array
-          x-dcl-go-name: Warning
-          x-dcl-list-type: list
-          x-kubernetes-immutable: true
-      required:
-      - name
-      - network
-      - destRange
-      - project
-      title: Route
-      type: object
-      x-dcl-id: projects/{{project}}/global/routes/{{name}}
-      x-dcl-locations:
-      - global
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
-info:
-  description: DCL Specification for the Compute Route resource
-  title: Compute/Route
-  x-dcl-has-iam: false
-paths:
-  apply:
-    description: The function used to apply information about a Route
-    parameters:
-    - description: A full instance of a Route
-      name: Route
-      required: true
-  delete:
-    description: The function used to delete a Route
-    parameters:
-    - description: A full instance of a Route
-      name: Route
-      required: true
-  deleteAll:
-    description: The function used to delete all Route
-    parameters:
-    - name: project
-      required: true
-      schema:
-        type: string
-  get:
-    description: The function used to get information about a Route
-    parameters:
-    - description: A full instance of a Route
-      name: Route
-      required: true
-  list:
-    description: The function used to list information about many Route
-    parameters:
-    - name: project
-      required: true
-      schema:
-        type: string

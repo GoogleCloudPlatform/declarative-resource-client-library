@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -169,7 +170,7 @@ func (l *TenantList) HasNext() bool {
 }
 
 func (l *TenantList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -185,7 +186,7 @@ func (l *TenantList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListTenant(ctx context.Context, project string) (*TenantList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListTenantWithMaxResults(ctx, project, TenantMaxPage)
@@ -193,7 +194,7 @@ func (c *Client) ListTenant(ctx context.Context, project string) (*TenantList, e
 }
 
 func (c *Client) ListTenantWithMaxResults(ctx context.Context, project string, pageSize int32) (*TenantList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listTenant(ctx, project, "", pageSize)
@@ -210,7 +211,7 @@ func (c *Client) ListTenantWithMaxResults(ctx context.Context, project string, p
 }
 
 func (c *Client) GetTenant(ctx context.Context, r *Tenant) (*Tenant, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getTenantRaw(ctx, r)
@@ -242,7 +243,7 @@ func (c *Client) GetTenant(ctx context.Context, r *Tenant) (*Tenant, error) {
 }
 
 func (c *Client) DeleteTenant(ctx context.Context, r *Tenant) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -255,9 +256,6 @@ func (c *Client) DeleteTenant(ctx context.Context, r *Tenant) error {
 
 // DeleteAllTenant deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllTenant(ctx context.Context, project string, filter func(*Tenant) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListTenant(ctx, project)
 	if err != nil {
 		return err
@@ -281,10 +279,29 @@ func (c *Client) DeleteAllTenant(ctx context.Context, project string, filter fun
 }
 
 func (c *Client) ApplyTenant(ctx context.Context, rawDesired *Tenant, opts ...dcl.ApplyOption) (*Tenant, error) {
+
+	var resultNewState *Tenant
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyTenantHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyTenantHelper(c *Client, ctx context.Context, rawDesired *Tenant, opts ...dcl.ApplyOption) (*Tenant, error) {
 	c.Config.Logger.Info("Beginning ApplyTenant...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

@@ -11,421 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    Instance:
-      properties:
-        alternativeLocationId:
-          description: Optional. Only applicable to standard tier which protects the
-            instance against zonal failures by provisioning it across two zones. If
-            provided, it must be a different zone from the one provided in .
-          type: string
-          x-dcl-go-name: AlternativeLocationId
-          x-kubernetes-immutable: true
-        authEnabled:
-          description: Optional. Indicates whether OSS Redis AUTH is enabled for the
-            instance. If set to "true" AUTH is enabled on the instance. Default value
-            is "false" meaning AUTH is disabled.
-          type: boolean
-          x-dcl-go-name: AuthEnabled
-          x-kubernetes-immutable: true
-        authorizedNetwork:
-          description: Optional. The full name of the Google Compute Engine (/compute/docs/networks-and-firewalls#networks)
-            to which the instance is connected. If left unspecified, the \`default\`
-            network will be used.
-          type: string
-          x-dcl-go-name: AuthorizedNetwork
-          x-kubernetes-immutable: true
-        connectMode:
-          description: 'Optional. The connect mode of Redis instance. If not provided,
-            default one will be used. Current default: DIRECT\_PEERING. Possible values:
-            CONNECT_MODE_UNSPECIFIED, DIRECT_PEERING, PRIVATE_SERVICE_ACCESS'
-          enum:
-          - CONNECT_MODE_UNSPECIFIED
-          - DIRECT_PEERING
-          - PRIVATE_SERVICE_ACCESS
-          type: string
-          x-dcl-go-name: ConnectMode
-          x-dcl-go-type: InstanceConnectModeEnum
-          x-kubernetes-immutable: true
-        createTime:
-          description: Output only. The time the instance was created.
-          format: date-time
-          readOnly: true
-          type: string
-          x-dcl-go-name: CreateTime
-          x-kubernetes-immutable: true
-        currentLocationId:
-          description: Output only. The current zone where the Redis endpoint is placed.
-            In single zone deployments, this will always be the same as and can change
-            on a failover event.
-          readOnly: true
-          type: string
-          x-dcl-go-name: CurrentLocationId
-          x-kubernetes-immutable: true
-        displayName:
-          description: An arbitrary and optional user provided name for the instance.
-          type: string
-          x-dcl-go-name: DisplayName
-        host:
-          description: Output only. Hostname or IP address of the exposed redis endpoint
-            used by clients to connect to the service.
-          readOnly: true
-          type: string
-          x-dcl-go-name: Host
-          x-kubernetes-immutable: true
-        labels:
-          additionalProperties:
-            type: string
-          description: Resource labels to represent user provided metadata
-          type: object
-          x-dcl-go-name: Labels
-        location:
-          description: The location for the resource
-          type: string
-          x-dcl-go-name: Location
-          x-kubernetes-immutable: true
-        locationId:
-          description: Optional. The zone where the instance will be provisioned.
-            If not provided, the service will choose a zone for the instance. For
-            standard tier, instances will be created across two zones for protection
-            against zonal failures. If .
-          type: string
-          x-dcl-go-name: LocationId
-          x-kubernetes-immutable: true
-        maintenancePolicy:
-          description: Optional. The maintenance policy for the instance. If not provided,
-            the maintenance event will be performed based on Memorystore internal
-            rollout schedule.
-          properties:
-            createTime:
-              description: Output only. The time when the policy was created.
-              format: date-time
-              readOnly: true
-              type: string
-              x-dcl-go-name: CreateTime
-              x-kubernetes-immutable: true
-            description:
-              description: Optional. Description of what this policy is for. Create/Update
-                methods return INVALID\\\_ARGUMENT if the length is greater than 512.
-              type: string
-              x-dcl-go-name: Description
-              x-kubernetes-immutable: true
-            updateTime:
-              description: Output only. The time when the policy was last updated.
-              format: date-time
-              readOnly: true
-              type: string
-              x-dcl-go-name: UpdateTime
-              x-kubernetes-immutable: true
-            weeklyMaintenanceWindow:
-              description: Optional. Maintenance window that is applied to resources
-                covered by this policy. Minimum 1. For the current version, the maximum
-                number of weekly\\\_window is expected to be one.
-              items:
-                properties:
-                  day:
-                    description: 'Required. The day of week that maintenance updates
-                      occur. Possible values: DAY_OF_WEEK_UNSPECIFIED, MONDAY, TUESDAY,
-                      WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY'
-                    enum:
-                    - DAY_OF_WEEK_UNSPECIFIED
-                    - MONDAY
-                    - TUESDAY
-                    - WEDNESDAY
-                    - THURSDAY
-                    - FRIDAY
-                    - SATURDAY
-                    - SUNDAY
-                    type: string
-                    x-dcl-go-name: Day
-                    x-dcl-go-type: InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum
-                    x-kubernetes-immutable: true
-                  duration:
-                    description: Output only. Duration of the maintenance window.
-                      The current window is fixed at 3 hours.
-                    readOnly: true
-                    type: string
-                    x-dcl-go-name: Duration
-                    x-kubernetes-immutable: true
-                  startTime:
-                    description: Required. Start time of the window in UTC time.
-                    properties:
-                      hours:
-                        description: Hours of day in 24 hour format. Should be from
-                          0 to 23. An API may choose to allow the value "24:00:00"
-                          for scenarios like business closing time.
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Hours
-                        x-kubernetes-immutable: true
-                      minutes:
-                        description: Minutes of hour of day. Must be from 0 to 59.
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Minutes
-                        x-kubernetes-immutable: true
-                      nanos:
-                        description: Fractions of seconds in nanoseconds. Must be
-                          from 0 to 999,999,999.
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Nanos
-                        x-kubernetes-immutable: true
-                      seconds:
-                        description: Seconds of minutes of the time. Must normally
-                          be from 0 to 59. An API may allow the value 60 if it allows
-                          leap-seconds.
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Seconds
-                        x-kubernetes-immutable: true
-                    type: object
-                    x-dcl-go-name: StartTime
-                    x-dcl-go-type: InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime
-                    x-kubernetes-immutable: true
-                required:
-                - day
-                - startTime
-                type: object
-                x-dcl-go-type: InstanceMaintenancePolicyWeeklyMaintenanceWindow
-              type: array
-              x-dcl-go-name: WeeklyMaintenanceWindow
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: MaintenancePolicy
-          x-dcl-go-type: InstanceMaintenancePolicy
-          x-kubernetes-immutable: true
-        maintenanceSchedule:
-          description: Output only. Published maintenance schedule.
-          properties:
-            canReschedule:
-              description: If the scheduled maintenance can be rescheduled, default
-                is true.
-              type: boolean
-              x-dcl-go-name: CanReschedule
-              x-kubernetes-immutable: true
-            endTime:
-              description: Output only. The end time of any upcoming scheduled maintenance
-                for this instance.
-              format: date-time
-              readOnly: true
-              type: string
-              x-dcl-go-name: EndTime
-              x-kubernetes-immutable: true
-            scheduleDeadlineTime:
-              description: Output only. The deadline that the maintenance schedule
-                start time can not go beyond, including reschedule.
-              format: date-time
-              readOnly: true
-              type: string
-              x-dcl-go-name: ScheduleDeadlineTime
-              x-kubernetes-immutable: true
-            startTime:
-              description: Output only. The start time of any upcoming scheduled maintenance
-                for this instance.
-              format: date-time
-              readOnly: true
-              type: string
-              x-dcl-go-name: StartTime
-              x-kubernetes-immutable: true
-          readOnly: true
-          type: object
-          x-dcl-go-name: MaintenanceSchedule
-          x-dcl-go-type: InstanceMaintenanceSchedule
-          x-kubernetes-immutable: true
-        memorySizeGb:
-          description: Required. Redis memory size in GB, up to 300GB.
-          format: int64
-          type: integer
-          x-dcl-go-name: MemorySizeGb
-        name:
-          description: 'Required. Unique name of the resource in this scope including
-            project and location using the form: \`projects/{project\_id}/locations/{location\_id}/instances/{instance\_id}\`
-            Note: Redis instances are managed and addressed at regional level so location\_id
-            here refers to a GCP region; however, users get to choose which specific
-            zone (or collection of zones for cross zone instances) an instance should
-            be provisioned in. Refer to fields for more details.'
-          type: string
-          x-dcl-go-name: Name
-          x-kubernetes-immutable: true
-        persistenceIamIdentity:
-          description: Output only. Cloud IAM identity used by import / export operations
-            to transfer data to/from Cloud Storage. Format is "serviceAccount:". The
-            value may change over time for a given instance so should be checked before
-            each import/export operation.
-          readOnly: true
-          type: string
-          x-dcl-go-name: PersistenceIamIdentity
-          x-kubernetes-immutable: true
-        port:
-          description: Output only. The port number of the exposed redis endpoint.
-          format: int64
-          readOnly: true
-          type: integer
-          x-dcl-go-name: Port
-          x-kubernetes-immutable: true
-        project:
-          description: The project for the resource
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        redisConfigs:
-          additionalProperties:
-            type: string
-          description: 'Optional. Redis configuration parameters, according to http://redis.io/topics/config.
-            Currently, the only supported parameters are: Redis version 3.2 and newer:
-            \* maxmemory-policy \* notify-keyspace-events Redis version 4.0 and newer:
-            \* activedefrag \* lfu-decay-time \* lfu-log-factor \* maxmemory-gb Redis
-            version 5.0 and newer: \* stream-node-max-bytes \* stream-node-max-entries'
-          type: object
-          x-dcl-go-name: RedisConfigs
-        redisVersion:
-          description: 'Optional. The version of Redis software. If not provided,
-            latest supported version will be used. Updating the version will perform
-            an upgrade/downgrade to the new version. Currently, the supported values
-            are: \* \`REDIS\_4\_0\` for Redis 4.0 compatibility \* \`REDIS\_3\_2\`
-            for Redis 3.2 compatibility (default) \* \`REDIS\_5\_0\` for Redis 5.0
-            compatibility'
-          type: string
-          x-dcl-go-name: RedisVersion
-          x-kubernetes-immutable: true
-        reservedIPRange:
-          description: Optional. For DIRECT\_PEERING mode, the CIDR range of internal
-            addresses that are reserved for this instance. Range must be unique and
-            non-overlapping with existing subnets in an authorized network. For PRIVATE\_SERVICE\_ACCESS
-            mode, the name of one allocated IP address ranges associated with this
-            private service access connection. If not provided, the service will choose
-            an unused /29 block, for example, 10.0.0.0/29 or 192.168.0.0/29.
-          type: string
-          x-dcl-go-name: ReservedIPRange
-          x-kubernetes-immutable: true
-        serverCaCerts:
-          description: Output only. List of server CA certificates for the instance.
-          items:
-            properties:
-              cert:
-                description: PEM representation.
-                type: string
-                x-dcl-go-name: Cert
-                x-kubernetes-immutable: true
-              createTime:
-                description: Output only. The time when the certificate was created
-                  in (https://tools.ietf.org/html/rfc3339) format, for example \\\`2020-05-18T00:00:00.094Z\\\`.
-                format: date-time
-                readOnly: true
-                type: string
-                x-dcl-go-name: CreateTime
-                x-kubernetes-immutable: true
-              expireTime:
-                description: Output only. The time when the certificate expires in
-                  (https://tools.ietf.org/html/rfc3339) format, for example \\\`2020-05-18T00:00:00.094Z\\\`.
-                format: date-time
-                readOnly: true
-                type: string
-                x-dcl-go-name: ExpireTime
-                x-kubernetes-immutable: true
-              serialNumber:
-                description: Serial number, as extracted from the certificate.
-                type: string
-                x-dcl-go-name: SerialNumber
-                x-kubernetes-immutable: true
-              sha1Fingerprint:
-                description: Sha1 Fingerprint of the certificate.
-                type: string
-                x-dcl-go-name: Sha1Fingerprint
-                x-kubernetes-immutable: true
-            type: object
-            x-dcl-go-type: InstanceServerCaCerts
-          readOnly: true
-          type: array
-          x-dcl-go-name: ServerCaCerts
-          x-dcl-list-type: list
-          x-kubernetes-immutable: true
-        state:
-          description: 'Output only. The current state of this instance. Possible
-            values: STATE_UNSPECIFIED, CREATING, READY, UPDATING, DELETING, REPAIRING,
-            PERFORMING_MAINTENANCE, IMPORTING, FAILING_OVER'
-          enum:
-          - STATE_UNSPECIFIED
-          - CREATING
-          - READY
-          - UPDATING
-          - DELETING
-          - REPAIRING
-          - PERFORMING_MAINTENANCE
-          - IMPORTING
-          - FAILING_OVER
-          readOnly: true
-          type: string
-          x-dcl-go-name: State
-          x-dcl-go-type: InstanceStateEnum
-          x-kubernetes-immutable: true
-        statusMessage:
-          description: Output only. Additional information about the current status
-            of this instance, if available.
-          readOnly: true
-          type: string
-          x-dcl-go-name: StatusMessage
-          x-kubernetes-immutable: true
-        tier:
-          description: 'Required. The service tier of the instance. Possible values:
-            TIER_UNSPECIFIED, BASIC, STANDARD_HA'
-          enum:
-          - TIER_UNSPECIFIED
-          - BASIC
-          - STANDARD_HA
-          type: string
-          x-dcl-go-name: Tier
-          x-dcl-go-type: InstanceTierEnum
-          x-kubernetes-immutable: true
-        transitEncryptionMode:
-          description: 'Optional. The TLS mode of the Redis instance. If not provided,
-            TLS is disabled for the instance. Possible values: TRANSIT_ENCRYPTION_MODE_UNSPECIFIED,
-            SERVER_AUTHENTICATION, DISABLED'
-          enum:
-          - TRANSIT_ENCRYPTION_MODE_UNSPECIFIED
-          - SERVER_AUTHENTICATION
-          - DISABLED
-          type: string
-          x-dcl-go-name: TransitEncryptionMode
-          x-dcl-go-type: InstanceTransitEncryptionModeEnum
-          x-kubernetes-immutable: true
-      required:
-      - name
-      - tier
-      - memorySizeGb
-      - project
-      - location
-      title: Instance
-      type: object
-      x-dcl-id: projects/{{project}}/locations/{{location}}/instances/{{name}}
-      x-dcl-labels: labels
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Redis Instance resource
   title: Redis/Instance
+  description: DCL Specification for the Redis Instance resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a Instance
+    parameters:
+    - name: Instance
+      required: true
+      description: A full instance of a Instance
   apply:
     description: The function used to apply information about a Instance
     parameters:
-    - description: A full instance of a Instance
-      name: Instance
+    - name: Instance
       required: true
+      description: A full instance of a Instance
   delete:
     description: The function used to delete a Instance
     parameters:
-    - description: A full instance of a Instance
-      name: Instance
+    - name: Instance
       required: true
+      description: A full instance of a Instance
   deleteAll:
     description: The function used to delete all Instance
     parameters:
@@ -437,12 +45,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a Instance
-    parameters:
-    - description: A full instance of a Instance
-      name: Instance
-      required: true
   list:
     description: The function used to list information about many Instance
     parameters:
@@ -454,3 +56,399 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    Instance:
+      title: Instance
+      x-dcl-id: projects/{{project}}/locations/{{location}}/instances/{{name}}
+      x-dcl-parent-container: project
+      x-dcl-labels: labels
+      type: object
+      required:
+      - name
+      - tier
+      - memorySizeGb
+      - project
+      - location
+      properties:
+        alternativeLocationId:
+          type: string
+          x-dcl-go-name: AlternativeLocationId
+          description: Optional. Only applicable to standard tier which protects the
+            instance against zonal failures by provisioning it across two zones. If
+            provided, it must be a different zone from the one provided in .
+          x-kubernetes-immutable: true
+        authEnabled:
+          type: boolean
+          x-dcl-go-name: AuthEnabled
+          description: Optional. Indicates whether OSS Redis AUTH is enabled for the
+            instance. If set to "true" AUTH is enabled on the instance. Default value
+            is "false" meaning AUTH is disabled.
+          x-kubernetes-immutable: true
+        authorizedNetwork:
+          type: string
+          x-dcl-go-name: AuthorizedNetwork
+          description: Optional. The full name of the Google Compute Engine (/compute/docs/networks-and-firewalls#networks)
+            to which the instance is connected. If left unspecified, the \`default\`
+            network will be used.
+          x-kubernetes-immutable: true
+        connectMode:
+          type: string
+          x-dcl-go-name: ConnectMode
+          x-dcl-go-type: InstanceConnectModeEnum
+          description: 'Optional. The connect mode of Redis instance. If not provided,
+            default one will be used. Current default: DIRECT\_PEERING. Possible values:
+            CONNECT_MODE_UNSPECIFIED, DIRECT_PEERING, PRIVATE_SERVICE_ACCESS'
+          x-kubernetes-immutable: true
+          enum:
+          - CONNECT_MODE_UNSPECIFIED
+          - DIRECT_PEERING
+          - PRIVATE_SERVICE_ACCESS
+        createTime:
+          type: string
+          format: date-time
+          x-dcl-go-name: CreateTime
+          readOnly: true
+          description: Output only. The time the instance was created.
+          x-kubernetes-immutable: true
+        currentLocationId:
+          type: string
+          x-dcl-go-name: CurrentLocationId
+          readOnly: true
+          description: Output only. The current zone where the Redis endpoint is placed.
+            In single zone deployments, this will always be the same as and can change
+            on a failover event.
+          x-kubernetes-immutable: true
+        displayName:
+          type: string
+          x-dcl-go-name: DisplayName
+          description: An arbitrary and optional user provided name for the instance.
+        host:
+          type: string
+          x-dcl-go-name: Host
+          readOnly: true
+          description: Output only. Hostname or IP address of the exposed redis endpoint
+            used by clients to connect to the service.
+          x-kubernetes-immutable: true
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          x-dcl-go-name: Labels
+          description: Resource labels to represent user provided metadata
+        location:
+          type: string
+          x-dcl-go-name: Location
+          description: The location for the resource
+          x-kubernetes-immutable: true
+        locationId:
+          type: string
+          x-dcl-go-name: LocationId
+          description: Optional. The zone where the instance will be provisioned.
+            If not provided, the service will choose a zone for the instance. For
+            standard tier, instances will be created across two zones for protection
+            against zonal failures. If .
+          x-kubernetes-immutable: true
+        maintenancePolicy:
+          type: object
+          x-dcl-go-name: MaintenancePolicy
+          x-dcl-go-type: InstanceMaintenancePolicy
+          description: Optional. The maintenance policy for the instance. If not provided,
+            the maintenance event will be performed based on Memorystore internal
+            rollout schedule.
+          x-kubernetes-immutable: true
+          properties:
+            createTime:
+              type: string
+              format: date-time
+              x-dcl-go-name: CreateTime
+              readOnly: true
+              description: Output only. The time when the policy was created.
+              x-kubernetes-immutable: true
+            description:
+              type: string
+              x-dcl-go-name: Description
+              description: Optional. Description of what this policy is for. Create/Update
+                methods return INVALID\\\_ARGUMENT if the length is greater than 512.
+              x-kubernetes-immutable: true
+            updateTime:
+              type: string
+              format: date-time
+              x-dcl-go-name: UpdateTime
+              readOnly: true
+              description: Output only. The time when the policy was last updated.
+              x-kubernetes-immutable: true
+            weeklyMaintenanceWindow:
+              type: array
+              x-dcl-go-name: WeeklyMaintenanceWindow
+              description: Optional. Maintenance window that is applied to resources
+                covered by this policy. Minimum 1. For the current version, the maximum
+                number of weekly\\\_window is expected to be one.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: object
+                x-dcl-go-type: InstanceMaintenancePolicyWeeklyMaintenanceWindow
+                required:
+                - day
+                - startTime
+                properties:
+                  day:
+                    type: string
+                    x-dcl-go-name: Day
+                    x-dcl-go-type: InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum
+                    description: 'Required. The day of week that maintenance updates
+                      occur. Possible values: DAY_OF_WEEK_UNSPECIFIED, MONDAY, TUESDAY,
+                      WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY'
+                    x-kubernetes-immutable: true
+                    enum:
+                    - DAY_OF_WEEK_UNSPECIFIED
+                    - MONDAY
+                    - TUESDAY
+                    - WEDNESDAY
+                    - THURSDAY
+                    - FRIDAY
+                    - SATURDAY
+                    - SUNDAY
+                  duration:
+                    type: string
+                    x-dcl-go-name: Duration
+                    readOnly: true
+                    description: Output only. Duration of the maintenance window.
+                      The current window is fixed at 3 hours.
+                    x-kubernetes-immutable: true
+                  startTime:
+                    type: object
+                    x-dcl-go-name: StartTime
+                    x-dcl-go-type: InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime
+                    description: Required. Start time of the window in UTC time.
+                    x-kubernetes-immutable: true
+                    properties:
+                      hours:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Hours
+                        description: Hours of day in 24 hour format. Should be from
+                          0 to 23. An API may choose to allow the value "24:00:00"
+                          for scenarios like business closing time.
+                        x-kubernetes-immutable: true
+                      minutes:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Minutes
+                        description: Minutes of hour of day. Must be from 0 to 59.
+                        x-kubernetes-immutable: true
+                      nanos:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Nanos
+                        description: Fractions of seconds in nanoseconds. Must be
+                          from 0 to 999,999,999.
+                        x-kubernetes-immutable: true
+                      seconds:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Seconds
+                        description: Seconds of minutes of the time. Must normally
+                          be from 0 to 59. An API may allow the value 60 if it allows
+                          leap-seconds.
+                        x-kubernetes-immutable: true
+        maintenanceSchedule:
+          type: object
+          x-dcl-go-name: MaintenanceSchedule
+          x-dcl-go-type: InstanceMaintenanceSchedule
+          readOnly: true
+          description: Output only. Published maintenance schedule.
+          x-kubernetes-immutable: true
+          properties:
+            canReschedule:
+              type: boolean
+              x-dcl-go-name: CanReschedule
+              description: If the scheduled maintenance can be rescheduled, default
+                is true.
+              x-kubernetes-immutable: true
+            endTime:
+              type: string
+              format: date-time
+              x-dcl-go-name: EndTime
+              readOnly: true
+              description: Output only. The end time of any upcoming scheduled maintenance
+                for this instance.
+              x-kubernetes-immutable: true
+            scheduleDeadlineTime:
+              type: string
+              format: date-time
+              x-dcl-go-name: ScheduleDeadlineTime
+              readOnly: true
+              description: Output only. The deadline that the maintenance schedule
+                start time can not go beyond, including reschedule.
+              x-kubernetes-immutable: true
+            startTime:
+              type: string
+              format: date-time
+              x-dcl-go-name: StartTime
+              readOnly: true
+              description: Output only. The start time of any upcoming scheduled maintenance
+                for this instance.
+              x-kubernetes-immutable: true
+        memorySizeGb:
+          type: integer
+          format: int64
+          x-dcl-go-name: MemorySizeGb
+          description: Required. Redis memory size in GB, up to 300GB.
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: 'Required. Unique name of the resource in this scope including
+            project and location using the form: \`projects/{project\_id}/locations/{location\_id}/instances/{instance\_id}\`
+            Note: Redis instances are managed and addressed at regional level so location\_id
+            here refers to a GCP region; however, users get to choose which specific
+            zone (or collection of zones for cross zone instances) an instance should
+            be provisioned in. Refer to fields for more details.'
+          x-kubernetes-immutable: true
+        persistenceIamIdentity:
+          type: string
+          x-dcl-go-name: PersistenceIamIdentity
+          readOnly: true
+          description: Output only. Cloud IAM identity used by import / export operations
+            to transfer data to/from Cloud Storage. Format is "serviceAccount:". The
+            value may change over time for a given instance so should be checked before
+            each import/export operation.
+          x-kubernetes-immutable: true
+        port:
+          type: integer
+          format: int64
+          x-dcl-go-name: Port
+          readOnly: true
+          description: Output only. The port number of the exposed redis endpoint.
+          x-kubernetes-immutable: true
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project for the resource
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        redisConfigs:
+          type: object
+          additionalProperties:
+            type: string
+          x-dcl-go-name: RedisConfigs
+          description: 'Optional. Redis configuration parameters, according to http://redis.io/topics/config.
+            Currently, the only supported parameters are: Redis version 3.2 and newer:
+            \* maxmemory-policy \* notify-keyspace-events Redis version 4.0 and newer:
+            \* activedefrag \* lfu-decay-time \* lfu-log-factor \* maxmemory-gb Redis
+            version 5.0 and newer: \* stream-node-max-bytes \* stream-node-max-entries'
+        redisVersion:
+          type: string
+          x-dcl-go-name: RedisVersion
+          description: 'Optional. The version of Redis software. If not provided,
+            latest supported version will be used. Updating the version will perform
+            an upgrade/downgrade to the new version. Currently, the supported values
+            are: \* \`REDIS\_4\_0\` for Redis 4.0 compatibility \* \`REDIS\_3\_2\`
+            for Redis 3.2 compatibility (default) \* \`REDIS\_5\_0\` for Redis 5.0
+            compatibility'
+          x-kubernetes-immutable: true
+        reservedIPRange:
+          type: string
+          x-dcl-go-name: ReservedIPRange
+          description: Optional. For DIRECT\_PEERING mode, the CIDR range of internal
+            addresses that are reserved for this instance. Range must be unique and
+            non-overlapping with existing subnets in an authorized network. For PRIVATE\_SERVICE\_ACCESS
+            mode, the name of one allocated IP address ranges associated with this
+            private service access connection. If not provided, the service will choose
+            an unused /29 block, for example, 10.0.0.0/29 or 192.168.0.0/29.
+          x-kubernetes-immutable: true
+        serverCaCerts:
+          type: array
+          x-dcl-go-name: ServerCaCerts
+          readOnly: true
+          description: Output only. List of server CA certificates for the instance.
+          x-kubernetes-immutable: true
+          x-dcl-list-type: list
+          items:
+            type: object
+            x-dcl-go-type: InstanceServerCaCerts
+            properties:
+              cert:
+                type: string
+                x-dcl-go-name: Cert
+                description: PEM representation.
+                x-kubernetes-immutable: true
+              createTime:
+                type: string
+                format: date-time
+                x-dcl-go-name: CreateTime
+                readOnly: true
+                description: Output only. The time when the certificate was created
+                  in (https://tools.ietf.org/html/rfc3339) format, for example \\\`2020-05-18T00:00:00.094Z\\\`.
+                x-kubernetes-immutable: true
+              expireTime:
+                type: string
+                format: date-time
+                x-dcl-go-name: ExpireTime
+                readOnly: true
+                description: Output only. The time when the certificate expires in
+                  (https://tools.ietf.org/html/rfc3339) format, for example \\\`2020-05-18T00:00:00.094Z\\\`.
+                x-kubernetes-immutable: true
+              serialNumber:
+                type: string
+                x-dcl-go-name: SerialNumber
+                description: Serial number, as extracted from the certificate.
+                x-kubernetes-immutable: true
+              sha1Fingerprint:
+                type: string
+                x-dcl-go-name: Sha1Fingerprint
+                description: Sha1 Fingerprint of the certificate.
+                x-kubernetes-immutable: true
+        state:
+          type: string
+          x-dcl-go-name: State
+          x-dcl-go-type: InstanceStateEnum
+          readOnly: true
+          description: 'Output only. The current state of this instance. Possible
+            values: STATE_UNSPECIFIED, CREATING, READY, UPDATING, DELETING, REPAIRING,
+            PERFORMING_MAINTENANCE, IMPORTING, FAILING_OVER'
+          x-kubernetes-immutable: true
+          enum:
+          - STATE_UNSPECIFIED
+          - CREATING
+          - READY
+          - UPDATING
+          - DELETING
+          - REPAIRING
+          - PERFORMING_MAINTENANCE
+          - IMPORTING
+          - FAILING_OVER
+        statusMessage:
+          type: string
+          x-dcl-go-name: StatusMessage
+          readOnly: true
+          description: Output only. Additional information about the current status
+            of this instance, if available.
+          x-kubernetes-immutable: true
+        tier:
+          type: string
+          x-dcl-go-name: Tier
+          x-dcl-go-type: InstanceTierEnum
+          description: 'Required. The service tier of the instance. Possible values:
+            TIER_UNSPECIFIED, BASIC, STANDARD_HA'
+          x-kubernetes-immutable: true
+          enum:
+          - TIER_UNSPECIFIED
+          - BASIC
+          - STANDARD_HA
+        transitEncryptionMode:
+          type: string
+          x-dcl-go-name: TransitEncryptionMode
+          x-dcl-go-type: InstanceTransitEncryptionModeEnum
+          description: 'Optional. The TLS mode of the Redis instance. If not provided,
+            TLS is disabled for the instance. Possible values: TRANSIT_ENCRYPTION_MODE_UNSPECIFIED,
+            SERVER_AUTHENTICATION, DISABLED'
+          x-kubernetes-immutable: true
+          enum:
+          - TRANSIT_ENCRYPTION_MODE_UNSPECIFIED
+          - SERVER_AUTHENTICATION
+          - DISABLED

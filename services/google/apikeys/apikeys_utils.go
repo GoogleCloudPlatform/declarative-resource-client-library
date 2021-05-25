@@ -19,6 +19,7 @@ import (
 	"context"
 	"encoding/json"
 	"io/ioutil"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -52,7 +53,7 @@ func (c *Client) getKeyStringRaw(ctx context.Context, r *Key) ([]byte, error) {
 }
 
 func (c *Client) GetKey(ctx context.Context, r *Key) (*Key, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(60*time.Second))
 	defer cancel()
 
 	b, err := c.getKeyRaw(ctx, r)

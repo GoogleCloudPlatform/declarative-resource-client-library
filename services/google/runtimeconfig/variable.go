@@ -16,6 +16,7 @@ package runtimeconfig
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -63,7 +64,7 @@ func (l *VariableList) HasNext() bool {
 }
 
 func (l *VariableList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -79,7 +80,7 @@ func (l *VariableList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListVariable(ctx context.Context, project, runtimeConfig string) (*VariableList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListVariableWithMaxResults(ctx, project, runtimeConfig, VariableMaxPage)
@@ -87,7 +88,7 @@ func (c *Client) ListVariable(ctx context.Context, project, runtimeConfig string
 }
 
 func (c *Client) ListVariableWithMaxResults(ctx context.Context, project, runtimeConfig string, pageSize int32) (*VariableList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listVariable(ctx, project, runtimeConfig, "", pageSize)
@@ -106,7 +107,7 @@ func (c *Client) ListVariableWithMaxResults(ctx context.Context, project, runtim
 }
 
 func (c *Client) GetVariable(ctx context.Context, r *Variable) (*Variable, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getVariableRaw(ctx, r)
@@ -139,7 +140,7 @@ func (c *Client) GetVariable(ctx context.Context, r *Variable) (*Variable, error
 }
 
 func (c *Client) DeleteVariable(ctx context.Context, r *Variable) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -152,9 +153,6 @@ func (c *Client) DeleteVariable(ctx context.Context, r *Variable) error {
 
 // DeleteAllVariable deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllVariable(ctx context.Context, project, runtimeConfig string, filter func(*Variable) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListVariable(ctx, project, runtimeConfig)
 	if err != nil {
 		return err
@@ -178,10 +176,29 @@ func (c *Client) DeleteAllVariable(ctx context.Context, project, runtimeConfig s
 }
 
 func (c *Client) ApplyVariable(ctx context.Context, rawDesired *Variable, opts ...dcl.ApplyOption) (*Variable, error) {
+
+	var resultNewState *Variable
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyVariableHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyVariableHelper(c *Client, ctx context.Context, rawDesired *Variable, opts ...dcl.ApplyOption) (*Variable, error) {
 	c.Config.Logger.Info("Beginning ApplyVariable...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

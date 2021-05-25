@@ -11,90 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    SslCert:
-      properties:
-        cert:
-          description: PEM representation.
-          readOnly: true
-          type: string
-          x-dcl-go-name: Cert
-          x-kubernetes-immutable: true
-        certSerialNumber:
-          description: Serial number, as extracted from the certificate.
-          readOnly: true
-          type: string
-          x-dcl-go-name: CertSerialNumber
-          x-kubernetes-immutable: true
-        commonName:
-          description: User supplied name.  Constrained to [a-zA-Z.-_ ]+.
-          type: string
-          x-dcl-go-name: CommonName
-          x-kubernetes-immutable: true
-        createTime:
-          description: The time when the certificate was created in [RFC 3339](https://tools.ietf.org/html/rfc3339)
-            format, for example **2012-11-15T16:19:00.094Z**
-          format: date-time
-          readOnly: true
-          type: string
-          x-dcl-go-name: CreateTime
-          x-kubernetes-immutable: true
-        expirationTime:
-          description: The time when the certificate expires in [RFC 3339](https://tools.ietf.org/html/rfc3339)
-            format, for example **2012-11-15T16:19:00.094Z**.
-          format: date-time
-          readOnly: true
-          type: string
-          x-dcl-go-name: ExpirationTime
-          x-kubernetes-immutable: true
-        instance:
-          description: Name of the database instance.
-          type: string
-          x-dcl-go-name: Instance
-          x-kubernetes-immutable: true
-        name:
-          description: Sha1 Fingerprint.
-          type: string
-          x-dcl-go-name: Name
-          x-dcl-server-default: true
-          x-dcl-server-generated-parameter: true
-          x-kubernetes-immutable: true
-        project:
-          description: The project for the resource
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-      required:
-      - commonName
-      - instance
-      title: SslCert
-      type: object
-      x-dcl-id: projects/{{project}}/instances/{{instance}}/sslCerts/{{name}}
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Sql SslCert resource
   title: Sql/SslCert
+  description: DCL Specification for the Sql SslCert resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a SslCert
+    parameters:
+    - name: SslCert
+      required: true
+      description: A full instance of a SslCert
   apply:
     description: The function used to apply information about a SslCert
     parameters:
-    - description: A full instance of a SslCert
-      name: SslCert
+    - name: SslCert
       required: true
+      description: A full instance of a SslCert
   delete:
     description: The function used to delete a SslCert
     parameters:
-    - description: A full instance of a SslCert
-      name: SslCert
+    - name: SslCert
       required: true
+      description: A full instance of a SslCert
   deleteAll:
     description: The function used to delete all SslCert
     parameters:
@@ -106,12 +45,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a SslCert
-    parameters:
-    - description: A full instance of a SslCert
-      name: SslCert
-      required: true
   list:
     description: The function used to list information about many SslCert
     parameters:
@@ -123,3 +56,68 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    SslCert:
+      title: SslCert
+      x-dcl-id: projects/{{project}}/instances/{{instance}}/sslCerts/{{name}}
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - commonName
+      - instance
+      properties:
+        cert:
+          type: string
+          x-dcl-go-name: Cert
+          readOnly: true
+          description: PEM representation.
+          x-kubernetes-immutable: true
+        certSerialNumber:
+          type: string
+          x-dcl-go-name: CertSerialNumber
+          readOnly: true
+          description: Serial number, as extracted from the certificate.
+          x-kubernetes-immutable: true
+        commonName:
+          type: string
+          x-dcl-go-name: CommonName
+          description: User supplied name.  Constrained to [a-zA-Z.-_ ]+.
+          x-kubernetes-immutable: true
+        createTime:
+          type: string
+          format: date-time
+          x-dcl-go-name: CreateTime
+          readOnly: true
+          description: The time when the certificate was created in [RFC 3339](https://tools.ietf.org/html/rfc3339)
+            format, for example **2012-11-15T16:19:00.094Z**
+          x-kubernetes-immutable: true
+        expirationTime:
+          type: string
+          format: date-time
+          x-dcl-go-name: ExpirationTime
+          readOnly: true
+          description: The time when the certificate expires in [RFC 3339](https://tools.ietf.org/html/rfc3339)
+            format, for example **2012-11-15T16:19:00.094Z**.
+          x-kubernetes-immutable: true
+        instance:
+          type: string
+          x-dcl-go-name: Instance
+          description: Name of the database instance.
+          x-kubernetes-immutable: true
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: Sha1 Fingerprint.
+          x-kubernetes-immutable: true
+          x-dcl-server-default: true
+          x-dcl-server-generated-parameter: true
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project for the resource
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true

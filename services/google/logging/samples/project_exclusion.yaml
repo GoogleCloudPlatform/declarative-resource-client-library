@@ -17,5 +17,7 @@ dependencies:
 description: A basic example for a project-level logging exclusion
 name: project_exclusion
 resource: samples/project.log_exclusion.json
+updates:
+- resource: samples/update_project.log_exclusion.json
 versions:
 - ga

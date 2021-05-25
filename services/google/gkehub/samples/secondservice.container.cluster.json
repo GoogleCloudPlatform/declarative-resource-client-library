@@ -1,0 +1,6 @@
+{
+  "project": "{{project}}",
+  "name": "{{name2}}",
+  "location": "us-central1-a",
+  "initialNodeCount": 1
+}

@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -255,7 +256,7 @@ func (l *NetworkEndpointGroupList) HasNext() bool {
 }
 
 func (l *NetworkEndpointGroupList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -271,7 +272,7 @@ func (l *NetworkEndpointGroupList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListNetworkEndpointGroup(ctx context.Context, project, location string) (*NetworkEndpointGroupList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListNetworkEndpointGroupWithMaxResults(ctx, project, location, NetworkEndpointGroupMaxPage)
@@ -279,7 +280,7 @@ func (c *Client) ListNetworkEndpointGroup(ctx context.Context, project, location
 }
 
 func (c *Client) ListNetworkEndpointGroupWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*NetworkEndpointGroupList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listNetworkEndpointGroup(ctx, project, location, "", pageSize)
@@ -298,7 +299,7 @@ func (c *Client) ListNetworkEndpointGroupWithMaxResults(ctx context.Context, pro
 }
 
 func (c *Client) GetNetworkEndpointGroup(ctx context.Context, r *NetworkEndpointGroup) (*NetworkEndpointGroup, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getNetworkEndpointGroupRaw(ctx, r)
@@ -331,7 +332,7 @@ func (c *Client) GetNetworkEndpointGroup(ctx context.Context, r *NetworkEndpoint
 }
 
 func (c *Client) DeleteNetworkEndpointGroup(ctx context.Context, r *NetworkEndpointGroup) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -344,9 +345,6 @@ func (c *Client) DeleteNetworkEndpointGroup(ctx context.Context, r *NetworkEndpo
 
 // DeleteAllNetworkEndpointGroup deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllNetworkEndpointGroup(ctx context.Context, project, location string, filter func(*NetworkEndpointGroup) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListNetworkEndpointGroup(ctx, project, location)
 	if err != nil {
 		return err
@@ -370,10 +368,29 @@ func (c *Client) DeleteAllNetworkEndpointGroup(ctx context.Context, project, loc
 }
 
 func (c *Client) ApplyNetworkEndpointGroup(ctx context.Context, rawDesired *NetworkEndpointGroup, opts ...dcl.ApplyOption) (*NetworkEndpointGroup, error) {
+
+	var resultNewState *NetworkEndpointGroup
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyNetworkEndpointGroupHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyNetworkEndpointGroupHelper(c *Client, ctx context.Context, rawDesired *NetworkEndpointGroup, opts ...dcl.ApplyOption) (*NetworkEndpointGroup, error) {
 	c.Config.Logger.Info("Beginning ApplyNetworkEndpointGroup...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

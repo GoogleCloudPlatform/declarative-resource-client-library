@@ -16,6 +16,7 @@ package iap
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -60,7 +61,7 @@ func (l *BrandList) HasNext() bool {
 }
 
 func (l *BrandList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -76,7 +77,7 @@ func (l *BrandList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListBrand(ctx context.Context, project string) (*BrandList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListBrandWithMaxResults(ctx, project, BrandMaxPage)
@@ -84,7 +85,7 @@ func (c *Client) ListBrand(ctx context.Context, project string) (*BrandList, err
 }
 
 func (c *Client) ListBrandWithMaxResults(ctx context.Context, project string, pageSize int32) (*BrandList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listBrand(ctx, project, "", pageSize)
@@ -101,7 +102,7 @@ func (c *Client) ListBrandWithMaxResults(ctx context.Context, project string, pa
 }
 
 func (c *Client) GetBrand(ctx context.Context, r *Brand) (*Brand, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getBrandRaw(ctx, r)
@@ -133,10 +134,29 @@ func (c *Client) GetBrand(ctx context.Context, r *Brand) (*Brand, error) {
 }
 
 func (c *Client) ApplyBrand(ctx context.Context, rawDesired *Brand, opts ...dcl.ApplyOption) (*Brand, error) {
+
+	var resultNewState *Brand
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyBrandHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyBrandHelper(c *Client, ctx context.Context, rawDesired *Brand, opts ...dcl.ApplyOption) (*Brand, error) {
 	c.Config.Logger.Info("Beginning ApplyBrand...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

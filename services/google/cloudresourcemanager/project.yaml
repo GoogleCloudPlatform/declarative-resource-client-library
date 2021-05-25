@@ -11,110 +11,108 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+info:
+  title: CloudResourceManager/Project
+  description: DCL Specification for the CloudResourceManager Project resource
+  x-dcl-has-iam: true
+paths:
+  get:
+    description: The function used to get information about a Project
+    parameters:
+    - name: Project
+      required: true
+      description: A full instance of a Project
+  apply:
+    description: The function used to apply information about a Project
+    parameters:
+    - name: Project
+      required: true
+      description: A full instance of a Project
+  delete:
+    description: The function used to delete a Project
+    parameters:
+    - name: Project
+      required: true
+      description: A full instance of a Project
+  deleteAll:
+    description: The function used to delete all Project
+    parameters: []
+  list:
+    description: The function used to list information about many Project
+    parameters: []
 components:
   schemas:
     Project:
+      title: Project
+      x-dcl-id: v1/projects/{{name}}
+      x-dcl-labels: labels
+      type: object
       properties:
         displayname:
+          type: string
+          x-dcl-go-name: DisplayName
           description: 'The optional user-assigned display name of the Project. When
             present it must be between 4 to 30 characters. Allowed characters are:
             lowercase and uppercase letters, numbers, hyphen, single-quote, double-quote,
             space, and exclamation point. Example: `My Project` Read-write.'
-          type: string
-          x-dcl-go-name: DisplayName
           x-kubernetes-immutable: true
         labels:
+          type: object
           additionalProperties:
             type: string
-          description: User-specified labels.
-          type: object
           x-dcl-go-name: Labels
+          description: User-specified labels.
         lifecycleState:
+          type: string
+          x-dcl-go-name: LifecycleState
+          x-dcl-go-type: ProjectLifecycleStateEnum
+          readOnly: true
           description: 'The Project lifecycle state. Read-only. Possible values: LIFECYCLE_STATE_UNSPECIFIED,
             ACTIVE, DELETE_REQUESTED, DELETE_IN_PROGRESS'
+          x-kubernetes-immutable: true
           enum:
           - LIFECYCLE_STATE_UNSPECIFIED
           - ACTIVE
           - DELETE_REQUESTED
           - DELETE_IN_PROGRESS
-          readOnly: true
-          type: string
-          x-dcl-go-name: LifecycleState
-          x-dcl-go-type: ProjectLifecycleStateEnum
-          x-kubernetes-immutable: true
         name:
+          type: string
+          x-dcl-go-name: Name
           description: 'The unique, user-assigned ID of the Project. It must be 6
             to 30 lowercase letters, digits, or hyphens. It must start with a letter.
             Trailing hyphens are prohibited. Example: `tokyo-rain-123` Read-only after
             creation.'
-          type: string
-          x-dcl-go-name: Name
           x-kubernetes-immutable: true
         parent:
+          type: object
+          x-dcl-go-name: Parent
+          x-dcl-go-type: ProjectParent
           description: 'An optional reference to a parent Resource. Supported parent
             types include "organization" and "folder". Once set, the parent cannot
             be cleared. The `parent` can be set on creation or using the `UpdateProject`
             method; the end user must have the `resourcemanager.projects.create` permission
             on the parent. Read-write. '
+          x-kubernetes-immutable: true
           properties:
             id:
+              type: string
+              x-dcl-go-name: Id
               description: |-
                 Required field for the type-specific id. This should correspond to the id
                 used in the type-specific API's.
-              type: string
-              x-dcl-go-name: Id
               x-kubernetes-immutable: true
             type:
+              type: string
+              x-dcl-go-name: Type
               description: |-
                 Required field representing the resource type this id is for.
                 At present, the valid types are: "organization", "folder", and "project".
-              type: string
-              x-dcl-go-name: Type
               x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: Parent
-          x-dcl-go-type: ProjectParent
-          x-kubernetes-immutable: true
         projectNumber:
+          type: integer
+          format: int64
+          x-dcl-go-name: ProjectNumber
+          readOnly: true
           description: 'The number uniquely identifying the project. Example: `415104041262`
             Read-only. '
-          format: int64
-          readOnly: true
-          type: integer
-          x-dcl-go-name: ProjectNumber
           x-kubernetes-immutable: true
-      title: Project
-      type: object
-      x-dcl-id: v1/projects/{{name}}
-      x-dcl-labels: labels
-      x-dcl-locations: []
-      x-dcl-uses-state-hint: false
-info:
-  description: DCL Specification for the CloudResourceManager Project resource
-  title: CloudResourceManager/Project
-  x-dcl-has-iam: true
-paths:
-  apply:
-    description: The function used to apply information about a Project
-    parameters:
-    - description: A full instance of a Project
-      name: Project
-      required: true
-  delete:
-    description: The function used to delete a Project
-    parameters:
-    - description: A full instance of a Project
-      name: Project
-      required: true
-  deleteAll:
-    description: The function used to delete all Project
-    parameters: []
-  get:
-    description: The function used to get information about a Project
-    parameters:
-    - description: A full instance of a Project
-      name: Project
-      required: true
-  list:
-    description: The function used to list information about many Project
-    parameters: []

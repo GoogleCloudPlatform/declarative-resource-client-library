@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -137,7 +138,7 @@ func (l *SubscriptionList) HasNext() bool {
 }
 
 func (l *SubscriptionList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -153,7 +154,7 @@ func (l *SubscriptionList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListSubscription(ctx context.Context, project, location string) (*SubscriptionList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListSubscriptionWithMaxResults(ctx, project, location, SubscriptionMaxPage)
@@ -161,7 +162,7 @@ func (c *Client) ListSubscription(ctx context.Context, project, location string)
 }
 
 func (c *Client) ListSubscriptionWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*SubscriptionList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listSubscription(ctx, project, location, "", pageSize)
@@ -180,7 +181,7 @@ func (c *Client) ListSubscriptionWithMaxResults(ctx context.Context, project, lo
 }
 
 func (c *Client) GetSubscription(ctx context.Context, r *Subscription) (*Subscription, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getSubscriptionRaw(ctx, r)
@@ -213,7 +214,7 @@ func (c *Client) GetSubscription(ctx context.Context, r *Subscription) (*Subscri
 }
 
 func (c *Client) DeleteSubscription(ctx context.Context, r *Subscription) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -226,9 +227,6 @@ func (c *Client) DeleteSubscription(ctx context.Context, r *Subscription) error 
 
 // DeleteAllSubscription deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllSubscription(ctx context.Context, project, location string, filter func(*Subscription) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListSubscription(ctx, project, location)
 	if err != nil {
 		return err
@@ -252,10 +250,29 @@ func (c *Client) DeleteAllSubscription(ctx context.Context, project, location st
 }
 
 func (c *Client) ApplySubscription(ctx context.Context, rawDesired *Subscription, opts ...dcl.ApplyOption) (*Subscription, error) {
+
+	var resultNewState *Subscription
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applySubscriptionHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applySubscriptionHelper(c *Client, ctx context.Context, rawDesired *Subscription, opts ...dcl.ApplyOption) (*Subscription, error) {
 	c.Config.Logger.Info("Beginning ApplySubscription...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

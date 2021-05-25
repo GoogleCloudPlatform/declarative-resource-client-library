@@ -11,71 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    IdentityAwareProxyClient:
-      properties:
-        brand:
-          description: The brand for the resource
-          type: string
-          x-dcl-go-name: Brand
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Iap/Brand
-          x-kubernetes-immutable: true
-        displayName:
-          description: Human-friendly name given to the OAuth client.
-          type: string
-          x-dcl-go-name: DisplayName
-          x-kubernetes-immutable: true
-        name:
-          description: Output only. Unique identifier of the OAuth client.
-          type: string
-          x-dcl-go-name: Name
-          x-dcl-server-generated-parameter: true
-          x-kubernetes-immutable: true
-        project:
-          description: The project for the resource
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        secret:
-          description: Output only. Client secret of the OAuth client.
-          readOnly: true
-          type: string
-          x-dcl-go-name: Secret
-          x-kubernetes-immutable: true
-      required:
-      - project
-      - brand
-      title: IdentityAwareProxyClient
-      type: object
-      x-dcl-id: projects/{{project}}/brands/{{brand}}/identityAwareProxyClients/{{name}}
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Iap IdentityAwareProxyClient resource
   title: Iap/IdentityAwareProxyClient
+  description: DCL Specification for the Iap IdentityAwareProxyClient resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a IdentityAwareProxyClient
+    parameters:
+    - name: IdentityAwareProxyClient
+      required: true
+      description: A full instance of a IdentityAwareProxyClient
   apply:
     description: The function used to apply information about a IdentityAwareProxyClient
     parameters:
-    - description: A full instance of a IdentityAwareProxyClient
-      name: IdentityAwareProxyClient
+    - name: IdentityAwareProxyClient
       required: true
+      description: A full instance of a IdentityAwareProxyClient
   delete:
     description: The function used to delete a IdentityAwareProxyClient
     parameters:
-    - description: A full instance of a IdentityAwareProxyClient
-      name: IdentityAwareProxyClient
+    - name: IdentityAwareProxyClient
       required: true
+      description: A full instance of a IdentityAwareProxyClient
   deleteAll:
     description: The function used to delete all IdentityAwareProxyClient
     parameters:
@@ -87,12 +45,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a IdentityAwareProxyClient
-    parameters:
-    - description: A full instance of a IdentityAwareProxyClient
-      name: IdentityAwareProxyClient
-      required: true
   list:
     description: The function used to list information about many IdentityAwareProxyClient
     parameters:
@@ -104,3 +56,49 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    IdentityAwareProxyClient:
+      title: IdentityAwareProxyClient
+      x-dcl-id: projects/{{project}}/brands/{{brand}}/identityAwareProxyClients/{{name}}
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - project
+      - brand
+      properties:
+        brand:
+          type: string
+          x-dcl-go-name: Brand
+          description: The brand for the resource
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Iap/Brand
+            field: name
+            parent: true
+        displayName:
+          type: string
+          x-dcl-go-name: DisplayName
+          description: Human-friendly name given to the OAuth client.
+          x-kubernetes-immutable: true
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: Output only. Unique identifier of the OAuth client.
+          x-kubernetes-immutable: true
+          x-dcl-server-generated-parameter: true
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project for the resource
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        secret:
+          type: string
+          x-dcl-go-name: Secret
+          readOnly: true
+          description: Output only. Client secret of the OAuth client.
+          x-kubernetes-immutable: true

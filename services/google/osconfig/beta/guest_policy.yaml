@@ -11,11 +11,58 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+info:
+  title: OsConfig/GuestPolicy
+  description: DCL Specification for the OsConfig GuestPolicy resource
+  x-dcl-has-iam: false
+paths:
+  get:
+    description: The function used to get information about a GuestPolicy
+    parameters:
+    - name: GuestPolicy
+      required: true
+      description: A full instance of a GuestPolicy
+  apply:
+    description: The function used to apply information about a GuestPolicy
+    parameters:
+    - name: GuestPolicy
+      required: true
+      description: A full instance of a GuestPolicy
+  delete:
+    description: The function used to delete a GuestPolicy
+    parameters:
+    - name: GuestPolicy
+      required: true
+      description: A full instance of a GuestPolicy
+  deleteAll:
+    description: The function used to delete all GuestPolicy
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+  list:
+    description: The function used to list information about many GuestPolicy
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
 components:
   schemas:
     GuestPolicy:
+      title: GuestPolicy
+      x-dcl-id: projects/{{project}}/guestPolicies/{{name}}
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - name
+      - project
       properties:
         assignment:
+          type: object
+          x-dcl-go-name: Assignment
+          x-dcl-go-type: GuestPolicyAssignment
           description: Specifies the VMs that are assigned this policy. This allows
             you to target sets or groups of VMs by different parameters such as labels,
             names, OS, or zones. Empty assignments will target ALL VMs underneath
@@ -39,114 +86,125 @@ components:
             VM's OS as unknown.
           properties:
             groupLabels:
+              type: array
+              x-dcl-go-name: GroupLabels
               description: Targets instances matching at least one of these label
                 sets. This allows an assignment to target disparate groups, for example
                 "env=prod or env=staging".
+              x-dcl-list-type: list
               items:
-                properties:
-                  labels:
-                    additionalProperties:
-                      type: string
-                    description: GCE instance labels that must be present for an instance
-                      to be included in this assignment group.
-                    type: object
-                    x-dcl-go-name: Labels
                 type: object
                 x-dcl-go-type: GuestPolicyAssignmentGroupLabels
-              type: array
-              x-dcl-go-name: GroupLabels
-              x-dcl-list-type: list
+                properties:
+                  labels:
+                    type: object
+                    additionalProperties:
+                      type: string
+                    x-dcl-go-name: Labels
+                    description: GCE instance labels that must be present for an instance
+                      to be included in this assignment group.
             instanceNamePrefixes:
+              type: array
+              x-dcl-go-name: InstanceNamePrefixes
               description: Targets VMs whose name starts with one of these prefixes.
                 Like labels, this is another way to group VMs when targeting configs,
                 for example prefix=”prod-”. Only supported for project-level policies.
+              x-dcl-list-type: list
               items:
                 type: string
                 x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: InstanceNamePrefixes
-              x-dcl-list-type: list
             instances:
+              type: array
+              x-dcl-go-name: Instances
               description: Targets any of the instances specified. Instances are specified
                 by their URI in the form `zones/` Instance targeting is uncommon and
                 is supported to facilitate orchestrating changes by instance or to
                 target specific VMs for development and testing. Only supported for
                 project-level policies and must reference instances within this project.
+              x-dcl-list-type: list
               items:
                 type: string
                 x-dcl-go-type: string
                 x-dcl-references:
-                - field: selfLink
-                  resource: Compute/Instance
-              type: array
-              x-dcl-go-name: Instances
-              x-dcl-list-type: list
+                - resource: Compute/Instance
+                  field: selfLink
             osTypes:
-              items:
-                properties:
-                  osArchitecture:
-                    description: Targets VMs with OS Inventory enabled and having
-                      one of the following OS architectures.
-                    type: string
-                    x-dcl-go-name: OsArchitecture
-                  osShortName:
-                    description: Targets VMs with OS Inventory enabled and having
-                      one of the following OS short names, for example "debian", "windows".
-                    type: string
-                    x-dcl-go-name: OsShortName
-                  osVersion:
-                    description: Targets VMs with OS Inventory enabled and having
-                      one of the following OS versions.
-                    type: string
-                    x-dcl-go-name: OsVersion
-                type: object
-                x-dcl-go-type: GuestPolicyAssignmentOsTypes
               type: array
               x-dcl-go-name: OsTypes
               x-dcl-list-type: list
+              items:
+                type: object
+                x-dcl-go-type: GuestPolicyAssignmentOsTypes
+                properties:
+                  osArchitecture:
+                    type: string
+                    x-dcl-go-name: OsArchitecture
+                    description: Targets VMs with OS Inventory enabled and having
+                      one of the following OS architectures.
+                  osShortName:
+                    type: string
+                    x-dcl-go-name: OsShortName
+                    description: Targets VMs with OS Inventory enabled and having
+                      one of the following OS short names, for example "debian", "windows".
+                  osVersion:
+                    type: string
+                    x-dcl-go-name: OsVersion
+                    description: Targets VMs with OS Inventory enabled and having
+                      one of the following OS versions.
             zones:
+              type: array
+              x-dcl-go-name: Zones
               description: Targets instances in ANY of these zones. Leave empty to
                 target instances in any zone. Zonal targeting is uncommon and is supported
                 to facilitate orchestrating changes by zone.
+              x-dcl-list-type: list
               items:
                 type: string
                 x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: Zones
-              x-dcl-list-type: list
-          type: object
-          x-dcl-go-name: Assignment
-          x-dcl-go-type: GuestPolicyAssignment
         createTime:
-          description: Output only. Time this GuestPolicy was created.
-          format: date-time
-          readOnly: true
           type: string
+          format: date-time
           x-dcl-go-name: CreateTime
+          readOnly: true
+          description: Output only. Time this GuestPolicy was created.
           x-kubernetes-immutable: true
         description:
-          description: Description of the GuestPolicy. Length of the description is
-            limited to 1024 characters.
           type: string
           x-dcl-go-name: Description
+          description: Description of the GuestPolicy. Length of the description is
+            limited to 1024 characters.
         etag:
-          description: The etag for this GuestPolicy. If this is provided on update,
-            it must match the server's etag.
           type: string
           x-dcl-go-name: Etag
+          description: The etag for this GuestPolicy. If this is provided on update,
+            it must match the server's etag.
         name:
-          description: Unique name of the resource in this project
           type: string
           x-dcl-go-name: Name
+          description: Unique name of the resource in this project
         packageRepositories:
+          type: array
+          x-dcl-go-name: PackageRepositories
           description: List of package repository configurations assigned to the VM
             instance.
+          x-dcl-list-type: list
           items:
+            type: object
+            x-dcl-go-type: GuestPolicyPackageRepositories
             properties:
               apt:
+                type: object
+                x-dcl-go-name: Apt
+                x-dcl-go-type: GuestPolicyPackageRepositoriesApt
                 description: An Apt Repository.
+                required:
+                - uri
+                - distribution
                 properties:
                   archiveType:
+                    type: string
+                    x-dcl-go-name: ArchiveType
+                    x-dcl-go-type: GuestPolicyPackageRepositoriesAptArchiveTypeEnum
                     description: 'Type of archive files in this repository. The default
                       behavior is DEB. Possible values: ARCHIVE_TYPE_UNSPECIFIED,
                       DEB, DEB_SRC'
@@ -154,131 +212,125 @@ components:
                     - ARCHIVE_TYPE_UNSPECIFIED
                     - DEB
                     - DEB_SRC
-                    type: string
-                    x-dcl-go-name: ArchiveType
-                    x-dcl-go-type: GuestPolicyPackageRepositoriesAptArchiveTypeEnum
                   components:
+                    type: array
+                    x-dcl-go-name: Components
                     description: List of components for this repository. Must contain
                       at least one item.
+                    x-dcl-list-type: list
                     items:
                       type: string
                       x-dcl-go-type: string
-                    type: array
-                    x-dcl-go-name: Components
-                    x-dcl-list-type: list
                   distribution:
-                    description: Required. Distribution of this repository.
                     type: string
                     x-dcl-go-name: Distribution
+                    description: Required. Distribution of this repository.
                   gpgKey:
+                    type: string
+                    x-dcl-go-name: GpgKey
                     description: Optional. URI of the key file for this repository.
                       The agent will maintain a keyring at /etc/apt/trusted.gpg.d/osconfig_agent_managed.gpg
                       containing all the keys in any applied GuestPolicy.
-                    type: string
-                    x-dcl-go-name: GpgKey
                   uri:
-                    description: Required. URI for this repository.
                     type: string
                     x-dcl-go-name: Uri
-                required:
-                - uri
-                - distribution
-                type: object
-                x-dcl-go-name: Apt
-                x-dcl-go-type: GuestPolicyPackageRepositoriesApt
+                    description: Required. URI for this repository.
               goo:
-                description: A Goo Repository.
-                properties:
-                  name:
-                    description: Required. The name of the repository.
-                    type: string
-                    x-dcl-go-name: Name
-                  url:
-                    description: Required. The url of the repository.
-                    type: string
-                    x-dcl-go-name: Url
-                required:
-                - name
-                - url
                 type: object
                 x-dcl-go-name: Goo
                 x-dcl-go-type: GuestPolicyPackageRepositoriesGoo
+                description: A Goo Repository.
+                required:
+                - name
+                - url
+                properties:
+                  name:
+                    type: string
+                    x-dcl-go-name: Name
+                    description: Required. The name of the repository.
+                  url:
+                    type: string
+                    x-dcl-go-name: Url
+                    description: Required. The url of the repository.
               yum:
+                type: object
+                x-dcl-go-name: Yum
+                x-dcl-go-type: GuestPolicyPackageRepositoriesYum
                 description: A Yum Repository.
+                required:
+                - id
+                - baseUrl
                 properties:
                   baseUrl:
-                    description: Required. The location of the repository directory.
                     type: string
                     x-dcl-go-name: BaseUrl
+                    description: Required. The location of the repository directory.
                   displayName:
-                    description: Optional.
                     type: string
                     x-dcl-go-name: DisplayName
+                    description: Optional.
                   gpgKeys:
+                    type: array
+                    x-dcl-go-name: GpgKeys
                     description: Optional. URIs of GPG keys.
+                    x-dcl-list-type: list
                     items:
                       type: string
                       x-dcl-go-type: string
-                    type: array
-                    x-dcl-go-name: GpgKeys
-                    x-dcl-list-type: list
                   id:
+                    type: string
+                    x-dcl-go-name: Id
                     description: Required. A one word, unique name for this repository.
                       This will be the `repo id` in the yum config file and also the
                       `display_name` if `display_name` is omitted. This id is also
                       used as the unique identifier when checking for GuestPolicy
                       conflicts.
-                    type: string
-                    x-dcl-go-name: Id
+              zypper:
+                type: object
+                x-dcl-go-name: Zypper
+                x-dcl-go-type: GuestPolicyPackageRepositoriesZypper
+                description: A Zypper Repository.
                 required:
                 - id
                 - baseUrl
-                type: object
-                x-dcl-go-name: Yum
-                x-dcl-go-type: GuestPolicyPackageRepositoriesYum
-              zypper:
-                description: A Zypper Repository.
                 properties:
                   baseUrl:
-                    description: Required. The location of the repository directory.
                     type: string
                     x-dcl-go-name: BaseUrl
+                    description: Required. The location of the repository directory.
                   displayName:
-                    description: Optional.
                     type: string
                     x-dcl-go-name: DisplayName
+                    description: Optional.
                   gpgKeys:
+                    type: array
+                    x-dcl-go-name: GpgKeys
                     description: Optional. URIs of GPG keys.
+                    x-dcl-list-type: list
                     items:
                       type: string
                       x-dcl-go-type: string
-                    type: array
-                    x-dcl-go-name: GpgKeys
-                    x-dcl-list-type: list
                   id:
+                    type: string
+                    x-dcl-go-name: Id
                     description: Required. A one word, unique name for this repository.
                       This will be the `repo id` in the zypper config file and also
                       the `display_name` if `display_name` is omitted. This id is
                       also used as the unique identifier when checking for GuestPolicy
                       conflicts.
-                    type: string
-                    x-dcl-go-name: Id
-                required:
-                - id
-                - baseUrl
-                type: object
-                x-dcl-go-name: Zypper
-                x-dcl-go-type: GuestPolicyPackageRepositoriesZypper
-            type: object
-            x-dcl-go-type: GuestPolicyPackageRepositories
-          type: array
-          x-dcl-go-name: PackageRepositories
-          x-dcl-list-type: list
         packages:
+          type: array
+          x-dcl-go-name: Packages
           description: List of package configurations assigned to the VM instance.
+          x-dcl-list-type: list
           items:
+            type: object
+            x-dcl-go-type: GuestPolicyPackages
             properties:
               desiredState:
+                type: string
+                x-dcl-go-name: DesiredState
+                x-dcl-go-type: GuestPolicyPackagesDesiredStateEnum
                 description: 'Optional. The desired_state the agent should maintain
                   for this package. The default is to ensure the package is installed.
                   Possible values: DESIRED_STATE_UNSPECIFIED, INSTALLED, REMOVED'
@@ -286,10 +338,10 @@ components:
                 - DESIRED_STATE_UNSPECIFIED
                 - INSTALLED
                 - REMOVED
-                type: string
-                x-dcl-go-name: DesiredState
-                x-dcl-go-type: GuestPolicyPackagesDesiredStateEnum
               manager:
+                type: string
+                x-dcl-go-name: Manager
+                x-dcl-go-type: GuestPolicyPackagesManagerEnum
                 description: 'Optional. Type of package manager that can be used to
                   install this package. If a system does not have the package manager,
                   the package will not be installed/removed and there is no error.
@@ -305,100 +357,100 @@ components:
                 - YUM
                 - ZYPPER
                 - GOO
-                type: string
-                x-dcl-go-name: Manager
-                x-dcl-go-type: GuestPolicyPackagesManagerEnum
               name:
+                type: string
+                x-dcl-go-name: Name
                 description: The name of the package. A package is uniquely identified
                   for conflict validation by checking its name and the manager(s)
                   it targets.
-                type: string
-                x-dcl-go-name: Name
-            type: object
-            x-dcl-go-type: GuestPolicyPackages
-          type: array
-          x-dcl-go-name: Packages
-          x-dcl-list-type: list
         project:
-          description: The project for the resource
           type: string
           x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
+          description: The project for the resource
           x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
         recipes:
+          type: array
+          x-dcl-go-name: Recipes
           description: Optional. A list of Recipes to install on the VM.
+          x-dcl-list-type: list
           items:
+            type: object
+            x-dcl-go-type: GuestPolicyRecipes
             properties:
               artifacts:
+                type: array
+                x-dcl-go-name: Artifacts
                 description: Resources available to be used in the steps in the recipe.
+                x-dcl-list-type: list
                 items:
+                  type: object
+                  x-dcl-go-type: GuestPolicyRecipesArtifacts
                   properties:
                     allowInsecure:
+                      type: boolean
+                      x-dcl-go-name: AllowInsecure
                       description: 'Defaults to false. When false, recipes will be
                         subject to validations based on the artifact type: Remote:
                         A checksum must be specified, and only protocols with transport-layer
                         security will be permitted. GCS: An object generation number
                         must be specified.'
-                      type: boolean
-                      x-dcl-go-name: AllowInsecure
                     gcs:
-                      description: A GCS artifact.
-                      properties:
-                        bucket:
-                          description: Bucket of the GCS object.
-                          type: string
-                          x-dcl-go-name: Bucket
-                          x-dcl-references:
-                          - field: name
-                            resource: Storage/Bucket
-                        generation:
-                          description: Optional if allow_insecure is true. Generation
-                            number of the GCS object.
-                          format: int64
-                          type: integer
-                          x-dcl-go-name: Generation
-                        object:
-                          description: Name of the GCS object.
-                          type: string
-                          x-dcl-go-name: Object
                       type: object
                       x-dcl-go-name: Gcs
                       x-dcl-go-type: GuestPolicyRecipesArtifactsGcs
+                      description: A GCS artifact.
+                      properties:
+                        bucket:
+                          type: string
+                          x-dcl-go-name: Bucket
+                          description: Bucket of the GCS object.
+                          x-dcl-references:
+                          - resource: Storage/Bucket
+                            field: name
+                        generation:
+                          type: integer
+                          format: int64
+                          x-dcl-go-name: Generation
+                          description: Optional if allow_insecure is true. Generation
+                            number of the GCS object.
+                        object:
+                          type: string
+                          x-dcl-go-name: Object
+                          description: Name of the GCS object.
                     id:
+                      type: string
+                      x-dcl-go-name: Id
                       description: Id of the artifact, which the installation and
                         update steps of this recipe can reference. Artifacts in a
                         recipe cannot have the same id.
-                      type: string
-                      x-dcl-go-name: Id
                     remote:
+                      type: object
+                      x-dcl-go-name: Remote
+                      x-dcl-go-type: GuestPolicyRecipesArtifactsRemote
                       description: A generic remote artifact.
                       properties:
                         checksum:
+                          type: string
+                          x-dcl-go-name: Checksum
                           description: Optional if allow_insecure is true. SHA256
                             checksum to compare to the checksum of the artifact. If
                             the checksum is not empty and it doesn't match the artifact
                             then the recipe installation will fail before running
                             any of the steps.
-                          type: string
-                          x-dcl-go-name: Checksum
                         uri:
+                          type: string
+                          x-dcl-go-name: Uri
                           description: URI from which to fetch the object. It should
                             contain both the protocol and path following the format
                             {protocol}://{location}.
-                          type: string
-                          x-dcl-go-name: Uri
-                      type: object
-                      x-dcl-go-name: Remote
-                      x-dcl-go-type: GuestPolicyRecipesArtifactsRemote
-                  type: object
-                  x-dcl-go-type: GuestPolicyRecipesArtifacts
-                type: array
-                x-dcl-go-name: Artifacts
-                x-dcl-list-type: list
               desiredState:
+                type: string
+                x-dcl-go-name: DesiredState
+                x-dcl-go-type: GuestPolicyRecipesDesiredStateEnum
                 description: 'Default is INSTALLED. The desired state the agent should
                   maintain for this recipe. INSTALLED: The software recipe will be
                   installed on the instance but won''t be updated to new versions.
@@ -412,29 +464,37 @@ components:
                 - DESIRED_STATE_UNSPECIFIED
                 - INSTALLED
                 - REMOVED
-                type: string
-                x-dcl-go-name: DesiredState
-                x-dcl-go-type: GuestPolicyRecipesDesiredStateEnum
               installSteps:
+                type: array
+                x-dcl-go-name: InstallSteps
                 description: Actions to be taken for installing this recipe. On failure
                   it will stop executing steps and not attempt another installation.
                   Any steps taken (including partially completed steps) will not be
                   rolled back.
+                x-dcl-list-type: list
                 items:
+                  type: object
+                  x-dcl-go-type: GuestPolicyRecipesInstallSteps
                   properties:
                     archiveExtraction:
+                      type: object
+                      x-dcl-go-name: ArchiveExtraction
+                      x-dcl-go-type: GuestPolicyRecipesInstallStepsArchiveExtraction
                       description: Extracts an archive into the specified directory.
                       properties:
                         artifactId:
-                          description: The id of the relevant artifact in the recipe.
                           type: string
                           x-dcl-go-name: ArtifactId
+                          description: The id of the relevant artifact in the recipe.
                         destination:
-                          description: 'Directory to extract archive to. Defaults
-                            to / on Linux or C: on Windows.'
                           type: string
                           x-dcl-go-name: Destination
+                          description: 'Directory to extract archive to. Defaults
+                            to / on Linux or C: on Windows.'
                         type:
+                          type: string
+                          x-dcl-go-name: Type
+                          x-dcl-go-type: GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum
                           description: 'The type of the archive to extract. Possible
                             values: TYPE_UNSPECIFIED, VALIDATION, DESIRED_STATE_CHECK,
                             DESIRED_STATE_ENFORCEMENT, DESIRED_STATE_CHECK_POST_ENFORCEMENT'
@@ -444,42 +504,41 @@ components:
                           - DESIRED_STATE_CHECK
                           - DESIRED_STATE_ENFORCEMENT
                           - DESIRED_STATE_CHECK_POST_ENFORCEMENT
-                          type: string
-                          x-dcl-go-name: Type
-                          x-dcl-go-type: GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum
-                      type: object
-                      x-dcl-go-name: ArchiveExtraction
-                      x-dcl-go-type: GuestPolicyRecipesInstallStepsArchiveExtraction
                     dpkgInstallation:
-                      description: Installs a deb file via dpkg.
-                      properties:
-                        artifactId:
-                          description: The id of the relevant artifact in the recipe.
-                          type: string
-                          x-dcl-go-name: ArtifactId
                       type: object
                       x-dcl-go-name: DpkgInstallation
                       x-dcl-go-type: GuestPolicyRecipesInstallStepsDpkgInstallation
+                      description: Installs a deb file via dpkg.
+                      properties:
+                        artifactId:
+                          type: string
+                          x-dcl-go-name: ArtifactId
+                          description: The id of the relevant artifact in the recipe.
                     fileCopy:
+                      type: object
+                      x-dcl-go-name: FileCopy
+                      x-dcl-go-type: GuestPolicyRecipesInstallStepsFileCopy
                       description: Copies a file onto the instance.
                       properties:
                         artifactId:
-                          description: The id of the relevant artifact in the recipe.
                           type: string
                           x-dcl-go-name: ArtifactId
+                          description: The id of the relevant artifact in the recipe.
                         destination:
-                          description: The absolute path on the instance to put the
-                            file.
                           type: string
                           x-dcl-go-name: Destination
+                          description: The absolute path on the instance to put the
+                            file.
                         overwrite:
+                          type: boolean
+                          x-dcl-go-name: Overwrite
                           description: Whether to allow this step to overwrite existing
                             files. If this is false and the file already exists the
                             file will not be overwritten and the step will be considered
                             a success. Defaults to false.
-                          type: boolean
-                          x-dcl-go-name: Overwrite
                         permissions:
+                          type: string
+                          x-dcl-go-name: Permissions
                           description: 'Consists of three octal digits which represent,
                             in order, the permissions of the owner, group, and other
                             users for the file (similarly to the numeric mode used
@@ -490,99 +549,100 @@ components:
                             is 755. Below are some examples of permissions and their
                             associated values: read, write, and execute: 7 read and
                             execute: 5 read and write: 6 read only: 4'
-                          type: string
-                          x-dcl-go-name: Permissions
-                      type: object
-                      x-dcl-go-name: FileCopy
-                      x-dcl-go-type: GuestPolicyRecipesInstallStepsFileCopy
                     fileExec:
-                      description: Executes an artifact or local file.
-                      properties:
-                        allowedExitCodes:
-                          description: Defaults to . A list of possible return values
-                            that the program can return to indicate a success.
-                          items:
-                            format: int64
-                            type: integer
-                            x-dcl-go-type: int64
-                          type: array
-                          x-dcl-go-name: AllowedExitCodes
-                          x-dcl-list-type: list
-                        args:
-                          description: Arguments to be passed to the provided executable.
-                          items:
-                            type: string
-                            x-dcl-go-type: string
-                          type: array
-                          x-dcl-go-name: Args
-                          x-dcl-list-type: list
-                        artifactId:
-                          description: The id of the relevant artifact in the recipe.
-                          type: string
-                          x-dcl-go-name: ArtifactId
-                        localPath:
-                          description: The absolute path of the file on the local
-                            filesystem.
-                          type: string
-                          x-dcl-go-name: LocalPath
                       type: object
                       x-dcl-go-name: FileExec
                       x-dcl-go-type: GuestPolicyRecipesInstallStepsFileExec
-                    msiInstallation:
-                      description: Installs an MSI file.
+                      description: Executes an artifact or local file.
                       properties:
                         allowedExitCodes:
-                          description: Return codes that indicate that the software
-                            installed or updated successfully. Behaviour defaults
-                            to
-                          items:
-                            format: int64
-                            type: integer
-                            x-dcl-go-type: int64
                           type: array
                           x-dcl-go-name: AllowedExitCodes
+                          description: Defaults to . A list of possible return values
+                            that the program can return to indicate a success.
                           x-dcl-list-type: list
-                        artifactId:
-                          description: The id of the relevant artifact in the recipe.
-                          type: string
-                          x-dcl-go-name: ArtifactId
-                        flags:
-                          description: The flags to use when installing the MSI defaults
-                            to (i.e. the install flag).
+                          items:
+                            type: integer
+                            format: int64
+                            x-dcl-go-type: int64
+                        args:
+                          type: array
+                          x-dcl-go-name: Args
+                          description: Arguments to be passed to the provided executable.
+                          x-dcl-list-type: list
                           items:
                             type: string
                             x-dcl-go-type: string
-                          type: array
-                          x-dcl-go-name: Flags
-                          x-dcl-list-type: list
+                        artifactId:
+                          type: string
+                          x-dcl-go-name: ArtifactId
+                          description: The id of the relevant artifact in the recipe.
+                        localPath:
+                          type: string
+                          x-dcl-go-name: LocalPath
+                          description: The absolute path of the file on the local
+                            filesystem.
+                    msiInstallation:
                       type: object
                       x-dcl-go-name: MsiInstallation
                       x-dcl-go-type: GuestPolicyRecipesInstallStepsMsiInstallation
-                    rpmInstallation:
-                      description: Installs an rpm file via the rpm utility.
-                      properties:
-                        artifactId:
-                          description: The id of the relevant artifact in the recipe.
-                          type: string
-                          x-dcl-go-name: ArtifactId
-                      type: object
-                      x-dcl-go-name: RpmInstallation
-                      x-dcl-go-type: GuestPolicyRecipesInstallStepsRpmInstallation
-                    scriptRun:
-                      description: Runs commands in a shell.
+                      description: Installs an MSI file.
                       properties:
                         allowedExitCodes:
+                          type: array
+                          x-dcl-go-name: AllowedExitCodes
                           description: Return codes that indicate that the software
                             installed or updated successfully. Behaviour defaults
                             to
+                          x-dcl-list-type: list
                           items:
-                            format: int64
                             type: integer
+                            format: int64
                             x-dcl-go-type: int64
+                        artifactId:
+                          type: string
+                          x-dcl-go-name: ArtifactId
+                          description: The id of the relevant artifact in the recipe.
+                        flags:
+                          type: array
+                          x-dcl-go-name: Flags
+                          description: The flags to use when installing the MSI defaults
+                            to (i.e. the install flag).
+                          x-dcl-list-type: list
+                          items:
+                            type: string
+                            x-dcl-go-type: string
+                    rpmInstallation:
+                      type: object
+                      x-dcl-go-name: RpmInstallation
+                      x-dcl-go-type: GuestPolicyRecipesInstallStepsRpmInstallation
+                      description: Installs an rpm file via the rpm utility.
+                      properties:
+                        artifactId:
+                          type: string
+                          x-dcl-go-name: ArtifactId
+                          description: The id of the relevant artifact in the recipe.
+                    scriptRun:
+                      type: object
+                      x-dcl-go-name: ScriptRun
+                      x-dcl-go-type: GuestPolicyRecipesInstallStepsScriptRun
+                      description: Runs commands in a shell.
+                      properties:
+                        allowedExitCodes:
                           type: array
                           x-dcl-go-name: AllowedExitCodes
+                          description: Return codes that indicate that the software
+                            installed or updated successfully. Behaviour defaults
+                            to
                           x-dcl-list-type: list
+                          items:
+                            type: integer
+                            format: int64
+                            x-dcl-go-type: int64
                         interpreter:
+                          type: string
+                          x-dcl-go-name: Interpreter
+                          x-dcl-go-type: GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum
                           description: 'The script interpreter to use to run the script.
                             If no interpreter is specified the script will be executed
                             directly, which will likely only succeed for scripts with
@@ -594,50 +654,50 @@ components:
                           - NONE
                           - SHELL
                           - POWERSHELL
-                          type: string
-                          x-dcl-go-name: Interpreter
-                          x-dcl-go-type: GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum
                         script:
-                          description: The shell script to be executed.
                           type: string
                           x-dcl-go-name: Script
-                      type: object
-                      x-dcl-go-name: ScriptRun
-                      x-dcl-go-type: GuestPolicyRecipesInstallStepsScriptRun
-                  type: object
-                  x-dcl-go-type: GuestPolicyRecipesInstallSteps
-                type: array
-                x-dcl-go-name: InstallSteps
-                x-dcl-list-type: list
+                          description: The shell script to be executed.
               name:
+                type: string
+                x-dcl-go-name: Name
                 description: Unique identifier for the recipe. Only one recipe with
                   a given name will be installed on an instance. Names are also used
                   to identify resource to determine whether guest policies conflict.
                   This means that requests to create multiple recipes with the same
                   name and version that could possibly have conflicting assignments
                   will be rejected.
-                type: string
-                x-dcl-go-name: Name
               updateSteps:
+                type: array
+                x-dcl-go-name: UpdateSteps
                 description: Actions to be taken for updating this recipe. On failure
                   it will stop executing steps and not attempt another update for
                   this recipe. Any steps taken (including partially completed steps)
                   will not be rolled back.
+                x-dcl-list-type: list
                 items:
+                  type: object
+                  x-dcl-go-type: GuestPolicyRecipesUpdateSteps
                   properties:
                     archiveExtraction:
+                      type: object
+                      x-dcl-go-name: ArchiveExtraction
+                      x-dcl-go-type: GuestPolicyRecipesUpdateStepsArchiveExtraction
                       description: Extracts an archive into the specified directory.
                       properties:
                         artifactId:
-                          description: The id of the relevant artifact in the recipe.
                           type: string
                           x-dcl-go-name: ArtifactId
+                          description: The id of the relevant artifact in the recipe.
                         destination:
-                          description: 'Directory to extract archive to. Defaults
-                            to / on Linux or C: on Windows.'
                           type: string
                           x-dcl-go-name: Destination
+                          description: 'Directory to extract archive to. Defaults
+                            to / on Linux or C: on Windows.'
                         type:
+                          type: string
+                          x-dcl-go-name: Type
+                          x-dcl-go-type: GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum
                           description: 'The type of the archive to extract. Possible
                             values: TYPE_UNSPECIFIED, VALIDATION, DESIRED_STATE_CHECK,
                             DESIRED_STATE_ENFORCEMENT, DESIRED_STATE_CHECK_POST_ENFORCEMENT'
@@ -647,42 +707,41 @@ components:
                           - DESIRED_STATE_CHECK
                           - DESIRED_STATE_ENFORCEMENT
                           - DESIRED_STATE_CHECK_POST_ENFORCEMENT
-                          type: string
-                          x-dcl-go-name: Type
-                          x-dcl-go-type: GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum
-                      type: object
-                      x-dcl-go-name: ArchiveExtraction
-                      x-dcl-go-type: GuestPolicyRecipesUpdateStepsArchiveExtraction
                     dpkgInstallation:
-                      description: Installs a deb file via dpkg.
-                      properties:
-                        artifactId:
-                          description: The id of the relevant artifact in the recipe.
-                          type: string
-                          x-dcl-go-name: ArtifactId
                       type: object
                       x-dcl-go-name: DpkgInstallation
                       x-dcl-go-type: GuestPolicyRecipesUpdateStepsDpkgInstallation
+                      description: Installs a deb file via dpkg.
+                      properties:
+                        artifactId:
+                          type: string
+                          x-dcl-go-name: ArtifactId
+                          description: The id of the relevant artifact in the recipe.
                     fileCopy:
+                      type: object
+                      x-dcl-go-name: FileCopy
+                      x-dcl-go-type: GuestPolicyRecipesUpdateStepsFileCopy
                       description: Copies a file onto the instance.
                       properties:
                         artifactId:
-                          description: The id of the relevant artifact in the recipe.
                           type: string
                           x-dcl-go-name: ArtifactId
+                          description: The id of the relevant artifact in the recipe.
                         destination:
-                          description: The absolute path on the instance to put the
-                            file.
                           type: string
                           x-dcl-go-name: Destination
+                          description: The absolute path on the instance to put the
+                            file.
                         overwrite:
+                          type: boolean
+                          x-dcl-go-name: Overwrite
                           description: Whether to allow this step to overwrite existing
                             files. If this is false and the file already exists the
                             file will not be overwritten and the step will be considered
                             a success. Defaults to false.
-                          type: boolean
-                          x-dcl-go-name: Overwrite
                         permissions:
+                          type: string
+                          x-dcl-go-name: Permissions
                           description: 'Consists of three octal digits which represent,
                             in order, the permissions of the owner, group, and other
                             users for the file (similarly to the numeric mode used
@@ -693,99 +752,100 @@ components:
                             is 755. Below are some examples of permissions and their
                             associated values: read, write, and execute: 7 read and
                             execute: 5 read and write: 6 read only: 4'
-                          type: string
-                          x-dcl-go-name: Permissions
-                      type: object
-                      x-dcl-go-name: FileCopy
-                      x-dcl-go-type: GuestPolicyRecipesUpdateStepsFileCopy
                     fileExec:
-                      description: Executes an artifact or local file.
-                      properties:
-                        allowedExitCodes:
-                          description: Defaults to . A list of possible return values
-                            that the program can return to indicate a success.
-                          items:
-                            format: int64
-                            type: integer
-                            x-dcl-go-type: int64
-                          type: array
-                          x-dcl-go-name: AllowedExitCodes
-                          x-dcl-list-type: list
-                        args:
-                          description: Arguments to be passed to the provided executable.
-                          items:
-                            type: string
-                            x-dcl-go-type: string
-                          type: array
-                          x-dcl-go-name: Args
-                          x-dcl-list-type: list
-                        artifactId:
-                          description: The id of the relevant artifact in the recipe.
-                          type: string
-                          x-dcl-go-name: ArtifactId
-                        localPath:
-                          description: The absolute path of the file on the local
-                            filesystem.
-                          type: string
-                          x-dcl-go-name: LocalPath
                       type: object
                       x-dcl-go-name: FileExec
                       x-dcl-go-type: GuestPolicyRecipesUpdateStepsFileExec
-                    msiInstallation:
-                      description: Installs an MSI file.
+                      description: Executes an artifact or local file.
                       properties:
                         allowedExitCodes:
-                          description: Return codes that indicate that the software
-                            installed or updated successfully. Behaviour defaults
-                            to
-                          items:
-                            format: int64
-                            type: integer
-                            x-dcl-go-type: int64
                           type: array
                           x-dcl-go-name: AllowedExitCodes
+                          description: Defaults to . A list of possible return values
+                            that the program can return to indicate a success.
                           x-dcl-list-type: list
-                        artifactId:
-                          description: The id of the relevant artifact in the recipe.
-                          type: string
-                          x-dcl-go-name: ArtifactId
-                        flags:
-                          description: The flags to use when installing the MSI defaults
-                            to (i.e. the install flag).
+                          items:
+                            type: integer
+                            format: int64
+                            x-dcl-go-type: int64
+                        args:
+                          type: array
+                          x-dcl-go-name: Args
+                          description: Arguments to be passed to the provided executable.
+                          x-dcl-list-type: list
                           items:
                             type: string
                             x-dcl-go-type: string
-                          type: array
-                          x-dcl-go-name: Flags
-                          x-dcl-list-type: list
+                        artifactId:
+                          type: string
+                          x-dcl-go-name: ArtifactId
+                          description: The id of the relevant artifact in the recipe.
+                        localPath:
+                          type: string
+                          x-dcl-go-name: LocalPath
+                          description: The absolute path of the file on the local
+                            filesystem.
+                    msiInstallation:
                       type: object
                       x-dcl-go-name: MsiInstallation
                       x-dcl-go-type: GuestPolicyRecipesUpdateStepsMsiInstallation
-                    rpmInstallation:
-                      description: Installs an rpm file via the rpm utility.
-                      properties:
-                        artifactId:
-                          description: The id of the relevant artifact in the recipe.
-                          type: string
-                          x-dcl-go-name: ArtifactId
-                      type: object
-                      x-dcl-go-name: RpmInstallation
-                      x-dcl-go-type: GuestPolicyRecipesUpdateStepsRpmInstallation
-                    scriptRun:
-                      description: Runs commands in a shell.
+                      description: Installs an MSI file.
                       properties:
                         allowedExitCodes:
+                          type: array
+                          x-dcl-go-name: AllowedExitCodes
                           description: Return codes that indicate that the software
                             installed or updated successfully. Behaviour defaults
                             to
+                          x-dcl-list-type: list
                           items:
-                            format: int64
                             type: integer
+                            format: int64
                             x-dcl-go-type: int64
+                        artifactId:
+                          type: string
+                          x-dcl-go-name: ArtifactId
+                          description: The id of the relevant artifact in the recipe.
+                        flags:
+                          type: array
+                          x-dcl-go-name: Flags
+                          description: The flags to use when installing the MSI defaults
+                            to (i.e. the install flag).
+                          x-dcl-list-type: list
+                          items:
+                            type: string
+                            x-dcl-go-type: string
+                    rpmInstallation:
+                      type: object
+                      x-dcl-go-name: RpmInstallation
+                      x-dcl-go-type: GuestPolicyRecipesUpdateStepsRpmInstallation
+                      description: Installs an rpm file via the rpm utility.
+                      properties:
+                        artifactId:
+                          type: string
+                          x-dcl-go-name: ArtifactId
+                          description: The id of the relevant artifact in the recipe.
+                    scriptRun:
+                      type: object
+                      x-dcl-go-name: ScriptRun
+                      x-dcl-go-type: GuestPolicyRecipesUpdateStepsScriptRun
+                      description: Runs commands in a shell.
+                      properties:
+                        allowedExitCodes:
                           type: array
                           x-dcl-go-name: AllowedExitCodes
+                          description: Return codes that indicate that the software
+                            installed or updated successfully. Behaviour defaults
+                            to
                           x-dcl-list-type: list
+                          items:
+                            type: integer
+                            format: int64
+                            x-dcl-go-type: int64
                         interpreter:
+                          type: string
+                          x-dcl-go-name: Interpreter
+                          x-dcl-go-type: GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum
                           description: 'The script interpreter to use to run the script.
                             If no interpreter is specified the script will be executed
                             directly, which will likely only succeed for scripts with
@@ -797,81 +857,19 @@ components:
                           - NONE
                           - SHELL
                           - POWERSHELL
-                          type: string
-                          x-dcl-go-name: Interpreter
-                          x-dcl-go-type: GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum
                         script:
-                          description: The shell script to be executed.
                           type: string
                           x-dcl-go-name: Script
-                      type: object
-                      x-dcl-go-name: ScriptRun
-                      x-dcl-go-type: GuestPolicyRecipesUpdateStepsScriptRun
-                  type: object
-                  x-dcl-go-type: GuestPolicyRecipesUpdateSteps
-                type: array
-                x-dcl-go-name: UpdateSteps
-                x-dcl-list-type: list
+                          description: The shell script to be executed.
               version:
-                description: The version of this software recipe. Version can be up
-                  to 4 period separated numbers (e.g. 12.34.56.78).
                 type: string
                 x-dcl-go-name: Version
-            type: object
-            x-dcl-go-type: GuestPolicyRecipes
-          type: array
-          x-dcl-go-name: Recipes
-          x-dcl-list-type: list
+                description: The version of this software recipe. Version can be up
+                  to 4 period separated numbers (e.g. 12.34.56.78).
         updateTime:
-          description: Output only. Last time this GuestPolicy was updated.
-          format: date-time
-          readOnly: true
           type: string
+          format: date-time
           x-dcl-go-name: UpdateTime
+          readOnly: true
+          description: Output only. Last time this GuestPolicy was updated.
           x-kubernetes-immutable: true
-      required:
-      - name
-      - project
-      title: GuestPolicy
-      type: object
-      x-dcl-id: projects/{{project}}/guestPolicies/{{name}}
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
-info:
-  description: DCL Specification for the OsConfig GuestPolicy resource
-  title: OsConfig/GuestPolicy
-  x-dcl-has-iam: false
-paths:
-  apply:
-    description: The function used to apply information about a GuestPolicy
-    parameters:
-    - description: A full instance of a GuestPolicy
-      name: GuestPolicy
-      required: true
-  delete:
-    description: The function used to delete a GuestPolicy
-    parameters:
-    - description: A full instance of a GuestPolicy
-      name: GuestPolicy
-      required: true
-  deleteAll:
-    description: The function used to delete all GuestPolicy
-    parameters:
-    - name: project
-      required: true
-      schema:
-        type: string
-  get:
-    description: The function used to get information about a GuestPolicy
-    parameters:
-    - description: A full instance of a GuestPolicy
-      name: GuestPolicy
-      required: true
-  list:
-    description: The function used to list information about many GuestPolicy
-    parameters:
-    - name: project
-      required: true
-      schema:
-        type: string

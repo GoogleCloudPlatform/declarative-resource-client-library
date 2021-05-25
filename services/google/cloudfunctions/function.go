@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -313,7 +314,7 @@ func (l *FunctionList) HasNext() bool {
 }
 
 func (l *FunctionList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -329,7 +330,7 @@ func (l *FunctionList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListFunction(ctx context.Context, project, region string) (*FunctionList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListFunctionWithMaxResults(ctx, project, region, FunctionMaxPage)
@@ -337,7 +338,7 @@ func (c *Client) ListFunction(ctx context.Context, project, region string) (*Fun
 }
 
 func (c *Client) ListFunctionWithMaxResults(ctx context.Context, project, region string, pageSize int32) (*FunctionList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listFunction(ctx, project, region, "", pageSize)
@@ -356,7 +357,7 @@ func (c *Client) ListFunctionWithMaxResults(ctx context.Context, project, region
 }
 
 func (c *Client) GetFunction(ctx context.Context, r *Function) (*Function, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getFunctionRaw(ctx, r)
@@ -389,7 +390,7 @@ func (c *Client) GetFunction(ctx context.Context, r *Function) (*Function, error
 }
 
 func (c *Client) DeleteFunction(ctx context.Context, r *Function) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -402,9 +403,6 @@ func (c *Client) DeleteFunction(ctx context.Context, r *Function) error {
 
 // DeleteAllFunction deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllFunction(ctx context.Context, project, region string, filter func(*Function) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListFunction(ctx, project, region)
 	if err != nil {
 		return err
@@ -428,10 +426,29 @@ func (c *Client) DeleteAllFunction(ctx context.Context, project, region string, 
 }
 
 func (c *Client) ApplyFunction(ctx context.Context, rawDesired *Function, opts ...dcl.ApplyOption) (*Function, error) {
+
+	var resultNewState *Function
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyFunctionHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyFunctionHelper(c *Client, ctx context.Context, rawDesired *Function, opts ...dcl.ApplyOption) (*Function, error) {
 	c.Config.Logger.Info("Beginning ApplyFunction...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

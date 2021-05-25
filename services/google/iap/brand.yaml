@@ -11,67 +11,23 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    Brand:
-      properties:
-        applicationTitle:
-          description: Application name displayed on OAuth consent screen.
-          type: string
-          x-dcl-go-name: ApplicationTitle
-          x-kubernetes-immutable: true
-        name:
-          description: 'Output only. Identifier of the brand. NOTE: GCP project number
-            achieves the same brand identification purpose as only one brand per project
-            can be created.'
-          type: string
-          x-dcl-go-name: Name
-          x-dcl-server-generated-parameter: true
-          x-kubernetes-immutable: true
-        orgInternalOnly:
-          description: Output only. Whether the brand is only intended for usage inside
-            the G Suite organization only.
-          readOnly: true
-          type: boolean
-          x-dcl-go-name: OrgInternalOnly
-          x-kubernetes-immutable: true
-        project:
-          description: GCP Project id under which the brand is to be created.
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        supportEmail:
-          description: Support email displayed on the OAuth consent screen.
-          type: string
-          x-dcl-go-name: SupportEmail
-          x-kubernetes-immutable: true
-      title: Brand
-      type: object
-      x-dcl-id: projects/{{project}}/brands/{{name}}
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Iap Brand resource
   title: Iap/Brand
+  description: DCL Specification for the Iap Brand resource
   x-dcl-has-iam: false
 paths:
-  apply:
-    description: The function used to apply information about a Brand
-    parameters:
-    - description: A full instance of a Brand
-      name: Brand
-      required: true
   get:
     description: The function used to get information about a Brand
     parameters:
-    - description: A full instance of a Brand
-      name: Brand
+    - name: Brand
       required: true
+      description: A full instance of a Brand
+  apply:
+    description: The function used to apply information about a Brand
+    parameters:
+    - name: Brand
+      required: true
+      description: A full instance of a Brand
   list:
     description: The function used to list information about many Brand
     parameters:
@@ -79,3 +35,45 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    Brand:
+      title: Brand
+      x-dcl-id: projects/{{project}}/brands/{{name}}
+      x-dcl-parent-container: project
+      type: object
+      properties:
+        applicationTitle:
+          type: string
+          x-dcl-go-name: ApplicationTitle
+          description: Application name displayed on OAuth consent screen.
+          x-kubernetes-immutable: true
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: 'Output only. Identifier of the brand. NOTE: GCP project number
+            achieves the same brand identification purpose as only one brand per project
+            can be created.'
+          x-kubernetes-immutable: true
+          x-dcl-server-generated-parameter: true
+        orgInternalOnly:
+          type: boolean
+          x-dcl-go-name: OrgInternalOnly
+          readOnly: true
+          description: Output only. Whether the brand is only intended for usage inside
+            the G Suite organization only.
+          x-kubernetes-immutable: true
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: GCP Project id under which the brand is to be created.
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        supportEmail:
+          type: string
+          x-dcl-go-name: SupportEmail
+          description: Support email displayed on the OAuth consent screen.
+          x-kubernetes-immutable: true

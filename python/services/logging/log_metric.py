@@ -31,7 +31,6 @@ class LogMetric(object):
         bucket_options: dict = None,
         create_time: str = None,
         update_time: str = None,
-        resolution: str = None,
         project: str = None,
         service_account_file: str = "",
     ):
@@ -45,7 +44,6 @@ class LogMetric(object):
         self.value_extractor = value_extractor
         self.label_extractors = label_extractors
         self.bucket_options = bucket_options
-        self.resolution = resolution
         self.project = project
         self.service_account_file = service_account_file
 
@@ -84,9 +82,6 @@ class LogMetric(object):
             )
         else:
             request.resource.ClearField("bucket_options")
-        if Primitive.to_proto(self.resolution):
-            request.resource.resolution = Primitive.to_proto(self.resolution)
-
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -105,7 +100,6 @@ class LogMetric(object):
         self.bucket_options = LogMetricBucketOptions.from_proto(response.bucket_options)
         self.create_time = Primitive.from_proto(response.create_time)
         self.update_time = Primitive.from_proto(response.update_time)
-        self.resolution = Primitive.from_proto(response.resolution)
         self.project = Primitive.from_proto(response.project)
 
     def delete(self):
@@ -144,9 +138,6 @@ class LogMetric(object):
             )
         else:
             request.resource.ClearField("bucket_options")
-        if Primitive.to_proto(self.resolution):
-            request.resource.resolution = Primitive.to_proto(self.resolution)
-
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -187,8 +178,6 @@ class LogMetric(object):
             )
         else:
             resource.ClearField("bucket_options")
-        if Primitive.to_proto(self.resolution):
-            resource.resolution = Primitive.to_proto(self.resolution)
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         return resource

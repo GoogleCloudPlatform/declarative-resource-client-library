@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -34,7 +35,6 @@ type LogMetric struct {
 	BucketOptions    *LogMetricBucketOptions    `json:"bucketOptions"`
 	CreateTime       *string                    `json:"createTime"`
 	UpdateTime       *string                    `json:"updateTime"`
-	Resolution       *string                    `json:"resolution"`
 	Project          *string                    `json:"project"`
 }
 
@@ -586,7 +586,7 @@ func (l *LogMetricList) HasNext() bool {
 }
 
 func (l *LogMetricList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -602,7 +602,7 @@ func (l *LogMetricList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListLogMetric(ctx context.Context, project string) (*LogMetricList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListLogMetricWithMaxResults(ctx, project, LogMetricMaxPage)
@@ -610,7 +610,7 @@ func (c *Client) ListLogMetric(ctx context.Context, project string) (*LogMetricL
 }
 
 func (c *Client) ListLogMetricWithMaxResults(ctx context.Context, project string, pageSize int32) (*LogMetricList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listLogMetric(ctx, project, "", pageSize)
@@ -627,7 +627,7 @@ func (c *Client) ListLogMetricWithMaxResults(ctx context.Context, project string
 }
 
 func (c *Client) GetLogMetric(ctx context.Context, r *LogMetric) (*LogMetric, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getLogMetricRaw(ctx, r)
@@ -659,7 +659,7 @@ func (c *Client) GetLogMetric(ctx context.Context, r *LogMetric) (*LogMetric, er
 }
 
 func (c *Client) DeleteLogMetric(ctx context.Context, r *LogMetric) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -672,9 +672,6 @@ func (c *Client) DeleteLogMetric(ctx context.Context, r *LogMetric) error {
 
 // DeleteAllLogMetric deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllLogMetric(ctx context.Context, project string, filter func(*LogMetric) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListLogMetric(ctx, project)
 	if err != nil {
 		return err
@@ -698,10 +695,29 @@ func (c *Client) DeleteAllLogMetric(ctx context.Context, project string, filter 
 }
 
 func (c *Client) ApplyLogMetric(ctx context.Context, rawDesired *LogMetric, opts ...dcl.ApplyOption) (*LogMetric, error) {
+
+	var resultNewState *LogMetric
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyLogMetricHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyLogMetricHelper(c *Client, ctx context.Context, rawDesired *LogMetric, opts ...dcl.ApplyOption) (*LogMetric, error) {
 	c.Config.Logger.Info("Beginning ApplyLogMetric...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

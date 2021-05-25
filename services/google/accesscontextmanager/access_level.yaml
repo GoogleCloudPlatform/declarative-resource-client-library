@@ -11,76 +11,138 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+info:
+  title: AccessContextManager/AccessLevel
+  description: DCL Specification for the AccessContextManager AccessLevel resource
+  x-dcl-has-iam: false
+paths:
+  get:
+    description: The function used to get information about a AccessLevel
+    parameters:
+    - name: AccessLevel
+      required: true
+      description: A full instance of a AccessLevel
+  apply:
+    description: The function used to apply information about a AccessLevel
+    parameters:
+    - name: AccessLevel
+      required: true
+      description: A full instance of a AccessLevel
+  delete:
+    description: The function used to delete a AccessLevel
+    parameters:
+    - name: AccessLevel
+      required: true
+      description: A full instance of a AccessLevel
+  deleteAll:
+    description: The function used to delete all AccessLevel
+    parameters:
+    - name: policy
+      required: true
+      schema:
+        type: string
+  list:
+    description: The function used to list information about many AccessLevel
+    parameters:
+    - name: policy
+      required: true
+      schema:
+        type: string
 components:
   schemas:
     AccessLevel:
+      title: AccessLevel
+      x-dcl-id: accessPolicies/{{policy}}/accessLevels/{{name}}
+      type: object
+      required:
+      - title
+      - name
       properties:
         basic:
+          type: object
+          x-dcl-go-name: Basic
+          x-dcl-go-type: AccessLevelBasic
           description: A set of predefined conditions for the access level and a combining
             function.
           properties:
             combiningFunction:
-              default: AND
+              type: string
+              x-dcl-go-name: CombiningFunction
+              x-dcl-go-type: AccessLevelBasicCombiningFunctionEnum
               description: How the conditions list should be combined to determine
                 if a request is granted this AccessLevel. If AND is used, each Condition
                 in conditions must be satisfied for the AccessLevel to be applied.
                 If OR is used, at least one Condition in conditions must be satisfied
                 for the AccessLevel to be applied. Defaults to AND if unspecified.
+              default: AND
               enum:
               - AND
               - OR
-              type: string
-              x-dcl-go-name: CombiningFunction
-              x-dcl-go-type: AccessLevelBasicCombiningFunctionEnum
             conditions:
+              type: array
+              x-dcl-go-name: Conditions
               description: A set of requirements for the AccessLevel to be granted.
+              x-dcl-list-type: list
               items:
+                type: object
+                x-dcl-go-type: AccessLevelBasicConditions
                 properties:
                   devicePolicy:
+                    type: object
+                    x-dcl-go-name: DevicePolicy
+                    x-dcl-go-type: AccessLevelBasicConditionsDevicePolicy
                     description: Device specific restrictions, all restrictions must
                       hold for the Condition to be true. If not specified, all devices
                       are allowed.
                     properties:
                       allowedDeviceManagementLevels:
+                        type: array
+                        x-dcl-go-name: AllowedDeviceManagementLevels
                         description: A list of allowed device management levels. An
                           empty list allows all management levels.
+                        x-dcl-list-type: list
                         items:
+                          type: string
+                          x-dcl-go-type: AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum
                           enum:
                           - MANAGEMENT_UNSPECIFIED
                           - NONE
                           - BASIC
                           - COMPLETE
-                          type: string
-                          x-dcl-go-type: AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum
-                        type: array
-                        x-dcl-go-name: AllowedDeviceManagementLevels
-                        x-dcl-list-type: list
                       allowedEncryptionStatuses:
+                        type: array
+                        x-dcl-go-name: AllowedEncryptionStatuses
                         description: A list of allowed encryptions statuses. An empty
                           list allows all statuses.
+                        x-dcl-list-type: list
                         items:
+                          type: string
+                          x-dcl-go-type: AccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnum
                           enum:
                           - ENCRYPTION_UNSPECIFIED
                           - ENCRYPTION_UNSUPPORTED
                           - UNENCRYPTED
                           - ENCRYPTED
-                          type: string
-                          x-dcl-go-type: AccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnum
-                        type: array
-                        x-dcl-go-name: AllowedEncryptionStatuses
-                        x-dcl-list-type: list
                       osConstraints:
+                        type: array
+                        x-dcl-go-name: OsConstraints
                         description: A list of allowed OS versions. An empty list
                           allows all types and all versions.
+                        x-dcl-list-type: list
                         items:
+                          type: object
+                          x-dcl-go-type: AccessLevelBasicConditionsDevicePolicyOsConstraints
                           properties:
                             minimumVersion:
+                              type: string
+                              x-dcl-go-name: MinimumVersion
                               description: 'The minimum allowed OS version. If not
                                 set, any version of this OS satisfies the constraint.
                                 Format: "major.minor.patch" such as "10.5.301", "9.2.1".'
-                              type: string
-                              x-dcl-go-name: MinimumVersion
                             osType:
+                              type: string
+                              x-dcl-go-name: OsType
+                              x-dcl-go-type: AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum
                               description: 'The operating system type of the device.
                                 Possible values: OS_UNSPECIFIED, DESKTOP_MAC, DESKTOP_WINDOWS,
                                 DESKTOP_LINUX, DESKTOP_CHROME_OS'
@@ -90,40 +152,31 @@ components:
                               - DESKTOP_WINDOWS
                               - DESKTOP_LINUX
                               - DESKTOP_CHROME_OS
-                              type: string
-                              x-dcl-go-name: OsType
-                              x-dcl-go-type: AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum
                             requireVerifiedChromeOs:
+                              type: boolean
+                              x-dcl-go-name: RequireVerifiedChromeOs
                               description: Only allows requests from devices with
                                 a verified Chrome OS. Verifications includes requirements
                                 that the device is enterprise-managed, conformant
                                 to domain policies, and the caller has permission
                                 to call the API targeted by the request.
-                              type: boolean
-                              x-dcl-go-name: RequireVerifiedChromeOs
-                          type: object
-                          x-dcl-go-type: AccessLevelBasicConditionsDevicePolicyOsConstraints
-                        type: array
-                        x-dcl-go-name: OsConstraints
-                        x-dcl-list-type: list
                       requireAdminApproval:
-                        description: Allowed device management levels, an empty list
-                          allows all management levels.
                         type: boolean
                         x-dcl-go-name: RequireAdminApproval
+                        description: Allowed device management levels, an empty list
+                          allows all management levels.
                       requireCorpOwned:
-                        description: Whether the device needs to be corp owned.
                         type: boolean
                         x-dcl-go-name: RequireCorpOwned
+                        description: Whether the device needs to be corp owned.
                       requireScreenlock:
-                        description: Whether or not screenlock is required for the
-                          DevicePolicy to be true. Defaults to false.
                         type: boolean
                         x-dcl-go-name: RequireScreenlock
-                    type: object
-                    x-dcl-go-name: DevicePolicy
-                    x-dcl-go-type: AccessLevelBasicConditionsDevicePolicy
+                        description: Whether or not screenlock is required for the
+                          DevicePolicy to be true. Defaults to false.
                   ipSubnetworks:
+                    type: array
+                    x-dcl-go-name: IPSubnetworks
                     description: A list of CIDR block IP subnetwork specification.
                       May be IPv4 or IPv6. Note that for a CIDR IP address block,
                       the specified IP address portion must be properly truncated
@@ -133,138 +186,83 @@ components:
                       "2001:db8::1/32" is not. The originating IP of a request must
                       be in one of the listed subnets in order for this Condition
                       to be true. If empty, all IP addresses are allowed.
+                    x-dcl-list-type: list
                     items:
                       type: string
                       x-dcl-go-type: string
-                    type: array
-                    x-dcl-go-name: IPSubnetworks
-                    x-dcl-list-type: list
                   members:
+                    type: array
+                    x-dcl-go-name: Members
                     description: 'An allowed list of members (users, groups, service
                       accounts). The signed-in user originating the request must be
                       a part of one of the provided members. If not specified, a request
                       may come from any user (logged in/not logged in, not present
                       in any groups, etc.). Formats: `user:{emailid}`, `group:{emailid}`,
                       `serviceAccount:{emailid}`'
+                    x-dcl-list-type: list
                     items:
                       type: string
                       x-dcl-go-type: string
-                    type: array
-                    x-dcl-go-name: Members
-                    x-dcl-list-type: list
                   negate:
+                    type: boolean
+                    x-dcl-go-name: Negate
                     description: Whether to negate the Condition. If true, the Condition
                       becomes a NAND over its non-empty fields, each field must be
                       false for the Condition overall to be satisfied. Defaults to
                       false.
-                    type: boolean
-                    x-dcl-go-name: Negate
                   regions:
+                    type: array
+                    x-dcl-go-name: Regions
                     description: The request must originate from one of the provided
                       countries/regions.
+                    x-dcl-list-type: list
                     items:
                       type: string
                       x-dcl-go-type: string
-                    type: array
-                    x-dcl-go-name: Regions
-                    x-dcl-list-type: list
                   requiredAccessLevels:
+                    type: array
+                    x-dcl-go-name: RequiredAccessLevels
                     description: 'A list of other access levels defined in the same
                       Policy, referenced by resource name. Referencing an AccessLevel
                       which does not exist is an error. All access levels listed must
                       be granted for the Condition to be true. Format: accessPolicies/{policy_id}/accessLevels/{short_name}'
+                    x-dcl-list-type: list
                     items:
                       type: string
                       x-dcl-go-type: string
-                    type: array
-                    x-dcl-go-name: RequiredAccessLevels
-                    x-dcl-list-type: list
-                type: object
-                x-dcl-go-type: AccessLevelBasicConditions
-              type: array
-              x-dcl-go-name: Conditions
-              x-dcl-list-type: list
-          type: object
-          x-dcl-go-name: Basic
-          x-dcl-go-type: AccessLevelBasic
         createTime:
-          description: Time the AccessPolicy was created in UTC.
-          format: date-time
           type: string
+          format: date-time
           x-dcl-go-name: CreateTime
+          description: Time the AccessPolicy was created in UTC.
           x-kubernetes-immutable: true
         description:
-          description: Description of the AccessLevel and its use. Does not affect
-            behavior.
           type: string
           x-dcl-go-name: Description
+          description: Description of the AccessLevel and its use. Does not affect
+            behavior.
         name:
+          type: string
+          x-dcl-go-name: Name
           description: 'Resource name for the Access Level. The short_name component
             must begin with a letter and only include alphanumeric and ''_''. Format:
             accessPolicies/{policy_id}/accessLevels/{short_name}'
-          type: string
-          x-dcl-go-name: Name
         policy:
-          description: The access policy for this access level.
           type: string
           x-dcl-go-name: Policy
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Accesscontextmanager/AccessPolicy
+          description: The access policy for this access level.
           x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Accesscontextmanager/AccessPolicy
+            field: name
+            parent: true
         title:
-          description: Human readable title. Must be unique within the Policy.
           type: string
           x-dcl-go-name: Title
+          description: Human readable title. Must be unique within the Policy.
         updateTime:
-          description: Time the AccessPolicy was updated in UTC.
-          format: date-time
           type: string
+          format: date-time
           x-dcl-go-name: UpdateTime
+          description: Time the AccessPolicy was updated in UTC.
           x-kubernetes-immutable: true
-      required:
-      - title
-      - name
-      title: AccessLevel
-      type: object
-      x-dcl-id: accessPolicies/{{policy}}/accessLevels/{{name}}
-      x-dcl-locations: []
-      x-dcl-uses-state-hint: false
-info:
-  description: DCL Specification for the AccessContextManager AccessLevel resource
-  title: AccessContextManager/AccessLevel
-  x-dcl-has-iam: false
-paths:
-  apply:
-    description: The function used to apply information about a AccessLevel
-    parameters:
-    - description: A full instance of a AccessLevel
-      name: AccessLevel
-      required: true
-  delete:
-    description: The function used to delete a AccessLevel
-    parameters:
-    - description: A full instance of a AccessLevel
-      name: AccessLevel
-      required: true
-  deleteAll:
-    description: The function used to delete all AccessLevel
-    parameters:
-    - name: policy
-      required: true
-      schema:
-        type: string
-  get:
-    description: The function used to get information about a AccessLevel
-    parameters:
-    - description: A full instance of a AccessLevel
-      name: AccessLevel
-      required: true
-  list:
-    description: The function used to list information about many AccessLevel
-    parameters:
-    - name: policy
-      required: true
-      schema:
-        type: string

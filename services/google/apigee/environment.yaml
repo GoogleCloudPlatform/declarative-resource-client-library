@@ -11,118 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    Environment:
-      properties:
-        createdAt:
-          description: Output only. Creation time of this environment as milliseconds
-            since epoch.
-          format: int64
-          readOnly: true
-          type: integer
-          x-dcl-go-name: CreatedAt
-          x-kubernetes-immutable: true
-        description:
-          description: Optional. Description of the environment.
-          type: string
-          x-dcl-go-name: Description
-          x-kubernetes-immutable: true
-        displayName:
-          description: Optional. Display name for this environment.
-          type: string
-          x-dcl-go-name: DisplayName
-          x-kubernetes-immutable: true
-        lastModifiedAt:
-          description: Output only. Last modification time of this environment as
-            milliseconds since epoch.
-          format: int64
-          readOnly: true
-          type: integer
-          x-dcl-go-name: LastModifiedAt
-          x-kubernetes-immutable: true
-        name:
-          description: Required. Name of the environment. Values must match the regular
-            expression ^[.\p{Alnum}-_]{1,255}$
-          type: string
-          x-dcl-go-name: Name
-          x-kubernetes-immutable: true
-        organization:
-          description: The organization for the resource
-          type: string
-          x-dcl-go-name: Organization
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Organization
-          x-kubernetes-immutable: true
-        properties:
-          description: Optional. Key-value pairs that may be used for customizing
-            the environment.
-          properties:
-            property:
-              description: List of all properties in the object
-              items:
-                properties:
-                  name:
-                    description: The property key
-                    type: string
-                    x-dcl-go-name: Name
-                    x-kubernetes-immutable: true
-                  value:
-                    description: The property value
-                    type: string
-                    x-dcl-go-name: Value
-                    x-kubernetes-immutable: true
-                type: object
-                x-dcl-go-type: EnvironmentPropertiesProperty
-              type: array
-              x-dcl-go-name: Property
-              x-dcl-list-type: set
-          type: object
-          x-dcl-go-name: Properties
-          x-dcl-go-type: EnvironmentProperties
-          x-kubernetes-immutable: true
-        state:
-          description: 'Output only. State of the environment. Values other than ACTIVE
-            means the resource is not ready to use. Possible values: STATE_UNSPECIFIED,
-            CREATING, ACTIVE, DELETING'
-          enum:
-          - STATE_UNSPECIFIED
-          - CREATING
-          - ACTIVE
-          - DELETING
-          readOnly: true
-          type: string
-          x-dcl-go-name: State
-          x-dcl-go-type: EnvironmentStateEnum
-          x-kubernetes-immutable: true
-      required:
-      - name
-      - organization
-      title: Environment
-      type: object
-      x-dcl-id: organizations/{{organization}}/environments/{{name}}
-      x-dcl-locations: []
-      x-dcl-parent-container: organization
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Apigee Environment resource
   title: Apigee/Environment
+  description: DCL Specification for the Apigee Environment resource
   x-dcl-has-iam: true
 paths:
+  get:
+    description: The function used to get information about a Environment
+    parameters:
+    - name: Environment
+      required: true
+      description: A full instance of a Environment
   apply:
     description: The function used to apply information about a Environment
     parameters:
-    - description: A full instance of a Environment
-      name: Environment
+    - name: Environment
       required: true
+      description: A full instance of a Environment
   delete:
     description: The function used to delete a Environment
     parameters:
-    - description: A full instance of a Environment
-      name: Environment
+    - name: Environment
       required: true
+      description: A full instance of a Environment
   deleteAll:
     description: The function used to delete all Environment
     parameters:
@@ -130,12 +41,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a Environment
-    parameters:
-    - description: A full instance of a Environment
-      name: Environment
-      required: true
   list:
     description: The function used to list information about many Environment
     parameters:
@@ -143,3 +48,96 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    Environment:
+      title: Environment
+      x-dcl-id: organizations/{{organization}}/environments/{{name}}
+      x-dcl-parent-container: organization
+      type: object
+      required:
+      - name
+      - organization
+      properties:
+        createdAt:
+          type: integer
+          format: int64
+          x-dcl-go-name: CreatedAt
+          readOnly: true
+          description: Output only. Creation time of this environment as milliseconds
+            since epoch.
+          x-kubernetes-immutable: true
+        description:
+          type: string
+          x-dcl-go-name: Description
+          description: Optional. Description of the environment.
+          x-kubernetes-immutable: true
+        displayName:
+          type: string
+          x-dcl-go-name: DisplayName
+          description: Optional. Display name for this environment.
+          x-kubernetes-immutable: true
+        lastModifiedAt:
+          type: integer
+          format: int64
+          x-dcl-go-name: LastModifiedAt
+          readOnly: true
+          description: Output only. Last modification time of this environment as
+            milliseconds since epoch.
+          x-kubernetes-immutable: true
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: Required. Name of the environment. Values must match the regular
+            expression ^[.\p{Alnum}-_]{1,255}$
+          x-kubernetes-immutable: true
+        organization:
+          type: string
+          x-dcl-go-name: Organization
+          description: The organization for the resource
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Organization
+            field: name
+            parent: true
+        properties:
+          type: object
+          x-dcl-go-name: Properties
+          x-dcl-go-type: EnvironmentProperties
+          description: Optional. Key-value pairs that may be used for customizing
+            the environment.
+          x-kubernetes-immutable: true
+          properties:
+            property:
+              type: array
+              x-dcl-go-name: Property
+              description: List of all properties in the object
+              x-dcl-list-type: set
+              items:
+                type: object
+                x-dcl-go-type: EnvironmentPropertiesProperty
+                properties:
+                  name:
+                    type: string
+                    x-dcl-go-name: Name
+                    description: The property key
+                    x-kubernetes-immutable: true
+                  value:
+                    type: string
+                    x-dcl-go-name: Value
+                    description: The property value
+                    x-kubernetes-immutable: true
+        state:
+          type: string
+          x-dcl-go-name: State
+          x-dcl-go-type: EnvironmentStateEnum
+          readOnly: true
+          description: 'Output only. State of the environment. Values other than ACTIVE
+            means the resource is not ready to use. Possible values: STATE_UNSPECIFIED,
+            CREATING, ACTIVE, DELETING'
+          x-kubernetes-immutable: true
+          enum:
+          - STATE_UNSPECIFIED
+          - CREATING
+          - ACTIVE
+          - DELETING

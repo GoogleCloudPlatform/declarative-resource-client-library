@@ -11,50 +11,101 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+info:
+  title: Compute/Snapshot
+  description: DCL Specification for the Compute Snapshot resource
+  x-dcl-has-iam: false
+paths:
+  get:
+    description: The function used to get information about a Snapshot
+    parameters:
+    - name: Snapshot
+      required: true
+      description: A full instance of a Snapshot
+  apply:
+    description: The function used to apply information about a Snapshot
+    parameters:
+    - name: Snapshot
+      required: true
+      description: A full instance of a Snapshot
+  delete:
+    description: The function used to delete a Snapshot
+    parameters:
+    - name: Snapshot
+      required: true
+      description: A full instance of a Snapshot
+  deleteAll:
+    description: The function used to delete all Snapshot
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+  list:
+    description: The function used to list information about many Snapshot
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
 components:
   schemas:
     Snapshot:
+      title: Snapshot
+      x-dcl-id: projects/{{project}}/global/snapshots/{{name}}
+      x-dcl-locations:
+      - zone
+      - global
+      x-dcl-parent-container: project
+      x-dcl-labels: labels
+      type: object
+      required:
+      - name
+      - sourceDisk
+      - project
       properties:
         description:
-          description: An optional description of this resource. Provide this property
-            when you create the resource.
           type: string
           x-dcl-go-name: Description
+          description: An optional description of this resource. Provide this property
+            when you create the resource.
           x-kubernetes-immutable: true
         diskSizeGb:
-          description: Size of the source disk, specified in GB.
-          format: int64
-          readOnly: true
           type: integer
+          format: int64
           x-dcl-go-name: DiskSizeGb
+          readOnly: true
+          description: Size of the source disk, specified in GB.
           x-kubernetes-immutable: true
         id:
+          type: integer
+          format: int64
+          x-dcl-go-name: Id
+          readOnly: true
           description: The unique identifier for the resource. This identifier is
             defined by the server.
-          format: int64
-          readOnly: true
-          type: integer
-          x-dcl-go-name: Id
           x-kubernetes-immutable: true
         labels:
+          type: object
           additionalProperties:
             type: string
-          description: Labels to apply to this snapshot. Label values may be empty.
-          type: object
           x-dcl-go-name: Labels
+          description: Labels to apply to this snapshot. Label values may be empty.
         license:
+          type: array
+          x-dcl-go-name: License
+          readOnly: true
           description: A list of public visible licenses that apply to this snapshot.
             This can be because the original image had licenses attached (such as
             a Windows image).
+          x-kubernetes-immutable: true
+          x-dcl-list-type: list
           items:
             type: string
             x-dcl-go-type: string
-          readOnly: true
-          type: array
-          x-dcl-go-name: License
-          x-dcl-list-type: list
-          x-kubernetes-immutable: true
         name:
+          type: string
+          x-dcl-go-name: Name
           description: Name of the resource; provided by the client when the resource
             is created. The name must be 1-63 characters long, and comply with [RFC1035](https://www.ietf.org/rfc/rfc1035.txt).
             Specifically, the name must be 1-63 characters long and match the regular
@@ -62,25 +113,26 @@ components:
             must be a lowercase letter, and all following characters must be a dash,
             lowercase letter, or digit, except the last character, which cannot be
             a dash.
-          type: string
-          x-dcl-go-name: Name
           x-kubernetes-immutable: true
         project:
-          description: The project for the resource
           type: string
           x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
+          description: The project for the resource
           x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
         selfLink:
-          description: Server-defined URL for the resource.
-          readOnly: true
           type: string
           x-dcl-go-name: SelfLink
+          readOnly: true
+          description: Server-defined URL for the resource.
           x-kubernetes-immutable: true
         snapshotEncryptionKey:
+          type: object
+          x-dcl-go-name: SnapshotEncryptionKey
+          x-dcl-go-type: SnapshotSnapshotEncryptionKey
           description: Encrypts the snapshot using a customer-supplied encryption
             key.  After you encrypt a snapshot using a customer-supplied key, you
             must provide the same key if you use the snapshot later. For example,
@@ -90,114 +142,61 @@ components:
             encryption key when creating the snapshot, then the snapshot will be encrypted
             using an automatically generated key and you do not need to provide a
             key to use the snapshot later.
+          x-kubernetes-immutable: true
+          required:
+          - rawKey
           properties:
             rawKey:
+              type: string
+              x-dcl-go-name: RawKey
               description: Specifies a 256-bit customer-supplied encryption key, encoded
                 in [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
                 to either encrypt or decrypt this resource.
-              type: string
-              x-dcl-go-name: RawKey
               x-kubernetes-immutable: true
             sha256:
+              type: string
+              x-dcl-go-name: Sha256
+              readOnly: true
               description: The [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
                 encoded SHA-256 hash of the customer-supplied encryption key that
                 protects this resource.
-              readOnly: true
-              type: string
-              x-dcl-go-name: Sha256
               x-kubernetes-immutable: true
-          required:
-          - rawKey
-          type: object
-          x-dcl-go-name: SnapshotEncryptionKey
-          x-dcl-go-type: SnapshotSnapshotEncryptionKey
-          x-kubernetes-immutable: true
         sourceDisk:
-          description: The source disk used to create this snapshot.
           type: string
           x-dcl-go-name: SourceDisk
-          x-dcl-references:
-          - field: selfLink
-            resource: Compute/Disk
+          description: The source disk used to create this snapshot.
           x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Compute/Disk
+            field: selfLink
         sourceDiskEncryptionKey:
-          description: The customer-supplied encryption key of the source disk. Required
-            if the source disk is protected by a customer-supplied encryption key.
-          properties:
-            rawKey:
-              description: Specifies a 256-bit customer-supplied encryption key, encoded
-                in [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
-                to either encrypt or decrypt this resource.
-              type: string
-              x-dcl-go-name: RawKey
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: SourceDiskEncryptionKey
           x-dcl-go-type: SnapshotSourceDiskEncryptionKey
+          description: The customer-supplied encryption key of the source disk. Required
+            if the source disk is protected by a customer-supplied encryption key.
           x-kubernetes-immutable: true
+          properties:
+            rawKey:
+              type: string
+              x-dcl-go-name: RawKey
+              description: Specifies a 256-bit customer-supplied encryption key, encoded
+                in [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
+                to either encrypt or decrypt this resource.
+              x-kubernetes-immutable: true
         storageBytes:
+          type: integer
+          format: int64
+          x-dcl-go-name: StorageBytes
+          readOnly: true
           description: A size of the storage used by the snapshot. As snapshots share
             storage, this number is expected to change with snapshot creation/deletion.
-          format: int64
-          readOnly: true
-          type: integer
-          x-dcl-go-name: StorageBytes
           x-kubernetes-immutable: true
         zone:
-          description: The zone of the disk the snapshot is based on.
           type: string
           x-dcl-go-name: Zone
-          x-dcl-references:
-          - field: name
-            resource: Compute/Zone
+          description: The zone of the disk the snapshot is based on.
           x-kubernetes-immutable: true
-      required:
-      - name
-      - sourceDisk
-      - project
-      title: Snapshot
-      type: object
-      x-dcl-id: projects/{{project}}/global/snapshots/{{name}}
-      x-dcl-labels: labels
-      x-dcl-locations:
-      - zone
-      - global
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
-info:
-  description: DCL Specification for the Compute Snapshot resource
-  title: Compute/Snapshot
-  x-dcl-has-iam: false
-paths:
-  apply:
-    description: The function used to apply information about a Snapshot
-    parameters:
-    - description: A full instance of a Snapshot
-      name: Snapshot
-      required: true
-  delete:
-    description: The function used to delete a Snapshot
-    parameters:
-    - description: A full instance of a Snapshot
-      name: Snapshot
-      required: true
-  deleteAll:
-    description: The function used to delete all Snapshot
-    parameters:
-    - name: project
-      required: true
-      schema:
-        type: string
-  get:
-    description: The function used to get information about a Snapshot
-    parameters:
-    - description: A full instance of a Snapshot
-      name: Snapshot
-      required: true
-  list:
-    description: The function used to list information about many Snapshot
-    parameters:
-    - name: project
-      required: true
-      schema:
-        type: string
+          x-dcl-references:
+          - resource: Compute/Zone
+            field: name

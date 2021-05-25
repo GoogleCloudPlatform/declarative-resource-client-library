@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -122,7 +123,7 @@ func (l *RouterPeerList) HasNext() bool {
 }
 
 func (l *RouterPeerList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -138,7 +139,7 @@ func (l *RouterPeerList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListRouterPeer(ctx context.Context, project, region string) (*RouterPeerList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListRouterPeerWithMaxResults(ctx, project, region, RouterPeerMaxPage)
@@ -146,7 +147,7 @@ func (c *Client) ListRouterPeer(ctx context.Context, project, region string) (*R
 }
 
 func (c *Client) ListRouterPeerWithMaxResults(ctx context.Context, project, region string, pageSize int32) (*RouterPeerList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listRouterPeer(ctx, project, region, "", pageSize)
@@ -165,7 +166,7 @@ func (c *Client) ListRouterPeerWithMaxResults(ctx context.Context, project, regi
 }
 
 func (c *Client) GetRouterPeer(ctx context.Context, r *RouterPeer) (*RouterPeer, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getRouterPeerRaw(ctx, r)
@@ -212,7 +213,7 @@ func (c *Client) GetRouterPeer(ctx context.Context, r *RouterPeer) (*RouterPeer,
 }
 
 func (c *Client) DeleteRouterPeer(ctx context.Context, r *RouterPeer) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -225,9 +226,6 @@ func (c *Client) DeleteRouterPeer(ctx context.Context, r *RouterPeer) error {
 
 // DeleteAllRouterPeer deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllRouterPeer(ctx context.Context, project, region string, filter func(*RouterPeer) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListRouterPeer(ctx, project, region)
 	if err != nil {
 		return err
@@ -251,10 +249,29 @@ func (c *Client) DeleteAllRouterPeer(ctx context.Context, project, region string
 }
 
 func (c *Client) ApplyRouterPeer(ctx context.Context, rawDesired *RouterPeer, opts ...dcl.ApplyOption) (*RouterPeer, error) {
+
+	var resultNewState *RouterPeer
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyRouterPeerHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyRouterPeerHelper(c *Client, ctx context.Context, rawDesired *RouterPeer, opts ...dcl.ApplyOption) (*RouterPeer, error) {
 	c.Config.Logger.Info("Beginning ApplyRouterPeer...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

@@ -11,93 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    OAuthIdpConfig:
-      properties:
-        clientId:
-          description: The client id of an OAuth client.
-          type: string
-          x-dcl-go-name: ClientId
-        clientSecret:
-          description: The client secret of the OAuth client, to enable OIDC code
-            flow.
-          type: string
-          x-dcl-go-name: ClientSecret
-          x-dcl-sensitive: true
-        displayName:
-          description: The config's display name set by developers.
-          type: string
-          x-dcl-go-name: DisplayName
-        enabled:
-          description: True if allows the user to sign in with the provider.
-          type: boolean
-          x-dcl-go-name: Enabled
-        issuer:
-          description: For OIDC Idps, the issuer identifier.
-          type: string
-          x-dcl-go-name: Issuer
-        name:
-          description: The name of the Config resource
-          type: string
-          x-dcl-go-name: Name
-        project:
-          description: The project for the resource
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        responseType:
-          description: The multiple response type to request for in the OAuth authorization
-            flow. This can possibly be a combination of set bits (e.g. {id\_token,
-            token}).
-          properties:
-            code:
-              description: If true, authorization code is returned from IdP's authorization
-                endpoint.
-              type: boolean
-              x-dcl-go-name: Code
-            idToken:
-              description: If true, ID token is returned from IdP's authorization
-                endpoint.
-              type: boolean
-              x-dcl-go-name: IdToken
-            token:
-              description: If true, access token is returned from IdP's authorization
-                endpoint.
-              type: boolean
-              x-dcl-go-name: Token
-          type: object
-          x-dcl-go-name: ResponseType
-          x-dcl-go-type: OAuthIdpConfigResponseType
-      required:
-      - project
-      title: OAuthIdpConfig
-      type: object
-      x-dcl-id: projects/{{project}}/oauthIdpConfigs/{{name}}
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the IdentityToolkit OAuthIdpConfig resource
   title: IdentityToolkit/OAuthIdpConfig
+  description: DCL Specification for the IdentityToolkit OAuthIdpConfig resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a OAuthIdpConfig
+    parameters:
+    - name: OAuthIdpConfig
+      required: true
+      description: A full instance of a OAuthIdpConfig
   apply:
     description: The function used to apply information about a OAuthIdpConfig
     parameters:
-    - description: A full instance of a OAuthIdpConfig
-      name: OAuthIdpConfig
+    - name: OAuthIdpConfig
       required: true
+      description: A full instance of a OAuthIdpConfig
   delete:
     description: The function used to delete a OAuthIdpConfig
     parameters:
-    - description: A full instance of a OAuthIdpConfig
-      name: OAuthIdpConfig
+    - name: OAuthIdpConfig
       required: true
+      description: A full instance of a OAuthIdpConfig
   deleteAll:
     description: The function used to delete all OAuthIdpConfig
     parameters:
@@ -105,12 +41,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a OAuthIdpConfig
-    parameters:
-    - description: A full instance of a OAuthIdpConfig
-      name: OAuthIdpConfig
-      required: true
   list:
     description: The function used to list information about many OAuthIdpConfig
     parameters:
@@ -118,3 +48,71 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    OAuthIdpConfig:
+      title: OAuthIdpConfig
+      x-dcl-id: projects/{{project}}/oauthIdpConfigs/{{name}}
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - project
+      properties:
+        clientId:
+          type: string
+          x-dcl-go-name: ClientId
+          description: The client id of an OAuth client.
+        clientSecret:
+          type: string
+          x-dcl-go-name: ClientSecret
+          description: The client secret of the OAuth client, to enable OIDC code
+            flow.
+          x-dcl-sensitive: true
+        displayName:
+          type: string
+          x-dcl-go-name: DisplayName
+          description: The config's display name set by developers.
+        enabled:
+          type: boolean
+          x-dcl-go-name: Enabled
+          description: True if allows the user to sign in with the provider.
+        issuer:
+          type: string
+          x-dcl-go-name: Issuer
+          description: For OIDC Idps, the issuer identifier.
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: The name of the Config resource
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project for the resource
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        responseType:
+          type: object
+          x-dcl-go-name: ResponseType
+          x-dcl-go-type: OAuthIdpConfigResponseType
+          description: The multiple response type to request for in the OAuth authorization
+            flow. This can possibly be a combination of set bits (e.g. {id\_token,
+            token}).
+          properties:
+            code:
+              type: boolean
+              x-dcl-go-name: Code
+              description: If true, authorization code is returned from IdP's authorization
+                endpoint.
+            idToken:
+              type: boolean
+              x-dcl-go-name: IdToken
+              description: If true, ID token is returned from IdP's authorization
+                endpoint.
+            token:
+              type: boolean
+              x-dcl-go-name: Token
+              description: If true, access token is returned from IdP's authorization
+                endpoint.

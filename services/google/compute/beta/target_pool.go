@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -94,7 +95,7 @@ func (l *TargetPoolList) HasNext() bool {
 }
 
 func (l *TargetPoolList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -110,7 +111,7 @@ func (l *TargetPoolList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListTargetPool(ctx context.Context, project, region string) (*TargetPoolList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListTargetPoolWithMaxResults(ctx, project, region, TargetPoolMaxPage)
@@ -118,7 +119,7 @@ func (c *Client) ListTargetPool(ctx context.Context, project, region string) (*T
 }
 
 func (c *Client) ListTargetPoolWithMaxResults(ctx context.Context, project, region string, pageSize int32) (*TargetPoolList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listTargetPool(ctx, project, region, "", pageSize)
@@ -137,7 +138,7 @@ func (c *Client) ListTargetPoolWithMaxResults(ctx context.Context, project, regi
 }
 
 func (c *Client) GetTargetPool(ctx context.Context, r *TargetPool) (*TargetPool, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getTargetPoolRaw(ctx, r)
@@ -170,7 +171,7 @@ func (c *Client) GetTargetPool(ctx context.Context, r *TargetPool) (*TargetPool,
 }
 
 func (c *Client) DeleteTargetPool(ctx context.Context, r *TargetPool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -183,9 +184,6 @@ func (c *Client) DeleteTargetPool(ctx context.Context, r *TargetPool) error {
 
 // DeleteAllTargetPool deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllTargetPool(ctx context.Context, project, region string, filter func(*TargetPool) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListTargetPool(ctx, project, region)
 	if err != nil {
 		return err
@@ -209,10 +207,29 @@ func (c *Client) DeleteAllTargetPool(ctx context.Context, project, region string
 }
 
 func (c *Client) ApplyTargetPool(ctx context.Context, rawDesired *TargetPool, opts ...dcl.ApplyOption) (*TargetPool, error) {
+
+	var resultNewState *TargetPool
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyTargetPoolHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyTargetPoolHelper(c *Client, ctx context.Context, rawDesired *TargetPool, opts ...dcl.ApplyOption) (*TargetPool, error) {
 	c.Config.Logger.Info("Beginning ApplyTargetPool...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

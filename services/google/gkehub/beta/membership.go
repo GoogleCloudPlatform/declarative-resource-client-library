@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -587,7 +588,7 @@ func (l *MembershipList) HasNext() bool {
 }
 
 func (l *MembershipList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -603,7 +604,7 @@ func (l *MembershipList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListMembership(ctx context.Context, project, location string) (*MembershipList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListMembershipWithMaxResults(ctx, project, location, MembershipMaxPage)
@@ -611,7 +612,7 @@ func (c *Client) ListMembership(ctx context.Context, project, location string) (
 }
 
 func (c *Client) ListMembershipWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*MembershipList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listMembership(ctx, project, location, "", pageSize)
@@ -630,7 +631,7 @@ func (c *Client) ListMembershipWithMaxResults(ctx context.Context, project, loca
 }
 
 func (c *Client) GetMembership(ctx context.Context, r *Membership) (*Membership, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getMembershipRaw(ctx, r)
@@ -663,7 +664,7 @@ func (c *Client) GetMembership(ctx context.Context, r *Membership) (*Membership,
 }
 
 func (c *Client) DeleteMembership(ctx context.Context, r *Membership) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -676,9 +677,6 @@ func (c *Client) DeleteMembership(ctx context.Context, r *Membership) error {
 
 // DeleteAllMembership deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllMembership(ctx context.Context, project, location string, filter func(*Membership) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListMembership(ctx, project, location)
 	if err != nil {
 		return err
@@ -702,10 +700,29 @@ func (c *Client) DeleteAllMembership(ctx context.Context, project, location stri
 }
 
 func (c *Client) ApplyMembership(ctx context.Context, rawDesired *Membership, opts ...dcl.ApplyOption) (*Membership, error) {
+
+	var resultNewState *Membership
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyMembershipHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyMembershipHelper(c *Client, ctx context.Context, rawDesired *Membership, opts ...dcl.ApplyOption) (*Membership, error) {
 	c.Config.Logger.Info("Beginning ApplyMembership...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

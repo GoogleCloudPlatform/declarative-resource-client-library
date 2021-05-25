@@ -11,100 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    BackendBucket:
-      properties:
-        bucketName:
-          description: Cloud Storage bucket name.
-          type: string
-          x-dcl-go-name: BucketName
-          x-dcl-references:
-          - field: name
-            resource: Storage/Bucket
-        cdnPolicy:
-          description: Cloud CDN configuration for this `BackendBucket`.
-          properties:
-            signedUrlCacheMaxAgeSec:
-              description: 'Maximum number of seconds the response to a signed URL
-                request will be considered fresh. After this time period, the response
-                will be revalidated before being served. Defaults to 1hr (3600s).
-                When serving responses to signed URL requests, Cloud CDN will internally
-                behave as though all responses from this backend had a `"Cache-Control:
-                public, max-age=[TTL]"` header, regardless of any existing Cache-Control
-                header. The actual headers served in responses will not be altered. '
-              format: int64
-              type: integer
-              x-dcl-go-name: SignedUrlCacheMaxAgeSec
-            signedUrlKeyNames:
-              description: '[Output Only] Names of the keys for signing request URLs.'
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: SignedUrlKeyNames
-              x-dcl-list-type: list
-          type: object
-          x-dcl-go-name: CdnPolicy
-          x-dcl-go-type: BackendBucketCdnPolicy
-        description:
-          description: An optional textual description of the resource; provided by
-            the client when the resource is created.
-          type: string
-          x-dcl-go-name: Description
-        enableCdn:
-          description: If true, enable Cloud CDN for this `BackendBucket`.
-          type: boolean
-          x-dcl-go-name: EnableCdn
-        name:
-          description: Name of the resource. Provided by the client when the resource
-            is created. The name must be 1-63 characters long, and comply with [RFC1035](https://www.ietf.org/rfc/rfc1035.txt).
-            Specifically, the name must be 1-63 characters long and match the regular
-            expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first character
-            must be a lowercase letter, and all following characters must be a dash,
-            lowercase letter, or digit, except the last character, which cannot be
-            a dash.
-          type: string
-          x-dcl-go-name: Name
-        project:
-          description: The project for this backend bucket
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        selfLink:
-          description: The self link for this resource
-          readOnly: true
-          type: string
-          x-dcl-go-name: SelfLink
-          x-kubernetes-immutable: true
-      title: BackendBucket
-      type: object
-      x-dcl-id: projects/{{project}}/global/backendBuckets/{{name}}
-      x-dcl-locations:
-      - global
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Compute BackendBucket resource
   title: Compute/BackendBucket
+  description: DCL Specification for the Compute BackendBucket resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a BackendBucket
+    parameters:
+    - name: BackendBucket
+      required: true
+      description: A full instance of a BackendBucket
   apply:
     description: The function used to apply information about a BackendBucket
     parameters:
-    - description: A full instance of a BackendBucket
-      name: BackendBucket
+    - name: BackendBucket
       required: true
+      description: A full instance of a BackendBucket
   delete:
     description: The function used to delete a BackendBucket
     parameters:
-    - description: A full instance of a BackendBucket
-      name: BackendBucket
+    - name: BackendBucket
       required: true
+      description: A full instance of a BackendBucket
   deleteAll:
     description: The function used to delete all BackendBucket
     parameters:
@@ -112,12 +41,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a BackendBucket
-    parameters:
-    - description: A full instance of a BackendBucket
-      name: BackendBucket
-      required: true
   list:
     description: The function used to list information about many BackendBucket
     parameters:
@@ -125,3 +48,79 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    BackendBucket:
+      title: BackendBucket
+      x-dcl-id: projects/{{project}}/global/backendBuckets/{{name}}
+      x-dcl-locations:
+      - global
+      x-dcl-parent-container: project
+      type: object
+      properties:
+        bucketName:
+          type: string
+          x-dcl-go-name: BucketName
+          description: Cloud Storage bucket name.
+          x-dcl-references:
+          - resource: Storage/Bucket
+            field: name
+        cdnPolicy:
+          type: object
+          x-dcl-go-name: CdnPolicy
+          x-dcl-go-type: BackendBucketCdnPolicy
+          description: Cloud CDN configuration for this `BackendBucket`.
+          properties:
+            signedUrlCacheMaxAgeSec:
+              type: integer
+              format: int64
+              x-dcl-go-name: SignedUrlCacheMaxAgeSec
+              description: 'Maximum number of seconds the response to a signed URL
+                request will be considered fresh. After this time period, the response
+                will be revalidated before being served. Defaults to 1hr (3600s).
+                When serving responses to signed URL requests, Cloud CDN will internally
+                behave as though all responses from this backend had a `"Cache-Control:
+                public, max-age=[TTL]"` header, regardless of any existing Cache-Control
+                header. The actual headers served in responses will not be altered. '
+            signedUrlKeyNames:
+              type: array
+              x-dcl-go-name: SignedUrlKeyNames
+              description: '[Output Only] Names of the keys for signing request URLs.'
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+        description:
+          type: string
+          x-dcl-go-name: Description
+          description: An optional textual description of the resource; provided by
+            the client when the resource is created.
+        enableCdn:
+          type: boolean
+          x-dcl-go-name: EnableCdn
+          description: If true, enable Cloud CDN for this `BackendBucket`.
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: Name of the resource. Provided by the client when the resource
+            is created. The name must be 1-63 characters long, and comply with [RFC1035](https://www.ietf.org/rfc/rfc1035.txt).
+            Specifically, the name must be 1-63 characters long and match the regular
+            expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first character
+            must be a lowercase letter, and all following characters must be a dash,
+            lowercase letter, or digit, except the last character, which cannot be
+            a dash.
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project for this backend bucket
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        selfLink:
+          type: string
+          x-dcl-go-name: SelfLink
+          readOnly: true
+          description: The self link for this resource
+          x-kubernetes-immutable: true

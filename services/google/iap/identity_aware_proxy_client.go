@@ -16,6 +16,7 @@ package iap
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -62,7 +63,7 @@ func (l *IdentityAwareProxyClientList) HasNext() bool {
 }
 
 func (l *IdentityAwareProxyClientList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -78,7 +79,7 @@ func (l *IdentityAwareProxyClientList) Next(ctx context.Context, c *Client) erro
 }
 
 func (c *Client) ListIdentityAwareProxyClient(ctx context.Context, project, brand string) (*IdentityAwareProxyClientList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListIdentityAwareProxyClientWithMaxResults(ctx, project, brand, IdentityAwareProxyClientMaxPage)
@@ -86,7 +87,7 @@ func (c *Client) ListIdentityAwareProxyClient(ctx context.Context, project, bran
 }
 
 func (c *Client) ListIdentityAwareProxyClientWithMaxResults(ctx context.Context, project, brand string, pageSize int32) (*IdentityAwareProxyClientList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listIdentityAwareProxyClient(ctx, project, brand, "", pageSize)
@@ -105,7 +106,7 @@ func (c *Client) ListIdentityAwareProxyClientWithMaxResults(ctx context.Context,
 }
 
 func (c *Client) GetIdentityAwareProxyClient(ctx context.Context, r *IdentityAwareProxyClient) (*IdentityAwareProxyClient, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getIdentityAwareProxyClientRaw(ctx, r)
@@ -138,7 +139,7 @@ func (c *Client) GetIdentityAwareProxyClient(ctx context.Context, r *IdentityAwa
 }
 
 func (c *Client) DeleteIdentityAwareProxyClient(ctx context.Context, r *IdentityAwareProxyClient) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -151,9 +152,6 @@ func (c *Client) DeleteIdentityAwareProxyClient(ctx context.Context, r *Identity
 
 // DeleteAllIdentityAwareProxyClient deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllIdentityAwareProxyClient(ctx context.Context, project, brand string, filter func(*IdentityAwareProxyClient) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListIdentityAwareProxyClient(ctx, project, brand)
 	if err != nil {
 		return err
@@ -177,10 +175,29 @@ func (c *Client) DeleteAllIdentityAwareProxyClient(ctx context.Context, project,
 }
 
 func (c *Client) ApplyIdentityAwareProxyClient(ctx context.Context, rawDesired *IdentityAwareProxyClient, opts ...dcl.ApplyOption) (*IdentityAwareProxyClient, error) {
+
+	var resultNewState *IdentityAwareProxyClient
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyIdentityAwareProxyClientHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyIdentityAwareProxyClientHelper(c *Client, ctx context.Context, rawDesired *IdentityAwareProxyClient, opts ...dcl.ApplyOption) (*IdentityAwareProxyClient, error) {
 	c.Config.Logger.Info("Beginning ApplyIdentityAwareProxyClient...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

@@ -11,27 +11,76 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+info:
+  title: Spanner/Instance
+  description: DCL Specification for the Spanner Instance resource
+  x-dcl-has-iam: false
+paths:
+  get:
+    description: The function used to get information about a Instance
+    parameters:
+    - name: Instance
+      required: true
+      description: A full instance of a Instance
+  apply:
+    description: The function used to apply information about a Instance
+    parameters:
+    - name: Instance
+      required: true
+      description: A full instance of a Instance
+  delete:
+    description: The function used to delete a Instance
+    parameters:
+    - name: Instance
+      required: true
+      description: A full instance of a Instance
+  deleteAll:
+    description: The function used to delete all Instance
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+  list:
+    description: The function used to list information about many Instance
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
 components:
   schemas:
     Instance:
+      title: Instance
+      x-dcl-id: projects/{{project}}/instances/{{name}}
+      x-dcl-parent-container: project
+      x-dcl-labels: labels
+      type: object
+      required:
+      - name
+      - project
+      - config
+      - displayName
       properties:
         config:
-          description: Required. The name of the instance's configuration. Values
-            are of the form `projects/<project>/instanceConfigs/<configuration>`.
           type: string
           x-dcl-go-name: Config
+          description: Required. The name of the instance's configuration. Values
+            are of the form `projects/<project>/instanceConfigs/<configuration>`.
           x-dcl-references:
-          - field: name
-            resource: Spanner/InstanceConfig
+          - resource: Spanner/InstanceConfig
+            field: name
         displayName:
+          type: string
+          x-dcl-go-name: DisplayName
           description: Required. The descriptive name for this instance as it appears
             in UIs. Must be unique per project and between 4 and 30 characters in
             length.
-          type: string
-          x-dcl-go-name: DisplayName
         labels:
+          type: object
           additionalProperties:
             type: string
+          x-dcl-go-name: Labels
           description: 'Cloud Labels are a flexible and lightweight mechanism for
             organizing cloud resources into groups that reflect a customer''s organizational
             needs and deployment strategies. Cloud Labels can be used to filter collections
@@ -48,85 +97,34 @@ components:
             such as JSON, which doesn''t rely upon specific characters being disallowed.  For
             example, representing labels as the string:  name + "_" + value  would
             prove problematic if we were to allow "_" in a future release.'
-          type: object
-          x-dcl-go-name: Labels
         name:
-          description: A unique identifier for the instance, which cannot be changed
-            after the instance is created. Values are of the form `[a-z][-a-z0-9]*[a-z0-9]`.
           type: string
           x-dcl-go-name: Name
+          description: A unique identifier for the instance, which cannot be changed
+            after the instance is created. Values are of the form `[a-z][-a-z0-9]*[a-z0-9]`.
           x-kubernetes-immutable: true
         nodeCount:
+          type: integer
+          format: int64
+          x-dcl-go-name: NodeCount
           description: The number of nodes allocated to this instance. See [the documentation](https://cloud.google.com/spanner/docs/instances#node_count)
             for more information about nodes.
-          format: int64
-          type: integer
-          x-dcl-go-name: NodeCount
         project:
-          description: The project for the resource
           type: string
           x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
+          description: The project for the resource
           x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
         state:
-          description: 'The current instance state. Possible values: CREATING, READY'
-          enum:
-          - CREATING
-          - READY
-          readOnly: true
           type: string
           x-dcl-go-name: State
           x-dcl-go-type: InstanceStateEnum
+          readOnly: true
+          description: 'The current instance state. Possible values: CREATING, READY'
           x-kubernetes-immutable: true
-      required:
-      - name
-      - project
-      - config
-      - displayName
-      title: Instance
-      type: object
-      x-dcl-id: projects/{{project}}/instances/{{name}}
-      x-dcl-labels: labels
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
-info:
-  description: DCL Specification for the Spanner Instance resource
-  title: Spanner/Instance
-  x-dcl-has-iam: false
-paths:
-  apply:
-    description: The function used to apply information about a Instance
-    parameters:
-    - description: A full instance of a Instance
-      name: Instance
-      required: true
-  delete:
-    description: The function used to delete a Instance
-    parameters:
-    - description: A full instance of a Instance
-      name: Instance
-      required: true
-  deleteAll:
-    description: The function used to delete all Instance
-    parameters:
-    - name: project
-      required: true
-      schema:
-        type: string
-  get:
-    description: The function used to get information about a Instance
-    parameters:
-    - description: A full instance of a Instance
-      name: Instance
-      required: true
-  list:
-    description: The function used to list information about many Instance
-    parameters:
-    - name: project
-      required: true
-      schema:
-        type: string
+          enum:
+          - CREATING
+          - READY

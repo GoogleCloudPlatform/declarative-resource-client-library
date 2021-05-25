@@ -25,18 +25,6 @@ import (
 // Server implements the gRPC interface for Feature.
 type FeatureServer struct{}
 
-// ProtoToFeatureSpecMulticlusteringressBillingEnum converts a FeatureSpecMulticlusteringressBillingEnum enum from its proto representation.
-func ProtoToGkehubBetaFeatureSpecMulticlusteringressBillingEnum(e betapb.GkehubBetaFeatureSpecMulticlusteringressBillingEnum) *beta.FeatureSpecMulticlusteringressBillingEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := betapb.GkehubBetaFeatureSpecMulticlusteringressBillingEnum_name[int32(e)]; ok {
-		e := beta.FeatureSpecMulticlusteringressBillingEnum(n[len("FeatureSpecMulticlusteringressBillingEnum"):])
-		return &e
-	}
-	return nil
-}
-
 // ProtoToFeatureSpec converts a FeatureSpec resource from its proto representation.
 func ProtoToGkehubBetaFeatureSpec(p *betapb.GkehubBetaFeatureSpec) *beta.FeatureSpec {
 	if p == nil {
@@ -55,7 +43,6 @@ func ProtoToGkehubBetaFeatureSpecMulticlusteringress(p *betapb.GkehubBetaFeature
 	}
 	obj := &beta.FeatureSpecMulticlusteringress{
 		ConfigMembership: dcl.StringOrNil(p.ConfigMembership),
-		Billing:          ProtoToGkehubBetaFeatureSpecMulticlusteringressBillingEnum(p.GetBilling()),
 	}
 	return obj
 }
@@ -72,17 +59,6 @@ func ProtoToFeature(p *betapb.GkehubBetaFeature) *beta.Feature {
 		Location:   dcl.StringOrNil(p.Location),
 	}
 	return obj
-}
-
-// FeatureSpecMulticlusteringressBillingEnumToProto converts a FeatureSpecMulticlusteringressBillingEnum enum to its proto representation.
-func GkehubBetaFeatureSpecMulticlusteringressBillingEnumToProto(e *beta.FeatureSpecMulticlusteringressBillingEnum) betapb.GkehubBetaFeatureSpecMulticlusteringressBillingEnum {
-	if e == nil {
-		return betapb.GkehubBetaFeatureSpecMulticlusteringressBillingEnum(0)
-	}
-	if v, ok := betapb.GkehubBetaFeatureSpecMulticlusteringressBillingEnum_value["FeatureSpecMulticlusteringressBillingEnum"+string(*e)]; ok {
-		return betapb.GkehubBetaFeatureSpecMulticlusteringressBillingEnum(v)
-	}
-	return betapb.GkehubBetaFeatureSpecMulticlusteringressBillingEnum(0)
 }
 
 // FeatureSpecToProto converts a FeatureSpec resource to its proto representation.
@@ -103,7 +79,6 @@ func GkehubBetaFeatureSpecMulticlusteringressToProto(o *beta.FeatureSpecMulticlu
 	}
 	p := &betapb.GkehubBetaFeatureSpecMulticlusteringress{
 		ConfigMembership: dcl.ValueOrEmptyString(o.ConfigMembership),
-		Billing:          GkehubBetaFeatureSpecMulticlusteringressBillingEnumToProto(o.Billing),
 	}
 	return p
 }

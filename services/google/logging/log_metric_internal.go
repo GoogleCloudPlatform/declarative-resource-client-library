@@ -159,9 +159,6 @@ func newUpdateLogMetricUpdateRequest(ctx context.Context, f *LogMetric, c *Clien
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["bucketOptions"] = v
 	}
-	if v := f.Resolution; !dcl.IsEmptyValueIndirect(v) {
-		req["resolution"] = v
-	}
 	return req, nil
 }
 
@@ -482,9 +479,6 @@ func canonicalizeLogMetricDesiredState(rawDesired, rawInitial *LogMetric, opts .
 		rawDesired.LabelExtractors = rawInitial.LabelExtractors
 	}
 	rawDesired.BucketOptions = canonicalizeLogMetricBucketOptions(rawDesired.BucketOptions, rawInitial.BucketOptions, opts...)
-	if dcl.IsZeroValue(rawDesired.Resolution) {
-		rawDesired.Resolution = rawInitial.Resolution
-	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
@@ -558,11 +552,6 @@ func canonicalizeLogMetricNewState(c *Client, rawNew, rawDesired *LogMetric) (*L
 
 	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
-	} else {
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.Resolution) && dcl.IsEmptyValueIndirect(rawDesired.Resolution) {
-		rawNew.Resolution = rawDesired.Resolution
 	} else {
 	}
 
@@ -640,9 +629,7 @@ func canonicalizeNewLogMetricMetricDescriptor(c *Client, des, nw *LogMetricMetri
 		nw.DisplayName = des.DisplayName
 	}
 	nw.Metadata = canonicalizeNewLogMetricMetricDescriptorMetadata(c, des.Metadata, nw.Metadata)
-	if dcl.IsZeroValue(nw.LaunchStage) {
-		nw.LaunchStage = des.LaunchStage
-	}
+	nw.LaunchStage = des.LaunchStage
 	if dcl.IsZeroValue(nw.MonitoredResourceTypes) {
 		nw.MonitoredResourceTypes = des.MonitoredResourceTypes
 	}
@@ -1340,20 +1327,7 @@ func diffLogMetric(c *Client, desired, actual *LogMetric, opts ...dcl.ApplyOptio
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Resolution, actual.Resolution, dcl.Info{OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("Resolution")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToLogMetricDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
-	}
-
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1837,9 +1811,6 @@ func expandLogMetric(c *Client, f *LogMetric) (map[string]interface{}, error) {
 	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["updateTime"] = v
 	}
-	if v := f.Resolution; !dcl.IsEmptyValueIndirect(v) {
-		m["resolution"] = v
-	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
 	} else if v != nil {
@@ -1871,7 +1842,6 @@ func flattenLogMetric(c *Client, i interface{}) *LogMetric {
 	res.BucketOptions = flattenLogMetricBucketOptions(c, m["bucketOptions"])
 	res.CreateTime = dcl.FlattenString(m["createTime"])
 	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.Resolution = dcl.FlattenString(m["resolution"])
 	res.Project = dcl.FlattenString(m["project"])
 
 	return res

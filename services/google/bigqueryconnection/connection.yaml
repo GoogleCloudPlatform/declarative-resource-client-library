@@ -11,129 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    Connection:
-      properties:
-        cloudSql:
-          description: Cloud SQL properties.
-          properties:
-            credential:
-              description: Input only. Cloud SQL credential.
-              properties:
-                password:
-                  description: The password for the credential.
-                  type: string
-                  x-dcl-go-name: Password
-                  x-dcl-sensitive: true
-                username:
-                  description: The username for the credential.
-                  type: string
-                  x-dcl-go-name: Username
-              type: object
-              x-dcl-go-name: Credential
-              x-dcl-go-type: ConnectionCloudSqlCredential
-              x-dcl-mutable-unreadable: true
-            database:
-              description: Database name.
-              type: string
-              x-dcl-go-name: Database
-              x-dcl-references:
-              - field: name
-                resource: Sql/Database
-            instanceId:
-              description: Cloud SQL instance ID in the form `project:location:instance`.
-              type: string
-              x-dcl-go-name: InstanceId
-              x-dcl-references:
-              - field: name
-                resource: Sql/Instance
-            type:
-              description: 'Type of the Cloud SQL database. Possible values: DATABASE_TYPE_UNSPECIFIED,
-                POSTGRES, MYSQL'
-              enum:
-              - DATABASE_TYPE_UNSPECIFIED
-              - POSTGRES
-              - MYSQL
-              type: string
-              x-dcl-go-name: Type
-              x-dcl-go-type: ConnectionCloudSqlTypeEnum
-          type: object
-          x-dcl-go-name: CloudSql
-          x-dcl-go-type: ConnectionCloudSql
-        creationTime:
-          description: Output only. The creation timestamp of the connection.
-          format: int64
-          readOnly: true
-          type: integer
-          x-dcl-go-name: CreationTime
-          x-kubernetes-immutable: true
-        description:
-          description: User provided description.
-          type: string
-          x-dcl-go-name: Description
-        friendlyName:
-          description: User provided display name for the connection.
-          type: string
-          x-dcl-go-name: FriendlyName
-        hasCredential:
-          description: Output only. True, if credential is configured for this connection.
-          readOnly: true
-          type: boolean
-          x-dcl-go-name: HasCredential
-          x-kubernetes-immutable: true
-        lastModifiedTime:
-          description: Output only. The last update timestamp of the connection.
-          format: int64
-          readOnly: true
-          type: integer
-          x-dcl-go-name: LastModifiedTime
-          x-kubernetes-immutable: true
-        location:
-          description: The location for the resource
-          type: string
-          x-dcl-go-name: Location
-          x-kubernetes-immutable: true
-        name:
-          description: The resource name of the connection.
-          type: string
-          x-dcl-go-name: Name
-        project:
-          description: The project for the resource
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-      required:
-      - name
-      - project
-      - location
-      title: Connection
-      type: object
-      x-dcl-id: projects/{{project}}/locations/{{location}}/connections/{{name}}
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: true
 info:
-  description: DCL Specification for the BigqueryConnection Connection resource
   title: BigqueryConnection/Connection
+  description: DCL Specification for the BigqueryConnection Connection resource
   x-dcl-has-iam: true
 paths:
+  get:
+    description: The function used to get information about a Connection
+    parameters:
+    - name: Connection
+      required: true
+      description: A full instance of a Connection
   apply:
     description: The function used to apply information about a Connection
     parameters:
-    - description: A full instance of a Connection
-      name: Connection
+    - name: Connection
       required: true
+      description: A full instance of a Connection
   delete:
     description: The function used to delete a Connection
     parameters:
-    - description: A full instance of a Connection
-      name: Connection
+    - name: Connection
       required: true
+      description: A full instance of a Connection
   deleteAll:
     description: The function used to delete all Connection
     parameters:
@@ -145,12 +45,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a Connection
-    parameters:
-    - description: A full instance of a Connection
-      name: Connection
-      required: true
   list:
     description: The function used to list information about many Connection
     parameters:
@@ -162,3 +56,108 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    Connection:
+      title: Connection
+      x-dcl-id: projects/{{project}}/locations/{{location}}/connections/{{name}}
+      x-dcl-uses-state-hint: true
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - name
+      - project
+      - location
+      properties:
+        cloudSql:
+          type: object
+          x-dcl-go-name: CloudSql
+          x-dcl-go-type: ConnectionCloudSql
+          description: Cloud SQL properties.
+          properties:
+            credential:
+              type: object
+              x-dcl-go-name: Credential
+              x-dcl-go-type: ConnectionCloudSqlCredential
+              description: Input only. Cloud SQL credential.
+              x-dcl-mutable-unreadable: true
+              properties:
+                password:
+                  type: string
+                  x-dcl-go-name: Password
+                  description: The password for the credential.
+                  x-dcl-sensitive: true
+                username:
+                  type: string
+                  x-dcl-go-name: Username
+                  description: The username for the credential.
+            database:
+              type: string
+              x-dcl-go-name: Database
+              description: Database name.
+              x-dcl-references:
+              - resource: Sql/Database
+                field: name
+            instanceId:
+              type: string
+              x-dcl-go-name: InstanceId
+              description: Cloud SQL instance ID in the form `project:location:instance`.
+              x-dcl-references:
+              - resource: Sql/Instance
+                field: name
+            type:
+              type: string
+              x-dcl-go-name: Type
+              x-dcl-go-type: ConnectionCloudSqlTypeEnum
+              description: 'Type of the Cloud SQL database. Possible values: DATABASE_TYPE_UNSPECIFIED,
+                POSTGRES, MYSQL'
+              enum:
+              - DATABASE_TYPE_UNSPECIFIED
+              - POSTGRES
+              - MYSQL
+        creationTime:
+          type: integer
+          format: int64
+          x-dcl-go-name: CreationTime
+          readOnly: true
+          description: Output only. The creation timestamp of the connection.
+          x-kubernetes-immutable: true
+        description:
+          type: string
+          x-dcl-go-name: Description
+          description: User provided description.
+        friendlyName:
+          type: string
+          x-dcl-go-name: FriendlyName
+          description: User provided display name for the connection.
+        hasCredential:
+          type: boolean
+          x-dcl-go-name: HasCredential
+          readOnly: true
+          description: Output only. True, if credential is configured for this connection.
+          x-kubernetes-immutable: true
+        lastModifiedTime:
+          type: integer
+          format: int64
+          x-dcl-go-name: LastModifiedTime
+          readOnly: true
+          description: Output only. The last update timestamp of the connection.
+          x-kubernetes-immutable: true
+        location:
+          type: string
+          x-dcl-go-name: Location
+          description: The location for the resource
+          x-kubernetes-immutable: true
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: The resource name of the connection.
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project for the resource
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true

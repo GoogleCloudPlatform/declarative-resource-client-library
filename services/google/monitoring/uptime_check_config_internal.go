@@ -27,6 +27,12 @@ import (
 
 func (r *UptimeCheckConfig) validate() error {
 
+	if err := dcl.ValidateExactlyOneOfFieldsSet([]string{"MonitoredResource", "ResourceGroup"}, r.MonitoredResource, r.ResourceGroup); err != nil {
+		return err
+	}
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"HttpCheck", "TcpCheck"}, r.HttpCheck, r.TcpCheck); err != nil {
+		return err
+	}
 	if err := dcl.Required(r, "displayName"); err != nil {
 		return err
 	}
@@ -472,6 +478,35 @@ func (c *Client) uptimeCheckConfigDiffsForRawDesired(ctx context.Context, rawDes
 
 func canonicalizeUptimeCheckConfigInitialState(rawInitial, rawDesired *UptimeCheckConfig) (*UptimeCheckConfig, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
+
+	if dcl.IsZeroValue(rawInitial.MonitoredResource) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.ResourceGroup) {
+			rawInitial.MonitoredResource = EmptyUptimeCheckConfigMonitoredResource
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.ResourceGroup) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.MonitoredResource) {
+			rawInitial.ResourceGroup = EmptyUptimeCheckConfigResourceGroup
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.HttpCheck) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.TcpCheck) {
+			rawInitial.HttpCheck = EmptyUptimeCheckConfigHttpCheck
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.TcpCheck) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.HttpCheck) {
+			rawInitial.TcpCheck = EmptyUptimeCheckConfigTcpCheck
+		}
+	}
+
 	return rawInitial, nil
 }
 
@@ -483,6 +518,34 @@ func canonicalizeUptimeCheckConfigInitialState(rawInitial, rawDesired *UptimeChe
 * */
 
 func canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial *UptimeCheckConfig, opts ...dcl.ApplyOption) (*UptimeCheckConfig, error) {
+
+	if dcl.IsZeroValue(rawDesired.MonitoredResource) {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.ResourceGroup) {
+			rawDesired.MonitoredResource = EmptyUptimeCheckConfigMonitoredResource
+		}
+	}
+
+	if dcl.IsZeroValue(rawDesired.ResourceGroup) {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.MonitoredResource) {
+			rawDesired.ResourceGroup = EmptyUptimeCheckConfigResourceGroup
+		}
+	}
+
+	if dcl.IsZeroValue(rawDesired.HttpCheck) {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.TcpCheck) {
+			rawDesired.HttpCheck = EmptyUptimeCheckConfigHttpCheck
+		}
+	}
+
+	if dcl.IsZeroValue(rawDesired.TcpCheck) {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.HttpCheck) {
+			rawDesired.TcpCheck = EmptyUptimeCheckConfigTcpCheck
+		}
+	}
 
 	if dcl.IsZeroValue(rawDesired.Period) {
 		rawDesired.Period = dcl.String("60s")

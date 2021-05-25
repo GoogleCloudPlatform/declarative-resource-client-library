@@ -16,6 +16,7 @@ package compute
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -66,7 +67,7 @@ func (l *NetworkEndpointList) HasNext() bool {
 }
 
 func (l *NetworkEndpointList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -82,7 +83,7 @@ func (l *NetworkEndpointList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListNetworkEndpoint(ctx context.Context, project, location, group string) (*NetworkEndpointList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListNetworkEndpointWithMaxResults(ctx, project, location, group, NetworkEndpointMaxPage)
@@ -90,7 +91,7 @@ func (c *Client) ListNetworkEndpoint(ctx context.Context, project, location, gro
 }
 
 func (c *Client) ListNetworkEndpointWithMaxResults(ctx context.Context, project, location, group string, pageSize int32) (*NetworkEndpointList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listNetworkEndpoint(ctx, project, location, group, "", pageSize)
@@ -111,7 +112,7 @@ func (c *Client) ListNetworkEndpointWithMaxResults(ctx context.Context, project,
 }
 
 func (c *Client) DeleteNetworkEndpoint(ctx context.Context, r *NetworkEndpoint) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -124,9 +125,6 @@ func (c *Client) DeleteNetworkEndpoint(ctx context.Context, r *NetworkEndpoint) 
 
 // DeleteAllNetworkEndpoint deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllNetworkEndpoint(ctx context.Context, project, location, group string, filter func(*NetworkEndpoint) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListNetworkEndpoint(ctx, project, location, group)
 	if err != nil {
 		return err
@@ -150,10 +148,29 @@ func (c *Client) DeleteAllNetworkEndpoint(ctx context.Context, project, location
 }
 
 func (c *Client) ApplyNetworkEndpoint(ctx context.Context, rawDesired *NetworkEndpoint, opts ...dcl.ApplyOption) (*NetworkEndpoint, error) {
+
+	var resultNewState *NetworkEndpoint
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyNetworkEndpointHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyNetworkEndpointHelper(c *Client, ctx context.Context, rawDesired *NetworkEndpoint, opts ...dcl.ApplyOption) (*NetworkEndpoint, error) {
 	c.Config.Logger.Info("Beginning ApplyNetworkEndpoint...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

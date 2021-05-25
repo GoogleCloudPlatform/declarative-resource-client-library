@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -67,7 +68,7 @@ func (l *HttpHealthCheckList) HasNext() bool {
 }
 
 func (l *HttpHealthCheckList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -83,7 +84,7 @@ func (l *HttpHealthCheckList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListHttpHealthCheck(ctx context.Context, project string) (*HttpHealthCheckList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListHttpHealthCheckWithMaxResults(ctx, project, HttpHealthCheckMaxPage)
@@ -91,7 +92,7 @@ func (c *Client) ListHttpHealthCheck(ctx context.Context, project string) (*Http
 }
 
 func (c *Client) ListHttpHealthCheckWithMaxResults(ctx context.Context, project string, pageSize int32) (*HttpHealthCheckList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listHttpHealthCheck(ctx, project, "", pageSize)
@@ -108,7 +109,7 @@ func (c *Client) ListHttpHealthCheckWithMaxResults(ctx context.Context, project 
 }
 
 func (c *Client) GetHttpHealthCheck(ctx context.Context, r *HttpHealthCheck) (*HttpHealthCheck, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getHttpHealthCheckRaw(ctx, r)
@@ -158,7 +159,7 @@ func (c *Client) GetHttpHealthCheck(ctx context.Context, r *HttpHealthCheck) (*H
 }
 
 func (c *Client) DeleteHttpHealthCheck(ctx context.Context, r *HttpHealthCheck) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -171,9 +172,6 @@ func (c *Client) DeleteHttpHealthCheck(ctx context.Context, r *HttpHealthCheck) 
 
 // DeleteAllHttpHealthCheck deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllHttpHealthCheck(ctx context.Context, project string, filter func(*HttpHealthCheck) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListHttpHealthCheck(ctx, project)
 	if err != nil {
 		return err
@@ -197,10 +195,29 @@ func (c *Client) DeleteAllHttpHealthCheck(ctx context.Context, project string, f
 }
 
 func (c *Client) ApplyHttpHealthCheck(ctx context.Context, rawDesired *HttpHealthCheck, opts ...dcl.ApplyOption) (*HttpHealthCheck, error) {
+
+	var resultNewState *HttpHealthCheck
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyHttpHealthCheckHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyHttpHealthCheckHelper(c *Client, ctx context.Context, rawDesired *HttpHealthCheck, opts ...dcl.ApplyOption) (*HttpHealthCheck, error) {
 	c.Config.Logger.Info("Beginning ApplyHttpHealthCheck...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

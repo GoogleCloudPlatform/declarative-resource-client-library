@@ -11,144 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    TargetPool:
-      properties:
-        backupPool:
-          description: 'This field is applicable only when the containing target pool
-            is serving a forwarding rule as the primary pool, and its `failoverRatio`
-            field is properly set to a value between [0, 1]. `backupPool` and `failoverRatio`
-            together define the fallback behavior of the primary target pool: if the
-            ratio of the healthy instances in the primary pool is at or below `failoverRatio`,
-            traffic arriving at the load-balanced IP will be directed to the backup
-            pool. In case where `failoverRatio` and `backupPool` are not set, or all
-            the instances in the backup pool are unhealthy, the traffic will be directed
-            back to the primary pool in the "force" mode, where traffic will be spread
-            to the healthy instances with the best effort, or to all instances when
-            no instance is healthy.'
-          type: string
-          x-dcl-go-name: BackupPool
-        description:
-          description: An optional description of this resource. Provide this property
-            when you create the resource.
-          type: string
-          x-dcl-go-name: Description
-          x-kubernetes-immutable: true
-        failoverRatio:
-          description: 'This field is applicable only when the containing target pool
-            is serving a forwarding rule as the primary pool (i.e., not as a backup
-            pool to some other target pool). The value of the field must be in [0,
-            1]. If set, `backupPool` must also be set. They together define the fallback
-            behavior of the primary target pool: if the ratio of the healthy instances
-            in the primary pool is at or below this number, traffic arriving at the
-            load-balanced IP will be directed to the backup pool. In case where `failoverRatio`
-            is not set or all the instances in the backup pool are unhealthy, the
-            traffic will be directed back to the primary pool in the "force" mode,
-            where traffic will be spread to the healthy instances with the best effort,
-            or to all instances when no instance is healthy.'
-          format: double
-          type: number
-          x-dcl-go-name: FailoverRatio
-          x-kubernetes-immutable: true
-        healthChecks:
-          description: The URL of the HttpHealthCheck resource. A member instance
-            in this pool is considered healthy if and only if the health checks pass.
-            An empty list means all member instances will be considered healthy at
-            all times. Only HttpHealthChecks are supported. Only one health check
-            may be specified.
-          items:
-            type: string
-            x-dcl-go-type: string
-          type: array
-          x-dcl-go-name: HealthChecks
-          x-dcl-list-type: set
-        instances:
-          description: A list of resource URLs to the virtual machine instances serving
-            this pool. They must live in zones contained in the same region as this
-            pool.
-          items:
-            type: string
-            x-dcl-go-type: string
-          type: array
-          x-dcl-go-name: Instances
-          x-dcl-list-type: set
-        name:
-          description: Name of the resource. Provided by the client when the resource
-            is created. The name must be 1-63 characters long, and comply with [RFC1035](https://www.ietf.org/rfc/rfc1035.txt).
-            Specifically, the name must be 1-63 characters long and match the regular
-            expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first character
-            must be a lowercase letter, and all following characters must be a dash,
-            lowercase letter, or digit, except the last character, which cannot be
-            a dash.
-          type: string
-          x-dcl-go-name: Name
-          x-kubernetes-immutable: true
-        project:
-          description: The project for this target pool.
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        region:
-          description: '[Output Only] URL of the region where the target pool resides.'
-          type: string
-          x-dcl-go-name: Region
-          x-kubernetes-immutable: true
-        selfLink:
-          description: '[Output Only] Server-defined URL for the resource.'
-          type: string
-          x-dcl-go-name: SelfLink
-          x-kubernetes-immutable: true
-        sessionAffinity:
-          description: "Session affinity option, must be one of the following values:
-            \ \n`NONE`: Connections from the same client IP may go to any instance
-            in the pool.  \n`CLIENT_IP`: Connections from the same client IP will
-            go to the same instance in the pool while that instance remains healthy.
-            \ \n`CLIENT_IP_PROTO`: Connections from the same client IP with the same
-            IP protocol will go to the same instance in the pool while that instance
-            remains healthy."
-          enum:
-          - NONE
-          - CLIENT_IP
-          - CLIENT_IP_PROTO
-          - GENERATED_COOKIE
-          - CLIENT_IP_PORT_PROTO
-          - HTTP_COOKIE
-          - HEADER_FIELD
-          type: string
-          x-dcl-go-name: SessionAffinity
-          x-dcl-go-type: TargetPoolSessionAffinityEnum
-          x-kubernetes-immutable: true
-      required:
-      - project
-      title: TargetPool
-      type: object
-      x-dcl-id: projects/{{project}}/regions/{{region}}/targetPools/{{name}}
-      x-dcl-locations:
-      - region
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Compute TargetPool resource
   title: Compute/TargetPool
+  description: DCL Specification for the Compute TargetPool resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a TargetPool
+    parameters:
+    - name: TargetPool
+      required: true
+      description: A full instance of a TargetPool
   apply:
     description: The function used to apply information about a TargetPool
     parameters:
-    - description: A full instance of a TargetPool
-      name: TargetPool
+    - name: TargetPool
       required: true
+      description: A full instance of a TargetPool
   delete:
     description: The function used to delete a TargetPool
     parameters:
-    - description: A full instance of a TargetPool
-      name: TargetPool
+    - name: TargetPool
       required: true
+      description: A full instance of a TargetPool
   deleteAll:
     description: The function used to delete all TargetPool
     parameters:
@@ -160,12 +45,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a TargetPool
-    parameters:
-    - description: A full instance of a TargetPool
-      name: TargetPool
-      required: true
   list:
     description: The function used to list information about many TargetPool
     parameters:
@@ -177,3 +56,123 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    TargetPool:
+      title: TargetPool
+      x-dcl-id: projects/{{project}}/regions/{{region}}/targetPools/{{name}}
+      x-dcl-locations:
+      - region
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - project
+      properties:
+        backupPool:
+          type: string
+          x-dcl-go-name: BackupPool
+          description: 'This field is applicable only when the containing target pool
+            is serving a forwarding rule as the primary pool, and its `failoverRatio`
+            field is properly set to a value between [0, 1]. `backupPool` and `failoverRatio`
+            together define the fallback behavior of the primary target pool: if the
+            ratio of the healthy instances in the primary pool is at or below `failoverRatio`,
+            traffic arriving at the load-balanced IP will be directed to the backup
+            pool. In case where `failoverRatio` and `backupPool` are not set, or all
+            the instances in the backup pool are unhealthy, the traffic will be directed
+            back to the primary pool in the "force" mode, where traffic will be spread
+            to the healthy instances with the best effort, or to all instances when
+            no instance is healthy.'
+        description:
+          type: string
+          x-dcl-go-name: Description
+          description: An optional description of this resource. Provide this property
+            when you create the resource.
+          x-kubernetes-immutable: true
+        failoverRatio:
+          type: number
+          format: double
+          x-dcl-go-name: FailoverRatio
+          description: 'This field is applicable only when the containing target pool
+            is serving a forwarding rule as the primary pool (i.e., not as a backup
+            pool to some other target pool). The value of the field must be in [0,
+            1]. If set, `backupPool` must also be set. They together define the fallback
+            behavior of the primary target pool: if the ratio of the healthy instances
+            in the primary pool is at or below this number, traffic arriving at the
+            load-balanced IP will be directed to the backup pool. In case where `failoverRatio`
+            is not set or all the instances in the backup pool are unhealthy, the
+            traffic will be directed back to the primary pool in the "force" mode,
+            where traffic will be spread to the healthy instances with the best effort,
+            or to all instances when no instance is healthy.'
+          x-kubernetes-immutable: true
+        healthChecks:
+          type: array
+          x-dcl-go-name: HealthChecks
+          description: The URL of the HttpHealthCheck resource. A member instance
+            in this pool is considered healthy if and only if the health checks pass.
+            An empty list means all member instances will be considered healthy at
+            all times. Only HttpHealthChecks are supported. Only one health check
+            may be specified.
+          x-dcl-list-type: set
+          items:
+            type: string
+            x-dcl-go-type: string
+        instances:
+          type: array
+          x-dcl-go-name: Instances
+          description: A list of resource URLs to the virtual machine instances serving
+            this pool. They must live in zones contained in the same region as this
+            pool.
+          x-dcl-list-type: set
+          items:
+            type: string
+            x-dcl-go-type: string
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: Name of the resource. Provided by the client when the resource
+            is created. The name must be 1-63 characters long, and comply with [RFC1035](https://www.ietf.org/rfc/rfc1035.txt).
+            Specifically, the name must be 1-63 characters long and match the regular
+            expression `[a-z]([-a-z0-9]*[a-z0-9])?` which means the first character
+            must be a lowercase letter, and all following characters must be a dash,
+            lowercase letter, or digit, except the last character, which cannot be
+            a dash.
+          x-kubernetes-immutable: true
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project for this target pool.
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        region:
+          type: string
+          x-dcl-go-name: Region
+          description: '[Output Only] URL of the region where the target pool resides.'
+          x-kubernetes-immutable: true
+        selfLink:
+          type: string
+          x-dcl-go-name: SelfLink
+          description: '[Output Only] Server-defined URL for the resource.'
+          x-kubernetes-immutable: true
+        sessionAffinity:
+          type: string
+          x-dcl-go-name: SessionAffinity
+          x-dcl-go-type: TargetPoolSessionAffinityEnum
+          description: "Session affinity option, must be one of the following values:
+            \ \n`NONE`: Connections from the same client IP may go to any instance
+            in the pool.  \n`CLIENT_IP`: Connections from the same client IP will
+            go to the same instance in the pool while that instance remains healthy.
+            \ \n`CLIENT_IP_PROTO`: Connections from the same client IP with the same
+            IP protocol will go to the same instance in the pool while that instance
+            remains healthy."
+          x-kubernetes-immutable: true
+          enum:
+          - NONE
+          - CLIENT_IP
+          - CLIENT_IP_PROTO
+          - GENERATED_COOKIE
+          - CLIENT_IP_PORT_PROTO
+          - HTTP_COOKIE
+          - HEADER_FIELD

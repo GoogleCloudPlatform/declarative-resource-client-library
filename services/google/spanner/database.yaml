@@ -11,83 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    Database:
-      properties:
-        ddl:
-          description: 'An optional list of DDL statements to run inside the newly
-            created database. Statements can create tables, indexes, etc. These statements
-            execute atomically with the creation of the database: if there is an error
-            in any statement, the database is not created.'
-          items:
-            type: string
-            x-dcl-go-type: string
-          type: array
-          x-dcl-go-name: Ddl
-          x-dcl-list-type: list
-          x-kubernetes-immutable: true
-        instance:
-          description: The instance to create the database on.
-          type: string
-          x-dcl-go-name: Instance
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Spanner/Instance
-          x-kubernetes-immutable: true
-        name:
-          description: A unique identifier for the database, which cannot be changed
-            after the instance is created. Values are of the form [a-z][-a-z0-9]*[a-z0-9].
-          type: string
-          x-dcl-go-name: Name
-          x-kubernetes-immutable: true
-        project:
-          description: The ID of the project in which the resource belongs.
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        state:
-          description: 'The current database state. Possible values: CREATING, READY'
-          enum:
-          - CREATING
-          - READY
-          readOnly: true
-          type: string
-          x-dcl-go-name: State
-          x-dcl-go-type: DatabaseStateEnum
-          x-kubernetes-immutable: true
-      required:
-      - name
-      - instance
-      - project
-      title: Database
-      type: object
-      x-dcl-id: projects/{{project}}/instances/{{instance}}/databases/{{name}}
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Spanner Database resource
   title: Spanner/Database
+  description: DCL Specification for the Spanner Database resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a Database
+    parameters:
+    - name: Database
+      required: true
+      description: A full instance of a Database
   apply:
     description: The function used to apply information about a Database
     parameters:
-    - description: A full instance of a Database
-      name: Database
+    - name: Database
       required: true
+      description: A full instance of a Database
   delete:
     description: The function used to delete a Database
     parameters:
-    - description: A full instance of a Database
-      name: Database
+    - name: Database
       required: true
+      description: A full instance of a Database
   deleteAll:
     description: The function used to delete all Database
     parameters:
@@ -99,12 +45,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a Database
-    parameters:
-    - description: A full instance of a Database
-      name: Database
-      required: true
   list:
     description: The function used to list information about many Database
     parameters:
@@ -116,3 +56,61 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    Database:
+      title: Database
+      x-dcl-id: projects/{{project}}/instances/{{instance}}/databases/{{name}}
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - name
+      - instance
+      - project
+      properties:
+        ddl:
+          type: array
+          x-dcl-go-name: Ddl
+          description: 'An optional list of DDL statements to run inside the newly
+            created database. Statements can create tables, indexes, etc. These statements
+            execute atomically with the creation of the database: if there is an error
+            in any statement, the database is not created.'
+          x-kubernetes-immutable: true
+          x-dcl-list-type: list
+          items:
+            type: string
+            x-dcl-go-type: string
+        instance:
+          type: string
+          x-dcl-go-name: Instance
+          description: The instance to create the database on.
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Spanner/Instance
+            field: name
+            parent: true
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: A unique identifier for the database, which cannot be changed
+            after the instance is created. Values are of the form [a-z][-a-z0-9]*[a-z0-9].
+          x-kubernetes-immutable: true
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The ID of the project in which the resource belongs.
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        state:
+          type: string
+          x-dcl-go-name: State
+          x-dcl-go-type: DatabaseStateEnum
+          readOnly: true
+          description: 'The current database state. Possible values: CREATING, READY'
+          x-kubernetes-immutable: true
+          enum:
+          - CREATING
+          - READY

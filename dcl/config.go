@@ -38,7 +38,7 @@ type ConfigOption func(*Config)
 // requests to GCP APIs.
 type Config struct {
 	RetryProvider RetryProvider
-	Timeout       time.Duration
+	timeout       time.Duration
 	header        http.Header
 	clientOptions []option.ClientOption
 	userAgent     string
@@ -62,7 +62,6 @@ func NewConfig(o ...ConfigOption) *Config {
 		contentType:   "application/json",
 		Logger:        DefaultLogger(),
 		RetryProvider: &BackoffRetryProvider{},
-		Timeout:       defaultTimeout,
 	}
 
 	for _, opt := range o {
@@ -76,7 +75,7 @@ func NewConfig(o ...ConfigOption) *Config {
 func (c *Config) Clone(o ...ConfigOption) *Config {
 	result := &Config{
 		RetryProvider: c.RetryProvider,
-		Timeout:       c.Timeout,
+		timeout:       c.timeout,
 		clientOptions: c.clientOptions,
 		userAgent:     c.userAgent,
 		contentType:   c.contentType,
@@ -93,6 +92,18 @@ func (c *Config) Clone(o ...ConfigOption) *Config {
 	}
 
 	return result
+}
+
+// TimeoutOr returns a timeout for this config. If WithTimeout() was called, that timeout
+// is used; if WithTimeout() was not called and a value is provided with `t`, that is used.
+// Otherwise the default timeout is returned;
+func (c *Config) TimeoutOr(t time.Duration) time.Duration {
+	if c.timeout != 0 {
+		return c.timeout
+	} else if t != 0 {
+		return t
+	}
+	return defaultTimeout
 }
 
 type loggingTransport struct {
@@ -190,7 +201,7 @@ func WithRetryProvider(r RetryProvider) ConfigOption {
 // WithTimeout allows a user to override default operation timeout.
 func WithTimeout(to time.Duration) ConfigOption {
 	return func(c *Config) {
-		c.Timeout = to
+		c.timeout = to
 	}
 }
 

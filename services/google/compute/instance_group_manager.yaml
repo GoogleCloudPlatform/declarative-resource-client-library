@@ -11,479 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    InstanceGroupManager:
-      properties:
-        autoHealingPolicies:
-          description: The autohealing policy for this managed instance group.
-          items:
-            properties:
-              healthCheck:
-                description: The healthcheck that signals autohealing
-                type: string
-                x-dcl-go-name: HealthCheck
-                x-dcl-references:
-                - field: selfLink
-                  resource: Compute/HealthCheck
-                x-kubernetes-immutable: true
-              initialDelaySec:
-                description: The number of seconds that the managed instance group
-                  waits before it applies autohealing policies to new instances or
-                  recently recreated instances.
-                format: int64
-                type: integer
-                x-dcl-go-name: InitialDelaySec
-                x-kubernetes-immutable: true
-            type: object
-            x-dcl-go-type: InstanceGroupManagerAutoHealingPolicies
-          type: array
-          x-dcl-go-name: AutoHealingPolicies
-          x-dcl-list-type: list
-          x-kubernetes-immutable: true
-        baseInstanceName:
-          description: 'The base instance name to use for instances in this group.
-            The value must be 1-58 characters long. Instances are named by appending
-            a hyphen and a random four-character string to the base instance name.
-            The base instance name must comply with RFC1035. '
-          type: string
-          x-dcl-go-name: BaseInstanceName
-          x-kubernetes-immutable: true
-        creationTimestamp:
-          description: 'The creation timestamp for this managed instance group in
-            RFC3339 text format. '
-          format: date-time
-          readOnly: true
-          type: string
-          x-dcl-go-name: CreationTimestamp
-          x-kubernetes-immutable: true
-        currentActions:
-          description: 'The list of instance actions and the number of instances in
-            this managed instance group that are scheduled for each of those actions. '
-          properties:
-            abandoning:
-              description: 'The total number of instances in the managed instance
-                group that are scheduled to be abandoned. Abandoning an instance removes
-                it from the managed instance group without deleting it. '
-              format: int64
-              readOnly: true
-              type: integer
-              x-dcl-go-name: Abandoning
-              x-kubernetes-immutable: true
-            creating:
-              description: 'The number of instances in the managed instance group
-                that are scheduled to be created or are currently being created. If
-                the group fails to create any of these instances, it tries again until
-                it creates the instance successfully.  If you have disabled creation
-                retries, this field will not be populated; instead, the creatingWithoutRetries
-                field will be populated. '
-              format: int64
-              readOnly: true
-              type: integer
-              x-dcl-go-name: Creating
-              x-kubernetes-immutable: true
-            creatingWithoutRetries:
-              description: 'The number of instances that the managed instance group
-                will attempt to create. The group attempts to create each instance
-                only once. If the group fails to create any of these instances, it
-                decreases the group''s targetSize value accordingly. '
-              format: int64
-              readOnly: true
-              type: integer
-              x-dcl-go-name: CreatingWithoutRetries
-              x-kubernetes-immutable: true
-            deleting:
-              description: 'The number of instances in the managed instance group
-                that are scheduled to be deleted or are currently being deleted. '
-              format: int64
-              readOnly: true
-              type: integer
-              x-dcl-go-name: Deleting
-              x-kubernetes-immutable: true
-            none:
-              description: 'The number of instances in the managed instance group
-                that are running and have no scheduled actions. '
-              format: int64
-              readOnly: true
-              type: integer
-              x-dcl-go-name: None
-              x-kubernetes-immutable: true
-            recreating:
-              description: 'The number of instances in the managed instance group
-                that are scheduled to be recreated or are currently being being recreated.
-                Recreating an instance deletes the existing root persistent disk and
-                creates a new disk from the image that is defined in the instance
-                template. '
-              format: int64
-              readOnly: true
-              type: integer
-              x-dcl-go-name: Recreating
-              x-kubernetes-immutable: true
-            refreshing:
-              description: 'The number of instances in the managed instance group
-                that are being reconfigured with properties that do not require a
-                restart or a recreate action. For example, setting or removing target
-                pools for the instance. '
-              format: int64
-              readOnly: true
-              type: integer
-              x-dcl-go-name: Refreshing
-              x-kubernetes-immutable: true
-            restarting:
-              description: 'The number of instances in the managed instance group
-                that are scheduled to be restarted or are currently being restarted. '
-              format: int64
-              readOnly: true
-              type: integer
-              x-dcl-go-name: Restarting
-              x-kubernetes-immutable: true
-          readOnly: true
-          type: object
-          x-dcl-go-name: CurrentActions
-          x-dcl-go-type: InstanceGroupManagerCurrentActions
-          x-kubernetes-immutable: true
-        description:
-          description: 'An optional description of this resource. Provide this property
-            when you create the resource. '
-          type: string
-          x-dcl-go-name: Description
-          x-kubernetes-immutable: true
-        distributionPolicy:
-          description: Policy specifying intended distribution of instances in regional
-            managed instance group.
-          properties:
-            zones:
-              description: Zones where the regional managed instance group will create
-                and manage instances.
-              items:
-                properties:
-                  zone:
-                    description: The URL of the zone. The zone must exist in the region
-                      where the managed instance group is located.
-                    type: string
-                    x-dcl-go-name: Zone
-                    x-kubernetes-immutable: true
-                type: object
-                x-dcl-go-type: InstanceGroupManagerDistributionPolicyZones
-              type: array
-              x-dcl-go-name: Zones
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: DistributionPolicy
-          x-dcl-go-type: InstanceGroupManagerDistributionPolicy
-          x-kubernetes-immutable: true
-        id:
-          description: A unique identifier for this resource
-          format: int64
-          readOnly: true
-          type: integer
-          x-dcl-go-name: Id
-          x-kubernetes-immutable: true
-        instanceGroup:
-          description: The instance group being managed
-          readOnly: true
-          type: string
-          x-dcl-go-name: InstanceGroup
-          x-dcl-references:
-          - field: selfLink
-            resource: Compute/InstanceGroup
-          x-kubernetes-immutable: true
-        instanceTemplate:
-          description: 'The instance template that is specified for this managed instance
-            group. The group uses this template to create all new instances in the
-            managed instance group. '
-          type: string
-          x-dcl-go-name: InstanceTemplate
-          x-dcl-references:
-          - field: selfLink
-            resource: Compute/InstanceTemplate
-        location:
-          description: The location of this resource.
-          type: string
-          x-dcl-go-name: Location
-          x-kubernetes-immutable: true
-        name:
-          description: 'The name of the managed instance group. The name must be 1-63
-            characters long, and comply with RFC1035. '
-          type: string
-          x-dcl-go-name: Name
-          x-kubernetes-immutable: true
-        namedPorts:
-          description: Named ports configured for the Instance Groups complementary
-            to this Instance Group Manager.
-          items:
-            properties:
-              name:
-                description: 'The name for this named port. The name must be 1-63
-                  characters long, and comply with RFC1035. '
-                type: string
-                x-dcl-go-name: Name
-                x-kubernetes-immutable: true
-              port:
-                description: The port number, which can be a value between 1 and 65535.
-                format: int64
-                type: integer
-                x-dcl-go-name: Port
-                x-kubernetes-immutable: true
-            type: object
-            x-dcl-go-type: InstanceGroupManagerNamedPorts
-          type: array
-          x-dcl-go-name: NamedPorts
-          x-dcl-list-type: list
-          x-kubernetes-immutable: true
-        project:
-          description: The project id of the resource.
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        region:
-          description: The region the managed instance group resides in
-          readOnly: true
-          type: string
-          x-dcl-go-name: Region
-          x-kubernetes-immutable: true
-        status:
-          description: The status of this managed instance group.
-          properties:
-            autoscalar:
-              description: The autoscalar that targets this instance group manager
-              type: string
-              x-dcl-go-name: Autoscalar
-              x-dcl-references:
-              - field: selfLink
-                resource: Compute/Autoscalar
-              x-kubernetes-immutable: true
-            isStable:
-              description: A bit indicating whether the managed instance group is
-                in a stable state.
-              type: boolean
-              x-dcl-go-name: IsStable
-              x-kubernetes-immutable: true
-            versionTarget:
-              description: A status of consistency of Instances' versions with their
-                target version specified by version field on Instance Group Manager.
-              properties:
-                isReached:
-                  description: A bit indicating whether version target has been reached
-                    in this managed instance group, i.e. all instances are in their
-                    target version. Instances' target version are specified by version
-                    field on Instance Group Manager.
-                  type: boolean
-                  x-dcl-go-name: IsReached
-                  x-kubernetes-immutable: true
-              type: object
-              x-dcl-go-name: VersionTarget
-              x-dcl-go-type: InstanceGroupManagerStatusVersionTarget
-              x-kubernetes-immutable: true
-          readOnly: true
-          type: object
-          x-dcl-go-name: Status
-          x-dcl-go-type: InstanceGroupManagerStatus
-          x-kubernetes-immutable: true
-        targetPools:
-          description: 'TargetPool resources to which instances in the instanceGroup
-            field are added. The target pools automatically apply to all of the instances
-            in the managed instance group. '
-          items:
-            type: string
-            x-dcl-go-type: string
-            x-dcl-references:
-            - field: selfLink
-              resource: Compute/TargetPool
-          type: array
-          x-dcl-go-name: TargetPools
-          x-dcl-list-type: list
-        targetSize:
-          description: 'The target number of running instances for this managed instance
-            group. Deleting or abandoning instances reduces this number. Resizing
-            the group changes this number. '
-          format: int64
-          type: integer
-          x-dcl-go-name: TargetSize
-          x-kubernetes-immutable: true
-        updatePolicy:
-          description: The update policy for this managed instance group.
-          properties:
-            instanceRedistributionType:
-              description: 'The instance redistribution policy for regional managed
-                instance groups. Possible values: PROACTIVE, NONE'
-              enum:
-              - PROACTIVE
-              - NONE
-              type: string
-              x-dcl-go-name: InstanceRedistributionType
-              x-dcl-go-type: InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum
-              x-kubernetes-immutable: true
-            maxSurge:
-              description: The maximum number of instances that can be created above
-                the specified targetSize during the update process
-              properties:
-                calculated:
-                  description: Absolute value of VM instances calculated based on
-                    the specific mode.
-                  format: int64
-                  readOnly: true
-                  type: integer
-                  x-dcl-go-name: Calculated
-                  x-kubernetes-immutable: true
-                fixed:
-                  description: Specifies a fixed number of VM instances. This must
-                    be a positive integer.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Fixed
-                  x-kubernetes-immutable: true
-                maxUnavailable:
-                  description: The maximum number of instances that can be unavailable
-                    during the update process
-                  properties:
-                    calculated:
-                      description: Absolute value of VM instances calculated based
-                        on the specific mode.
-                      format: int64
-                      readOnly: true
-                      type: integer
-                      x-dcl-go-name: Calculated
-                      x-kubernetes-immutable: true
-                    fixed:
-                      description: Specifies a fixed number of VM instances. This
-                        must be a positive integer.
-                      format: int64
-                      type: integer
-                      x-dcl-go-name: Fixed
-                      x-kubernetes-immutable: true
-                    percent:
-                      description: Specifies a percentage of instances between 0 to
-                        100%, inclusive. For example, specify 80 for 80%.
-                      format: int64
-                      type: integer
-                      x-dcl-go-name: Percent
-                      x-kubernetes-immutable: true
-                  type: object
-                  x-dcl-go-name: MaxUnavailable
-                  x-dcl-go-type: InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable
-                  x-kubernetes-immutable: true
-                percent:
-                  description: Specifies a percentage of instances between 0 to 100%,
-                    inclusive. For example, specify 80 for 80%.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Percent
-                  x-kubernetes-immutable: true
-              type: object
-              x-dcl-go-name: MaxSurge
-              x-dcl-go-type: InstanceGroupManagerUpdatePolicyMaxSurge
-              x-kubernetes-immutable: true
-            minimalAction:
-              description: 'Minimal action to be taken on an instance. Possible values:
-                RESTART, REPLACE'
-              enum:
-              - RESTART
-              - REPLACE
-              type: string
-              x-dcl-go-name: MinimalAction
-              x-dcl-go-type: InstanceGroupManagerUpdatePolicyMinimalActionEnum
-              x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: UpdatePolicy
-          x-dcl-go-type: InstanceGroupManagerUpdatePolicy
-          x-kubernetes-immutable: true
-        versions:
-          description: Specifies the instance templates used by this managed instance
-            group to create instances.
-          items:
-            properties:
-              instanceTemplate:
-                description: The group uses this template to create new instances
-                  in the managed instance group until the targetSize for this version
-                  is reached.
-                type: string
-                x-dcl-go-name: InstanceTemplate
-                x-dcl-references:
-                - field: selfLink
-                  resource: Compute/InstanceTemplate
-                x-kubernetes-immutable: true
-              name:
-                description: Name of the version. Unique among all versions in the
-                  scope of this managed instance group.
-                type: string
-                x-dcl-go-name: Name
-                x-kubernetes-immutable: true
-              targetSize:
-                description: Specifies the intended number of instances to be created
-                  from the instanceTemplate.
-                properties:
-                  calculated:
-                    description: Absolute value of VM instances calculated based on
-                      the specific mode.
-                    format: int64
-                    readOnly: true
-                    type: integer
-                    x-dcl-go-name: Calculated
-                    x-kubernetes-immutable: true
-                  fixed:
-                    description: Specifies a fixed number of VM instances. This must
-                      be a positive integer.
-                    format: int64
-                    type: integer
-                    x-dcl-go-name: Fixed
-                    x-kubernetes-immutable: true
-                  percent:
-                    description: Specifies a percentage of instances between 0 to
-                      100%, inclusive. For example, specify 80 for 80%.
-                    format: int64
-                    type: integer
-                    x-dcl-go-name: Percent
-                    x-kubernetes-immutable: true
-                type: object
-                x-dcl-go-name: TargetSize
-                x-dcl-go-type: InstanceGroupManagerVersionsTargetSize
-                x-kubernetes-immutable: true
-            type: object
-            x-dcl-go-type: InstanceGroupManagerVersions
-          type: array
-          x-dcl-go-name: Versions
-          x-dcl-list-type: list
-          x-kubernetes-immutable: true
-        zone:
-          description: The zone the managed instance group resides.
-          readOnly: true
-          type: string
-          x-dcl-go-name: Zone
-          x-kubernetes-immutable: true
-      required:
-      - baseInstanceName
-      - name
-      - project
-      title: InstanceGroupManager
-      type: object
-      x-dcl-id: ""
-      x-dcl-locations:
-      - zone
-      - region
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Compute InstanceGroupManager resource
   title: Compute/InstanceGroupManager
+  description: DCL Specification for the Compute InstanceGroupManager resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a InstanceGroupManager
+    parameters:
+    - name: InstanceGroupManager
+      required: true
+      description: A full instance of a InstanceGroupManager
   apply:
     description: The function used to apply information about a InstanceGroupManager
     parameters:
-    - description: A full instance of a InstanceGroupManager
-      name: InstanceGroupManager
+    - name: InstanceGroupManager
       required: true
+      description: A full instance of a InstanceGroupManager
   delete:
     description: The function used to delete a InstanceGroupManager
     parameters:
-    - description: A full instance of a InstanceGroupManager
-      name: InstanceGroupManager
+    - name: InstanceGroupManager
       required: true
+      description: A full instance of a InstanceGroupManager
   deleteAll:
     description: The function used to delete all InstanceGroupManager
     parameters:
@@ -495,12 +45,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a InstanceGroupManager
-    parameters:
-    - description: A full instance of a InstanceGroupManager
-      name: InstanceGroupManager
-      required: true
   list:
     description: The function used to list information about many InstanceGroupManager
     parameters:
@@ -512,3 +56,457 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    InstanceGroupManager:
+      title: InstanceGroupManager
+      x-dcl-locations:
+      - zone
+      - region
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - baseInstanceName
+      - name
+      - project
+      properties:
+        autoHealingPolicies:
+          type: array
+          x-dcl-go-name: AutoHealingPolicies
+          description: The autohealing policy for this managed instance group.
+          x-kubernetes-immutable: true
+          x-dcl-list-type: list
+          items:
+            type: object
+            x-dcl-go-type: InstanceGroupManagerAutoHealingPolicies
+            properties:
+              healthCheck:
+                type: string
+                x-dcl-go-name: HealthCheck
+                description: The healthcheck that signals autohealing
+                x-kubernetes-immutable: true
+                x-dcl-references:
+                - resource: Compute/HealthCheck
+                  field: selfLink
+              initialDelaySec:
+                type: integer
+                format: int64
+                x-dcl-go-name: InitialDelaySec
+                description: The number of seconds that the managed instance group
+                  waits before it applies autohealing policies to new instances or
+                  recently recreated instances.
+                x-kubernetes-immutable: true
+        baseInstanceName:
+          type: string
+          x-dcl-go-name: BaseInstanceName
+          description: 'The base instance name to use for instances in this group.
+            The value must be 1-58 characters long. Instances are named by appending
+            a hyphen and a random four-character string to the base instance name.
+            The base instance name must comply with RFC1035. '
+          x-kubernetes-immutable: true
+        creationTimestamp:
+          type: string
+          format: date-time
+          x-dcl-go-name: CreationTimestamp
+          readOnly: true
+          description: 'The creation timestamp for this managed instance group in
+            RFC3339 text format. '
+          x-kubernetes-immutable: true
+        currentActions:
+          type: object
+          x-dcl-go-name: CurrentActions
+          x-dcl-go-type: InstanceGroupManagerCurrentActions
+          readOnly: true
+          description: 'The list of instance actions and the number of instances in
+            this managed instance group that are scheduled for each of those actions. '
+          x-kubernetes-immutable: true
+          properties:
+            abandoning:
+              type: integer
+              format: int64
+              x-dcl-go-name: Abandoning
+              readOnly: true
+              description: 'The total number of instances in the managed instance
+                group that are scheduled to be abandoned. Abandoning an instance removes
+                it from the managed instance group without deleting it. '
+              x-kubernetes-immutable: true
+            creating:
+              type: integer
+              format: int64
+              x-dcl-go-name: Creating
+              readOnly: true
+              description: 'The number of instances in the managed instance group
+                that are scheduled to be created or are currently being created. If
+                the group fails to create any of these instances, it tries again until
+                it creates the instance successfully.  If you have disabled creation
+                retries, this field will not be populated; instead, the creatingWithoutRetries
+                field will be populated. '
+              x-kubernetes-immutable: true
+            creatingWithoutRetries:
+              type: integer
+              format: int64
+              x-dcl-go-name: CreatingWithoutRetries
+              readOnly: true
+              description: 'The number of instances that the managed instance group
+                will attempt to create. The group attempts to create each instance
+                only once. If the group fails to create any of these instances, it
+                decreases the group''s targetSize value accordingly. '
+              x-kubernetes-immutable: true
+            deleting:
+              type: integer
+              format: int64
+              x-dcl-go-name: Deleting
+              readOnly: true
+              description: 'The number of instances in the managed instance group
+                that are scheduled to be deleted or are currently being deleted. '
+              x-kubernetes-immutable: true
+            none:
+              type: integer
+              format: int64
+              x-dcl-go-name: None
+              readOnly: true
+              description: 'The number of instances in the managed instance group
+                that are running and have no scheduled actions. '
+              x-kubernetes-immutable: true
+            recreating:
+              type: integer
+              format: int64
+              x-dcl-go-name: Recreating
+              readOnly: true
+              description: 'The number of instances in the managed instance group
+                that are scheduled to be recreated or are currently being being recreated.
+                Recreating an instance deletes the existing root persistent disk and
+                creates a new disk from the image that is defined in the instance
+                template. '
+              x-kubernetes-immutable: true
+            refreshing:
+              type: integer
+              format: int64
+              x-dcl-go-name: Refreshing
+              readOnly: true
+              description: 'The number of instances in the managed instance group
+                that are being reconfigured with properties that do not require a
+                restart or a recreate action. For example, setting or removing target
+                pools for the instance. '
+              x-kubernetes-immutable: true
+            restarting:
+              type: integer
+              format: int64
+              x-dcl-go-name: Restarting
+              readOnly: true
+              description: 'The number of instances in the managed instance group
+                that are scheduled to be restarted or are currently being restarted. '
+              x-kubernetes-immutable: true
+        description:
+          type: string
+          x-dcl-go-name: Description
+          description: 'An optional description of this resource. Provide this property
+            when you create the resource. '
+          x-kubernetes-immutable: true
+        distributionPolicy:
+          type: object
+          x-dcl-go-name: DistributionPolicy
+          x-dcl-go-type: InstanceGroupManagerDistributionPolicy
+          description: Policy specifying intended distribution of instances in regional
+            managed instance group.
+          x-kubernetes-immutable: true
+          properties:
+            zones:
+              type: array
+              x-dcl-go-name: Zones
+              description: Zones where the regional managed instance group will create
+                and manage instances.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: object
+                x-dcl-go-type: InstanceGroupManagerDistributionPolicyZones
+                properties:
+                  zone:
+                    type: string
+                    x-dcl-go-name: Zone
+                    description: The URL of the zone. The zone must exist in the region
+                      where the managed instance group is located.
+                    x-kubernetes-immutable: true
+        id:
+          type: integer
+          format: int64
+          x-dcl-go-name: Id
+          readOnly: true
+          description: A unique identifier for this resource
+          x-kubernetes-immutable: true
+        instanceGroup:
+          type: string
+          x-dcl-go-name: InstanceGroup
+          readOnly: true
+          description: The instance group being managed
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Compute/InstanceGroup
+            field: selfLink
+        instanceTemplate:
+          type: string
+          x-dcl-go-name: InstanceTemplate
+          description: 'The instance template that is specified for this managed instance
+            group. The group uses this template to create all new instances in the
+            managed instance group. '
+          x-dcl-references:
+          - resource: Compute/InstanceTemplate
+            field: selfLink
+        location:
+          type: string
+          x-dcl-go-name: Location
+          description: The location of this resource.
+          x-kubernetes-immutable: true
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: 'The name of the managed instance group. The name must be 1-63
+            characters long, and comply with RFC1035. '
+          x-kubernetes-immutable: true
+        namedPorts:
+          type: array
+          x-dcl-go-name: NamedPorts
+          description: Named ports configured for the Instance Groups complementary
+            to this Instance Group Manager.
+          x-kubernetes-immutable: true
+          x-dcl-list-type: list
+          items:
+            type: object
+            x-dcl-go-type: InstanceGroupManagerNamedPorts
+            properties:
+              name:
+                type: string
+                x-dcl-go-name: Name
+                description: 'The name for this named port. The name must be 1-63
+                  characters long, and comply with RFC1035. '
+                x-kubernetes-immutable: true
+              port:
+                type: integer
+                format: int64
+                x-dcl-go-name: Port
+                description: The port number, which can be a value between 1 and 65535.
+                x-kubernetes-immutable: true
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project id of the resource.
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+        region:
+          type: string
+          x-dcl-go-name: Region
+          readOnly: true
+          description: The region the managed instance group resides in
+          x-kubernetes-immutable: true
+        status:
+          type: object
+          x-dcl-go-name: Status
+          x-dcl-go-type: InstanceGroupManagerStatus
+          readOnly: true
+          description: The status of this managed instance group.
+          x-kubernetes-immutable: true
+          properties:
+            autoscalar:
+              type: string
+              x-dcl-go-name: Autoscalar
+              description: The autoscalar that targets this instance group manager
+              x-kubernetes-immutable: true
+              x-dcl-references:
+              - resource: Compute/Autoscalar
+                field: selfLink
+            isStable:
+              type: boolean
+              x-dcl-go-name: IsStable
+              description: A bit indicating whether the managed instance group is
+                in a stable state.
+              x-kubernetes-immutable: true
+            versionTarget:
+              type: object
+              x-dcl-go-name: VersionTarget
+              x-dcl-go-type: InstanceGroupManagerStatusVersionTarget
+              description: A status of consistency of Instances' versions with their
+                target version specified by version field on Instance Group Manager.
+              x-kubernetes-immutable: true
+              properties:
+                isReached:
+                  type: boolean
+                  x-dcl-go-name: IsReached
+                  description: A bit indicating whether version target has been reached
+                    in this managed instance group, i.e. all instances are in their
+                    target version. Instances' target version are specified by version
+                    field on Instance Group Manager.
+                  x-kubernetes-immutable: true
+        targetPools:
+          type: array
+          x-dcl-go-name: TargetPools
+          description: 'TargetPool resources to which instances in the instanceGroup
+            field are added. The target pools automatically apply to all of the instances
+            in the managed instance group. '
+          x-dcl-list-type: list
+          items:
+            type: string
+            x-dcl-go-type: string
+            x-dcl-references:
+            - resource: Compute/TargetPool
+              field: selfLink
+        targetSize:
+          type: integer
+          format: int64
+          x-dcl-go-name: TargetSize
+          description: 'The target number of running instances for this managed instance
+            group. Deleting or abandoning instances reduces this number. Resizing
+            the group changes this number. '
+          x-kubernetes-immutable: true
+        updatePolicy:
+          type: object
+          x-dcl-go-name: UpdatePolicy
+          x-dcl-go-type: InstanceGroupManagerUpdatePolicy
+          description: The update policy for this managed instance group.
+          x-kubernetes-immutable: true
+          properties:
+            instanceRedistributionType:
+              type: string
+              x-dcl-go-name: InstanceRedistributionType
+              x-dcl-go-type: InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum
+              description: 'The instance redistribution policy for regional managed
+                instance groups. Possible values: PROACTIVE, NONE'
+              x-kubernetes-immutable: true
+              enum:
+              - PROACTIVE
+              - NONE
+            maxSurge:
+              type: object
+              x-dcl-go-name: MaxSurge
+              x-dcl-go-type: InstanceGroupManagerUpdatePolicyMaxSurge
+              description: The maximum number of instances that can be created above
+                the specified targetSize during the update process
+              x-kubernetes-immutable: true
+              properties:
+                calculated:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: Calculated
+                  readOnly: true
+                  description: Absolute value of VM instances calculated based on
+                    the specific mode.
+                  x-kubernetes-immutable: true
+                fixed:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: Fixed
+                  description: Specifies a fixed number of VM instances. This must
+                    be a positive integer.
+                  x-kubernetes-immutable: true
+                maxUnavailable:
+                  type: object
+                  x-dcl-go-name: MaxUnavailable
+                  x-dcl-go-type: InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable
+                  description: The maximum number of instances that can be unavailable
+                    during the update process
+                  x-kubernetes-immutable: true
+                  properties:
+                    calculated:
+                      type: integer
+                      format: int64
+                      x-dcl-go-name: Calculated
+                      readOnly: true
+                      description: Absolute value of VM instances calculated based
+                        on the specific mode.
+                      x-kubernetes-immutable: true
+                    fixed:
+                      type: integer
+                      format: int64
+                      x-dcl-go-name: Fixed
+                      description: Specifies a fixed number of VM instances. This
+                        must be a positive integer.
+                      x-kubernetes-immutable: true
+                    percent:
+                      type: integer
+                      format: int64
+                      x-dcl-go-name: Percent
+                      description: Specifies a percentage of instances between 0 to
+                        100%, inclusive. For example, specify 80 for 80%.
+                      x-kubernetes-immutable: true
+                percent:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: Percent
+                  description: Specifies a percentage of instances between 0 to 100%,
+                    inclusive. For example, specify 80 for 80%.
+                  x-kubernetes-immutable: true
+            minimalAction:
+              type: string
+              x-dcl-go-name: MinimalAction
+              x-dcl-go-type: InstanceGroupManagerUpdatePolicyMinimalActionEnum
+              description: 'Minimal action to be taken on an instance. Possible values:
+                RESTART, REPLACE'
+              x-kubernetes-immutable: true
+              enum:
+              - RESTART
+              - REPLACE
+        versions:
+          type: array
+          x-dcl-go-name: Versions
+          description: Specifies the instance templates used by this managed instance
+            group to create instances.
+          x-kubernetes-immutable: true
+          x-dcl-list-type: list
+          items:
+            type: object
+            x-dcl-go-type: InstanceGroupManagerVersions
+            properties:
+              instanceTemplate:
+                type: string
+                x-dcl-go-name: InstanceTemplate
+                description: The group uses this template to create new instances
+                  in the managed instance group until the targetSize for this version
+                  is reached.
+                x-kubernetes-immutable: true
+                x-dcl-references:
+                - resource: Compute/InstanceTemplate
+                  field: selfLink
+              name:
+                type: string
+                x-dcl-go-name: Name
+                description: Name of the version. Unique among all versions in the
+                  scope of this managed instance group.
+                x-kubernetes-immutable: true
+              targetSize:
+                type: object
+                x-dcl-go-name: TargetSize
+                x-dcl-go-type: InstanceGroupManagerVersionsTargetSize
+                description: Specifies the intended number of instances to be created
+                  from the instanceTemplate.
+                x-kubernetes-immutable: true
+                properties:
+                  calculated:
+                    type: integer
+                    format: int64
+                    x-dcl-go-name: Calculated
+                    readOnly: true
+                    description: Absolute value of VM instances calculated based on
+                      the specific mode.
+                    x-kubernetes-immutable: true
+                  fixed:
+                    type: integer
+                    format: int64
+                    x-dcl-go-name: Fixed
+                    description: Specifies a fixed number of VM instances. This must
+                      be a positive integer.
+                    x-kubernetes-immutable: true
+                  percent:
+                    type: integer
+                    format: int64
+                    x-dcl-go-name: Percent
+                    description: Specifies a percentage of instances between 0 to
+                      100%, inclusive. For example, specify 80 for 80%.
+                    x-kubernetes-immutable: true
+        zone:
+          type: string
+          x-dcl-go-name: Zone
+          readOnly: true
+          description: The zone the managed instance group resides.
+          x-kubernetes-immutable: true

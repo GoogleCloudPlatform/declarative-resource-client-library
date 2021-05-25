@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -117,7 +118,7 @@ func (l *OAuthIdpConfigList) HasNext() bool {
 }
 
 func (l *OAuthIdpConfigList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -133,7 +134,7 @@ func (l *OAuthIdpConfigList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListOAuthIdpConfig(ctx context.Context, project string) (*OAuthIdpConfigList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListOAuthIdpConfigWithMaxResults(ctx, project, OAuthIdpConfigMaxPage)
@@ -141,7 +142,7 @@ func (c *Client) ListOAuthIdpConfig(ctx context.Context, project string) (*OAuth
 }
 
 func (c *Client) ListOAuthIdpConfigWithMaxResults(ctx context.Context, project string, pageSize int32) (*OAuthIdpConfigList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listOAuthIdpConfig(ctx, project, "", pageSize)
@@ -158,7 +159,7 @@ func (c *Client) ListOAuthIdpConfigWithMaxResults(ctx context.Context, project s
 }
 
 func (c *Client) GetOAuthIdpConfig(ctx context.Context, r *OAuthIdpConfig) (*OAuthIdpConfig, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getOAuthIdpConfigRaw(ctx, r)
@@ -190,7 +191,7 @@ func (c *Client) GetOAuthIdpConfig(ctx context.Context, r *OAuthIdpConfig) (*OAu
 }
 
 func (c *Client) DeleteOAuthIdpConfig(ctx context.Context, r *OAuthIdpConfig) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -203,9 +204,6 @@ func (c *Client) DeleteOAuthIdpConfig(ctx context.Context, r *OAuthIdpConfig) er
 
 // DeleteAllOAuthIdpConfig deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllOAuthIdpConfig(ctx context.Context, project string, filter func(*OAuthIdpConfig) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListOAuthIdpConfig(ctx, project)
 	if err != nil {
 		return err
@@ -229,10 +227,29 @@ func (c *Client) DeleteAllOAuthIdpConfig(ctx context.Context, project string, fi
 }
 
 func (c *Client) ApplyOAuthIdpConfig(ctx context.Context, rawDesired *OAuthIdpConfig, opts ...dcl.ApplyOption) (*OAuthIdpConfig, error) {
+
+	var resultNewState *OAuthIdpConfig
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyOAuthIdpConfigHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyOAuthIdpConfigHelper(c *Client, ctx context.Context, rawDesired *OAuthIdpConfig, opts ...dcl.ApplyOption) (*OAuthIdpConfig, error) {
 	c.Config.Logger.Info("Beginning ApplyOAuthIdpConfig...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -328,7 +329,7 @@ func (l *ReservationList) HasNext() bool {
 }
 
 func (l *ReservationList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -344,7 +345,7 @@ func (l *ReservationList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListReservation(ctx context.Context, project, zone string) (*ReservationList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListReservationWithMaxResults(ctx, project, zone, ReservationMaxPage)
@@ -352,7 +353,7 @@ func (c *Client) ListReservation(ctx context.Context, project, zone string) (*Re
 }
 
 func (c *Client) ListReservationWithMaxResults(ctx context.Context, project, zone string, pageSize int32) (*ReservationList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listReservation(ctx, project, zone, "", pageSize)
@@ -371,7 +372,7 @@ func (c *Client) ListReservationWithMaxResults(ctx context.Context, project, zon
 }
 
 func (c *Client) GetReservation(ctx context.Context, r *Reservation) (*Reservation, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getReservationRaw(ctx, r)
@@ -404,7 +405,7 @@ func (c *Client) GetReservation(ctx context.Context, r *Reservation) (*Reservati
 }
 
 func (c *Client) DeleteReservation(ctx context.Context, r *Reservation) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -417,9 +418,6 @@ func (c *Client) DeleteReservation(ctx context.Context, r *Reservation) error {
 
 // DeleteAllReservation deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllReservation(ctx context.Context, project, zone string, filter func(*Reservation) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListReservation(ctx, project, zone)
 	if err != nil {
 		return err
@@ -443,10 +441,29 @@ func (c *Client) DeleteAllReservation(ctx context.Context, project, zone string,
 }
 
 func (c *Client) ApplyReservation(ctx context.Context, rawDesired *Reservation, opts ...dcl.ApplyOption) (*Reservation, error) {
+
+	var resultNewState *Reservation
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyReservationHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyReservationHelper(c *Client, ctx context.Context, rawDesired *Reservation, opts ...dcl.ApplyOption) (*Reservation, error) {
 	c.Config.Logger.Info("Beginning ApplyReservation...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

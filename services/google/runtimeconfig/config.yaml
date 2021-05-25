@@ -11,54 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    Config:
-      properties:
-        description:
-          description: An optional description of the runtime config.
-          type: string
-          x-dcl-go-name: Description
-        name:
-          description: The name of the runtime config.
-          type: string
-          x-dcl-go-name: Name
-          x-kubernetes-immutable: true
-        project:
-          description: The ID of the project in which the resource belongs.
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-      required:
-      - name
-      - project
-      title: Config
-      type: object
-      x-dcl-id: projects/{{project}}/configs/{{name}}
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the RuntimeConfig Config resource
   title: RuntimeConfig/Config
+  description: DCL Specification for the RuntimeConfig Config resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a Config
+    parameters:
+    - name: Config
+      required: true
+      description: A full instance of a Config
   apply:
     description: The function used to apply information about a Config
     parameters:
-    - description: A full instance of a Config
-      name: Config
+    - name: Config
       required: true
+      description: A full instance of a Config
   delete:
     description: The function used to delete a Config
     parameters:
-    - description: A full instance of a Config
-      name: Config
+    - name: Config
       required: true
+      description: A full instance of a Config
   deleteAll:
     description: The function used to delete all Config
     parameters:
@@ -70,12 +45,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a Config
-    parameters:
-    - description: A full instance of a Config
-      name: Config
-      required: true
   list:
     description: The function used to list information about many Config
     parameters:
@@ -87,3 +56,32 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    Config:
+      title: Config
+      x-dcl-id: projects/{{project}}/configs/{{name}}
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - name
+      - project
+      properties:
+        description:
+          type: string
+          x-dcl-go-name: Description
+          description: An optional description of the runtime config.
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: The name of the runtime config.
+          x-kubernetes-immutable: true
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The ID of the project in which the resource belongs.
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true

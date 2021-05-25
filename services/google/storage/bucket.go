@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -548,7 +549,7 @@ func (l *BucketList) HasNext() bool {
 }
 
 func (l *BucketList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -564,7 +565,7 @@ func (l *BucketList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListBucket(ctx context.Context, project string) (*BucketList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListBucketWithMaxResults(ctx, project, BucketMaxPage)
@@ -572,7 +573,7 @@ func (c *Client) ListBucket(ctx context.Context, project string) (*BucketList, e
 }
 
 func (c *Client) ListBucketWithMaxResults(ctx context.Context, project string, pageSize int32) (*BucketList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listBucket(ctx, project, "", pageSize)
@@ -589,7 +590,7 @@ func (c *Client) ListBucketWithMaxResults(ctx context.Context, project string, p
 }
 
 func (c *Client) GetBucket(ctx context.Context, r *Bucket) (*Bucket, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getBucketRaw(ctx, r)
@@ -621,7 +622,7 @@ func (c *Client) GetBucket(ctx context.Context, r *Bucket) (*Bucket, error) {
 }
 
 func (c *Client) DeleteBucket(ctx context.Context, r *Bucket) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -634,9 +635,6 @@ func (c *Client) DeleteBucket(ctx context.Context, r *Bucket) error {
 
 // DeleteAllBucket deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllBucket(ctx context.Context, project string, filter func(*Bucket) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListBucket(ctx, project)
 	if err != nil {
 		return err
@@ -660,10 +658,29 @@ func (c *Client) DeleteAllBucket(ctx context.Context, project string, filter fun
 }
 
 func (c *Client) ApplyBucket(ctx context.Context, rawDesired *Bucket, opts ...dcl.ApplyOption) (*Bucket, error) {
+
+	var resultNewState *Bucket
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyBucketHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyBucketHelper(c *Client, ctx context.Context, rawDesired *Bucket, opts ...dcl.ApplyOption) (*Bucket, error) {
 	c.Config.Logger.Info("Beginning ApplyBucket...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

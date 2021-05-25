@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -65,7 +66,7 @@ func (l *SslCertList) HasNext() bool {
 }
 
 func (l *SslCertList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -81,7 +82,7 @@ func (l *SslCertList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListSslCert(ctx context.Context, project, instance string) (*SslCertList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListSslCertWithMaxResults(ctx, project, instance, SslCertMaxPage)
@@ -89,7 +90,7 @@ func (c *Client) ListSslCert(ctx context.Context, project, instance string) (*Ss
 }
 
 func (c *Client) ListSslCertWithMaxResults(ctx context.Context, project, instance string, pageSize int32) (*SslCertList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listSslCert(ctx, project, instance, "", pageSize)
@@ -108,7 +109,7 @@ func (c *Client) ListSslCertWithMaxResults(ctx context.Context, project, instanc
 }
 
 func (c *Client) GetSslCert(ctx context.Context, r *SslCert) (*SslCert, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getSslCertRaw(ctx, r)
@@ -141,7 +142,7 @@ func (c *Client) GetSslCert(ctx context.Context, r *SslCert) (*SslCert, error) {
 }
 
 func (c *Client) DeleteSslCert(ctx context.Context, r *SslCert) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -154,9 +155,6 @@ func (c *Client) DeleteSslCert(ctx context.Context, r *SslCert) error {
 
 // DeleteAllSslCert deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllSslCert(ctx context.Context, project, instance string, filter func(*SslCert) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListSslCert(ctx, project, instance)
 	if err != nil {
 		return err
@@ -180,10 +178,29 @@ func (c *Client) DeleteAllSslCert(ctx context.Context, project, instance string,
 }
 
 func (c *Client) ApplySslCert(ctx context.Context, rawDesired *SslCert, opts ...dcl.ApplyOption) (*SslCert, error) {
+
+	var resultNewState *SslCert
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applySslCertHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applySslCertHelper(c *Client, ctx context.Context, rawDesired *SslCert, opts ...dcl.ApplyOption) (*SslCert, error) {
 	c.Config.Logger.Info("Beginning ApplySslCert...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

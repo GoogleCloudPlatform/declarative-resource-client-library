@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -302,7 +303,7 @@ func (l *ServicePerimeterList) HasNext() bool {
 }
 
 func (l *ServicePerimeterList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -318,7 +319,7 @@ func (l *ServicePerimeterList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListServicePerimeter(ctx context.Context, policy string) (*ServicePerimeterList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListServicePerimeterWithMaxResults(ctx, policy, ServicePerimeterMaxPage)
@@ -326,7 +327,7 @@ func (c *Client) ListServicePerimeter(ctx context.Context, policy string) (*Serv
 }
 
 func (c *Client) ListServicePerimeterWithMaxResults(ctx context.Context, policy string, pageSize int32) (*ServicePerimeterList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listServicePerimeter(ctx, policy, "", pageSize)
@@ -343,7 +344,7 @@ func (c *Client) ListServicePerimeterWithMaxResults(ctx context.Context, policy 
 }
 
 func (c *Client) GetServicePerimeter(ctx context.Context, r *ServicePerimeter) (*ServicePerimeter, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getServicePerimeterRaw(ctx, r)
@@ -378,7 +379,7 @@ func (c *Client) GetServicePerimeter(ctx context.Context, r *ServicePerimeter) (
 }
 
 func (c *Client) DeleteServicePerimeter(ctx context.Context, r *ServicePerimeter) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -391,9 +392,6 @@ func (c *Client) DeleteServicePerimeter(ctx context.Context, r *ServicePerimeter
 
 // DeleteAllServicePerimeter deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllServicePerimeter(ctx context.Context, policy string, filter func(*ServicePerimeter) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListServicePerimeter(ctx, policy)
 	if err != nil {
 		return err
@@ -417,10 +415,29 @@ func (c *Client) DeleteAllServicePerimeter(ctx context.Context, policy string, f
 }
 
 func (c *Client) ApplyServicePerimeter(ctx context.Context, rawDesired *ServicePerimeter, opts ...dcl.ApplyOption) (*ServicePerimeter, error) {
+
+	var resultNewState *ServicePerimeter
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyServicePerimeterHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyServicePerimeterHelper(c *Client, ctx context.Context, rawDesired *ServicePerimeter, opts ...dcl.ApplyOption) (*ServicePerimeter, error) {
 	c.Config.Logger.Info("Beginning ApplyServicePerimeter...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

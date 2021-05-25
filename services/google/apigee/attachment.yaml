@@ -11,75 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    Attachment:
-      properties:
-        createdAt:
-          format: int64
-          readOnly: true
-          type: integer
-          x-dcl-go-name: CreatedAt
-          x-kubernetes-immutable: true
-        envgroup:
-          description: The envgroup for the resource
-          type: string
-          x-dcl-go-name: Envgroup
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Apigee/Envgroup
-          x-kubernetes-immutable: true
-        environment:
-          description: Required. ID of the attached environment.
-          type: string
-          x-dcl-go-name: Environment
-          x-dcl-references:
-          - field: name
-            resource: Apigee/Environment
-          x-kubernetes-immutable: true
-        name:
-          description: ID of the environment group attachment.
-          type: string
-          x-dcl-go-name: Name
-          x-dcl-server-generated-parameter: true
-          x-kubernetes-immutable: true
-        organization:
-          description: The organization for the resource
-          type: string
-          x-dcl-go-name: Organization
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Organization
-          x-kubernetes-immutable: true
-      required:
-      - environment
-      - organization
-      - envgroup
-      title: Attachment
-      type: object
-      x-dcl-id: organizations/{{organization}}/envgroups/{{envgroup}}/attachments/{{name}}
-      x-dcl-locations: []
-      x-dcl-parent-container: organization
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Apigee Attachment resource
   title: Apigee/Attachment
+  description: DCL Specification for the Apigee Attachment resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a Attachment
+    parameters:
+    - name: Attachment
+      required: true
+      description: A full instance of a Attachment
   apply:
     description: The function used to apply information about a Attachment
     parameters:
-    - description: A full instance of a Attachment
-      name: Attachment
+    - name: Attachment
       required: true
+      description: A full instance of a Attachment
   delete:
     description: The function used to delete a Attachment
     parameters:
-    - description: A full instance of a Attachment
-      name: Attachment
+    - name: Attachment
       required: true
+      description: A full instance of a Attachment
   deleteAll:
     description: The function used to delete all Attachment
     parameters:
@@ -91,12 +45,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a Attachment
-    parameters:
-    - description: A full instance of a Attachment
-      name: Attachment
-      required: true
   list:
     description: The function used to list information about many Attachment
     parameters:
@@ -108,3 +56,53 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    Attachment:
+      title: Attachment
+      x-dcl-id: organizations/{{organization}}/envgroups/{{envgroup}}/attachments/{{name}}
+      x-dcl-parent-container: organization
+      type: object
+      required:
+      - environment
+      - organization
+      - envgroup
+      properties:
+        createdAt:
+          type: integer
+          format: int64
+          x-dcl-go-name: CreatedAt
+          readOnly: true
+          x-kubernetes-immutable: true
+        envgroup:
+          type: string
+          x-dcl-go-name: Envgroup
+          description: The envgroup for the resource
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Apigee/Envgroup
+            field: name
+            parent: true
+        environment:
+          type: string
+          x-dcl-go-name: Environment
+          description: Required. ID of the attached environment.
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Apigee/Environment
+            field: name
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: ID of the environment group attachment.
+          x-kubernetes-immutable: true
+          x-dcl-server-generated-parameter: true
+        organization:
+          type: string
+          x-dcl-go-name: Organization
+          description: The organization for the resource
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Organization
+            field: name
+            parent: true

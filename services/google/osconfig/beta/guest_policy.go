@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -1824,7 +1825,7 @@ func (l *GuestPolicyList) HasNext() bool {
 }
 
 func (l *GuestPolicyList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -1840,7 +1841,7 @@ func (l *GuestPolicyList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListGuestPolicy(ctx context.Context, project string) (*GuestPolicyList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListGuestPolicyWithMaxResults(ctx, project, GuestPolicyMaxPage)
@@ -1848,7 +1849,7 @@ func (c *Client) ListGuestPolicy(ctx context.Context, project string) (*GuestPol
 }
 
 func (c *Client) ListGuestPolicyWithMaxResults(ctx context.Context, project string, pageSize int32) (*GuestPolicyList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listGuestPolicy(ctx, project, "", pageSize)
@@ -1865,7 +1866,7 @@ func (c *Client) ListGuestPolicyWithMaxResults(ctx context.Context, project stri
 }
 
 func (c *Client) GetGuestPolicy(ctx context.Context, r *GuestPolicy) (*GuestPolicy, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getGuestPolicyRaw(ctx, r)
@@ -1897,7 +1898,7 @@ func (c *Client) GetGuestPolicy(ctx context.Context, r *GuestPolicy) (*GuestPoli
 }
 
 func (c *Client) DeleteGuestPolicy(ctx context.Context, r *GuestPolicy) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -1910,9 +1911,6 @@ func (c *Client) DeleteGuestPolicy(ctx context.Context, r *GuestPolicy) error {
 
 // DeleteAllGuestPolicy deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllGuestPolicy(ctx context.Context, project string, filter func(*GuestPolicy) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListGuestPolicy(ctx, project)
 	if err != nil {
 		return err
@@ -1936,10 +1934,29 @@ func (c *Client) DeleteAllGuestPolicy(ctx context.Context, project string, filte
 }
 
 func (c *Client) ApplyGuestPolicy(ctx context.Context, rawDesired *GuestPolicy, opts ...dcl.ApplyOption) (*GuestPolicy, error) {
+
+	var resultNewState *GuestPolicy
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyGuestPolicyHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyGuestPolicyHelper(c *Client, ctx context.Context, rawDesired *GuestPolicy, opts ...dcl.ApplyOption) (*GuestPolicy, error) {
 	c.Config.Logger.Info("Beginning ApplyGuestPolicy...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

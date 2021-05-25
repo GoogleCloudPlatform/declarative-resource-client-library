@@ -16,6 +16,7 @@ package alpha
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -67,7 +68,7 @@ func (l *HttpFilterList) HasNext() bool {
 }
 
 func (l *HttpFilterList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -83,7 +84,7 @@ func (l *HttpFilterList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListHttpFilter(ctx context.Context, project, location string) (*HttpFilterList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListHttpFilterWithMaxResults(ctx, project, location, HttpFilterMaxPage)
@@ -91,7 +92,7 @@ func (c *Client) ListHttpFilter(ctx context.Context, project, location string) (
 }
 
 func (c *Client) ListHttpFilterWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*HttpFilterList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listHttpFilter(ctx, project, location, "", pageSize)
@@ -110,7 +111,7 @@ func (c *Client) ListHttpFilterWithMaxResults(ctx context.Context, project, loca
 }
 
 func (c *Client) GetHttpFilter(ctx context.Context, r *HttpFilter) (*HttpFilter, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getHttpFilterRaw(ctx, r)
@@ -143,7 +144,7 @@ func (c *Client) GetHttpFilter(ctx context.Context, r *HttpFilter) (*HttpFilter,
 }
 
 func (c *Client) DeleteHttpFilter(ctx context.Context, r *HttpFilter) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -156,9 +157,6 @@ func (c *Client) DeleteHttpFilter(ctx context.Context, r *HttpFilter) error {
 
 // DeleteAllHttpFilter deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllHttpFilter(ctx context.Context, project, location string, filter func(*HttpFilter) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListHttpFilter(ctx, project, location)
 	if err != nil {
 		return err
@@ -182,10 +180,29 @@ func (c *Client) DeleteAllHttpFilter(ctx context.Context, project, location stri
 }
 
 func (c *Client) ApplyHttpFilter(ctx context.Context, rawDesired *HttpFilter, opts ...dcl.ApplyOption) (*HttpFilter, error) {
+
+	var resultNewState *HttpFilter
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyHttpFilterHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyHttpFilterHelper(c *Client, ctx context.Context, rawDesired *HttpFilter, opts ...dcl.ApplyOption) (*HttpFilter, error) {
 	c.Config.Logger.Info("Beginning ApplyHttpFilter...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

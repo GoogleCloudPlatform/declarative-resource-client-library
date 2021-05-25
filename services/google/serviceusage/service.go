@@ -16,6 +16,7 @@ package serviceusage
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -85,7 +86,7 @@ func (l *ServiceList) HasNext() bool {
 }
 
 func (l *ServiceList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -101,7 +102,7 @@ func (l *ServiceList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListService(ctx context.Context, project string) (*ServiceList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListServiceWithMaxResults(ctx, project, ServiceMaxPage)
@@ -109,7 +110,7 @@ func (c *Client) ListService(ctx context.Context, project string) (*ServiceList,
 }
 
 func (c *Client) ListServiceWithMaxResults(ctx context.Context, project string, pageSize int32) (*ServiceList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listService(ctx, project, "", pageSize)
@@ -126,7 +127,7 @@ func (c *Client) ListServiceWithMaxResults(ctx context.Context, project string, 
 }
 
 func (c *Client) GetService(ctx context.Context, r *Service) (*Service, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getServiceRaw(ctx, r)
@@ -158,7 +159,7 @@ func (c *Client) GetService(ctx context.Context, r *Service) (*Service, error) {
 }
 
 func (c *Client) DeleteService(ctx context.Context, r *Service) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -171,9 +172,6 @@ func (c *Client) DeleteService(ctx context.Context, r *Service) error {
 
 // DeleteAllService deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllService(ctx context.Context, project string, filter func(*Service) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListService(ctx, project)
 	if err != nil {
 		return err
@@ -197,10 +195,29 @@ func (c *Client) DeleteAllService(ctx context.Context, project string, filter fu
 }
 
 func (c *Client) ApplyService(ctx context.Context, rawDesired *Service, opts ...dcl.ApplyOption) (*Service, error) {
+
+	var resultNewState *Service
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyServiceHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyServiceHelper(c *Client, ctx context.Context, rawDesired *Service, opts ...dcl.ApplyOption) (*Service, error) {
 	c.Config.Logger.Info("Beginning ApplyService...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

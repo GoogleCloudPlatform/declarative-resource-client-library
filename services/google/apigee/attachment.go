@@ -16,6 +16,7 @@ package apigee
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -62,7 +63,7 @@ func (l *AttachmentList) HasNext() bool {
 }
 
 func (l *AttachmentList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -78,7 +79,7 @@ func (l *AttachmentList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListAttachment(ctx context.Context, organization, envgroup string) (*AttachmentList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListAttachmentWithMaxResults(ctx, organization, envgroup, AttachmentMaxPage)
@@ -86,7 +87,7 @@ func (c *Client) ListAttachment(ctx context.Context, organization, envgroup stri
 }
 
 func (c *Client) ListAttachmentWithMaxResults(ctx context.Context, organization, envgroup string, pageSize int32) (*AttachmentList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listAttachment(ctx, organization, envgroup, "", pageSize)
@@ -105,7 +106,7 @@ func (c *Client) ListAttachmentWithMaxResults(ctx context.Context, organization,
 }
 
 func (c *Client) GetAttachment(ctx context.Context, r *Attachment) (*Attachment, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getAttachmentRaw(ctx, r)
@@ -138,7 +139,7 @@ func (c *Client) GetAttachment(ctx context.Context, r *Attachment) (*Attachment,
 }
 
 func (c *Client) DeleteAttachment(ctx context.Context, r *Attachment) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -151,9 +152,6 @@ func (c *Client) DeleteAttachment(ctx context.Context, r *Attachment) error {
 
 // DeleteAllAttachment deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllAttachment(ctx context.Context, organization, envgroup string, filter func(*Attachment) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListAttachment(ctx, organization, envgroup)
 	if err != nil {
 		return err
@@ -177,10 +175,29 @@ func (c *Client) DeleteAllAttachment(ctx context.Context, organization, envgroup
 }
 
 func (c *Client) ApplyAttachment(ctx context.Context, rawDesired *Attachment, opts ...dcl.ApplyOption) (*Attachment, error) {
+
+	var resultNewState *Attachment
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyAttachmentHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyAttachmentHelper(c *Client, ctx context.Context, rawDesired *Attachment, opts ...dcl.ApplyOption) (*Attachment, error) {
 	c.Config.Logger.Info("Beginning ApplyAttachment...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

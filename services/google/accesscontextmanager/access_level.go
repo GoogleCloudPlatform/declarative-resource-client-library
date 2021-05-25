@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -395,7 +396,7 @@ func (l *AccessLevelList) HasNext() bool {
 }
 
 func (l *AccessLevelList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -411,7 +412,7 @@ func (l *AccessLevelList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListAccessLevel(ctx context.Context, policy string) (*AccessLevelList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListAccessLevelWithMaxResults(ctx, policy, AccessLevelMaxPage)
@@ -419,7 +420,7 @@ func (c *Client) ListAccessLevel(ctx context.Context, policy string) (*AccessLev
 }
 
 func (c *Client) ListAccessLevelWithMaxResults(ctx context.Context, policy string, pageSize int32) (*AccessLevelList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listAccessLevel(ctx, policy, "", pageSize)
@@ -436,7 +437,7 @@ func (c *Client) ListAccessLevelWithMaxResults(ctx context.Context, policy strin
 }
 
 func (c *Client) GetAccessLevel(ctx context.Context, r *AccessLevel) (*AccessLevel, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getAccessLevelRaw(ctx, r)
@@ -468,7 +469,7 @@ func (c *Client) GetAccessLevel(ctx context.Context, r *AccessLevel) (*AccessLev
 }
 
 func (c *Client) DeleteAccessLevel(ctx context.Context, r *AccessLevel) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -481,9 +482,6 @@ func (c *Client) DeleteAccessLevel(ctx context.Context, r *AccessLevel) error {
 
 // DeleteAllAccessLevel deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllAccessLevel(ctx context.Context, policy string, filter func(*AccessLevel) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListAccessLevel(ctx, policy)
 	if err != nil {
 		return err
@@ -507,10 +505,29 @@ func (c *Client) DeleteAllAccessLevel(ctx context.Context, policy string, filter
 }
 
 func (c *Client) ApplyAccessLevel(ctx context.Context, rawDesired *AccessLevel, opts ...dcl.ApplyOption) (*AccessLevel, error) {
+
+	var resultNewState *AccessLevel
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyAccessLevelHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyAccessLevelHelper(c *Client, ctx context.Context, rawDesired *AccessLevel, opts ...dcl.ApplyOption) (*AccessLevel, error) {
 	c.Config.Logger.Info("Beginning ApplyAccessLevel...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

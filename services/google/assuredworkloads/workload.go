@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -222,7 +223,7 @@ func (l *WorkloadList) HasNext() bool {
 }
 
 func (l *WorkloadList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -238,7 +239,7 @@ func (l *WorkloadList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListWorkload(ctx context.Context, organization, location string) (*WorkloadList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListWorkloadWithMaxResults(ctx, organization, location, WorkloadMaxPage)
@@ -246,7 +247,7 @@ func (c *Client) ListWorkload(ctx context.Context, organization, location string
 }
 
 func (c *Client) ListWorkloadWithMaxResults(ctx context.Context, organization, location string, pageSize int32) (*WorkloadList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listWorkload(ctx, organization, location, "", pageSize)
@@ -265,7 +266,7 @@ func (c *Client) ListWorkloadWithMaxResults(ctx context.Context, organization, l
 }
 
 func (c *Client) GetWorkload(ctx context.Context, r *Workload) (*Workload, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getWorkloadRaw(ctx, r)
@@ -298,7 +299,7 @@ func (c *Client) GetWorkload(ctx context.Context, r *Workload) (*Workload, error
 }
 
 func (c *Client) DeleteWorkload(ctx context.Context, r *Workload) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -311,9 +312,6 @@ func (c *Client) DeleteWorkload(ctx context.Context, r *Workload) error {
 
 // DeleteAllWorkload deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllWorkload(ctx context.Context, organization, location string, filter func(*Workload) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListWorkload(ctx, organization, location)
 	if err != nil {
 		return err
@@ -337,10 +335,29 @@ func (c *Client) DeleteAllWorkload(ctx context.Context, organization, location s
 }
 
 func (c *Client) ApplyWorkload(ctx context.Context, rawDesired *Workload, opts ...dcl.ApplyOption) (*Workload, error) {
+
+	var resultNewState *Workload
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyWorkloadHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyWorkloadHelper(c *Client, ctx context.Context, rawDesired *Workload, opts ...dcl.ApplyOption) (*Workload, error) {
 	c.Config.Logger.Info("Beginning ApplyWorkload...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -758,7 +759,7 @@ func (l *EnvironmentList) HasNext() bool {
 }
 
 func (l *EnvironmentList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -774,7 +775,7 @@ func (l *EnvironmentList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListEnvironment(ctx context.Context, project, location string) (*EnvironmentList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListEnvironmentWithMaxResults(ctx, project, location, EnvironmentMaxPage)
@@ -782,7 +783,7 @@ func (c *Client) ListEnvironment(ctx context.Context, project, location string) 
 }
 
 func (c *Client) ListEnvironmentWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*EnvironmentList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listEnvironment(ctx, project, location, "", pageSize)
@@ -801,7 +802,7 @@ func (c *Client) ListEnvironmentWithMaxResults(ctx context.Context, project, loc
 }
 
 func (c *Client) GetEnvironment(ctx context.Context, r *Environment) (*Environment, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getEnvironmentRaw(ctx, r)
@@ -834,7 +835,7 @@ func (c *Client) GetEnvironment(ctx context.Context, r *Environment) (*Environme
 }
 
 func (c *Client) DeleteEnvironment(ctx context.Context, r *Environment) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -847,9 +848,6 @@ func (c *Client) DeleteEnvironment(ctx context.Context, r *Environment) error {
 
 // DeleteAllEnvironment deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllEnvironment(ctx context.Context, project, location string, filter func(*Environment) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListEnvironment(ctx, project, location)
 	if err != nil {
 		return err
@@ -873,10 +871,29 @@ func (c *Client) DeleteAllEnvironment(ctx context.Context, project, location str
 }
 
 func (c *Client) ApplyEnvironment(ctx context.Context, rawDesired *Environment, opts ...dcl.ApplyOption) (*Environment, error) {
+
+	var resultNewState *Environment
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyEnvironmentHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyEnvironmentHelper(c *Client, ctx context.Context, rawDesired *Environment, opts ...dcl.ApplyOption) (*Environment, error) {
 	c.Config.Logger.Info("Beginning ApplyEnvironment...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

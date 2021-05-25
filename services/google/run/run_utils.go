@@ -17,6 +17,7 @@ package run
 import (
 	"bytes"
 	"context"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -24,7 +25,7 @@ import (
 )
 
 func (c *Client) GetService(ctx context.Context, r *Service) (*Service, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(60*time.Second))
 	defer cancel()
 
 	u, err := serviceGetURL(c.Config.BasePath, r.urlNormalized())

@@ -16,6 +16,7 @@ package accesscontextmanager
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -60,7 +61,7 @@ func (l *AccessPolicyList) HasNext() bool {
 }
 
 func (l *AccessPolicyList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -76,7 +77,7 @@ func (l *AccessPolicyList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListAccessPolicy(ctx context.Context, parent string) (*AccessPolicyList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListAccessPolicyWithMaxResults(ctx, parent, AccessPolicyMaxPage)
@@ -84,7 +85,7 @@ func (c *Client) ListAccessPolicy(ctx context.Context, parent string) (*AccessPo
 }
 
 func (c *Client) ListAccessPolicyWithMaxResults(ctx context.Context, parent string, pageSize int32) (*AccessPolicyList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listAccessPolicy(ctx, parent, "", pageSize)
@@ -101,7 +102,7 @@ func (c *Client) ListAccessPolicyWithMaxResults(ctx context.Context, parent stri
 }
 
 func (c *Client) GetAccessPolicy(ctx context.Context, r *AccessPolicy) (*AccessPolicy, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getAccessPolicyRaw(ctx, r)
@@ -132,7 +133,7 @@ func (c *Client) GetAccessPolicy(ctx context.Context, r *AccessPolicy) (*AccessP
 }
 
 func (c *Client) DeleteAccessPolicy(ctx context.Context, r *AccessPolicy) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -150,9 +151,6 @@ func (c *Client) DeleteAccessPolicy(ctx context.Context, r *AccessPolicy) error 
 
 // DeleteAllAccessPolicy deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllAccessPolicy(ctx context.Context, parent string, filter func(*AccessPolicy) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListAccessPolicy(ctx, parent)
 	if err != nil {
 		return err
@@ -176,10 +174,29 @@ func (c *Client) DeleteAllAccessPolicy(ctx context.Context, parent string, filte
 }
 
 func (c *Client) ApplyAccessPolicy(ctx context.Context, rawDesired *AccessPolicy, opts ...dcl.ApplyOption) (*AccessPolicy, error) {
+
+	var resultNewState *AccessPolicy
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyAccessPolicyHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyAccessPolicyHelper(c *Client, ctx context.Context, rawDesired *AccessPolicy, opts ...dcl.ApplyOption) (*AccessPolicy, error) {
 	c.Config.Logger.Info("Beginning ApplyAccessPolicy...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

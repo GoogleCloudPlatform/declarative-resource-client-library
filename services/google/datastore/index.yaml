@@ -11,109 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    Index:
-      properties:
-        ancestor:
-          default: NONE
-          description: 'The index''s ancestor mode. Possible values: NONE, ALL_ANCESTORS'
-          enum:
-          - NONE
-          - ALL_ANCESTORS
-          type: string
-          x-dcl-go-name: Ancestor
-          x-dcl-go-type: IndexAncestorEnum
-          x-kubernetes-immutable: true
-        indexId:
-          description: Output only. The resource ID of the index.
-          readOnly: true
-          type: string
-          x-dcl-go-name: IndexId
-          x-dcl-server-generated-parameter: true
-          x-kubernetes-immutable: true
-        kind:
-          description: The entity kind to which this index applies.
-          type: string
-          x-dcl-go-name: Kind
-          x-kubernetes-immutable: true
-        project:
-          description: The project ID.
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        properties:
-          description: An ordered sequence of property names and their index attributes.
-          items:
-            properties:
-              direction:
-                description: 'The indexed property''s direction. Possible values:
-                  ASCENDING, DESCENDING'
-                enum:
-                - ASCENDING
-                - DESCENDING
-                type: string
-                x-dcl-go-name: Direction
-                x-dcl-go-type: IndexPropertiesDirectionEnum
-                x-kubernetes-immutable: true
-              name:
-                description: The property name to index.
-                type: string
-                x-dcl-go-name: Name
-                x-kubernetes-immutable: true
-            required:
-            - name
-            - direction
-            type: object
-            x-dcl-go-type: IndexProperties
-          type: array
-          x-dcl-go-name: Properties
-          x-dcl-list-type: list
-          x-kubernetes-immutable: true
-        state:
-          description: 'Output only. The state of the index. Possible values: CREATING,
-            READY, DELETING, ERROR'
-          enum:
-          - CREATING
-          - READY
-          - DELETING
-          - ERROR
-          readOnly: true
-          type: string
-          x-dcl-go-name: State
-          x-dcl-go-type: IndexStateEnum
-          x-kubernetes-immutable: true
-      required:
-      - kind
-      - project
-      - properties
-      title: Index
-      type: object
-      x-dcl-id: projects/{{project}}/indexes/{{index_id}}
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Datastore Index resource
   title: Datastore/Index
+  description: DCL Specification for the Datastore Index resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a Index
+    parameters:
+    - name: Index
+      required: true
+      description: A full instance of a Index
   apply:
     description: The function used to apply information about a Index
     parameters:
-    - description: A full instance of a Index
-      name: Index
+    - name: Index
       required: true
+      description: A full instance of a Index
   delete:
     description: The function used to delete a Index
     parameters:
-    - description: A full instance of a Index
-      name: Index
+    - name: Index
       required: true
+      description: A full instance of a Index
   deleteAll:
     description: The function used to delete all Index
     parameters:
@@ -121,12 +41,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a Index
-    parameters:
-    - description: A full instance of a Index
-      name: Index
-      required: true
   list:
     description: The function used to list information about many Index
     parameters:
@@ -134,3 +48,87 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    Index:
+      title: Index
+      x-dcl-id: projects/{{project}}/indexes/{{index_id}}
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - kind
+      - project
+      - properties
+      properties:
+        ancestor:
+          type: string
+          x-dcl-go-name: Ancestor
+          x-dcl-go-type: IndexAncestorEnum
+          description: 'The index''s ancestor mode. Possible values: NONE, ALL_ANCESTORS'
+          x-kubernetes-immutable: true
+          default: NONE
+          enum:
+          - NONE
+          - ALL_ANCESTORS
+        indexId:
+          type: string
+          x-dcl-go-name: IndexId
+          readOnly: true
+          description: Output only. The resource ID of the index.
+          x-kubernetes-immutable: true
+          x-dcl-server-generated-parameter: true
+        kind:
+          type: string
+          x-dcl-go-name: Kind
+          description: The entity kind to which this index applies.
+          x-kubernetes-immutable: true
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project ID.
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        properties:
+          type: array
+          x-dcl-go-name: Properties
+          description: An ordered sequence of property names and their index attributes.
+          x-kubernetes-immutable: true
+          x-dcl-list-type: list
+          items:
+            type: object
+            x-dcl-go-type: IndexProperties
+            required:
+            - name
+            - direction
+            properties:
+              direction:
+                type: string
+                x-dcl-go-name: Direction
+                x-dcl-go-type: IndexPropertiesDirectionEnum
+                description: 'The indexed property''s direction. Possible values:
+                  ASCENDING, DESCENDING'
+                x-kubernetes-immutable: true
+                enum:
+                - ASCENDING
+                - DESCENDING
+              name:
+                type: string
+                x-dcl-go-name: Name
+                description: The property name to index.
+                x-kubernetes-immutable: true
+        state:
+          type: string
+          x-dcl-go-name: State
+          x-dcl-go-type: IndexStateEnum
+          readOnly: true
+          description: 'Output only. The state of the index. Possible values: CREATING,
+            READY, DELETING, ERROR'
+          x-kubernetes-immutable: true
+          enum:
+          - CREATING
+          - READY
+          - DELETING
+          - ERROR

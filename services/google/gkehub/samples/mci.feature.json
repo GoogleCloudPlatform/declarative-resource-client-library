@@ -1,0 +1,13 @@
+{
+  "project": "{{project}}",
+  "location": "global",
+  "name": "multiclusteringress",
+  "labels": {
+    "key": "one"
+  },
+  "spec": {
+    "multiclusteringress": {
+      "configMembership": "projects/{{project}}/locations/global/memberships/{{ref:basic.membership.json:name}}"
+    }
+  }
+}

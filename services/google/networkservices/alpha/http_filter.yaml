@@ -11,103 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    HttpFilter:
-      properties:
-        config:
-          description: Required. The configuration needed to enable the HTTP filter.
-            The configuration must be JSON formatted and only contain fields defined
-            in the protobuf identified in config_type_url.
-          type: string
-          x-dcl-go-name: Config
-        configTypeUrl:
-          description: 'Required. The fully qualified versioned proto3 type url that
-            the filter expects for its configuration. For example: ''type.googleapis.com/envoy.config.wasm.v2.WasmService''.'
-          type: string
-          x-dcl-go-name: ConfigTypeUrl
-        createTime:
-          description: Output only. The timestamp when the resource was created.
-          format: date-time
-          readOnly: true
-          type: string
-          x-dcl-go-name: CreateTime
-          x-kubernetes-immutable: true
-        description:
-          description: Optional. A free-text description of the resource. Max length
-            1024 characters.
-          type: string
-          x-dcl-go-name: Description
-        filterName:
-          description: 'Required. Name of the HTTP filter defined in the `config`
-            field. It is used by the xDS API client to identify specific filter implementation
-            the `config` must be applied to. It is different from the name of the
-            HttpFilter resource and does not have to be unique. Example: ''envoy.wasm''.'
-          type: string
-          x-dcl-go-name: FilterName
-        labels:
-          additionalProperties:
-            type: string
-          description: Optional. Set of label tags associated with the HttpFilter
-            resource.
-          type: object
-          x-dcl-go-name: Labels
-        location:
-          description: The location for the resource
-          type: string
-          x-dcl-go-name: Location
-          x-kubernetes-immutable: true
-        name:
-          description: Required. Name of the HttpFilter resource.
-          type: string
-          x-dcl-go-name: Name
-        project:
-          description: The project for the resource
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        updateTime:
-          description: Output only. The timestamp when the resource was updated.
-          format: date-time
-          readOnly: true
-          type: string
-          x-dcl-go-name: UpdateTime
-          x-kubernetes-immutable: true
-      required:
-      - name
-      - filterName
-      - configTypeUrl
-      - config
-      - project
-      - location
-      title: HttpFilter
-      type: object
-      x-dcl-id: projects/{{project}}/locations/{{location}}/httpFilters/{{name}}
-      x-dcl-labels: labels
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the NetworkServices HttpFilter resource
   title: NetworkServices/HttpFilter
+  description: DCL Specification for the NetworkServices HttpFilter resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a HttpFilter
+    parameters:
+    - name: HttpFilter
+      required: true
+      description: A full instance of a HttpFilter
   apply:
     description: The function used to apply information about a HttpFilter
     parameters:
-    - description: A full instance of a HttpFilter
-      name: HttpFilter
+    - name: HttpFilter
       required: true
+      description: A full instance of a HttpFilter
   delete:
     description: The function used to delete a HttpFilter
     parameters:
-    - description: A full instance of a HttpFilter
-      name: HttpFilter
+    - name: HttpFilter
       required: true
+      description: A full instance of a HttpFilter
   deleteAll:
     description: The function used to delete all HttpFilter
     parameters:
@@ -119,12 +45,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a HttpFilter
-    parameters:
-    - description: A full instance of a HttpFilter
-      name: HttpFilter
-      required: true
   list:
     description: The function used to list information about many HttpFilter
     parameters:
@@ -136,3 +56,81 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    HttpFilter:
+      title: HttpFilter
+      x-dcl-id: projects/{{project}}/locations/{{location}}/httpFilters/{{name}}
+      x-dcl-parent-container: project
+      x-dcl-labels: labels
+      type: object
+      required:
+      - name
+      - filterName
+      - configTypeUrl
+      - config
+      - project
+      - location
+      properties:
+        config:
+          type: string
+          x-dcl-go-name: Config
+          description: Required. The configuration needed to enable the HTTP filter.
+            The configuration must be JSON formatted and only contain fields defined
+            in the protobuf identified in config_type_url.
+        configTypeUrl:
+          type: string
+          x-dcl-go-name: ConfigTypeUrl
+          description: 'Required. The fully qualified versioned proto3 type url that
+            the filter expects for its configuration. For example: ''type.googleapis.com/envoy.config.wasm.v2.WasmService''.'
+        createTime:
+          type: string
+          format: date-time
+          x-dcl-go-name: CreateTime
+          readOnly: true
+          description: Output only. The timestamp when the resource was created.
+          x-kubernetes-immutable: true
+        description:
+          type: string
+          x-dcl-go-name: Description
+          description: Optional. A free-text description of the resource. Max length
+            1024 characters.
+        filterName:
+          type: string
+          x-dcl-go-name: FilterName
+          description: 'Required. Name of the HTTP filter defined in the `config`
+            field. It is used by the xDS API client to identify specific filter implementation
+            the `config` must be applied to. It is different from the name of the
+            HttpFilter resource and does not have to be unique. Example: ''envoy.wasm''.'
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          x-dcl-go-name: Labels
+          description: Optional. Set of label tags associated with the HttpFilter
+            resource.
+        location:
+          type: string
+          x-dcl-go-name: Location
+          description: The location for the resource
+          x-kubernetes-immutable: true
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: Required. Name of the HttpFilter resource.
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project for the resource
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        updateTime:
+          type: string
+          format: date-time
+          x-dcl-go-name: UpdateTime
+          readOnly: true
+          description: Output only. The timestamp when the resource was updated.
+          x-kubernetes-immutable: true

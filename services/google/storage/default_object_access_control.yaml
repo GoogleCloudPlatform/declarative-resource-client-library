@@ -11,110 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    DefaultObjectAccessControl:
-      properties:
-        bucket:
-          description: The name of the bucket.
-          type: string
-          x-dcl-go-name: Bucket
-          x-kubernetes-immutable: true
-        domain:
-          description: The domain associated with the entity, if any.
-          readOnly: true
-          type: string
-          x-dcl-go-name: Domain
-          x-kubernetes-immutable: true
-        email:
-          description: The email address associated with the entity, if any.
-          readOnly: true
-          type: string
-          x-dcl-go-name: Email
-          x-kubernetes-immutable: true
-        entity:
-          description: 'The entity holding the permission, in one of the following
-            forms: * user-{{userId}} * user-{{email}} (such as "user-liz@example.com")
-            * group-{{groupId}} * group-{{email}} (such as "group-example@googlegroups.com")
-            * domain-{{domain}} (such as "domain-example.com") * project-team-{{projectId}}
-            * allUsers * allAuthenticatedUsers'
-          type: string
-          x-dcl-go-name: Entity
-        entityId:
-          description: The ID for the entity, if any.
-          readOnly: true
-          type: string
-          x-dcl-go-name: EntityId
-          x-kubernetes-immutable: true
-        project:
-          description: The project id of the resource.
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        projectTeam:
-          description: The project team associated with the entity, if any.
-          properties:
-            projectNumber:
-              description: The project number.
-              type: string
-              x-dcl-go-name: ProjectNumber
-              x-kubernetes-immutable: true
-            team:
-              description: 'The team. Possible values: editors, owners, viewers'
-              enum:
-              - editors
-              - owners
-              - viewers
-              type: string
-              x-dcl-go-name: Team
-              x-dcl-go-type: DefaultObjectAccessControlProjectTeamTeamEnum
-              x-kubernetes-immutable: true
-          readOnly: true
-          type: object
-          x-dcl-go-name: ProjectTeam
-          x-dcl-go-type: DefaultObjectAccessControlProjectTeam
-          x-kubernetes-immutable: true
-        role:
-          description: 'The access permission for the entity. Possible values: OWNER,
-            READER'
-          enum:
-          - OWNER
-          - READER
-          type: string
-          x-dcl-go-name: Role
-          x-dcl-go-type: DefaultObjectAccessControlRoleEnum
-      required:
-      - project
-      - bucket
-      - entity
-      - role
-      title: DefaultObjectAccessControl
-      type: object
-      x-dcl-id: b/{{bucket}}/defaultObjectAcl/{{entity}}?userProject={{project}}
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Storage DefaultObjectAccessControl resource
   title: Storage/DefaultObjectAccessControl
+  description: DCL Specification for the Storage DefaultObjectAccessControl resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a DefaultObjectAccessControl
+    parameters:
+    - name: DefaultObjectAccessControl
+      required: true
+      description: A full instance of a DefaultObjectAccessControl
   apply:
     description: The function used to apply information about a DefaultObjectAccessControl
     parameters:
-    - description: A full instance of a DefaultObjectAccessControl
-      name: DefaultObjectAccessControl
+    - name: DefaultObjectAccessControl
       required: true
+      description: A full instance of a DefaultObjectAccessControl
   delete:
     description: The function used to delete a DefaultObjectAccessControl
     parameters:
-    - description: A full instance of a DefaultObjectAccessControl
-      name: DefaultObjectAccessControl
+    - name: DefaultObjectAccessControl
       required: true
+      description: A full instance of a DefaultObjectAccessControl
   deleteAll:
     description: The function used to delete all DefaultObjectAccessControl
     parameters:
@@ -126,12 +45,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a DefaultObjectAccessControl
-    parameters:
-    - description: A full instance of a DefaultObjectAccessControl
-      name: DefaultObjectAccessControl
-      required: true
   list:
     description: The function used to list information about many DefaultObjectAccessControl
     parameters:
@@ -143,3 +56,88 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    DefaultObjectAccessControl:
+      title: DefaultObjectAccessControl
+      x-dcl-id: b/{{bucket}}/defaultObjectAcl/{{entity}}?userProject={{project}}
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - project
+      - bucket
+      - entity
+      - role
+      properties:
+        bucket:
+          type: string
+          x-dcl-go-name: Bucket
+          description: The name of the bucket.
+          x-kubernetes-immutable: true
+        domain:
+          type: string
+          x-dcl-go-name: Domain
+          readOnly: true
+          description: The domain associated with the entity, if any.
+          x-kubernetes-immutable: true
+        email:
+          type: string
+          x-dcl-go-name: Email
+          readOnly: true
+          description: The email address associated with the entity, if any.
+          x-kubernetes-immutable: true
+        entity:
+          type: string
+          x-dcl-go-name: Entity
+          description: 'The entity holding the permission, in one of the following
+            forms: * user-{{userId}} * user-{{email}} (such as "user-liz@example.com")
+            * group-{{groupId}} * group-{{email}} (such as "group-example@googlegroups.com")
+            * domain-{{domain}} (such as "domain-example.com") * project-team-{{projectId}}
+            * allUsers * allAuthenticatedUsers'
+        entityId:
+          type: string
+          x-dcl-go-name: EntityId
+          readOnly: true
+          description: The ID for the entity, if any.
+          x-kubernetes-immutable: true
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project id of the resource.
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        projectTeam:
+          type: object
+          x-dcl-go-name: ProjectTeam
+          x-dcl-go-type: DefaultObjectAccessControlProjectTeam
+          readOnly: true
+          description: The project team associated with the entity, if any.
+          x-kubernetes-immutable: true
+          properties:
+            projectNumber:
+              type: string
+              x-dcl-go-name: ProjectNumber
+              description: The project number.
+              x-kubernetes-immutable: true
+            team:
+              type: string
+              x-dcl-go-name: Team
+              x-dcl-go-type: DefaultObjectAccessControlProjectTeamTeamEnum
+              description: 'The team. Possible values: editors, owners, viewers'
+              x-kubernetes-immutable: true
+              enum:
+              - editors
+              - owners
+              - viewers
+        role:
+          type: string
+          x-dcl-go-name: Role
+          x-dcl-go-type: DefaultObjectAccessControlRoleEnum
+          description: 'The access permission for the entity. Possible values: OWNER,
+            READER'
+          enum:
+          - OWNER
+          - READER

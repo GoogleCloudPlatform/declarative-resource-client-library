@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -1561,7 +1562,7 @@ func (l *WorkflowTemplateList) HasNext() bool {
 }
 
 func (l *WorkflowTemplateList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -1577,7 +1578,7 @@ func (l *WorkflowTemplateList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListWorkflowTemplate(ctx context.Context, project, location string) (*WorkflowTemplateList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListWorkflowTemplateWithMaxResults(ctx, project, location, WorkflowTemplateMaxPage)
@@ -1585,7 +1586,7 @@ func (c *Client) ListWorkflowTemplate(ctx context.Context, project, location str
 }
 
 func (c *Client) ListWorkflowTemplateWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*WorkflowTemplateList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listWorkflowTemplate(ctx, project, location, "", pageSize)
@@ -1604,7 +1605,7 @@ func (c *Client) ListWorkflowTemplateWithMaxResults(ctx context.Context, project
 }
 
 func (c *Client) GetWorkflowTemplate(ctx context.Context, r *WorkflowTemplate) (*WorkflowTemplate, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getWorkflowTemplateRaw(ctx, r)
@@ -1637,7 +1638,7 @@ func (c *Client) GetWorkflowTemplate(ctx context.Context, r *WorkflowTemplate) (
 }
 
 func (c *Client) DeleteWorkflowTemplate(ctx context.Context, r *WorkflowTemplate) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -1650,9 +1651,6 @@ func (c *Client) DeleteWorkflowTemplate(ctx context.Context, r *WorkflowTemplate
 
 // DeleteAllWorkflowTemplate deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllWorkflowTemplate(ctx context.Context, project, location string, filter func(*WorkflowTemplate) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListWorkflowTemplate(ctx, project, location)
 	if err != nil {
 		return err
@@ -1676,10 +1674,29 @@ func (c *Client) DeleteAllWorkflowTemplate(ctx context.Context, project, locatio
 }
 
 func (c *Client) ApplyWorkflowTemplate(ctx context.Context, rawDesired *WorkflowTemplate, opts ...dcl.ApplyOption) (*WorkflowTemplate, error) {
+
+	var resultNewState *WorkflowTemplate
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyWorkflowTemplateHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyWorkflowTemplateHelper(c *Client, ctx context.Context, rawDesired *WorkflowTemplate, opts ...dcl.ApplyOption) (*WorkflowTemplate, error) {
 	c.Config.Logger.Info("Beginning ApplyWorkflowTemplate...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

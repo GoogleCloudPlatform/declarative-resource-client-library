@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -639,7 +640,7 @@ func (l *JobList) HasNext() bool {
 }
 
 func (l *JobList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -655,7 +656,7 @@ func (l *JobList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListJob(ctx context.Context, project, location string) (*JobList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListJobWithMaxResults(ctx, project, location, JobMaxPage)
@@ -663,7 +664,7 @@ func (c *Client) ListJob(ctx context.Context, project, location string) (*JobLis
 }
 
 func (c *Client) ListJobWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*JobList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listJob(ctx, project, location, "", pageSize)
@@ -682,7 +683,7 @@ func (c *Client) ListJobWithMaxResults(ctx context.Context, project, location st
 }
 
 func (c *Client) GetJob(ctx context.Context, r *Job) (*Job, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getJobRaw(ctx, r)
@@ -715,7 +716,7 @@ func (c *Client) GetJob(ctx context.Context, r *Job) (*Job, error) {
 }
 
 func (c *Client) DeleteJob(ctx context.Context, r *Job) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -728,9 +729,6 @@ func (c *Client) DeleteJob(ctx context.Context, r *Job) error {
 
 // DeleteAllJob deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllJob(ctx context.Context, project, location string, filter func(*Job) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListJob(ctx, project, location)
 	if err != nil {
 		return err
@@ -754,10 +752,29 @@ func (c *Client) DeleteAllJob(ctx context.Context, project, location string, fil
 }
 
 func (c *Client) ApplyJob(ctx context.Context, rawDesired *Job, opts ...dcl.ApplyOption) (*Job, error) {
+
+	var resultNewState *Job
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyJobHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyJobHelper(c *Client, ctx context.Context, rawDesired *Job, opts ...dcl.ApplyOption) (*Job, error) {
 	c.Config.Logger.Info("Beginning ApplyJob...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

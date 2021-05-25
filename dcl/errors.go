@@ -89,10 +89,18 @@ func IsRetryableHTTPError(err error) bool {
 	return false
 }
 
-// IsNonRetryableHTTPError returns true if we know that the error is not retryable - in GCP that's a 400, 403, or 404.
+// IsNonRetryableHTTPError returns true if we know that the error is not retryable - in GCP that's a 400, 403, 404, or 409.
 func IsNonRetryableHTTPError(err error) bool {
 	if gerr, ok := err.(*googleapi.Error); ok {
-		return gerr.Code == 400 || gerr.Code == 403 || gerr.Code == 404
+		return gerr.Code == 400 || gerr.Code == 403 || gerr.Code == 404 || gerr.Code == 409
+	}
+	return false
+}
+
+// IsConflictError returns true if the error has conflict error code 409.
+func IsConflictError(err error) bool {
+	if gerr, ok := err.(*googleapi.Error); ok {
+		return gerr.Code == 409
 	}
 	return false
 }

@@ -19,6 +19,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -482,7 +483,7 @@ func (r *NetworkEndpoint) customMatcher(c *Client) func([]byte) bool {
 }
 
 func (c *Client) GetNetworkEndpoint(ctx context.Context, r *NetworkEndpoint) (*NetworkEndpoint, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(60*time.Second))
 	defer cancel()
 
 	b, err := c.getNetworkEndpointRaw(ctx, r)

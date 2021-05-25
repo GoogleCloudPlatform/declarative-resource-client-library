@@ -30,9 +30,6 @@ func (r *LogExclusion) validate() error {
 	if err := dcl.ValidateAtMostOneOfFieldsSet([]string(nil)); err != nil {
 		return err
 	}
-	if err := dcl.Required(r, "name"); err != nil {
-		return err
-	}
 	if err := dcl.Required(r, "filter"); err != nil {
 		return err
 	}
@@ -83,8 +80,14 @@ type logExclusionApiOperation interface {
 func newUpdateLogExclusionUpdateExclusionRequest(ctx context.Context, f *LogExclusion, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
-		req["name"] = v
+	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+		req["description"] = v
+	}
+	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
+		req["filter"] = v
+	}
+	if v := f.Disabled; !dcl.IsEmptyValueIndirect(v) {
+		req["disabled"] = v
 	}
 	return req, nil
 }
@@ -114,6 +117,11 @@ func (op *updateLogExclusionUpdateExclusionOperation) do(ctx context.Context, r 
 	}
 
 	u, err := r.updateURL(c.Config.BasePath, "UpdateExclusion")
+	if err != nil {
+		return err
+	}
+	mask := strings.Join([]string{"description", "filter", "disabled"}, ",")
+	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
 	}
@@ -478,7 +486,7 @@ func diffLogExclusion(c *Client, desired, actual *LogExclusion, opts ...dcl.Appl
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateLogExclusionUpdateExclusionOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -491,7 +499,7 @@ func diffLogExclusion(c *Client, desired, actual *LogExclusion, opts ...dcl.Appl
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateLogExclusionUpdateExclusionOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -504,7 +512,7 @@ func diffLogExclusion(c *Client, desired, actual *LogExclusion, opts ...dcl.Appl
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateLogExclusionUpdateExclusionOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -517,7 +525,7 @@ func diffLogExclusion(c *Client, desired, actual *LogExclusion, opts ...dcl.Appl
 		diffs = append(diffs, dsOld...)
 	}
 
-	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{OperationSelector: dcl.TriggersOperation("updateLogExclusionUpdateExclusionOperation")}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

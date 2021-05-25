@@ -11,15 +11,75 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+info:
+  title: AppEngine/Version
+  description: DCL Specification for the AppEngine Version resource
+  x-dcl-has-iam: false
+paths:
+  get:
+    description: The function used to get information about a Version
+    parameters:
+    - name: Version
+      required: true
+      description: A full instance of a Version
+  apply:
+    description: The function used to apply information about a Version
+    parameters:
+    - name: Version
+      required: true
+      description: A full instance of a Version
+  delete:
+    description: The function used to delete a Version
+    parameters:
+    - name: Version
+      required: true
+      description: A full instance of a Version
+  deleteAll:
+    description: The function used to delete all Version
+    parameters:
+    - name: app
+      required: true
+      schema:
+        type: string
+    - name: service
+      required: true
+      schema:
+        type: string
+  list:
+    description: The function used to list information about many Version
+    parameters:
+    - name: app
+      required: true
+      schema:
+        type: string
+    - name: service
+      required: true
+      schema:
+        type: string
 components:
   schemas:
     Version:
+      title: Version
+      x-dcl-id: apps/{{app}}/services/{{service}}/versions/{{name}}?view=FULL
+      type: object
+      required:
+      - name
+      - runtime
+      - deployment
+      - app
+      - service
       properties:
         apiConfig:
+          type: object
+          x-dcl-go-name: ApiConfig
+          x-dcl-go-type: VersionApiConfig
           description: Serving configuration for (https://cloud.google.com/appengine/docs/python/endpoints/).
             Only returned in `GET` requests if `view=FULL` is set.
           properties:
             authFailAction:
+              type: string
+              x-dcl-go-name: AuthFailAction
+              x-dcl-go-type: VersionApiConfigAuthFailActionEnum
               description: 'Action to take when users access resources that require
                 authentication. Defaults to `redirect`. Possible values: AUTH_FAIL_ACTION_UNSPECIFIED,
                 AUTH_FAIL_ACTION_REDIRECT, AUTH_FAIL_ACTION_UNAUTHORIZED'
@@ -27,10 +87,10 @@ components:
               - AUTH_FAIL_ACTION_UNSPECIFIED
               - AUTH_FAIL_ACTION_REDIRECT
               - AUTH_FAIL_ACTION_UNAUTHORIZED
-              type: string
-              x-dcl-go-name: AuthFailAction
-              x-dcl-go-type: VersionApiConfigAuthFailActionEnum
             login:
+              type: string
+              x-dcl-go-name: Login
+              x-dcl-go-type: VersionApiConfigLoginEnum
               description: 'Level of login required to access this resource. Defaults
                 to `optional`. Possible values: LOGIN_UNSPECIFIED, LOGIN_OPTIONAL,
                 LOGIN_ADMIN, LOGIN_REQUIRED'
@@ -39,14 +99,14 @@ components:
               - LOGIN_OPTIONAL
               - LOGIN_ADMIN
               - LOGIN_REQUIRED
-              type: string
-              x-dcl-go-name: Login
-              x-dcl-go-type: VersionApiConfigLoginEnum
             script:
-              description: Path to the script from the application root directory.
               type: string
               x-dcl-go-name: Script
+              description: Path to the script from the application root directory.
             securityLevel:
+              type: string
+              x-dcl-go-name: SecurityLevel
+              x-dcl-go-type: VersionApiConfigSecurityLevelEnum
               description: 'Security (HTTPS) enforcement for this URL. Possible values:
                 SECURE_UNSPECIFIED, SECURE_DEFAULT, SECURE_NEVER, SECURE_OPTIONAL,
                 SECURE_ALWAYS'
@@ -56,377 +116,379 @@ components:
               - SECURE_NEVER
               - SECURE_OPTIONAL
               - SECURE_ALWAYS
-              type: string
-              x-dcl-go-name: SecurityLevel
-              x-dcl-go-type: VersionApiConfigSecurityLevelEnum
             url:
-              description: URL to serve the endpoint at.
               type: string
               x-dcl-go-name: Url
-          type: object
-          x-dcl-go-name: ApiConfig
-          x-dcl-go-type: VersionApiConfig
+              description: URL to serve the endpoint at.
         app:
-          description: The app for the resource
           type: string
           x-dcl-go-name: App
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Appengine/Application
+          description: The app for the resource
           x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Appengine/Application
+            field: name
+            parent: true
         automaticScaling:
+          type: object
+          x-dcl-go-name: AutomaticScaling
+          x-dcl-go-type: VersionAutomaticScaling
           description: Automatic scaling is based on request rate, response latencies,
             and other application metrics. Instances are dynamically created and destroyed
             as needed in order to handle traffic.
           properties:
             coolDownPeriod:
+              type: string
+              x-dcl-go-name: CoolDownPeriod
               description: The time period that the (https://cloud.google.com/compute/docs/autoscaler/)
                 should wait before it starts collecting information from a new instance.
                 This prevents the autoscaler from collecting information when the
                 instance is initializing, during which the collected usage would not
                 be reliable. Only applicable in the App Engine flexible environment.
-              type: string
-              x-dcl-go-name: CoolDownPeriod
             cpuUtilization:
-              description: Target scaling by CPU usage.
-              properties:
-                aggregationWindowLength:
-                  description: Period of time over which CPU utilization is calculated.
-                  type: string
-                  x-dcl-go-name: AggregationWindowLength
-                targetUtilization:
-                  description: Target CPU utilization ratio to maintain when scaling.
-                    Must be between 0 and 1.
-                  format: double
-                  type: number
-                  x-dcl-go-name: TargetUtilization
               type: object
               x-dcl-go-name: CpuUtilization
               x-dcl-go-type: VersionAutomaticScalingCpuUtilization
-            diskUtilization:
-              description: Target scaling by disk usage.
+              description: Target scaling by CPU usage.
               properties:
-                targetReadBytesPerSecond:
-                  description: Target bytes read per second.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: TargetReadBytesPerSecond
-                targetReadOpsPerSecond:
-                  description: Target ops read per seconds.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: TargetReadOpsPerSecond
-                targetWriteBytesPerSecond:
-                  description: Target bytes written per second.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: TargetWriteBytesPerSecond
-                targetWriteOpsPerSecond:
-                  description: Target ops written per second.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: TargetWriteOpsPerSecond
+                aggregationWindowLength:
+                  type: string
+                  x-dcl-go-name: AggregationWindowLength
+                  description: Period of time over which CPU utilization is calculated.
+                targetUtilization:
+                  type: number
+                  format: double
+                  x-dcl-go-name: TargetUtilization
+                  description: Target CPU utilization ratio to maintain when scaling.
+                    Must be between 0 and 1.
+            diskUtilization:
               type: object
               x-dcl-go-name: DiskUtilization
               x-dcl-go-type: VersionAutomaticScalingDiskUtilization
+              description: Target scaling by disk usage.
+              properties:
+                targetReadBytesPerSecond:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: TargetReadBytesPerSecond
+                  description: Target bytes read per second.
+                targetReadOpsPerSecond:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: TargetReadOpsPerSecond
+                  description: Target ops read per seconds.
+                targetWriteBytesPerSecond:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: TargetWriteBytesPerSecond
+                  description: Target bytes written per second.
+                targetWriteOpsPerSecond:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: TargetWriteOpsPerSecond
+                  description: Target ops written per second.
             maxConcurrentRequests:
+              type: integer
+              format: int64
+              x-dcl-go-name: MaxConcurrentRequests
               description: Number of concurrent requests an automatic scaling instance
                 can accept before the scheduler spawns a new instance. Defaults to
                 a runtime-specific value.
-              format: int64
-              type: integer
-              x-dcl-go-name: MaxConcurrentRequests
             maxIdleInstances:
+              type: integer
+              format: int64
+              x-dcl-go-name: MaxIdleInstances
               description: Maximum number of idle instances that should be maintained
                 for this version.
-              format: int64
-              type: integer
-              x-dcl-go-name: MaxIdleInstances
             maxPendingLatency:
-              description: Maximum amount of time that a request should wait in the
-                pending queue before starting a new instance to handle it.
               type: string
               x-dcl-go-name: MaxPendingLatency
+              description: Maximum amount of time that a request should wait in the
+                pending queue before starting a new instance to handle it.
             maxTotalInstances:
+              type: integer
+              format: int64
+              x-dcl-go-name: MaxTotalInstances
               description: Maximum number of instances that should be started to handle
                 requests for this version.
-              format: int64
-              type: integer
-              x-dcl-go-name: MaxTotalInstances
             minIdleInstances:
+              type: integer
+              format: int64
+              x-dcl-go-name: MinIdleInstances
               description: Minimum number of idle instances that should be maintained
                 for this version. Only applicable for the default version of a service.
-              format: int64
-              type: integer
-              x-dcl-go-name: MinIdleInstances
             minPendingLatency:
-              description: Minimum amount of time a request should wait in the pending
-                queue before starting a new instance to handle it.
               type: string
               x-dcl-go-name: MinPendingLatency
+              description: Minimum amount of time a request should wait in the pending
+                queue before starting a new instance to handle it.
             minTotalInstances:
+              type: integer
+              format: int64
+              x-dcl-go-name: MinTotalInstances
               description: Minimum number of running instances that should be maintained
                 for this version.
-              format: int64
-              type: integer
-              x-dcl-go-name: MinTotalInstances
             networkUtilization:
-              description: Target scaling by network usage.
-              properties:
-                targetReceivedBytesPerSecond:
-                  description: Target bytes received per second.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: TargetReceivedBytesPerSecond
-                targetReceivedPacketsPerSecond:
-                  description: Target packets received per second.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: TargetReceivedPacketsPerSecond
-                targetSentBytesPerSecond:
-                  description: Target bytes sent per second.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: TargetSentBytesPerSecond
-                targetSentPacketsPerSecond:
-                  description: Target packets sent per second.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: TargetSentPacketsPerSecond
               type: object
               x-dcl-go-name: NetworkUtilization
               x-dcl-go-type: VersionAutomaticScalingNetworkUtilization
-            requestUtilization:
-              description: Target scaling by request utilization.
+              description: Target scaling by network usage.
               properties:
-                targetConcurrentRequests:
-                  description: Target number of concurrent requests.
-                  format: int64
+                targetReceivedBytesPerSecond:
                   type: integer
-                  x-dcl-go-name: TargetConcurrentRequests
-                targetRequestCountPerSecond:
-                  description: Target requests per second.
                   format: int64
+                  x-dcl-go-name: TargetReceivedBytesPerSecond
+                  description: Target bytes received per second.
+                targetReceivedPacketsPerSecond:
                   type: integer
-                  x-dcl-go-name: TargetRequestCountPerSecond
+                  format: int64
+                  x-dcl-go-name: TargetReceivedPacketsPerSecond
+                  description: Target packets received per second.
+                targetSentBytesPerSecond:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: TargetSentBytesPerSecond
+                  description: Target bytes sent per second.
+                targetSentPacketsPerSecond:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: TargetSentPacketsPerSecond
+                  description: Target packets sent per second.
+            requestUtilization:
               type: object
               x-dcl-go-name: RequestUtilization
               x-dcl-go-type: VersionAutomaticScalingRequestUtilization
-            standardSchedulerSettings:
-              description: Scheduler settings for standard environment.
+              description: Target scaling by request utilization.
               properties:
-                maxInstances:
-                  description: Maximum number of instances to run for this version.
-                    Set to zero to disable `max_instances` configuration.
-                  format: int64
+                targetConcurrentRequests:
                   type: integer
-                  x-dcl-go-name: MaxInstances
-                minInstances:
-                  description: Minimum number of instances to run for this version.
-                    Set to zero to disable `min_instances` configuration.
                   format: int64
+                  x-dcl-go-name: TargetConcurrentRequests
+                  description: Target number of concurrent requests.
+                targetRequestCountPerSecond:
                   type: integer
-                  x-dcl-go-name: MinInstances
-                targetCpuUtilization:
-                  description: Target CPU utilization ratio to maintain when scaling.
-                  format: double
-                  type: number
-                  x-dcl-go-name: TargetCpuUtilization
-                targetThroughputUtilization:
-                  description: Target throughput utilization ratio to maintain when
-                    scaling
-                  format: double
-                  type: number
-                  x-dcl-go-name: TargetThroughputUtilization
+                  format: int64
+                  x-dcl-go-name: TargetRequestCountPerSecond
+                  description: Target requests per second.
+            standardSchedulerSettings:
               type: object
               x-dcl-go-name: StandardSchedulerSettings
               x-dcl-go-type: VersionAutomaticScalingStandardSchedulerSettings
-          type: object
-          x-dcl-go-name: AutomaticScaling
-          x-dcl-go-type: VersionAutomaticScaling
+              description: Scheduler settings for standard environment.
+              properties:
+                maxInstances:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: MaxInstances
+                  description: Maximum number of instances to run for this version.
+                    Set to zero to disable `max_instances` configuration.
+                minInstances:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: MinInstances
+                  description: Minimum number of instances to run for this version.
+                    Set to zero to disable `min_instances` configuration.
+                targetCpuUtilization:
+                  type: number
+                  format: double
+                  x-dcl-go-name: TargetCpuUtilization
+                  description: Target CPU utilization ratio to maintain when scaling.
+                targetThroughputUtilization:
+                  type: number
+                  format: double
+                  x-dcl-go-name: TargetThroughputUtilization
+                  description: Target throughput utilization ratio to maintain when
+                    scaling
         basicScaling:
+          type: object
+          x-dcl-go-name: BasicScaling
+          x-dcl-go-type: VersionBasicScaling
           description: A service with basic scaling will create an instance when the
             application receives a request. The instance will be turned down when
             the app becomes idle. Basic scaling is ideal for work that is intermittent
             or driven by user activity.
           properties:
             idleTimeout:
-              description: Duration of time after the last request that an instance
-                must wait before the instance is shut down.
               type: string
               x-dcl-go-name: IdleTimeout
+              description: Duration of time after the last request that an instance
+                must wait before the instance is shut down.
             maxInstances:
-              description: Maximum number of instances to create for this version.
-              format: int64
               type: integer
+              format: int64
               x-dcl-go-name: MaxInstances
-          type: object
-          x-dcl-go-name: BasicScaling
-          x-dcl-go-type: VersionBasicScaling
+              description: Maximum number of instances to create for this version.
         betaSettings:
+          type: object
           additionalProperties:
             type: string
+          x-dcl-go-name: BetaSettings
           description: Metadata settings that are supplied to this version to enable
             beta runtime features.
-          type: object
-          x-dcl-go-name: BetaSettings
         consumerName:
-          description: 'For a detailed description of this field, see consumer_name:
-            http://google3/apphosting/base/engine.proto?l=224&rcl=311008486'
           type: string
           x-dcl-go-name: ConsumerName
+          description: 'For a detailed description of this field, see consumer_name:
+            http://google3/apphosting/base/engine.proto?l=224&rcl=311008486'
         createTime:
-          description: Time that this version was created. @OutputOnly
-          format: date-time
-          readOnly: true
           type: string
+          format: date-time
           x-dcl-go-name: CreateTime
-        createdBy:
-          description: Email address of the user who created this version. @OutputOnly
           readOnly: true
+          description: Time that this version was created. @OutputOnly
+        createdBy:
           type: string
           x-dcl-go-name: CreatedBy
+          readOnly: true
+          description: Email address of the user who created this version. @OutputOnly
         defaultExpiration:
+          type: string
+          x-dcl-go-name: DefaultExpiration
           description: Duration that static files should be cached by web proxies
             and browsers. Only applicable if the corresponding (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1alpha/apps.services.versions#StaticFilesHandler)
             does not specify its own expiration time. Only returned in `GET` requests
             if `view=FULL` is set.
-          type: string
-          x-dcl-go-name: DefaultExpiration
         deployment:
+          type: object
+          x-dcl-go-name: Deployment
+          x-dcl-go-type: VersionDeployment
           description: Code and application artifacts that make up this version. Only
             returned in \\\`GET\\\` requests if \\\`view=FULL\\\` is set.
+          x-kubernetes-immutable: true
           properties:
             cloudBuildOptions:
+              type: object
+              x-dcl-go-name: CloudBuildOptions
+              x-dcl-go-type: VersionDeploymentCloudBuildOptions
               description: Options for any Google Cloud Build builds created as a
                 part of this deployment. These options will only be used if a new
                 build is created, such as when deploying to the App Engine flexible
                 environment using files or zip.
+              x-kubernetes-immutable: true
               properties:
                 appYamlPath:
+                  type: string
+                  x-dcl-go-name: AppYamlPath
                   description: Path to the yaml file used in deployment, used to determine
                     runtime configuration details. Required for flexible environment
                     builds. See https://cloud.google.com/appengine/docs/standard/python/config/appref
                     for more details.
-                  type: string
-                  x-dcl-go-name: AppYamlPath
                   x-kubernetes-immutable: true
                 cloudBuildTimeout:
-                  description: The Cloud Build timeout used as part of any dependent
-                    builds performed by version creation. Defaults to 10 minutes.
                   type: string
                   x-dcl-go-name: CloudBuildTimeout
+                  description: The Cloud Build timeout used as part of any dependent
+                    builds performed by version creation. Defaults to 10 minutes.
                   x-kubernetes-immutable: true
-              type: object
-              x-dcl-go-name: CloudBuildOptions
-              x-dcl-go-type: VersionDeploymentCloudBuildOptions
-              x-kubernetes-immutable: true
             container:
-              description: The Docker image for the container that runs the version.
-                Only applicable for instances running in the App Engine flexible environment.
-              properties:
-                image:
-                  description: 'URI to the hosted container image in Google Container
-                    Registry. The URI must be fully qualified and include a tag or
-                    digest. Examples: "gcr.io/my-project/image:tag" or "gcr.io/my-project/image@digest"'
-                  type: string
-                  x-dcl-go-name: Image
-                  x-kubernetes-immutable: true
               type: object
               x-dcl-go-name: Container
               x-dcl-go-type: VersionDeploymentContainer
+              description: The Docker image for the container that runs the version.
+                Only applicable for instances running in the App Engine flexible environment.
               x-kubernetes-immutable: true
+              properties:
+                image:
+                  type: string
+                  x-dcl-go-name: Image
+                  description: 'URI to the hosted container image in Google Container
+                    Registry. The URI must be fully qualified and include a tag or
+                    digest. Examples: "gcr.io/my-project/image:tag" or "gcr.io/my-project/image@digest"'
+                  x-kubernetes-immutable: true
             files:
+              type: object
               additionalProperties:
-                properties:
-                  mimeType:
-                    description: The MIME type of the file. Defaults to the value
-                      from Google Cloud Storage.
-                    type: string
-                    x-dcl-go-name: MimeType
-                    x-kubernetes-immutable: true
-                  sha1Sum:
-                    description: The SHA1 hash of the file, in hex.
-                    type: string
-                    x-dcl-go-name: Sha1Sum
-                    x-kubernetes-immutable: true
-                  sourceUrl:
-                    description: URL source to use to fetch this file. Must be a URL
-                      to a resource in Google Cloud Storage in the form 'http(s)://storage.googleapis.com/<bucket>/<object>'.
-                    type: string
-                    x-dcl-go-name: SourceUrl
-                    x-kubernetes-immutable: true
                 type: object
                 x-dcl-go-type: VersionDeploymentFiles
+                properties:
+                  mimeType:
+                    type: string
+                    x-dcl-go-name: MimeType
+                    description: The MIME type of the file. Defaults to the value
+                      from Google Cloud Storage.
+                    x-kubernetes-immutable: true
+                  sha1Sum:
+                    type: string
+                    x-dcl-go-name: Sha1Sum
+                    description: The SHA1 hash of the file, in hex.
+                    x-kubernetes-immutable: true
+                  sourceUrl:
+                    type: string
+                    x-dcl-go-name: SourceUrl
+                    description: URL source to use to fetch this file. Must be a URL
+                      to a resource in Google Cloud Storage in the form 'http(s)://storage.googleapis.com/<bucket>/<object>'.
+                    x-kubernetes-immutable: true
+              x-dcl-go-name: Files
               description: Manifest of the files stored in Google Cloud Storage that
                 are included as part of this version. All files must be readable using
                 the credentials supplied with this call.
-              type: object
-              x-dcl-go-name: Files
               x-kubernetes-immutable: true
             zip:
+              type: object
+              x-dcl-go-name: Zip
+              x-dcl-go-type: VersionDeploymentZip
               description: The zip file for this deployment, if this is a zip deployment.
+              x-kubernetes-immutable: true
               properties:
                 filesCount:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: FilesCount
                   description: An estimate of the number of files in a zip for a zip
                     deployment. If set, must be greater than or equal to the actual
                     number of files. Used for optimizing performance; if not provided,
                     deployment may be slow.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: FilesCount
                   x-kubernetes-immutable: true
                 sourceUrl:
-                  description: URL of the zip file to deploy from. Must be a URL to
-                    a resource in Google Cloud Storage in the form 'http(s)://storage.googleapis.com//'.
                   type: string
                   x-dcl-go-name: SourceUrl
+                  description: URL of the zip file to deploy from. Must be a URL to
+                    a resource in Google Cloud Storage in the form 'http(s)://storage.googleapis.com//'.
                   x-kubernetes-immutable: true
-              type: object
-              x-dcl-go-name: Zip
-              x-dcl-go-type: VersionDeploymentZip
-              x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: Deployment
-          x-dcl-go-type: VersionDeployment
-          x-kubernetes-immutable: true
         diskUsageBytes:
+          type: integer
+          format: int64
+          x-dcl-go-name: DiskUsageBytes
+          readOnly: true
           description: Total size in bytes of all the files that are included in this
             version and currently hosted on the App Engine disk. @OutputOnly
-          format: int64
-          readOnly: true
-          type: integer
-          x-dcl-go-name: DiskUsageBytes
         entrypoint:
-          description: The entrypoint for the application.
-          properties:
-            shell:
-              description: The format should be a shell command that can be fed to
-                `bash -c`.
-              type: string
-              x-dcl-go-name: Shell
           type: object
           x-dcl-go-name: Entrypoint
           x-dcl-go-type: VersionEntrypoint
+          description: The entrypoint for the application.
+          properties:
+            shell:
+              type: string
+              x-dcl-go-name: Shell
+              description: The format should be a shell command that can be fed to
+                `bash -c`.
         env:
-          description: App Engine execution environment for this version. Defaults
-            to `standard`.
           type: string
           x-dcl-go-name: Env
+          description: App Engine execution environment for this version. Defaults
+            to `standard`.
         envVariables:
+          type: object
           additionalProperties:
             type: string
+          x-dcl-go-name: EnvVariables
           description: Environment variables available to the application. Only returned
             in `GET` requests if `view=FULL` is set.
-          type: object
-          x-dcl-go-name: EnvVariables
         errorHandlers:
+          type: array
+          x-dcl-go-name: ErrorHandlers
           description: Custom static error pages. Limited to 10KB per page. Only returned
             in `GET` requests if `view=FULL` is set.
+          x-dcl-list-type: list
           items:
+            type: object
+            x-dcl-go-type: VersionErrorHandlers
             properties:
               errorCode:
+                type: string
+                x-dcl-go-name: ErrorCode
+                x-dcl-go-type: VersionErrorHandlersErrorCodeEnum
                 description: 'Error condition this handler applies to. Possible values:
                   ERROR_CODE_UNSPECIFIED, ERROR_CODE_DEFAULT, ERROR_CODE_OVER_QUOTA,
                   ERROR_CODE_DOS_API_DENIAL, ERROR_CODE_TIMEOUT'
@@ -436,40 +498,40 @@ components:
                 - ERROR_CODE_OVER_QUOTA
                 - ERROR_CODE_DOS_API_DENIAL
                 - ERROR_CODE_TIMEOUT
-                type: string
-                x-dcl-go-name: ErrorCode
-                x-dcl-go-type: VersionErrorHandlersErrorCodeEnum
               mimeType:
-                description: MIME type of file. Defaults to `text/html`.
                 type: string
                 x-dcl-go-name: MimeType
+                description: MIME type of file. Defaults to `text/html`.
               staticFile:
-                description: Static file content to be served for this error.
                 type: string
                 x-dcl-go-name: StaticFile
-            type: object
-            x-dcl-go-type: VersionErrorHandlers
-          type: array
-          x-dcl-go-name: ErrorHandlers
-          x-dcl-list-type: list
+                description: Static file content to be served for this error.
         handlers:
+          type: array
+          x-dcl-go-name: Handlers
           description: An ordered list of URL-matching patterns that should be applied
             to incoming requests. The first matching URL handles the request and other
             request handlers are not attempted. Only returned in `GET` requests if
             `view=FULL` is set.
+          x-dcl-list-type: list
           items:
+            type: object
+            x-dcl-go-type: VersionHandlers
             properties:
               apiEndpoint:
-                description: Uses API Endpoints to handle requests.
-                properties:
-                  scriptPath:
-                    description: Path to the script from the application root directory.
-                    type: string
-                    x-dcl-go-name: ScriptPath
                 type: object
                 x-dcl-go-name: ApiEndpoint
                 x-dcl-go-type: VersionHandlersApiEndpoint
+                description: Uses API Endpoints to handle requests.
+                properties:
+                  scriptPath:
+                    type: string
+                    x-dcl-go-name: ScriptPath
+                    description: Path to the script from the application root directory.
               authFailAction:
+                type: string
+                x-dcl-go-name: AuthFailAction
+                x-dcl-go-type: VersionHandlersAuthFailActionEnum
                 description: 'Action to take when users access resources that require
                   authentication. Defaults to `redirect`. Possible values: AUTH_FAIL_ACTION_UNSPECIFIED,
                   AUTH_FAIL_ACTION_REDIRECT, AUTH_FAIL_ACTION_UNAUTHORIZED'
@@ -477,10 +539,10 @@ components:
                 - AUTH_FAIL_ACTION_UNSPECIFIED
                 - AUTH_FAIL_ACTION_REDIRECT
                 - AUTH_FAIL_ACTION_UNAUTHORIZED
-                type: string
-                x-dcl-go-name: AuthFailAction
-                x-dcl-go-type: VersionHandlersAuthFailActionEnum
               login:
+                type: string
+                x-dcl-go-name: Login
+                x-dcl-go-type: VersionHandlersLoginEnum
                 description: 'Level of login required to access this resource. Not
                   supported for Node.js in the App Engine standard environment. Possible
                   values: LOGIN_UNSPECIFIED, LOGIN_OPTIONAL, LOGIN_ADMIN, LOGIN_REQUIRED'
@@ -489,10 +551,10 @@ components:
                 - LOGIN_OPTIONAL
                 - LOGIN_ADMIN
                 - LOGIN_REQUIRED
-                type: string
-                x-dcl-go-name: Login
-                x-dcl-go-type: VersionHandlersLoginEnum
               redirectHttpResponseCode:
+                type: string
+                x-dcl-go-name: RedirectHttpResponseCode
+                x-dcl-go-type: VersionHandlersRedirectHttpResponseCodeEnum
                 description: '`30x` code to use when performing redirects for the
                   `secure` field. Defaults to `302`. Possible values: REDIRECT_HTTP_RESPONSE_CODE_UNSPECIFIED,
                   REDIRECT_HTTP_RESPONSE_CODE_301, REDIRECT_HTTP_RESPONSE_CODE_302,
@@ -503,22 +565,22 @@ components:
                 - REDIRECT_HTTP_RESPONSE_CODE_302
                 - REDIRECT_HTTP_RESPONSE_CODE_303
                 - REDIRECT_HTTP_RESPONSE_CODE_307
-                type: string
-                x-dcl-go-name: RedirectHttpResponseCode
-                x-dcl-go-type: VersionHandlersRedirectHttpResponseCodeEnum
               script:
+                type: object
+                x-dcl-go-name: Script
+                x-dcl-go-type: VersionHandlersScript
                 description: 'Executes a script to handle the requests that match
                   this URL pattern. Only the `auto` value is supported for Node.js
                   in the App Engine standard environment, for example `"script": "auto"`.'
                 properties:
                   scriptPath:
-                    description: Path to the script from the application root directory.
                     type: string
                     x-dcl-go-name: ScriptPath
-                type: object
-                x-dcl-go-name: Script
-                x-dcl-go-type: VersionHandlersScript
+                    description: Path to the script from the application root directory.
               securityLevel:
+                type: string
+                x-dcl-go-name: SecurityLevel
+                x-dcl-go-type: VersionHandlersSecurityLevelEnum
                 description: 'Security (HTTPS) enforcement for this URL. Possible
                   values: SECURE_UNSPECIFIED, SECURE_DEFAULT, SECURE_NEVER, SECURE_OPTIONAL,
                   SECURE_ALWAYS'
@@ -528,119 +590,116 @@ components:
                 - SECURE_NEVER
                 - SECURE_OPTIONAL
                 - SECURE_ALWAYS
-                type: string
-                x-dcl-go-name: SecurityLevel
-                x-dcl-go-type: VersionHandlersSecurityLevelEnum
               staticFiles:
+                type: object
+                x-dcl-go-name: StaticFiles
+                x-dcl-go-type: VersionHandlersStaticFiles
                 description: Returns the contents of a file, such as an image, as
                   the response.
                 properties:
                   applicationReadable:
+                    type: boolean
+                    x-dcl-go-name: ApplicationReadable
                     description: Whether files should also be uploaded as code data.
                       By default, files declared in static file handlers are uploaded
                       as static data and are only served to end users; they cannot
                       be read by the application. If enabled, uploads are charged
                       against both your code and static data storage resource quotas.
-                    type: boolean
-                    x-dcl-go-name: ApplicationReadable
                   expiration:
-                    description: Time a static file served by this handler should
-                      be cached by web proxies and browsers.
                     type: string
                     x-dcl-go-name: Expiration
+                    description: Time a static file served by this handler should
+                      be cached by web proxies and browsers.
                   httpHeaders:
+                    type: object
                     additionalProperties:
                       type: string
+                    x-dcl-go-name: HttpHeaders
                     description: HTTP headers to use for all responses from these
                       URLs.
-                    type: object
-                    x-dcl-go-name: HttpHeaders
                   mimeType:
+                    type: string
+                    x-dcl-go-name: MimeType
                     description: MIME type used to serve all files served by this
                       handler. Defaults to file-specific MIME types, which are derived
                       from each file's filename extension.
-                    type: string
-                    x-dcl-go-name: MimeType
                   path:
+                    type: string
+                    x-dcl-go-name: Path
                     description: Path to the static files matched by the URL pattern,
                       from the application root directory. The path can refer to text
                       matched in groupings in the URL pattern.
-                    type: string
-                    x-dcl-go-name: Path
                   requireMatchingFile:
-                    description: Whether this handler should match the request if
-                      the file referenced by the handler does not exist.
                     type: boolean
                     x-dcl-go-name: RequireMatchingFile
+                    description: Whether this handler should match the request if
+                      the file referenced by the handler does not exist.
                   uploadPathRegex:
-                    description: Regular expression that matches the file paths for
-                      all files that should be referenced by this handler.
                     type: string
                     x-dcl-go-name: UploadPathRegex
-                type: object
-                x-dcl-go-name: StaticFiles
-                x-dcl-go-type: VersionHandlersStaticFiles
+                    description: Regular expression that matches the file paths for
+                      all files that should be referenced by this handler.
               urlRegex:
+                type: string
+                x-dcl-go-name: UrlRegex
                 description: URL prefix. Uses regular expression syntax, which means
                   regexp special characters must be escaped, but should not contain
                   groupings. All URLs that begin with this prefix are handled by this
                   handler, using the portion of the URL after the prefix as part of
                   the file path.
-                type: string
-                x-dcl-go-name: UrlRegex
-            type: object
-            x-dcl-go-type: VersionHandlers
-          type: array
-          x-dcl-go-name: Handlers
-          x-dcl-list-type: list
         healthCheck:
+          type: object
+          x-dcl-go-name: HealthCheck
+          x-dcl-go-type: VersionHealthCheck
           description: Configures health checking for instances. Unhealthy instances
             are stopped and replaced with new instances. Only applicable in the App
             Engine flexible environment. Only returned in `GET` requests if `view=FULL`
             is set.
           properties:
             checkInterval:
-              description: Interval between health checks.
               type: string
               x-dcl-go-name: CheckInterval
+              description: Interval between health checks.
             disableHealthCheck:
-              description: Whether to explicitly disable health checks for this instance.
               type: boolean
               x-dcl-go-name: DisableHealthCheck
+              description: Whether to explicitly disable health checks for this instance.
             healthyThreshold:
+              type: integer
+              format: int64
+              x-dcl-go-name: HealthyThreshold
               description: Number of consecutive successful health checks required
                 before receiving traffic.
-              format: int64
-              type: integer
-              x-dcl-go-name: HealthyThreshold
             host:
-              description: 'Host header to send when performing an HTTP health check.
-                Example: "myapp.appspot.com"'
               type: string
               x-dcl-go-name: Host
+              description: 'Host header to send when performing an HTTP health check.
+                Example: "myapp.appspot.com"'
             restartThreshold:
+              type: integer
+              format: int64
+              x-dcl-go-name: RestartThreshold
               description: Number of consecutive failed health checks required before
                 an instance is restarted.
-              format: int64
-              type: integer
-              x-dcl-go-name: RestartThreshold
             timeout:
-              description: Time before the health check is considered failed.
               type: string
               x-dcl-go-name: Timeout
+              description: Time before the health check is considered failed.
             unhealthyThreshold:
+              type: integer
+              format: int64
+              x-dcl-go-name: UnhealthyThreshold
               description: Number of consecutive failed health checks required before
                 removing traffic.
-              format: int64
-              type: integer
-              x-dcl-go-name: UnhealthyThreshold
-          type: object
-          x-dcl-go-name: HealthCheck
-          x-dcl-go-type: VersionHealthCheck
         inboundServices:
+          type: array
+          x-dcl-go-name: InboundServices
           description: Before an application can receive email or XMPP messages, the
             application must be configured to enable the service.
+          x-dcl-list-type: list
           items:
+            type: string
+            x-dcl-go-type: VersionInboundServicesEnum
             enum:
             - INBOUND_SERVICE_UNSPECIFIED
             - INBOUND_SERVICE_MAIL
@@ -651,132 +710,132 @@ components:
             - INBOUND_SERVICE_XMPP_PRESENCE
             - INBOUND_SERVICE_CHANNEL_PRESENCE
             - INBOUND_SERVICE_WARMUP
-            type: string
-            x-dcl-go-type: VersionInboundServicesEnum
-          type: array
-          x-dcl-go-name: InboundServices
-          x-dcl-list-type: list
         instanceClass:
+          type: string
+          x-dcl-go-name: InstanceClass
           description: 'Instance class that is used to run this version. Valid values
             are: * AutomaticScaling: `F1`, `F2`, `F4`, `F4_1G` * ManualScaling or
             BasicScaling: `B1`, `B2`, `B4`, `B8`, `B4_1G`'
-          type: string
-          x-dcl-go-name: InstanceClass
         libraries:
+          type: array
+          x-dcl-go-name: Libraries
           description: Configuration for third-party Python runtime libraries that
             are required by the application. Only returned in `GET` requests if `view=FULL`
             is set.
+          x-dcl-list-type: list
           items:
-            properties:
-              name:
-                description: 'Name of the library. Example: "django".'
-                type: string
-                x-dcl-go-name: Name
-              version:
-                description: Version of the library to select, or "latest".
-                type: string
-                x-dcl-go-name: Version
             type: object
             x-dcl-go-type: VersionLibraries
-          type: array
-          x-dcl-go-name: Libraries
-          x-dcl-list-type: list
+            properties:
+              name:
+                type: string
+                x-dcl-go-name: Name
+                description: 'Name of the library. Example: "django".'
+              version:
+                type: string
+                x-dcl-go-name: Version
+                description: Version of the library to select, or "latest".
         livenessCheck:
+          type: object
+          x-dcl-go-name: LivenessCheck
+          x-dcl-go-type: VersionLivenessCheck
           description: Configures liveness health checking for instances. Unhealthy
             instances are stopped and replaced with new instances Only returned in
             `GET` requests if `view=FULL` is set.
           properties:
             checkInterval:
-              description: Interval between health checks.
               type: string
               x-dcl-go-name: CheckInterval
+              description: Interval between health checks.
             failureThreshold:
+              type: integer
+              format: int64
+              x-dcl-go-name: FailureThreshold
               description: Number of consecutive failed checks required before considering
                 the VM unhealthy.
-              format: int64
-              type: integer
-              x-dcl-go-name: FailureThreshold
             host:
-              description: 'Host header to send when performing a HTTP Liveness check.
-                Example: "myapp.appspot.com"'
               type: string
               x-dcl-go-name: Host
+              description: 'Host header to send when performing a HTTP Liveness check.
+                Example: "myapp.appspot.com"'
             initialDelay:
-              description: The initial delay before starting to execute the checks.
               type: string
               x-dcl-go-name: InitialDelay
+              description: The initial delay before starting to execute the checks.
             path:
-              description: The request path.
               type: string
               x-dcl-go-name: Path
+              description: The request path.
             successThreshold:
+              type: integer
+              format: int64
+              x-dcl-go-name: SuccessThreshold
               description: Number of consecutive successful checks required before
                 considering the VM healthy.
-              format: int64
-              type: integer
-              x-dcl-go-name: SuccessThreshold
             timeout:
-              description: Time before the check is considered failed.
               type: string
               x-dcl-go-name: Timeout
-          type: object
-          x-dcl-go-name: LivenessCheck
-          x-dcl-go-type: VersionLivenessCheck
+              description: Time before the check is considered failed.
         manualScaling:
+          type: object
+          x-dcl-go-name: ManualScaling
+          x-dcl-go-type: VersionManualScaling
           description: A service with manual scaling runs continuously, allowing you
             to perform complex initialization and rely on the state of its memory
             over time. Manually scaled versions are sometimes referred to as "backends".
           properties:
             instances:
+              type: integer
+              format: int64
+              x-dcl-go-name: Instances
               description: Number of instances to assign to the service at the start.
                 This number can later be altered by using the (https://cloud.google.com/appengine/docs/python/modules/functions)
                 `set_num_instances()` function.
-              format: int64
-              type: integer
-              x-dcl-go-name: Instances
-          type: object
-          x-dcl-go-name: ManualScaling
-          x-dcl-go-type: VersionManualScaling
         name:
+          type: string
+          x-dcl-go-name: Name
           description: 'Relative name of the version within the service. Example:
             `v1`. Version names can contain only lowercase letters, numbers, or hyphens.
             Reserved names: "default", "latest", and any name with the prefix "ah-".'
-          type: string
-          x-dcl-go-name: Name
         network:
+          type: object
+          x-dcl-go-name: Network
+          x-dcl-go-type: VersionNetwork
           description: Extra network settings.
           properties:
             forwardedPorts:
+              type: array
+              x-dcl-go-name: ForwardedPorts
               description: List of ports, or port pairs, to forward from the virtual
                 machine to the application container. Only applicable in the App Engine
                 flexible environment.
+              x-dcl-list-type: list
               items:
                 type: string
                 x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: ForwardedPorts
-              x-dcl-list-type: list
             instanceTag:
-              description: Tag to apply to the instance during creation. Only applicable
-                in the App Engine flexible environment.
               type: string
               x-dcl-go-name: InstanceTag
+              description: Tag to apply to the instance during creation. Only applicable
+                in the App Engine flexible environment.
             name:
+              type: string
+              x-dcl-go-name: Name
               description: Google Compute Engine network where the virtual machines
                 are created. Specify the short name, not the resource path. Defaults
                 to `default`.
-              type: string
-              x-dcl-go-name: Name
               x-dcl-references:
-              - field: name
+              - resource: Compute/Network
+                field: name
                 parent: true
-                resource: Compute/Network
             sessionAffinity:
-              description: Enable session affinity. Only applicable in the App Engine
-                flexible environment.
               type: boolean
               x-dcl-go-name: SessionAffinity
+              description: Enable session affinity. Only applicable in the App Engine
+                flexible environment.
             subnetworkName:
+              type: string
+              x-dcl-go-name: SubnetworkName
               description: Google Cloud Platform sub-network where the virtual machines
                 are created. Specify the short name, not the resource path. If a subnetwork
                 name is specified, a network name will also be required unless it
@@ -791,131 +850,129 @@ components:
                 be specified and the IP address is created from the IPCidrRange of
                 the subnetwork. If specified, the subnetwork must exist in the same
                 region as the App Engine flexible environment application.
-              type: string
-              x-dcl-go-name: SubnetworkName
               x-dcl-references:
-              - field: name
-                resource: Compute/Subnetwork
-          type: object
-          x-dcl-go-name: Network
-          x-dcl-go-type: VersionNetwork
+              - resource: Compute/Subnetwork
+                field: name
         nobuildFilesRegex:
+          type: string
+          x-dcl-go-name: NobuildFilesRegex
           description: Files that match this pattern will not be built into this version.
             Only applicable for Go runtimes. Only returned in `GET` requests if `view=FULL`
             is set.
-          type: string
-          x-dcl-go-name: NobuildFilesRegex
         readinessCheck:
+          type: object
+          x-dcl-go-name: ReadinessCheck
+          x-dcl-go-type: VersionReadinessCheck
           description: Configures readiness health checking for instances. Unhealthy
             instances are not put into the backend traffic rotation. Only returned
             in `GET` requests if `view=FULL` is set.
           properties:
             appStartTimeout:
+              type: string
+              x-dcl-go-name: AppStartTimeout
               description: A maximum time limit on application initialization, measured
                 from moment the application successfully replies to a healthcheck
                 until it is ready to serve traffic.
-              type: string
-              x-dcl-go-name: AppStartTimeout
             checkInterval:
-              description: Interval between health checks.
               type: string
               x-dcl-go-name: CheckInterval
+              description: Interval between health checks.
             failureThreshold:
+              type: integer
+              format: int64
+              x-dcl-go-name: FailureThreshold
               description: Number of consecutive failed checks required before removing
                 traffic.
-              format: int64
-              type: integer
-              x-dcl-go-name: FailureThreshold
             host:
-              description: 'Host header to send when performing a HTTP Readiness check.
-                Example: "myapp.appspot.com"'
               type: string
               x-dcl-go-name: Host
+              description: 'Host header to send when performing a HTTP Readiness check.
+                Example: "myapp.appspot.com"'
             path:
-              description: The request path.
               type: string
               x-dcl-go-name: Path
+              description: The request path.
             successThreshold:
+              type: integer
+              format: int64
+              x-dcl-go-name: SuccessThreshold
               description: Number of consecutive successful checks required before
                 receiving traffic.
-              format: int64
-              type: integer
-              x-dcl-go-name: SuccessThreshold
             timeout:
-              description: Time before the check is considered failed.
               type: string
               x-dcl-go-name: Timeout
-          type: object
-          x-dcl-go-name: ReadinessCheck
-          x-dcl-go-type: VersionReadinessCheck
+              description: Time before the check is considered failed.
         resources:
+          type: object
+          x-dcl-go-name: Resources
+          x-dcl-go-type: VersionResources
           description: Machine resources for this version. Only applicable in the
             App Engine flexible environment.
           properties:
             cpu:
-              description: Number of CPU cores needed.
-              format: double
               type: number
+              format: double
               x-dcl-go-name: Cpu
+              description: Number of CPU cores needed.
             diskGb:
-              description: Disk size (GB) needed.
-              format: double
               type: number
+              format: double
               x-dcl-go-name: DiskGb
+              description: Disk size (GB) needed.
             memoryGb:
-              description: Memory (GB) needed.
-              format: double
               type: number
+              format: double
               x-dcl-go-name: MemoryGb
+              description: Memory (GB) needed.
             volumes:
-              description: User specified volumes.
-              items:
-                properties:
-                  name:
-                    description: Unique name for the volume.
-                    type: string
-                    x-dcl-go-name: Name
-                  sizeGb:
-                    description: Volume size in gigabytes.
-                    format: double
-                    type: number
-                    x-dcl-go-name: SizeGb
-                  volumeType:
-                    description: Underlying volume type, e.g. 'tmpfs'.
-                    type: string
-                    x-dcl-go-name: VolumeType
-                type: object
-                x-dcl-go-type: VersionResourcesVolumes
               type: array
               x-dcl-go-name: Volumes
+              description: User specified volumes.
               x-dcl-list-type: list
-          type: object
-          x-dcl-go-name: Resources
-          x-dcl-go-type: VersionResources
+              items:
+                type: object
+                x-dcl-go-type: VersionResourcesVolumes
+                properties:
+                  name:
+                    type: string
+                    x-dcl-go-name: Name
+                    description: Unique name for the volume.
+                  sizeGb:
+                    type: number
+                    format: double
+                    x-dcl-go-name: SizeGb
+                    description: Volume size in gigabytes.
+                  volumeType:
+                    type: string
+                    x-dcl-go-name: VolumeType
+                    description: Underlying volume type, e.g. 'tmpfs'.
         runtime:
-          description: 'Desired runtime. Example: `python27`.'
           type: string
           x-dcl-go-name: Runtime
+          description: 'Desired runtime. Example: `python27`.'
         runtimeApiVersion:
-          description: The version of the API in the given runtime environment. Please
-            see the app.yaml reference for valid values at https://cloud.google.com/appengine/docs/standard//config/appref
           type: string
           x-dcl-go-name: RuntimeApiVersion
+          description: The version of the API in the given runtime environment. Please
+            see the app.yaml reference for valid values at https://cloud.google.com/appengine/docs/standard//config/appref
         runtimeChannel:
-          description: The channel of the runtime to use. Only available for some
-            runtimes. Defaults to the `default` channel.
           type: string
           x-dcl-go-name: RuntimeChannel
+          description: The channel of the runtime to use. Only available for some
+            runtimes. Defaults to the `default` channel.
         runtimeMainExecutablePath:
-          description: The path or name of the app's main executable.
           type: string
           x-dcl-go-name: RuntimeMainExecutablePath
+          description: The path or name of the app's main executable.
         service:
-          description: The service for the resource
           type: string
           x-dcl-go-name: Service
+          description: The service for the resource
           x-kubernetes-immutable: true
         servingStatus:
+          type: string
+          x-dcl-go-name: ServingStatus
+          x-dcl-go-type: VersionServingStatusEnum
           description: Current serving status of this version. Only the versions with
             a `SERVING` status create instances and can be billed. `SERVING_STATUS_UNSPECIFIED`
             is an invalid value. Defaults to `SERVING`.
@@ -924,101 +981,42 @@ components:
           - SERVING
           - USER_DISABLED
           - SYSTEM_DISABLED
-          type: string
-          x-dcl-go-name: ServingStatus
-          x-dcl-go-type: VersionServingStatusEnum
         threadsafe:
-          description: Whether multiple requests can be dispatched to this version
-            at once.
           type: boolean
           x-dcl-go-name: Threadsafe
+          description: Whether multiple requests can be dispatched to this version
+            at once.
         versionUrl:
-          description: 'Serving URL for this version. Example: "https://myversion-dot-myservice-dot-myapp.appspot.com"
-            @OutputOnly'
-          readOnly: true
           type: string
           x-dcl-go-name: VersionUrl
+          readOnly: true
+          description: 'Serving URL for this version. Example: "https://myversion-dot-myservice-dot-myapp.appspot.com"
+            @OutputOnly'
         vm:
-          description: Whether to deploy this version in a container on a virtual
-            machine.
           type: boolean
           x-dcl-go-name: Vm
+          description: Whether to deploy this version in a container on a virtual
+            machine.
         vpcAccessConnector:
-          description: Enables VPC connectivity for standard apps.
-          properties:
-            name:
-              description: Full Serverless VPC Access Connector name e.g. /projects/my-project/locations/us-central1/connectors/c1.
-              type: string
-              x-dcl-go-name: Name
-              x-dcl-references:
-              - field: name
-                parent: true
-                resource: VPCAccess/Connector
           type: object
           x-dcl-go-name: VPCAccessConnector
           x-dcl-go-type: VersionVPCAccessConnector
+          description: Enables VPC connectivity for standard apps.
+          properties:
+            name:
+              type: string
+              x-dcl-go-name: Name
+              description: Full Serverless VPC Access Connector name e.g. /projects/my-project/locations/us-central1/connectors/c1.
+              x-dcl-references:
+              - resource: VPCAccess/Connector
+                field: name
+                parent: true
         zones:
+          type: array
+          x-dcl-go-name: Zones
           description: The Google Compute Engine zones that are supported by this
             version in the App Engine flexible environment. Deprecated.
+          x-dcl-list-type: list
           items:
             type: string
             x-dcl-go-type: string
-          type: array
-          x-dcl-go-name: Zones
-          x-dcl-list-type: list
-      required:
-      - name
-      - runtime
-      - deployment
-      - app
-      - service
-      title: Version
-      type: object
-      x-dcl-id: apps/{{app}}/services/{{service}}/versions/{{name}}?view=FULL
-      x-dcl-locations: []
-      x-dcl-uses-state-hint: false
-info:
-  description: DCL Specification for the AppEngine Version resource
-  title: AppEngine/Version
-  x-dcl-has-iam: false
-paths:
-  apply:
-    description: The function used to apply information about a Version
-    parameters:
-    - description: A full instance of a Version
-      name: Version
-      required: true
-  delete:
-    description: The function used to delete a Version
-    parameters:
-    - description: A full instance of a Version
-      name: Version
-      required: true
-  deleteAll:
-    description: The function used to delete all Version
-    parameters:
-    - name: app
-      required: true
-      schema:
-        type: string
-    - name: service
-      required: true
-      schema:
-        type: string
-  get:
-    description: The function used to get information about a Version
-    parameters:
-    - description: A full instance of a Version
-      name: Version
-      required: true
-  list:
-    description: The function used to list information about many Version
-    parameters:
-    - name: app
-      required: true
-      schema:
-        type: string
-    - name: service
-      required: true
-      schema:
-        type: string

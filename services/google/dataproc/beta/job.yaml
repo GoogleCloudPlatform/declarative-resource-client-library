@@ -11,1081 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    Job:
-      properties:
-        done:
-          description: Output only. Indicates whether the job is completed. If the
-            value is `false`, the job is still in progress. If `true`, the job is
-            completed, and `status.state` field will indicate if it was successful,
-            failed, or cancelled.
-          readOnly: true
-          type: boolean
-          x-dcl-go-name: Done
-          x-kubernetes-immutable: true
-        driverControlFilesUri:
-          description: Output only. If present, the location of miscellaneous control
-            files which may be used as part of job setup and handling. If not present,
-            control files may be placed in the same location as `driver_output_uri`.
-          readOnly: true
-          type: string
-          x-dcl-go-name: DriverControlFilesUri
-          x-kubernetes-immutable: true
-        driverOutputResourceUri:
-          description: Output only. A URI pointing to the location of the stdout of
-            the job's driver program.
-          readOnly: true
-          type: string
-          x-dcl-go-name: DriverOutputResourceUri
-          x-kubernetes-immutable: true
-        hadoopJob:
-          description: Optional. Job is a Hadoop job.
-          properties:
-            archiveUris:
-              description: 'Optional. HCFS URIs of archives to be extracted in the
-                working directory of Hadoop drivers and tasks. Supported file types:
-                .jar, .tar, .tar.gz, .tgz, or .zip.'
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: ArchiveUris
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            args:
-              description: Optional. The arguments to pass to the driver. Do not include
-                arguments, such as `-libjars` or `-Dfoo=bar`, that can be set as job
-                properties, since a collision may occur that causes an incorrect job
-                submission.
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: Args
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            fileUris:
-              description: Optional. HCFS (Hadoop Compatible Filesystem) URIs of files
-                to be copied to the working directory of Hadoop drivers and distributed
-                tasks. Useful for naively parallel tasks.
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: FileUris
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            jarFileUris:
-              description: Optional. Jar file URIs to add to the CLASSPATHs of the
-                Hadoop driver and tasks.
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: JarFileUris
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            loggingConfig:
-              description: Optional. The runtime log config for job execution.
-              properties:
-                driverLogLevels:
-                  additionalProperties:
-                    type: string
-                  description: 'The per-package log levels for the driver. This may
-                    include "root" package name to configure rootLogger. Examples:
-                    ''com.google = FATAL'', ''root = INFO'', ''org.apache = DEBUG'''
-                  type: object
-                  x-dcl-go-name: DriverLogLevels
-                  x-kubernetes-immutable: true
-              type: object
-              x-dcl-go-name: LoggingConfig
-              x-dcl-go-type: JobHadoopJobLoggingConfig
-              x-kubernetes-immutable: true
-            mainClass:
-              description: The name of the driver's main class. The jar file containing
-                the class must be in the default CLASSPATH or specified in `jar_file_uris`.
-              type: string
-              x-dcl-go-name: MainClass
-              x-kubernetes-immutable: true
-            mainJarFileUri:
-              description: 'The HCFS URI of the jar file containing the main class.
-                Examples: ''gs://foo-bucket/analytics-binaries/extract-useful-metrics-mr.jar''
-                ''hdfs:/tmp/test-samples/custom-wordcount.jar'' ''file:///home/usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar'''
-              type: string
-              x-dcl-go-name: MainJarFileUri
-              x-kubernetes-immutable: true
-            properties:
-              additionalProperties:
-                type: string
-              description: Optional. A mapping of property names to values, used to
-                configure Hadoop. Properties that conflict with values set by the
-                Dataproc API may be overwritten. Can include properties set in /etc/hadoop/conf/*-site
-                and classes in user code.
-              type: object
-              x-dcl-go-name: Properties
-              x-kubernetes-immutable: true
-          type: object
-          x-dcl-conflicts:
-          - sparkJob
-          - pysparkJob
-          - hiveJob
-          - pigJob
-          - sparkRJob
-          - sparkSqlJob
-          - prestoJob
-          x-dcl-go-name: HadoopJob
-          x-dcl-go-type: JobHadoopJob
-          x-kubernetes-immutable: true
-        hiveJob:
-          description: Optional. Job is a Hive job.
-          properties:
-            continueOnFailure:
-              description: Optional. Whether to continue executing queries if a query
-                fails. The default value is `false`. Setting to `true` can be useful
-                when executing independent parallel queries.
-              type: boolean
-              x-dcl-go-name: ContinueOnFailure
-              x-dcl-server-default: true
-              x-kubernetes-immutable: true
-            jarFileUris:
-              description: Optional. HCFS URIs of jar files to add to the CLASSPATH
-                of the Hive server and Hadoop MapReduce (MR) tasks. Can contain Hive
-                SerDes and UDFs.
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: JarFileUris
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            properties:
-              additionalProperties:
-                type: string
-              description: Optional. A mapping of property names and values, used
-                to configure Hive. Properties that conflict with values set by the
-                Dataproc API may be overwritten. Can include properties set in /etc/hadoop/conf/*-site.xml,
-                /etc/hive/conf/hive-site.xml, and classes in user code.
-              type: object
-              x-dcl-go-name: Properties
-              x-kubernetes-immutable: true
-            queryFileUri:
-              description: The HCFS URI of the script that contains Hive queries.
-              type: string
-              x-dcl-go-name: QueryFileUri
-              x-kubernetes-immutable: true
-            queryList:
-              description: A list of queries.
-              properties:
-                queries:
-                  description: 'Required. The queries to execute. You do not need
-                    to end a query expression with a semicolon. Multiple queries can
-                    be specified in one string by separating each with a semicolon.
-                    Here is an example of a Dataproc API snippet that uses a QueryList
-                    to specify a HiveJob: "hiveJob": { "queryList": { "queries": }
-                    }'
-                  items:
-                    type: string
-                    x-dcl-go-type: string
-                  type: array
-                  x-dcl-go-name: Queries
-                  x-dcl-list-type: list
-                  x-kubernetes-immutable: true
-              required:
-              - queries
-              type: object
-              x-dcl-go-name: QueryList
-              x-dcl-go-type: JobHiveJobQueryList
-              x-kubernetes-immutable: true
-            scriptVariables:
-              additionalProperties:
-                type: string
-              description: 'Optional. Mapping of query variable names to values (equivalent
-                to the Hive command: `SET name="value";`).'
-              type: object
-              x-dcl-go-name: ScriptVariables
-              x-kubernetes-immutable: true
-          type: object
-          x-dcl-conflicts:
-          - hadoopJob
-          - sparkJob
-          - pysparkJob
-          - pigJob
-          - sparkRJob
-          - sparkSqlJob
-          - prestoJob
-          x-dcl-go-name: HiveJob
-          x-dcl-go-type: JobHiveJob
-          x-kubernetes-immutable: true
-        labels:
-          additionalProperties:
-            type: string
-          description: Optional. The labels to associate with this job. Label **keys**
-            must contain 1 to 63 characters, and must conform to (https://www.ietf.org/rfc/rfc1035.txt).
-            No more than 32 labels can be associated with a job.
-          type: object
-          x-dcl-go-name: Labels
-        name:
-          description: Output only. A UUID that uniquely identifies a job within the
-            project over time. This is in contrast to a user-settable reference.job_id
-            that may be reused over time.
-          readOnly: true
-          type: string
-          x-dcl-go-name: Name
-          x-dcl-server-generated-parameter: true
-          x-kubernetes-immutable: true
-        pigJob:
-          description: Optional. Job is a Pig job.
-          properties:
-            continueOnFailure:
-              description: Optional. Whether to continue executing queries if a query
-                fails. The default value is `false`. Setting to `true` can be useful
-                when executing independent parallel queries.
-              type: boolean
-              x-dcl-go-name: ContinueOnFailure
-              x-kubernetes-immutable: true
-            jarFileUris:
-              description: Optional. HCFS URIs of jar files to add to the CLASSPATH
-                of the Pig Client and Hadoop MapReduce (MR) tasks. Can contain Pig
-                UDFs.
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: JarFileUris
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            loggingConfig:
-              description: Optional. The runtime log config for job execution.
-              properties:
-                driverLogLevels:
-                  additionalProperties:
-                    type: string
-                  description: 'The per-package log levels for the driver. This may
-                    include "root" package name to configure rootLogger. Examples:
-                    ''com.google = FATAL'', ''root = INFO'', ''org.apache = DEBUG'''
-                  type: object
-                  x-dcl-go-name: DriverLogLevels
-                  x-kubernetes-immutable: true
-              type: object
-              x-dcl-go-name: LoggingConfig
-              x-dcl-go-type: JobPigJobLoggingConfig
-              x-kubernetes-immutable: true
-            properties:
-              additionalProperties:
-                type: string
-              description: Optional. A mapping of property names to values, used to
-                configure Pig. Properties that conflict with values set by the Dataproc
-                API may be overwritten. Can include properties set in /etc/hadoop/conf/*-site.xml,
-                /etc/pig/conf/pig.properties, and classes in user code.
-              type: object
-              x-dcl-go-name: Properties
-              x-kubernetes-immutable: true
-            queryFileUri:
-              description: The HCFS URI of the script that contains the Pig queries.
-              type: string
-              x-dcl-go-name: QueryFileUri
-              x-kubernetes-immutable: true
-            queryList:
-              description: A list of queries.
-              properties:
-                queries:
-                  description: 'Required. The queries to execute. You do not need
-                    to end a query expression with a semicolon. Multiple queries can
-                    be specified in one string by separating each with a semicolon.
-                    Here is an example of a Dataproc API snippet that uses a QueryList
-                    to specify a HiveJob: "hiveJob": { "queryList": { "queries": }
-                    }'
-                  items:
-                    type: string
-                    x-dcl-go-type: string
-                  type: array
-                  x-dcl-go-name: Queries
-                  x-dcl-list-type: list
-                  x-kubernetes-immutable: true
-              required:
-              - queries
-              type: object
-              x-dcl-go-name: QueryList
-              x-dcl-go-type: JobPigJobQueryList
-              x-kubernetes-immutable: true
-            scriptVariables:
-              additionalProperties:
-                type: string
-              description: 'Optional. Mapping of query variable names to values (equivalent
-                to the Pig command: `name=`).'
-              type: object
-              x-dcl-go-name: ScriptVariables
-              x-kubernetes-immutable: true
-          type: object
-          x-dcl-conflicts:
-          - hadoopJob
-          - sparkJob
-          - pysparkJob
-          - hiveJob
-          - sparkRJob
-          - sparkSqlJob
-          - prestoJob
-          x-dcl-go-name: PigJob
-          x-dcl-go-type: JobPigJob
-          x-kubernetes-immutable: true
-        placement:
-          description: Required. Job information, including how, when, and where to
-            run the job.
-          properties:
-            clusterLabels:
-              additionalProperties:
-                type: string
-              description: Optional. Cluster labels to identify a cluster where the
-                job will be submitted.
-              type: object
-              x-dcl-go-name: ClusterLabels
-              x-kubernetes-immutable: true
-            clusterName:
-              description: Required. The name of the cluster where the job will be
-                submitted.
-              type: string
-              x-dcl-go-name: ClusterName
-              x-dcl-references:
-              - field: name
-                resource: Dataproc/Cluster
-              x-kubernetes-immutable: true
-            clusterUuid:
-              description: Output only. A cluster UUID generated by the Dataproc service
-                when the job is submitted.
-              readOnly: true
-              type: string
-              x-dcl-go-name: ClusterUuid
-              x-kubernetes-immutable: true
-          required:
-          - clusterName
-          type: object
-          x-dcl-go-name: Placement
-          x-dcl-go-type: JobPlacement
-          x-kubernetes-immutable: true
-        prestoJob:
-          description: Optional. Job is a Presto job.
-          properties:
-            clientTags:
-              description: Optional. Presto client tags to attach to this query
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: ClientTags
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            continueOnFailure:
-              description: Optional. Whether to continue executing queries if a query
-                fails. The default value is `false`. Setting to `true` can be useful
-                when executing independent parallel queries.
-              type: boolean
-              x-dcl-go-name: ContinueOnFailure
-              x-kubernetes-immutable: true
-            loggingConfig:
-              description: Optional. The runtime log config for job execution.
-              properties:
-                driverLogLevels:
-                  additionalProperties:
-                    type: string
-                  description: 'The per-package log levels for the driver. This may
-                    include "root" package name to configure rootLogger. Examples:
-                    ''com.google = FATAL'', ''root = INFO'', ''org.apache = DEBUG'''
-                  type: object
-                  x-dcl-go-name: DriverLogLevels
-                  x-kubernetes-immutable: true
-              type: object
-              x-dcl-go-name: LoggingConfig
-              x-dcl-go-type: JobPrestoJobLoggingConfig
-              x-kubernetes-immutable: true
-            outputFormat:
-              description: Optional. The format in which query output will be displayed.
-                See the Presto documentation for supported output formats
-              type: string
-              x-dcl-go-name: OutputFormat
-              x-kubernetes-immutable: true
-            properties:
-              additionalProperties:
-                type: string
-              description: Optional. A mapping of property names to values. Used to
-                set Presto (https://prestodb.io/docs/current/sql/set-session.html)
-                Equivalent to using the --session flag in the Presto CLI
-              type: object
-              x-dcl-go-name: Properties
-              x-kubernetes-immutable: true
-            queryFileUri:
-              description: The HCFS URI of the script that contains SQL queries.
-              type: string
-              x-dcl-go-name: QueryFileUri
-              x-kubernetes-immutable: true
-            queryList:
-              description: A list of queries.
-              properties:
-                queries:
-                  description: 'Required. The queries to execute. You do not need
-                    to end a query expression with a semicolon. Multiple queries can
-                    be specified in one string by separating each with a semicolon.
-                    Here is an example of a Dataproc API snippet that uses a QueryList
-                    to specify a HiveJob: "hiveJob": { "queryList": { "queries": }
-                    }'
-                  items:
-                    type: string
-                    x-dcl-go-type: string
-                  type: array
-                  x-dcl-go-name: Queries
-                  x-dcl-list-type: list
-                  x-kubernetes-immutable: true
-              required:
-              - queries
-              type: object
-              x-dcl-go-name: QueryList
-              x-dcl-go-type: JobPrestoJobQueryList
-              x-kubernetes-immutable: true
-          type: object
-          x-dcl-conflicts:
-          - hadoopJob
-          - sparkJob
-          - pysparkJob
-          - hiveJob
-          - pigJob
-          - sparkRJob
-          - sparkSqlJob
-          x-dcl-go-name: PrestoJob
-          x-dcl-go-type: JobPrestoJob
-          x-kubernetes-immutable: true
-        project:
-          description: The project of the resource.
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        pysparkJob:
-          description: Optional. Job is a PySpark job.
-          properties:
-            archiveUris:
-              description: 'Optional. HCFS URIs of archives to be extracted into the
-                working directory of each executor. Supported file types: .jar, .tar,
-                .tar.gz, .tgz, and .zip.'
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: ArchiveUris
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            args:
-              description: Optional. The arguments to pass to the driver. Do not include
-                arguments, such as `--conf`, that can be set as job properties, since
-                a collision may occur that causes an incorrect job submission.
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: Args
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            fileUris:
-              description: Optional. HCFS URIs of files to be placed in the working
-                directory of each executor. Useful for naively parallel tasks.
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: FileUris
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            jarFileUris:
-              description: Optional. HCFS URIs of jar files to add to the CLASSPATHs
-                of the Python driver and tasks.
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: JarFileUris
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            loggingConfig:
-              description: Optional. The runtime log config for job execution.
-              properties:
-                driverLogLevels:
-                  additionalProperties:
-                    type: string
-                  description: 'The per-package log levels for the driver. This may
-                    include "root" package name to configure rootLogger. Examples:
-                    ''com.google = FATAL'', ''root = INFO'', ''org.apache = DEBUG'''
-                  type: object
-                  x-dcl-go-name: DriverLogLevels
-                  x-kubernetes-immutable: true
-              type: object
-              x-dcl-go-name: LoggingConfig
-              x-dcl-go-type: JobPysparkJobLoggingConfig
-              x-kubernetes-immutable: true
-            mainPythonFileUri:
-              description: Required. The HCFS URI of the main Python file to use as
-                the driver. Must be a .py file.
-              type: string
-              x-dcl-go-name: MainPythonFileUri
-              x-kubernetes-immutable: true
-            properties:
-              additionalProperties:
-                type: string
-              description: Optional. A mapping of property names to values, used to
-                configure PySpark. Properties that conflict with values set by the
-                Dataproc API may be overwritten. Can include properties set in /etc/spark/conf/spark-defaults.conf
-                and classes in user code.
-              type: object
-              x-dcl-go-name: Properties
-              x-kubernetes-immutable: true
-            pythonFileUris:
-              description: 'Optional. HCFS file URIs of Python files to pass to the
-                PySpark framework. Supported file types: .py, .egg, and .zip.'
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: PythonFileUris
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-          required:
-          - mainPythonFileUri
-          type: object
-          x-dcl-conflicts:
-          - hadoopJob
-          - sparkJob
-          - hiveJob
-          - pigJob
-          - sparkRJob
-          - sparkSqlJob
-          - prestoJob
-          x-dcl-go-name: PysparkJob
-          x-dcl-go-type: JobPysparkJob
-          x-kubernetes-immutable: true
-        reference:
-          description: Optional. The fully qualified reference to the job, which can
-            be used to obtain the equivalent REST path of the job resource. If this
-            property is not specified when a job is created, the server generates
-            a `job_id`.
-          properties:
-            jobId:
-              description: Optional. The job ID, which must be unique within the project.
-                The ID must contain only letters (a-z, A-Z), numbers (0-9), underscores
-                (_), or hyphens (-). The maximum length is 100 characters. If not
-                specified by the caller, the job ID will be provided by the server.
-              type: string
-              x-dcl-go-name: JobId
-              x-kubernetes-immutable: true
-            projectId:
-              description: Optional. The ID of the Google Cloud Platform project that
-                the job belongs to. If specified, must match the request project ID.
-              type: string
-              x-dcl-go-name: ProjectId
-              x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: Reference
-          x-dcl-go-type: JobReference
-          x-kubernetes-immutable: true
-        region:
-          description: The region for the resource
-          type: string
-          x-dcl-go-name: Region
-          x-kubernetes-immutable: true
-        scheduling:
-          description: Optional. Job scheduling configuration.
-          properties:
-            maxFailuresPerHour:
-              description: Optional. Maximum number of times per hour a driver may
-                be restarted as a result of driver exiting with non-zero code before
-                job is reported failed. A job may be reported as thrashing if driver
-                exits with non-zero code 4 times within 10 minute window. Maximum
-                value is 10.
-              format: int64
-              type: integer
-              x-dcl-go-name: MaxFailuresPerHour
-              x-kubernetes-immutable: true
-            maxFailuresTotal:
-              description: Optional. Maximum number of times in total a driver may
-                be restarted as a result of driver exiting with non-zero code before
-                job is reported failed. Maximum value is 240.
-              format: int64
-              type: integer
-              x-dcl-go-name: MaxFailuresTotal
-              x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: Scheduling
-          x-dcl-go-type: JobScheduling
-          x-kubernetes-immutable: true
-        sparkJob:
-          description: Optional. Job is a Spark job.
-          properties:
-            archiveUris:
-              description: 'Optional. HCFS URIs of archives to be extracted into the
-                working directory of each executor. Supported file types: .jar, .tar,
-                .tar.gz, .tgz, and .zip.'
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: ArchiveUris
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            args:
-              description: Optional. The arguments to pass to the driver. Do not include
-                arguments, such as `--conf`, that can be set as job properties, since
-                a collision may occur that causes an incorrect job submission.
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: Args
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            fileUris:
-              description: Optional. HCFS URIs of files to be placed in the working
-                directory of each executor. Useful for naively parallel tasks.
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: FileUris
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            jarFileUris:
-              description: Optional. HCFS URIs of jar files to add to the CLASSPATHs
-                of the Spark driver and tasks.
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: JarFileUris
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            loggingConfig:
-              description: Optional. The runtime log config for job execution.
-              properties:
-                driverLogLevels:
-                  additionalProperties:
-                    type: string
-                  description: 'The per-package log levels for the driver. This may
-                    include "root" package name to configure rootLogger. Examples:
-                    ''com.google = FATAL'', ''root = INFO'', ''org.apache = DEBUG'''
-                  type: object
-                  x-dcl-go-name: DriverLogLevels
-                  x-kubernetes-immutable: true
-              type: object
-              x-dcl-go-name: LoggingConfig
-              x-dcl-go-type: JobSparkJobLoggingConfig
-              x-kubernetes-immutable: true
-            mainClass:
-              description: The name of the driver's main class. The jar file that
-                contains the class must be in the default CLASSPATH or specified in
-                `jar_file_uris`.
-              type: string
-              x-dcl-go-name: MainClass
-              x-kubernetes-immutable: true
-            mainJarFileUri:
-              description: The HCFS URI of the jar file that contains the main class.
-              type: string
-              x-dcl-go-name: MainJarFileUri
-              x-kubernetes-immutable: true
-            properties:
-              additionalProperties:
-                type: string
-              description: Optional. A mapping of property names to values, used to
-                configure Spark. Properties that conflict with values set by the Dataproc
-                API may be overwritten. Can include properties set in /etc/spark/conf/spark-defaults.conf
-                and classes in user code.
-              type: object
-              x-dcl-go-name: Properties
-              x-kubernetes-immutable: true
-          type: object
-          x-dcl-conflicts:
-          - hadoopJob
-          - pysparkJob
-          - hiveJob
-          - pigJob
-          - sparkRJob
-          - sparkSqlJob
-          - prestoJob
-          x-dcl-go-name: SparkJob
-          x-dcl-go-type: JobSparkJob
-          x-kubernetes-immutable: true
-        sparkRJob:
-          description: Optional. Job is a SparkR job.
-          properties:
-            archiveUris:
-              description: 'Optional. HCFS URIs of archives to be extracted into the
-                working directory of each executor. Supported file types: .jar, .tar,
-                .tar.gz, .tgz, and .zip.'
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: ArchiveUris
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            args:
-              description: Optional. The arguments to pass to the driver. Do not include
-                arguments, such as `--conf`, that can be set as job properties, since
-                a collision may occur that causes an incorrect job submission.
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: Args
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            fileUris:
-              description: Optional. HCFS URIs of files to be placed in the working
-                directory of each executor. Useful for naively parallel tasks.
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: FileUris
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            loggingConfig:
-              description: Optional. The runtime log config for job execution.
-              properties:
-                driverLogLevels:
-                  additionalProperties:
-                    type: string
-                  description: 'The per-package log levels for the driver. This may
-                    include "root" package name to configure rootLogger. Examples:
-                    ''com.google = FATAL'', ''root = INFO'', ''org.apache = DEBUG'''
-                  type: object
-                  x-dcl-go-name: DriverLogLevels
-                  x-kubernetes-immutable: true
-              type: object
-              x-dcl-go-name: LoggingConfig
-              x-dcl-go-type: JobSparkRJobLoggingConfig
-              x-kubernetes-immutable: true
-            mainRFileUri:
-              description: Required. The HCFS URI of the main R file to use as the
-                driver. Must be a .R file.
-              type: string
-              x-dcl-go-name: MainRFileUri
-              x-kubernetes-immutable: true
-            properties:
-              additionalProperties:
-                type: string
-              description: Optional. A mapping of property names to values, used to
-                configure SparkR. Properties that conflict with values set by the
-                Dataproc API may be overwritten. Can include properties set in /etc/spark/conf/spark-defaults.conf
-                and classes in user code.
-              type: object
-              x-dcl-go-name: Properties
-              x-kubernetes-immutable: true
-          required:
-          - mainRFileUri
-          type: object
-          x-dcl-conflicts:
-          - hadoopJob
-          - sparkJob
-          - pysparkJob
-          - hiveJob
-          - pigJob
-          - sparkSqlJob
-          - prestoJob
-          x-dcl-go-name: SparkRJob
-          x-dcl-go-type: JobSparkRJob
-          x-kubernetes-immutable: true
-        sparkSqlJob:
-          description: Optional. Job is a SparkSql job.
-          properties:
-            jarFileUris:
-              description: Optional. HCFS URIs of jar files to be added to the Spark
-                CLASSPATH.
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: JarFileUris
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
-            loggingConfig:
-              description: Optional. The runtime log config for job execution.
-              properties:
-                driverLogLevels:
-                  additionalProperties:
-                    type: string
-                  description: 'The per-package log levels for the driver. This may
-                    include "root" package name to configure rootLogger. Examples:
-                    ''com.google = FATAL'', ''root = INFO'', ''org.apache = DEBUG'''
-                  type: object
-                  x-dcl-go-name: DriverLogLevels
-                  x-kubernetes-immutable: true
-              type: object
-              x-dcl-go-name: LoggingConfig
-              x-dcl-go-type: JobSparkSqlJobLoggingConfig
-              x-kubernetes-immutable: true
-            properties:
-              additionalProperties:
-                type: string
-              description: Optional. A mapping of property names to values, used to
-                configure Spark SQL's SparkConf. Properties that conflict with values
-                set by the Dataproc API may be overwritten.
-              type: object
-              x-dcl-go-name: Properties
-              x-kubernetes-immutable: true
-            queryFileUri:
-              description: The HCFS URI of the script that contains SQL queries.
-              type: string
-              x-dcl-go-name: QueryFileUri
-              x-kubernetes-immutable: true
-            queryList:
-              description: A list of queries.
-              properties:
-                queries:
-                  description: 'Required. The queries to execute. You do not need
-                    to end a query expression with a semicolon. Multiple queries can
-                    be specified in one string by separating each with a semicolon.
-                    Here is an example of a Dataproc API snippet that uses a QueryList
-                    to specify a HiveJob: "hiveJob": { "queryList": { "queries": }
-                    }'
-                  items:
-                    type: string
-                    x-dcl-go-type: string
-                  type: array
-                  x-dcl-go-name: Queries
-                  x-dcl-list-type: list
-                  x-kubernetes-immutable: true
-              required:
-              - queries
-              type: object
-              x-dcl-go-name: QueryList
-              x-dcl-go-type: JobSparkSqlJobQueryList
-              x-kubernetes-immutable: true
-            scriptVariables:
-              additionalProperties:
-                type: string
-              description: 'Optional. Mapping of query variable names to values (equivalent
-                to the Spark SQL command: SET `name="value";`).'
-              type: object
-              x-dcl-go-name: ScriptVariables
-              x-kubernetes-immutable: true
-          type: object
-          x-dcl-conflicts:
-          - hadoopJob
-          - sparkJob
-          - pysparkJob
-          - hiveJob
-          - pigJob
-          - sparkRJob
-          - prestoJob
-          x-dcl-go-name: SparkSqlJob
-          x-dcl-go-type: JobSparkSqlJob
-          x-kubernetes-immutable: true
-        status:
-          description: Output only. The job status. Additional application-specific
-            status information may be contained in the `type_job` and `yarn_applications`
-            fields.
-          properties:
-            details:
-              description: Optional. Output only. Job state details, such as an error
-                description if the state is `ERROR`.
-              readOnly: true
-              type: string
-              x-dcl-go-name: Details
-              x-kubernetes-immutable: true
-            state:
-              description: 'Output only. A state message specifying the overall job
-                state. Possible values: UNKNOWN, CREATING, RUNNING, ERROR, DELETING,
-                UPDATING, STOPPING, STOPPED, STARTING'
-              enum:
-              - UNKNOWN
-              - CREATING
-              - RUNNING
-              - ERROR
-              - DELETING
-              - UPDATING
-              - STOPPING
-              - STOPPED
-              - STARTING
-              readOnly: true
-              type: string
-              x-dcl-go-name: State
-              x-dcl-go-type: JobStatusStateEnum
-              x-kubernetes-immutable: true
-            stateStartTime:
-              description: Output only. The time when this state was entered.
-              format: date-time
-              readOnly: true
-              type: string
-              x-dcl-go-name: StateStartTime
-              x-kubernetes-immutable: true
-            substate:
-              description: 'Output only. Additional state information, which includes
-                status reported by the agent. Possible values: UNSPECIFIED, UNHEALTHY,
-                STALE_STATUS'
-              enum:
-              - UNSPECIFIED
-              - UNHEALTHY
-              - STALE_STATUS
-              readOnly: true
-              type: string
-              x-dcl-go-name: Substate
-              x-dcl-go-type: JobStatusSubstateEnum
-              x-kubernetes-immutable: true
-          readOnly: true
-          type: object
-          x-dcl-go-name: Status
-          x-dcl-go-type: JobStatus
-          x-kubernetes-immutable: true
-        statusHistory:
-          description: Output only. The previous job status.
-          items:
-            properties:
-              details:
-                description: Optional. Output only. Job state details, such as an
-                  error description if the state is `ERROR`.
-                readOnly: true
-                type: string
-                x-dcl-go-name: Details
-                x-kubernetes-immutable: true
-              state:
-                description: 'Output only. A state message specifying the overall
-                  job state. Possible values: UNKNOWN, CREATING, RUNNING, ERROR, DELETING,
-                  UPDATING, STOPPING, STOPPED, STARTING'
-                enum:
-                - UNKNOWN
-                - CREATING
-                - RUNNING
-                - ERROR
-                - DELETING
-                - UPDATING
-                - STOPPING
-                - STOPPED
-                - STARTING
-                readOnly: true
-                type: string
-                x-dcl-go-name: State
-                x-dcl-go-type: JobStatusHistoryStateEnum
-                x-kubernetes-immutable: true
-              stateStartTime:
-                description: Output only. The time when this state was entered.
-                format: date-time
-                readOnly: true
-                type: string
-                x-dcl-go-name: StateStartTime
-                x-kubernetes-immutable: true
-              substate:
-                description: 'Output only. Additional state information, which includes
-                  status reported by the agent. Possible values: UNSPECIFIED, UNHEALTHY,
-                  STALE_STATUS'
-                enum:
-                - UNSPECIFIED
-                - UNHEALTHY
-                - STALE_STATUS
-                readOnly: true
-                type: string
-                x-dcl-go-name: Substate
-                x-dcl-go-type: JobStatusHistorySubstateEnum
-                x-kubernetes-immutable: true
-            type: object
-            x-dcl-go-type: JobStatusHistory
-          readOnly: true
-          type: array
-          x-dcl-go-name: StatusHistory
-          x-dcl-list-type: list
-          x-kubernetes-immutable: true
-        submittedBy:
-          description: Output only. The email address of the user submitting the job.
-            For jobs submitted on the cluster, the address is `username@hostname`.
-          readOnly: true
-          type: string
-          x-dcl-go-name: SubmittedBy
-          x-kubernetes-immutable: true
-        yarnApplications:
-          description: 'Output only. The collection of YARN applications spun up by
-            this job. **Beta** Feature: This report is available for testing purposes
-            only. It may be changed before final release.'
-          items:
-            properties:
-              name:
-                description: Required. The application name.
-                readOnly: true
-                type: string
-                x-dcl-go-name: Name
-                x-kubernetes-immutable: true
-              progress:
-                description: Required. The numerical progress of the application,
-                  from 1 to 100.
-                format: double
-                readOnly: true
-                type: number
-                x-dcl-go-name: Progress
-                x-kubernetes-immutable: true
-              state:
-                description: 'Required. The application state. Possible values: UNKNOWN,
-                  CREATING, RUNNING, ERROR, DELETING, UPDATING, STOPPING, STOPPED,
-                  STARTING'
-                enum:
-                - UNKNOWN
-                - CREATING
-                - RUNNING
-                - ERROR
-                - DELETING
-                - UPDATING
-                - STOPPING
-                - STOPPED
-                - STARTING
-                readOnly: true
-                type: string
-                x-dcl-go-name: State
-                x-dcl-go-type: JobYarnApplicationsStateEnum
-                x-kubernetes-immutable: true
-              trackingUrl:
-                description: Optional. The HTTP URL of the ApplicationMaster, HistoryServer,
-                  or TimelineServer that provides application-specific information.
-                  The URL uses the internal hostname, and requires a proxy server
-                  for resolution and, possibly, access.
-                readOnly: true
-                type: string
-                x-dcl-go-name: TrackingUrl
-                x-kubernetes-immutable: true
-            required:
-            - name
-            - state
-            - progress
-            type: object
-            x-dcl-go-type: JobYarnApplications
-          readOnly: true
-          type: array
-          x-dcl-go-name: YarnApplications
-          x-dcl-list-type: list
-          x-kubernetes-immutable: true
-      required:
-      - placement
-      - region
-      title: Job
-      type: object
-      x-dcl-id: projects/{{project}}/regions/{{region}}/jobs/{{name}}
-      x-dcl-labels: labels
-      x-dcl-locations:
-      - region
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Dataproc Job resource
   title: Dataproc/Job
+  description: DCL Specification for the Dataproc Job resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a Job
+    parameters:
+    - name: Job
+      required: true
+      description: A full instance of a Job
   apply:
     description: The function used to apply information about a Job
     parameters:
-    - description: A full instance of a Job
-      name: Job
+    - name: Job
       required: true
+      description: A full instance of a Job
   delete:
     description: The function used to delete a Job
     parameters:
-    - description: A full instance of a Job
-      name: Job
+    - name: Job
       required: true
+      description: A full instance of a Job
   deleteAll:
     description: The function used to delete all Job
     parameters:
@@ -1097,12 +45,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a Job
-    parameters:
-    - description: A full instance of a Job
-      name: Job
-      required: true
   list:
     description: The function used to list information about many Job
     parameters:
@@ -1114,3 +56,1060 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    Job:
+      title: Job
+      x-dcl-id: projects/{{project}}/regions/{{region}}/jobs/{{name}}
+      x-dcl-locations:
+      - region
+      x-dcl-parent-container: project
+      x-dcl-labels: labels
+      type: object
+      required:
+      - placement
+      - region
+      properties:
+        done:
+          type: boolean
+          x-dcl-go-name: Done
+          readOnly: true
+          description: Output only. Indicates whether the job is completed. If the
+            value is `false`, the job is still in progress. If `true`, the job is
+            completed, and `status.state` field will indicate if it was successful,
+            failed, or cancelled.
+          x-kubernetes-immutable: true
+        driverControlFilesUri:
+          type: string
+          x-dcl-go-name: DriverControlFilesUri
+          readOnly: true
+          description: Output only. If present, the location of miscellaneous control
+            files which may be used as part of job setup and handling. If not present,
+            control files may be placed in the same location as `driver_output_uri`.
+          x-kubernetes-immutable: true
+        driverOutputResourceUri:
+          type: string
+          x-dcl-go-name: DriverOutputResourceUri
+          readOnly: true
+          description: Output only. A URI pointing to the location of the stdout of
+            the job's driver program.
+          x-kubernetes-immutable: true
+        hadoopJob:
+          type: object
+          x-dcl-go-name: HadoopJob
+          x-dcl-go-type: JobHadoopJob
+          description: Optional. Job is a Hadoop job.
+          x-kubernetes-immutable: true
+          x-dcl-conflicts:
+          - sparkJob
+          - pysparkJob
+          - hiveJob
+          - pigJob
+          - sparkRJob
+          - sparkSqlJob
+          - prestoJob
+          properties:
+            archiveUris:
+              type: array
+              x-dcl-go-name: ArchiveUris
+              description: 'Optional. HCFS URIs of archives to be extracted in the
+                working directory of Hadoop drivers and tasks. Supported file types:
+                .jar, .tar, .tar.gz, .tgz, or .zip.'
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            args:
+              type: array
+              x-dcl-go-name: Args
+              description: Optional. The arguments to pass to the driver. Do not include
+                arguments, such as `-libjars` or `-Dfoo=bar`, that can be set as job
+                properties, since a collision may occur that causes an incorrect job
+                submission.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            fileUris:
+              type: array
+              x-dcl-go-name: FileUris
+              description: Optional. HCFS (Hadoop Compatible Filesystem) URIs of files
+                to be copied to the working directory of Hadoop drivers and distributed
+                tasks. Useful for naively parallel tasks.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            jarFileUris:
+              type: array
+              x-dcl-go-name: JarFileUris
+              description: Optional. Jar file URIs to add to the CLASSPATHs of the
+                Hadoop driver and tasks.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            loggingConfig:
+              type: object
+              x-dcl-go-name: LoggingConfig
+              x-dcl-go-type: JobHadoopJobLoggingConfig
+              description: Optional. The runtime log config for job execution.
+              x-kubernetes-immutable: true
+              properties:
+                driverLogLevels:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  x-dcl-go-name: DriverLogLevels
+                  description: 'The per-package log levels for the driver. This may
+                    include "root" package name to configure rootLogger. Examples:
+                    ''com.google = FATAL'', ''root = INFO'', ''org.apache = DEBUG'''
+                  x-kubernetes-immutable: true
+            mainClass:
+              type: string
+              x-dcl-go-name: MainClass
+              description: The name of the driver's main class. The jar file containing
+                the class must be in the default CLASSPATH or specified in `jar_file_uris`.
+              x-kubernetes-immutable: true
+            mainJarFileUri:
+              type: string
+              x-dcl-go-name: MainJarFileUri
+              description: 'The HCFS URI of the jar file containing the main class.
+                Examples: ''gs://foo-bucket/analytics-binaries/extract-useful-metrics-mr.jar''
+                ''hdfs:/tmp/test-samples/custom-wordcount.jar'' ''file:///home/usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples.jar'''
+              x-kubernetes-immutable: true
+            properties:
+              type: object
+              additionalProperties:
+                type: string
+              x-dcl-go-name: Properties
+              description: Optional. A mapping of property names to values, used to
+                configure Hadoop. Properties that conflict with values set by the
+                Dataproc API may be overwritten. Can include properties set in /etc/hadoop/conf/*-site
+                and classes in user code.
+              x-kubernetes-immutable: true
+        hiveJob:
+          type: object
+          x-dcl-go-name: HiveJob
+          x-dcl-go-type: JobHiveJob
+          description: Optional. Job is a Hive job.
+          x-kubernetes-immutable: true
+          x-dcl-conflicts:
+          - hadoopJob
+          - sparkJob
+          - pysparkJob
+          - pigJob
+          - sparkRJob
+          - sparkSqlJob
+          - prestoJob
+          properties:
+            continueOnFailure:
+              type: boolean
+              x-dcl-go-name: ContinueOnFailure
+              description: Optional. Whether to continue executing queries if a query
+                fails. The default value is `false`. Setting to `true` can be useful
+                when executing independent parallel queries.
+              x-kubernetes-immutable: true
+              x-dcl-server-default: true
+            jarFileUris:
+              type: array
+              x-dcl-go-name: JarFileUris
+              description: Optional. HCFS URIs of jar files to add to the CLASSPATH
+                of the Hive server and Hadoop MapReduce (MR) tasks. Can contain Hive
+                SerDes and UDFs.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            properties:
+              type: object
+              additionalProperties:
+                type: string
+              x-dcl-go-name: Properties
+              description: Optional. A mapping of property names and values, used
+                to configure Hive. Properties that conflict with values set by the
+                Dataproc API may be overwritten. Can include properties set in /etc/hadoop/conf/*-site.xml,
+                /etc/hive/conf/hive-site.xml, and classes in user code.
+              x-kubernetes-immutable: true
+            queryFileUri:
+              type: string
+              x-dcl-go-name: QueryFileUri
+              description: The HCFS URI of the script that contains Hive queries.
+              x-kubernetes-immutable: true
+            queryList:
+              type: object
+              x-dcl-go-name: QueryList
+              x-dcl-go-type: JobHiveJobQueryList
+              description: A list of queries.
+              x-kubernetes-immutable: true
+              required:
+              - queries
+              properties:
+                queries:
+                  type: array
+                  x-dcl-go-name: Queries
+                  description: 'Required. The queries to execute. You do not need
+                    to end a query expression with a semicolon. Multiple queries can
+                    be specified in one string by separating each with a semicolon.
+                    Here is an example of a Dataproc API snippet that uses a QueryList
+                    to specify a HiveJob: "hiveJob": { "queryList": { "queries": }
+                    }'
+                  x-kubernetes-immutable: true
+                  x-dcl-list-type: list
+                  items:
+                    type: string
+                    x-dcl-go-type: string
+            scriptVariables:
+              type: object
+              additionalProperties:
+                type: string
+              x-dcl-go-name: ScriptVariables
+              description: 'Optional. Mapping of query variable names to values (equivalent
+                to the Hive command: `SET name="value";`).'
+              x-kubernetes-immutable: true
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          x-dcl-go-name: Labels
+          description: Optional. The labels to associate with this job. Label **keys**
+            must contain 1 to 63 characters, and must conform to (https://www.ietf.org/rfc/rfc1035.txt).
+            No more than 32 labels can be associated with a job.
+        name:
+          type: string
+          x-dcl-go-name: Name
+          readOnly: true
+          description: Output only. A UUID that uniquely identifies a job within the
+            project over time. This is in contrast to a user-settable reference.job_id
+            that may be reused over time.
+          x-kubernetes-immutable: true
+          x-dcl-server-generated-parameter: true
+        pigJob:
+          type: object
+          x-dcl-go-name: PigJob
+          x-dcl-go-type: JobPigJob
+          description: Optional. Job is a Pig job.
+          x-kubernetes-immutable: true
+          x-dcl-conflicts:
+          - hadoopJob
+          - sparkJob
+          - pysparkJob
+          - hiveJob
+          - sparkRJob
+          - sparkSqlJob
+          - prestoJob
+          properties:
+            continueOnFailure:
+              type: boolean
+              x-dcl-go-name: ContinueOnFailure
+              description: Optional. Whether to continue executing queries if a query
+                fails. The default value is `false`. Setting to `true` can be useful
+                when executing independent parallel queries.
+              x-kubernetes-immutable: true
+            jarFileUris:
+              type: array
+              x-dcl-go-name: JarFileUris
+              description: Optional. HCFS URIs of jar files to add to the CLASSPATH
+                of the Pig Client and Hadoop MapReduce (MR) tasks. Can contain Pig
+                UDFs.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            loggingConfig:
+              type: object
+              x-dcl-go-name: LoggingConfig
+              x-dcl-go-type: JobPigJobLoggingConfig
+              description: Optional. The runtime log config for job execution.
+              x-kubernetes-immutable: true
+              properties:
+                driverLogLevels:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  x-dcl-go-name: DriverLogLevels
+                  description: 'The per-package log levels for the driver. This may
+                    include "root" package name to configure rootLogger. Examples:
+                    ''com.google = FATAL'', ''root = INFO'', ''org.apache = DEBUG'''
+                  x-kubernetes-immutable: true
+            properties:
+              type: object
+              additionalProperties:
+                type: string
+              x-dcl-go-name: Properties
+              description: Optional. A mapping of property names to values, used to
+                configure Pig. Properties that conflict with values set by the Dataproc
+                API may be overwritten. Can include properties set in /etc/hadoop/conf/*-site.xml,
+                /etc/pig/conf/pig.properties, and classes in user code.
+              x-kubernetes-immutable: true
+            queryFileUri:
+              type: string
+              x-dcl-go-name: QueryFileUri
+              description: The HCFS URI of the script that contains the Pig queries.
+              x-kubernetes-immutable: true
+            queryList:
+              type: object
+              x-dcl-go-name: QueryList
+              x-dcl-go-type: JobPigJobQueryList
+              description: A list of queries.
+              x-kubernetes-immutable: true
+              required:
+              - queries
+              properties:
+                queries:
+                  type: array
+                  x-dcl-go-name: Queries
+                  description: 'Required. The queries to execute. You do not need
+                    to end a query expression with a semicolon. Multiple queries can
+                    be specified in one string by separating each with a semicolon.
+                    Here is an example of a Dataproc API snippet that uses a QueryList
+                    to specify a HiveJob: "hiveJob": { "queryList": { "queries": }
+                    }'
+                  x-kubernetes-immutable: true
+                  x-dcl-list-type: list
+                  items:
+                    type: string
+                    x-dcl-go-type: string
+            scriptVariables:
+              type: object
+              additionalProperties:
+                type: string
+              x-dcl-go-name: ScriptVariables
+              description: 'Optional. Mapping of query variable names to values (equivalent
+                to the Pig command: `name=`).'
+              x-kubernetes-immutable: true
+        placement:
+          type: object
+          x-dcl-go-name: Placement
+          x-dcl-go-type: JobPlacement
+          description: Required. Job information, including how, when, and where to
+            run the job.
+          x-kubernetes-immutable: true
+          required:
+          - clusterName
+          properties:
+            clusterLabels:
+              type: object
+              additionalProperties:
+                type: string
+              x-dcl-go-name: ClusterLabels
+              description: Optional. Cluster labels to identify a cluster where the
+                job will be submitted.
+              x-kubernetes-immutable: true
+            clusterName:
+              type: string
+              x-dcl-go-name: ClusterName
+              description: Required. The name of the cluster where the job will be
+                submitted.
+              x-kubernetes-immutable: true
+              x-dcl-references:
+              - resource: Dataproc/Cluster
+                field: name
+            clusterUuid:
+              type: string
+              x-dcl-go-name: ClusterUuid
+              readOnly: true
+              description: Output only. A cluster UUID generated by the Dataproc service
+                when the job is submitted.
+              x-kubernetes-immutable: true
+        prestoJob:
+          type: object
+          x-dcl-go-name: PrestoJob
+          x-dcl-go-type: JobPrestoJob
+          description: Optional. Job is a Presto job.
+          x-kubernetes-immutable: true
+          x-dcl-conflicts:
+          - hadoopJob
+          - sparkJob
+          - pysparkJob
+          - hiveJob
+          - pigJob
+          - sparkRJob
+          - sparkSqlJob
+          properties:
+            clientTags:
+              type: array
+              x-dcl-go-name: ClientTags
+              description: Optional. Presto client tags to attach to this query
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            continueOnFailure:
+              type: boolean
+              x-dcl-go-name: ContinueOnFailure
+              description: Optional. Whether to continue executing queries if a query
+                fails. The default value is `false`. Setting to `true` can be useful
+                when executing independent parallel queries.
+              x-kubernetes-immutable: true
+            loggingConfig:
+              type: object
+              x-dcl-go-name: LoggingConfig
+              x-dcl-go-type: JobPrestoJobLoggingConfig
+              description: Optional. The runtime log config for job execution.
+              x-kubernetes-immutable: true
+              properties:
+                driverLogLevels:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  x-dcl-go-name: DriverLogLevels
+                  description: 'The per-package log levels for the driver. This may
+                    include "root" package name to configure rootLogger. Examples:
+                    ''com.google = FATAL'', ''root = INFO'', ''org.apache = DEBUG'''
+                  x-kubernetes-immutable: true
+            outputFormat:
+              type: string
+              x-dcl-go-name: OutputFormat
+              description: Optional. The format in which query output will be displayed.
+                See the Presto documentation for supported output formats
+              x-kubernetes-immutable: true
+            properties:
+              type: object
+              additionalProperties:
+                type: string
+              x-dcl-go-name: Properties
+              description: Optional. A mapping of property names to values. Used to
+                set Presto (https://prestodb.io/docs/current/sql/set-session.html)
+                Equivalent to using the --session flag in the Presto CLI
+              x-kubernetes-immutable: true
+            queryFileUri:
+              type: string
+              x-dcl-go-name: QueryFileUri
+              description: The HCFS URI of the script that contains SQL queries.
+              x-kubernetes-immutable: true
+            queryList:
+              type: object
+              x-dcl-go-name: QueryList
+              x-dcl-go-type: JobPrestoJobQueryList
+              description: A list of queries.
+              x-kubernetes-immutable: true
+              required:
+              - queries
+              properties:
+                queries:
+                  type: array
+                  x-dcl-go-name: Queries
+                  description: 'Required. The queries to execute. You do not need
+                    to end a query expression with a semicolon. Multiple queries can
+                    be specified in one string by separating each with a semicolon.
+                    Here is an example of a Dataproc API snippet that uses a QueryList
+                    to specify a HiveJob: "hiveJob": { "queryList": { "queries": }
+                    }'
+                  x-kubernetes-immutable: true
+                  x-dcl-list-type: list
+                  items:
+                    type: string
+                    x-dcl-go-type: string
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project of the resource.
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        pysparkJob:
+          type: object
+          x-dcl-go-name: PysparkJob
+          x-dcl-go-type: JobPysparkJob
+          description: Optional. Job is a PySpark job.
+          x-kubernetes-immutable: true
+          x-dcl-conflicts:
+          - hadoopJob
+          - sparkJob
+          - hiveJob
+          - pigJob
+          - sparkRJob
+          - sparkSqlJob
+          - prestoJob
+          required:
+          - mainPythonFileUri
+          properties:
+            archiveUris:
+              type: array
+              x-dcl-go-name: ArchiveUris
+              description: 'Optional. HCFS URIs of archives to be extracted into the
+                working directory of each executor. Supported file types: .jar, .tar,
+                .tar.gz, .tgz, and .zip.'
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            args:
+              type: array
+              x-dcl-go-name: Args
+              description: Optional. The arguments to pass to the driver. Do not include
+                arguments, such as `--conf`, that can be set as job properties, since
+                a collision may occur that causes an incorrect job submission.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            fileUris:
+              type: array
+              x-dcl-go-name: FileUris
+              description: Optional. HCFS URIs of files to be placed in the working
+                directory of each executor. Useful for naively parallel tasks.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            jarFileUris:
+              type: array
+              x-dcl-go-name: JarFileUris
+              description: Optional. HCFS URIs of jar files to add to the CLASSPATHs
+                of the Python driver and tasks.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            loggingConfig:
+              type: object
+              x-dcl-go-name: LoggingConfig
+              x-dcl-go-type: JobPysparkJobLoggingConfig
+              description: Optional. The runtime log config for job execution.
+              x-kubernetes-immutable: true
+              properties:
+                driverLogLevels:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  x-dcl-go-name: DriverLogLevels
+                  description: 'The per-package log levels for the driver. This may
+                    include "root" package name to configure rootLogger. Examples:
+                    ''com.google = FATAL'', ''root = INFO'', ''org.apache = DEBUG'''
+                  x-kubernetes-immutable: true
+            mainPythonFileUri:
+              type: string
+              x-dcl-go-name: MainPythonFileUri
+              description: Required. The HCFS URI of the main Python file to use as
+                the driver. Must be a .py file.
+              x-kubernetes-immutable: true
+            properties:
+              type: object
+              additionalProperties:
+                type: string
+              x-dcl-go-name: Properties
+              description: Optional. A mapping of property names to values, used to
+                configure PySpark. Properties that conflict with values set by the
+                Dataproc API may be overwritten. Can include properties set in /etc/spark/conf/spark-defaults.conf
+                and classes in user code.
+              x-kubernetes-immutable: true
+            pythonFileUris:
+              type: array
+              x-dcl-go-name: PythonFileUris
+              description: 'Optional. HCFS file URIs of Python files to pass to the
+                PySpark framework. Supported file types: .py, .egg, and .zip.'
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+        reference:
+          type: object
+          x-dcl-go-name: Reference
+          x-dcl-go-type: JobReference
+          description: Optional. The fully qualified reference to the job, which can
+            be used to obtain the equivalent REST path of the job resource. If this
+            property is not specified when a job is created, the server generates
+            a `job_id`.
+          x-kubernetes-immutable: true
+          properties:
+            jobId:
+              type: string
+              x-dcl-go-name: JobId
+              description: Optional. The job ID, which must be unique within the project.
+                The ID must contain only letters (a-z, A-Z), numbers (0-9), underscores
+                (_), or hyphens (-). The maximum length is 100 characters. If not
+                specified by the caller, the job ID will be provided by the server.
+              x-kubernetes-immutable: true
+            projectId:
+              type: string
+              x-dcl-go-name: ProjectId
+              description: Optional. The ID of the Google Cloud Platform project that
+                the job belongs to. If specified, must match the request project ID.
+              x-kubernetes-immutable: true
+        region:
+          type: string
+          x-dcl-go-name: Region
+          description: The region for the resource
+          x-kubernetes-immutable: true
+        scheduling:
+          type: object
+          x-dcl-go-name: Scheduling
+          x-dcl-go-type: JobScheduling
+          description: Optional. Job scheduling configuration.
+          x-kubernetes-immutable: true
+          properties:
+            maxFailuresPerHour:
+              type: integer
+              format: int64
+              x-dcl-go-name: MaxFailuresPerHour
+              description: Optional. Maximum number of times per hour a driver may
+                be restarted as a result of driver exiting with non-zero code before
+                job is reported failed. A job may be reported as thrashing if driver
+                exits with non-zero code 4 times within 10 minute window. Maximum
+                value is 10.
+              x-kubernetes-immutable: true
+            maxFailuresTotal:
+              type: integer
+              format: int64
+              x-dcl-go-name: MaxFailuresTotal
+              description: Optional. Maximum number of times in total a driver may
+                be restarted as a result of driver exiting with non-zero code before
+                job is reported failed. Maximum value is 240.
+              x-kubernetes-immutable: true
+        sparkJob:
+          type: object
+          x-dcl-go-name: SparkJob
+          x-dcl-go-type: JobSparkJob
+          description: Optional. Job is a Spark job.
+          x-kubernetes-immutable: true
+          x-dcl-conflicts:
+          - hadoopJob
+          - pysparkJob
+          - hiveJob
+          - pigJob
+          - sparkRJob
+          - sparkSqlJob
+          - prestoJob
+          properties:
+            archiveUris:
+              type: array
+              x-dcl-go-name: ArchiveUris
+              description: 'Optional. HCFS URIs of archives to be extracted into the
+                working directory of each executor. Supported file types: .jar, .tar,
+                .tar.gz, .tgz, and .zip.'
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            args:
+              type: array
+              x-dcl-go-name: Args
+              description: Optional. The arguments to pass to the driver. Do not include
+                arguments, such as `--conf`, that can be set as job properties, since
+                a collision may occur that causes an incorrect job submission.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            fileUris:
+              type: array
+              x-dcl-go-name: FileUris
+              description: Optional. HCFS URIs of files to be placed in the working
+                directory of each executor. Useful for naively parallel tasks.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            jarFileUris:
+              type: array
+              x-dcl-go-name: JarFileUris
+              description: Optional. HCFS URIs of jar files to add to the CLASSPATHs
+                of the Spark driver and tasks.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            loggingConfig:
+              type: object
+              x-dcl-go-name: LoggingConfig
+              x-dcl-go-type: JobSparkJobLoggingConfig
+              description: Optional. The runtime log config for job execution.
+              x-kubernetes-immutable: true
+              properties:
+                driverLogLevels:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  x-dcl-go-name: DriverLogLevels
+                  description: 'The per-package log levels for the driver. This may
+                    include "root" package name to configure rootLogger. Examples:
+                    ''com.google = FATAL'', ''root = INFO'', ''org.apache = DEBUG'''
+                  x-kubernetes-immutable: true
+            mainClass:
+              type: string
+              x-dcl-go-name: MainClass
+              description: The name of the driver's main class. The jar file that
+                contains the class must be in the default CLASSPATH or specified in
+                `jar_file_uris`.
+              x-kubernetes-immutable: true
+            mainJarFileUri:
+              type: string
+              x-dcl-go-name: MainJarFileUri
+              description: The HCFS URI of the jar file that contains the main class.
+              x-kubernetes-immutable: true
+            properties:
+              type: object
+              additionalProperties:
+                type: string
+              x-dcl-go-name: Properties
+              description: Optional. A mapping of property names to values, used to
+                configure Spark. Properties that conflict with values set by the Dataproc
+                API may be overwritten. Can include properties set in /etc/spark/conf/spark-defaults.conf
+                and classes in user code.
+              x-kubernetes-immutable: true
+        sparkRJob:
+          type: object
+          x-dcl-go-name: SparkRJob
+          x-dcl-go-type: JobSparkRJob
+          description: Optional. Job is a SparkR job.
+          x-kubernetes-immutable: true
+          x-dcl-conflicts:
+          - hadoopJob
+          - sparkJob
+          - pysparkJob
+          - hiveJob
+          - pigJob
+          - sparkSqlJob
+          - prestoJob
+          required:
+          - mainRFileUri
+          properties:
+            archiveUris:
+              type: array
+              x-dcl-go-name: ArchiveUris
+              description: 'Optional. HCFS URIs of archives to be extracted into the
+                working directory of each executor. Supported file types: .jar, .tar,
+                .tar.gz, .tgz, and .zip.'
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            args:
+              type: array
+              x-dcl-go-name: Args
+              description: Optional. The arguments to pass to the driver. Do not include
+                arguments, such as `--conf`, that can be set as job properties, since
+                a collision may occur that causes an incorrect job submission.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            fileUris:
+              type: array
+              x-dcl-go-name: FileUris
+              description: Optional. HCFS URIs of files to be placed in the working
+                directory of each executor. Useful for naively parallel tasks.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            loggingConfig:
+              type: object
+              x-dcl-go-name: LoggingConfig
+              x-dcl-go-type: JobSparkRJobLoggingConfig
+              description: Optional. The runtime log config for job execution.
+              x-kubernetes-immutable: true
+              properties:
+                driverLogLevels:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  x-dcl-go-name: DriverLogLevels
+                  description: 'The per-package log levels for the driver. This may
+                    include "root" package name to configure rootLogger. Examples:
+                    ''com.google = FATAL'', ''root = INFO'', ''org.apache = DEBUG'''
+                  x-kubernetes-immutable: true
+            mainRFileUri:
+              type: string
+              x-dcl-go-name: MainRFileUri
+              description: Required. The HCFS URI of the main R file to use as the
+                driver. Must be a .R file.
+              x-kubernetes-immutable: true
+            properties:
+              type: object
+              additionalProperties:
+                type: string
+              x-dcl-go-name: Properties
+              description: Optional. A mapping of property names to values, used to
+                configure SparkR. Properties that conflict with values set by the
+                Dataproc API may be overwritten. Can include properties set in /etc/spark/conf/spark-defaults.conf
+                and classes in user code.
+              x-kubernetes-immutable: true
+        sparkSqlJob:
+          type: object
+          x-dcl-go-name: SparkSqlJob
+          x-dcl-go-type: JobSparkSqlJob
+          description: Optional. Job is a SparkSql job.
+          x-kubernetes-immutable: true
+          x-dcl-conflicts:
+          - hadoopJob
+          - sparkJob
+          - pysparkJob
+          - hiveJob
+          - pigJob
+          - sparkRJob
+          - prestoJob
+          properties:
+            jarFileUris:
+              type: array
+              x-dcl-go-name: JarFileUris
+              description: Optional. HCFS URIs of jar files to be added to the Spark
+                CLASSPATH.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            loggingConfig:
+              type: object
+              x-dcl-go-name: LoggingConfig
+              x-dcl-go-type: JobSparkSqlJobLoggingConfig
+              description: Optional. The runtime log config for job execution.
+              x-kubernetes-immutable: true
+              properties:
+                driverLogLevels:
+                  type: object
+                  additionalProperties:
+                    type: string
+                  x-dcl-go-name: DriverLogLevels
+                  description: 'The per-package log levels for the driver. This may
+                    include "root" package name to configure rootLogger. Examples:
+                    ''com.google = FATAL'', ''root = INFO'', ''org.apache = DEBUG'''
+                  x-kubernetes-immutable: true
+            properties:
+              type: object
+              additionalProperties:
+                type: string
+              x-dcl-go-name: Properties
+              description: Optional. A mapping of property names to values, used to
+                configure Spark SQL's SparkConf. Properties that conflict with values
+                set by the Dataproc API may be overwritten.
+              x-kubernetes-immutable: true
+            queryFileUri:
+              type: string
+              x-dcl-go-name: QueryFileUri
+              description: The HCFS URI of the script that contains SQL queries.
+              x-kubernetes-immutable: true
+            queryList:
+              type: object
+              x-dcl-go-name: QueryList
+              x-dcl-go-type: JobSparkSqlJobQueryList
+              description: A list of queries.
+              x-kubernetes-immutable: true
+              required:
+              - queries
+              properties:
+                queries:
+                  type: array
+                  x-dcl-go-name: Queries
+                  description: 'Required. The queries to execute. You do not need
+                    to end a query expression with a semicolon. Multiple queries can
+                    be specified in one string by separating each with a semicolon.
+                    Here is an example of a Dataproc API snippet that uses a QueryList
+                    to specify a HiveJob: "hiveJob": { "queryList": { "queries": }
+                    }'
+                  x-kubernetes-immutable: true
+                  x-dcl-list-type: list
+                  items:
+                    type: string
+                    x-dcl-go-type: string
+            scriptVariables:
+              type: object
+              additionalProperties:
+                type: string
+              x-dcl-go-name: ScriptVariables
+              description: 'Optional. Mapping of query variable names to values (equivalent
+                to the Spark SQL command: SET `name="value";`).'
+              x-kubernetes-immutable: true
+        status:
+          type: object
+          x-dcl-go-name: Status
+          x-dcl-go-type: JobStatus
+          readOnly: true
+          description: Output only. The job status. Additional application-specific
+            status information may be contained in the `type_job` and `yarn_applications`
+            fields.
+          x-kubernetes-immutable: true
+          properties:
+            details:
+              type: string
+              x-dcl-go-name: Details
+              readOnly: true
+              description: Optional. Output only. Job state details, such as an error
+                description if the state is `ERROR`.
+              x-kubernetes-immutable: true
+            state:
+              type: string
+              x-dcl-go-name: State
+              x-dcl-go-type: JobStatusStateEnum
+              readOnly: true
+              description: 'Output only. A state message specifying the overall job
+                state. Possible values: UNKNOWN, CREATING, RUNNING, ERROR, DELETING,
+                UPDATING, STOPPING, STOPPED, STARTING'
+              x-kubernetes-immutable: true
+              enum:
+              - UNKNOWN
+              - CREATING
+              - RUNNING
+              - ERROR
+              - DELETING
+              - UPDATING
+              - STOPPING
+              - STOPPED
+              - STARTING
+            stateStartTime:
+              type: string
+              format: date-time
+              x-dcl-go-name: StateStartTime
+              readOnly: true
+              description: Output only. The time when this state was entered.
+              x-kubernetes-immutable: true
+            substate:
+              type: string
+              x-dcl-go-name: Substate
+              x-dcl-go-type: JobStatusSubstateEnum
+              readOnly: true
+              description: 'Output only. Additional state information, which includes
+                status reported by the agent. Possible values: UNSPECIFIED, UNHEALTHY,
+                STALE_STATUS'
+              x-kubernetes-immutable: true
+              enum:
+              - UNSPECIFIED
+              - UNHEALTHY
+              - STALE_STATUS
+        statusHistory:
+          type: array
+          x-dcl-go-name: StatusHistory
+          readOnly: true
+          description: Output only. The previous job status.
+          x-kubernetes-immutable: true
+          x-dcl-list-type: list
+          items:
+            type: object
+            x-dcl-go-type: JobStatusHistory
+            properties:
+              details:
+                type: string
+                x-dcl-go-name: Details
+                readOnly: true
+                description: Optional. Output only. Job state details, such as an
+                  error description if the state is `ERROR`.
+                x-kubernetes-immutable: true
+              state:
+                type: string
+                x-dcl-go-name: State
+                x-dcl-go-type: JobStatusHistoryStateEnum
+                readOnly: true
+                description: 'Output only. A state message specifying the overall
+                  job state. Possible values: UNKNOWN, CREATING, RUNNING, ERROR, DELETING,
+                  UPDATING, STOPPING, STOPPED, STARTING'
+                x-kubernetes-immutable: true
+                enum:
+                - UNKNOWN
+                - CREATING
+                - RUNNING
+                - ERROR
+                - DELETING
+                - UPDATING
+                - STOPPING
+                - STOPPED
+                - STARTING
+              stateStartTime:
+                type: string
+                format: date-time
+                x-dcl-go-name: StateStartTime
+                readOnly: true
+                description: Output only. The time when this state was entered.
+                x-kubernetes-immutable: true
+              substate:
+                type: string
+                x-dcl-go-name: Substate
+                x-dcl-go-type: JobStatusHistorySubstateEnum
+                readOnly: true
+                description: 'Output only. Additional state information, which includes
+                  status reported by the agent. Possible values: UNSPECIFIED, UNHEALTHY,
+                  STALE_STATUS'
+                x-kubernetes-immutable: true
+                enum:
+                - UNSPECIFIED
+                - UNHEALTHY
+                - STALE_STATUS
+        submittedBy:
+          type: string
+          x-dcl-go-name: SubmittedBy
+          readOnly: true
+          description: Output only. The email address of the user submitting the job.
+            For jobs submitted on the cluster, the address is `username@hostname`.
+          x-kubernetes-immutable: true
+        yarnApplications:
+          type: array
+          x-dcl-go-name: YarnApplications
+          readOnly: true
+          description: 'Output only. The collection of YARN applications spun up by
+            this job. **Beta** Feature: This report is available for testing purposes
+            only. It may be changed before final release.'
+          x-kubernetes-immutable: true
+          x-dcl-list-type: list
+          items:
+            type: object
+            x-dcl-go-type: JobYarnApplications
+            required:
+            - name
+            - state
+            - progress
+            properties:
+              name:
+                type: string
+                x-dcl-go-name: Name
+                readOnly: true
+                description: Required. The application name.
+                x-kubernetes-immutable: true
+              progress:
+                type: number
+                format: double
+                x-dcl-go-name: Progress
+                readOnly: true
+                description: Required. The numerical progress of the application,
+                  from 1 to 100.
+                x-kubernetes-immutable: true
+              state:
+                type: string
+                x-dcl-go-name: State
+                x-dcl-go-type: JobYarnApplicationsStateEnum
+                readOnly: true
+                description: 'Required. The application state. Possible values: UNKNOWN,
+                  CREATING, RUNNING, ERROR, DELETING, UPDATING, STOPPING, STOPPED,
+                  STARTING'
+                x-kubernetes-immutable: true
+                enum:
+                - UNKNOWN
+                - CREATING
+                - RUNNING
+                - ERROR
+                - DELETING
+                - UPDATING
+                - STOPPING
+                - STOPPED
+                - STARTING
+              trackingUrl:
+                type: string
+                x-dcl-go-name: TrackingUrl
+                readOnly: true
+                description: Optional. The HTTP URL of the ApplicationMaster, HistoryServer,
+                  or TimelineServer that provides application-specific information.
+                  The URL uses the internal hostname, and requires a proxy server
+                  for resolution and, possibly, access.
+                x-kubernetes-immutable: true

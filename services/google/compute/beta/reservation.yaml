@@ -11,196 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    Reservation:
-      properties:
-        commitment:
-          description: Full or partial URL to a parent commitment. This field displays
-            for reservations that are tied to a commitment.
-          type: string
-          x-dcl-go-name: Commitment
-          x-kubernetes-immutable: true
-        description:
-          description: An optional description of this resource. Provide this property
-            when you create the resource.
-          type: string
-          x-dcl-go-name: Description
-          x-kubernetes-immutable: true
-        id:
-          description: The unique identifier for the resource. This identifier is
-            defined by the server.
-          format: int64
-          type: integer
-          x-dcl-go-name: Id
-          x-kubernetes-immutable: true
-        name:
-          description: The name of the resource, provided by the client when initially
-            creating the resource. The resource name must be 1-63 characters long,
-            and comply with [RFC1035](https://www.ietf.org/rfc/rfc1035.txt). Specifically,
-            the name must be 1-63 characters long and match the regular expression
-            `)?` which means the first character must be a lowercase letter, and all
-            following characters must be a dash, lowercase letter, or digit, except
-            the last character, which cannot be a dash.
-          type: string
-          x-dcl-go-name: Name
-          x-kubernetes-immutable: true
-        project:
-          description: The project for the resource
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        selfLink:
-          description: Server-defined fully-qualified URL for this resource.
-          readOnly: true
-          type: string
-          x-dcl-go-name: SelfLink
-          x-kubernetes-immutable: true
-        specificReservation:
-          properties:
-            count:
-              description: Specifies the number of resources that are allocated.
-              format: int64
-              type: integer
-              x-dcl-go-name: Count
-              x-kubernetes-immutable: true
-            inUseCount:
-              description: Indicates how many instances are in use.
-              format: int64
-              type: integer
-              x-dcl-go-name: InUseCount
-              x-kubernetes-immutable: true
-            instanceProperties:
-              description: The instance properties for the reservation.
-              properties:
-                guestAccelerators:
-                  items:
-                    properties:
-                      acceleratorCount:
-                        description: The number of the guest accelerator cards exposed
-                          to this instance.
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: AcceleratorCount
-                        x-kubernetes-immutable: true
-                      acceleratorType:
-                        description: 'Full or partial URL of the accelerator type
-                          resource to attach to this instance. For example: `projects/my-project/zones/us-central1-c/acceleratorTypes/nvidia-tesla-p100`
-                          If you are creating an instance template, specify only the
-                          accelerator name. See [GPUs on Compute Engine](/compute/docs/gpus/#introduction)
-                          for a full list of accelerator types.'
-                        type: string
-                        x-dcl-go-name: AcceleratorType
-                        x-kubernetes-immutable: true
-                    type: object
-                    x-dcl-go-type: ReservationSpecificReservationInstancePropertiesGuestAccelerators
-                  type: array
-                  x-dcl-go-name: GuestAccelerators
-                  x-dcl-list-type: list
-                  x-kubernetes-immutable: true
-                localSsds:
-                  items:
-                    properties:
-                      diskSizeGb:
-                        description: Specifies the size of the disk in base-2 GB.
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: DiskSizeGb
-                        x-kubernetes-immutable: true
-                      interface:
-                        description: Specifies the disk interface to use for attaching
-                          this disk, which is either `SCSI` or `NVME`. The default
-                          is `SCSI`. For performance characteristics of SCSI over
-                          NVMe, see [Local SSD performance](/compute/docs/disks#localssds).
-                        enum:
-                        - SCSI
-                        - NVME
-                        - NVDIMM
-                        type: string
-                        x-dcl-go-name: Interface
-                        x-dcl-go-type: ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum
-                        x-kubernetes-immutable: true
-                    type: object
-                    x-dcl-go-type: ReservationSpecificReservationInstancePropertiesLocalSsds
-                  type: array
-                  x-dcl-go-name: LocalSsds
-                  x-dcl-list-type: list
-                  x-kubernetes-immutable: true
-                machineType:
-                  description: Specifies type of machine (name only) which has fixed
-                    number of vCPUs and fixed amount of memory. This also includes
-                    specifying custom machine type following custom-NUMBER_OF_CPUS-AMOUNT_OF_MEMORY
-                    pattern.
-                  type: string
-                  x-dcl-go-name: MachineType
-                  x-kubernetes-immutable: true
-                minCpuPlatform:
-                  description: Minimum cpu platform the reservation.
-                  type: string
-                  x-dcl-go-name: MinCpuPlatform
-                  x-kubernetes-immutable: true
-              type: object
-              x-dcl-go-name: InstanceProperties
-              x-dcl-go-type: ReservationSpecificReservationInstanceProperties
-              x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: SpecificReservation
-          x-dcl-go-type: ReservationSpecificReservation
-          x-kubernetes-immutable: true
-        specificReservationRequired:
-          type: boolean
-          x-dcl-go-name: SpecificReservationRequired
-          x-kubernetes-immutable: true
-        status:
-          description: 'The status of the reservation. Possible values: PENDING, RUNNING,
-            DONE'
-          enum:
-          - PENDING
-          - RUNNING
-          - DONE
-          readOnly: true
-          type: string
-          x-dcl-go-name: Status
-          x-dcl-go-type: ReservationStatusEnum
-          x-kubernetes-immutable: true
-        zone:
-          description: Zone in which the reservation resides. A zone must be provided
-            if the reservation is created within a commitment.
-          type: string
-          x-dcl-go-name: Zone
-          x-kubernetes-immutable: true
-      required:
-      - zone
-      - name
-      - project
-      title: Reservation
-      type: object
-      x-dcl-id: projects/{{project}}/zones/{{zone}}/reservations/{{name}}
-      x-dcl-locations:
-      - zone
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Compute Reservation resource
   title: Compute/Reservation
+  description: DCL Specification for the Compute Reservation resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a Reservation
+    parameters:
+    - name: Reservation
+      required: true
+      description: A full instance of a Reservation
   apply:
     description: The function used to apply information about a Reservation
     parameters:
-    - description: A full instance of a Reservation
-      name: Reservation
+    - name: Reservation
       required: true
+      description: A full instance of a Reservation
   delete:
     description: The function used to delete a Reservation
     parameters:
-    - description: A full instance of a Reservation
-      name: Reservation
+    - name: Reservation
       required: true
+      description: A full instance of a Reservation
   deleteAll:
     description: The function used to delete all Reservation
     parameters:
@@ -212,12 +45,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a Reservation
-    parameters:
-    - description: A full instance of a Reservation
-      name: Reservation
-      required: true
   list:
     description: The function used to list information about many Reservation
     parameters:
@@ -229,3 +56,175 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    Reservation:
+      title: Reservation
+      x-dcl-id: projects/{{project}}/zones/{{zone}}/reservations/{{name}}
+      x-dcl-locations:
+      - zone
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - zone
+      - name
+      - project
+      properties:
+        commitment:
+          type: string
+          x-dcl-go-name: Commitment
+          description: Full or partial URL to a parent commitment. This field displays
+            for reservations that are tied to a commitment.
+          x-kubernetes-immutable: true
+        description:
+          type: string
+          x-dcl-go-name: Description
+          description: An optional description of this resource. Provide this property
+            when you create the resource.
+          x-kubernetes-immutable: true
+        id:
+          type: integer
+          format: int64
+          x-dcl-go-name: Id
+          description: The unique identifier for the resource. This identifier is
+            defined by the server.
+          x-kubernetes-immutable: true
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: The name of the resource, provided by the client when initially
+            creating the resource. The resource name must be 1-63 characters long,
+            and comply with [RFC1035](https://www.ietf.org/rfc/rfc1035.txt). Specifically,
+            the name must be 1-63 characters long and match the regular expression
+            `)?` which means the first character must be a lowercase letter, and all
+            following characters must be a dash, lowercase letter, or digit, except
+            the last character, which cannot be a dash.
+          x-kubernetes-immutable: true
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project for the resource
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        selfLink:
+          type: string
+          x-dcl-go-name: SelfLink
+          readOnly: true
+          description: Server-defined fully-qualified URL for this resource.
+          x-kubernetes-immutable: true
+        specificReservation:
+          type: object
+          x-dcl-go-name: SpecificReservation
+          x-dcl-go-type: ReservationSpecificReservation
+          x-kubernetes-immutable: true
+          properties:
+            count:
+              type: integer
+              format: int64
+              x-dcl-go-name: Count
+              description: Specifies the number of resources that are allocated.
+              x-kubernetes-immutable: true
+            inUseCount:
+              type: integer
+              format: int64
+              x-dcl-go-name: InUseCount
+              description: Indicates how many instances are in use.
+              x-kubernetes-immutable: true
+            instanceProperties:
+              type: object
+              x-dcl-go-name: InstanceProperties
+              x-dcl-go-type: ReservationSpecificReservationInstanceProperties
+              description: The instance properties for the reservation.
+              x-kubernetes-immutable: true
+              properties:
+                guestAccelerators:
+                  type: array
+                  x-dcl-go-name: GuestAccelerators
+                  x-kubernetes-immutable: true
+                  x-dcl-list-type: list
+                  items:
+                    type: object
+                    x-dcl-go-type: ReservationSpecificReservationInstancePropertiesGuestAccelerators
+                    properties:
+                      acceleratorCount:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: AcceleratorCount
+                        description: The number of the guest accelerator cards exposed
+                          to this instance.
+                        x-kubernetes-immutable: true
+                      acceleratorType:
+                        type: string
+                        x-dcl-go-name: AcceleratorType
+                        description: 'Full or partial URL of the accelerator type
+                          resource to attach to this instance. For example: `projects/my-project/zones/us-central1-c/acceleratorTypes/nvidia-tesla-p100`
+                          If you are creating an instance template, specify only the
+                          accelerator name. See [GPUs on Compute Engine](/compute/docs/gpus/#introduction)
+                          for a full list of accelerator types.'
+                        x-kubernetes-immutable: true
+                localSsds:
+                  type: array
+                  x-dcl-go-name: LocalSsds
+                  x-kubernetes-immutable: true
+                  x-dcl-list-type: list
+                  items:
+                    type: object
+                    x-dcl-go-type: ReservationSpecificReservationInstancePropertiesLocalSsds
+                    properties:
+                      diskSizeGb:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: DiskSizeGb
+                        description: Specifies the size of the disk in base-2 GB.
+                        x-kubernetes-immutable: true
+                      interface:
+                        type: string
+                        x-dcl-go-name: Interface
+                        x-dcl-go-type: ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum
+                        description: Specifies the disk interface to use for attaching
+                          this disk, which is either `SCSI` or `NVME`. The default
+                          is `SCSI`. For performance characteristics of SCSI over
+                          NVMe, see [Local SSD performance](/compute/docs/disks#localssds).
+                        x-kubernetes-immutable: true
+                        enum:
+                        - SCSI
+                        - NVME
+                        - NVDIMM
+                machineType:
+                  type: string
+                  x-dcl-go-name: MachineType
+                  description: Specifies type of machine (name only) which has fixed
+                    number of vCPUs and fixed amount of memory. This also includes
+                    specifying custom machine type following custom-NUMBER_OF_CPUS-AMOUNT_OF_MEMORY
+                    pattern.
+                  x-kubernetes-immutable: true
+                minCpuPlatform:
+                  type: string
+                  x-dcl-go-name: MinCpuPlatform
+                  description: Minimum cpu platform the reservation.
+                  x-kubernetes-immutable: true
+        specificReservationRequired:
+          type: boolean
+          x-dcl-go-name: SpecificReservationRequired
+          x-kubernetes-immutable: true
+        status:
+          type: string
+          x-dcl-go-name: Status
+          x-dcl-go-type: ReservationStatusEnum
+          readOnly: true
+          description: 'The status of the reservation. Possible values: PENDING, RUNNING,
+            DONE'
+          x-kubernetes-immutable: true
+          enum:
+          - PENDING
+          - RUNNING
+          - DONE
+        zone:
+          type: string
+          x-dcl-go-name: Zone
+          description: Zone in which the reservation resides. A zone must be provided
+            if the reservation is created within a commitment.
+          x-kubernetes-immutable: true

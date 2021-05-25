@@ -199,7 +199,6 @@ func ProtoToLogMetric(p *loggingpb.LoggingLogMetric) *logging.LogMetric {
 		BucketOptions:    ProtoToLoggingLogMetricBucketOptions(p.GetBucketOptions()),
 		CreateTime:       dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:       dcl.StringOrNil(p.GetUpdateTime()),
-		Resolution:       dcl.StringOrNil(p.GetResolution()),
 		Project:          dcl.StringOrNil(p.Project),
 	}
 	return obj
@@ -374,7 +373,6 @@ func LogMetricToProto(resource *logging.LogMetric) *loggingpb.LoggingLogMetric {
 		BucketOptions:    LoggingLogMetricBucketOptionsToProto(resource.BucketOptions),
 		CreateTime:       dcl.ValueOrEmptyString(resource.CreateTime),
 		UpdateTime:       dcl.ValueOrEmptyString(resource.UpdateTime),
-		Resolution:       dcl.ValueOrEmptyString(resource.Resolution),
 		Project:          dcl.ValueOrEmptyString(resource.Project),
 	}
 

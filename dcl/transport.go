@@ -110,6 +110,8 @@ func SendRequest(ctx context.Context, c *Config, verb, url string, body *bytes.B
 	}
 
 	err = Do(ctx, func(ctx context.Context) (*RetryDetails, error) {
+		// Reset req body before http call.
+		req.Body = ioutil.NopCloser(bytes.NewReader(bodyBytes))
 		res, err = httpClient.Do(req)
 		if err != nil {
 			return nil, err
@@ -129,7 +131,8 @@ func SendRequest(ctx context.Context, c *Config, verb, url string, body *bytes.B
 	if err != nil {
 		return nil, err
 	}
-	return &RetryDetails{Request: req.Clone(ctx), Response: res}, nil
+	req.Body = ioutil.NopCloser(bytes.NewReader(bodyBytes))
+	return &RetryDetails{Request: req, Response: res}, nil
 }
 
 // AddQueryParams adds the specified query parameters to the specified url.

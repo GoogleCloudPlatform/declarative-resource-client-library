@@ -81,8 +81,7 @@ message LoggingLogMetric {
   LoggingLogMetricBucketOptions bucket_options = 8;
   string create_time = 9;
   string update_time = 10;
-  string resolution = 11;
-  string project = 12;
+  string project = 11;
 }
 
 message LoggingLogMetricMetricDescriptor {

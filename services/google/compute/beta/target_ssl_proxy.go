@@ -16,6 +16,7 @@ package beta
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -91,7 +92,7 @@ func (l *TargetSslProxyList) HasNext() bool {
 }
 
 func (l *TargetSslProxyList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -107,7 +108,7 @@ func (l *TargetSslProxyList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListTargetSslProxy(ctx context.Context, project string) (*TargetSslProxyList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListTargetSslProxyWithMaxResults(ctx, project, TargetSslProxyMaxPage)
@@ -115,7 +116,7 @@ func (c *Client) ListTargetSslProxy(ctx context.Context, project string) (*Targe
 }
 
 func (c *Client) ListTargetSslProxyWithMaxResults(ctx context.Context, project string, pageSize int32) (*TargetSslProxyList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listTargetSslProxy(ctx, project, "", pageSize)
@@ -132,7 +133,7 @@ func (c *Client) ListTargetSslProxyWithMaxResults(ctx context.Context, project s
 }
 
 func (c *Client) GetTargetSslProxy(ctx context.Context, r *TargetSslProxy) (*TargetSslProxy, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getTargetSslProxyRaw(ctx, r)
@@ -167,7 +168,7 @@ func (c *Client) GetTargetSslProxy(ctx context.Context, r *TargetSslProxy) (*Tar
 }
 
 func (c *Client) DeleteTargetSslProxy(ctx context.Context, r *TargetSslProxy) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -180,9 +181,6 @@ func (c *Client) DeleteTargetSslProxy(ctx context.Context, r *TargetSslProxy) er
 
 // DeleteAllTargetSslProxy deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllTargetSslProxy(ctx context.Context, project string, filter func(*TargetSslProxy) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListTargetSslProxy(ctx, project)
 	if err != nil {
 		return err
@@ -206,10 +204,29 @@ func (c *Client) DeleteAllTargetSslProxy(ctx context.Context, project string, fi
 }
 
 func (c *Client) ApplyTargetSslProxy(ctx context.Context, rawDesired *TargetSslProxy, opts ...dcl.ApplyOption) (*TargetSslProxy, error) {
+
+	var resultNewState *TargetSslProxy
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyTargetSslProxyHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyTargetSslProxyHelper(c *Client, ctx context.Context, rawDesired *TargetSslProxy, opts ...dcl.ApplyOption) (*TargetSslProxy, error) {
 	c.Config.Logger.Info("Beginning ApplyTargetSslProxy...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

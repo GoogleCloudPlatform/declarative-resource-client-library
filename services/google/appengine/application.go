@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -271,7 +272,7 @@ type ApplicationList struct {
 }
 
 func (c *Client) GetApplication(ctx context.Context, r *Application) (*Application, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getApplicationRaw(ctx, r)
@@ -302,10 +303,29 @@ func (c *Client) GetApplication(ctx context.Context, r *Application) (*Applicati
 }
 
 func (c *Client) ApplyApplication(ctx context.Context, rawDesired *Application, opts ...dcl.ApplyOption) (*Application, error) {
+
+	var resultNewState *Application
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyApplicationHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyApplicationHelper(c *Client, ctx context.Context, rawDesired *Application, opts ...dcl.ApplyOption) (*Application, error) {
 	c.Config.Logger.Info("Beginning ApplyApplication...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

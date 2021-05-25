@@ -11,31 +11,77 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+info:
+  title: AccessContextManager/ServicePerimeter
+  description: DCL Specification for the AccessContextManager ServicePerimeter resource
+  x-dcl-has-iam: false
+paths:
+  get:
+    description: The function used to get information about a ServicePerimeter
+    parameters:
+    - name: ServicePerimeter
+      required: true
+      description: A full instance of a ServicePerimeter
+  apply:
+    description: The function used to apply information about a ServicePerimeter
+    parameters:
+    - name: ServicePerimeter
+      required: true
+      description: A full instance of a ServicePerimeter
+  delete:
+    description: The function used to delete a ServicePerimeter
+    parameters:
+    - name: ServicePerimeter
+      required: true
+      description: A full instance of a ServicePerimeter
+  deleteAll:
+    description: The function used to delete all ServicePerimeter
+    parameters:
+    - name: policy
+      required: true
+      schema:
+        type: string
+  list:
+    description: The function used to list information about many ServicePerimeter
+    parameters:
+    - name: policy
+      required: true
+      schema:
+        type: string
 components:
   schemas:
     ServicePerimeter:
+      title: ServicePerimeter
+      x-dcl-id: accessPolicies/{{policy}}/servicePerimeters/{{name}}
+      type: object
+      required:
+      - title
+      - policy
+      - name
       properties:
         createTime:
-          description: 'Time the AccessPolicy was created in UTC. '
-          format: date-time
-          readOnly: true
           type: string
+          format: date-time
           x-dcl-go-name: CreateTime
+          readOnly: true
+          description: 'Time the AccessPolicy was created in UTC. '
           x-kubernetes-immutable: true
         description:
-          description: 'Description of the ServicePerimeter and its use. Does not
-            affect behavior. '
           type: string
           x-dcl-go-name: Description
+          description: 'Description of the ServicePerimeter and its use. Does not
+            affect behavior. '
         name:
+          type: string
+          x-dcl-go-name: Name
           description: 'Resource name for the ServicePerimeter. The short_name component
             must begin with a letter and only include alphanumeric and ''_''. Format:
             accessPolicies/{policy_id}/servicePerimeters/{short_name} '
-          type: string
-          x-dcl-go-name: Name
           x-kubernetes-immutable: true
         perimeterType:
-          default: PERIMETER_TYPE_REGULAR
+          type: string
+          x-dcl-go-name: PerimeterType
+          x-dcl-go-type: ServicePerimeterPerimeterTypeEnum
           description: 'Specifies the type of the Perimeter. There are two types:
             regular and bridge. Regular Service Perimeter contains resources, access
             levels, and restricted services. Every resource can be in at most ONE
@@ -49,25 +95,28 @@ components:
             topologies with many independent perimeters that need to share some data
             with a common perimeter, but should not be able to share data among themselves.  Possible
             values: PERIMETER_TYPE_REGULAR, PERIMETER_TYPE_BRIDGE'
+          x-kubernetes-immutable: true
+          default: PERIMETER_TYPE_REGULAR
           enum:
           - PERIMETER_TYPE_REGULAR
           - PERIMETER_TYPE_BRIDGE
-          type: string
-          x-dcl-go-name: PerimeterType
-          x-dcl-go-type: ServicePerimeterPerimeterTypeEnum
-          x-kubernetes-immutable: true
         policy:
-          description: 'The AccessPolicy this ServicePerimeter lives in. Format: accessPolicies/{policy_id} '
           type: string
           x-dcl-go-name: Policy
+          description: 'The AccessPolicy this ServicePerimeter lives in. Format: accessPolicies/{policy_id} '
           x-kubernetes-immutable: true
         spec:
+          type: object
+          x-dcl-go-name: Spec
+          x-dcl-go-type: ServicePerimeterSpec
           description: 'Proposed (or dry run) ServicePerimeter configuration. This
             configuration allows to specify and test ServicePerimeter configuration
             without enforcing actual access restrictions. Only allowed to be set when
             the "useExplicitDryRunSpec" flag is set. '
           properties:
             accessLevels:
+              type: array
+              x-dcl-go-name: AccessLevels
               description: 'A list of AccessLevel resource names that allow resources
                 within the ServicePerimeter to be accessed from the internet. AccessLevels
                 listed must be in the same policy as this ServicePerimeter. Referencing
@@ -75,61 +124,61 @@ components:
                 are listed, resources within the perimeter can only be accessed via
                 GCP calls with request origins within the perimeter. For Service Perimeter
                 Bridge, must be empty.  Format: accessPolicies/{policy_id}/accessLevels/{access_level_name} '
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: AccessLevels
               x-dcl-list-type: list
-            resources:
-              description: 'A list of GCP resources that are inside of the service
-                perimeter. Currently only projects are allowed. Format: projects/{project_number} '
               items:
                 type: string
                 x-dcl-go-type: string
+            resources:
               type: array
               x-dcl-go-name: Resources
+              description: 'A list of GCP resources that are inside of the service
+                perimeter. Currently only projects are allowed. Format: projects/{project_number} '
               x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
             restrictedServices:
+              type: array
+              x-dcl-go-name: RestrictedServices
               description: 'GCP services that are subject to the Service Perimeter
                 restrictions. Must contain a list of services. For example, if `storage.googleapis.com`
                 is specified, access to the storage buckets inside the perimeter must
                 meet the perimeter''s access restrictions. '
+              x-dcl-list-type: list
               items:
                 type: string
                 x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: RestrictedServices
-              x-dcl-list-type: list
             vpcAccessibleServices:
-              description: Configuration for APIs allowed within Perimeter.
-              properties:
-                allowedServices:
-                  description: The list of APIs usable within the Service Perimeter.
-                    Must be empty unless 'enableRestriction' is True.
-                  items:
-                    type: string
-                    x-dcl-go-type: string
-                  type: array
-                  x-dcl-go-name: AllowedServices
-                  x-dcl-list-type: list
-                enableRestriction:
-                  description: Whether to restrict API calls within the Service Perimeter
-                    to the list of APIs specified in 'allowedServices'.
-                  type: boolean
-                  x-dcl-go-name: EnableRestriction
               type: object
               x-dcl-go-name: VPCAccessibleServices
               x-dcl-go-type: ServicePerimeterSpecVPCAccessibleServices
-          type: object
-          x-dcl-go-name: Spec
-          x-dcl-go-type: ServicePerimeterSpec
+              description: Configuration for APIs allowed within Perimeter.
+              properties:
+                allowedServices:
+                  type: array
+                  x-dcl-go-name: AllowedServices
+                  description: The list of APIs usable within the Service Perimeter.
+                    Must be empty unless 'enableRestriction' is True.
+                  x-dcl-list-type: list
+                  items:
+                    type: string
+                    x-dcl-go-type: string
+                enableRestriction:
+                  type: boolean
+                  x-dcl-go-name: EnableRestriction
+                  description: Whether to restrict API calls within the Service Perimeter
+                    to the list of APIs specified in 'allowedServices'.
         status:
+          type: object
+          x-dcl-go-name: Status
+          x-dcl-go-type: ServicePerimeterStatus
           description: 'ServicePerimeter configuration. Specifies sets of resources,
             restricted services and access levels that determine perimeter content
             and boundaries. '
           properties:
             accessLevels:
+              type: array
+              x-dcl-go-name: AccessLevels
               description: 'A list of AccessLevel resource names that allow resources
                 within the ServicePerimeter to be accessed from the internet. AccessLevels
                 listed must be in the same policy as this ServicePerimeter. Referencing
@@ -137,67 +186,64 @@ components:
                 are listed, resources within the perimeter can only be accessed via
                 GCP calls with request origins within the perimeter. For Service Perimeter
                 Bridge, must be empty.  Format: accessPolicies/{policy_id}/accessLevels/{access_level_name} '
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: AccessLevels
               x-dcl-list-type: list
-            resources:
-              description: 'A list of GCP resources that are inside of the service
-                perimeter. Currently only projects are allowed. Format: projects/{project_number} '
               items:
                 type: string
                 x-dcl-go-type: string
+            resources:
               type: array
               x-dcl-go-name: Resources
+              description: 'A list of GCP resources that are inside of the service
+                perimeter. Currently only projects are allowed. Format: projects/{project_number} '
               x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
             restrictedServices:
+              type: array
+              x-dcl-go-name: RestrictedServices
               description: 'GCP services that are subject to the Service Perimeter
                 restrictions. Must contain a list of services. For example, if `storage.googleapis.com`
                 is specified, access to the storage buckets inside the perimeter must
                 meet the perimeter''s access restrictions. '
+              x-dcl-list-type: list
               items:
                 type: string
                 x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: RestrictedServices
-              x-dcl-list-type: list
             vpcAccessibleServices:
-              description: Configuration for APIs allowed within Perimeter.
-              properties:
-                allowedServices:
-                  description: The list of APIs usable within the Service Perimeter.
-                    Must be empty unless 'enableRestriction' is True.
-                  items:
-                    type: string
-                    x-dcl-go-type: string
-                  type: array
-                  x-dcl-go-name: AllowedServices
-                  x-dcl-list-type: list
-                enableRestriction:
-                  description: Whether to restrict API calls within the Service Perimeter
-                    to the list of APIs specified in 'allowedServices'.
-                  type: boolean
-                  x-dcl-go-name: EnableRestriction
               type: object
               x-dcl-go-name: VPCAccessibleServices
               x-dcl-go-type: ServicePerimeterStatusVPCAccessibleServices
-          type: object
-          x-dcl-go-name: Status
-          x-dcl-go-type: ServicePerimeterStatus
+              description: Configuration for APIs allowed within Perimeter.
+              properties:
+                allowedServices:
+                  type: array
+                  x-dcl-go-name: AllowedServices
+                  description: The list of APIs usable within the Service Perimeter.
+                    Must be empty unless 'enableRestriction' is True.
+                  x-dcl-list-type: list
+                  items:
+                    type: string
+                    x-dcl-go-type: string
+                enableRestriction:
+                  type: boolean
+                  x-dcl-go-name: EnableRestriction
+                  description: Whether to restrict API calls within the Service Perimeter
+                    to the list of APIs specified in 'allowedServices'.
         title:
-          description: 'Human readable title. Must be unique within the Policy. '
           type: string
           x-dcl-go-name: Title
+          description: 'Human readable title. Must be unique within the Policy. '
         updateTime:
-          description: 'Time the AccessPolicy was updated in UTC. '
-          format: date-time
-          readOnly: true
           type: string
+          format: date-time
           x-dcl-go-name: UpdateTime
+          readOnly: true
+          description: 'Time the AccessPolicy was updated in UTC. '
           x-kubernetes-immutable: true
         useExplicitDryRunSpec:
+          type: boolean
+          x-dcl-go-name: UseExplicitDryRunSpec
           description: Use explicit dry run spec flag. Ordinarily, a dry-run spec
             implicitly exists for all Service Perimeters, and that spec is identical
             to the status for those Service Perimeters. When this flag is set, it
@@ -208,52 +254,4 @@ components:
             is done through analyzing the differences between currently enforced and
             suggested restrictions. useExplicitDryRunSpec must be set to True if any
             of the fields in the spec are set to non-default values.
-          type: boolean
-          x-dcl-go-name: UseExplicitDryRunSpec
           x-kubernetes-immutable: true
-      required:
-      - title
-      - policy
-      - name
-      title: ServicePerimeter
-      type: object
-      x-dcl-id: accessPolicies/{{policy}}/servicePerimeters/{{name}}
-      x-dcl-locations: []
-      x-dcl-uses-state-hint: false
-info:
-  description: DCL Specification for the AccessContextManager ServicePerimeter resource
-  title: AccessContextManager/ServicePerimeter
-  x-dcl-has-iam: false
-paths:
-  apply:
-    description: The function used to apply information about a ServicePerimeter
-    parameters:
-    - description: A full instance of a ServicePerimeter
-      name: ServicePerimeter
-      required: true
-  delete:
-    description: The function used to delete a ServicePerimeter
-    parameters:
-    - description: A full instance of a ServicePerimeter
-      name: ServicePerimeter
-      required: true
-  deleteAll:
-    description: The function used to delete all ServicePerimeter
-    parameters:
-    - name: policy
-      required: true
-      schema:
-        type: string
-  get:
-    description: The function used to get information about a ServicePerimeter
-    parameters:
-    - description: A full instance of a ServicePerimeter
-      name: ServicePerimeter
-      required: true
-  list:
-    description: The function used to list information about many ServicePerimeter
-    parameters:
-    - name: policy
-      required: true
-      schema:
-        type: string

@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -175,7 +176,7 @@ func (l *ObjectAccessControlList) HasNext() bool {
 }
 
 func (l *ObjectAccessControlList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -191,7 +192,7 @@ func (l *ObjectAccessControlList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListObjectAccessControl(ctx context.Context, project, bucket, object string) (*ObjectAccessControlList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListObjectAccessControlWithMaxResults(ctx, project, bucket, object, ObjectAccessControlMaxPage)
@@ -199,7 +200,7 @@ func (c *Client) ListObjectAccessControl(ctx context.Context, project, bucket, o
 }
 
 func (c *Client) ListObjectAccessControlWithMaxResults(ctx context.Context, project, bucket, object string, pageSize int32) (*ObjectAccessControlList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listObjectAccessControl(ctx, project, bucket, object, "", pageSize)
@@ -220,7 +221,7 @@ func (c *Client) ListObjectAccessControlWithMaxResults(ctx context.Context, proj
 }
 
 func (c *Client) GetObjectAccessControl(ctx context.Context, r *ObjectAccessControl) (*ObjectAccessControl, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getObjectAccessControlRaw(ctx, r)
@@ -254,7 +255,7 @@ func (c *Client) GetObjectAccessControl(ctx context.Context, r *ObjectAccessCont
 }
 
 func (c *Client) DeleteObjectAccessControl(ctx context.Context, r *ObjectAccessControl) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -267,9 +268,6 @@ func (c *Client) DeleteObjectAccessControl(ctx context.Context, r *ObjectAccessC
 
 // DeleteAllObjectAccessControl deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllObjectAccessControl(ctx context.Context, project, bucket, object string, filter func(*ObjectAccessControl) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListObjectAccessControl(ctx, project, bucket, object)
 	if err != nil {
 		return err
@@ -293,10 +291,29 @@ func (c *Client) DeleteAllObjectAccessControl(ctx context.Context, project, buck
 }
 
 func (c *Client) ApplyObjectAccessControl(ctx context.Context, rawDesired *ObjectAccessControl, opts ...dcl.ApplyOption) (*ObjectAccessControl, error) {
+
+	var resultNewState *ObjectAccessControl
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyObjectAccessControlHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyObjectAccessControlHelper(c *Client, ctx context.Context, rawDesired *ObjectAccessControl, opts ...dcl.ApplyOption) (*ObjectAccessControl, error) {
 	c.Config.Logger.Info("Beginning ApplyObjectAccessControl...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

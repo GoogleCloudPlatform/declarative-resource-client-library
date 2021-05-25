@@ -11,26 +11,71 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+info:
+  title: Monitoring/AlertPolicy
+  description: DCL Specification for the Monitoring AlertPolicy resource
+  x-dcl-has-iam: false
+paths:
+  get:
+    description: The function used to get information about a AlertPolicy
+    parameters:
+    - name: AlertPolicy
+      required: true
+      description: A full instance of a AlertPolicy
+  apply:
+    description: The function used to apply information about a AlertPolicy
+    parameters:
+    - name: AlertPolicy
+      required: true
+      description: A full instance of a AlertPolicy
+  delete:
+    description: The function used to delete a AlertPolicy
+    parameters:
+    - name: AlertPolicy
+      required: true
+      description: A full instance of a AlertPolicy
+  deleteAll:
+    description: The function used to delete all AlertPolicy
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+  list:
+    description: The function used to list information about many AlertPolicy
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
 components:
   schemas:
     AlertPolicy:
+      title: AlertPolicy
+      x-dcl-id: v3/projects/{{project}}/alertPolicies/{{name}}
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - project
       properties:
         combiner:
+          type: string
+          x-dcl-go-name: Combiner
+          x-dcl-go-type: AlertPolicyCombinerEnum
           description: |-
             How to combine the results of multiple conditions to determine if an
             incident should be opened.
             If `condition_time_series_query_language` is present, this must be
             `COMBINE_UNSPECIFIED`.
+          x-kubernetes-immutable: true
           enum:
           - COMBINE_UNSPECIFIED
           - AND
           - OR
           - AND_WITH_MATCHING_RESOURCE
-          type: string
-          x-dcl-go-name: Combiner
-          x-dcl-go-type: AlertPolicyCombinerEnum
-          x-kubernetes-immutable: true
         conditions:
+          type: array
+          x-dcl-go-name: Conditions
           description: |-
             A list of conditions for the policy. The conditions are combined by AND or
             OR according to the `combiner` field. If the combined conditions evaluate
@@ -38,14 +83,24 @@ components:
             conditions.
             If `condition_time_series_query_language` is present, it must be the only
             `condition`.
+          x-kubernetes-immutable: true
+          x-dcl-list-type: list
           items:
+            type: object
+            x-dcl-go-type: AlertPolicyConditions
             properties:
               conditionAbsent:
+                type: object
+                x-dcl-go-name: ConditionAbsent
+                x-dcl-go-type: AlertPolicyConditionsConditionAbsent
                 description: |-
                   A condition that checks that a time series continues to
                   receive new data points.
+                x-kubernetes-immutable: true
                 properties:
                   aggregations:
+                    type: array
+                    x-dcl-go-name: Aggregations
                     description: |-
                       Specifies the alignment of data points in individual time series as
                       well as how to combine the retrieved time series together (such as
@@ -58,9 +113,15 @@ components:
                       request](https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.timeSeries/list).
                       It is advisable to use the `ListTimeSeries` method when debugging this
                       field.
+                    x-kubernetes-immutable: true
+                    x-dcl-list-type: list
                     items:
+                      type: object
+                      x-dcl-go-type: AlertPolicyConditionsConditionAbsentAggregations
                       properties:
                         alignmentPeriod:
+                          type: string
+                          x-dcl-go-name: AlignmentPeriod
                           description: |-
                             The `alignment_period` specifies a time interval, in seconds, that is used
                             to divide the data in all the
@@ -72,10 +133,11 @@ components:
                             `ALIGN_NONE` is specified, this field is required or an error is returned.
                             If no per-series aligner is specified, or the aligner `ALIGN_NONE` is
                             specified, then this field is ignored.
-                          type: string
-                          x-dcl-go-name: AlignmentPeriod
                           x-kubernetes-immutable: true
                         crossSeriesReducer:
+                          type: string
+                          x-dcl-go-name: CrossSeriesReducer
+                          x-dcl-go-type: AlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum
                           description: |-
                             The reduction operation to be used to combine time series into a single
                             time series, where the value of each data point in the resulting series is
@@ -91,6 +153,7 @@ components:
                             specified, then `per_series_aligner` must be specified, and must not be
                             `ALIGN_NONE`. An `alignment_period` must also be specified; otherwise, an
                             error is returned. Possible values: REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE, REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99, REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05, REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION
+                          x-kubernetes-immutable: true
                           enum:
                           - REDUCE_NONE
                           - REDUCE_MEAN
@@ -108,11 +171,9 @@ components:
                           - REDUCE_PERCENTILE_05
                           - REDUCE_FRACTION_LESS_THAN
                           - REDUCE_MAKE_DISTRIBUTION
-                          type: string
-                          x-dcl-go-name: CrossSeriesReducer
-                          x-dcl-go-type: AlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum
-                          x-kubernetes-immutable: true
                         groupByFields:
+                          type: array
+                          x-dcl-go-name: GroupByFields
                           description: |-
                             The set of fields to preserve when `cross_series_reducer` is
                             specified. The `group_by_fields` determine how the time series are
@@ -128,14 +189,15 @@ components:
                             the same resource type, then the time series are aggregated into
                             a single output time series. If `cross_series_reducer` is not
                             defined, this field is ignored.
+                          x-kubernetes-immutable: true
+                          x-dcl-list-type: list
                           items:
                             type: string
                             x-dcl-go-type: string
-                          type: array
-                          x-dcl-go-name: GroupByFields
-                          x-dcl-list-type: list
-                          x-kubernetes-immutable: true
                         perSeriesAligner:
+                          type: string
+                          x-dcl-go-name: PerSeriesAligner
+                          x-dcl-go-type: AlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum
                           description: |-
                             An `Aligner` describes how to bring the data points in a single
                             time series into temporal alignment. Except for `ALIGN_NONE`, all
@@ -153,6 +215,7 @@ components:
                             `per_series_aligner` must be specified and not equal to `ALIGN_NONE`
                             and `alignment_period` must be specified; otherwise, an error is
                             returned.
+                          x-kubernetes-immutable: true
                           enum:
                           - ALIGN_NONE
                           - ALIGN_DELTA
@@ -174,133 +237,126 @@ components:
                           - ALIGN_PERCENTILE_05
                           - ALIGN_MAKE_DISTRIBUTION
                           - ALIGN_PERCENT_CHANGE
-                          type: string
-                          x-dcl-go-name: PerSeriesAligner
-                          x-dcl-go-type: AlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum
-                          x-kubernetes-immutable: true
                         reduceFractionLessThanParams:
-                          description: |-
-                            Parameters used when `cross_series_reducer` is
-                            `REDUCE_FRACTION_LESS_THAN`, ignored otherwise.
-                          properties:
-                            threshold:
-                              description: |-
-                                The threshold used by the `REDUCE_FRACTION_LESS_THAN` cross-series
-                                reducer.
-                              format: double
-                              type: number
-                              x-dcl-go-name: Threshold
-                              x-kubernetes-immutable: true
                           type: object
                           x-dcl-go-name: ReduceFractionLessThanParams
                           x-dcl-go-type: AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams
-                          x-kubernetes-immutable: true
-                        reduceMakeDistributionParams:
                           description: |-
                             Parameters used when `cross_series_reducer` is
-                            `REDUCE_MAKE_DISTRIBUTION`, ignored otherwise.
+                            `REDUCE_FRACTION_LESS_THAN`, ignored otherwise.
+                          x-kubernetes-immutable: true
                           properties:
-                            bucketOptions:
-                              description: Describes the bucket boundaries used to
-                                create the distribution.
-                              properties:
-                                explicitBuckets:
-                                  description: The explicit buckets.
-                                  properties:
-                                    bounds:
-                                      description: The values must be monotonically
-                                        increasing.
-                                      items:
-                                        format: double
-                                        type: number
-                                        x-dcl-go-type: float64
-                                      type: array
-                                      x-dcl-go-name: Bounds
-                                      x-dcl-list-type: list
-                                      x-kubernetes-immutable: true
-                                  type: object
-                                  x-dcl-go-name: ExplicitBuckets
-                                  x-dcl-go-type: AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
-                                  x-kubernetes-immutable: true
-                                exponentialBuckets:
-                                  description: The exponential buckets.
-                                  properties:
-                                    growthFactor:
-                                      description: Must be greater than 1.
-                                      format: double
-                                      type: number
-                                      x-dcl-go-name: GrowthFactor
-                                      x-kubernetes-immutable: true
-                                    numFiniteBuckets:
-                                      description: Must be greater than 0.
-                                      format: int64
-                                      type: integer
-                                      x-dcl-go-name: NumFiniteBuckets
-                                      x-kubernetes-immutable: true
-                                    scale:
-                                      description: Must be greater than 0.
-                                      format: double
-                                      type: number
-                                      x-dcl-go-name: Scale
-                                      x-kubernetes-immutable: true
-                                  type: object
-                                  x-dcl-go-name: ExponentialBuckets
-                                  x-dcl-go-type: AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
-                                  x-kubernetes-immutable: true
-                                linearBuckets:
-                                  description: The linear bucket.
-                                  properties:
-                                    numFiniteBuckets:
-                                      description: Must be greater than 0.
-                                      format: int64
-                                      type: integer
-                                      x-dcl-go-name: NumFiniteBuckets
-                                      x-kubernetes-immutable: true
-                                    offset:
-                                      description: Lower bound of the first bucket.
-                                      format: double
-                                      type: number
-                                      x-dcl-go-name: Offset
-                                      x-kubernetes-immutable: true
-                                    width:
-                                      description: Must be greater than 0.
-                                      format: double
-                                      type: number
-                                      x-dcl-go-name: Width
-                                      x-kubernetes-immutable: true
-                                  type: object
-                                  x-dcl-go-name: LinearBuckets
-                                  x-dcl-go-type: AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
-                                  x-kubernetes-immutable: true
-                              type: object
-                              x-dcl-go-name: BucketOptions
-                              x-dcl-go-type: AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions
+                            threshold:
+                              type: number
+                              format: double
+                              x-dcl-go-name: Threshold
+                              description: |-
+                                The threshold used by the `REDUCE_FRACTION_LESS_THAN` cross-series
+                                reducer.
                               x-kubernetes-immutable: true
-                            exemplarSampling:
-                              description: When present, modifies exemplars in `REDUCE_MAKE_DISTRIBTUION`.
-                              properties:
-                                minimumValue:
-                                  description: If set, only sample exemplars whose
-                                    value is at or above this value.
-                                  format: double
-                                  type: number
-                                  x-dcl-go-name: MinimumValue
-                                  x-kubernetes-immutable: true
-                              type: object
-                              x-dcl-go-name: ExemplarSampling
-                              x-dcl-go-type: AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling
-                              x-kubernetes-immutable: true
+                        reduceMakeDistributionParams:
                           type: object
                           x-dcl-go-name: ReduceMakeDistributionParams
                           x-dcl-go-type: AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams
+                          description: |-
+                            Parameters used when `cross_series_reducer` is
+                            `REDUCE_MAKE_DISTRIBUTION`, ignored otherwise.
                           x-kubernetes-immutable: true
-                      type: object
-                      x-dcl-go-type: AlertPolicyConditionsConditionAbsentAggregations
-                    type: array
-                    x-dcl-go-name: Aggregations
-                    x-dcl-list-type: list
-                    x-kubernetes-immutable: true
+                          properties:
+                            bucketOptions:
+                              type: object
+                              x-dcl-go-name: BucketOptions
+                              x-dcl-go-type: AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions
+                              description: Describes the bucket boundaries used to
+                                create the distribution.
+                              x-kubernetes-immutable: true
+                              properties:
+                                explicitBuckets:
+                                  type: object
+                                  x-dcl-go-name: ExplicitBuckets
+                                  x-dcl-go-type: AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+                                  description: The explicit buckets.
+                                  x-kubernetes-immutable: true
+                                  properties:
+                                    bounds:
+                                      type: array
+                                      x-dcl-go-name: Bounds
+                                      description: The values must be monotonically
+                                        increasing.
+                                      x-kubernetes-immutable: true
+                                      x-dcl-list-type: list
+                                      items:
+                                        type: number
+                                        format: double
+                                        x-dcl-go-type: float64
+                                exponentialBuckets:
+                                  type: object
+                                  x-dcl-go-name: ExponentialBuckets
+                                  x-dcl-go-type: AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+                                  description: The exponential buckets.
+                                  x-kubernetes-immutable: true
+                                  properties:
+                                    growthFactor:
+                                      type: number
+                                      format: double
+                                      x-dcl-go-name: GrowthFactor
+                                      description: Must be greater than 1.
+                                      x-kubernetes-immutable: true
+                                    numFiniteBuckets:
+                                      type: integer
+                                      format: int64
+                                      x-dcl-go-name: NumFiniteBuckets
+                                      description: Must be greater than 0.
+                                      x-kubernetes-immutable: true
+                                    scale:
+                                      type: number
+                                      format: double
+                                      x-dcl-go-name: Scale
+                                      description: Must be greater than 0.
+                                      x-kubernetes-immutable: true
+                                linearBuckets:
+                                  type: object
+                                  x-dcl-go-name: LinearBuckets
+                                  x-dcl-go-type: AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+                                  description: The linear bucket.
+                                  x-kubernetes-immutable: true
+                                  properties:
+                                    numFiniteBuckets:
+                                      type: integer
+                                      format: int64
+                                      x-dcl-go-name: NumFiniteBuckets
+                                      description: Must be greater than 0.
+                                      x-kubernetes-immutable: true
+                                    offset:
+                                      type: number
+                                      format: double
+                                      x-dcl-go-name: Offset
+                                      description: Lower bound of the first bucket.
+                                      x-kubernetes-immutable: true
+                                    width:
+                                      type: number
+                                      format: double
+                                      x-dcl-go-name: Width
+                                      description: Must be greater than 0.
+                                      x-kubernetes-immutable: true
+                            exemplarSampling:
+                              type: object
+                              x-dcl-go-name: ExemplarSampling
+                              x-dcl-go-type: AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling
+                              description: When present, modifies exemplars in `REDUCE_MAKE_DISTRIBTUION`.
+                              x-kubernetes-immutable: true
+                              properties:
+                                minimumValue:
+                                  type: number
+                                  format: double
+                                  x-dcl-go-name: MinimumValue
+                                  description: If set, only sample exemplars whose
+                                    value is at or above this value.
+                                  x-kubernetes-immutable: true
                   duration:
+                    type: object
+                    x-dcl-go-name: Duration
+                    x-dcl-go-type: AlertPolicyConditionsConditionAbsentDuration
                     description: |-
                       The amount of time that a time series must fail to report new
                       data to be considered failing. Currently, only values that
@@ -308,8 +364,12 @@ components:
                       seconds--are supported. If an invalid value is given, an
                       error will be returned. The `Duration.nanos` field is
                       ignored.
+                    x-kubernetes-immutable: true
                     properties:
                       nanos:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Nanos
                         description: |-
                           Signed fractions of a second at nanosecond resolution of the span
                           of time. Durations less than one second are represented with a 0
@@ -317,24 +377,19 @@ components:
                           of one second or more, a non-zero value for the `nanos` field must be
                           of the same sign as the `seconds` field. Must be from -999,999,999
                           to +999,999,999 inclusive.
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Nanos
                         x-kubernetes-immutable: true
                       seconds:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Seconds
                         description: |-
                           Signed seconds of the span of time. Must be from -315,576,000,000
                           to +315,576,000,000 inclusive. Note: these bounds are computed from:
                           60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Seconds
                         x-kubernetes-immutable: true
-                    type: object
-                    x-dcl-go-name: Duration
-                    x-dcl-go-type: AlertPolicyConditionsConditionAbsentDuration
-                    x-kubernetes-immutable: true
                   filter:
+                    type: string
+                    x-dcl-go-name: Filter
                     description: |-
                       A [filter](https://cloud.google.com/monitoring/api/v3/filters) that
                       identifies which time series should be compared with the threshold.
@@ -346,74 +401,76 @@ components:
                       processed) and must specify the metric type and optionally may contain
                       restrictions on resource type, resource labels, and metric labels.
                       This field may not exceed 2048 Unicode characters in length.
-                    type: string
-                    x-dcl-go-name: Filter
                     x-kubernetes-immutable: true
                   trigger:
+                    type: object
+                    x-dcl-go-name: Trigger
+                    x-dcl-go-type: AlertPolicyConditionsConditionAbsentTrigger
                     description: |-
                       The number/percent of time series for which the comparison must hold
                       in order for the condition to trigger. If unspecified, then the
                       condition will trigger if the comparison is true for any of the
                       time series that have been identified by `filter` and `aggregations`.
+                    x-kubernetes-immutable: true
                     properties:
                       count:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Count
                         description: |-
                           The absolute number of time series that must fail
                           the predicate for the condition to be triggered.
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Count
                         x-kubernetes-immutable: true
                       percent:
+                        type: number
+                        format: double
+                        x-dcl-go-name: Percent
                         description: |-
                           The percentage of time series that must fail the
                           predicate for the condition to be triggered.
-                        format: double
-                        type: number
-                        x-dcl-go-name: Percent
                         x-kubernetes-immutable: true
-                    type: object
-                    x-dcl-go-name: Trigger
-                    x-dcl-go-type: AlertPolicyConditionsConditionAbsentTrigger
-                    x-kubernetes-immutable: true
-                type: object
-                x-dcl-go-name: ConditionAbsent
-                x-dcl-go-type: AlertPolicyConditionsConditionAbsent
-                x-kubernetes-immutable: true
               conditionClusterOutlier:
+                type: object
+                x-dcl-go-name: ConditionClusterOutlier
+                x-dcl-go-type: AlertPolicyConditionsConditionClusterOutlier
                 description: |-
                   A condition that checks for outliers in metrics for a set of monitored
                   resources.
+                x-kubernetes-immutable: true
                 properties:
                   filter:
+                    type: string
+                    x-dcl-go-name: Filter
                     description: |-
                       A filter that identifies the time series to be checked for outliers.
                       The filter must specify a metric. It may define additional clauses to
                       restrict the condition to apply to a subset of resources. See
                       [filter details](https://cloud.google.com/monitoring/api/v3/filters).
-                    type: string
-                    x-dcl-go-name: Filter
                     x-kubernetes-immutable: true
-                type: object
-                x-dcl-go-name: ConditionClusterOutlier
-                x-dcl-go-type: AlertPolicyConditionsConditionClusterOutlier
-                x-kubernetes-immutable: true
               conditionMatchedLog:
+                type: object
+                x-dcl-go-name: ConditionMatchedLog
+                x-dcl-go-type: AlertPolicyConditionsConditionMatchedLog
                 description: |-
                   A condition that checks for log messages matching given constraints. If
                   set, no other conditions can be present.
+                x-kubernetes-immutable: true
+                required:
+                - filter
                 properties:
                   filter:
+                    type: string
+                    x-dcl-go-name: Filter
                     description: |-
                       Required. A logs-based filter. See [Advanced Logs
                       Queries](/logging/docs/view/advanced-queries) for how this filter
                       should be constructed.
-                    type: string
-                    x-dcl-go-name: Filter
                     x-kubernetes-immutable: true
                   labelExtractors:
+                    type: object
                     additionalProperties:
                       type: string
+                    x-dcl-go-name: LabelExtractors
                     description: |-
                       Optional. A map from a label key to an extractor expression which is
                       used to extract the value for this label key. Label keys and
@@ -421,21 +478,20 @@ components:
                       condition. See [Logs-based metric
                       labels](/logging/docs/logs-based-metrics/labels) for how to construct
                       extractors.
-                    type: object
-                    x-dcl-go-name: LabelExtractors
                     x-kubernetes-immutable: true
-                required:
-                - filter
-                type: object
-                x-dcl-go-name: ConditionMatchedLog
-                x-dcl-go-type: AlertPolicyConditionsConditionMatchedLog
-                x-kubernetes-immutable: true
               conditionMonitoringQueryLanguage:
+                type: object
+                x-dcl-go-name: ConditionMonitoringQueryLanguage
+                x-dcl-go-type: AlertPolicyConditionsConditionMonitoringQueryLanguage
                 description: |-
                   A condition that uses the Monitoring Query Language to define
                   alerts.
+                x-kubernetes-immutable: true
                 properties:
                   duration:
+                    type: object
+                    x-dcl-go-name: Duration
+                    x-dcl-go-type: AlertPolicyConditionsConditionMonitoringQueryLanguageDuration
                     description: |-
                       The amount of time that a time series must violate the
                       threshold to be considered failing. Currently, only values
@@ -447,8 +503,12 @@ components:
                       `aggregations` field); a good duration is long enough so that a single
                       outlier does not generate spurious alerts, but short enough that
                       unhealthy states are detected and alerted on quickly.
+                    x-kubernetes-immutable: true
                     properties:
                       nanos:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Nanos
                         description: |-
                           Signed fractions of a second at nanosecond resolution of the span
                           of time. Durations less than one second are represented with a 0
@@ -456,31 +516,27 @@ components:
                           of one second or more, a non-zero value for the `nanos` field must be
                           of the same sign as the `seconds` field. Must be from -999,999,999
                           to +999,999,999 inclusive.
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Nanos
                         x-kubernetes-immutable: true
                       seconds:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Seconds
                         description: |-
                           Signed seconds of the span of time. Must be from -315,576,000,000
                           to +315,576,000,000 inclusive. Note: these bounds are computed from:
                           60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Seconds
                         x-kubernetes-immutable: true
-                    type: object
-                    x-dcl-go-name: Duration
-                    x-dcl-go-type: AlertPolicyConditionsConditionMonitoringQueryLanguageDuration
-                    x-kubernetes-immutable: true
                   query:
+                    type: string
+                    x-dcl-go-name: Query
                     description: |-
                       [Monitoring Query Language](cloud.google.com/monitoring/mql) query
                       that outputs a boolean stream.
-                    type: string
-                    x-dcl-go-name: Query
                     x-kubernetes-immutable: true
                   trigger:
+                    type: object
+                    x-dcl-go-name: Trigger
+                    x-dcl-go-type: AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger
                     description: |-
                       The number/percent of time series for which the comparison must hold
                       in order for the condition to trigger. If unspecified, then the
@@ -488,40 +544,41 @@ components:
                       time series that have been identified by `filter` and `aggregations`,
                       or by the ratio, if `denominator_filter` and `denominator_aggregations`
                       are specified.
+                    x-kubernetes-immutable: true
                     properties:
                       count:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Count
                         description: |-
                           The absolute number of time series that must fail
                           the predicate for the condition to be triggered.
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Count
                         x-kubernetes-immutable: true
                       percent:
+                        type: number
+                        format: double
+                        x-dcl-go-name: Percent
                         description: |-
                           The percentage of time series that must fail the
                           predicate for the condition to be triggered.
-                        format: double
-                        type: number
-                        x-dcl-go-name: Percent
                         x-kubernetes-immutable: true
-                    type: object
-                    x-dcl-go-name: Trigger
-                    x-dcl-go-type: AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger
-                    x-kubernetes-immutable: true
-                type: object
-                x-dcl-go-name: ConditionMonitoringQueryLanguage
-                x-dcl-go-type: AlertPolicyConditionsConditionMonitoringQueryLanguage
-                x-kubernetes-immutable: true
               conditionProcessCount:
+                type: object
+                x-dcl-go-name: ConditionProcessCount
+                x-dcl-go-type: AlertPolicyConditionsConditionProcessCount
                 description: |-
                   A condition that checks the number of matching processes on the
                   matching VMs and compares them to the specified threshold.
+                x-kubernetes-immutable: true
                 properties:
                   comparison:
+                    type: string
+                    x-dcl-go-name: Comparison
+                    x-dcl-go-type: AlertPolicyConditionsConditionProcessCountComparisonEnum
                     description: ' Possible values: COMPARISON_UNSPECIFIED, COMPARISON_GT,
                       COMPARISON_GE, COMPARISON_LT, COMPARISON_LE, COMPARISON_EQ,
                       COMPARISON_NE'
+                    x-kubernetes-immutable: true
                     enum:
                     - COMPARISON_UNSPECIFIED
                     - COMPARISON_GT
@@ -530,13 +587,16 @@ components:
                     - COMPARISON_LE
                     - COMPARISON_EQ
                     - COMPARISON_NE
-                    type: string
-                    x-dcl-go-name: Comparison
-                    x-dcl-go-type: AlertPolicyConditionsConditionProcessCountComparisonEnum
-                    x-kubernetes-immutable: true
                   duration:
+                    type: object
+                    x-dcl-go-name: Duration
+                    x-dcl-go-type: AlertPolicyConditionsConditionProcessCountDuration
+                    x-kubernetes-immutable: true
                     properties:
                       nanos:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Nanos
                         description: |-
                           Signed fractions of a second at nanosecond resolution of the span
                           of time. Durations less than one second are represented with a 0
@@ -544,23 +604,16 @@ components:
                           of one second or more, a non-zero value for the `nanos` field must be
                           of the same sign as the `seconds` field. Must be from -999,999,999
                           to +999,999,999 inclusive.
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Nanos
                         x-kubernetes-immutable: true
                       seconds:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Seconds
                         description: |-
                           Signed seconds of the span of time. Must be from -315,576,000,000
                           to +315,576,000,000 inclusive. Note: these bounds are computed from:
                           60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Seconds
                         x-kubernetes-immutable: true
-                    type: object
-                    x-dcl-go-name: Duration
-                    x-dcl-go-type: AlertPolicyConditionsConditionProcessCountDuration
-                    x-kubernetes-immutable: true
                   filter:
                     type: string
                     x-dcl-go-name: Filter
@@ -570,46 +623,48 @@ components:
                     x-dcl-go-name: Process
                     x-kubernetes-immutable: true
                   processCountThreshold:
-                    format: int64
                     type: integer
+                    format: int64
                     x-dcl-go-name: ProcessCountThreshold
                     x-kubernetes-immutable: true
                   trigger:
-                    properties:
-                      count:
-                        description: |-
-                          The absolute number of time series that must fail
-                          the predicate for the condition to be triggered.
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Count
-                        x-kubernetes-immutable: true
-                      percent:
-                        description: |-
-                          The percentage of time series that must fail the
-                          predicate for the condition to be triggered.
-                        format: double
-                        type: number
-                        x-dcl-go-name: Percent
-                        x-kubernetes-immutable: true
                     type: object
                     x-dcl-go-name: Trigger
                     x-dcl-go-type: AlertPolicyConditionsConditionProcessCountTrigger
                     x-kubernetes-immutable: true
+                    properties:
+                      count:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Count
+                        description: |-
+                          The absolute number of time series that must fail
+                          the predicate for the condition to be triggered.
+                        x-kubernetes-immutable: true
+                      percent:
+                        type: number
+                        format: double
+                        x-dcl-go-name: Percent
+                        description: |-
+                          The percentage of time series that must fail the
+                          predicate for the condition to be triggered.
+                        x-kubernetes-immutable: true
                   user:
                     type: string
                     x-dcl-go-name: User
                     x-kubernetes-immutable: true
-                type: object
-                x-dcl-go-name: ConditionProcessCount
-                x-dcl-go-type: AlertPolicyConditionsConditionProcessCount
-                x-kubernetes-immutable: true
               conditionRate:
+                type: object
+                x-dcl-go-name: ConditionRate
+                x-dcl-go-type: AlertPolicyConditionsConditionRate
                 description: |-
                   A condition that compares the change rate of a time series against a
                   specified threshold.
+                x-kubernetes-immutable: true
                 properties:
                   aggregations:
+                    type: array
+                    x-dcl-go-name: Aggregations
                     description: |-
                       Specifies the alignment of data points in individual time series as
                       well as how to combine the retrieved time series together (such as
@@ -622,9 +677,15 @@ components:
                       request](https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.timeSeries/list).
                       It is advisable to use the `ListTimeSeries` method when debugging this
                       field.
+                    x-kubernetes-immutable: true
+                    x-dcl-list-type: list
                     items:
+                      type: object
+                      x-dcl-go-type: AlertPolicyConditionsConditionRateAggregations
                       properties:
                         alignmentPeriod:
+                          type: string
+                          x-dcl-go-name: AlignmentPeriod
                           description: |-
                             The `alignment_period` specifies a time interval, in seconds, that is used
                             to divide the data in all the
@@ -636,10 +697,11 @@ components:
                             `ALIGN_NONE` is specified, this field is required or an error is returned.
                             If no per-series aligner is specified, or the aligner `ALIGN_NONE` is
                             specified, then this field is ignored.
-                          type: string
-                          x-dcl-go-name: AlignmentPeriod
                           x-kubernetes-immutable: true
                         crossSeriesReducer:
+                          type: string
+                          x-dcl-go-name: CrossSeriesReducer
+                          x-dcl-go-type: AlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum
                           description: |-
                             The reduction operation to be used to combine time series into a single
                             time series, where the value of each data point in the resulting series is
@@ -655,6 +717,7 @@ components:
                             specified, then `per_series_aligner` must be specified, and must not be
                             `ALIGN_NONE`. An `alignment_period` must also be specified; otherwise, an
                             error is returned. Possible values: REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE, REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99, REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05, REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION
+                          x-kubernetes-immutable: true
                           enum:
                           - REDUCE_NONE
                           - REDUCE_MEAN
@@ -672,11 +735,9 @@ components:
                           - REDUCE_PERCENTILE_05
                           - REDUCE_FRACTION_LESS_THAN
                           - REDUCE_MAKE_DISTRIBUTION
-                          type: string
-                          x-dcl-go-name: CrossSeriesReducer
-                          x-dcl-go-type: AlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum
-                          x-kubernetes-immutable: true
                         groupByFields:
+                          type: array
+                          x-dcl-go-name: GroupByFields
                           description: |-
                             The set of fields to preserve when `cross_series_reducer` is
                             specified. The `group_by_fields` determine how the time series are
@@ -692,14 +753,15 @@ components:
                             the same resource type, then the time series are aggregated into
                             a single output time series. If `cross_series_reducer` is not
                             defined, this field is ignored.
+                          x-kubernetes-immutable: true
+                          x-dcl-list-type: list
                           items:
                             type: string
                             x-dcl-go-type: string
-                          type: array
-                          x-dcl-go-name: GroupByFields
-                          x-dcl-list-type: list
-                          x-kubernetes-immutable: true
                         perSeriesAligner:
+                          type: string
+                          x-dcl-go-name: PerSeriesAligner
+                          x-dcl-go-type: AlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum
                           description: |-
                             An `Aligner` describes how to bring the data points in a single
                             time series into temporal alignment. Except for `ALIGN_NONE`, all
@@ -717,6 +779,7 @@ components:
                             `per_series_aligner` must be specified and not equal to `ALIGN_NONE`
                             and `alignment_period` must be specified; otherwise, an error is
                             returned.
+                          x-kubernetes-immutable: true
                           enum:
                           - ALIGN_NONE
                           - ALIGN_DELTA
@@ -738,138 +801,132 @@ components:
                           - ALIGN_PERCENTILE_05
                           - ALIGN_MAKE_DISTRIBUTION
                           - ALIGN_PERCENT_CHANGE
-                          type: string
-                          x-dcl-go-name: PerSeriesAligner
-                          x-dcl-go-type: AlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum
-                          x-kubernetes-immutable: true
                         reduceFractionLessThanParams:
-                          description: |-
-                            Parameters used when `cross_series_reducer` is
-                            `REDUCE_FRACTION_LESS_THAN`, ignored otherwise.
-                          properties:
-                            threshold:
-                              description: |-
-                                The threshold used by the `REDUCE_FRACTION_LESS_THAN` cross-series
-                                reducer.
-                              format: double
-                              type: number
-                              x-dcl-go-name: Threshold
-                              x-kubernetes-immutable: true
                           type: object
                           x-dcl-go-name: ReduceFractionLessThanParams
                           x-dcl-go-type: AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams
-                          x-kubernetes-immutable: true
-                        reduceMakeDistributionParams:
                           description: |-
                             Parameters used when `cross_series_reducer` is
-                            `REDUCE_MAKE_DISTRIBUTION`, ignored otherwise.
+                            `REDUCE_FRACTION_LESS_THAN`, ignored otherwise.
+                          x-kubernetes-immutable: true
                           properties:
-                            bucketOptions:
-                              description: Describes the bucket boundaries used to
-                                create the distribution.
-                              properties:
-                                explicitBuckets:
-                                  description: The explicit buckets.
-                                  properties:
-                                    bounds:
-                                      description: The values must be monotonically
-                                        increasing.
-                                      items:
-                                        format: double
-                                        type: number
-                                        x-dcl-go-type: float64
-                                      type: array
-                                      x-dcl-go-name: Bounds
-                                      x-dcl-list-type: list
-                                      x-kubernetes-immutable: true
-                                  type: object
-                                  x-dcl-go-name: ExplicitBuckets
-                                  x-dcl-go-type: AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
-                                  x-kubernetes-immutable: true
-                                exponentialBuckets:
-                                  description: The exponential buckets.
-                                  properties:
-                                    growthFactor:
-                                      description: Must be greater than 1.
-                                      format: double
-                                      type: number
-                                      x-dcl-go-name: GrowthFactor
-                                      x-kubernetes-immutable: true
-                                    numFiniteBuckets:
-                                      description: Must be greater than 0.
-                                      format: int64
-                                      type: integer
-                                      x-dcl-go-name: NumFiniteBuckets
-                                      x-kubernetes-immutable: true
-                                    scale:
-                                      description: Must be greater than 0.
-                                      format: double
-                                      type: number
-                                      x-dcl-go-name: Scale
-                                      x-kubernetes-immutable: true
-                                  type: object
-                                  x-dcl-go-name: ExponentialBuckets
-                                  x-dcl-go-type: AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
-                                  x-kubernetes-immutable: true
-                                linearBuckets:
-                                  description: The linear bucket.
-                                  properties:
-                                    numFiniteBuckets:
-                                      description: Must be greater than 0.
-                                      format: int64
-                                      type: integer
-                                      x-dcl-go-name: NumFiniteBuckets
-                                      x-kubernetes-immutable: true
-                                    offset:
-                                      description: Lower bound of the first bucket.
-                                      format: double
-                                      type: number
-                                      x-dcl-go-name: Offset
-                                      x-kubernetes-immutable: true
-                                    width:
-                                      description: Must be greater than 0.
-                                      format: double
-                                      type: number
-                                      x-dcl-go-name: Width
-                                      x-kubernetes-immutable: true
-                                  type: object
-                                  x-dcl-go-name: LinearBuckets
-                                  x-dcl-go-type: AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
-                                  x-kubernetes-immutable: true
-                              type: object
-                              x-dcl-go-name: BucketOptions
-                              x-dcl-go-type: AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions
+                            threshold:
+                              type: number
+                              format: double
+                              x-dcl-go-name: Threshold
+                              description: |-
+                                The threshold used by the `REDUCE_FRACTION_LESS_THAN` cross-series
+                                reducer.
                               x-kubernetes-immutable: true
-                            exemplarSampling:
-                              description: When present, modifies exemplars in `REDUCE_MAKE_DISTRIBTUION`.
-                              properties:
-                                minimumValue:
-                                  description: If set, only sample exemplars whose
-                                    value is at or above this value.
-                                  format: double
-                                  type: number
-                                  x-dcl-go-name: MinimumValue
-                                  x-kubernetes-immutable: true
-                              type: object
-                              x-dcl-go-name: ExemplarSampling
-                              x-dcl-go-type: AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling
-                              x-kubernetes-immutable: true
+                        reduceMakeDistributionParams:
                           type: object
                           x-dcl-go-name: ReduceMakeDistributionParams
                           x-dcl-go-type: AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams
+                          description: |-
+                            Parameters used when `cross_series_reducer` is
+                            `REDUCE_MAKE_DISTRIBUTION`, ignored otherwise.
                           x-kubernetes-immutable: true
-                      type: object
-                      x-dcl-go-type: AlertPolicyConditionsConditionRateAggregations
-                    type: array
-                    x-dcl-go-name: Aggregations
-                    x-dcl-list-type: list
-                    x-kubernetes-immutable: true
+                          properties:
+                            bucketOptions:
+                              type: object
+                              x-dcl-go-name: BucketOptions
+                              x-dcl-go-type: AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions
+                              description: Describes the bucket boundaries used to
+                                create the distribution.
+                              x-kubernetes-immutable: true
+                              properties:
+                                explicitBuckets:
+                                  type: object
+                                  x-dcl-go-name: ExplicitBuckets
+                                  x-dcl-go-type: AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+                                  description: The explicit buckets.
+                                  x-kubernetes-immutable: true
+                                  properties:
+                                    bounds:
+                                      type: array
+                                      x-dcl-go-name: Bounds
+                                      description: The values must be monotonically
+                                        increasing.
+                                      x-kubernetes-immutable: true
+                                      x-dcl-list-type: list
+                                      items:
+                                        type: number
+                                        format: double
+                                        x-dcl-go-type: float64
+                                exponentialBuckets:
+                                  type: object
+                                  x-dcl-go-name: ExponentialBuckets
+                                  x-dcl-go-type: AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+                                  description: The exponential buckets.
+                                  x-kubernetes-immutable: true
+                                  properties:
+                                    growthFactor:
+                                      type: number
+                                      format: double
+                                      x-dcl-go-name: GrowthFactor
+                                      description: Must be greater than 1.
+                                      x-kubernetes-immutable: true
+                                    numFiniteBuckets:
+                                      type: integer
+                                      format: int64
+                                      x-dcl-go-name: NumFiniteBuckets
+                                      description: Must be greater than 0.
+                                      x-kubernetes-immutable: true
+                                    scale:
+                                      type: number
+                                      format: double
+                                      x-dcl-go-name: Scale
+                                      description: Must be greater than 0.
+                                      x-kubernetes-immutable: true
+                                linearBuckets:
+                                  type: object
+                                  x-dcl-go-name: LinearBuckets
+                                  x-dcl-go-type: AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+                                  description: The linear bucket.
+                                  x-kubernetes-immutable: true
+                                  properties:
+                                    numFiniteBuckets:
+                                      type: integer
+                                      format: int64
+                                      x-dcl-go-name: NumFiniteBuckets
+                                      description: Must be greater than 0.
+                                      x-kubernetes-immutable: true
+                                    offset:
+                                      type: number
+                                      format: double
+                                      x-dcl-go-name: Offset
+                                      description: Lower bound of the first bucket.
+                                      x-kubernetes-immutable: true
+                                    width:
+                                      type: number
+                                      format: double
+                                      x-dcl-go-name: Width
+                                      description: Must be greater than 0.
+                                      x-kubernetes-immutable: true
+                            exemplarSampling:
+                              type: object
+                              x-dcl-go-name: ExemplarSampling
+                              x-dcl-go-type: AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling
+                              description: When present, modifies exemplars in `REDUCE_MAKE_DISTRIBTUION`.
+                              x-kubernetes-immutable: true
+                              properties:
+                                minimumValue:
+                                  type: number
+                                  format: double
+                                  x-dcl-go-name: MinimumValue
+                                  description: If set, only sample exemplars whose
+                                    value is at or above this value.
+                                  x-kubernetes-immutable: true
                   comparison:
+                    type: string
+                    x-dcl-go-name: Comparison
+                    x-dcl-go-type: AlertPolicyConditionsConditionRateComparisonEnum
                     description: |-
                       The comparison to apply between the time series (indicated by `filter`
                       and `aggregation`) and the threshold (indicated by `threshold_value`).
                       The comparison is applied on each time series, with the time series
                       on the left-hand side, and the threshold on the right-hand side. Possible values: COMPARISON_UNSPECIFIED, COMPARISON_GT, COMPARISON_GE, COMPARISON_LT, COMPARISON_LE, COMPARISON_EQ, COMPARISON_NE
+                    x-kubernetes-immutable: true
                     enum:
                     - COMPARISON_UNSPECIFIED
                     - COMPARISON_GT
@@ -878,11 +935,9 @@ components:
                     - COMPARISON_LE
                     - COMPARISON_EQ
                     - COMPARISON_NE
-                    type: string
-                    x-dcl-go-name: Comparison
-                    x-dcl-go-type: AlertPolicyConditionsConditionRateComparisonEnum
-                    x-kubernetes-immutable: true
                   filter:
+                    type: string
+                    x-dcl-go-name: Filter
                     description: |-
                       A [filter](https://cloud.google.com/monitoring/api/v3/filters) that
                       identifies which time series should be compared with the threshold.
@@ -893,19 +948,24 @@ components:
                       processed) and must specify the metric type and optionally may contain
                       restrictions on resource type, resource labels, and metric labels.
                       This field may not exceed 2048 Unicode characters in length.
-                    type: string
-                    x-dcl-go-name: Filter
                     x-kubernetes-immutable: true
                   thresholdValue:
-                    description: A value against which to compare the time series.
-                    format: double
                     type: number
+                    format: double
                     x-dcl-go-name: ThresholdValue
+                    description: A value against which to compare the time series.
                     x-kubernetes-immutable: true
                   timeWindow:
+                    type: object
+                    x-dcl-go-name: TimeWindow
+                    x-dcl-go-type: AlertPolicyConditionsConditionRateTimeWindow
                     description: The time window in which the change rate is calculated.
+                    x-kubernetes-immutable: true
                     properties:
                       nanos:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Nanos
                         description: |-
                           Signed fractions of a second at nanosecond resolution of the span
                           of time. Durations less than one second are represented with a 0
@@ -913,58 +973,53 @@ components:
                           of one second or more, a non-zero value for the `nanos` field must be
                           of the same sign as the `seconds` field. Must be from -999,999,999
                           to +999,999,999 inclusive.
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Nanos
                         x-kubernetes-immutable: true
                       seconds:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Seconds
                         description: |-
                           Signed seconds of the span of time. Must be from -315,576,000,000
                           to +315,576,000,000 inclusive. Note: these bounds are computed from:
                           60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Seconds
                         x-kubernetes-immutable: true
-                    type: object
-                    x-dcl-go-name: TimeWindow
-                    x-dcl-go-type: AlertPolicyConditionsConditionRateTimeWindow
-                    x-kubernetes-immutable: true
                   trigger:
+                    type: object
+                    x-dcl-go-name: Trigger
+                    x-dcl-go-type: AlertPolicyConditionsConditionRateTrigger
                     description: |-
                       The number/percent of time series for which the comparison must hold
                       in order for the condition to trigger. If unspecified, then the
                       condition will trigger if the comparison is true for any of the
                       time series that have been identified by `filter` and `aggregation`.
+                    x-kubernetes-immutable: true
                     properties:
                       count:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Count
                         description: |-
                           The absolute number of time series that must fail
                           the predicate for the condition to be triggered.
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Count
                         x-kubernetes-immutable: true
                       percent:
+                        type: number
+                        format: double
+                        x-dcl-go-name: Percent
                         description: |-
                           The percentage of time series that must fail the
                           predicate for the condition to be triggered.
-                        format: double
-                        type: number
-                        x-dcl-go-name: Percent
                         x-kubernetes-immutable: true
-                    type: object
-                    x-dcl-go-name: Trigger
-                    x-dcl-go-type: AlertPolicyConditionsConditionRateTrigger
-                    x-kubernetes-immutable: true
-                type: object
-                x-dcl-go-name: ConditionRate
-                x-dcl-go-type: AlertPolicyConditionsConditionRate
-                x-kubernetes-immutable: true
               conditionThreshold:
+                type: object
+                x-dcl-go-name: ConditionThreshold
+                x-dcl-go-type: AlertPolicyConditionsConditionThreshold
                 description: A condition that compares a time series against a threshold.
+                x-kubernetes-immutable: true
                 properties:
                   aggregations:
+                    type: array
+                    x-dcl-go-name: Aggregations
                     description: |-
                       Specifies the alignment of data points in individual time series as
                       well as how to combine the retrieved time series together (such as
@@ -977,9 +1032,15 @@ components:
                       request](https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.timeSeries/list).
                       It is advisable to use the `ListTimeSeries` method when debugging this
                       field.
+                    x-kubernetes-immutable: true
+                    x-dcl-list-type: list
                     items:
+                      type: object
+                      x-dcl-go-type: AlertPolicyConditionsConditionThresholdAggregations
                       properties:
                         alignmentPeriod:
+                          type: string
+                          x-dcl-go-name: AlignmentPeriod
                           description: |-
                             The `alignment_period` specifies a time interval, in seconds, that is used
                             to divide the data in all the
@@ -991,10 +1052,11 @@ components:
                             `ALIGN_NONE` is specified, this field is required or an error is returned.
                             If no per-series aligner is specified, or the aligner `ALIGN_NONE` is
                             specified, then this field is ignored.
-                          type: string
-                          x-dcl-go-name: AlignmentPeriod
                           x-kubernetes-immutable: true
                         crossSeriesReducer:
+                          type: string
+                          x-dcl-go-name: CrossSeriesReducer
+                          x-dcl-go-type: AlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum
                           description: |-
                             The reduction operation to be used to combine time series into a single
                             time series, where the value of each data point in the resulting series is
@@ -1010,6 +1072,7 @@ components:
                             specified, then `per_series_aligner` must be specified, and must not be
                             `ALIGN_NONE`. An `alignment_period` must also be specified; otherwise, an
                             error is returned. Possible values: REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE, REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99, REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05, REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION
+                          x-kubernetes-immutable: true
                           enum:
                           - REDUCE_NONE
                           - REDUCE_MEAN
@@ -1027,11 +1090,9 @@ components:
                           - REDUCE_PERCENTILE_05
                           - REDUCE_FRACTION_LESS_THAN
                           - REDUCE_MAKE_DISTRIBUTION
-                          type: string
-                          x-dcl-go-name: CrossSeriesReducer
-                          x-dcl-go-type: AlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum
-                          x-kubernetes-immutable: true
                         groupByFields:
+                          type: array
+                          x-dcl-go-name: GroupByFields
                           description: |-
                             The set of fields to preserve when `cross_series_reducer` is
                             specified. The `group_by_fields` determine how the time series are
@@ -1047,14 +1108,15 @@ components:
                             the same resource type, then the time series are aggregated into
                             a single output time series. If `cross_series_reducer` is not
                             defined, this field is ignored.
+                          x-kubernetes-immutable: true
+                          x-dcl-list-type: list
                           items:
                             type: string
                             x-dcl-go-type: string
-                          type: array
-                          x-dcl-go-name: GroupByFields
-                          x-dcl-list-type: list
-                          x-kubernetes-immutable: true
                         perSeriesAligner:
+                          type: string
+                          x-dcl-go-name: PerSeriesAligner
+                          x-dcl-go-type: AlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum
                           description: |-
                             An `Aligner` describes how to bring the data points in a single
                             time series into temporal alignment. Except for `ALIGN_NONE`, all
@@ -1072,6 +1134,7 @@ components:
                             `per_series_aligner` must be specified and not equal to `ALIGN_NONE`
                             and `alignment_period` must be specified; otherwise, an error is
                             returned.
+                          x-kubernetes-immutable: true
                           enum:
                           - ALIGN_NONE
                           - ALIGN_DELTA
@@ -1093,133 +1156,126 @@ components:
                           - ALIGN_PERCENTILE_05
                           - ALIGN_MAKE_DISTRIBUTION
                           - ALIGN_PERCENT_CHANGE
-                          type: string
-                          x-dcl-go-name: PerSeriesAligner
-                          x-dcl-go-type: AlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum
-                          x-kubernetes-immutable: true
                         reduceFractionLessThanParams:
-                          description: |-
-                            Parameters used when `cross_series_reducer` is
-                            `REDUCE_FRACTION_LESS_THAN`, ignored otherwise.
-                          properties:
-                            threshold:
-                              description: |-
-                                The threshold used by the `REDUCE_FRACTION_LESS_THAN` cross-series
-                                reducer.
-                              format: double
-                              type: number
-                              x-dcl-go-name: Threshold
-                              x-kubernetes-immutable: true
                           type: object
                           x-dcl-go-name: ReduceFractionLessThanParams
                           x-dcl-go-type: AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams
-                          x-kubernetes-immutable: true
-                        reduceMakeDistributionParams:
                           description: |-
                             Parameters used when `cross_series_reducer` is
-                            `REDUCE_MAKE_DISTRIBUTION`, ignored otherwise.
+                            `REDUCE_FRACTION_LESS_THAN`, ignored otherwise.
+                          x-kubernetes-immutable: true
                           properties:
-                            bucketOptions:
-                              description: Describes the bucket boundaries used to
-                                create the distribution.
-                              properties:
-                                explicitBuckets:
-                                  description: The explicit buckets.
-                                  properties:
-                                    bounds:
-                                      description: The values must be monotonically
-                                        increasing.
-                                      items:
-                                        format: double
-                                        type: number
-                                        x-dcl-go-type: float64
-                                      type: array
-                                      x-dcl-go-name: Bounds
-                                      x-dcl-list-type: list
-                                      x-kubernetes-immutable: true
-                                  type: object
-                                  x-dcl-go-name: ExplicitBuckets
-                                  x-dcl-go-type: AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
-                                  x-kubernetes-immutable: true
-                                exponentialBuckets:
-                                  description: The exponential buckets.
-                                  properties:
-                                    growthFactor:
-                                      description: Must be greater than 1.
-                                      format: double
-                                      type: number
-                                      x-dcl-go-name: GrowthFactor
-                                      x-kubernetes-immutable: true
-                                    numFiniteBuckets:
-                                      description: Must be greater than 0.
-                                      format: int64
-                                      type: integer
-                                      x-dcl-go-name: NumFiniteBuckets
-                                      x-kubernetes-immutable: true
-                                    scale:
-                                      description: Must be greater than 0.
-                                      format: double
-                                      type: number
-                                      x-dcl-go-name: Scale
-                                      x-kubernetes-immutable: true
-                                  type: object
-                                  x-dcl-go-name: ExponentialBuckets
-                                  x-dcl-go-type: AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
-                                  x-kubernetes-immutable: true
-                                linearBuckets:
-                                  description: The linear bucket.
-                                  properties:
-                                    numFiniteBuckets:
-                                      description: Must be greater than 0.
-                                      format: int64
-                                      type: integer
-                                      x-dcl-go-name: NumFiniteBuckets
-                                      x-kubernetes-immutable: true
-                                    offset:
-                                      description: Lower bound of the first bucket.
-                                      format: double
-                                      type: number
-                                      x-dcl-go-name: Offset
-                                      x-kubernetes-immutable: true
-                                    width:
-                                      description: Must be greater than 0.
-                                      format: double
-                                      type: number
-                                      x-dcl-go-name: Width
-                                      x-kubernetes-immutable: true
-                                  type: object
-                                  x-dcl-go-name: LinearBuckets
-                                  x-dcl-go-type: AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
-                                  x-kubernetes-immutable: true
-                              type: object
-                              x-dcl-go-name: BucketOptions
-                              x-dcl-go-type: AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions
+                            threshold:
+                              type: number
+                              format: double
+                              x-dcl-go-name: Threshold
+                              description: |-
+                                The threshold used by the `REDUCE_FRACTION_LESS_THAN` cross-series
+                                reducer.
                               x-kubernetes-immutable: true
-                            exemplarSampling:
-                              description: When present, modifies exemplars in `REDUCE_MAKE_DISTRIBTUION`.
-                              properties:
-                                minimumValue:
-                                  description: If set, only sample exemplars whose
-                                    value is at or above this value.
-                                  format: double
-                                  type: number
-                                  x-dcl-go-name: MinimumValue
-                                  x-kubernetes-immutable: true
-                              type: object
-                              x-dcl-go-name: ExemplarSampling
-                              x-dcl-go-type: AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling
-                              x-kubernetes-immutable: true
+                        reduceMakeDistributionParams:
                           type: object
                           x-dcl-go-name: ReduceMakeDistributionParams
                           x-dcl-go-type: AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams
+                          description: |-
+                            Parameters used when `cross_series_reducer` is
+                            `REDUCE_MAKE_DISTRIBUTION`, ignored otherwise.
                           x-kubernetes-immutable: true
-                      type: object
-                      x-dcl-go-type: AlertPolicyConditionsConditionThresholdAggregations
-                    type: array
-                    x-dcl-go-name: Aggregations
-                    x-dcl-list-type: list
-                    x-kubernetes-immutable: true
+                          properties:
+                            bucketOptions:
+                              type: object
+                              x-dcl-go-name: BucketOptions
+                              x-dcl-go-type: AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions
+                              description: Describes the bucket boundaries used to
+                                create the distribution.
+                              x-kubernetes-immutable: true
+                              properties:
+                                explicitBuckets:
+                                  type: object
+                                  x-dcl-go-name: ExplicitBuckets
+                                  x-dcl-go-type: AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+                                  description: The explicit buckets.
+                                  x-kubernetes-immutable: true
+                                  properties:
+                                    bounds:
+                                      type: array
+                                      x-dcl-go-name: Bounds
+                                      description: The values must be monotonically
+                                        increasing.
+                                      x-kubernetes-immutable: true
+                                      x-dcl-list-type: list
+                                      items:
+                                        type: number
+                                        format: double
+                                        x-dcl-go-type: float64
+                                exponentialBuckets:
+                                  type: object
+                                  x-dcl-go-name: ExponentialBuckets
+                                  x-dcl-go-type: AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+                                  description: The exponential buckets.
+                                  x-kubernetes-immutable: true
+                                  properties:
+                                    growthFactor:
+                                      type: number
+                                      format: double
+                                      x-dcl-go-name: GrowthFactor
+                                      description: Must be greater than 1.
+                                      x-kubernetes-immutable: true
+                                    numFiniteBuckets:
+                                      type: integer
+                                      format: int64
+                                      x-dcl-go-name: NumFiniteBuckets
+                                      description: Must be greater than 0.
+                                      x-kubernetes-immutable: true
+                                    scale:
+                                      type: number
+                                      format: double
+                                      x-dcl-go-name: Scale
+                                      description: Must be greater than 0.
+                                      x-kubernetes-immutable: true
+                                linearBuckets:
+                                  type: object
+                                  x-dcl-go-name: LinearBuckets
+                                  x-dcl-go-type: AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+                                  description: The linear bucket.
+                                  x-kubernetes-immutable: true
+                                  properties:
+                                    numFiniteBuckets:
+                                      type: integer
+                                      format: int64
+                                      x-dcl-go-name: NumFiniteBuckets
+                                      description: Must be greater than 0.
+                                      x-kubernetes-immutable: true
+                                    offset:
+                                      type: number
+                                      format: double
+                                      x-dcl-go-name: Offset
+                                      description: Lower bound of the first bucket.
+                                      x-kubernetes-immutable: true
+                                    width:
+                                      type: number
+                                      format: double
+                                      x-dcl-go-name: Width
+                                      description: Must be greater than 0.
+                                      x-kubernetes-immutable: true
+                            exemplarSampling:
+                              type: object
+                              x-dcl-go-name: ExemplarSampling
+                              x-dcl-go-type: AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling
+                              description: When present, modifies exemplars in `REDUCE_MAKE_DISTRIBTUION`.
+                              x-kubernetes-immutable: true
+                              properties:
+                                minimumValue:
+                                  type: number
+                                  format: double
+                                  x-dcl-go-name: MinimumValue
+                                  description: If set, only sample exemplars whose
+                                    value is at or above this value.
+                                  x-kubernetes-immutable: true
                   comparison:
+                    type: string
+                    x-dcl-go-name: Comparison
+                    x-dcl-go-type: AlertPolicyConditionsConditionThresholdComparisonEnum
                     description: |-
                       The comparison to apply between the time series (indicated by `filter`
                       and `aggregation`) and the threshold (indicated by `threshold_value`).
@@ -1227,6 +1283,7 @@ components:
                       on the left-hand side and the threshold on the right-hand side.
 
                       Only `COMPARISON_LT` and `COMPARISON_GT` are supported currently. Possible values: COMPARISON_UNSPECIFIED, COMPARISON_GT, COMPARISON_GE, COMPARISON_LT, COMPARISON_LE, COMPARISON_EQ, COMPARISON_NE
+                    x-kubernetes-immutable: true
                     enum:
                     - COMPARISON_UNSPECIFIED
                     - COMPARISON_GT
@@ -1235,11 +1292,9 @@ components:
                     - COMPARISON_LE
                     - COMPARISON_EQ
                     - COMPARISON_NE
-                    type: string
-                    x-dcl-go-name: Comparison
-                    x-dcl-go-type: AlertPolicyConditionsConditionThresholdComparisonEnum
-                    x-kubernetes-immutable: true
                   denominatorAggregations:
+                    type: array
+                    x-dcl-go-name: DenominatorAggregations
                     description: |-
                       Specifies the alignment of data points in individual time series
                       selected by `denominatorFilter` as
@@ -1251,9 +1306,15 @@ components:
                       When computing ratios, the `aggregations` and
                       `denominator_aggregations` fields must use the same alignment period
                       and produce time series that have the same periodicity and labels.
+                    x-kubernetes-immutable: true
+                    x-dcl-list-type: list
                     items:
+                      type: object
+                      x-dcl-go-type: AlertPolicyConditionsConditionThresholdDenominatorAggregations
                       properties:
                         alignmentPeriod:
+                          type: string
+                          x-dcl-go-name: AlignmentPeriod
                           description: |-
                             The `alignment_period` specifies a time interval, in seconds, that is used
                             to divide the data in all the
@@ -1265,10 +1326,11 @@ components:
                             `ALIGN_NONE` is specified, this field is required or an error is returned.
                             If no per-series aligner is specified, or the aligner `ALIGN_NONE` is
                             specified, then this field is ignored.
-                          type: string
-                          x-dcl-go-name: AlignmentPeriod
                           x-kubernetes-immutable: true
                         crossSeriesReducer:
+                          type: string
+                          x-dcl-go-name: CrossSeriesReducer
+                          x-dcl-go-type: AlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum
                           description: |-
                             The reduction operation to be used to combine time series into a single
                             time series, where the value of each data point in the resulting series is
@@ -1284,6 +1346,7 @@ components:
                             specified, then `per_series_aligner` must be specified, and must not be
                             `ALIGN_NONE`. An `alignment_period` must also be specified; otherwise, an
                             error is returned. Possible values: REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX, REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE, REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99, REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05, REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION
+                          x-kubernetes-immutable: true
                           enum:
                           - REDUCE_NONE
                           - REDUCE_MEAN
@@ -1301,11 +1364,9 @@ components:
                           - REDUCE_PERCENTILE_05
                           - REDUCE_FRACTION_LESS_THAN
                           - REDUCE_MAKE_DISTRIBUTION
-                          type: string
-                          x-dcl-go-name: CrossSeriesReducer
-                          x-dcl-go-type: AlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum
-                          x-kubernetes-immutable: true
                         groupByFields:
+                          type: array
+                          x-dcl-go-name: GroupByFields
                           description: |-
                             The set of fields to preserve when `cross_series_reducer` is
                             specified. The `group_by_fields` determine how the time series are
@@ -1321,14 +1382,15 @@ components:
                             the same resource type, then the time series are aggregated into
                             a single output time series. If `cross_series_reducer` is not
                             defined, this field is ignored.
+                          x-kubernetes-immutable: true
+                          x-dcl-list-type: list
                           items:
                             type: string
                             x-dcl-go-type: string
-                          type: array
-                          x-dcl-go-name: GroupByFields
-                          x-dcl-list-type: list
-                          x-kubernetes-immutable: true
                         perSeriesAligner:
+                          type: string
+                          x-dcl-go-name: PerSeriesAligner
+                          x-dcl-go-type: AlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum
                           description: |-
                             An `Aligner` describes how to bring the data points in a single
                             time series into temporal alignment. Except for `ALIGN_NONE`, all
@@ -1346,6 +1408,7 @@ components:
                             `per_series_aligner` must be specified and not equal to `ALIGN_NONE`
                             and `alignment_period` must be specified; otherwise, an error is
                             returned.
+                          x-kubernetes-immutable: true
                           enum:
                           - ALIGN_NONE
                           - ALIGN_DELTA
@@ -1367,133 +1430,125 @@ components:
                           - ALIGN_PERCENTILE_05
                           - ALIGN_MAKE_DISTRIBUTION
                           - ALIGN_PERCENT_CHANGE
-                          type: string
-                          x-dcl-go-name: PerSeriesAligner
-                          x-dcl-go-type: AlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum
-                          x-kubernetes-immutable: true
                         reduceFractionLessThanParams:
-                          description: |-
-                            Parameters used when `cross_series_reducer` is
-                            `REDUCE_FRACTION_LESS_THAN`, ignored otherwise.
-                          properties:
-                            threshold:
-                              description: |-
-                                The threshold used by the `REDUCE_FRACTION_LESS_THAN` cross-series
-                                reducer.
-                              format: double
-                              type: number
-                              x-dcl-go-name: Threshold
-                              x-kubernetes-immutable: true
                           type: object
                           x-dcl-go-name: ReduceFractionLessThanParams
                           x-dcl-go-type: AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams
-                          x-kubernetes-immutable: true
-                        reduceMakeDistributionParams:
                           description: |-
                             Parameters used when `cross_series_reducer` is
-                            `REDUCE_MAKE_DISTRIBUTION`, ignored otherwise.
+                            `REDUCE_FRACTION_LESS_THAN`, ignored otherwise.
+                          x-kubernetes-immutable: true
                           properties:
-                            bucketOptions:
-                              description: Describes the bucket boundaries used to
-                                create the distribution.
-                              properties:
-                                explicitBuckets:
-                                  description: The explicit buckets.
-                                  properties:
-                                    bounds:
-                                      description: The values must be monotonically
-                                        increasing.
-                                      items:
-                                        format: double
-                                        type: number
-                                        x-dcl-go-type: float64
-                                      type: array
-                                      x-dcl-go-name: Bounds
-                                      x-dcl-list-type: list
-                                      x-kubernetes-immutable: true
-                                  type: object
-                                  x-dcl-go-name: ExplicitBuckets
-                                  x-dcl-go-type: AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
-                                  x-kubernetes-immutable: true
-                                exponentialBuckets:
-                                  description: The exponential buckets.
-                                  properties:
-                                    growthFactor:
-                                      description: Must be greater than 1.
-                                      format: double
-                                      type: number
-                                      x-dcl-go-name: GrowthFactor
-                                      x-kubernetes-immutable: true
-                                    numFiniteBuckets:
-                                      description: Must be greater than 0.
-                                      format: int64
-                                      type: integer
-                                      x-dcl-go-name: NumFiniteBuckets
-                                      x-kubernetes-immutable: true
-                                    scale:
-                                      description: Must be greater than 0.
-                                      format: double
-                                      type: number
-                                      x-dcl-go-name: Scale
-                                      x-kubernetes-immutable: true
-                                  type: object
-                                  x-dcl-go-name: ExponentialBuckets
-                                  x-dcl-go-type: AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
-                                  x-kubernetes-immutable: true
-                                linearBuckets:
-                                  description: The linear bucket.
-                                  properties:
-                                    numFiniteBuckets:
-                                      description: Must be greater than 0.
-                                      format: int64
-                                      type: integer
-                                      x-dcl-go-name: NumFiniteBuckets
-                                      x-kubernetes-immutable: true
-                                    offset:
-                                      description: Lower bound of the first bucket.
-                                      format: double
-                                      type: number
-                                      x-dcl-go-name: Offset
-                                      x-kubernetes-immutable: true
-                                    width:
-                                      description: Must be greater than 0.
-                                      format: double
-                                      type: number
-                                      x-dcl-go-name: Width
-                                      x-kubernetes-immutable: true
-                                  type: object
-                                  x-dcl-go-name: LinearBuckets
-                                  x-dcl-go-type: AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
-                                  x-kubernetes-immutable: true
-                              type: object
-                              x-dcl-go-name: BucketOptions
-                              x-dcl-go-type: AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions
+                            threshold:
+                              type: number
+                              format: double
+                              x-dcl-go-name: Threshold
+                              description: |-
+                                The threshold used by the `REDUCE_FRACTION_LESS_THAN` cross-series
+                                reducer.
                               x-kubernetes-immutable: true
-                            exemplarSampling:
-                              description: When present, modifies exemplars in `REDUCE_MAKE_DISTRIBTUION`.
-                              properties:
-                                minimumValue:
-                                  description: If set, only sample exemplars whose
-                                    value is at or above this value.
-                                  format: double
-                                  type: number
-                                  x-dcl-go-name: MinimumValue
-                                  x-kubernetes-immutable: true
-                              type: object
-                              x-dcl-go-name: ExemplarSampling
-                              x-dcl-go-type: AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling
-                              x-kubernetes-immutable: true
+                        reduceMakeDistributionParams:
                           type: object
                           x-dcl-go-name: ReduceMakeDistributionParams
                           x-dcl-go-type: AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams
+                          description: |-
+                            Parameters used when `cross_series_reducer` is
+                            `REDUCE_MAKE_DISTRIBUTION`, ignored otherwise.
                           x-kubernetes-immutable: true
-                      type: object
-                      x-dcl-go-type: AlertPolicyConditionsConditionThresholdDenominatorAggregations
-                    type: array
-                    x-dcl-go-name: DenominatorAggregations
-                    x-dcl-list-type: list
-                    x-kubernetes-immutable: true
+                          properties:
+                            bucketOptions:
+                              type: object
+                              x-dcl-go-name: BucketOptions
+                              x-dcl-go-type: AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions
+                              description: Describes the bucket boundaries used to
+                                create the distribution.
+                              x-kubernetes-immutable: true
+                              properties:
+                                explicitBuckets:
+                                  type: object
+                                  x-dcl-go-name: ExplicitBuckets
+                                  x-dcl-go-type: AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets
+                                  description: The explicit buckets.
+                                  x-kubernetes-immutable: true
+                                  properties:
+                                    bounds:
+                                      type: array
+                                      x-dcl-go-name: Bounds
+                                      description: The values must be monotonically
+                                        increasing.
+                                      x-kubernetes-immutable: true
+                                      x-dcl-list-type: list
+                                      items:
+                                        type: number
+                                        format: double
+                                        x-dcl-go-type: float64
+                                exponentialBuckets:
+                                  type: object
+                                  x-dcl-go-name: ExponentialBuckets
+                                  x-dcl-go-type: AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets
+                                  description: The exponential buckets.
+                                  x-kubernetes-immutable: true
+                                  properties:
+                                    growthFactor:
+                                      type: number
+                                      format: double
+                                      x-dcl-go-name: GrowthFactor
+                                      description: Must be greater than 1.
+                                      x-kubernetes-immutable: true
+                                    numFiniteBuckets:
+                                      type: integer
+                                      format: int64
+                                      x-dcl-go-name: NumFiniteBuckets
+                                      description: Must be greater than 0.
+                                      x-kubernetes-immutable: true
+                                    scale:
+                                      type: number
+                                      format: double
+                                      x-dcl-go-name: Scale
+                                      description: Must be greater than 0.
+                                      x-kubernetes-immutable: true
+                                linearBuckets:
+                                  type: object
+                                  x-dcl-go-name: LinearBuckets
+                                  x-dcl-go-type: AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets
+                                  description: The linear bucket.
+                                  x-kubernetes-immutable: true
+                                  properties:
+                                    numFiniteBuckets:
+                                      type: integer
+                                      format: int64
+                                      x-dcl-go-name: NumFiniteBuckets
+                                      description: Must be greater than 0.
+                                      x-kubernetes-immutable: true
+                                    offset:
+                                      type: number
+                                      format: double
+                                      x-dcl-go-name: Offset
+                                      description: Lower bound of the first bucket.
+                                      x-kubernetes-immutable: true
+                                    width:
+                                      type: number
+                                      format: double
+                                      x-dcl-go-name: Width
+                                      description: Must be greater than 0.
+                                      x-kubernetes-immutable: true
+                            exemplarSampling:
+                              type: object
+                              x-dcl-go-name: ExemplarSampling
+                              x-dcl-go-type: AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling
+                              description: When present, modifies exemplars in `REDUCE_MAKE_DISTRIBTUION`.
+                              x-kubernetes-immutable: true
+                              properties:
+                                minimumValue:
+                                  type: number
+                                  format: double
+                                  x-dcl-go-name: MinimumValue
+                                  description: If set, only sample exemplars whose
+                                    value is at or above this value.
+                                  x-kubernetes-immutable: true
                   denominatorFilter:
+                    type: string
+                    x-dcl-go-name: DenominatorFilter
                     description: |
                       A [filter](https://cloud.google.com/monitoring/api/v3/filters) that
                       identifies a time series that should be used as the denominator of a
@@ -1504,10 +1559,10 @@ components:
                       The filter must specify the metric type and optionally may contain
                       restrictions on resource type, resource labels, and metric labels.
                       This field may not exceed 2048 Unicode characters in length.
-                    type: string
-                    x-dcl-go-name: DenominatorFilter
                     x-kubernetes-immutable: true
                   duration:
+                    type: string
+                    x-dcl-go-name: Duration
                     description: |-
                       The amount of time that a time series must violate the
                       threshold to be considered failing. Currently, only values
@@ -1519,10 +1574,10 @@ components:
                       `aggregations` field); a good duration is long enough so that a single
                       outlier does not generate spurious alerts, but short enough that
                       unhealthy states are detected and alerted on quickly.
-                    type: string
-                    x-dcl-go-name: Duration
                     x-kubernetes-immutable: true
                   filter:
+                    type: string
+                    x-dcl-go-name: Filter
                     description: |-
                       A [filter](https://cloud.google.com/monitoring/api/v3/filters) that
                       identifies which time series should be compared with the threshold.
@@ -1534,16 +1589,17 @@ components:
                       processed) and must specify the metric type and optionally may contain
                       restrictions on resource type, resource labels, and metric labels.
                       This field may not exceed 2048 Unicode characters in length.
-                    type: string
-                    x-dcl-go-name: Filter
                     x-kubernetes-immutable: true
                   thresholdValue:
-                    description: A value against which to compare the time series.
-                    format: double
                     type: number
+                    format: double
                     x-dcl-go-name: ThresholdValue
+                    description: A value against which to compare the time series.
                     x-kubernetes-immutable: true
                   trigger:
+                    type: object
+                    x-dcl-go-name: Trigger
+                    x-dcl-go-type: AlertPolicyConditionsConditionThresholdTrigger
                     description: |-
                       The number/percent of time series for which the comparison must hold
                       in order for the condition to trigger. If unspecified, then the
@@ -1551,62 +1607,61 @@ components:
                       time series that have been identified by `filter` and `aggregations`,
                       or by the ratio, if `denominator_filter` and `denominator_aggregations`
                       are specified.
+                    x-kubernetes-immutable: true
                     properties:
                       count:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Count
                         description: |-
                           The absolute number of time series that must fail
                           the predicate for the condition to be triggered.
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Count
                         x-kubernetes-immutable: true
                       percent:
+                        type: number
+                        format: double
+                        x-dcl-go-name: Percent
                         description: |-
                           The percentage of time series that must fail the
                           predicate for the condition to be triggered.
-                        format: double
-                        type: number
-                        x-dcl-go-name: Percent
                         x-kubernetes-immutable: true
-                    type: object
-                    x-dcl-go-name: Trigger
-                    x-dcl-go-type: AlertPolicyConditionsConditionThresholdTrigger
-                    x-kubernetes-immutable: true
-                type: object
-                x-dcl-go-name: ConditionThreshold
-                x-dcl-go-type: AlertPolicyConditionsConditionThreshold
-                x-kubernetes-immutable: true
               conditionTimeSeriesQueryLanguage:
+                type: object
+                x-dcl-go-name: ConditionTimeSeriesQueryLanguage
+                x-dcl-go-type: AlertPolicyConditionsConditionTimeSeriesQueryLanguage
                 description: |-
                   A condition that uses the Monitoring Query Language to define
                   alerts.
                   If set, no other conditions can be present.
+                x-kubernetes-immutable: true
                 properties:
                   query:
+                    type: string
+                    x-dcl-go-name: Query
                     description: |-
                       Monitoring Query Language query that generates time series data and
                       describes a condition for alerting on that data.
-                    type: string
-                    x-dcl-go-name: Query
                     x-kubernetes-immutable: true
                   summary:
+                    type: string
+                    x-dcl-go-name: Summary
                     description: |-
                       A short explanation of what the query represents. For example:
 
                         "Error ratio exceeds 15% for >5% of servers in >2 regions"
-                    type: string
-                    x-dcl-go-name: Summary
                     x-kubernetes-immutable: true
-                type: object
-                x-dcl-go-name: ConditionTimeSeriesQueryLanguage
-                x-dcl-go-type: AlertPolicyConditionsConditionTimeSeriesQueryLanguage
-                x-kubernetes-immutable: true
               conditionUpMon:
+                type: object
+                x-dcl-go-name: ConditionUpMon
+                x-dcl-go-type: AlertPolicyConditionsConditionUpMon
                 description: |-
                   A condition that checks uptime check_passed metrics to see if failure
                   criteria were met.
+                x-kubernetes-immutable: true
                 properties:
                   checkId:
+                    type: string
+                    x-dcl-go-name: CheckId
                     description: |-
                       check_id is the replacement for endpoint_id in new uptime check
                       policies that are defined as metric threshold conditions. The
@@ -1616,10 +1671,11 @@ components:
                       be backfilled for existing conditions and then used for translation.
                       This field does not affect the behavior of the UpMon condition, it is
                       only used for translation.
-                    type: string
-                    x-dcl-go-name: CheckId
                     x-kubernetes-immutable: true
                   duration:
+                    type: object
+                    x-dcl-go-name: Duration
+                    x-dcl-go-type: AlertPolicyConditionsConditionUpMonDuration
                     description: |-
                       The amount of time that an endpoint check isn't passing before the
                       alerting policy is considered failing.  Currently, only values
@@ -1627,8 +1683,12 @@ components:
                       seconds--are supported. If an invalid value is given, an
                       error will be returned. The `Duration.nanos` field is
                       ignored.
+                    x-kubernetes-immutable: true
                     properties:
                       nanos:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Nanos
                         description: |-
                           Signed fractions of a second at nanosecond resolution of the span
                           of time. Durations less than one second are represented with a 0
@@ -1636,30 +1696,25 @@ components:
                           of one second or more, a non-zero value for the `nanos` field must be
                           of the same sign as the `seconds` field. Must be from -999,999,999
                           to +999,999,999 inclusive.
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Nanos
                         x-kubernetes-immutable: true
                       seconds:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Seconds
                         description: |-
                           Signed seconds of the span of time. Must be from -315,576,000,000
                           to +315,576,000,000 inclusive. Note: these bounds are computed from:
                           60 sec/min * 60 min/hr * 24 hr/day * 365.25 days/year * 10000 years
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Seconds
                         x-kubernetes-immutable: true
-                    type: object
-                    x-dcl-go-name: Duration
-                    x-dcl-go-type: AlertPolicyConditionsConditionUpMonDuration
-                    x-kubernetes-immutable: true
                   endpointId:
-                    description: The endpoint id to be considered for this alerting
-                      policy.
                     type: string
                     x-dcl-go-name: EndpointId
+                    description: The endpoint id to be considered for this alerting
+                      policy.
                     x-kubernetes-immutable: true
                   filter:
+                    type: string
+                    x-dcl-go-name: Filter
                     description: |-
                       A [filter](https://cloud.google.com/monitoring/api/v3/filters) that
                       can restrict the timeseries of interest to specific projects and
@@ -1670,48 +1725,44 @@ components:
                       metric labels (via "metric.labels.{label_key}") are not permitted here
                       since the metric type / labels are implied by this condition type.
                       This field may not exceed 2048 Unicode characters in length.
-                    type: string
-                    x-dcl-go-name: Filter
                     x-kubernetes-immutable: true
                   trigger:
+                    type: object
+                    x-dcl-go-name: Trigger
+                    x-dcl-go-type: AlertPolicyConditionsConditionUpMonTrigger
                     description: |-
                       When the filter identifies more than one resource failing the endpoint
                       check, the number of resources that must violate the threshold to be
                       considered failing.
+                    x-kubernetes-immutable: true
                     properties:
                       count:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: Count
                         description: |-
                           The absolute number of time series that must fail
                           the predicate for the condition to be triggered.
-                        format: int64
-                        type: integer
-                        x-dcl-go-name: Count
                         x-kubernetes-immutable: true
                       percent:
+                        type: number
+                        format: double
+                        x-dcl-go-name: Percent
                         description: |-
                           The percentage of time series that must fail the
                           predicate for the condition to be triggered.
-                        format: double
-                        type: number
-                        x-dcl-go-name: Percent
                         x-kubernetes-immutable: true
-                    type: object
-                    x-dcl-go-name: Trigger
-                    x-dcl-go-type: AlertPolicyConditionsConditionUpMonTrigger
-                    x-kubernetes-immutable: true
-                type: object
-                x-dcl-go-name: ConditionUpMon
-                x-dcl-go-type: AlertPolicyConditionsConditionUpMon
-                x-kubernetes-immutable: true
               displayName:
+                type: string
+                x-dcl-go-name: DisplayName
                 description: |-
                   A short name or phrase used to identify the condition in dashboards,
                   notifications, and incidents. To avoid confusion, don't use the same
                   display name for multiple conditions in the same policy.
-                type: string
-                x-dcl-go-name: DisplayName
                 x-kubernetes-immutable: true
               name:
+                type: string
+                x-dcl-go-name: Name
                 description: |-
                   Required if the condition exists. The unique resource name for this
                   condition. Its format is:
@@ -1738,137 +1789,137 @@ components:
                   changes, such as those to condition thresholds, durations, or trigger
                   values.  Otherwise, treat the change as a new condition and let the
                   existing condition be deleted.
-                type: string
-                x-dcl-go-name: Name
                 x-kubernetes-immutable: true
               resourceStateFilter:
+                type: string
+                x-dcl-go-name: ResourceStateFilter
+                x-dcl-go-type: AlertPolicyConditionsResourceStateFilterEnum
                 description: 'The resource state filter to apply to this condition.
                   Possible values: RESOURCE_STATE_FILTER_UNSPECIFIED, INCLUDE_INACTIVE,
                   EXCLUDE_INACTIVE'
+                x-kubernetes-immutable: true
                 enum:
                 - RESOURCE_STATE_FILTER_UNSPECIFIED
                 - INCLUDE_INACTIVE
                 - EXCLUDE_INACTIVE
-                type: string
-                x-dcl-go-name: ResourceStateFilter
-                x-dcl-go-type: AlertPolicyConditionsResourceStateFilterEnum
-                x-kubernetes-immutable: true
-            type: object
-            x-dcl-go-type: AlertPolicyConditions
-          type: array
-          x-dcl-go-name: Conditions
-          x-dcl-list-type: list
-          x-kubernetes-immutable: true
         creationRecord:
+          type: object
+          x-dcl-go-name: CreationRecord
+          x-dcl-go-type: AlertPolicyCreationRecord
           description: |-
             A read-only record of the creation of the alerting policy. If provided
             in a call to create or update, this field will be ignored.
+          x-kubernetes-immutable: true
           properties:
             mutateTime:
+              type: object
+              x-dcl-go-name: MutateTime
+              x-dcl-go-type: AlertPolicyCreationRecordMutateTime
               description: When the change occurred.
+              x-kubernetes-immutable: true
               properties:
                 nanos:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: Nanos
                   description: |-
                     Non-negative fractions of a second at nanosecond resolution. Negative
                     second values with fractions must still have non-negative nanos values
                     that count forward in time. Must be from 0 to 999,999,999
                     inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
                   x-kubernetes-immutable: true
                 seconds:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: Seconds
                   description: |-
                     Represents seconds of UTC time since Unix epoch
                     1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to
                     9999-12-31T23:59:59Z inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
                   x-kubernetes-immutable: true
-              type: object
-              x-dcl-go-name: MutateTime
-              x-dcl-go-type: AlertPolicyCreationRecordMutateTime
-              x-kubernetes-immutable: true
             mutatedBy:
-              description: The email address of the user making the change.
               type: string
               x-dcl-go-name: MutatedBy
+              description: The email address of the user making the change.
               x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: CreationRecord
-          x-dcl-go-type: AlertPolicyCreationRecord
-          x-kubernetes-immutable: true
         disabled:
+          type: boolean
+          x-dcl-go-name: Disabled
           description: |-
             Legacy field for indicating whether a field is enabled. Callers should
             transition from using this field to using the "enabled" field.
 
             Whether or not the policy is disabled. Policies that are disabled do not
             produce notifications or incidents.
-          type: boolean
-          x-dcl-go-name: Disabled
           x-kubernetes-immutable: true
         displayName:
+          type: string
+          x-dcl-go-name: DisplayName
           description: |-
             A short name or phrase used to identify the policy in dashboards,
             notifications, and incidents. To avoid confusion, don't use the same
             display name for multiple policies in the same project. The name is
             limited to 512 Unicode characters.
-          type: string
-          x-dcl-go-name: DisplayName
           x-kubernetes-immutable: true
         documentation:
+          type: object
+          x-dcl-go-name: Documentation
+          x-dcl-go-type: AlertPolicyDocumentation
           description: |-
             Documentation that is included with notifications and incidents related to
             this policy. Best practice is for the documentation to include information
             to help responders understand, mitigate, escalate, and correct the
             underlying problems detected by the alerting policy. Notification channels
             that have limited capacity might not show this documentation.
+          x-kubernetes-immutable: true
           properties:
             content:
+              type: string
+              x-dcl-go-name: Content
               description: |-
                 The text of the documentation, interpreted according to `mime_type`.
                 The content may not exceed 8,192 Unicode characters and may not exceed
                 more than 10,240 bytes when encoded in UTF-8 format, whichever is
                 smaller.
-              type: string
-              x-dcl-go-name: Content
               x-kubernetes-immutable: true
             mimeType:
+              type: string
+              x-dcl-go-name: MimeType
               description: |-
                 The format of the `content` field. Presently, only the value
                 `"text/markdown"` is supported. See
                 [Markdown](https://en.wikipedia.org/wiki/Markdown) for more information.
-              type: string
-              x-dcl-go-name: MimeType
               x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: Documentation
-          x-dcl-go-type: AlertPolicyDocumentation
-          x-kubernetes-immutable: true
         enabled:
+          type: object
+          x-dcl-go-name: Enabled
+          x-dcl-go-type: AlertPolicyEnabled
           description: |-
             Whether or not the policy is enabled. On write, the default interpretation
             if unset is that the policy is enabled. On read, clients should not make
             any assumption about the state if it has not been populated. The
             field should always be populated on List and Get operations, unless
             a field projection has been specified that strips it out.
+          x-kubernetes-immutable: true
           properties:
             value:
-              description: The bool value.
               type: boolean
               x-dcl-go-name: Value
+              description: The bool value.
               x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: Enabled
-          x-dcl-go-type: AlertPolicyEnabled
-          x-kubernetes-immutable: true
         incidentStrategy:
+          type: object
+          x-dcl-go-name: IncidentStrategy
+          x-dcl-go-type: AlertPolicyIncidentStrategy
+          x-kubernetes-immutable: true
           properties:
             type:
+              type: string
+              x-dcl-go-name: Type
+              x-dcl-go-type: AlertPolicyIncidentStrategyTypeEnum
               description: ' Possible values: TYPE_UNSPECIFIED, CUSTOM, APP_ENGINE,
                 CLOUD_ENDPOINTS, ISTIO, ISTIO_SERVICE'
+              x-kubernetes-immutable: true
               enum:
               - TYPE_UNSPECIFIED
               - CUSTOM
@@ -1876,75 +1927,69 @@ components:
               - CLOUD_ENDPOINTS
               - ISTIO
               - ISTIO_SERVICE
-              type: string
-              x-dcl-go-name: Type
-              x-dcl-go-type: AlertPolicyIncidentStrategyTypeEnum
-              x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: IncidentStrategy
-          x-dcl-go-type: AlertPolicyIncidentStrategy
-          x-kubernetes-immutable: true
         metadata:
-          description: |+
-            Metadata about the alert policy. The field is read-only.
-
-          properties:
-            sloNames:
-              description: |-
-                A list of SLO names that are explicitly mentioned in the conditions of
-                the alert policy.
-              items:
-                type: string
-                x-dcl-go-type: string
-              type: array
-              x-dcl-go-name: SloNames
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
           type: object
           x-dcl-go-name: Metadata
           x-dcl-go-type: AlertPolicyMetadata
+          description: |+
+            Metadata about the alert policy. The field is read-only.
+
           x-kubernetes-immutable: true
+          properties:
+            sloNames:
+              type: array
+              x-dcl-go-name: SloNames
+              description: |-
+                A list of SLO names that are explicitly mentioned in the conditions of
+                the alert policy.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
         mutationRecord:
+          type: object
+          x-dcl-go-name: MutationRecord
+          x-dcl-go-type: AlertPolicyMutationRecord
           description: |-
             A read-only record of the most recent change to the alerting policy. If
             provided in a call to create or update, this field will be ignored.
+          x-kubernetes-immutable: true
           properties:
             mutateTime:
+              type: object
+              x-dcl-go-name: MutateTime
+              x-dcl-go-type: AlertPolicyMutationRecordMutateTime
               description: When the change occurred.
+              x-kubernetes-immutable: true
               properties:
                 nanos:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: Nanos
                   description: |-
                     Non-negative fractions of a second at nanosecond resolution. Negative
                     second values with fractions must still have non-negative nanos values
                     that count forward in time. Must be from 0 to 999,999,999
                     inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Nanos
                   x-kubernetes-immutable: true
                 seconds:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: Seconds
                   description: |-
                     Represents seconds of UTC time since Unix epoch
                     1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to
                     9999-12-31T23:59:59Z inclusive.
-                  format: int64
-                  type: integer
-                  x-dcl-go-name: Seconds
                   x-kubernetes-immutable: true
-              type: object
-              x-dcl-go-name: MutateTime
-              x-dcl-go-type: AlertPolicyMutationRecordMutateTime
-              x-kubernetes-immutable: true
             mutatedBy:
-              description: The email address of the user making the change.
               type: string
               x-dcl-go-name: MutatedBy
+              description: The email address of the user making the change.
               x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: MutationRecord
-          x-dcl-go-type: AlertPolicyMutationRecord
-          x-kubernetes-immutable: true
         name:
+          type: string
+          x-dcl-go-name: Name
           description: |-
             Required if the policy exists. The resource name for this policy. The
             format is:
@@ -1956,11 +2001,11 @@ components:
             [alertPolicies.create][google.monitoring.v3.AlertPolicyService.CreateAlertPolicy]
             method, do not include the `name` field in the alerting policy passed as
             part of the request.
-          type: string
-          x-dcl-go-name: Name
-          x-dcl-server-generated-parameter: true
           x-kubernetes-immutable: true
+          x-dcl-server-generated-parameter: true
         notificationChannels:
+          type: array
+          x-dcl-go-name: NotificationChannels
           description: |-
             Identifies the notification channels to which notifications should be sent
             when incidents are opened or closed or when new violations occur on
@@ -1972,25 +2017,25 @@ components:
             method. The format of the entries in this field is:
 
                 projects/[PROJECT_ID_OR_NUMBER]/notificationChannels/[CHANNEL_ID]
+          x-kubernetes-immutable: true
+          x-dcl-list-type: list
           items:
             type: string
             x-dcl-go-type: string
-          type: array
-          x-dcl-go-name: NotificationChannels
-          x-dcl-list-type: list
-          x-kubernetes-immutable: true
         project:
-          description: The project for the resource
           type: string
           x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
+          description: The project for the resource
           x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
         userLabels:
+          type: object
           additionalProperties:
             type: string
+          x-dcl-go-name: UserLabels
           description: |-
             User-supplied key/value data to be used for organizing and
             identifying the `AlertPolicy` objects.
@@ -1999,27 +2044,37 @@ components:
             63 Unicode characters or 128 bytes, whichever is smaller. Labels and
             values can contain only lowercase letters, numerals, underscores, and
             dashes. Keys must begin with a letter.
-          type: object
-          x-dcl-go-name: UserLabels
           x-kubernetes-immutable: true
         validity:
+          type: object
+          x-dcl-go-name: Validity
+          x-dcl-go-type: AlertPolicyValidity
           description: |-
             Read-only description of how the alert policy is invalid. OK if the alert
             policy is valid. If not OK, the alert policy will not generate incidents.
+          x-kubernetes-immutable: true
           properties:
             code:
-              description: The status code, which should be an enum value of [google.rpc.Code][].
-              format: int64
               type: integer
+              format: int64
               x-dcl-go-name: Code
+              description: The status code, which should be an enum value of [google.rpc.Code][].
               x-kubernetes-immutable: true
             details:
+              type: array
+              x-dcl-go-name: Details
               description: |-
                 A list of messages that carry the error details.  There is a common set of
                 message types for APIs to use.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
               items:
+                type: object
+                x-dcl-go-type: AlertPolicyValidityDetails
                 properties:
                   typeUrl:
+                    type: string
+                    x-dcl-go-name: TypeUrl
                     description: |-
                       A URL/resource name that uniquely identifies the type of the serialized
                       protocol buffer message. This string must contain at least
@@ -2048,75 +2103,18 @@ components:
 
                       Schemes other than `http`, `https` (or the empty scheme) might be
                       used with implementation specific semantics.
-                    type: string
-                    x-dcl-go-name: TypeUrl
                     x-kubernetes-immutable: true
                   value:
-                    description: Must be a valid serialized protocol buffer of the
-                      above specified type.
                     type: string
                     x-dcl-go-name: Value
+                    description: Must be a valid serialized protocol buffer of the
+                      above specified type.
                     x-kubernetes-immutable: true
-                type: object
-                x-dcl-go-type: AlertPolicyValidityDetails
-              type: array
-              x-dcl-go-name: Details
-              x-dcl-list-type: list
-              x-kubernetes-immutable: true
             message:
+              type: string
+              x-dcl-go-name: Message
               description: |-
                 A developer-facing error message, which should be in English. Any
                 user-facing error message should be localized and sent in the
                 [google.rpc.Status.details][google.rpc.Status.details] field, or localized by the client.
-              type: string
-              x-dcl-go-name: Message
               x-kubernetes-immutable: true
-          type: object
-          x-dcl-go-name: Validity
-          x-dcl-go-type: AlertPolicyValidity
-          x-kubernetes-immutable: true
-      required:
-      - project
-      title: AlertPolicy
-      type: object
-      x-dcl-id: v3/projects/{{project}}/alertPolicies/{{name}}
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
-info:
-  description: DCL Specification for the Monitoring AlertPolicy resource
-  title: Monitoring/AlertPolicy
-  x-dcl-has-iam: false
-paths:
-  apply:
-    description: The function used to apply information about a AlertPolicy
-    parameters:
-    - description: A full instance of a AlertPolicy
-      name: AlertPolicy
-      required: true
-  delete:
-    description: The function used to delete a AlertPolicy
-    parameters:
-    - description: A full instance of a AlertPolicy
-      name: AlertPolicy
-      required: true
-  deleteAll:
-    description: The function used to delete all AlertPolicy
-    parameters:
-    - name: project
-      required: true
-      schema:
-        type: string
-  get:
-    description: The function used to get information about a AlertPolicy
-    parameters:
-    - description: A full instance of a AlertPolicy
-      name: AlertPolicy
-      required: true
-  list:
-    description: The function used to list information about many AlertPolicy
-    parameters:
-    - name: project
-      required: true
-      schema:
-        type: string

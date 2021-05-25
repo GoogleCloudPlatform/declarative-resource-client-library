@@ -18,6 +18,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -193,7 +194,7 @@ func (l *WorkerPoolList) HasNext() bool {
 }
 
 func (l *WorkerPoolList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if !l.HasNext() {
@@ -209,7 +210,7 @@ func (l *WorkerPoolList) Next(ctx context.Context, c *Client) error {
 }
 
 func (c *Client) ListWorkerPool(ctx context.Context, project, location string) (*WorkerPoolList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	return c.ListWorkerPoolWithMaxResults(ctx, project, location, WorkerPoolMaxPage)
@@ -217,7 +218,7 @@ func (c *Client) ListWorkerPool(ctx context.Context, project, location string) (
 }
 
 func (c *Client) ListWorkerPoolWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*WorkerPoolList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	items, token, err := c.listWorkerPool(ctx, project, location, "", pageSize)
@@ -236,7 +237,7 @@ func (c *Client) ListWorkerPoolWithMaxResults(ctx context.Context, project, loca
 }
 
 func (c *Client) GetWorkerPool(ctx context.Context, r *WorkerPool) (*WorkerPool, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	b, err := c.getWorkerPoolRaw(ctx, r)
@@ -269,7 +270,7 @@ func (c *Client) GetWorkerPool(ctx context.Context, r *WorkerPool) (*WorkerPool,
 }
 
 func (c *Client) DeleteWorkerPool(ctx context.Context, r *WorkerPool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	if r == nil {
@@ -282,9 +283,6 @@ func (c *Client) DeleteWorkerPool(ctx context.Context, r *WorkerPool) error {
 
 // DeleteAllWorkerPool deletes all resources that the filter functions returns true on.
 func (c *Client) DeleteAllWorkerPool(ctx context.Context, project, location string, filter func(*WorkerPool) bool) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
-	defer cancel()
-
 	listObj, err := c.ListWorkerPool(ctx, project, location)
 	if err != nil {
 		return err
@@ -308,10 +306,29 @@ func (c *Client) DeleteAllWorkerPool(ctx context.Context, project, location stri
 }
 
 func (c *Client) ApplyWorkerPool(ctx context.Context, rawDesired *WorkerPool, opts ...dcl.ApplyOption) (*WorkerPool, error) {
+
+	var resultNewState *WorkerPool
+	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		newState, err := applyWorkerPoolHelper(c, ctx, rawDesired, opts...)
+		resultNewState = newState
+		if err != nil {
+			// If the error is 409, there is conflict in resource update.
+			// Here we want to apply changes based on latest state.
+			if dcl.IsConflictError(err) {
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{Err: err}
+			}
+			return nil, err
+		}
+		return nil, nil
+	}, c.Config.RetryProvider)
+	return resultNewState, err
+}
+
+func applyWorkerPoolHelper(c *Client, ctx context.Context, rawDesired *WorkerPool, opts ...dcl.ApplyOption) (*WorkerPool, error) {
 	c.Config.Logger.Info("Beginning ApplyWorkerPool...")
 	c.Config.Logger.Infof("User specified desired state: %v", rawDesired)
 
-	ctx, cancel := context.WithTimeout(ctx, c.Config.Timeout)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
 	// 1.1: Validation of user-specified fields in desired state.

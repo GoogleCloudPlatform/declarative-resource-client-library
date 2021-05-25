@@ -11,91 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-components:
-  schemas:
-    Repo:
-      properties:
-        name:
-          description: Resource name of the repository
-          type: string
-          x-dcl-forward-slash-allowed: true
-          x-dcl-go-name: Name
-          x-kubernetes-immutable: true
-        project:
-          description: The project for the resource
-          type: string
-          x-dcl-go-name: Project
-          x-dcl-references:
-          - field: name
-            parent: true
-            resource: Cloudresourcemanager/Project
-          x-kubernetes-immutable: true
-        pubsubConfigs:
-          description: How this repository publishes a change in the repository through
-            Cloud Pub/Sub.
-          items:
-            properties:
-              messageFormat:
-                description: Format of the message
-                type: string
-                x-dcl-go-name: MessageFormat
-              serviceAccountEmail:
-                description: Email of the service account to send the message as.
-                type: string
-                x-dcl-go-name: ServiceAccountEmail
-                x-dcl-server-default: true
-              topic:
-                description: Name of the pubsub topic to be configured. In the form
-                  `projects/{{project}}/topics/{{topic}}
-                type: string
-                x-dcl-go-name: Topic
-            required:
-            - topic
-            - messageFormat
-            type: object
-            x-dcl-go-type: RepoPubsubConfigs
-          type: array
-          x-dcl-go-name: PubsubConfigs
-          x-dcl-list-type: set
-        size:
-          description: The disk usage of the repo, in bytes.
-          format: int64
-          readOnly: true
-          type: integer
-          x-dcl-go-name: Size
-          x-kubernetes-immutable: true
-        url:
-          description: URL to clone the repository from Google Cloud Source Repositories.
-          readOnly: true
-          type: string
-          x-dcl-go-name: Url
-          x-kubernetes-immutable: true
-      required:
-      - name
-      - project
-      title: Repo
-      type: object
-      x-dcl-id: projects/{{project}}/repos/{{name}}
-      x-dcl-locations: []
-      x-dcl-parent-container: project
-      x-dcl-uses-state-hint: false
 info:
-  description: DCL Specification for the Sourcerepo Repo resource
   title: Sourcerepo/Repo
+  description: DCL Specification for the Sourcerepo Repo resource
   x-dcl-has-iam: false
 paths:
+  get:
+    description: The function used to get information about a Repo
+    parameters:
+    - name: Repo
+      required: true
+      description: A full instance of a Repo
   apply:
     description: The function used to apply information about a Repo
     parameters:
-    - description: A full instance of a Repo
-      name: Repo
+    - name: Repo
       required: true
+      description: A full instance of a Repo
   delete:
     description: The function used to delete a Repo
     parameters:
-    - description: A full instance of a Repo
-      name: Repo
+    - name: Repo
       required: true
+      description: A full instance of a Repo
   deleteAll:
     description: The function used to delete all Repo
     parameters:
@@ -103,12 +41,6 @@ paths:
       required: true
       schema:
         type: string
-  get:
-    description: The function used to get information about a Repo
-    parameters:
-    - description: A full instance of a Repo
-      name: Repo
-      required: true
   list:
     description: The function used to list information about many Repo
     parameters:
@@ -116,3 +48,69 @@ paths:
       required: true
       schema:
         type: string
+components:
+  schemas:
+    Repo:
+      title: Repo
+      x-dcl-id: projects/{{project}}/repos/{{name}}
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - name
+      - project
+      properties:
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: Resource name of the repository
+          x-kubernetes-immutable: true
+          x-dcl-forward-slash-allowed: true
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project for the resource
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        pubsubConfigs:
+          type: array
+          x-dcl-go-name: PubsubConfigs
+          description: How this repository publishes a change in the repository through
+            Cloud Pub/Sub.
+          x-dcl-list-type: set
+          items:
+            type: object
+            x-dcl-go-type: RepoPubsubConfigs
+            required:
+            - topic
+            - messageFormat
+            properties:
+              messageFormat:
+                type: string
+                x-dcl-go-name: MessageFormat
+                description: Format of the message
+              serviceAccountEmail:
+                type: string
+                x-dcl-go-name: ServiceAccountEmail
+                description: Email of the service account to send the message as.
+                x-dcl-server-default: true
+              topic:
+                type: string
+                x-dcl-go-name: Topic
+                description: Name of the pubsub topic to be configured. In the form
+                  `projects/{{project}}/topics/{{topic}}
+        size:
+          type: integer
+          format: int64
+          x-dcl-go-name: Size
+          readOnly: true
+          description: The disk usage of the repo, in bytes.
+          x-kubernetes-immutable: true
+        url:
+          type: string
+          x-dcl-go-name: Url
+          readOnly: true
+          description: URL to clone the repository from Google Cloud Source Repositories.
+          x-kubernetes-immutable: true
