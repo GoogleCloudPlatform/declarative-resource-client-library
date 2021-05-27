@@ -66,7 +66,7 @@ components:
       type: object
       required:
       - name
-      - eventFilters
+      - matchingCriteria
       - destination
       - project
       - location
@@ -93,10 +93,10 @@ components:
               x-dcl-references:
               - resource: Cloudfunctions/CloudFunction
                 field: selfLink
-            cloudRun:
+            cloudRunService:
               type: object
-              x-dcl-go-name: CloudRun
-              x-dcl-go-type: TriggerDestinationCloudRun
+              x-dcl-go-name: CloudRunService
+              x-dcl-go-type: TriggerDestinationCloudRunService
               description: Cloud Run fully-managed service that receives the events.
                 The service should be running in the same project of the trigger.
               required:
@@ -125,47 +125,6 @@ components:
                   x-dcl-references:
                   - resource: Run/Service
                     field: selfLink
-            gke:
-              type: object
-              x-dcl-go-name: Gke
-              x-dcl-go-type: TriggerDestinationGke
-              description: A GKE service capable of receiving events. The service
-                should be running in the same project of the trigger.
-              required:
-              - cluster
-              - location
-              - namespace
-              - service
-              properties:
-                cluster:
-                  type: string
-                  x-dcl-go-name: Cluster
-                  description: Required. The name of the cluster the GKE service is
-                    running in. The cluster must be running in the same project as
-                    the trigger being created.
-                location:
-                  type: string
-                  x-dcl-go-name: Location
-                  description: Required. The name of the Google Compute Engine in
-                    which the cluster resides, which can either be compute zone (e.g.
-                    us-central1-a) for the zonal clusters or region (e.g. us-central1)
-                    for regional clusters.
-                namespace:
-                  type: string
-                  x-dcl-go-name: Namespace
-                  description: Required. The namespace the GKE service is running
-                    in.
-                path:
-                  type: string
-                  x-dcl-go-name: Path
-                  description: 'Optional. The relative path on the GKE service the
-                    events should be sent to. The value must conform to the definition
-                    of URI path segment (section 3.3 of RFC2396). Examples: "/route",
-                    "route", "route/subroute".'
-                service:
-                  type: string
-                  x-dcl-go-name: Service
-                  description: Required. Name of the GKE service.
         etag:
           type: string
           x-dcl-go-name: Etag
@@ -174,15 +133,27 @@ components:
             on the value of other fields, and may be sent only on create requests
             to ensure the client has an up-to-date value before proceeding.
           x-kubernetes-immutable: true
-        eventFilters:
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          x-dcl-go-name: Labels
+          description: Optional. User labels attached to the triggers that can be
+            used to group resources.
+        location:
+          type: string
+          x-dcl-go-name: Location
+          description: The location for the resource
+          x-kubernetes-immutable: true
+        matchingCriteria:
           type: array
-          x-dcl-go-name: EventFilters
+          x-dcl-go-name: MatchingCriteria
           description: Required. null The list of filters that applies to event attributes.
             Only events that match all the provided filters will be sent to the destination.
           x-dcl-list-type: set
           items:
             type: object
-            x-dcl-go-type: TriggerEventFilters
+            x-dcl-go-type: TriggerMatchingCriteria
             required:
             - attribute
             - value
@@ -197,23 +168,11 @@ components:
                 type: string
                 x-dcl-go-name: Value
                 description: Required. The value for the attribute.
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-          x-dcl-go-name: Labels
-          description: Optional. User labels attached to the triggers that can be
-            used to group resources.
-        location:
-          type: string
-          x-dcl-go-name: Location
-          description: The location for the resource
-          x-kubernetes-immutable: true
         name:
           type: string
           x-dcl-go-name: Name
           description: Required. The resource name of the trigger. Must be unique
-            within the location on the project and must be in \`projects/{project}/locations/{location}/triggers/{trigger}\`
+            within the location on the project and must be in \\\`projects/{project}/locations/{location}/triggers/{trigger}\\\`
             format.
         project:
           type: string
@@ -229,13 +188,13 @@ components:
           x-dcl-go-name: ServiceAccount
           description: Optional. The IAM service account email associated with the
             trigger. The service account represents the identity of the trigger. The
-            principal who calls this API must have \`iam.serviceAccounts.actAs\` permission
-            in the service account. See https://cloud.google.com/iam/docs/understanding-service-accounts?hl=en#sa\_common
+            principal who calls this API must have \\\`iam.serviceAccounts.actAs\\\`
+            permission in the service account. See https://cloud.google.com/iam/docs/understanding-service-accounts?hl=en#sa\\\_common
             for more information. For Cloud Run destinations, this service account
             is used to generate identity tokens when invoking the service. See https://cloud.google.com/run/docs/triggering/pubsub-push#create-service-account
             for information on how to invoke authenticated Cloud Run services. In
             order to create Audit Log triggers, the service account should also have
-            \`roles/eventarc.eventReceiver\` IAM role.
+            \\\`roles/eventarc.eventReceiver\\\` IAM role.
           x-dcl-references:
           - resource: Iam/ServiceAccount
             field: email
@@ -263,15 +222,15 @@ components:
                   readOnly: true
                   description: 'Output only. The name of the Pub/Sub subscription
                     created and managed by Eventarc system as a transport for the
-                    event delivery. Format: \\\\\\`projects/{PROJECT\\\\\\_ID}/subscriptions/{SUBSCRIPTION\\\\\\_NAME}\\\\\\`.'
+                    event delivery. Format: \\\\\\\\\\`projects/{PROJECT\\\\\\\\\\_ID}/subscriptions/{SUBSCRIPTION\\\\\\\\\\_NAME}\\\\\\\\\\`.'
                   x-kubernetes-immutable: true
                 topic:
                   type: string
                   x-dcl-go-name: Topic
                   description: 'Optional. The name of the Pub/Sub topic created and
                     managed by Eventarc system as a transport for the event delivery.
-                    Format: \\\\\\`projects/{PROJECT\\\\\\_ID}/topics/{TOPIC\\\\\\_NAME}\\\\\\`.
-                    You may set an existing topic for triggers of the type \\\\\\`google.cloud.pubsub.topic.v1.messagePublished\\\\\\`
+                    Format: \\\\\\\\\\`projects/{PROJECT\\\\\\\\\\_ID}/topics/{TOPIC\\\\\\\\\\_NAME}\\\\\\\\\\`.
+                    You may set an existing topic for triggers of the type \\\\\\\\\\`google.cloud.pubsub.topic.v1.messagePublished\\\\\\\\\\`
                     only. The topic you provide here will not be deleted by Eventarc
                     at trigger deletion.'
                   x-kubernetes-immutable: true

@@ -191,6 +191,7 @@ type updateUptimeCheckConfigUpdateUptimeCheckConfigOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -207,7 +208,7 @@ func (op *updateUptimeCheckConfigUpdateUptimeCheckConfigOperation) do(ctx contex
 	if err != nil {
 		return err
 	}
-	mask := strings.Join([]string{"displayName", "httpCheck", "tcpCheck", "timeout", "contentMatchers", "privateCheckers", "selectedRegions"}, ",")
+	mask := dcl.UpdateMask(op.Diffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -419,7 +420,7 @@ func (c *Client) getUptimeCheckConfigRaw(ctx context.Context, r *UptimeCheckConf
 	return b, nil
 }
 
-func (c *Client) uptimeCheckConfigDiffsForRawDesired(ctx context.Context, rawDesired *UptimeCheckConfig, opts ...dcl.ApplyOption) (initial, desired *UptimeCheckConfig, diffs []uptimeCheckConfigDiff, err error) {
+func (c *Client) uptimeCheckConfigDiffsForRawDesired(ctx context.Context, rawDesired *UptimeCheckConfig, opts ...dcl.ApplyOption) (initial, desired *UptimeCheckConfig, diffs []*dcl.FieldDiff, err error) {
 	c.Config.Logger.Info("Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *UptimeCheckConfig
@@ -1209,15 +1210,6 @@ func canonicalizeNewUptimeCheckConfigContentMatchersSlice(c *Client, des, nw []U
 	return items
 }
 
-type uptimeCheckConfigDiff struct {
-	// The diff should include one or the other of RequiresRecreate or UpdateOp.
-	RequiresRecreate bool
-	UpdateOp         uptimeCheckConfigApiOperation
-	Diffs            []*dcl.FieldDiff
-	// This is for reporting only.
-	FieldName string
-}
-
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -1225,12 +1217,11 @@ type uptimeCheckConfigDiff struct {
 // value. This empty value indicates that the user does not care about the state for
 // the field. Empty fields on the actual object will cause diffs.
 // TODO(magic-modules-eng): for efficiency in some resources, add batching.
-func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts ...dcl.ApplyOption) ([]uptimeCheckConfigDiff, error) {
+func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts ...dcl.ApplyOption) ([]*dcl.FieldDiff, error) {
 	if desired == nil || actual == nil {
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
-	var diffs []uptimeCheckConfigDiff
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1239,12 +1230,6 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToUptimeCheckConfigDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
@@ -1252,12 +1237,6 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToUptimeCheckConfigDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.MonitoredResource, actual.MonitoredResource, dcl.Info{ObjectFunction: compareUptimeCheckConfigMonitoredResourceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MonitoredResource")); len(ds) != 0 || err != nil {
@@ -1265,12 +1244,6 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToUptimeCheckConfigDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ResourceGroup, actual.ResourceGroup, dcl.Info{ObjectFunction: compareUptimeCheckConfigResourceGroupNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceGroup")); len(ds) != 0 || err != nil {
@@ -1278,12 +1251,6 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToUptimeCheckConfigDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.HttpCheck, actual.HttpCheck, dcl.Info{ObjectFunction: compareUptimeCheckConfigHttpCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("HttpCheck")); len(ds) != 0 || err != nil {
@@ -1291,12 +1258,6 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToUptimeCheckConfigDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.TcpCheck, actual.TcpCheck, dcl.Info{ObjectFunction: compareUptimeCheckConfigTcpCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("TcpCheck")); len(ds) != 0 || err != nil {
@@ -1304,12 +1265,6 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToUptimeCheckConfigDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Period, actual.Period, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Period")); len(ds) != 0 || err != nil {
@@ -1317,12 +1272,6 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToUptimeCheckConfigDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Timeout, actual.Timeout, dcl.Info{OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("Timeout")); len(ds) != 0 || err != nil {
@@ -1330,12 +1279,6 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToUptimeCheckConfigDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ContentMatchers, actual.ContentMatchers, dcl.Info{ObjectFunction: compareUptimeCheckConfigContentMatchersNewStyle, OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("ContentMatchers")); len(ds) != 0 || err != nil {
@@ -1343,12 +1286,6 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToUptimeCheckConfigDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.PrivateCheckers, actual.PrivateCheckers, dcl.Info{OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("PrivateCheckers")); len(ds) != 0 || err != nil {
@@ -1356,12 +1293,6 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToUptimeCheckConfigDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SelectedRegions, actual.SelectedRegions, dcl.Info{OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("SelectedRegions")); len(ds) != 0 || err != nil {
@@ -1369,12 +1300,6 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToUptimeCheckConfigDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
@@ -1382,37 +1307,9 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToUptimeCheckConfigDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
-	// We need to ensure that this list does not contain identical operations *most of the time*.
-	// There may be some cases where we will need multiple copies of the same operation - for instance,
-	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
-	// such examples and so we deduplicate unconditionally.
-
-	// The best way for us to do this is to iterate through the list
-	// and remove any copies of operations which are identical to a previous operation.
-	// This is O(n^2) in the number of operations, but n will always be very small,
-	// even 10 would be an extremely high number.
-	var opTypes []string
-	var deduped []uptimeCheckConfigDiff
-	for _, d := range diffs {
-		// Two operations are considered identical if they have the same type.
-		// The type of an operation is derived from the name of the update method.
-		if !dcl.StringSliceContains(fmt.Sprintf("%T", d.UpdateOp), opTypes) {
-			deduped = append(deduped, d)
-			opTypes = append(opTypes, fmt.Sprintf("%T", d.UpdateOp))
-		} else {
-			c.Config.Logger.Infof("Omitting planned operation of type %T since once is already scheduled.", d.UpdateOp)
-		}
-	}
-
-	return deduped, nil
+	return newDiffs, nil
 }
 func compareUptimeCheckConfigMonitoredResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
@@ -2743,31 +2640,35 @@ func (r *UptimeCheckConfig) matcher(c *Client) func([]byte) bool {
 	}
 }
 
-func convertFieldDiffToUptimeCheckConfigDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]uptimeCheckConfigDiff, error) {
+type uptimeCheckConfigDiff struct {
+	// The diff should include one or the other of RequiresRecreate or UpdateOp.
+	RequiresRecreate bool
+	UpdateOp         uptimeCheckConfigApiOperation
+}
+
+func convertFieldDiffToUptimeCheckConfigOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]uptimeCheckConfigDiff, error) {
 	var diffs []uptimeCheckConfigDiff
-	for _, fd := range fds {
-		for _, op := range fd.ResultingOperation {
-			diff := uptimeCheckConfigDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
-			if op == "Recreate" {
-				diff.RequiresRecreate = true
-			} else {
-				op, err := convertOpNameTouptimeCheckConfigApiOperation(op, opts...)
-				if err != nil {
-					return nil, err
-				}
-				diff.UpdateOp = op
+	for _, op := range ops {
+		diff := uptimeCheckConfigDiff{}
+		if op == "Recreate" {
+			diff.RequiresRecreate = true
+		} else {
+			op, err := convertOpNameTouptimeCheckConfigApiOperation(op, fds, opts...)
+			if err != nil {
+				return diffs, err
 			}
-			diffs = append(diffs, diff)
+			diff.UpdateOp = op
 		}
+		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTouptimeCheckConfigApiOperation(op string, opts ...dcl.ApplyOption) (uptimeCheckConfigApiOperation, error) {
+func convertOpNameTouptimeCheckConfigApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (uptimeCheckConfigApiOperation, error) {
 	switch op {
 
 	case "updateUptimeCheckConfigUpdateUptimeCheckConfigOperation":
-		return &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{}, nil
+		return &updateUptimeCheckConfigUpdateUptimeCheckConfigOperation{Diffs: diffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", op)

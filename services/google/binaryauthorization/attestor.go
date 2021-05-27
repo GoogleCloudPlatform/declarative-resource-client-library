@@ -385,9 +385,15 @@ func applyAttestorHelper(c *Client, ctx context.Context, rawDesired *Attestor, o
 		return nil, err
 	}
 
-	initial, desired, diffs, err := c.attestorDiffsForRawDesired(ctx, rawDesired, opts...)
+	initial, desired, fieldDiffs, err := c.attestorDiffsForRawDesired(ctx, rawDesired, opts...)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
+	}
+
+	opStrings := dcl.DeduplicateOperations(fieldDiffs)
+	diffs, err := convertFieldDiffToAttestorOp(opStrings, fieldDiffs, opts)
+	if err != nil {
+		return nil, err
 	}
 
 	// TODO(magic-modules-eng): 2.2 Feasibility check (all updates are feasible so far).

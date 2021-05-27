@@ -22,7 +22,7 @@ import (
 // If they have, it adds a "requires recreate" diff to the list of diffs, so that the resource
 // will be destroyed and recreated.  This is not implemented directly in resource_internal because
 // this is pretty unusual.
-func analyzeNoteDiff(desired, actual *Note, diffs []noteDiff) []noteDiff {
+func analyzeNoteDiff(desired, actual *Note, diffs []*dcl.FieldDiff) []*dcl.FieldDiff {
 	// the following kinds of field cannot be modified in the same resource.
 	// If we find more than one being modified, we will need to add a "forceRecreate"
 	// to the list.
@@ -34,7 +34,7 @@ func analyzeNoteDiff(desired, actual *Note, diffs []noteDiff) []noteDiff {
 		}
 	}
 	if count > 1 {
-		diffs = append(diffs, noteDiff{FieldName: "Kind", RequiresRecreate: true})
+		diffs = append(diffs, &dcl.FieldDiff{FieldName: "Kind", ResultingOperation: []string{"Recreate"}})
 	}
 	return diffs
 }

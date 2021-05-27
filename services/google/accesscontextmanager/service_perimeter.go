@@ -445,9 +445,15 @@ func applyServicePerimeterHelper(c *Client, ctx context.Context, rawDesired *Ser
 		return nil, err
 	}
 
-	initial, desired, diffs, err := c.servicePerimeterDiffsForRawDesired(ctx, rawDesired, opts...)
+	initial, desired, fieldDiffs, err := c.servicePerimeterDiffsForRawDesired(ctx, rawDesired, opts...)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
+	}
+
+	opStrings := dcl.DeduplicateOperations(fieldDiffs)
+	diffs, err := convertFieldDiffToServicePerimeterOp(opStrings, fieldDiffs, opts)
+	if err != nil {
+		return nil, err
 	}
 
 	// TODO(magic-modules-eng): 2.2 Feasibility check (all updates are feasible so far).

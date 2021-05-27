@@ -31,10 +31,10 @@ func (r *Trigger) validate() error {
 	if err := dcl.Required(r, "name"); err != nil {
 		return err
 	}
-	if err := dcl.Required(r, "destination"); err != nil {
+	if err := dcl.Required(r, "matchingCriteria"); err != nil {
 		return err
 	}
-	if err := dcl.Required(r, "matchingCriteria"); err != nil {
+	if err := dcl.Required(r, "destination"); err != nil {
 		return err
 	}
 	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
@@ -52,6 +52,15 @@ func (r *Trigger) validate() error {
 		if err := r.Transport.validate(); err != nil {
 			return err
 		}
+	}
+	return nil
+}
+func (r *TriggerMatchingCriteria) validate() error {
+	if err := dcl.Required(r, "attribute"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "value"); err != nil {
+		return err
 	}
 	return nil
 }
@@ -81,15 +90,6 @@ func (r *TriggerTransport) validate() error {
 	return nil
 }
 func (r *TriggerTransportPubsub) validate() error {
-	return nil
-}
-func (r *TriggerMatchingCriteria) validate() error {
-	if err := dcl.Required(r, "attribute"); err != nil {
-		return err
-	}
-	if err := dcl.Required(r, "value"); err != nil {
-		return err
-	}
 	return nil
 }
 
@@ -147,6 +147,11 @@ func newUpdateTriggerUpdateTriggerRequest(ctx context.Context, f *Trigger, c *Cl
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["name"] = v
 	}
+	if v, err := expandTriggerMatchingCriteriaSlice(c, f.MatchingCriteria); err != nil {
+		return nil, fmt.Errorf("error expanding MatchingCriteria into matchingCriteria: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["matchingCriteria"] = v
+	}
 	if v := f.ServiceAccount; !dcl.IsEmptyValueIndirect(v) {
 		req["serviceAccount"] = v
 	}
@@ -157,11 +162,6 @@ func newUpdateTriggerUpdateTriggerRequest(ctx context.Context, f *Trigger, c *Cl
 	}
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
-	}
-	if v, err := expandTriggerMatchingCriteriaSlice(c, f.MatchingCriteria); err != nil {
-		return nil, fmt.Errorf("error expanding MatchingCriteria into matchingCriteria: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["matchingCriteria"] = v
 	}
 	b, err := c.getTriggerRaw(ctx, f.urlNormalized())
 	if err != nil {
@@ -180,8 +180,6 @@ func newUpdateTriggerUpdateTriggerRequest(ctx context.Context, f *Trigger, c *Cl
 	} else {
 		req["etag"] = rawEtag.(string)
 	}
-	req["name"] = fmt.Sprintf("projects/%s/locations/%s/triggers/%s", *f.Project, *f.Location, *f.Name)
-
 	return req, nil
 }
 
@@ -197,6 +195,7 @@ type updateTriggerUpdateTriggerOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -213,7 +212,7 @@ func (op *updateTriggerUpdateTriggerOperation) do(ctx context.Context, r *Trigge
 	if err != nil {
 		return err
 	}
-	mask := strings.Join([]string{"name", "serviceAccount", "destination", "labels", "matchingCriteria", "etag"}, ",")
+	mask := dcl.UpdateMask(op.Diffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -440,7 +439,7 @@ func (c *Client) getTriggerRaw(ctx context.Context, r *Trigger) ([]byte, error) 
 	return b, nil
 }
 
-func (c *Client) triggerDiffsForRawDesired(ctx context.Context, rawDesired *Trigger, opts ...dcl.ApplyOption) (initial, desired *Trigger, diffs []triggerDiff, err error) {
+func (c *Client) triggerDiffsForRawDesired(ctx context.Context, rawDesired *Trigger, opts ...dcl.ApplyOption) (initial, desired *Trigger, diffs []*dcl.FieldDiff, err error) {
 	c.Config.Logger.Info("Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *Trigger
@@ -515,6 +514,9 @@ func canonicalizeTriggerDesiredState(rawDesired, rawInitial *Trigger, opts ...dc
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
+	if dcl.IsZeroValue(rawDesired.MatchingCriteria) {
+		rawDesired.MatchingCriteria = rawInitial.MatchingCriteria
+	}
 	if dcl.NameToSelfLink(rawDesired.ServiceAccount, rawInitial.ServiceAccount) {
 		rawDesired.ServiceAccount = rawInitial.ServiceAccount
 	}
@@ -522,9 +524,6 @@ func canonicalizeTriggerDesiredState(rawDesired, rawInitial *Trigger, opts ...dc
 	rawDesired.Transport = canonicalizeTriggerTransport(rawDesired.Transport, rawInitial.Transport, opts...)
 	if dcl.IsZeroValue(rawDesired.Labels) {
 		rawDesired.Labels = rawInitial.Labels
-	}
-	if dcl.IsZeroValue(rawDesired.MatchingCriteria) {
-		rawDesired.MatchingCriteria = rawInitial.MatchingCriteria
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
@@ -554,6 +553,12 @@ func canonicalizeTriggerNewState(c *Client, rawNew, rawDesired *Trigger) (*Trigg
 	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.MatchingCriteria) && dcl.IsEmptyValueIndirect(rawDesired.MatchingCriteria) {
+		rawNew.MatchingCriteria = rawDesired.MatchingCriteria
+	} else {
+		rawNew.MatchingCriteria = canonicalizeNewTriggerMatchingCriteriaSet(c, rawDesired.MatchingCriteria, rawNew.MatchingCriteria)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ServiceAccount) && dcl.IsEmptyValueIndirect(rawDesired.ServiceAccount) {
@@ -589,17 +594,91 @@ func canonicalizeTriggerNewState(c *Client, rawNew, rawDesired *Trigger) (*Trigg
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.MatchingCriteria) && dcl.IsEmptyValueIndirect(rawDesired.MatchingCriteria) {
-		rawNew.MatchingCriteria = rawDesired.MatchingCriteria
-	} else {
-		rawNew.MatchingCriteria = canonicalizeNewTriggerMatchingCriteriaSet(c, rawDesired.MatchingCriteria, rawNew.MatchingCriteria)
-	}
-
 	rawNew.Project = rawDesired.Project
 
 	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
+}
+
+func canonicalizeTriggerMatchingCriteria(des, initial *TriggerMatchingCriteria, opts ...dcl.ApplyOption) *TriggerMatchingCriteria {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.StringCanonicalize(des.Attribute, initial.Attribute) || dcl.IsZeroValue(des.Attribute) {
+		des.Attribute = initial.Attribute
+	}
+	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
+		des.Value = initial.Value
+	}
+
+	return des
+}
+
+func canonicalizeNewTriggerMatchingCriteria(c *Client, des, nw *TriggerMatchingCriteria) *TriggerMatchingCriteria {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	if dcl.StringCanonicalize(des.Attribute, nw.Attribute) {
+		nw.Attribute = des.Attribute
+	}
+	if dcl.StringCanonicalize(des.Value, nw.Value) {
+		nw.Value = des.Value
+	}
+
+	return nw
+}
+
+func canonicalizeNewTriggerMatchingCriteriaSet(c *Client, des, nw []TriggerMatchingCriteria) []TriggerMatchingCriteria {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []TriggerMatchingCriteria
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareTriggerMatchingCriteriaNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewTriggerMatchingCriteriaSlice(c *Client, des, nw []TriggerMatchingCriteria) []TriggerMatchingCriteria {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []TriggerMatchingCriteria
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewTriggerMatchingCriteria(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeTriggerDestination(des, initial *TriggerDestination, opts ...dcl.ApplyOption) *TriggerDestination {
@@ -905,95 +984,6 @@ func canonicalizeNewTriggerTransportPubsubSlice(c *Client, des, nw []TriggerTran
 	return items
 }
 
-func canonicalizeTriggerMatchingCriteria(des, initial *TriggerMatchingCriteria, opts ...dcl.ApplyOption) *TriggerMatchingCriteria {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.StringCanonicalize(des.Attribute, initial.Attribute) || dcl.IsZeroValue(des.Attribute) {
-		des.Attribute = initial.Attribute
-	}
-	if dcl.StringCanonicalize(des.Value, initial.Value) || dcl.IsZeroValue(des.Value) {
-		des.Value = initial.Value
-	}
-
-	return des
-}
-
-func canonicalizeNewTriggerMatchingCriteria(c *Client, des, nw *TriggerMatchingCriteria) *TriggerMatchingCriteria {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.StringCanonicalize(des.Attribute, nw.Attribute) {
-		nw.Attribute = des.Attribute
-	}
-	if dcl.StringCanonicalize(des.Value, nw.Value) {
-		nw.Value = des.Value
-	}
-
-	return nw
-}
-
-func canonicalizeNewTriggerMatchingCriteriaSet(c *Client, des, nw []TriggerMatchingCriteria) []TriggerMatchingCriteria {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []TriggerMatchingCriteria
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareTriggerMatchingCriteriaNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewTriggerMatchingCriteriaSlice(c *Client, des, nw []TriggerMatchingCriteria) []TriggerMatchingCriteria {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []TriggerMatchingCriteria
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewTriggerMatchingCriteria(c, &d, &n))
-	}
-
-	return items
-}
-
-type triggerDiff struct {
-	// The diff should include one or the other of RequiresRecreate or UpdateOp.
-	RequiresRecreate bool
-	UpdateOp         triggerApiOperation
-	Diffs            []*dcl.FieldDiff
-	// This is for reporting only.
-	FieldName string
-}
-
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -1001,12 +991,11 @@ type triggerDiff struct {
 // value. This empty value indicates that the user does not care about the state for
 // the field. Empty fields on the actual object will cause diffs.
 // TODO(magic-modules-eng): for efficiency in some resources, add batching.
-func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) ([]triggerDiff, error) {
+func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) ([]*dcl.FieldDiff, error) {
 	if desired == nil || actual == nil {
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
-	var diffs []triggerDiff
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1015,12 +1004,6 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToTriggerDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
@@ -1028,12 +1011,6 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToTriggerDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
@@ -1041,77 +1018,6 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToTriggerDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
-	}
-
-	if ds, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("ServiceAccount")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToTriggerDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
-	}
-
-	if ds, err := dcl.Diff(desired.Destination, actual.Destination, dcl.Info{ObjectFunction: compareTriggerDestinationNewStyle, OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("Destination")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToTriggerDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
-	}
-
-	if ds, err := dcl.Diff(desired.Transport, actual.Transport, dcl.Info{ObjectFunction: compareTriggerTransportNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Transport")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToTriggerDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
-	}
-
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToTriggerDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
-	}
-
-	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToTriggerDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.MatchingCriteria, actual.MatchingCriteria, dcl.Info{Type: "Set", ObjectFunction: compareTriggerMatchingCriteriaNewStyle, OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("MatchingCriteria")); len(ds) != 0 || err != nil {
@@ -1119,12 +1025,41 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
+	}
 
-		dsOld, err := convertFieldDiffToTriggerDiff(ds, opts...)
+	if ds, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, dsOld...)
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Destination, actual.Destination, dcl.Info{ObjectFunction: compareTriggerDestinationNewStyle, OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("Destination")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Transport, actual.Transport, dcl.Info{ObjectFunction: compareTriggerTransportNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Transport")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
 	}
 
 	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
@@ -1132,12 +1067,6 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToTriggerDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
@@ -1145,38 +1074,46 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
+	}
 
-		dsOld, err := convertFieldDiffToTriggerDiff(ds, opts...)
+	return newDiffs, nil
+}
+func compareTriggerMatchingCriteriaNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*TriggerMatchingCriteria)
+	if !ok {
+		desiredNotPointer, ok := d.(TriggerMatchingCriteria)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TriggerMatchingCriteria or *TriggerMatchingCriteria", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*TriggerMatchingCriteria)
+	if !ok {
+		actualNotPointer, ok := a.(TriggerMatchingCriteria)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TriggerMatchingCriteria", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Attribute, actual.Attribute, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Attribute")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
-		diffs = append(diffs, dsOld...)
+		diffs = append(diffs, ds...)
 	}
 
-	// We need to ensure that this list does not contain identical operations *most of the time*.
-	// There may be some cases where we will need multiple copies of the same operation - for instance,
-	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
-	// such examples and so we deduplicate unconditionally.
-
-	// The best way for us to do this is to iterate through the list
-	// and remove any copies of operations which are identical to a previous operation.
-	// This is O(n^2) in the number of operations, but n will always be very small,
-	// even 10 would be an extremely high number.
-	var opTypes []string
-	var deduped []triggerDiff
-	for _, d := range diffs {
-		// Two operations are considered identical if they have the same type.
-		// The type of an operation is derived from the name of the update method.
-		if !dcl.StringSliceContains(fmt.Sprintf("%T", d.UpdateOp), opTypes) {
-			deduped = append(deduped, d)
-			opTypes = append(opTypes, fmt.Sprintf("%T", d.UpdateOp))
-		} else {
-			c.Config.Logger.Infof("Omitting planned operation of type %T since once is already scheduled.", d.UpdateOp)
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
 		}
+		diffs = append(diffs, ds...)
 	}
-
-	return deduped, nil
+	return diffs, nil
 }
+
 func compareTriggerDestinationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
@@ -1314,42 +1251,6 @@ func compareTriggerTransportPubsubNewStyle(d, a interface{}, fn dcl.FieldName) (
 	return diffs, nil
 }
 
-func compareTriggerMatchingCriteriaNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*TriggerMatchingCriteria)
-	if !ok {
-		desiredNotPointer, ok := d.(TriggerMatchingCriteria)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a TriggerMatchingCriteria or *TriggerMatchingCriteria", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*TriggerMatchingCriteria)
-	if !ok {
-		actualNotPointer, ok := a.(TriggerMatchingCriteria)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a TriggerMatchingCriteria", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.Attribute, actual.Attribute, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Attribute")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
@@ -1432,6 +1333,11 @@ func expandTrigger(c *Client, f *Trigger) (map[string]interface{}, error) {
 	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["updateTime"] = v
 	}
+	if v, err := expandTriggerMatchingCriteriaSlice(c, f.MatchingCriteria); err != nil {
+		return nil, fmt.Errorf("error expanding MatchingCriteria into matchingCriteria: %w", err)
+	} else if v != nil {
+		m["matchingCriteria"] = v
+	}
 	if v := f.ServiceAccount; !dcl.IsEmptyValueIndirect(v) {
 		m["serviceAccount"] = v
 	}
@@ -1450,11 +1356,6 @@ func expandTrigger(c *Client, f *Trigger) (map[string]interface{}, error) {
 	}
 	if v := f.Etag; !dcl.IsEmptyValueIndirect(v) {
 		m["etag"] = v
-	}
-	if v, err := expandTriggerMatchingCriteriaSlice(c, f.MatchingCriteria); err != nil {
-		return nil, fmt.Errorf("error expanding MatchingCriteria into matchingCriteria: %w", err)
-	} else if v != nil {
-		m["matchingCriteria"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
@@ -1485,16 +1386,134 @@ func flattenTrigger(c *Client, i interface{}) *Trigger {
 	res.Name = dcl.FlattenString(m["name"])
 	res.CreateTime = dcl.FlattenString(m["createTime"])
 	res.UpdateTime = dcl.FlattenString(m["updateTime"])
+	res.MatchingCriteria = flattenTriggerMatchingCriteriaSlice(c, m["matchingCriteria"])
 	res.ServiceAccount = dcl.FlattenString(m["serviceAccount"])
 	res.Destination = flattenTriggerDestination(c, m["destination"])
 	res.Transport = flattenTriggerTransport(c, m["transport"])
 	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	res.Etag = dcl.FlattenString(m["etag"])
-	res.MatchingCriteria = flattenTriggerMatchingCriteriaSlice(c, m["matchingCriteria"])
 	res.Project = dcl.FlattenString(m["project"])
 	res.Location = dcl.FlattenString(m["location"])
 
 	return res
+}
+
+// expandTriggerMatchingCriteriaMap expands the contents of TriggerMatchingCriteria into a JSON
+// request object.
+func expandTriggerMatchingCriteriaMap(c *Client, f map[string]TriggerMatchingCriteria) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandTriggerMatchingCriteria(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandTriggerMatchingCriteriaSlice expands the contents of TriggerMatchingCriteria into a JSON
+// request object.
+func expandTriggerMatchingCriteriaSlice(c *Client, f []TriggerMatchingCriteria) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandTriggerMatchingCriteria(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenTriggerMatchingCriteriaMap flattens the contents of TriggerMatchingCriteria from a JSON
+// response object.
+func flattenTriggerMatchingCriteriaMap(c *Client, i interface{}) map[string]TriggerMatchingCriteria {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]TriggerMatchingCriteria{}
+	}
+
+	if len(a) == 0 {
+		return map[string]TriggerMatchingCriteria{}
+	}
+
+	items := make(map[string]TriggerMatchingCriteria)
+	for k, item := range a {
+		items[k] = *flattenTriggerMatchingCriteria(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenTriggerMatchingCriteriaSlice flattens the contents of TriggerMatchingCriteria from a JSON
+// response object.
+func flattenTriggerMatchingCriteriaSlice(c *Client, i interface{}) []TriggerMatchingCriteria {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []TriggerMatchingCriteria{}
+	}
+
+	if len(a) == 0 {
+		return []TriggerMatchingCriteria{}
+	}
+
+	items := make([]TriggerMatchingCriteria, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenTriggerMatchingCriteria(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandTriggerMatchingCriteria expands an instance of TriggerMatchingCriteria into a JSON
+// request object.
+func expandTriggerMatchingCriteria(c *Client, f *TriggerMatchingCriteria) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Attribute; !dcl.IsEmptyValueIndirect(v) {
+		m["attribute"] = v
+	}
+	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
+		m["value"] = v
+	}
+
+	return m, nil
+}
+
+// flattenTriggerMatchingCriteria flattens an instance of TriggerMatchingCriteria from a JSON
+// response object.
+func flattenTriggerMatchingCriteria(c *Client, i interface{}) *TriggerMatchingCriteria {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &TriggerMatchingCriteria{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTriggerMatchingCriteria
+	}
+	r.Attribute = dcl.FlattenString(m["attribute"])
+	r.Value = dcl.FlattenString(m["value"])
+
+	return r
 }
 
 // expandTriggerDestinationMap expands the contents of TriggerDestination into a JSON
@@ -1969,124 +1988,6 @@ func flattenTriggerTransportPubsub(c *Client, i interface{}) *TriggerTransportPu
 	return r
 }
 
-// expandTriggerMatchingCriteriaMap expands the contents of TriggerMatchingCriteria into a JSON
-// request object.
-func expandTriggerMatchingCriteriaMap(c *Client, f map[string]TriggerMatchingCriteria) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandTriggerMatchingCriteria(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandTriggerMatchingCriteriaSlice expands the contents of TriggerMatchingCriteria into a JSON
-// request object.
-func expandTriggerMatchingCriteriaSlice(c *Client, f []TriggerMatchingCriteria) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandTriggerMatchingCriteria(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenTriggerMatchingCriteriaMap flattens the contents of TriggerMatchingCriteria from a JSON
-// response object.
-func flattenTriggerMatchingCriteriaMap(c *Client, i interface{}) map[string]TriggerMatchingCriteria {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]TriggerMatchingCriteria{}
-	}
-
-	if len(a) == 0 {
-		return map[string]TriggerMatchingCriteria{}
-	}
-
-	items := make(map[string]TriggerMatchingCriteria)
-	for k, item := range a {
-		items[k] = *flattenTriggerMatchingCriteria(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenTriggerMatchingCriteriaSlice flattens the contents of TriggerMatchingCriteria from a JSON
-// response object.
-func flattenTriggerMatchingCriteriaSlice(c *Client, i interface{}) []TriggerMatchingCriteria {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []TriggerMatchingCriteria{}
-	}
-
-	if len(a) == 0 {
-		return []TriggerMatchingCriteria{}
-	}
-
-	items := make([]TriggerMatchingCriteria, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenTriggerMatchingCriteria(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandTriggerMatchingCriteria expands an instance of TriggerMatchingCriteria into a JSON
-// request object.
-func expandTriggerMatchingCriteria(c *Client, f *TriggerMatchingCriteria) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Attribute; !dcl.IsEmptyValueIndirect(v) {
-		m["attribute"] = v
-	}
-	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
-		m["value"] = v
-	}
-
-	return m, nil
-}
-
-// flattenTriggerMatchingCriteria flattens an instance of TriggerMatchingCriteria from a JSON
-// response object.
-func flattenTriggerMatchingCriteria(c *Client, i interface{}) *TriggerMatchingCriteria {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &TriggerMatchingCriteria{}
-
-	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyTriggerMatchingCriteria
-	}
-	r.Attribute = dcl.FlattenString(m["attribute"])
-	r.Value = dcl.FlattenString(m["value"])
-
-	return r
-}
-
 // This function returns a matcher that checks whether a serialized resource matches this resource
 // in its parameters (as defined by the fields in a Get, which definitionally define resource
 // identity).  This is useful in extracting the element from a List call.
@@ -2129,31 +2030,35 @@ func (r *Trigger) matcher(c *Client) func([]byte) bool {
 	}
 }
 
-func convertFieldDiffToTriggerDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]triggerDiff, error) {
+type triggerDiff struct {
+	// The diff should include one or the other of RequiresRecreate or UpdateOp.
+	RequiresRecreate bool
+	UpdateOp         triggerApiOperation
+}
+
+func convertFieldDiffToTriggerOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]triggerDiff, error) {
 	var diffs []triggerDiff
-	for _, fd := range fds {
-		for _, op := range fd.ResultingOperation {
-			diff := triggerDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
-			if op == "Recreate" {
-				diff.RequiresRecreate = true
-			} else {
-				op, err := convertOpNameTotriggerApiOperation(op, opts...)
-				if err != nil {
-					return nil, err
-				}
-				diff.UpdateOp = op
+	for _, op := range ops {
+		diff := triggerDiff{}
+		if op == "Recreate" {
+			diff.RequiresRecreate = true
+		} else {
+			op, err := convertOpNameTotriggerApiOperation(op, fds, opts...)
+			if err != nil {
+				return diffs, err
 			}
-			diffs = append(diffs, diff)
+			diff.UpdateOp = op
 		}
+		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTotriggerApiOperation(op string, opts ...dcl.ApplyOption) (triggerApiOperation, error) {
+func convertOpNameTotriggerApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (triggerApiOperation, error) {
 	switch op {
 
 	case "updateTriggerUpdateTriggerOperation":
-		return &updateTriggerUpdateTriggerOperation{}, nil
+		return &updateTriggerUpdateTriggerOperation{Diffs: diffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", op)

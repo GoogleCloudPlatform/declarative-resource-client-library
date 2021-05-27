@@ -506,9 +506,15 @@ func applyEndpointConfigSelectorHelper(c *Client, ctx context.Context, rawDesire
 		return nil, err
 	}
 
-	initial, desired, diffs, err := c.endpointConfigSelectorDiffsForRawDesired(ctx, rawDesired, opts...)
+	initial, desired, fieldDiffs, err := c.endpointConfigSelectorDiffsForRawDesired(ctx, rawDesired, opts...)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
+	}
+
+	opStrings := dcl.DeduplicateOperations(fieldDiffs)
+	diffs, err := convertFieldDiffToEndpointConfigSelectorOp(opStrings, fieldDiffs, opts)
+	if err != nil {
+		return nil, err
 	}
 
 	// TODO(magic-modules-eng): 2.2 Feasibility check (all updates are feasible so far).

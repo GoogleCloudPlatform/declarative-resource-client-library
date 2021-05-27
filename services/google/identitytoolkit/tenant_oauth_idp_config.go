@@ -263,9 +263,15 @@ func applyTenantOAuthIdpConfigHelper(c *Client, ctx context.Context, rawDesired 
 		return nil, err
 	}
 
-	initial, desired, diffs, err := c.tenantOAuthIdpConfigDiffsForRawDesired(ctx, rawDesired, opts...)
+	initial, desired, fieldDiffs, err := c.tenantOAuthIdpConfigDiffsForRawDesired(ctx, rawDesired, opts...)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
+	}
+
+	opStrings := dcl.DeduplicateOperations(fieldDiffs)
+	diffs, err := convertFieldDiffToTenantOAuthIdpConfigOp(opStrings, fieldDiffs, opts)
+	if err != nil {
+		return nil, err
 	}
 
 	// TODO(magic-modules-eng): 2.2 Feasibility check (all updates are feasible so far).

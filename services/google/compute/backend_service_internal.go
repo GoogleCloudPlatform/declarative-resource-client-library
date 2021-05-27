@@ -357,6 +357,7 @@ type updateBackendServiceUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -595,7 +596,7 @@ func (c *Client) getBackendServiceRaw(ctx context.Context, r *BackendService) ([
 	return b, nil
 }
 
-func (c *Client) backendServiceDiffsForRawDesired(ctx context.Context, rawDesired *BackendService, opts ...dcl.ApplyOption) (initial, desired *BackendService, diffs []backendServiceDiff, err error) {
+func (c *Client) backendServiceDiffsForRawDesired(ctx context.Context, rawDesired *BackendService, opts ...dcl.ApplyOption) (initial, desired *BackendService, diffs []*dcl.FieldDiff, err error) {
 	c.Config.Logger.Info("Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *BackendService
@@ -2625,15 +2626,6 @@ func canonicalizeNewBackendServiceMaxStreamDurationSlice(c *Client, des, nw []Ba
 	return items
 }
 
-type backendServiceDiff struct {
-	// The diff should include one or the other of RequiresRecreate or UpdateOp.
-	RequiresRecreate bool
-	UpdateOp         backendServiceApiOperation
-	Diffs            []*dcl.FieldDiff
-	// This is for reporting only.
-	FieldName string
-}
-
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -2641,12 +2633,11 @@ type backendServiceDiff struct {
 // value. This empty value indicates that the user does not care about the state for
 // the field. Empty fields on the actual object will cause diffs.
 // TODO(magic-modules-eng): for efficiency in some resources, add batching.
-func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.ApplyOption) ([]backendServiceDiff, error) {
+func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.ApplyOption) ([]*dcl.FieldDiff, error) {
 	if desired == nil || actual == nil {
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
-	var diffs []backendServiceDiff
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -2655,12 +2646,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
@@ -2668,12 +2653,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
@@ -2681,12 +2660,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
@@ -2694,12 +2667,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SelfLinkWithId, actual.SelfLinkWithId, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLinkWithId")); len(ds) != 0 || err != nil {
@@ -2707,12 +2674,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Backends, actual.Backends, dcl.Info{ObjectFunction: compareBackendServiceBackendsNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("Backends")); len(ds) != 0 || err != nil {
@@ -2720,12 +2681,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.HealthChecks, actual.HealthChecks, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("HealthChecks")); len(ds) != 0 || err != nil {
@@ -2733,12 +2688,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.TimeoutSec, actual.TimeoutSec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("TimeoutSec")); len(ds) != 0 || err != nil {
@@ -2746,12 +2695,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
@@ -2759,12 +2702,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Protocol, actual.Protocol, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("Protocol")); len(ds) != 0 || err != nil {
@@ -2772,12 +2709,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Fingerprint, actual.Fingerprint, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fingerprint")); len(ds) != 0 || err != nil {
@@ -2785,12 +2716,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.PortName, actual.PortName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("PortName")); len(ds) != 0 || err != nil {
@@ -2798,12 +2723,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.EnableCdn, actual.EnableCdn, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("EnableCdn")); len(ds) != 0 || err != nil {
@@ -2811,12 +2730,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SessionAffinity, actual.SessionAffinity, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("SessionAffinity")); len(ds) != 0 || err != nil {
@@ -2824,12 +2737,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.AffinityCookieTtlSec, actual.AffinityCookieTtlSec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("AffinityCookieTtlSec")); len(ds) != 0 || err != nil {
@@ -2837,12 +2744,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
@@ -2850,12 +2751,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.FailoverPolicy, actual.FailoverPolicy, dcl.Info{ObjectFunction: compareBackendServiceFailoverPolicyNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("FailoverPolicy")); len(ds) != 0 || err != nil {
@@ -2863,12 +2758,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.LoadBalancingScheme, actual.LoadBalancingScheme, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("LoadBalancingScheme")); len(ds) != 0 || err != nil {
@@ -2876,12 +2765,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ConnectionDraining, actual.ConnectionDraining, dcl.Info{ObjectFunction: compareBackendServiceConnectionDrainingNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("ConnectionDraining")); len(ds) != 0 || err != nil {
@@ -2889,12 +2772,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Iap, actual.Iap, dcl.Info{ObjectFunction: compareBackendServiceIapNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("Iap")); len(ds) != 0 || err != nil {
@@ -2902,12 +2779,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.CdnPolicy, actual.CdnPolicy, dcl.Info{ObjectFunction: compareBackendServiceCdnPolicyNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("CdnPolicy")); len(ds) != 0 || err != nil {
@@ -2915,12 +2786,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.CustomRequestHeaders, actual.CustomRequestHeaders, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("CustomRequestHeaders")); len(ds) != 0 || err != nil {
@@ -2928,12 +2793,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.CustomResponseHeaders, actual.CustomResponseHeaders, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("CustomResponseHeaders")); len(ds) != 0 || err != nil {
@@ -2941,12 +2800,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SecurityPolicy, actual.SecurityPolicy, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecurityPolicy")); len(ds) != 0 || err != nil {
@@ -2954,12 +2807,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.LogConfig, actual.LogConfig, dcl.Info{ObjectFunction: compareBackendServiceLogConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("LogConfig")); len(ds) != 0 || err != nil {
@@ -2967,12 +2814,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SecuritySettings, actual.SecuritySettings, dcl.Info{ObjectFunction: compareBackendServiceSecuritySettingsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecuritySettings")); len(ds) != 0 || err != nil {
@@ -2980,12 +2821,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.LocalityLbPolicy, actual.LocalityLbPolicy, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("LocalityLbPolicy")); len(ds) != 0 || err != nil {
@@ -2993,12 +2828,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ConsistentHash, actual.ConsistentHash, dcl.Info{ObjectFunction: compareBackendServiceConsistentHashNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("ConsistentHash")); len(ds) != 0 || err != nil {
@@ -3006,12 +2835,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.CircuitBreakers, actual.CircuitBreakers, dcl.Info{ObjectFunction: compareBackendServiceCircuitBreakersNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("CircuitBreakers")); len(ds) != 0 || err != nil {
@@ -3019,12 +2842,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.OutlierDetection, actual.OutlierDetection, dcl.Info{ObjectFunction: compareBackendServiceOutlierDetectionNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("OutlierDetection")); len(ds) != 0 || err != nil {
@@ -3032,12 +2849,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
@@ -3045,12 +2856,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.MaxStreamDuration, actual.MaxStreamDuration, dcl.Info{ObjectFunction: compareBackendServiceMaxStreamDurationNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("MaxStreamDuration")); len(ds) != 0 || err != nil {
@@ -3058,12 +2863,6 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
@@ -3071,37 +2870,9 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToBackendServiceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
-	// We need to ensure that this list does not contain identical operations *most of the time*.
-	// There may be some cases where we will need multiple copies of the same operation - for instance,
-	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
-	// such examples and so we deduplicate unconditionally.
-
-	// The best way for us to do this is to iterate through the list
-	// and remove any copies of operations which are identical to a previous operation.
-	// This is O(n^2) in the number of operations, but n will always be very small,
-	// even 10 would be an extremely high number.
-	var opTypes []string
-	var deduped []backendServiceDiff
-	for _, d := range diffs {
-		// Two operations are considered identical if they have the same type.
-		// The type of an operation is derived from the name of the update method.
-		if !dcl.StringSliceContains(fmt.Sprintf("%T", d.UpdateOp), opTypes) {
-			deduped = append(deduped, d)
-			opTypes = append(opTypes, fmt.Sprintf("%T", d.UpdateOp))
-		} else {
-			c.Config.Logger.Infof("Omitting planned operation of type %T since once is already scheduled.", d.UpdateOp)
-		}
-	}
-
-	return deduped, nil
+	return newDiffs, nil
 }
 func compareBackendServiceBackendsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
@@ -6815,31 +6586,35 @@ func (r *BackendService) matcher(c *Client) func([]byte) bool {
 	}
 }
 
-func convertFieldDiffToBackendServiceDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]backendServiceDiff, error) {
+type backendServiceDiff struct {
+	// The diff should include one or the other of RequiresRecreate or UpdateOp.
+	RequiresRecreate bool
+	UpdateOp         backendServiceApiOperation
+}
+
+func convertFieldDiffToBackendServiceOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]backendServiceDiff, error) {
 	var diffs []backendServiceDiff
-	for _, fd := range fds {
-		for _, op := range fd.ResultingOperation {
-			diff := backendServiceDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
-			if op == "Recreate" {
-				diff.RequiresRecreate = true
-			} else {
-				op, err := convertOpNameTobackendServiceApiOperation(op, opts...)
-				if err != nil {
-					return nil, err
-				}
-				diff.UpdateOp = op
+	for _, op := range ops {
+		diff := backendServiceDiff{}
+		if op == "Recreate" {
+			diff.RequiresRecreate = true
+		} else {
+			op, err := convertOpNameTobackendServiceApiOperation(op, fds, opts...)
+			if err != nil {
+				return diffs, err
 			}
-			diffs = append(diffs, diff)
+			diff.UpdateOp = op
 		}
+		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTobackendServiceApiOperation(op string, opts ...dcl.ApplyOption) (backendServiceApiOperation, error) {
+func convertOpNameTobackendServiceApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (backendServiceApiOperation, error) {
 	switch op {
 
 	case "updateBackendServiceUpdateOperation":
-		return &updateBackendServiceUpdateOperation{}, nil
+		return &updateBackendServiceUpdateOperation{Diffs: diffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", op)

@@ -124,6 +124,7 @@ type updateOAuthIdpConfigUpdateConfigOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -337,7 +338,7 @@ func (c *Client) getOAuthIdpConfigRaw(ctx context.Context, r *OAuthIdpConfig) ([
 	return b, nil
 }
 
-func (c *Client) oAuthIdpConfigDiffsForRawDesired(ctx context.Context, rawDesired *OAuthIdpConfig, opts ...dcl.ApplyOption) (initial, desired *OAuthIdpConfig, diffs []oAuthIdpConfigDiff, err error) {
+func (c *Client) oAuthIdpConfigDiffsForRawDesired(ctx context.Context, rawDesired *OAuthIdpConfig, opts ...dcl.ApplyOption) (initial, desired *OAuthIdpConfig, diffs []*dcl.FieldDiff, err error) {
 	c.Config.Logger.Info("Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *OAuthIdpConfig
@@ -581,15 +582,6 @@ func canonicalizeNewOAuthIdpConfigResponseTypeSlice(c *Client, des, nw []OAuthId
 	return items
 }
 
-type oAuthIdpConfigDiff struct {
-	// The diff should include one or the other of RequiresRecreate or UpdateOp.
-	RequiresRecreate bool
-	UpdateOp         oAuthIdpConfigApiOperation
-	Diffs            []*dcl.FieldDiff
-	// This is for reporting only.
-	FieldName string
-}
-
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -597,12 +589,11 @@ type oAuthIdpConfigDiff struct {
 // value. This empty value indicates that the user does not care about the state for
 // the field. Empty fields on the actual object will cause diffs.
 // TODO(magic-modules-eng): for efficiency in some resources, add batching.
-func diffOAuthIdpConfig(c *Client, desired, actual *OAuthIdpConfig, opts ...dcl.ApplyOption) ([]oAuthIdpConfigDiff, error) {
+func diffOAuthIdpConfig(c *Client, desired, actual *OAuthIdpConfig, opts ...dcl.ApplyOption) ([]*dcl.FieldDiff, error) {
 	if desired == nil || actual == nil {
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
-	var diffs []oAuthIdpConfigDiff
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -611,12 +602,6 @@ func diffOAuthIdpConfig(c *Client, desired, actual *OAuthIdpConfig, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOAuthIdpConfigDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ClientId, actual.ClientId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateOAuthIdpConfigUpdateConfigOperation")}, fn.AddNest("ClientId")); len(ds) != 0 || err != nil {
@@ -624,12 +609,6 @@ func diffOAuthIdpConfig(c *Client, desired, actual *OAuthIdpConfig, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOAuthIdpConfigDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Issuer, actual.Issuer, dcl.Info{OperationSelector: dcl.TriggersOperation("updateOAuthIdpConfigUpdateConfigOperation")}, fn.AddNest("Issuer")); len(ds) != 0 || err != nil {
@@ -637,12 +616,6 @@ func diffOAuthIdpConfig(c *Client, desired, actual *OAuthIdpConfig, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOAuthIdpConfigDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateOAuthIdpConfigUpdateConfigOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
@@ -650,12 +623,6 @@ func diffOAuthIdpConfig(c *Client, desired, actual *OAuthIdpConfig, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOAuthIdpConfigDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{OperationSelector: dcl.TriggersOperation("updateOAuthIdpConfigUpdateConfigOperation")}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
@@ -663,12 +630,6 @@ func diffOAuthIdpConfig(c *Client, desired, actual *OAuthIdpConfig, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOAuthIdpConfigDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ClientSecret, actual.ClientSecret, dcl.Info{OperationSelector: dcl.TriggersOperation("updateOAuthIdpConfigUpdateConfigOperation")}, fn.AddNest("ClientSecret")); len(ds) != 0 || err != nil {
@@ -676,12 +637,6 @@ func diffOAuthIdpConfig(c *Client, desired, actual *OAuthIdpConfig, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOAuthIdpConfigDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ResponseType, actual.ResponseType, dcl.Info{ObjectFunction: compareOAuthIdpConfigResponseTypeNewStyle, OperationSelector: dcl.TriggersOperation("updateOAuthIdpConfigUpdateConfigOperation")}, fn.AddNest("ResponseType")); len(ds) != 0 || err != nil {
@@ -689,12 +644,6 @@ func diffOAuthIdpConfig(c *Client, desired, actual *OAuthIdpConfig, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOAuthIdpConfigDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
@@ -702,37 +651,9 @@ func diffOAuthIdpConfig(c *Client, desired, actual *OAuthIdpConfig, opts ...dcl.
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOAuthIdpConfigDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
-	// We need to ensure that this list does not contain identical operations *most of the time*.
-	// There may be some cases where we will need multiple copies of the same operation - for instance,
-	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
-	// such examples and so we deduplicate unconditionally.
-
-	// The best way for us to do this is to iterate through the list
-	// and remove any copies of operations which are identical to a previous operation.
-	// This is O(n^2) in the number of operations, but n will always be very small,
-	// even 10 would be an extremely high number.
-	var opTypes []string
-	var deduped []oAuthIdpConfigDiff
-	for _, d := range diffs {
-		// Two operations are considered identical if they have the same type.
-		// The type of an operation is derived from the name of the update method.
-		if !dcl.StringSliceContains(fmt.Sprintf("%T", d.UpdateOp), opTypes) {
-			deduped = append(deduped, d)
-			opTypes = append(opTypes, fmt.Sprintf("%T", d.UpdateOp))
-		} else {
-			c.Config.Logger.Infof("Omitting planned operation of type %T since once is already scheduled.", d.UpdateOp)
-		}
-	}
-
-	return deduped, nil
+	return newDiffs, nil
 }
 func compareOAuthIdpConfigResponseTypeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
@@ -1065,31 +986,35 @@ func (r *OAuthIdpConfig) matcher(c *Client) func([]byte) bool {
 	}
 }
 
-func convertFieldDiffToOAuthIdpConfigDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]oAuthIdpConfigDiff, error) {
+type oAuthIdpConfigDiff struct {
+	// The diff should include one or the other of RequiresRecreate or UpdateOp.
+	RequiresRecreate bool
+	UpdateOp         oAuthIdpConfigApiOperation
+}
+
+func convertFieldDiffToOAuthIdpConfigOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]oAuthIdpConfigDiff, error) {
 	var diffs []oAuthIdpConfigDiff
-	for _, fd := range fds {
-		for _, op := range fd.ResultingOperation {
-			diff := oAuthIdpConfigDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
-			if op == "Recreate" {
-				diff.RequiresRecreate = true
-			} else {
-				op, err := convertOpNameTooAuthIdpConfigApiOperation(op, opts...)
-				if err != nil {
-					return nil, err
-				}
-				diff.UpdateOp = op
+	for _, op := range ops {
+		diff := oAuthIdpConfigDiff{}
+		if op == "Recreate" {
+			diff.RequiresRecreate = true
+		} else {
+			op, err := convertOpNameTooAuthIdpConfigApiOperation(op, fds, opts...)
+			if err != nil {
+				return diffs, err
 			}
-			diffs = append(diffs, diff)
+			diff.UpdateOp = op
 		}
+		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTooAuthIdpConfigApiOperation(op string, opts ...dcl.ApplyOption) (oAuthIdpConfigApiOperation, error) {
+func convertOpNameTooAuthIdpConfigApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (oAuthIdpConfigApiOperation, error) {
 	switch op {
 
 	case "updateOAuthIdpConfigUpdateConfigOperation":
-		return &updateOAuthIdpConfigUpdateConfigOperation{}, nil
+		return &updateOAuthIdpConfigUpdateConfigOperation{Diffs: diffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", op)

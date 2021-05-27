@@ -25,12 +25,12 @@ import (
 // Server implements the gRPC interface for Trigger.
 type TriggerServer struct{}
 
-// ProtoToTriggerEventFilters converts a TriggerEventFilters resource from its proto representation.
-func ProtoToEventarcTriggerEventFilters(p *eventarcpb.EventarcTriggerEventFilters) *eventarc.TriggerEventFilters {
+// ProtoToTriggerMatchingCriteria converts a TriggerMatchingCriteria resource from its proto representation.
+func ProtoToEventarcTriggerMatchingCriteria(p *eventarcpb.EventarcTriggerMatchingCriteria) *eventarc.TriggerMatchingCriteria {
 	if p == nil {
 		return nil
 	}
-	obj := &eventarc.TriggerEventFilters{
+	obj := &eventarc.TriggerMatchingCriteria{
 		Attribute: dcl.StringOrNil(p.Attribute),
 		Value:     dcl.StringOrNil(p.Value),
 	}
@@ -43,37 +43,21 @@ func ProtoToEventarcTriggerDestination(p *eventarcpb.EventarcTriggerDestination)
 		return nil
 	}
 	obj := &eventarc.TriggerDestination{
-		CloudRun:      ProtoToEventarcTriggerDestinationCloudRun(p.GetCloudRun()),
-		CloudFunction: dcl.StringOrNil(p.CloudFunction),
-		Gke:           ProtoToEventarcTriggerDestinationGke(p.GetGke()),
+		CloudRunService: ProtoToEventarcTriggerDestinationCloudRunService(p.GetCloudRunService()),
+		CloudFunction:   dcl.StringOrNil(p.CloudFunction),
 	}
 	return obj
 }
 
-// ProtoToTriggerDestinationCloudRun converts a TriggerDestinationCloudRun resource from its proto representation.
-func ProtoToEventarcTriggerDestinationCloudRun(p *eventarcpb.EventarcTriggerDestinationCloudRun) *eventarc.TriggerDestinationCloudRun {
+// ProtoToTriggerDestinationCloudRunService converts a TriggerDestinationCloudRunService resource from its proto representation.
+func ProtoToEventarcTriggerDestinationCloudRunService(p *eventarcpb.EventarcTriggerDestinationCloudRunService) *eventarc.TriggerDestinationCloudRunService {
 	if p == nil {
 		return nil
 	}
-	obj := &eventarc.TriggerDestinationCloudRun{
+	obj := &eventarc.TriggerDestinationCloudRunService{
 		Service: dcl.StringOrNil(p.Service),
 		Path:    dcl.StringOrNil(p.Path),
 		Region:  dcl.StringOrNil(p.Region),
-	}
-	return obj
-}
-
-// ProtoToTriggerDestinationGke converts a TriggerDestinationGke resource from its proto representation.
-func ProtoToEventarcTriggerDestinationGke(p *eventarcpb.EventarcTriggerDestinationGke) *eventarc.TriggerDestinationGke {
-	if p == nil {
-		return nil
-	}
-	obj := &eventarc.TriggerDestinationGke{
-		Cluster:   dcl.StringOrNil(p.Cluster),
-		Location:  dcl.StringOrNil(p.Location),
-		Namespace: dcl.StringOrNil(p.Namespace),
-		Service:   dcl.StringOrNil(p.Service),
-		Path:      dcl.StringOrNil(p.Path),
 	}
 	return obj
 }
@@ -115,18 +99,18 @@ func ProtoToTrigger(p *eventarcpb.EventarcTrigger) *eventarc.Trigger {
 		Project:        dcl.StringOrNil(p.Project),
 		Location:       dcl.StringOrNil(p.Location),
 	}
-	for _, r := range p.GetEventFilters() {
-		obj.EventFilters = append(obj.EventFilters, *ProtoToEventarcTriggerEventFilters(r))
+	for _, r := range p.GetMatchingCriteria() {
+		obj.MatchingCriteria = append(obj.MatchingCriteria, *ProtoToEventarcTriggerMatchingCriteria(r))
 	}
 	return obj
 }
 
-// TriggerEventFiltersToProto converts a TriggerEventFilters resource to its proto representation.
-func EventarcTriggerEventFiltersToProto(o *eventarc.TriggerEventFilters) *eventarcpb.EventarcTriggerEventFilters {
+// TriggerMatchingCriteriaToProto converts a TriggerMatchingCriteria resource to its proto representation.
+func EventarcTriggerMatchingCriteriaToProto(o *eventarc.TriggerMatchingCriteria) *eventarcpb.EventarcTriggerMatchingCriteria {
 	if o == nil {
 		return nil
 	}
-	p := &eventarcpb.EventarcTriggerEventFilters{
+	p := &eventarcpb.EventarcTriggerMatchingCriteria{
 		Attribute: dcl.ValueOrEmptyString(o.Attribute),
 		Value:     dcl.ValueOrEmptyString(o.Value),
 	}
@@ -139,37 +123,21 @@ func EventarcTriggerDestinationToProto(o *eventarc.TriggerDestination) *eventarc
 		return nil
 	}
 	p := &eventarcpb.EventarcTriggerDestination{
-		CloudRun:      EventarcTriggerDestinationCloudRunToProto(o.CloudRun),
-		CloudFunction: dcl.ValueOrEmptyString(o.CloudFunction),
-		Gke:           EventarcTriggerDestinationGkeToProto(o.Gke),
+		CloudRunService: EventarcTriggerDestinationCloudRunServiceToProto(o.CloudRunService),
+		CloudFunction:   dcl.ValueOrEmptyString(o.CloudFunction),
 	}
 	return p
 }
 
-// TriggerDestinationCloudRunToProto converts a TriggerDestinationCloudRun resource to its proto representation.
-func EventarcTriggerDestinationCloudRunToProto(o *eventarc.TriggerDestinationCloudRun) *eventarcpb.EventarcTriggerDestinationCloudRun {
+// TriggerDestinationCloudRunServiceToProto converts a TriggerDestinationCloudRunService resource to its proto representation.
+func EventarcTriggerDestinationCloudRunServiceToProto(o *eventarc.TriggerDestinationCloudRunService) *eventarcpb.EventarcTriggerDestinationCloudRunService {
 	if o == nil {
 		return nil
 	}
-	p := &eventarcpb.EventarcTriggerDestinationCloudRun{
+	p := &eventarcpb.EventarcTriggerDestinationCloudRunService{
 		Service: dcl.ValueOrEmptyString(o.Service),
 		Path:    dcl.ValueOrEmptyString(o.Path),
 		Region:  dcl.ValueOrEmptyString(o.Region),
-	}
-	return p
-}
-
-// TriggerDestinationGkeToProto converts a TriggerDestinationGke resource to its proto representation.
-func EventarcTriggerDestinationGkeToProto(o *eventarc.TriggerDestinationGke) *eventarcpb.EventarcTriggerDestinationGke {
-	if o == nil {
-		return nil
-	}
-	p := &eventarcpb.EventarcTriggerDestinationGke{
-		Cluster:   dcl.ValueOrEmptyString(o.Cluster),
-		Location:  dcl.ValueOrEmptyString(o.Location),
-		Namespace: dcl.ValueOrEmptyString(o.Namespace),
-		Service:   dcl.ValueOrEmptyString(o.Service),
-		Path:      dcl.ValueOrEmptyString(o.Path),
 	}
 	return p
 }
@@ -211,8 +179,8 @@ func TriggerToProto(resource *eventarc.Trigger) *eventarcpb.EventarcTrigger {
 		Project:        dcl.ValueOrEmptyString(resource.Project),
 		Location:       dcl.ValueOrEmptyString(resource.Location),
 	}
-	for _, r := range resource.EventFilters {
-		p.EventFilters = append(p.EventFilters, EventarcTriggerEventFiltersToProto(&r))
+	for _, r := range resource.MatchingCriteria {
+		p.MatchingCriteria = append(p.MatchingCriteria, EventarcTriggerMatchingCriteriaToProto(&r))
 	}
 
 	return p

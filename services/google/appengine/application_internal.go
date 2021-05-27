@@ -97,6 +97,7 @@ type updateApplicationUpdateApplicationOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -209,7 +210,7 @@ func (c *Client) getApplicationRaw(ctx context.Context, r *Application) ([]byte,
 	return b, nil
 }
 
-func (c *Client) applicationDiffsForRawDesired(ctx context.Context, rawDesired *Application, opts ...dcl.ApplyOption) (initial, desired *Application, diffs []applicationDiff, err error) {
+func (c *Client) applicationDiffsForRawDesired(ctx context.Context, rawDesired *Application, opts ...dcl.ApplyOption) (initial, desired *Application, diffs []*dcl.FieldDiff, err error) {
 	c.Config.Logger.Info("Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *Application
@@ -650,15 +651,6 @@ func canonicalizeNewApplicationIapSlice(c *Client, des, nw []ApplicationIap) []A
 	return items
 }
 
-type applicationDiff struct {
-	// The diff should include one or the other of RequiresRecreate or UpdateOp.
-	RequiresRecreate bool
-	UpdateOp         applicationApiOperation
-	Diffs            []*dcl.FieldDiff
-	// This is for reporting only.
-	FieldName string
-}
-
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -666,12 +658,11 @@ type applicationDiff struct {
 // value. This empty value indicates that the user does not care about the state for
 // the field. Empty fields on the actual object will cause diffs.
 // TODO(magic-modules-eng): for efficiency in some resources, add batching.
-func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyOption) ([]applicationDiff, error) {
+func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyOption) ([]*dcl.FieldDiff, error) {
 	if desired == nil || actual == nil {
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
-	var diffs []applicationDiff
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -680,12 +671,6 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToApplicationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.CodeBucket, actual.CodeBucket, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CodeBucket")); len(ds) != 0 || err != nil {
@@ -693,12 +678,6 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToApplicationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.DatabaseType, actual.DatabaseType, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DatabaseType")); len(ds) != 0 || err != nil {
@@ -706,12 +685,6 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToApplicationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.DefaultBucket, actual.DefaultBucket, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultBucket")); len(ds) != 0 || err != nil {
@@ -719,12 +692,6 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToApplicationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.DefaultHostname, actual.DefaultHostname, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultHostname")); len(ds) != 0 || err != nil {
@@ -732,12 +699,6 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToApplicationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.DispatchRules, actual.DispatchRules, dcl.Info{ObjectFunction: compareApplicationDispatchRulesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DispatchRules")); len(ds) != 0 || err != nil {
@@ -745,12 +706,6 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToApplicationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.FeatureSettings, actual.FeatureSettings, dcl.Info{ObjectFunction: compareApplicationFeatureSettingsNewStyle, OperationSelector: dcl.TriggersOperation("updateApplicationUpdateApplicationOperation")}, fn.AddNest("FeatureSettings")); len(ds) != 0 || err != nil {
@@ -758,12 +713,6 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToApplicationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.GcrDomain, actual.GcrDomain, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GcrDomain")); len(ds) != 0 || err != nil {
@@ -771,12 +720,6 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToApplicationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Iap, actual.Iap, dcl.Info{ObjectFunction: compareApplicationIapNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Iap")); len(ds) != 0 || err != nil {
@@ -784,12 +727,6 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToApplicationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
@@ -797,12 +734,6 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToApplicationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
@@ -810,12 +741,6 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToApplicationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ServingStatus, actual.ServingStatus, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateApplicationUpdateApplicationOperation")}, fn.AddNest("ServingStatus")); len(ds) != 0 || err != nil {
@@ -823,37 +748,9 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToApplicationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
-	// We need to ensure that this list does not contain identical operations *most of the time*.
-	// There may be some cases where we will need multiple copies of the same operation - for instance,
-	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
-	// such examples and so we deduplicate unconditionally.
-
-	// The best way for us to do this is to iterate through the list
-	// and remove any copies of operations which are identical to a previous operation.
-	// This is O(n^2) in the number of operations, but n will always be very small,
-	// even 10 would be an extremely high number.
-	var opTypes []string
-	var deduped []applicationDiff
-	for _, d := range diffs {
-		// Two operations are considered identical if they have the same type.
-		// The type of an operation is derived from the name of the update method.
-		if !dcl.StringSliceContains(fmt.Sprintf("%T", d.UpdateOp), opTypes) {
-			deduped = append(deduped, d)
-			opTypes = append(opTypes, fmt.Sprintf("%T", d.UpdateOp))
-		} else {
-			c.Config.Logger.Infof("Omitting planned operation of type %T since once is already scheduled.", d.UpdateOp)
-		}
-	}
-
-	return deduped, nil
+	return newDiffs, nil
 }
 func compareApplicationDispatchRulesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
@@ -1577,31 +1474,35 @@ func (r *Application) matcher(c *Client) func([]byte) bool {
 	}
 }
 
-func convertFieldDiffToApplicationDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]applicationDiff, error) {
+type applicationDiff struct {
+	// The diff should include one or the other of RequiresRecreate or UpdateOp.
+	RequiresRecreate bool
+	UpdateOp         applicationApiOperation
+}
+
+func convertFieldDiffToApplicationOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]applicationDiff, error) {
 	var diffs []applicationDiff
-	for _, fd := range fds {
-		for _, op := range fd.ResultingOperation {
-			diff := applicationDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
-			if op == "Recreate" {
-				diff.RequiresRecreate = true
-			} else {
-				op, err := convertOpNameToapplicationApiOperation(op, opts...)
-				if err != nil {
-					return nil, err
-				}
-				diff.UpdateOp = op
+	for _, op := range ops {
+		diff := applicationDiff{}
+		if op == "Recreate" {
+			diff.RequiresRecreate = true
+		} else {
+			op, err := convertOpNameToapplicationApiOperation(op, fds, opts...)
+			if err != nil {
+				return diffs, err
 			}
-			diffs = append(diffs, diff)
+			diff.UpdateOp = op
 		}
+		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToapplicationApiOperation(op string, opts ...dcl.ApplyOption) (applicationApiOperation, error) {
+func convertOpNameToapplicationApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (applicationApiOperation, error) {
 	switch op {
 
 	case "updateApplicationUpdateApplicationOperation":
-		return &updateApplicationUpdateApplicationOperation{}, nil
+		return &updateApplicationUpdateApplicationOperation{Diffs: diffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", op)

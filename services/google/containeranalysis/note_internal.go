@@ -335,6 +335,7 @@ type updateNoteUpdateNoteOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -548,7 +549,7 @@ func (c *Client) getNoteRaw(ctx context.Context, r *Note) ([]byte, error) {
 	return b, nil
 }
 
-func (c *Client) noteDiffsForRawDesired(ctx context.Context, rawDesired *Note, opts ...dcl.ApplyOption) (initial, desired *Note, diffs []noteDiff, err error) {
+func (c *Client) noteDiffsForRawDesired(ctx context.Context, rawDesired *Note, opts ...dcl.ApplyOption) (initial, desired *Note, diffs []*dcl.FieldDiff, err error) {
 	c.Config.Logger.Info("Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *Note
@@ -2558,15 +2559,6 @@ func canonicalizeNewNoteAttestationHintSlice(c *Client, des, nw []NoteAttestatio
 	return items
 }
 
-type noteDiff struct {
-	// The diff should include one or the other of RequiresRecreate or UpdateOp.
-	RequiresRecreate bool
-	UpdateOp         noteApiOperation
-	Diffs            []*dcl.FieldDiff
-	// This is for reporting only.
-	FieldName string
-}
-
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -2574,12 +2566,11 @@ type noteDiff struct {
 // value. This empty value indicates that the user does not care about the state for
 // the field. Empty fields on the actual object will cause diffs.
 // TODO(magic-modules-eng): for efficiency in some resources, add batching.
-func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]noteDiff, error) {
+func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]*dcl.FieldDiff, error) {
 	if desired == nil || actual == nil {
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
-	var diffs []noteDiff
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -2588,12 +2579,6 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToNoteDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ShortDescription, actual.ShortDescription, dcl.Info{OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("ShortDescription")); len(ds) != 0 || err != nil {
@@ -2601,12 +2586,6 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToNoteDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.LongDescription, actual.LongDescription, dcl.Info{OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("LongDescription")); len(ds) != 0 || err != nil {
@@ -2614,12 +2593,6 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToNoteDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.RelatedUrl, actual.RelatedUrl, dcl.Info{ObjectFunction: compareNoteRelatedUrlNewStyle, OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("RelatedUrl")); len(ds) != 0 || err != nil {
@@ -2627,12 +2600,6 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToNoteDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ExpirationTime, actual.ExpirationTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("ExpirationTime")); len(ds) != 0 || err != nil {
@@ -2640,12 +2607,6 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToNoteDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
@@ -2653,12 +2614,6 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToNoteDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
@@ -2666,12 +2621,6 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToNoteDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.RelatedNoteNames, actual.RelatedNoteNames, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("RelatedNoteNames")); len(ds) != 0 || err != nil {
@@ -2679,12 +2628,6 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToNoteDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Vulnerability, actual.Vulnerability, dcl.Info{ObjectFunction: compareNoteVulnerabilityNewStyle, OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("Vulnerability")); len(ds) != 0 || err != nil {
@@ -2692,12 +2635,6 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToNoteDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Build, actual.Build, dcl.Info{ObjectFunction: compareNoteBuildNewStyle, OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("Build")); len(ds) != 0 || err != nil {
@@ -2705,12 +2642,6 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToNoteDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Image, actual.Image, dcl.Info{ObjectFunction: compareNoteImageNewStyle, OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("Image")); len(ds) != 0 || err != nil {
@@ -2718,12 +2649,6 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToNoteDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Package, actual.Package, dcl.Info{ObjectFunction: compareNotePackageNewStyle, OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("Package")); len(ds) != 0 || err != nil {
@@ -2731,12 +2656,6 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToNoteDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Discovery, actual.Discovery, dcl.Info{ObjectFunction: compareNoteDiscoveryNewStyle, OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("Discovery")); len(ds) != 0 || err != nil {
@@ -2744,12 +2663,6 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToNoteDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Deployment, actual.Deployment, dcl.Info{ObjectFunction: compareNoteDeploymentNewStyle, OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("Deployment")); len(ds) != 0 || err != nil {
@@ -2757,12 +2670,6 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToNoteDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Attestation, actual.Attestation, dcl.Info{ObjectFunction: compareNoteAttestationNewStyle, OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("Attestation")); len(ds) != 0 || err != nil {
@@ -2770,12 +2677,6 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToNoteDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
@@ -2783,38 +2684,10 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]note
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToNoteDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
-	diffs = analyzeNoteDiff(desired, actual, diffs)
-	// We need to ensure that this list does not contain identical operations *most of the time*.
-	// There may be some cases where we will need multiple copies of the same operation - for instance,
-	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
-	// such examples and so we deduplicate unconditionally.
-
-	// The best way for us to do this is to iterate through the list
-	// and remove any copies of operations which are identical to a previous operation.
-	// This is O(n^2) in the number of operations, but n will always be very small,
-	// even 10 would be an extremely high number.
-	var opTypes []string
-	var deduped []noteDiff
-	for _, d := range diffs {
-		// Two operations are considered identical if they have the same type.
-		// The type of an operation is derived from the name of the update method.
-		if !dcl.StringSliceContains(fmt.Sprintf("%T", d.UpdateOp), opTypes) {
-			deduped = append(deduped, d)
-			opTypes = append(opTypes, fmt.Sprintf("%T", d.UpdateOp))
-		} else {
-			c.Config.Logger.Infof("Omitting planned operation of type %T since once is already scheduled.", d.UpdateOp)
-		}
-	}
-
-	return deduped, nil
+	newDiffs = analyzeNoteDiff(desired, actual, newDiffs)
+	return newDiffs, nil
 }
 func compareNoteRelatedUrlNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
@@ -6843,31 +6716,35 @@ func (r *Note) matcher(c *Client) func([]byte) bool {
 	}
 }
 
-func convertFieldDiffToNoteDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]noteDiff, error) {
+type noteDiff struct {
+	// The diff should include one or the other of RequiresRecreate or UpdateOp.
+	RequiresRecreate bool
+	UpdateOp         noteApiOperation
+}
+
+func convertFieldDiffToNoteOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]noteDiff, error) {
 	var diffs []noteDiff
-	for _, fd := range fds {
-		for _, op := range fd.ResultingOperation {
-			diff := noteDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
-			if op == "Recreate" {
-				diff.RequiresRecreate = true
-			} else {
-				op, err := convertOpNameTonoteApiOperation(op, opts...)
-				if err != nil {
-					return nil, err
-				}
-				diff.UpdateOp = op
+	for _, op := range ops {
+		diff := noteDiff{}
+		if op == "Recreate" {
+			diff.RequiresRecreate = true
+		} else {
+			op, err := convertOpNameTonoteApiOperation(op, fds, opts...)
+			if err != nil {
+				return diffs, err
 			}
-			diffs = append(diffs, diff)
+			diff.UpdateOp = op
 		}
+		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTonoteApiOperation(op string, opts ...dcl.ApplyOption) (noteApiOperation, error) {
+func convertOpNameTonoteApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (noteApiOperation, error) {
 	switch op {
 
 	case "updateNoteUpdateNoteOperation":
-		return &updateNoteUpdateNoteOperation{}, nil
+		return &updateNoteUpdateNoteOperation{Diffs: diffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", op)

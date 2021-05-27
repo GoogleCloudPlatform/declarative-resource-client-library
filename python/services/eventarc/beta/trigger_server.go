@@ -25,6 +25,18 @@ import (
 // Server implements the gRPC interface for Trigger.
 type TriggerServer struct{}
 
+// ProtoToTriggerMatchingCriteria converts a TriggerMatchingCriteria resource from its proto representation.
+func ProtoToEventarcBetaTriggerMatchingCriteria(p *betapb.EventarcBetaTriggerMatchingCriteria) *beta.TriggerMatchingCriteria {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.TriggerMatchingCriteria{
+		Attribute: dcl.StringOrNil(p.Attribute),
+		Value:     dcl.StringOrNil(p.Value),
+	}
+	return obj
+}
+
 // ProtoToTriggerDestination converts a TriggerDestination resource from its proto representation.
 func ProtoToEventarcBetaTriggerDestination(p *betapb.EventarcBetaTriggerDestination) *beta.TriggerDestination {
 	if p == nil {
@@ -72,18 +84,6 @@ func ProtoToEventarcBetaTriggerTransportPubsub(p *betapb.EventarcBetaTriggerTran
 	return obj
 }
 
-// ProtoToTriggerMatchingCriteria converts a TriggerMatchingCriteria resource from its proto representation.
-func ProtoToEventarcBetaTriggerMatchingCriteria(p *betapb.EventarcBetaTriggerMatchingCriteria) *beta.TriggerMatchingCriteria {
-	if p == nil {
-		return nil
-	}
-	obj := &beta.TriggerMatchingCriteria{
-		Attribute: dcl.StringOrNil(p.Attribute),
-		Value:     dcl.StringOrNil(p.Value),
-	}
-	return obj
-}
-
 // ProtoToTrigger converts a Trigger resource from its proto representation.
 func ProtoToTrigger(p *betapb.EventarcBetaTrigger) *beta.Trigger {
 	obj := &beta.Trigger{
@@ -101,6 +101,18 @@ func ProtoToTrigger(p *betapb.EventarcBetaTrigger) *beta.Trigger {
 		obj.MatchingCriteria = append(obj.MatchingCriteria, *ProtoToEventarcBetaTriggerMatchingCriteria(r))
 	}
 	return obj
+}
+
+// TriggerMatchingCriteriaToProto converts a TriggerMatchingCriteria resource to its proto representation.
+func EventarcBetaTriggerMatchingCriteriaToProto(o *beta.TriggerMatchingCriteria) *betapb.EventarcBetaTriggerMatchingCriteria {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.EventarcBetaTriggerMatchingCriteria{
+		Attribute: dcl.ValueOrEmptyString(o.Attribute),
+		Value:     dcl.ValueOrEmptyString(o.Value),
+	}
+	return p
 }
 
 // TriggerDestinationToProto converts a TriggerDestination resource to its proto representation.
@@ -146,18 +158,6 @@ func EventarcBetaTriggerTransportPubsubToProto(o *beta.TriggerTransportPubsub) *
 	p := &betapb.EventarcBetaTriggerTransportPubsub{
 		Topic:        dcl.ValueOrEmptyString(o.Topic),
 		Subscription: dcl.ValueOrEmptyString(o.Subscription),
-	}
-	return p
-}
-
-// TriggerMatchingCriteriaToProto converts a TriggerMatchingCriteria resource to its proto representation.
-func EventarcBetaTriggerMatchingCriteriaToProto(o *beta.TriggerMatchingCriteria) *betapb.EventarcBetaTriggerMatchingCriteria {
-	if o == nil {
-		return nil
-	}
-	p := &betapb.EventarcBetaTriggerMatchingCriteria{
-		Attribute: dcl.ValueOrEmptyString(o.Attribute),
-		Value:     dcl.ValueOrEmptyString(o.Value),
 	}
 	return p
 }

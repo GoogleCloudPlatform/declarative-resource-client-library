@@ -192,9 +192,15 @@ func applyServiceHelper(c *Client, ctx context.Context, rawDesired *Service, opt
 		return nil, err
 	}
 
-	initial, desired, diffs, err := c.serviceDiffsForRawDesired(ctx, rawDesired, opts...)
+	initial, desired, fieldDiffs, err := c.serviceDiffsForRawDesired(ctx, rawDesired, opts...)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
+	}
+
+	opStrings := dcl.DeduplicateOperations(fieldDiffs)
+	diffs, err := convertFieldDiffToServiceOp(opStrings, fieldDiffs, opts)
+	if err != nil {
+		return nil, err
 	}
 
 	// TODO(magic-modules-eng): 2.2 Feasibility check (all updates are feasible so far).

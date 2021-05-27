@@ -257,9 +257,15 @@ func applyOAuthIdpConfigHelper(c *Client, ctx context.Context, rawDesired *OAuth
 		return nil, err
 	}
 
-	initial, desired, diffs, err := c.oAuthIdpConfigDiffsForRawDesired(ctx, rawDesired, opts...)
+	initial, desired, fieldDiffs, err := c.oAuthIdpConfigDiffsForRawDesired(ctx, rawDesired, opts...)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
+	}
+
+	opStrings := dcl.DeduplicateOperations(fieldDiffs)
+	diffs, err := convertFieldDiffToOAuthIdpConfigOp(opStrings, fieldDiffs, opts)
+	if err != nil {
+		return nil, err
 	}
 
 	// TODO(magic-modules-eng): 2.2 Feasibility check (all updates are feasible so far).

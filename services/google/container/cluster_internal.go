@@ -647,6 +647,7 @@ type updateClusterSetMaintenancePolicyOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -727,6 +728,7 @@ type updateClusterUpdateAddonsConfigOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -802,6 +804,7 @@ type updateClusterUpdateAutoscalingOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -882,6 +885,7 @@ type updateClusterUpdateBinaryAuthorizationOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -962,6 +966,7 @@ type updateClusterUpdateDatabaseEncryptionOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -1042,6 +1047,7 @@ type updateClusterUpdateLegacyAbacOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -1120,6 +1126,7 @@ type updateClusterUpdateLocationsOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -1200,6 +1207,7 @@ type updateClusterUpdateMasterAuthorizedNetworksConfigOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -1278,6 +1286,7 @@ type updateClusterUpdateMasterVersionOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -1359,6 +1368,7 @@ type updateClusterUpdateMonitoringAndLoggingServiceOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -1439,6 +1449,7 @@ type updateClusterUpdateShieldedNodesOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -1519,6 +1530,7 @@ type updateClusterUpdateVerticalPodAutoscalingOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -1599,6 +1611,7 @@ type updateClusterUpdateWorkloadIdentityConfigOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -1850,7 +1863,7 @@ func (c *Client) getClusterRaw(ctx context.Context, r *Cluster) ([]byte, error) 
 	return b, nil
 }
 
-func (c *Client) clusterDiffsForRawDesired(ctx context.Context, rawDesired *Cluster, opts ...dcl.ApplyOption) (initial, desired *Cluster, diffs []clusterDiff, err error) {
+func (c *Client) clusterDiffsForRawDesired(ctx context.Context, rawDesired *Cluster, opts ...dcl.ApplyOption) (initial, desired *Cluster, diffs []*dcl.FieldDiff, err error) {
 	c.Config.Logger.Info("Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *Cluster
@@ -8550,15 +8563,6 @@ func canonicalizeNewClusterConfidentialNodesSlice(c *Client, des, nw []ClusterCo
 	return items
 }
 
-type clusterDiff struct {
-	// The diff should include one or the other of RequiresRecreate or UpdateOp.
-	RequiresRecreate bool
-	UpdateOp         clusterApiOperation
-	Diffs            []*dcl.FieldDiff
-	// This is for reporting only.
-	FieldName string
-}
-
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -8566,12 +8570,11 @@ type clusterDiff struct {
 // value. This empty value indicates that the user does not care about the state for
 // the field. Empty fields on the actual object will cause diffs.
 // TODO(magic-modules-eng): for efficiency in some resources, add batching.
-func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) ([]clusterDiff, error) {
+func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) ([]*dcl.FieldDiff, error) {
 	if desired == nil || actual == nil {
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
-	var diffs []clusterDiff
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -8580,12 +8583,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
@@ -8593,12 +8590,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.InitialNodeCount, actual.InitialNodeCount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InitialNodeCount")); len(ds) != 0 || err != nil {
@@ -8606,12 +8597,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.MasterAuth, actual.MasterAuth, dcl.Info{ObjectFunction: compareClusterMasterAuthNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterAuth")); len(ds) != 0 || err != nil {
@@ -8619,12 +8604,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.LoggingService, actual.LoggingService, dcl.Info{OperationSelector: dcl.TriggersOperation("updateClusterUpdateMonitoringAndLoggingServiceOperation")}, fn.AddNest("LoggingService")); len(ds) != 0 || err != nil {
@@ -8632,12 +8611,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.MonitoringService, actual.MonitoringService, dcl.Info{OperationSelector: dcl.TriggersOperation("updateClusterUpdateMonitoringAndLoggingServiceOperation")}, fn.AddNest("MonitoringService")); len(ds) != 0 || err != nil {
@@ -8645,12 +8618,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
@@ -8658,12 +8625,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ClusterIPv4Cidr, actual.ClusterIPv4Cidr, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterIPv4Cidr")); len(ds) != 0 || err != nil {
@@ -8671,12 +8632,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.AddonsConfig, actual.AddonsConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAddonsConfigOperation")}, fn.AddNest("AddonsConfig")); len(ds) != 0 || err != nil {
@@ -8684,12 +8639,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Subnetwork")); len(ds) != 0 || err != nil {
@@ -8697,12 +8646,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.NodePools, actual.NodePools, dcl.Info{ObjectFunction: compareClusterNodePoolsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodePools")); len(ds) != 0 || err != nil {
@@ -8710,12 +8653,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Locations, actual.Locations, dcl.Info{OperationSelector: dcl.TriggersOperation("updateClusterUpdateLocationsOperation")}, fn.AddNest("Locations")); len(ds) != 0 || err != nil {
@@ -8723,12 +8660,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.EnableKubernetesAlpha, actual.EnableKubernetesAlpha, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnableKubernetesAlpha")); len(ds) != 0 || err != nil {
@@ -8736,12 +8667,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ResourceLabels, actual.ResourceLabels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceLabels")); len(ds) != 0 || err != nil {
@@ -8749,12 +8674,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.LabelFingerprint, actual.LabelFingerprint, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LabelFingerprint")); len(ds) != 0 || err != nil {
@@ -8762,12 +8681,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.LegacyAbac, actual.LegacyAbac, dcl.Info{ObjectFunction: compareClusterLegacyAbacNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateLegacyAbacOperation")}, fn.AddNest("LegacyAbac")); len(ds) != 0 || err != nil {
@@ -8775,12 +8688,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.NetworkPolicy, actual.NetworkPolicy, dcl.Info{ObjectFunction: compareClusterNetworkPolicyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkPolicy")); len(ds) != 0 || err != nil {
@@ -8788,12 +8695,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.IPAllocationPolicy, actual.IPAllocationPolicy, dcl.Info{ObjectFunction: compareClusterIPAllocationPolicyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPAllocationPolicy")); len(ds) != 0 || err != nil {
@@ -8801,12 +8702,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.MasterAuthorizedNetworksConfig, actual.MasterAuthorizedNetworksConfig, dcl.Info{ObjectFunction: compareClusterMasterAuthorizedNetworksConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateMasterAuthorizedNetworksConfigOperation")}, fn.AddNest("MasterAuthorizedNetworksConfig")); len(ds) != 0 || err != nil {
@@ -8814,12 +8709,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.BinaryAuthorization, actual.BinaryAuthorization, dcl.Info{ObjectFunction: compareClusterBinaryAuthorizationNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateBinaryAuthorizationOperation")}, fn.AddNest("BinaryAuthorization")); len(ds) != 0 || err != nil {
@@ -8827,12 +8716,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Autoscaling, actual.Autoscaling, dcl.Info{ObjectFunction: compareClusterAutoscalingNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Autoscaling")); len(ds) != 0 || err != nil {
@@ -8840,12 +8723,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.NetworkConfig, actual.NetworkConfig, dcl.Info{ObjectFunction: compareClusterNetworkConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkConfig")); len(ds) != 0 || err != nil {
@@ -8853,12 +8730,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.MaintenancePolicy, actual.MaintenancePolicy, dcl.Info{ObjectFunction: compareClusterMaintenancePolicyNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterSetMaintenancePolicyOperation")}, fn.AddNest("MaintenancePolicy")); len(ds) != 0 || err != nil {
@@ -8866,12 +8737,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.DefaultMaxPodsConstraint, actual.DefaultMaxPodsConstraint, dcl.Info{ObjectFunction: compareClusterDefaultMaxPodsConstraintNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultMaxPodsConstraint")); len(ds) != 0 || err != nil {
@@ -8879,12 +8744,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ResourceUsageExportConfig, actual.ResourceUsageExportConfig, dcl.Info{ObjectFunction: compareClusterResourceUsageExportConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceUsageExportConfig")); len(ds) != 0 || err != nil {
@@ -8892,12 +8751,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.AuthenticatorGroupsConfig, actual.AuthenticatorGroupsConfig, dcl.Info{ObjectFunction: compareClusterAuthenticatorGroupsConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AuthenticatorGroupsConfig")); len(ds) != 0 || err != nil {
@@ -8905,12 +8758,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.PrivateClusterConfig, actual.PrivateClusterConfig, dcl.Info{ObjectFunction: compareClusterPrivateClusterConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrivateClusterConfig")); len(ds) != 0 || err != nil {
@@ -8918,12 +8765,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.DatabaseEncryption, actual.DatabaseEncryption, dcl.Info{ObjectFunction: compareClusterDatabaseEncryptionNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateDatabaseEncryptionOperation")}, fn.AddNest("DatabaseEncryption")); len(ds) != 0 || err != nil {
@@ -8931,12 +8772,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.VerticalPodAutoscaling, actual.VerticalPodAutoscaling, dcl.Info{ObjectFunction: compareClusterVerticalPodAutoscalingNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateVerticalPodAutoscalingOperation")}, fn.AddNest("VerticalPodAutoscaling")); len(ds) != 0 || err != nil {
@@ -8944,12 +8779,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ShieldedNodes, actual.ShieldedNodes, dcl.Info{ObjectFunction: compareClusterShieldedNodesNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateShieldedNodesOperation")}, fn.AddNest("ShieldedNodes")); len(ds) != 0 || err != nil {
@@ -8957,12 +8786,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Endpoint, actual.Endpoint, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Endpoint")); len(ds) != 0 || err != nil {
@@ -8970,12 +8793,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.MasterVersion, actual.MasterVersion, dcl.Info{CustomDiff: dcl.MatchingSemverInterface, OperationSelector: dcl.TriggersOperation("updateClusterUpdateMasterVersionOperation")}, fn.AddNest("MasterVersion")); len(ds) != 0 || err != nil {
@@ -8983,12 +8800,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
@@ -8996,12 +8807,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
@@ -9009,12 +8814,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.StatusMessage, actual.StatusMessage, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StatusMessage")); len(ds) != 0 || err != nil {
@@ -9022,12 +8821,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.NodeIPv4CidrSize, actual.NodeIPv4CidrSize, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeIPv4CidrSize")); len(ds) != 0 || err != nil {
@@ -9035,12 +8828,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ServicesIPv4Cidr, actual.ServicesIPv4Cidr, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServicesIPv4Cidr")); len(ds) != 0 || err != nil {
@@ -9048,12 +8835,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ExpireTime, actual.ExpireTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExpireTime")); len(ds) != 0 || err != nil {
@@ -9061,12 +8842,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
@@ -9074,12 +8849,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.EnableTPU, actual.EnableTPU, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnableTPU")); len(ds) != 0 || err != nil {
@@ -9087,12 +8856,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.TPUIPv4CidrBlock, actual.TPUIPv4CidrBlock, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TPUIPv4CidrBlock")); len(ds) != 0 || err != nil {
@@ -9100,12 +8863,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{ObjectFunction: compareClusterConditionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
@@ -9113,12 +8870,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Autopilot, actual.Autopilot, dcl.Info{ObjectFunction: compareClusterAutopilotNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Autopilot")); len(ds) != 0 || err != nil {
@@ -9126,12 +8877,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
@@ -9139,12 +8884,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.NodeConfig, actual.NodeConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeConfig")); len(ds) != 0 || err != nil {
@@ -9152,12 +8891,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ReleaseChannel, actual.ReleaseChannel, dcl.Info{ObjectFunction: compareClusterReleaseChannelNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReleaseChannel")); len(ds) != 0 || err != nil {
@@ -9165,12 +8898,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.WorkloadIdentityConfig, actual.WorkloadIdentityConfig, dcl.Info{ObjectFunction: compareClusterWorkloadIdentityConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateWorkloadIdentityConfigOperation")}, fn.AddNest("WorkloadIdentityConfig")); len(ds) != 0 || err != nil {
@@ -9178,12 +8905,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.NotificationConfig, actual.NotificationConfig, dcl.Info{ObjectFunction: compareClusterNotificationConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NotificationConfig")); len(ds) != 0 || err != nil {
@@ -9191,12 +8912,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ConfidentialNodes, actual.ConfidentialNodes, dcl.Info{ObjectFunction: compareClusterConfidentialNodesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfidentialNodes")); len(ds) != 0 || err != nil {
@@ -9204,12 +8919,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
@@ -9217,12 +8926,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
@@ -9230,12 +8933,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.InitialClusterVersion, actual.InitialClusterVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InitialClusterVersion")); len(ds) != 0 || err != nil {
@@ -9243,12 +8940,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.CurrentMasterVersion, actual.CurrentMasterVersion, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CurrentMasterVersion")); len(ds) != 0 || err != nil {
@@ -9256,12 +8947,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.CurrentNodeVersion, actual.CurrentNodeVersion, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CurrentNodeVersion")); len(ds) != 0 || err != nil {
@@ -9269,12 +8954,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.InstanceGroupUrls, actual.InstanceGroupUrls, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceGroupUrls")); len(ds) != 0 || err != nil {
@@ -9282,12 +8961,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.CurrentNodeCount, actual.CurrentNodeCount, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CurrentNodeCount")); len(ds) != 0 || err != nil {
@@ -9295,12 +8968,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
@@ -9308,37 +8975,9 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToClusterDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
-	// We need to ensure that this list does not contain identical operations *most of the time*.
-	// There may be some cases where we will need multiple copies of the same operation - for instance,
-	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
-	// such examples and so we deduplicate unconditionally.
-
-	// The best way for us to do this is to iterate through the list
-	// and remove any copies of operations which are identical to a previous operation.
-	// This is O(n^2) in the number of operations, but n will always be very small,
-	// even 10 would be an extremely high number.
-	var opTypes []string
-	var deduped []clusterDiff
-	for _, d := range diffs {
-		// Two operations are considered identical if they have the same type.
-		// The type of an operation is derived from the name of the update method.
-		if !dcl.StringSliceContains(fmt.Sprintf("%T", d.UpdateOp), opTypes) {
-			deduped = append(deduped, d)
-			opTypes = append(opTypes, fmt.Sprintf("%T", d.UpdateOp))
-		} else {
-			c.Config.Logger.Infof("Omitting planned operation of type %T since once is already scheduled.", d.UpdateOp)
-		}
-	}
-
-	return deduped, nil
+	return newDiffs, nil
 }
 func compareClusterMasterAuthNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
@@ -22591,67 +22230,71 @@ func (r *Cluster) matcher(c *Client) func([]byte) bool {
 	}
 }
 
-func convertFieldDiffToClusterDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]clusterDiff, error) {
+type clusterDiff struct {
+	// The diff should include one or the other of RequiresRecreate or UpdateOp.
+	RequiresRecreate bool
+	UpdateOp         clusterApiOperation
+}
+
+func convertFieldDiffToClusterOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]clusterDiff, error) {
 	var diffs []clusterDiff
-	for _, fd := range fds {
-		for _, op := range fd.ResultingOperation {
-			diff := clusterDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
-			if op == "Recreate" {
-				diff.RequiresRecreate = true
-			} else {
-				op, err := convertOpNameToclusterApiOperation(op, opts...)
-				if err != nil {
-					return nil, err
-				}
-				diff.UpdateOp = op
+	for _, op := range ops {
+		diff := clusterDiff{}
+		if op == "Recreate" {
+			diff.RequiresRecreate = true
+		} else {
+			op, err := convertOpNameToclusterApiOperation(op, fds, opts...)
+			if err != nil {
+				return diffs, err
 			}
-			diffs = append(diffs, diff)
+			diff.UpdateOp = op
 		}
+		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToclusterApiOperation(op string, opts ...dcl.ApplyOption) (clusterApiOperation, error) {
+func convertOpNameToclusterApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (clusterApiOperation, error) {
 	switch op {
 
 	case "updateClusterSetMaintenancePolicyOperation":
-		return &updateClusterSetMaintenancePolicyOperation{}, nil
+		return &updateClusterSetMaintenancePolicyOperation{Diffs: diffs}, nil
 
 	case "updateClusterUpdateAddonsConfigOperation":
-		return &updateClusterUpdateAddonsConfigOperation{}, nil
+		return &updateClusterUpdateAddonsConfigOperation{Diffs: diffs}, nil
 
 	case "updateClusterUpdateAutoscalingOperation":
-		return &updateClusterUpdateAutoscalingOperation{}, nil
+		return &updateClusterUpdateAutoscalingOperation{Diffs: diffs}, nil
 
 	case "updateClusterUpdateBinaryAuthorizationOperation":
-		return &updateClusterUpdateBinaryAuthorizationOperation{}, nil
+		return &updateClusterUpdateBinaryAuthorizationOperation{Diffs: diffs}, nil
 
 	case "updateClusterUpdateDatabaseEncryptionOperation":
-		return &updateClusterUpdateDatabaseEncryptionOperation{}, nil
+		return &updateClusterUpdateDatabaseEncryptionOperation{Diffs: diffs}, nil
 
 	case "updateClusterUpdateLegacyAbacOperation":
-		return &updateClusterUpdateLegacyAbacOperation{}, nil
+		return &updateClusterUpdateLegacyAbacOperation{Diffs: diffs}, nil
 
 	case "updateClusterUpdateLocationsOperation":
-		return &updateClusterUpdateLocationsOperation{}, nil
+		return &updateClusterUpdateLocationsOperation{Diffs: diffs}, nil
 
 	case "updateClusterUpdateMasterAuthorizedNetworksConfigOperation":
-		return &updateClusterUpdateMasterAuthorizedNetworksConfigOperation{}, nil
+		return &updateClusterUpdateMasterAuthorizedNetworksConfigOperation{Diffs: diffs}, nil
 
 	case "updateClusterUpdateMasterVersionOperation":
-		return &updateClusterUpdateMasterVersionOperation{}, nil
+		return &updateClusterUpdateMasterVersionOperation{Diffs: diffs}, nil
 
 	case "updateClusterUpdateMonitoringAndLoggingServiceOperation":
-		return &updateClusterUpdateMonitoringAndLoggingServiceOperation{}, nil
+		return &updateClusterUpdateMonitoringAndLoggingServiceOperation{Diffs: diffs}, nil
 
 	case "updateClusterUpdateShieldedNodesOperation":
-		return &updateClusterUpdateShieldedNodesOperation{}, nil
+		return &updateClusterUpdateShieldedNodesOperation{Diffs: diffs}, nil
 
 	case "updateClusterUpdateVerticalPodAutoscalingOperation":
-		return &updateClusterUpdateVerticalPodAutoscalingOperation{}, nil
+		return &updateClusterUpdateVerticalPodAutoscalingOperation{Diffs: diffs}, nil
 
 	case "updateClusterUpdateWorkloadIdentityConfigOperation":
-		return &updateClusterUpdateWorkloadIdentityConfigOperation{}, nil
+		return &updateClusterUpdateWorkloadIdentityConfigOperation{Diffs: diffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", op)

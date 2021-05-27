@@ -114,6 +114,7 @@ type updateOrganizationUpdateOrganizationOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -318,7 +319,7 @@ func (c *Client) getOrganizationRaw(ctx context.Context, r *Organization) ([]byt
 	return b, nil
 }
 
-func (c *Client) organizationDiffsForRawDesired(ctx context.Context, rawDesired *Organization, opts ...dcl.ApplyOption) (initial, desired *Organization, diffs []organizationDiff, err error) {
+func (c *Client) organizationDiffsForRawDesired(ctx context.Context, rawDesired *Organization, opts ...dcl.ApplyOption) (initial, desired *Organization, diffs []*dcl.FieldDiff, err error) {
 	c.Config.Logger.Info("Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *Organization
@@ -691,15 +692,6 @@ func canonicalizeNewOrganizationPropertiesPropertySlice(c *Client, des, nw []Org
 	return items
 }
 
-type organizationDiff struct {
-	// The diff should include one or the other of RequiresRecreate or UpdateOp.
-	RequiresRecreate bool
-	UpdateOp         organizationApiOperation
-	Diffs            []*dcl.FieldDiff
-	// This is for reporting only.
-	FieldName string
-}
-
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -707,12 +699,11 @@ type organizationDiff struct {
 // value. This empty value indicates that the user does not care about the state for
 // the field. Empty fields on the actual object will cause diffs.
 // TODO(magic-modules-eng): for efficiency in some resources, add batching.
-func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.ApplyOption) ([]organizationDiff, error) {
+func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.ApplyOption) ([]*dcl.FieldDiff, error) {
 	if desired == nil || actual == nil {
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
-	var diffs []organizationDiff
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -721,12 +712,6 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateOrganizationUpdateOrganizationOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
@@ -734,12 +719,6 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateOrganizationUpdateOrganizationOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
@@ -747,12 +726,6 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.CreatedAt, actual.CreatedAt, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreatedAt")); len(ds) != 0 || err != nil {
@@ -760,12 +733,6 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.LastModifiedAt, actual.LastModifiedAt, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LastModifiedAt")); len(ds) != 0 || err != nil {
@@ -773,12 +740,6 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ExpiresAt, actual.ExpiresAt, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExpiresAt")); len(ds) != 0 || err != nil {
@@ -786,12 +747,6 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Environments, actual.Environments, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Environments")); len(ds) != 0 || err != nil {
@@ -799,12 +754,6 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{ObjectFunction: compareOrganizationPropertiesNewStyle, OperationSelector: dcl.TriggersOperation("updateOrganizationUpdateOrganizationOperation")}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
@@ -812,12 +761,6 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.AnalyticsRegion, actual.AnalyticsRegion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AnalyticsRegion")); len(ds) != 0 || err != nil {
@@ -825,12 +768,6 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.AuthorizedNetwork, actual.AuthorizedNetwork, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AuthorizedNetwork")); len(ds) != 0 || err != nil {
@@ -838,12 +775,6 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.RuntimeType, actual.RuntimeType, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RuntimeType")); len(ds) != 0 || err != nil {
@@ -851,12 +782,6 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SubscriptionType, actual.SubscriptionType, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SubscriptionType")); len(ds) != 0 || err != nil {
@@ -864,12 +789,6 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.BillingType, actual.BillingType, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BillingType")); len(ds) != 0 || err != nil {
@@ -877,12 +796,6 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.CaCertificate, actual.CaCertificate, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CaCertificate")); len(ds) != 0 || err != nil {
@@ -890,12 +803,6 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.RuntimeDatabaseEncryptionKeyName, actual.RuntimeDatabaseEncryptionKeyName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RuntimeDatabaseEncryptionKeyName")); len(ds) != 0 || err != nil {
@@ -903,12 +810,6 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
@@ -916,12 +817,6 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
@@ -929,12 +824,6 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Parent")); len(ds) != 0 || err != nil {
@@ -942,37 +831,9 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToOrganizationDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
-	// We need to ensure that this list does not contain identical operations *most of the time*.
-	// There may be some cases where we will need multiple copies of the same operation - for instance,
-	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
-	// such examples and so we deduplicate unconditionally.
-
-	// The best way for us to do this is to iterate through the list
-	// and remove any copies of operations which are identical to a previous operation.
-	// This is O(n^2) in the number of operations, but n will always be very small,
-	// even 10 would be an extremely high number.
-	var opTypes []string
-	var deduped []organizationDiff
-	for _, d := range diffs {
-		// Two operations are considered identical if they have the same type.
-		// The type of an operation is derived from the name of the update method.
-		if !dcl.StringSliceContains(fmt.Sprintf("%T", d.UpdateOp), opTypes) {
-			deduped = append(deduped, d)
-			opTypes = append(opTypes, fmt.Sprintf("%T", d.UpdateOp))
-		} else {
-			c.Config.Logger.Infof("Omitting planned operation of type %T since once is already scheduled.", d.UpdateOp)
-		}
-	}
-
-	return deduped, nil
+	return newDiffs, nil
 }
 func compareOrganizationPropertiesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
@@ -1594,31 +1455,35 @@ func (r *Organization) matcher(c *Client) func([]byte) bool {
 	}
 }
 
-func convertFieldDiffToOrganizationDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]organizationDiff, error) {
+type organizationDiff struct {
+	// The diff should include one or the other of RequiresRecreate or UpdateOp.
+	RequiresRecreate bool
+	UpdateOp         organizationApiOperation
+}
+
+func convertFieldDiffToOrganizationOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]organizationDiff, error) {
 	var diffs []organizationDiff
-	for _, fd := range fds {
-		for _, op := range fd.ResultingOperation {
-			diff := organizationDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
-			if op == "Recreate" {
-				diff.RequiresRecreate = true
-			} else {
-				op, err := convertOpNameToorganizationApiOperation(op, opts...)
-				if err != nil {
-					return nil, err
-				}
-				diff.UpdateOp = op
+	for _, op := range ops {
+		diff := organizationDiff{}
+		if op == "Recreate" {
+			diff.RequiresRecreate = true
+		} else {
+			op, err := convertOpNameToorganizationApiOperation(op, fds, opts...)
+			if err != nil {
+				return diffs, err
 			}
-			diffs = append(diffs, diff)
+			diff.UpdateOp = op
 		}
+		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToorganizationApiOperation(op string, opts ...dcl.ApplyOption) (organizationApiOperation, error) {
+func convertOpNameToorganizationApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (organizationApiOperation, error) {
 	switch op {
 
 	case "updateOrganizationUpdateOrganizationOperation":
-		return &updateOrganizationUpdateOrganizationOperation{}, nil
+		return &updateOrganizationUpdateOrganizationOperation{Diffs: diffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", op)

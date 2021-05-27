@@ -56,6 +56,8 @@ components:
       x-dcl-parent-container: project
       type: object
       required:
+      - name
+      - displayName
       - project
       properties:
         columnLayout:
@@ -105,6 +107,8 @@ components:
                           x-dcl-go-name: Scorecard
                           x-dcl-go-type: DashboardWidgetScorecard
                           description: A scorecard summarizing time series data.
+                          required:
+                          - timeSeriesQuery
                           properties:
                             gaugeView:
                               type: object
@@ -127,433 +131,14 @@ components:
                                   description: The upper bound for this gauge chart.
                                     The value of the chart should always be less than
                                     or equal to this.
-                            metricDrilldown:
-                              type: object
-                              x-dcl-go-name: MetricDrilldown
-                              x-dcl-go-type: DashboardWidgetScorecardMetricDrilldown
-                              description: The widget-level metric drilldowns define
-                                the scope of the widget and are applied in addition
-                                to the dashboard's drilldown specification.
-                              properties:
-                                metricGroupByDrilldown:
-                                  type: object
-                                  x-dcl-go-name: MetricGroupByDrilldown
-                                  x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown
-                                  description: Modify the display of metric signals
-                                    by applying a grouping and aggregation layer.
-                                  properties:
-                                    metadataSystemLabels:
-                                      type: array
-                                      x-dcl-go-name: MetadataSystemLabels
-                                      description: Metadata system labels by which
-                                        to group the output time series.
-                                      x-dcl-list-type: list
-                                      items:
-                                        type: string
-                                        x-dcl-go-type: string
-                                    metadataUserLabels:
-                                      type: array
-                                      x-dcl-go-name: MetadataUserLabels
-                                      description: Metadata user labels by which to
-                                        group the output time series.
-                                      x-dcl-list-type: list
-                                      items:
-                                        type: string
-                                        x-dcl-go-type: string
-                                    metricLabels:
-                                      type: array
-                                      x-dcl-go-name: MetricLabels
-                                      description: Metric labels by which to group
-                                        the output time series.
-                                      x-dcl-list-type: list
-                                      items:
-                                        type: string
-                                        x-dcl-go-type: string
-                                    reducer:
-                                      type: string
-                                      x-dcl-go-name: Reducer
-                                      x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownReducerEnum
-                                      description: 'How to aggregate the time series
-                                        data while grouping. Possible values: REDUCE_NONE,
-                                        REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX, REDUCE_SUM,
-                                        REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE,
-                                        REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE,
-                                        REDUCE_PERCENTILE_99, REDUCE_PERCENTILE_95,
-                                        REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05,
-                                        REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION'
-                                      enum:
-                                      - REDUCE_NONE
-                                      - REDUCE_MEAN
-                                      - REDUCE_MIN
-                                      - REDUCE_MAX
-                                      - REDUCE_SUM
-                                      - REDUCE_STDDEV
-                                      - REDUCE_COUNT
-                                      - REDUCE_COUNT_TRUE
-                                      - REDUCE_COUNT_FALSE
-                                      - REDUCE_FRACTION_TRUE
-                                      - REDUCE_PERCENTILE_99
-                                      - REDUCE_PERCENTILE_95
-                                      - REDUCE_PERCENTILE_50
-                                      - REDUCE_PERCENTILE_05
-                                      - REDUCE_FRACTION_LESS_THAN
-                                      - REDUCE_MAKE_DISTRIBUTION
-                                    resourceLabels:
-                                      type: array
-                                      x-dcl-go-name: ResourceLabels
-                                      description: Resource labels by which to group
-                                        the output time series.
-                                      x-dcl-list-type: list
-                                      items:
-                                        type: string
-                                        x-dcl-go-type: string
-                                metricLabelDrilldowns:
-                                  type: array
-                                  x-dcl-go-name: MetricLabelDrilldowns
-                                  description: Each `MetricLabelDrilldown` limits
-                                    the metrics that will be retrieved, based on the
-                                    metric label.  Each `MetricLabelDrilldown` should
-                                    refer to a different label; if multiple drilldowns
-                                    refer to the same label, only one will be used
-                                    and the choice is non-deterministic.
-                                  x-dcl-list-type: list
-                                  items:
-                                    type: object
-                                    x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns
-                                    properties:
-                                      label:
-                                        type: string
-                                        x-dcl-go-name: Label
-                                        description: The label for which the drilldown
-                                          defines a restriction.
-                                      logicalOperator:
-                                        type: string
-                                        x-dcl-go-name: LogicalOperator
-                                        x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsLogicalOperatorEnum
-                                        description: 'The operator that defines how
-                                          value restrictions on the label are joined.
-                                          Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
-                                          AND, OR'
-                                        enum:
-                                        - LOGICAL_OPERATOR_UNSPECIFIED
-                                        - AND
-                                        - OR
-                                      valueRestrictions:
-                                        type: array
-                                        x-dcl-go-name: ValueRestrictions
-                                        description: The values and rules to match
-                                          against a metric label.
-                                        x-dcl-list-type: list
-                                        items:
-                                          type: object
-                                          x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions
-                                          properties:
-                                            comparator:
-                                              type: string
-                                              x-dcl-go-name: Comparator
-                                              x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum
-                                              description: 'The operator that determines
-                                                how the matching values are evaluated.
-                                                Possible values: COMPARATOR_UNSPECIFIED,
-                                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
-                                              enum:
-                                              - COMPARATOR_UNSPECIFIED
-                                              - EQUALS
-                                              - NOT_EQUALS
-                                              - CONTAINS
-                                              - NOT_CONTAINS
-                                            targetValue:
-                                              type: string
-                                              x-dcl-go-name: TargetValue
-                                              description: The value against which
-                                                to match.
-                                metricTypeDrilldown:
-                                  type: object
-                                  x-dcl-go-name: MetricTypeDrilldown
-                                  x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown
-                                  description: Limit the metrics signals retrieved
-                                    based on the metric type.
-                                  properties:
-                                    targetValue:
-                                      type: string
-                                      x-dcl-go-name: TargetValue
-                                      description: The value against which to match.
-                                        Only strict-equals is supported.
-                            sourceDrilldown:
-                              type: object
-                              x-dcl-go-name: SourceDrilldown
-                              x-dcl-go-type: DashboardWidgetScorecardSourceDrilldown
-                              description: The widget-level source drilldowns define
-                                the scope of the widget and are applied in addition
-                                to the dashboard's drilldown specification.
-                              properties:
-                                groupNameDrilldown:
-                                  type: object
-                                  x-dcl-go-name: GroupNameDrilldown
-                                  x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown
-                                  description: Limit the resources from which signals
-                                    are retrieved based on their inclusion in some
-                                    set of Groups.
-                                  properties:
-                                    targetValues:
-                                      type: array
-                                      x-dcl-go-name: TargetValues
-                                      description: The names of groups in which a
-                                        `MonitoredResource` can be contained. Only
-                                        strict-equals is supported.
-                                      x-dcl-list-type: list
-                                      items:
-                                        type: string
-                                        x-dcl-go-type: string
-                                metadataSystemLabelDrilldowns:
-                                  type: array
-                                  x-dcl-go-name: MetadataSystemLabelDrilldowns
-                                  description: Each limits the resources from which
-                                    signals are retrieved based on a metadata system
-                                    label.  Each `MetadataSystemLabelDrilldown` should
-                                    refer to a different label; if multiple drilldowns
-                                    refer to the same label, only one will be used
-                                    and the choice is non-deterministic.
-                                  x-dcl-list-type: list
-                                  items:
-                                    type: object
-                                    x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
-                                    properties:
-                                      label:
-                                        type: string
-                                        x-dcl-go-name: Label
-                                        description: The system metadata label that
-                                          the drilldown will be restricted to.
-                                      logicalOperator:
-                                        type: string
-                                        x-dcl-go-name: LogicalOperator
-                                        x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsLogicalOperatorEnum
-                                        description: 'The logical operator that defines
-                                          how all the value restrictions on the label
-                                          are joined. Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
-                                          AND, OR'
-                                        enum:
-                                        - LOGICAL_OPERATOR_UNSPECIFIED
-                                        - AND
-                                        - OR
-                                      valueRestrictions:
-                                        type: array
-                                        x-dcl-go-name: ValueRestrictions
-                                        description: The values and rules to match
-                                          against a `MonitoredResourceMetadata` object's
-                                          system label.
-                                        x-dcl-list-type: list
-                                        items:
-                                          type: object
-                                          x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions
-                                          properties:
-                                            comparator:
-                                              type: string
-                                              x-dcl-go-name: Comparator
-                                              x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum
-                                              description: 'The operator that determines
-                                                how the matching values are evaluated.
-                                                Possible values: COMPARATOR_UNSPECIFIED,
-                                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
-                                              enum:
-                                              - COMPARATOR_UNSPECIFIED
-                                              - EQUALS
-                                              - NOT_EQUALS
-                                              - CONTAINS
-                                              - NOT_CONTAINS
-                                            targetValue:
-                                              type: string
-                                              x-dcl-go-name: TargetValue
-                                              description: The value against which
-                                                to match.
-                                metadataUserLabelDrilldowns:
-                                  type: array
-                                  x-dcl-go-name: MetadataUserLabelDrilldowns
-                                  description: Each limits the resources from which
-                                    signals are retrieved based on a metadata user
-                                    label.  Each `MetadataUserLabelDrilldown` should
-                                    refer to a different label; if multiple drilldowns
-                                    refer to the same label, only one will be used
-                                    and the choice is non-deterministic.
-                                  x-dcl-list-type: list
-                                  items:
-                                    type: object
-                                    x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns
-                                    properties:
-                                      label:
-                                        type: string
-                                        x-dcl-go-name: Label
-                                        description: The user metadata label that
-                                          the drilldown will be restricted to.
-                                      logicalOperator:
-                                        type: string
-                                        x-dcl-go-name: LogicalOperator
-                                        x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsLogicalOperatorEnum
-                                        description: 'The operator that defines how
-                                          value restrictions on the label are joined.
-                                          Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
-                                          AND, OR'
-                                        enum:
-                                        - LOGICAL_OPERATOR_UNSPECIFIED
-                                        - AND
-                                        - OR
-                                      valueRestrictions:
-                                        type: array
-                                        x-dcl-go-name: ValueRestrictions
-                                        description: The values and rules to match
-                                          against a `MonitoredResourceMetadata object's
-                                          user label.
-                                        x-dcl-list-type: list
-                                        items:
-                                          type: object
-                                          x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions
-                                          properties:
-                                            comparator:
-                                              type: string
-                                              x-dcl-go-name: Comparator
-                                              x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum
-                                              description: 'The operator that determines
-                                                how the matching values are evaluated.
-                                                Possible values: COMPARATOR_UNSPECIFIED,
-                                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
-                                              enum:
-                                              - COMPARATOR_UNSPECIFIED
-                                              - EQUALS
-                                              - NOT_EQUALS
-                                              - CONTAINS
-                                              - NOT_CONTAINS
-                                            targetValue:
-                                              type: string
-                                              x-dcl-go-name: TargetValue
-                                              description: The value against which
-                                                to match.
-                                resourceLabelDrilldowns:
-                                  type: array
-                                  x-dcl-go-name: ResourceLabelDrilldowns
-                                  description: Each limits the resources from which
-                                    signals are retrieved based on a resource label.  Each
-                                    `ResourceLabelDrilldown` should refer to a different
-                                    label; if multiple drilldowns refer to the same
-                                    label, only one will be used and the choice is
-                                    non-deterministic.
-                                  x-dcl-list-type: list
-                                  items:
-                                    type: object
-                                    x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns
-                                    properties:
-                                      label:
-                                        type: string
-                                        x-dcl-go-name: Label
-                                        description: The resource label that the drilldown
-                                          will be restricted to. TODO(dbatelu) - Clarify
-                                          what happens if there is no such resource
-                                          label.
-                                      logicalOperator:
-                                        type: string
-                                        x-dcl-go-name: LogicalOperator
-                                        x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsLogicalOperatorEnum
-                                        description: 'The operator that defines how
-                                          value restrictions on the label are joined.
-                                          Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
-                                          AND, OR'
-                                        enum:
-                                        - LOGICAL_OPERATOR_UNSPECIFIED
-                                        - AND
-                                        - OR
-                                      valueRestrictions:
-                                        type: array
-                                        x-dcl-go-name: ValueRestrictions
-                                        description: The values and rules to match
-                                          against a `MonitoredResource` object's label.
-                                        x-dcl-list-type: list
-                                        items:
-                                          type: object
-                                          x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions
-                                          properties:
-                                            comparator:
-                                              type: string
-                                              x-dcl-go-name: Comparator
-                                              x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum
-                                              description: 'The operator that determines
-                                                how the matching values are evaluated.
-                                                Possible values: COMPARATOR_UNSPECIFIED,
-                                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
-                                              enum:
-                                              - COMPARATOR_UNSPECIFIED
-                                              - EQUALS
-                                              - NOT_EQUALS
-                                              - CONTAINS
-                                              - NOT_CONTAINS
-                                            targetValue:
-                                              type: string
-                                              x-dcl-go-name: TargetValue
-                                              description: The value against which
-                                                to match.
-                                resourceTypeDrilldown:
-                                  type: object
-                                  x-dcl-go-name: ResourceTypeDrilldown
-                                  x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown
-                                  description: Limit the resources from which signals
-                                    are retrieved based on their resource type.
-                                  properties:
-                                    targetValues:
-                                      type: array
-                                      x-dcl-go-name: TargetValues
-                                      description: The resource types included by
-                                        the rule. Only strict-equals is supported.
-                                      x-dcl-list-type: list
-                                      items:
-                                        type: string
-                                        x-dcl-go-type: string
-                                serviceNameDrilldown:
-                                  type: object
-                                  x-dcl-go-name: ServiceNameDrilldown
-                                  x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown
-                                  description: Limit the resources from which signals
-                                    are retrieved based on their inclusion in some
-                                    set of `Services`.
-                                  properties:
-                                    targetValues:
-                                      type: array
-                                      x-dcl-go-name: TargetValues
-                                      description: The names of `Services` in which
-                                        a MonitoredResource can be contained. Only
-                                        strict-equals is supported.
-                                      x-dcl-list-type: list
-                                      items:
-                                        type: string
-                                        x-dcl-go-type: string
-                                serviceTypeDrilldown:
-                                  type: object
-                                  x-dcl-go-name: ServiceTypeDrilldown
-                                  x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown
-                                  description: Limit the resources from which signals
-                                    are retrieved based on their inclusion in some
-                                    set of Service types.
-                                  properties:
-                                    types:
-                                      type: array
-                                      x-dcl-go-name: Types
-                                      description: The types of `Services` in which
-                                        a `MonitoredResource` can be contained. Only
-                                        strict-equals is supported.
-                                      x-dcl-list-type: list
-                                      items:
-                                        type: string
-                                        x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownTypesEnum
-                                        enum:
-                                        - TYPE_UNSPECIFIED
-                                        - CUSTOM
-                                        - APP_ENGINE
-                                        - CLOUD_ENDPOINTS
-                                        - ISTIO
-                                        - ISTIO_SERVICE
                             sparkChartView:
                               type: object
                               x-dcl-go-name: SparkChartView
                               x-dcl-go-type: DashboardWidgetScorecardSparkChartView
                               description: Will cause the scorecard to show a spark
                                 chart.
+                              required:
+                              - sparkChartType
                               properties:
                                 minAlignmentPeriod:
                                   type: string
@@ -666,6 +251,8 @@ components:
                                   x-dcl-go-name: TimeSeriesFilter
                                   x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter
                                   description: Filter parameters to fetch time series.
+                                  required:
+                                  - filter
                                   properties:
                                     aggregation:
                                       type: object
@@ -1230,6 +817,8 @@ components:
                                       x-dcl-go-name: Denominator
                                       x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
                                       description: The denominator of the ratio.
+                                      required:
+                                      - filter
                                       properties:
                                         aggregation:
                                           type: object
@@ -1505,6 +1094,8 @@ components:
                                       x-dcl-go-name: Numerator
                                       x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
                                       description: The numerator of the ratio.
+                                      required:
+                                      - filter
                                       properties:
                                         aggregation:
                                           type: object
@@ -2109,6 +1700,8 @@ components:
                           x-dcl-go-name: XyChart
                           x-dcl-go-type: DashboardWidgetXyChart
                           description: A chart of time series data.
+                          required:
+                          - dataSets
                           properties:
                             chartOptions:
                               type: object
@@ -2127,11 +1720,6 @@ components:
                                   - COLOR
                                   - X_RAY
                                   - STATS
-                                showLegend:
-                                  type: boolean
-                                  x-dcl-go-name: ShowLegend
-                                  description: When true, the legend is displayed
-                                    on page load.
                             dataSets:
                               type: array
                               x-dcl-go-name: DataSets
@@ -2140,6 +1728,8 @@ components:
                               items:
                                 type: object
                                 x-dcl-go-type: DashboardWidgetXyChartDataSets
+                                required:
+                                - timeSeriesQuery
                                 properties:
                                   legendTemplate:
                                     type: string
@@ -2197,6 +1787,8 @@ components:
                                         x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
                                         description: Filter parameters to fetch time
                                           series.
+                                        required:
+                                        - filter
                                         properties:
                                           aggregation:
                                             type: object
@@ -2799,6 +2391,8 @@ components:
                                             x-dcl-go-name: Denominator
                                             x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
                                             description: The denominator of the ratio.
+                                            required:
+                                            - filter
                                             properties:
                                               aggregation:
                                                 type: object
@@ -3099,6 +2693,8 @@ components:
                                             x-dcl-go-name: Numerator
                                             x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
                                             description: The numerator of the ratio.
+                                            required:
+                                            - filter
                                             properties:
                                               aggregation:
                                                 type: object
@@ -3719,427 +3315,6 @@ components:
                                           fetched data. The format is the same as
                                           the [`unit`](https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.metricDescriptors)
                                           field in `MetricDescriptor`.
-                            metricDrilldown:
-                              type: object
-                              x-dcl-go-name: MetricDrilldown
-                              x-dcl-go-type: DashboardWidgetXyChartMetricDrilldown
-                              description: The widget-level metric drilldowns define
-                                the scope of the widget and are applied in addition
-                                to the dashboard's drilldown specification.
-                              properties:
-                                metricGroupByDrilldown:
-                                  type: object
-                                  x-dcl-go-name: MetricGroupByDrilldown
-                                  x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown
-                                  description: Modify the display of metric signals
-                                    by applying a grouping and aggregation layer.
-                                  properties:
-                                    metadataSystemLabels:
-                                      type: array
-                                      x-dcl-go-name: MetadataSystemLabels
-                                      description: Metadata system labels by which
-                                        to group the output time series.
-                                      x-dcl-list-type: list
-                                      items:
-                                        type: string
-                                        x-dcl-go-type: string
-                                    metadataUserLabels:
-                                      type: array
-                                      x-dcl-go-name: MetadataUserLabels
-                                      description: Metadata user labels by which to
-                                        group the output time series.
-                                      x-dcl-list-type: list
-                                      items:
-                                        type: string
-                                        x-dcl-go-type: string
-                                    metricLabels:
-                                      type: array
-                                      x-dcl-go-name: MetricLabels
-                                      description: Metric labels by which to group
-                                        the output time series.
-                                      x-dcl-list-type: list
-                                      items:
-                                        type: string
-                                        x-dcl-go-type: string
-                                    reducer:
-                                      type: string
-                                      x-dcl-go-name: Reducer
-                                      x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownReducerEnum
-                                      description: 'How to aggregate the time series
-                                        data while grouping. Possible values: REDUCE_NONE,
-                                        REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX, REDUCE_SUM,
-                                        REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE,
-                                        REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE,
-                                        REDUCE_PERCENTILE_99, REDUCE_PERCENTILE_95,
-                                        REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05,
-                                        REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION'
-                                      enum:
-                                      - REDUCE_NONE
-                                      - REDUCE_MEAN
-                                      - REDUCE_MIN
-                                      - REDUCE_MAX
-                                      - REDUCE_SUM
-                                      - REDUCE_STDDEV
-                                      - REDUCE_COUNT
-                                      - REDUCE_COUNT_TRUE
-                                      - REDUCE_COUNT_FALSE
-                                      - REDUCE_FRACTION_TRUE
-                                      - REDUCE_PERCENTILE_99
-                                      - REDUCE_PERCENTILE_95
-                                      - REDUCE_PERCENTILE_50
-                                      - REDUCE_PERCENTILE_05
-                                      - REDUCE_FRACTION_LESS_THAN
-                                      - REDUCE_MAKE_DISTRIBUTION
-                                    resourceLabels:
-                                      type: array
-                                      x-dcl-go-name: ResourceLabels
-                                      description: Resource labels by which to group
-                                        the output time series.
-                                      x-dcl-list-type: list
-                                      items:
-                                        type: string
-                                        x-dcl-go-type: string
-                                metricLabelDrilldowns:
-                                  type: array
-                                  x-dcl-go-name: MetricLabelDrilldowns
-                                  description: Each `MetricLabelDrilldown` limits
-                                    the metrics that will be retrieved, based on the
-                                    metric label.  Each `MetricLabelDrilldown` should
-                                    refer to a different label; if multiple drilldowns
-                                    refer to the same label, only one will be used
-                                    and the choice is non-deterministic.
-                                  x-dcl-list-type: list
-                                  items:
-                                    type: object
-                                    x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns
-                                    properties:
-                                      label:
-                                        type: string
-                                        x-dcl-go-name: Label
-                                        description: The label for which the drilldown
-                                          defines a restriction.
-                                      logicalOperator:
-                                        type: string
-                                        x-dcl-go-name: LogicalOperator
-                                        x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsLogicalOperatorEnum
-                                        description: 'The operator that defines how
-                                          value restrictions on the label are joined.
-                                          Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
-                                          AND, OR'
-                                        enum:
-                                        - LOGICAL_OPERATOR_UNSPECIFIED
-                                        - AND
-                                        - OR
-                                      valueRestrictions:
-                                        type: array
-                                        x-dcl-go-name: ValueRestrictions
-                                        description: The values and rules to match
-                                          against a metric label.
-                                        x-dcl-list-type: list
-                                        items:
-                                          type: object
-                                          x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions
-                                          properties:
-                                            comparator:
-                                              type: string
-                                              x-dcl-go-name: Comparator
-                                              x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum
-                                              description: 'The operator that determines
-                                                how the matching values are evaluated.
-                                                Possible values: COMPARATOR_UNSPECIFIED,
-                                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
-                                              enum:
-                                              - COMPARATOR_UNSPECIFIED
-                                              - EQUALS
-                                              - NOT_EQUALS
-                                              - CONTAINS
-                                              - NOT_CONTAINS
-                                            targetValue:
-                                              type: string
-                                              x-dcl-go-name: TargetValue
-                                              description: The value against which
-                                                to match.
-                                metricTypeDrilldown:
-                                  type: object
-                                  x-dcl-go-name: MetricTypeDrilldown
-                                  x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown
-                                  description: Limit the metrics signals retrieved
-                                    based on the metric type.
-                                  properties:
-                                    targetValue:
-                                      type: string
-                                      x-dcl-go-name: TargetValue
-                                      description: The value against which to match.
-                                        Only strict-equals is supported.
-                            sourceDrilldown:
-                              type: object
-                              x-dcl-go-name: SourceDrilldown
-                              x-dcl-go-type: DashboardWidgetXyChartSourceDrilldown
-                              description: The widget-level source drilldowns define
-                                the scope of the widget and are applied in addition
-                                to the dashboard's drilldown specification.
-                              properties:
-                                groupNameDrilldown:
-                                  type: object
-                                  x-dcl-go-name: GroupNameDrilldown
-                                  x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown
-                                  description: Limit the resources from which signals
-                                    are retrieved based on their inclusion in some
-                                    set of Groups.
-                                  properties:
-                                    targetValues:
-                                      type: array
-                                      x-dcl-go-name: TargetValues
-                                      description: The names of groups in which a
-                                        `MonitoredResource` can be contained. Only
-                                        strict-equals is supported.
-                                      x-dcl-list-type: list
-                                      items:
-                                        type: string
-                                        x-dcl-go-type: string
-                                metadataSystemLabelDrilldowns:
-                                  type: array
-                                  x-dcl-go-name: MetadataSystemLabelDrilldowns
-                                  description: Each limits the resources from which
-                                    signals are retrieved based on a metadata system
-                                    label.  Each `MetadataSystemLabelDrilldown` should
-                                    refer to a different label; if multiple drilldowns
-                                    refer to the same label, only one will be used
-                                    and the choice is non-deterministic.
-                                  x-dcl-list-type: list
-                                  items:
-                                    type: object
-                                    x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns
-                                    properties:
-                                      label:
-                                        type: string
-                                        x-dcl-go-name: Label
-                                        description: The system metadata label that
-                                          the drilldown will be restricted to.
-                                      logicalOperator:
-                                        type: string
-                                        x-dcl-go-name: LogicalOperator
-                                        x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsLogicalOperatorEnum
-                                        description: 'The logical operator that defines
-                                          how all the value restrictions on the label
-                                          are joined. Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
-                                          AND, OR'
-                                        enum:
-                                        - LOGICAL_OPERATOR_UNSPECIFIED
-                                        - AND
-                                        - OR
-                                      valueRestrictions:
-                                        type: array
-                                        x-dcl-go-name: ValueRestrictions
-                                        description: The values and rules to match
-                                          against a `MonitoredResourceMetadata` object's
-                                          system label.
-                                        x-dcl-list-type: list
-                                        items:
-                                          type: object
-                                          x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions
-                                          properties:
-                                            comparator:
-                                              type: string
-                                              x-dcl-go-name: Comparator
-                                              x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum
-                                              description: 'The operator that determines
-                                                how the matching values are evaluated.
-                                                Possible values: COMPARATOR_UNSPECIFIED,
-                                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
-                                              enum:
-                                              - COMPARATOR_UNSPECIFIED
-                                              - EQUALS
-                                              - NOT_EQUALS
-                                              - CONTAINS
-                                              - NOT_CONTAINS
-                                            targetValue:
-                                              type: string
-                                              x-dcl-go-name: TargetValue
-                                              description: The value against which
-                                                to match.
-                                metadataUserLabelDrilldowns:
-                                  type: array
-                                  x-dcl-go-name: MetadataUserLabelDrilldowns
-                                  description: Each limits the resources from which
-                                    signals are retrieved based on a metadata user
-                                    label.  Each `MetadataUserLabelDrilldown` should
-                                    refer to a different label; if multiple drilldowns
-                                    refer to the same label, only one will be used
-                                    and the choice is non-deterministic.
-                                  x-dcl-list-type: list
-                                  items:
-                                    type: object
-                                    x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns
-                                    properties:
-                                      label:
-                                        type: string
-                                        x-dcl-go-name: Label
-                                        description: The user metadata label that
-                                          the drilldown will be restricted to.
-                                      logicalOperator:
-                                        type: string
-                                        x-dcl-go-name: LogicalOperator
-                                        x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsLogicalOperatorEnum
-                                        description: 'The operator that defines how
-                                          value restrictions on the label are joined.
-                                          Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
-                                          AND, OR'
-                                        enum:
-                                        - LOGICAL_OPERATOR_UNSPECIFIED
-                                        - AND
-                                        - OR
-                                      valueRestrictions:
-                                        type: array
-                                        x-dcl-go-name: ValueRestrictions
-                                        description: The values and rules to match
-                                          against a `MonitoredResourceMetadata object's
-                                          user label.
-                                        x-dcl-list-type: list
-                                        items:
-                                          type: object
-                                          x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions
-                                          properties:
-                                            comparator:
-                                              type: string
-                                              x-dcl-go-name: Comparator
-                                              x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum
-                                              description: 'The operator that determines
-                                                how the matching values are evaluated.
-                                                Possible values: COMPARATOR_UNSPECIFIED,
-                                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
-                                              enum:
-                                              - COMPARATOR_UNSPECIFIED
-                                              - EQUALS
-                                              - NOT_EQUALS
-                                              - CONTAINS
-                                              - NOT_CONTAINS
-                                            targetValue:
-                                              type: string
-                                              x-dcl-go-name: TargetValue
-                                              description: The value against which
-                                                to match.
-                                resourceLabelDrilldowns:
-                                  type: array
-                                  x-dcl-go-name: ResourceLabelDrilldowns
-                                  description: Each limits the resources from which
-                                    signals are retrieved based on a resource label.  Each
-                                    `ResourceLabelDrilldown` should refer to a different
-                                    label; if multiple drilldowns refer to the same
-                                    label, only one will be used and the choice is
-                                    non-deterministic.
-                                  x-dcl-list-type: list
-                                  items:
-                                    type: object
-                                    x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns
-                                    properties:
-                                      label:
-                                        type: string
-                                        x-dcl-go-name: Label
-                                        description: The resource label that the drilldown
-                                          will be restricted to. TODO(dbatelu) - Clarify
-                                          what happens if there is no such resource
-                                          label.
-                                      logicalOperator:
-                                        type: string
-                                        x-dcl-go-name: LogicalOperator
-                                        x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsLogicalOperatorEnum
-                                        description: 'The operator that defines how
-                                          value restrictions on the label are joined.
-                                          Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
-                                          AND, OR'
-                                        enum:
-                                        - LOGICAL_OPERATOR_UNSPECIFIED
-                                        - AND
-                                        - OR
-                                      valueRestrictions:
-                                        type: array
-                                        x-dcl-go-name: ValueRestrictions
-                                        description: The values and rules to match
-                                          against a `MonitoredResource` object's label.
-                                        x-dcl-list-type: list
-                                        items:
-                                          type: object
-                                          x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions
-                                          properties:
-                                            comparator:
-                                              type: string
-                                              x-dcl-go-name: Comparator
-                                              x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum
-                                              description: 'The operator that determines
-                                                how the matching values are evaluated.
-                                                Possible values: COMPARATOR_UNSPECIFIED,
-                                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
-                                              enum:
-                                              - COMPARATOR_UNSPECIFIED
-                                              - EQUALS
-                                              - NOT_EQUALS
-                                              - CONTAINS
-                                              - NOT_CONTAINS
-                                            targetValue:
-                                              type: string
-                                              x-dcl-go-name: TargetValue
-                                              description: The value against which
-                                                to match.
-                                resourceTypeDrilldown:
-                                  type: object
-                                  x-dcl-go-name: ResourceTypeDrilldown
-                                  x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown
-                                  description: Limit the resources from which signals
-                                    are retrieved based on their resource type.
-                                  properties:
-                                    targetValues:
-                                      type: array
-                                      x-dcl-go-name: TargetValues
-                                      description: The resource types included by
-                                        the rule. Only strict-equals is supported.
-                                      x-dcl-list-type: list
-                                      items:
-                                        type: string
-                                        x-dcl-go-type: string
-                                serviceNameDrilldown:
-                                  type: object
-                                  x-dcl-go-name: ServiceNameDrilldown
-                                  x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown
-                                  description: Limit the resources from which signals
-                                    are retrieved based on their inclusion in some
-                                    set of `Services`.
-                                  properties:
-                                    targetValues:
-                                      type: array
-                                      x-dcl-go-name: TargetValues
-                                      description: The names of `Services` in which
-                                        a MonitoredResource can be contained. Only
-                                        strict-equals is supported.
-                                      x-dcl-list-type: list
-                                      items:
-                                        type: string
-                                        x-dcl-go-type: string
-                                serviceTypeDrilldown:
-                                  type: object
-                                  x-dcl-go-name: ServiceTypeDrilldown
-                                  x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown
-                                  description: Limit the resources from which signals
-                                    are retrieved based on their inclusion in some
-                                    set of Service types.
-                                  properties:
-                                    types:
-                                      type: array
-                                      x-dcl-go-name: Types
-                                      description: The types of `Services` in which
-                                        a `MonitoredResource` can be contained. Only
-                                        strict-equals is supported.
-                                      x-dcl-list-type: list
-                                      items:
-                                        type: string
-                                        x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownTypesEnum
-                                        enum:
-                                        - TYPE_UNSPECIFIED
-                                        - CUSTOM
-                                        - APP_ENGINE
-                                        - CLOUD_ENDPOINTS
-                                        - ISTIO
-                                        - ISTIO_SERVICE
                             thresholds:
                               type: array
                               x-dcl-go-name: Thresholds
@@ -4243,6 +3418,18 @@ components:
           type: string
           x-dcl-go-name: DisplayName
           description: Required. The mutable, human-readable name.
+        etag:
+          type: string
+          x-dcl-go-name: Etag
+          readOnly: true
+          description: \`etag\` is used for optimistic concurrency control as a way
+            to help prevent simultaneous updates of a policy from overwriting each
+            other. An \`etag\` is returned in the response to \`GetDashboard\`, and
+            users are expected to put that etag in the request to \`UpdateDashboard\`
+            to ensure that their change will be applied to the same version of the
+            Dashboard configuration. The field should not be passed during dashboard
+            creation.
+          x-kubernetes-immutable: true
         gridLayout:
           type: object
           x-dcl-go-name: GridLayout
@@ -4341,7 +3528,6 @@ components:
           x-dcl-go-type: DashboardRowLayout
           description: The content is divided into equally spaced rows and the widgets
             are arranged horizontally.
-          x-kubernetes-immutable: true
           x-dcl-conflicts:
           - gridLayout
           - mosaicLayout
@@ -4351,7 +3537,6 @@ components:
               type: array
               x-dcl-go-name: Rows
               description: The rows of content to display.
-              x-kubernetes-immutable: true
               x-dcl-list-type: list
               items:
                 type: object
@@ -4365,13 +3550,11 @@ components:
                       used to adjust the height of rows on the screen (relative to
                       peers). Greater the weight, greater the height of the row on
                       the screen. If omitted, a value of 1 is used while rendering.
-                    x-kubernetes-immutable: true
                   widgets:
                     type: array
                     x-dcl-go-name: Widgets
                     description: The display widgets arranged horizontally in this
                       row.
-                    x-kubernetes-immutable: true
                     x-dcl-list-type: list
                     items:
                       type: object
@@ -4397,6 +3580,8 @@ components:
           x-dcl-go-type: DashboardWidgetScorecard
           description: A scorecard summarizing time series data.
           x-kubernetes-immutable: true
+          required:
+          - timeSeriesQuery
           properties:
             gaugeView:
               type: object
@@ -4419,443 +3604,14 @@ components:
                   description: The upper bound for this gauge chart. The value of
                     the chart should always be less than or equal to this.
                   x-kubernetes-immutable: true
-            metricDrilldown:
-              type: object
-              x-dcl-go-name: MetricDrilldown
-              x-dcl-go-type: DashboardWidgetScorecardMetricDrilldown
-              description: The widget-level metric drilldowns define the scope of
-                the widget and are applied in addition to the dashboard's drilldown
-                specification.
-              x-kubernetes-immutable: true
-              properties:
-                metricGroupByDrilldown:
-                  type: object
-                  x-dcl-go-name: MetricGroupByDrilldown
-                  x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldown
-                  description: Modify the display of metric signals by applying a
-                    grouping and aggregation layer.
-                  x-kubernetes-immutable: true
-                  properties:
-                    metadataSystemLabels:
-                      type: array
-                      x-dcl-go-name: MetadataSystemLabels
-                      description: Metadata system labels by which to group the output
-                        time series.
-                      x-kubernetes-immutable: true
-                      x-dcl-list-type: list
-                      items:
-                        type: string
-                        x-dcl-go-type: string
-                    metadataUserLabels:
-                      type: array
-                      x-dcl-go-name: MetadataUserLabels
-                      description: Metadata user labels by which to group the output
-                        time series.
-                      x-kubernetes-immutable: true
-                      x-dcl-list-type: list
-                      items:
-                        type: string
-                        x-dcl-go-type: string
-                    metricLabels:
-                      type: array
-                      x-dcl-go-name: MetricLabels
-                      description: Metric labels by which to group the output time
-                        series.
-                      x-kubernetes-immutable: true
-                      x-dcl-list-type: list
-                      items:
-                        type: string
-                        x-dcl-go-type: string
-                    reducer:
-                      type: string
-                      x-dcl-go-name: Reducer
-                      x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricGroupByDrilldownReducerEnum
-                      description: 'How to aggregate the time series data while grouping.
-                        Possible values: REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX,
-                        REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE,
-                        REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99,
-                        REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05,
-                        REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION'
-                      x-kubernetes-immutable: true
-                      enum:
-                      - REDUCE_NONE
-                      - REDUCE_MEAN
-                      - REDUCE_MIN
-                      - REDUCE_MAX
-                      - REDUCE_SUM
-                      - REDUCE_STDDEV
-                      - REDUCE_COUNT
-                      - REDUCE_COUNT_TRUE
-                      - REDUCE_COUNT_FALSE
-                      - REDUCE_FRACTION_TRUE
-                      - REDUCE_PERCENTILE_99
-                      - REDUCE_PERCENTILE_95
-                      - REDUCE_PERCENTILE_50
-                      - REDUCE_PERCENTILE_05
-                      - REDUCE_FRACTION_LESS_THAN
-                      - REDUCE_MAKE_DISTRIBUTION
-                    resourceLabels:
-                      type: array
-                      x-dcl-go-name: ResourceLabels
-                      description: Resource labels by which to group the output time
-                        series.
-                      x-kubernetes-immutable: true
-                      x-dcl-list-type: list
-                      items:
-                        type: string
-                        x-dcl-go-type: string
-                metricLabelDrilldowns:
-                  type: array
-                  x-dcl-go-name: MetricLabelDrilldowns
-                  description: Each `MetricLabelDrilldown` limits the metrics that
-                    will be retrieved, based on the metric label.  Each `MetricLabelDrilldown`
-                    should refer to a different label; if multiple drilldowns refer
-                    to the same label, only one will be used and the choice is non-deterministic.
-                  x-kubernetes-immutable: true
-                  x-dcl-list-type: list
-                  items:
-                    type: object
-                    x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldowns
-                    properties:
-                      label:
-                        type: string
-                        x-dcl-go-name: Label
-                        description: The label for which the drilldown defines a restriction.
-                        x-kubernetes-immutable: true
-                      logicalOperator:
-                        type: string
-                        x-dcl-go-name: LogicalOperator
-                        x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsLogicalOperatorEnum
-                        description: 'The operator that defines how value restrictions
-                          on the label are joined. Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
-                          AND, OR'
-                        x-kubernetes-immutable: true
-                        enum:
-                        - LOGICAL_OPERATOR_UNSPECIFIED
-                        - AND
-                        - OR
-                      valueRestrictions:
-                        type: array
-                        x-dcl-go-name: ValueRestrictions
-                        description: The values and rules to match against a metric
-                          label.
-                        x-kubernetes-immutable: true
-                        x-dcl-list-type: list
-                        items:
-                          type: object
-                          x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictions
-                          properties:
-                            comparator:
-                              type: string
-                              x-dcl-go-name: Comparator
-                              x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum
-                              description: 'The operator that determines how the matching
-                                values are evaluated. Possible values: COMPARATOR_UNSPECIFIED,
-                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
-                              x-kubernetes-immutable: true
-                              enum:
-                              - COMPARATOR_UNSPECIFIED
-                              - EQUALS
-                              - NOT_EQUALS
-                              - CONTAINS
-                              - NOT_CONTAINS
-                            targetValue:
-                              type: string
-                              x-dcl-go-name: TargetValue
-                              description: The value against which to match.
-                              x-kubernetes-immutable: true
-                metricTypeDrilldown:
-                  type: object
-                  x-dcl-go-name: MetricTypeDrilldown
-                  x-dcl-go-type: DashboardWidgetScorecardMetricDrilldownMetricTypeDrilldown
-                  description: Limit the metrics signals retrieved based on the metric
-                    type.
-                  x-kubernetes-immutable: true
-                  properties:
-                    targetValue:
-                      type: string
-                      x-dcl-go-name: TargetValue
-                      description: The value against which to match. Only strict-equals
-                        is supported.
-                      x-kubernetes-immutable: true
-            sourceDrilldown:
-              type: object
-              x-dcl-go-name: SourceDrilldown
-              x-dcl-go-type: DashboardWidgetScorecardSourceDrilldown
-              description: The widget-level source drilldowns define the scope of
-                the widget and are applied in addition to the dashboard's drilldown
-                specification.
-              x-kubernetes-immutable: true
-              properties:
-                groupNameDrilldown:
-                  type: object
-                  x-dcl-go-name: GroupNameDrilldown
-                  x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownGroupNameDrilldown
-                  description: Limit the resources from which signals are retrieved
-                    based on their inclusion in some set of Groups.
-                  x-kubernetes-immutable: true
-                  properties:
-                    targetValues:
-                      type: array
-                      x-dcl-go-name: TargetValues
-                      description: The names of groups in which a `MonitoredResource`
-                        can be contained. Only strict-equals is supported.
-                      x-kubernetes-immutable: true
-                      x-dcl-list-type: list
-                      items:
-                        type: string
-                        x-dcl-go-type: string
-                metadataSystemLabelDrilldowns:
-                  type: array
-                  x-dcl-go-name: MetadataSystemLabelDrilldowns
-                  description: Each limits the resources from which signals are retrieved
-                    based on a metadata system label.  Each `MetadataSystemLabelDrilldown`
-                    should refer to a different label; if multiple drilldowns refer
-                    to the same label, only one will be used and the choice is non-deterministic.
-                  x-kubernetes-immutable: true
-                  x-dcl-list-type: list
-                  items:
-                    type: object
-                    x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldowns
-                    properties:
-                      label:
-                        type: string
-                        x-dcl-go-name: Label
-                        description: The system metadata label that the drilldown
-                          will be restricted to.
-                        x-kubernetes-immutable: true
-                      logicalOperator:
-                        type: string
-                        x-dcl-go-name: LogicalOperator
-                        x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsLogicalOperatorEnum
-                        description: 'The logical operator that defines how all the
-                          value restrictions on the label are joined. Possible values:
-                          LOGICAL_OPERATOR_UNSPECIFIED, AND, OR'
-                        x-kubernetes-immutable: true
-                        enum:
-                        - LOGICAL_OPERATOR_UNSPECIFIED
-                        - AND
-                        - OR
-                      valueRestrictions:
-                        type: array
-                        x-dcl-go-name: ValueRestrictions
-                        description: The values and rules to match against a `MonitoredResourceMetadata`
-                          object's system label.
-                        x-kubernetes-immutable: true
-                        x-dcl-list-type: list
-                        items:
-                          type: object
-                          x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions
-                          properties:
-                            comparator:
-                              type: string
-                              x-dcl-go-name: Comparator
-                              x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum
-                              description: 'The operator that determines how the matching
-                                values are evaluated. Possible values: COMPARATOR_UNSPECIFIED,
-                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
-                              x-kubernetes-immutable: true
-                              enum:
-                              - COMPARATOR_UNSPECIFIED
-                              - EQUALS
-                              - NOT_EQUALS
-                              - CONTAINS
-                              - NOT_CONTAINS
-                            targetValue:
-                              type: string
-                              x-dcl-go-name: TargetValue
-                              description: The value against which to match.
-                              x-kubernetes-immutable: true
-                metadataUserLabelDrilldowns:
-                  type: array
-                  x-dcl-go-name: MetadataUserLabelDrilldowns
-                  description: Each limits the resources from which signals are retrieved
-                    based on a metadata user label.  Each `MetadataUserLabelDrilldown`
-                    should refer to a different label; if multiple drilldowns refer
-                    to the same label, only one will be used and the choice is non-deterministic.
-                  x-kubernetes-immutable: true
-                  x-dcl-list-type: list
-                  items:
-                    type: object
-                    x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldowns
-                    properties:
-                      label:
-                        type: string
-                        x-dcl-go-name: Label
-                        description: The user metadata label that the drilldown will
-                          be restricted to.
-                        x-kubernetes-immutable: true
-                      logicalOperator:
-                        type: string
-                        x-dcl-go-name: LogicalOperator
-                        x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsLogicalOperatorEnum
-                        description: 'The operator that defines how value restrictions
-                          on the label are joined. Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
-                          AND, OR'
-                        x-kubernetes-immutable: true
-                        enum:
-                        - LOGICAL_OPERATOR_UNSPECIFIED
-                        - AND
-                        - OR
-                      valueRestrictions:
-                        type: array
-                        x-dcl-go-name: ValueRestrictions
-                        description: The values and rules to match against a `MonitoredResourceMetadata
-                          object's user label.
-                        x-kubernetes-immutable: true
-                        x-dcl-list-type: list
-                        items:
-                          type: object
-                          x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions
-                          properties:
-                            comparator:
-                              type: string
-                              x-dcl-go-name: Comparator
-                              x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum
-                              description: 'The operator that determines how the matching
-                                values are evaluated. Possible values: COMPARATOR_UNSPECIFIED,
-                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
-                              x-kubernetes-immutable: true
-                              enum:
-                              - COMPARATOR_UNSPECIFIED
-                              - EQUALS
-                              - NOT_EQUALS
-                              - CONTAINS
-                              - NOT_CONTAINS
-                            targetValue:
-                              type: string
-                              x-dcl-go-name: TargetValue
-                              description: The value against which to match.
-                              x-kubernetes-immutable: true
-                resourceLabelDrilldowns:
-                  type: array
-                  x-dcl-go-name: ResourceLabelDrilldowns
-                  description: Each limits the resources from which signals are retrieved
-                    based on a resource label.  Each `ResourceLabelDrilldown` should
-                    refer to a different label; if multiple drilldowns refer to the
-                    same label, only one will be used and the choice is non-deterministic.
-                  x-kubernetes-immutable: true
-                  x-dcl-list-type: list
-                  items:
-                    type: object
-                    x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldowns
-                    properties:
-                      label:
-                        type: string
-                        x-dcl-go-name: Label
-                        description: The resource label that the drilldown will be
-                          restricted to. TODO(dbatelu) - Clarify what happens if there
-                          is no such resource label.
-                        x-kubernetes-immutable: true
-                      logicalOperator:
-                        type: string
-                        x-dcl-go-name: LogicalOperator
-                        x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsLogicalOperatorEnum
-                        description: 'The operator that defines how value restrictions
-                          on the label are joined. Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
-                          AND, OR'
-                        x-kubernetes-immutable: true
-                        enum:
-                        - LOGICAL_OPERATOR_UNSPECIFIED
-                        - AND
-                        - OR
-                      valueRestrictions:
-                        type: array
-                        x-dcl-go-name: ValueRestrictions
-                        description: The values and rules to match against a `MonitoredResource`
-                          object's label.
-                        x-kubernetes-immutable: true
-                        x-dcl-list-type: list
-                        items:
-                          type: object
-                          x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictions
-                          properties:
-                            comparator:
-                              type: string
-                              x-dcl-go-name: Comparator
-                              x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum
-                              description: 'The operator that determines how the matching
-                                values are evaluated. Possible values: COMPARATOR_UNSPECIFIED,
-                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
-                              x-kubernetes-immutable: true
-                              enum:
-                              - COMPARATOR_UNSPECIFIED
-                              - EQUALS
-                              - NOT_EQUALS
-                              - CONTAINS
-                              - NOT_CONTAINS
-                            targetValue:
-                              type: string
-                              x-dcl-go-name: TargetValue
-                              description: The value against which to match.
-                              x-kubernetes-immutable: true
-                resourceTypeDrilldown:
-                  type: object
-                  x-dcl-go-name: ResourceTypeDrilldown
-                  x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownResourceTypeDrilldown
-                  description: Limit the resources from which signals are retrieved
-                    based on their resource type.
-                  x-kubernetes-immutable: true
-                  properties:
-                    targetValues:
-                      type: array
-                      x-dcl-go-name: TargetValues
-                      description: The resource types included by the rule. Only strict-equals
-                        is supported.
-                      x-kubernetes-immutable: true
-                      x-dcl-list-type: list
-                      items:
-                        type: string
-                        x-dcl-go-type: string
-                serviceNameDrilldown:
-                  type: object
-                  x-dcl-go-name: ServiceNameDrilldown
-                  x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownServiceNameDrilldown
-                  description: Limit the resources from which signals are retrieved
-                    based on their inclusion in some set of `Services`.
-                  x-kubernetes-immutable: true
-                  properties:
-                    targetValues:
-                      type: array
-                      x-dcl-go-name: TargetValues
-                      description: The names of `Services` in which a MonitoredResource
-                        can be contained. Only strict-equals is supported.
-                      x-kubernetes-immutable: true
-                      x-dcl-list-type: list
-                      items:
-                        type: string
-                        x-dcl-go-type: string
-                serviceTypeDrilldown:
-                  type: object
-                  x-dcl-go-name: ServiceTypeDrilldown
-                  x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldown
-                  description: Limit the resources from which signals are retrieved
-                    based on their inclusion in some set of Service types.
-                  x-kubernetes-immutable: true
-                  properties:
-                    types:
-                      type: array
-                      x-dcl-go-name: Types
-                      description: The types of `Services` in which a `MonitoredResource`
-                        can be contained. Only strict-equals is supported.
-                      x-kubernetes-immutable: true
-                      x-dcl-list-type: list
-                      items:
-                        type: string
-                        x-dcl-go-type: DashboardWidgetScorecardSourceDrilldownServiceTypeDrilldownTypesEnum
-                        enum:
-                        - TYPE_UNSPECIFIED
-                        - CUSTOM
-                        - APP_ENGINE
-                        - CLOUD_ENDPOINTS
-                        - ISTIO
-                        - ISTIO_SERVICE
             sparkChartView:
               type: object
               x-dcl-go-name: SparkChartView
               x-dcl-go-type: DashboardWidgetScorecardSparkChartView
               description: Will cause the scorecard to show a spark chart.
               x-kubernetes-immutable: true
+              required:
+              - sparkChartType
               properties:
                 minAlignmentPeriod:
                   type: string
@@ -4968,6 +3724,8 @@ components:
                   x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter
                   description: Filter parameters to fetch time series.
                   x-kubernetes-immutable: true
+                  required:
+                  - filter
                   properties:
                     aggregation:
                       type: object
@@ -5514,6 +4272,8 @@ components:
                       x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
                       description: The denominator of the ratio.
                       x-kubernetes-immutable: true
+                      required:
+                      - filter
                       properties:
                         aggregation:
                           type: object
@@ -5773,6 +4533,8 @@ components:
                       x-dcl-go-type: DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
                       description: The numerator of the ratio.
                       x-kubernetes-immutable: true
+                      required:
+                      - filter
                       properties:
                         aggregation:
                           type: object
@@ -6355,6 +5117,8 @@ components:
           x-dcl-go-type: DashboardWidgetXyChart
           description: A chart of time series data.
           x-kubernetes-immutable: true
+          required:
+          - dataSets
           properties:
             chartOptions:
               type: object
@@ -6375,11 +5139,6 @@ components:
                   - COLOR
                   - X_RAY
                   - STATS
-                showLegend:
-                  type: boolean
-                  x-dcl-go-name: ShowLegend
-                  description: When true, the legend is displayed on page load.
-                  x-kubernetes-immutable: true
             dataSets:
               type: array
               x-dcl-go-name: DataSets
@@ -6389,6 +5148,8 @@ components:
               items:
                 type: object
                 x-dcl-go-type: DashboardWidgetXyChartDataSets
+                required:
+                - timeSeriesQuery
                 properties:
                   legendTemplate:
                     type: string
@@ -6448,6 +5209,8 @@ components:
                         x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
                         description: Filter parameters to fetch time series.
                         x-kubernetes-immutable: true
+                        required:
+                        - filter
                         properties:
                           aggregation:
                             type: object
@@ -7011,6 +5774,8 @@ components:
                             x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
                             description: The denominator of the ratio.
                             x-kubernetes-immutable: true
+                            required:
+                            - filter
                             properties:
                               aggregation:
                                 type: object
@@ -7283,6 +6048,8 @@ components:
                             x-dcl-go-type: DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
                             description: The numerator of the ratio.
                             x-kubernetes-immutable: true
+                            required:
+                            - filter
                             properties:
                               aggregation:
                                 type: object
@@ -7854,437 +6621,6 @@ components:
                           fetched data. The format is the same as the [`unit`](https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.metricDescriptors)
                           field in `MetricDescriptor`.
                         x-kubernetes-immutable: true
-            metricDrilldown:
-              type: object
-              x-dcl-go-name: MetricDrilldown
-              x-dcl-go-type: DashboardWidgetXyChartMetricDrilldown
-              description: The widget-level metric drilldowns define the scope of
-                the widget and are applied in addition to the dashboard's drilldown
-                specification.
-              x-kubernetes-immutable: true
-              properties:
-                metricGroupByDrilldown:
-                  type: object
-                  x-dcl-go-name: MetricGroupByDrilldown
-                  x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldown
-                  description: Modify the display of metric signals by applying a
-                    grouping and aggregation layer.
-                  x-kubernetes-immutable: true
-                  properties:
-                    metadataSystemLabels:
-                      type: array
-                      x-dcl-go-name: MetadataSystemLabels
-                      description: Metadata system labels by which to group the output
-                        time series.
-                      x-kubernetes-immutable: true
-                      x-dcl-list-type: list
-                      items:
-                        type: string
-                        x-dcl-go-type: string
-                    metadataUserLabels:
-                      type: array
-                      x-dcl-go-name: MetadataUserLabels
-                      description: Metadata user labels by which to group the output
-                        time series.
-                      x-kubernetes-immutable: true
-                      x-dcl-list-type: list
-                      items:
-                        type: string
-                        x-dcl-go-type: string
-                    metricLabels:
-                      type: array
-                      x-dcl-go-name: MetricLabels
-                      description: Metric labels by which to group the output time
-                        series.
-                      x-kubernetes-immutable: true
-                      x-dcl-list-type: list
-                      items:
-                        type: string
-                        x-dcl-go-type: string
-                    reducer:
-                      type: string
-                      x-dcl-go-name: Reducer
-                      x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricGroupByDrilldownReducerEnum
-                      description: 'How to aggregate the time series data while grouping.
-                        Possible values: REDUCE_NONE, REDUCE_MEAN, REDUCE_MIN, REDUCE_MAX,
-                        REDUCE_SUM, REDUCE_STDDEV, REDUCE_COUNT, REDUCE_COUNT_TRUE,
-                        REDUCE_COUNT_FALSE, REDUCE_FRACTION_TRUE, REDUCE_PERCENTILE_99,
-                        REDUCE_PERCENTILE_95, REDUCE_PERCENTILE_50, REDUCE_PERCENTILE_05,
-                        REDUCE_FRACTION_LESS_THAN, REDUCE_MAKE_DISTRIBUTION'
-                      x-kubernetes-immutable: true
-                      enum:
-                      - REDUCE_NONE
-                      - REDUCE_MEAN
-                      - REDUCE_MIN
-                      - REDUCE_MAX
-                      - REDUCE_SUM
-                      - REDUCE_STDDEV
-                      - REDUCE_COUNT
-                      - REDUCE_COUNT_TRUE
-                      - REDUCE_COUNT_FALSE
-                      - REDUCE_FRACTION_TRUE
-                      - REDUCE_PERCENTILE_99
-                      - REDUCE_PERCENTILE_95
-                      - REDUCE_PERCENTILE_50
-                      - REDUCE_PERCENTILE_05
-                      - REDUCE_FRACTION_LESS_THAN
-                      - REDUCE_MAKE_DISTRIBUTION
-                    resourceLabels:
-                      type: array
-                      x-dcl-go-name: ResourceLabels
-                      description: Resource labels by which to group the output time
-                        series.
-                      x-kubernetes-immutable: true
-                      x-dcl-list-type: list
-                      items:
-                        type: string
-                        x-dcl-go-type: string
-                metricLabelDrilldowns:
-                  type: array
-                  x-dcl-go-name: MetricLabelDrilldowns
-                  description: Each `MetricLabelDrilldown` limits the metrics that
-                    will be retrieved, based on the metric label.  Each `MetricLabelDrilldown`
-                    should refer to a different label; if multiple drilldowns refer
-                    to the same label, only one will be used and the choice is non-deterministic.
-                  x-kubernetes-immutable: true
-                  x-dcl-list-type: list
-                  items:
-                    type: object
-                    x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldowns
-                    properties:
-                      label:
-                        type: string
-                        x-dcl-go-name: Label
-                        description: The label for which the drilldown defines a restriction.
-                        x-kubernetes-immutable: true
-                      logicalOperator:
-                        type: string
-                        x-dcl-go-name: LogicalOperator
-                        x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsLogicalOperatorEnum
-                        description: 'The operator that defines how value restrictions
-                          on the label are joined. Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
-                          AND, OR'
-                        x-kubernetes-immutable: true
-                        enum:
-                        - LOGICAL_OPERATOR_UNSPECIFIED
-                        - AND
-                        - OR
-                      valueRestrictions:
-                        type: array
-                        x-dcl-go-name: ValueRestrictions
-                        description: The values and rules to match against a metric
-                          label.
-                        x-kubernetes-immutable: true
-                        x-dcl-list-type: list
-                        items:
-                          type: object
-                          x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictions
-                          properties:
-                            comparator:
-                              type: string
-                              x-dcl-go-name: Comparator
-                              x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricLabelDrilldownsValueRestrictionsComparatorEnum
-                              description: 'The operator that determines how the matching
-                                values are evaluated. Possible values: COMPARATOR_UNSPECIFIED,
-                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
-                              x-kubernetes-immutable: true
-                              enum:
-                              - COMPARATOR_UNSPECIFIED
-                              - EQUALS
-                              - NOT_EQUALS
-                              - CONTAINS
-                              - NOT_CONTAINS
-                            targetValue:
-                              type: string
-                              x-dcl-go-name: TargetValue
-                              description: The value against which to match.
-                              x-kubernetes-immutable: true
-                metricTypeDrilldown:
-                  type: object
-                  x-dcl-go-name: MetricTypeDrilldown
-                  x-dcl-go-type: DashboardWidgetXyChartMetricDrilldownMetricTypeDrilldown
-                  description: Limit the metrics signals retrieved based on the metric
-                    type.
-                  x-kubernetes-immutable: true
-                  properties:
-                    targetValue:
-                      type: string
-                      x-dcl-go-name: TargetValue
-                      description: The value against which to match. Only strict-equals
-                        is supported.
-                      x-kubernetes-immutable: true
-            sourceDrilldown:
-              type: object
-              x-dcl-go-name: SourceDrilldown
-              x-dcl-go-type: DashboardWidgetXyChartSourceDrilldown
-              description: The widget-level source drilldowns define the scope of
-                the widget and are applied in addition to the dashboard's drilldown
-                specification.
-              x-kubernetes-immutable: true
-              properties:
-                groupNameDrilldown:
-                  type: object
-                  x-dcl-go-name: GroupNameDrilldown
-                  x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownGroupNameDrilldown
-                  description: Limit the resources from which signals are retrieved
-                    based on their inclusion in some set of Groups.
-                  x-kubernetes-immutable: true
-                  properties:
-                    targetValues:
-                      type: array
-                      x-dcl-go-name: TargetValues
-                      description: The names of groups in which a `MonitoredResource`
-                        can be contained. Only strict-equals is supported.
-                      x-kubernetes-immutable: true
-                      x-dcl-list-type: list
-                      items:
-                        type: string
-                        x-dcl-go-type: string
-                metadataSystemLabelDrilldowns:
-                  type: array
-                  x-dcl-go-name: MetadataSystemLabelDrilldowns
-                  description: Each limits the resources from which signals are retrieved
-                    based on a metadata system label.  Each `MetadataSystemLabelDrilldown`
-                    should refer to a different label; if multiple drilldowns refer
-                    to the same label, only one will be used and the choice is non-deterministic.
-                  x-kubernetes-immutable: true
-                  x-dcl-list-type: list
-                  items:
-                    type: object
-                    x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldowns
-                    properties:
-                      label:
-                        type: string
-                        x-dcl-go-name: Label
-                        description: The system metadata label that the drilldown
-                          will be restricted to.
-                        x-kubernetes-immutable: true
-                      logicalOperator:
-                        type: string
-                        x-dcl-go-name: LogicalOperator
-                        x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsLogicalOperatorEnum
-                        description: 'The logical operator that defines how all the
-                          value restrictions on the label are joined. Possible values:
-                          LOGICAL_OPERATOR_UNSPECIFIED, AND, OR'
-                        x-kubernetes-immutable: true
-                        enum:
-                        - LOGICAL_OPERATOR_UNSPECIFIED
-                        - AND
-                        - OR
-                      valueRestrictions:
-                        type: array
-                        x-dcl-go-name: ValueRestrictions
-                        description: The values and rules to match against a `MonitoredResourceMetadata`
-                          object's system label.
-                        x-kubernetes-immutable: true
-                        x-dcl-list-type: list
-                        items:
-                          type: object
-                          x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictions
-                          properties:
-                            comparator:
-                              type: string
-                              x-dcl-go-name: Comparator
-                              x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataSystemLabelDrilldownsValueRestrictionsComparatorEnum
-                              description: 'The operator that determines how the matching
-                                values are evaluated. Possible values: COMPARATOR_UNSPECIFIED,
-                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
-                              x-kubernetes-immutable: true
-                              enum:
-                              - COMPARATOR_UNSPECIFIED
-                              - EQUALS
-                              - NOT_EQUALS
-                              - CONTAINS
-                              - NOT_CONTAINS
-                            targetValue:
-                              type: string
-                              x-dcl-go-name: TargetValue
-                              description: The value against which to match.
-                              x-kubernetes-immutable: true
-                metadataUserLabelDrilldowns:
-                  type: array
-                  x-dcl-go-name: MetadataUserLabelDrilldowns
-                  description: Each limits the resources from which signals are retrieved
-                    based on a metadata user label.  Each `MetadataUserLabelDrilldown`
-                    should refer to a different label; if multiple drilldowns refer
-                    to the same label, only one will be used and the choice is non-deterministic.
-                  x-kubernetes-immutable: true
-                  x-dcl-list-type: list
-                  items:
-                    type: object
-                    x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldowns
-                    properties:
-                      label:
-                        type: string
-                        x-dcl-go-name: Label
-                        description: The user metadata label that the drilldown will
-                          be restricted to.
-                        x-kubernetes-immutable: true
-                      logicalOperator:
-                        type: string
-                        x-dcl-go-name: LogicalOperator
-                        x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsLogicalOperatorEnum
-                        description: 'The operator that defines how value restrictions
-                          on the label are joined. Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
-                          AND, OR'
-                        x-kubernetes-immutable: true
-                        enum:
-                        - LOGICAL_OPERATOR_UNSPECIFIED
-                        - AND
-                        - OR
-                      valueRestrictions:
-                        type: array
-                        x-dcl-go-name: ValueRestrictions
-                        description: The values and rules to match against a `MonitoredResourceMetadata
-                          object's user label.
-                        x-kubernetes-immutable: true
-                        x-dcl-list-type: list
-                        items:
-                          type: object
-                          x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictions
-                          properties:
-                            comparator:
-                              type: string
-                              x-dcl-go-name: Comparator
-                              x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownMetadataUserLabelDrilldownsValueRestrictionsComparatorEnum
-                              description: 'The operator that determines how the matching
-                                values are evaluated. Possible values: COMPARATOR_UNSPECIFIED,
-                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
-                              x-kubernetes-immutable: true
-                              enum:
-                              - COMPARATOR_UNSPECIFIED
-                              - EQUALS
-                              - NOT_EQUALS
-                              - CONTAINS
-                              - NOT_CONTAINS
-                            targetValue:
-                              type: string
-                              x-dcl-go-name: TargetValue
-                              description: The value against which to match.
-                              x-kubernetes-immutable: true
-                resourceLabelDrilldowns:
-                  type: array
-                  x-dcl-go-name: ResourceLabelDrilldowns
-                  description: Each limits the resources from which signals are retrieved
-                    based on a resource label.  Each `ResourceLabelDrilldown` should
-                    refer to a different label; if multiple drilldowns refer to the
-                    same label, only one will be used and the choice is non-deterministic.
-                  x-kubernetes-immutable: true
-                  x-dcl-list-type: list
-                  items:
-                    type: object
-                    x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldowns
-                    properties:
-                      label:
-                        type: string
-                        x-dcl-go-name: Label
-                        description: The resource label that the drilldown will be
-                          restricted to. TODO(dbatelu) - Clarify what happens if there
-                          is no such resource label.
-                        x-kubernetes-immutable: true
-                      logicalOperator:
-                        type: string
-                        x-dcl-go-name: LogicalOperator
-                        x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsLogicalOperatorEnum
-                        description: 'The operator that defines how value restrictions
-                          on the label are joined. Possible values: LOGICAL_OPERATOR_UNSPECIFIED,
-                          AND, OR'
-                        x-kubernetes-immutable: true
-                        enum:
-                        - LOGICAL_OPERATOR_UNSPECIFIED
-                        - AND
-                        - OR
-                      valueRestrictions:
-                        type: array
-                        x-dcl-go-name: ValueRestrictions
-                        description: The values and rules to match against a `MonitoredResource`
-                          object's label.
-                        x-kubernetes-immutable: true
-                        x-dcl-list-type: list
-                        items:
-                          type: object
-                          x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictions
-                          properties:
-                            comparator:
-                              type: string
-                              x-dcl-go-name: Comparator
-                              x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownResourceLabelDrilldownsValueRestrictionsComparatorEnum
-                              description: 'The operator that determines how the matching
-                                values are evaluated. Possible values: COMPARATOR_UNSPECIFIED,
-                                EQUALS, NOT_EQUALS, CONTAINS, NOT_CONTAINS'
-                              x-kubernetes-immutable: true
-                              enum:
-                              - COMPARATOR_UNSPECIFIED
-                              - EQUALS
-                              - NOT_EQUALS
-                              - CONTAINS
-                              - NOT_CONTAINS
-                            targetValue:
-                              type: string
-                              x-dcl-go-name: TargetValue
-                              description: The value against which to match.
-                              x-kubernetes-immutable: true
-                resourceTypeDrilldown:
-                  type: object
-                  x-dcl-go-name: ResourceTypeDrilldown
-                  x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownResourceTypeDrilldown
-                  description: Limit the resources from which signals are retrieved
-                    based on their resource type.
-                  x-kubernetes-immutable: true
-                  properties:
-                    targetValues:
-                      type: array
-                      x-dcl-go-name: TargetValues
-                      description: The resource types included by the rule. Only strict-equals
-                        is supported.
-                      x-kubernetes-immutable: true
-                      x-dcl-list-type: list
-                      items:
-                        type: string
-                        x-dcl-go-type: string
-                serviceNameDrilldown:
-                  type: object
-                  x-dcl-go-name: ServiceNameDrilldown
-                  x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownServiceNameDrilldown
-                  description: Limit the resources from which signals are retrieved
-                    based on their inclusion in some set of `Services`.
-                  x-kubernetes-immutable: true
-                  properties:
-                    targetValues:
-                      type: array
-                      x-dcl-go-name: TargetValues
-                      description: The names of `Services` in which a MonitoredResource
-                        can be contained. Only strict-equals is supported.
-                      x-kubernetes-immutable: true
-                      x-dcl-list-type: list
-                      items:
-                        type: string
-                        x-dcl-go-type: string
-                serviceTypeDrilldown:
-                  type: object
-                  x-dcl-go-name: ServiceTypeDrilldown
-                  x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldown
-                  description: Limit the resources from which signals are retrieved
-                    based on their inclusion in some set of Service types.
-                  x-kubernetes-immutable: true
-                  properties:
-                    types:
-                      type: array
-                      x-dcl-go-name: Types
-                      description: The types of `Services` in which a `MonitoredResource`
-                        can be contained. Only strict-equals is supported.
-                      x-kubernetes-immutable: true
-                      x-dcl-list-type: list
-                      items:
-                        type: string
-                        x-dcl-go-type: DashboardWidgetXyChartSourceDrilldownServiceTypeDrilldownTypesEnum
-                        enum:
-                        - TYPE_UNSPECIFIED
-                        - CUSTOM
-                        - APP_ENGINE
-                        - CLOUD_ENDPOINTS
-                        - ISTIO
-                        - ISTIO_SERVICE
             thresholds:
               type: array
               x-dcl-go-name: Thresholds

@@ -122,6 +122,7 @@ type updateAddressSetLabelsOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -363,7 +364,7 @@ func (c *Client) getAddressRaw(ctx context.Context, r *Address) ([]byte, error) 
 	return b, nil
 }
 
-func (c *Client) addressDiffsForRawDesired(ctx context.Context, rawDesired *Address, opts ...dcl.ApplyOption) (initial, desired *Address, diffs []addressDiff, err error) {
+func (c *Client) addressDiffsForRawDesired(ctx context.Context, rawDesired *Address, opts ...dcl.ApplyOption) (initial, desired *Address, diffs []*dcl.FieldDiff, err error) {
 	c.Config.Logger.Info("Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *Address
@@ -606,15 +607,6 @@ func canonicalizeAddressNewState(c *Client, rawNew, rawDesired *Address) (*Addre
 	return rawNew, nil
 }
 
-type addressDiff struct {
-	// The diff should include one or the other of RequiresRecreate or UpdateOp.
-	RequiresRecreate bool
-	UpdateOp         addressApiOperation
-	Diffs            []*dcl.FieldDiff
-	// This is for reporting only.
-	FieldName string
-}
-
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -622,12 +614,11 @@ type addressDiff struct {
 // value. This empty value indicates that the user does not care about the state for
 // the field. Empty fields on the actual object will cause diffs.
 // TODO(magic-modules-eng): for efficiency in some resources, add batching.
-func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) ([]addressDiff, error) {
+func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) ([]*dcl.FieldDiff, error) {
 	if desired == nil || actual == nil {
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
-	var diffs []addressDiff
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -636,12 +627,6 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
@@ -649,12 +634,6 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
@@ -662,12 +641,6 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Address, actual.Address, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Address")); len(ds) != 0 || err != nil {
@@ -675,12 +648,6 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.PrefixLength, actual.PrefixLength, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrefixLength")); len(ds) != 0 || err != nil {
@@ -688,12 +655,6 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
@@ -701,12 +662,6 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
@@ -714,12 +669,6 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
@@ -727,12 +676,6 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.NetworkTier, actual.NetworkTier, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkTier")); len(ds) != 0 || err != nil {
@@ -740,12 +683,6 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.IPVersion, actual.IPVersion, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPVersion")); len(ds) != 0 || err != nil {
@@ -753,12 +690,6 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.AddressType, actual.AddressType, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AddressType")); len(ds) != 0 || err != nil {
@@ -766,12 +697,6 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Purpose, actual.Purpose, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Purpose")); len(ds) != 0 || err != nil {
@@ -779,12 +704,6 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Subnetwork")); len(ds) != 0 || err != nil {
@@ -792,12 +711,6 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
@@ -805,12 +718,6 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
@@ -818,12 +725,6 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
@@ -831,12 +732,6 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Users, actual.Users, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Users")); len(ds) != 0 || err != nil {
@@ -844,12 +739,6 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAddressSetLabelsOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
@@ -857,12 +746,6 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.LabelFingerprint, actual.LabelFingerprint, dcl.Info{OutputOnly: true, OperationSelector: dcl.TriggersOperation("updateAddressSetLabelsOperation")}, fn.AddNest("LabelFingerprint")); len(ds) != 0 || err != nil {
@@ -870,12 +753,6 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
@@ -883,37 +760,9 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToAddressDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
-	// We need to ensure that this list does not contain identical operations *most of the time*.
-	// There may be some cases where we will need multiple copies of the same operation - for instance,
-	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
-	// such examples and so we deduplicate unconditionally.
-
-	// The best way for us to do this is to iterate through the list
-	// and remove any copies of operations which are identical to a previous operation.
-	// This is O(n^2) in the number of operations, but n will always be very small,
-	// even 10 would be an extremely high number.
-	var opTypes []string
-	var deduped []addressDiff
-	for _, d := range diffs {
-		// Two operations are considered identical if they have the same type.
-		// The type of an operation is derived from the name of the update method.
-		if !dcl.StringSliceContains(fmt.Sprintf("%T", d.UpdateOp), opTypes) {
-			deduped = append(deduped, d)
-			opTypes = append(opTypes, fmt.Sprintf("%T", d.UpdateOp))
-		} else {
-			c.Config.Logger.Infof("Omitting planned operation of type %T since once is already scheduled.", d.UpdateOp)
-		}
-	}
-
-	return deduped, nil
+	return newDiffs, nil
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -1303,31 +1152,35 @@ func (r *Address) matcher(c *Client) func([]byte) bool {
 	}
 }
 
-func convertFieldDiffToAddressDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]addressDiff, error) {
+type addressDiff struct {
+	// The diff should include one or the other of RequiresRecreate or UpdateOp.
+	RequiresRecreate bool
+	UpdateOp         addressApiOperation
+}
+
+func convertFieldDiffToAddressOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]addressDiff, error) {
 	var diffs []addressDiff
-	for _, fd := range fds {
-		for _, op := range fd.ResultingOperation {
-			diff := addressDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
-			if op == "Recreate" {
-				diff.RequiresRecreate = true
-			} else {
-				op, err := convertOpNameToaddressApiOperation(op, opts...)
-				if err != nil {
-					return nil, err
-				}
-				diff.UpdateOp = op
+	for _, op := range ops {
+		diff := addressDiff{}
+		if op == "Recreate" {
+			diff.RequiresRecreate = true
+		} else {
+			op, err := convertOpNameToaddressApiOperation(op, fds, opts...)
+			if err != nil {
+				return diffs, err
 			}
-			diffs = append(diffs, diff)
+			diff.UpdateOp = op
 		}
+		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToaddressApiOperation(op string, opts ...dcl.ApplyOption) (addressApiOperation, error) {
+func convertOpNameToaddressApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (addressApiOperation, error) {
 	switch op {
 
 	case "updateAddressSetLabelsOperation":
-		return &updateAddressSetLabelsOperation{}, nil
+		return &updateAddressSetLabelsOperation{Diffs: diffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", op)

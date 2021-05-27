@@ -441,6 +441,7 @@ type updateVersionPatchVersionOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -679,7 +680,7 @@ func (c *Client) getVersionRaw(ctx context.Context, r *Version) ([]byte, error) 
 	return b, nil
 }
 
-func (c *Client) versionDiffsForRawDesired(ctx context.Context, rawDesired *Version, opts ...dcl.ApplyOption) (initial, desired *Version, diffs []versionDiff, err error) {
+func (c *Client) versionDiffsForRawDesired(ctx context.Context, rawDesired *Version, opts ...dcl.ApplyOption) (initial, desired *Version, diffs []*dcl.FieldDiff, err error) {
 	c.Config.Logger.Info("Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *Version
@@ -3583,15 +3584,6 @@ func canonicalizeNewVersionVPCAccessConnectorSlice(c *Client, des, nw []VersionV
 	return items
 }
 
-type versionDiff struct {
-	// The diff should include one or the other of RequiresRecreate or UpdateOp.
-	RequiresRecreate bool
-	UpdateOp         versionApiOperation
-	Diffs            []*dcl.FieldDiff
-	// This is for reporting only.
-	FieldName string
-}
-
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -3599,12 +3591,11 @@ type versionDiff struct {
 // value. This empty value indicates that the user does not care about the state for
 // the field. Empty fields on the actual object will cause diffs.
 // TODO(magic-modules-eng): for efficiency in some resources, add batching.
-func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) ([]versionDiff, error) {
+func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) ([]*dcl.FieldDiff, error) {
 	if desired == nil || actual == nil {
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
-	var diffs []versionDiff
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -3613,12 +3604,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
@@ -3626,12 +3611,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.AutomaticScaling, actual.AutomaticScaling, dcl.Info{ObjectFunction: compareVersionAutomaticScalingNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("AutomaticScaling")); len(ds) != 0 || err != nil {
@@ -3639,12 +3618,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.BasicScaling, actual.BasicScaling, dcl.Info{ObjectFunction: compareVersionBasicScalingNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("BasicScaling")); len(ds) != 0 || err != nil {
@@ -3652,12 +3625,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ManualScaling, actual.ManualScaling, dcl.Info{ObjectFunction: compareVersionManualScalingNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("ManualScaling")); len(ds) != 0 || err != nil {
@@ -3665,12 +3632,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.InboundServices, actual.InboundServices, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("InboundServices")); len(ds) != 0 || err != nil {
@@ -3678,12 +3639,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.InstanceClass, actual.InstanceClass, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("InstanceClass")); len(ds) != 0 || err != nil {
@@ -3691,12 +3646,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{ObjectFunction: compareVersionNetworkNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
@@ -3704,12 +3653,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Zones, actual.Zones, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Zones")); len(ds) != 0 || err != nil {
@@ -3717,12 +3660,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{ObjectFunction: compareVersionResourcesNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
@@ -3730,12 +3667,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Runtime, actual.Runtime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Runtime")); len(ds) != 0 || err != nil {
@@ -3743,12 +3674,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.RuntimeChannel, actual.RuntimeChannel, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("RuntimeChannel")); len(ds) != 0 || err != nil {
@@ -3756,12 +3681,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Threadsafe, actual.Threadsafe, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Threadsafe")); len(ds) != 0 || err != nil {
@@ -3769,12 +3688,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Vm, actual.Vm, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Vm")); len(ds) != 0 || err != nil {
@@ -3782,12 +3695,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.BetaSettings, actual.BetaSettings, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("BetaSettings")); len(ds) != 0 || err != nil {
@@ -3795,12 +3702,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Env, actual.Env, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Env")); len(ds) != 0 || err != nil {
@@ -3808,12 +3709,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ServingStatus, actual.ServingStatus, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("ServingStatus")); len(ds) != 0 || err != nil {
@@ -3821,12 +3716,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.CreatedBy, actual.CreatedBy, dcl.Info{OutputOnly: true, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("CreatedBy")); len(ds) != 0 || err != nil {
@@ -3834,12 +3723,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
@@ -3847,12 +3730,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.DiskUsageBytes, actual.DiskUsageBytes, dcl.Info{OutputOnly: true, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("DiskUsageBytes")); len(ds) != 0 || err != nil {
@@ -3860,12 +3737,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.RuntimeApiVersion, actual.RuntimeApiVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("RuntimeApiVersion")); len(ds) != 0 || err != nil {
@@ -3873,12 +3744,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.RuntimeMainExecutablePath, actual.RuntimeMainExecutablePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("RuntimeMainExecutablePath")); len(ds) != 0 || err != nil {
@@ -3886,12 +3751,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Handlers, actual.Handlers, dcl.Info{ObjectFunction: compareVersionHandlersNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Handlers")); len(ds) != 0 || err != nil {
@@ -3899,12 +3758,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ErrorHandlers, actual.ErrorHandlers, dcl.Info{ObjectFunction: compareVersionErrorHandlersNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("ErrorHandlers")); len(ds) != 0 || err != nil {
@@ -3912,12 +3765,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Libraries, actual.Libraries, dcl.Info{ObjectFunction: compareVersionLibrariesNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Libraries")); len(ds) != 0 || err != nil {
@@ -3925,12 +3772,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ApiConfig, actual.ApiConfig, dcl.Info{ObjectFunction: compareVersionApiConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("ApiConfig")); len(ds) != 0 || err != nil {
@@ -3938,12 +3779,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.EnvVariables, actual.EnvVariables, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("EnvVariables")); len(ds) != 0 || err != nil {
@@ -3951,12 +3786,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.DefaultExpiration, actual.DefaultExpiration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("DefaultExpiration")); len(ds) != 0 || err != nil {
@@ -3964,12 +3793,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Deployment, actual.Deployment, dcl.Info{ObjectFunction: compareVersionDeploymentNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Deployment")); len(ds) != 0 || err != nil {
@@ -3977,12 +3800,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.HealthCheck, actual.HealthCheck, dcl.Info{ObjectFunction: compareVersionHealthCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("HealthCheck")); len(ds) != 0 || err != nil {
@@ -3990,12 +3807,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ReadinessCheck, actual.ReadinessCheck, dcl.Info{ObjectFunction: compareVersionReadinessCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("ReadinessCheck")); len(ds) != 0 || err != nil {
@@ -4003,12 +3814,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.LivenessCheck, actual.LivenessCheck, dcl.Info{ObjectFunction: compareVersionLivenessCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("LivenessCheck")); len(ds) != 0 || err != nil {
@@ -4016,12 +3821,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.NobuildFilesRegex, actual.NobuildFilesRegex, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("NobuildFilesRegex")); len(ds) != 0 || err != nil {
@@ -4029,12 +3828,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.VersionUrl, actual.VersionUrl, dcl.Info{OutputOnly: true, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("VersionUrl")); len(ds) != 0 || err != nil {
@@ -4042,12 +3835,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Entrypoint, actual.Entrypoint, dcl.Info{ObjectFunction: compareVersionEntrypointNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Entrypoint")); len(ds) != 0 || err != nil {
@@ -4055,12 +3842,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.VPCAccessConnector, actual.VPCAccessConnector, dcl.Info{ObjectFunction: compareVersionVPCAccessConnectorNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("VPCAccessConnector")); len(ds) != 0 || err != nil {
@@ -4068,12 +3849,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.App, actual.App, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("App")); len(ds) != 0 || err != nil {
@@ -4081,12 +3856,6 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
@@ -4094,37 +3863,9 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToVersionDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
-	// We need to ensure that this list does not contain identical operations *most of the time*.
-	// There may be some cases where we will need multiple copies of the same operation - for instance,
-	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
-	// such examples and so we deduplicate unconditionally.
-
-	// The best way for us to do this is to iterate through the list
-	// and remove any copies of operations which are identical to a previous operation.
-	// This is O(n^2) in the number of operations, but n will always be very small,
-	// even 10 would be an extremely high number.
-	var opTypes []string
-	var deduped []versionDiff
-	for _, d := range diffs {
-		// Two operations are considered identical if they have the same type.
-		// The type of an operation is derived from the name of the update method.
-		if !dcl.StringSliceContains(fmt.Sprintf("%T", d.UpdateOp), opTypes) {
-			deduped = append(deduped, d)
-			opTypes = append(opTypes, fmt.Sprintf("%T", d.UpdateOp))
-		} else {
-			c.Config.Logger.Infof("Omitting planned operation of type %T since once is already scheduled.", d.UpdateOp)
-		}
-	}
-
-	return deduped, nil
+	return newDiffs, nil
 }
 func compareVersionAutomaticScalingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
@@ -9645,31 +9386,35 @@ func (r *Version) matcher(c *Client) func([]byte) bool {
 	}
 }
 
-func convertFieldDiffToVersionDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]versionDiff, error) {
+type versionDiff struct {
+	// The diff should include one or the other of RequiresRecreate or UpdateOp.
+	RequiresRecreate bool
+	UpdateOp         versionApiOperation
+}
+
+func convertFieldDiffToVersionOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]versionDiff, error) {
 	var diffs []versionDiff
-	for _, fd := range fds {
-		for _, op := range fd.ResultingOperation {
-			diff := versionDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
-			if op == "Recreate" {
-				diff.RequiresRecreate = true
-			} else {
-				op, err := convertOpNameToversionApiOperation(op, opts...)
-				if err != nil {
-					return nil, err
-				}
-				diff.UpdateOp = op
+	for _, op := range ops {
+		diff := versionDiff{}
+		if op == "Recreate" {
+			diff.RequiresRecreate = true
+		} else {
+			op, err := convertOpNameToversionApiOperation(op, fds, opts...)
+			if err != nil {
+				return diffs, err
 			}
-			diffs = append(diffs, diff)
+			diff.UpdateOp = op
 		}
+		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToversionApiOperation(op string, opts ...dcl.ApplyOption) (versionApiOperation, error) {
+func convertOpNameToversionApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (versionApiOperation, error) {
 	switch op {
 
 	case "updateVersionPatchVersionOperation":
-		return &updateVersionPatchVersionOperation{}, nil
+		return &updateVersionPatchVersionOperation{Diffs: diffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", op)

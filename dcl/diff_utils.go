@@ -13,8 +13,6 @@
 // limitations under the License.
 package dcl
 
-import "fmt"
-
 // RequiresRecreate is for Operations that require recreating.
 func RequiresRecreate() func(d *FieldDiff) []string {
 	return func(d *FieldDiff) []string { return []string{"Recreate"} }
@@ -25,17 +23,17 @@ func TriggersOperation(op string) func(d *FieldDiff) []string {
 	return func(d *FieldDiff) []string { return []string{op} }
 }
 
-// DeduplicateDiffs takes a list of FieldDiffs and returns those without duplicate operations.
-func DeduplicateDiffs(ds []FieldDiff) []FieldDiff {
+// DeduplicateOperations takes a list of FieldDiffs and returns a list of operations.
+func DeduplicateOperations(ds []*FieldDiff) []string {
 	var opTypes []string
-	var deduped []FieldDiff
 	for _, d := range ds {
-		// Two operations are considered identical if they have the same type.
-		// The type of an operation is derived from the name of the update method.
-		if !StringSliceContains(fmt.Sprintf("%v", d.ResultingOperation), opTypes) {
-			deduped = append(deduped, d)
-			opTypes = append(opTypes, fmt.Sprintf("%v", d.ResultingOperation))
+		for _, op := range d.ResultingOperation {
+			// Two operations are considered identical if they have the same type.
+			// The type of an operation is derived from the name of the update method.
+			if !StringSliceContains(op, opTypes) {
+				opTypes = append(opTypes, op)
+			}
 		}
 	}
-	return deduped
+	return opTypes
 }

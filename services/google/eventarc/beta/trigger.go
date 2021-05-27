@@ -28,18 +28,67 @@ type Trigger struct {
 	Name             *string                   `json:"name"`
 	CreateTime       *string                   `json:"createTime"`
 	UpdateTime       *string                   `json:"updateTime"`
+	MatchingCriteria []TriggerMatchingCriteria `json:"matchingCriteria"`
 	ServiceAccount   *string                   `json:"serviceAccount"`
 	Destination      *TriggerDestination       `json:"destination"`
 	Transport        *TriggerTransport         `json:"transport"`
 	Labels           map[string]string         `json:"labels"`
 	Etag             *string                   `json:"etag"`
-	MatchingCriteria []TriggerMatchingCriteria `json:"matchingCriteria"`
 	Project          *string                   `json:"project"`
 	Location         *string                   `json:"location"`
 }
 
 func (r *Trigger) String() string {
 	return dcl.SprintResource(r)
+}
+
+type TriggerMatchingCriteria struct {
+	empty     bool    `json:"-"`
+	Attribute *string `json:"attribute"`
+	Value     *string `json:"value"`
+}
+
+type jsonTriggerMatchingCriteria TriggerMatchingCriteria
+
+func (r *TriggerMatchingCriteria) UnmarshalJSON(data []byte) error {
+	var res jsonTriggerMatchingCriteria
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTriggerMatchingCriteria
+	} else {
+
+		r.Attribute = res.Attribute
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this TriggerMatchingCriteria is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyTriggerMatchingCriteria *TriggerMatchingCriteria = &TriggerMatchingCriteria{empty: true}
+
+func (r *TriggerMatchingCriteria) Empty() bool {
+	return r.empty
+}
+
+func (r *TriggerMatchingCriteria) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *TriggerMatchingCriteria) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
 }
 
 type TriggerDestination struct {
@@ -235,55 +284,6 @@ func (r *TriggerTransportPubsub) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type TriggerMatchingCriteria struct {
-	empty     bool    `json:"-"`
-	Attribute *string `json:"attribute"`
-	Value     *string `json:"value"`
-}
-
-type jsonTriggerMatchingCriteria TriggerMatchingCriteria
-
-func (r *TriggerMatchingCriteria) UnmarshalJSON(data []byte) error {
-	var res jsonTriggerMatchingCriteria
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyTriggerMatchingCriteria
-	} else {
-
-		r.Attribute = res.Attribute
-
-		r.Value = res.Value
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this TriggerMatchingCriteria is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyTriggerMatchingCriteria *TriggerMatchingCriteria = &TriggerMatchingCriteria{empty: true}
-
-func (r *TriggerMatchingCriteria) Empty() bool {
-	return r.empty
-}
-
-func (r *TriggerMatchingCriteria) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *TriggerMatchingCriteria) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 // Describe returns a simple description of this resource to ensure that automated tools
 // can identify it.
 func (r *Trigger) Describe() dcl.ServiceTypeVersion {
@@ -455,9 +455,15 @@ func applyTriggerHelper(c *Client, ctx context.Context, rawDesired *Trigger, opt
 		return nil, err
 	}
 
-	initial, desired, diffs, err := c.triggerDiffsForRawDesired(ctx, rawDesired, opts...)
+	initial, desired, fieldDiffs, err := c.triggerDiffsForRawDesired(ctx, rawDesired, opts...)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
+	}
+
+	opStrings := dcl.DeduplicateOperations(fieldDiffs)
+	diffs, err := convertFieldDiffToTriggerOp(opStrings, fieldDiffs, opts)
+	if err != nil {
+		return nil, err
 	}
 
 	// TODO(magic-modules-eng): 2.2 Feasibility check (all updates are feasible so far).

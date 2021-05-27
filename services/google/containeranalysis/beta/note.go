@@ -35,11 +35,11 @@ type Note struct {
 	RelatedNoteNames []string           `json:"relatedNoteNames"`
 	Vulnerability    *NoteVulnerability `json:"vulnerability"`
 	Build            *NoteBuild         `json:"build"`
-	Image            *NoteImage         `json:"baseImage"`
+	Image            *NoteImage         `json:"image"`
 	Package          *NotePackage       `json:"package"`
 	Discovery        *NoteDiscovery     `json:"discovery"`
-	Deployment       *NoteDeployment    `json:"deployable"`
-	Attestation      *NoteAttestation   `json:"attestationAuthority"`
+	Deployment       *NoteDeployment    `json:"deployment"`
+	Attestation      *NoteAttestation   `json:"attestation"`
 	Project          *string            `json:"project"`
 }
 
@@ -1745,9 +1745,15 @@ func applyNoteHelper(c *Client, ctx context.Context, rawDesired *Note, opts ...d
 		return nil, err
 	}
 
-	initial, desired, diffs, err := c.noteDiffsForRawDesired(ctx, rawDesired, opts...)
+	initial, desired, fieldDiffs, err := c.noteDiffsForRawDesired(ctx, rawDesired, opts...)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
+	}
+
+	opStrings := dcl.DeduplicateOperations(fieldDiffs)
+	diffs, err := convertFieldDiffToNoteOp(opStrings, fieldDiffs, opts)
+	if err != nil {
+		return nil, err
 	}
 
 	// TODO(magic-modules-eng): 2.2 Feasibility check (all updates are feasible so far).

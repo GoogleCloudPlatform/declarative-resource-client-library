@@ -24,12 +24,12 @@ class Trigger(object):
         name: str = None,
         create_time: str = None,
         update_time: str = None,
+        matching_criteria: list = None,
         service_account: str = None,
         destination: dict = None,
         transport: dict = None,
         labels: dict = None,
         etag: str = None,
-        matching_criteria: list = None,
         project: str = None,
         location: str = None,
         service_account_file: str = "",
@@ -37,11 +37,11 @@ class Trigger(object):
 
         channel.initialize()
         self.name = name
+        self.matching_criteria = matching_criteria
         self.service_account = service_account
         self.destination = destination
         self.transport = transport
         self.labels = labels
-        self.matching_criteria = matching_criteria
         self.project = project
         self.location = location
         self.service_account_file = service_account_file
@@ -52,6 +52,10 @@ class Trigger(object):
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
+        if TriggerMatchingCriteriaArray.to_proto(self.matching_criteria):
+            request.resource.matching_criteria.extend(
+                TriggerMatchingCriteriaArray.to_proto(self.matching_criteria)
+            )
         if Primitive.to_proto(self.service_account):
             request.resource.service_account = Primitive.to_proto(self.service_account)
 
@@ -70,10 +74,6 @@ class Trigger(object):
         if Primitive.to_proto(self.labels):
             request.resource.labels = Primitive.to_proto(self.labels)
 
-        if TriggerMatchingCriteriaArray.to_proto(self.matching_criteria):
-            request.resource.matching_criteria.extend(
-                TriggerMatchingCriteriaArray.to_proto(self.matching_criteria)
-            )
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -86,14 +86,14 @@ class Trigger(object):
         self.name = Primitive.from_proto(response.name)
         self.create_time = Primitive.from_proto(response.create_time)
         self.update_time = Primitive.from_proto(response.update_time)
+        self.matching_criteria = TriggerMatchingCriteriaArray.from_proto(
+            response.matching_criteria
+        )
         self.service_account = Primitive.from_proto(response.service_account)
         self.destination = TriggerDestination.from_proto(response.destination)
         self.transport = TriggerTransport.from_proto(response.transport)
         self.labels = Primitive.from_proto(response.labels)
         self.etag = Primitive.from_proto(response.etag)
-        self.matching_criteria = TriggerMatchingCriteriaArray.from_proto(
-            response.matching_criteria
-        )
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
 
@@ -104,6 +104,10 @@ class Trigger(object):
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
+        if TriggerMatchingCriteriaArray.to_proto(self.matching_criteria):
+            request.resource.matching_criteria.extend(
+                TriggerMatchingCriteriaArray.to_proto(self.matching_criteria)
+            )
         if Primitive.to_proto(self.service_account):
             request.resource.service_account = Primitive.to_proto(self.service_account)
 
@@ -122,10 +126,6 @@ class Trigger(object):
         if Primitive.to_proto(self.labels):
             request.resource.labels = Primitive.to_proto(self.labels)
 
-        if TriggerMatchingCriteriaArray.to_proto(self.matching_criteria):
-            request.resource.matching_criteria.extend(
-                TriggerMatchingCriteriaArray.to_proto(self.matching_criteria)
-            )
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -149,6 +149,10 @@ class Trigger(object):
         resource = trigger_pb2.EventarcBetaTrigger()
         if Primitive.to_proto(self.name):
             resource.name = Primitive.to_proto(self.name)
+        if TriggerMatchingCriteriaArray.to_proto(self.matching_criteria):
+            resource.matching_criteria.extend(
+                TriggerMatchingCriteriaArray.to_proto(self.matching_criteria)
+            )
         if Primitive.to_proto(self.service_account):
             resource.service_account = Primitive.to_proto(self.service_account)
         if TriggerDestination.to_proto(self.destination):
@@ -161,15 +165,50 @@ class Trigger(object):
             resource.ClearField("transport")
         if Primitive.to_proto(self.labels):
             resource.labels = Primitive.to_proto(self.labels)
-        if TriggerMatchingCriteriaArray.to_proto(self.matching_criteria):
-            resource.matching_criteria.extend(
-                TriggerMatchingCriteriaArray.to_proto(self.matching_criteria)
-            )
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):
             resource.location = Primitive.to_proto(self.location)
         return resource
+
+
+class TriggerMatchingCriteria(object):
+    def __init__(self, attribute: str = None, value: str = None):
+        self.attribute = attribute
+        self.value = value
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = trigger_pb2.EventarcBetaTriggerMatchingCriteria()
+        if Primitive.to_proto(resource.attribute):
+            res.attribute = Primitive.to_proto(resource.attribute)
+        if Primitive.to_proto(resource.value):
+            res.value = Primitive.to_proto(resource.value)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return TriggerMatchingCriteria(
+            attribute=resource.attribute, value=resource.value,
+        )
+
+
+class TriggerMatchingCriteriaArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [TriggerMatchingCriteria.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [TriggerMatchingCriteria.from_proto(i) for i in resources]
 
 
 class TriggerDestination(object):
@@ -325,45 +364,6 @@ class TriggerTransportPubsubArray(object):
     @classmethod
     def from_proto(self, resources):
         return [TriggerTransportPubsub.from_proto(i) for i in resources]
-
-
-class TriggerMatchingCriteria(object):
-    def __init__(self, attribute: str = None, value: str = None):
-        self.attribute = attribute
-        self.value = value
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = trigger_pb2.EventarcBetaTriggerMatchingCriteria()
-        if Primitive.to_proto(resource.attribute):
-            res.attribute = Primitive.to_proto(resource.attribute)
-        if Primitive.to_proto(resource.value):
-            res.value = Primitive.to_proto(resource.value)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return TriggerMatchingCriteria(
-            attribute=resource.attribute, value=resource.value,
-        )
-
-
-class TriggerMatchingCriteriaArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [TriggerMatchingCriteria.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [TriggerMatchingCriteria.from_proto(i) for i in resources]
 
 
 class Primitive(object):

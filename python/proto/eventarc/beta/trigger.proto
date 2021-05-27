@@ -22,14 +22,19 @@ message EventarcBetaTrigger {
   string name = 1;
   string create_time = 2;
   string update_time = 3;
-  string service_account = 4;
-  EventarcBetaTriggerDestination destination = 5;
-  EventarcBetaTriggerTransport transport = 6;
-  map<string, string> labels = 7;
-  string etag = 8;
-  repeated EventarcBetaTriggerMatchingCriteria matching_criteria = 9;
+  repeated EventarcBetaTriggerMatchingCriteria matching_criteria = 4;
+  string service_account = 5;
+  EventarcBetaTriggerDestination destination = 6;
+  EventarcBetaTriggerTransport transport = 7;
+  map<string, string> labels = 8;
+  string etag = 9;
   string project = 10;
   string location = 11;
+}
+
+message EventarcBetaTriggerMatchingCriteria {
+  string attribute = 1;
+  string value = 2;
 }
 
 message EventarcBetaTriggerDestination {
@@ -49,11 +54,6 @@ message EventarcBetaTriggerTransport {
 message EventarcBetaTriggerTransportPubsub {
   string topic = 1;
   string subscription = 2;
-}
-
-message EventarcBetaTriggerMatchingCriteria {
-  string attribute = 1;
-  string value = 2;
 }
 
 message ApplyEventarcBetaTriggerRequest {

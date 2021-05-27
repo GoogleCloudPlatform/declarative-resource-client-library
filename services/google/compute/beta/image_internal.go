@@ -172,6 +172,7 @@ type updateImageDeprecateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -258,6 +259,7 @@ type updateImageSetLabelsOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -495,7 +497,7 @@ func (c *Client) getImageRaw(ctx context.Context, r *Image) ([]byte, error) {
 	return b, nil
 }
 
-func (c *Client) imageDiffsForRawDesired(ctx context.Context, rawDesired *Image, opts ...dcl.ApplyOption) (initial, desired *Image, diffs []imageDiff, err error) {
+func (c *Client) imageDiffsForRawDesired(ctx context.Context, rawDesired *Image, opts ...dcl.ApplyOption) (initial, desired *Image, diffs []*dcl.FieldDiff, err error) {
 	c.Config.Logger.Info("Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *Image
@@ -1830,15 +1832,6 @@ func canonicalizeNewImageDeprecatedSlice(c *Client, des, nw []ImageDeprecated) [
 	return items
 }
 
-type imageDiff struct {
-	// The diff should include one or the other of RequiresRecreate or UpdateOp.
-	RequiresRecreate bool
-	UpdateOp         imageApiOperation
-	Diffs            []*dcl.FieldDiff
-	// This is for reporting only.
-	FieldName string
-}
-
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -1846,12 +1839,11 @@ type imageDiff struct {
 // value. This empty value indicates that the user does not care about the state for
 // the field. Empty fields on the actual object will cause diffs.
 // TODO(magic-modules-eng): for efficiency in some resources, add batching.
-func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]imageDiff, error) {
+func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]*dcl.FieldDiff, error) {
 	if desired == nil || actual == nil {
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
-	var diffs []imageDiff
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -1860,12 +1852,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
@@ -1873,12 +1859,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskSizeGb")); len(ds) != 0 || err != nil {
@@ -1886,12 +1866,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Family, actual.Family, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Family")); len(ds) != 0 || err != nil {
@@ -1899,12 +1873,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.GuestOsFeature, actual.GuestOsFeature, dcl.Info{Type: "Set", ObjectFunction: compareImageGuestOsFeatureNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GuestOsFeature")); len(ds) != 0 || err != nil {
@@ -1912,12 +1880,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ImageEncryptionKey, actual.ImageEncryptionKey, dcl.Info{ObjectFunction: compareImageImageEncryptionKeyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ImageEncryptionKey")); len(ds) != 0 || err != nil {
@@ -1925,12 +1887,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateImageSetLabelsOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
@@ -1938,12 +1894,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.License, actual.License, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("License")); len(ds) != 0 || err != nil {
@@ -1951,12 +1901,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
@@ -1964,12 +1908,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.RawDisk, actual.RawDisk, dcl.Info{Ignore: true, ObjectFunction: compareImageRawDiskNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RawDisk")); len(ds) != 0 || err != nil {
@@ -1977,12 +1915,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ShieldedInstanceInitialState, actual.ShieldedInstanceInitialState, dcl.Info{ObjectFunction: compareImageShieldedInstanceInitialStateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ShieldedInstanceInitialState")); len(ds) != 0 || err != nil {
@@ -1990,12 +1922,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
@@ -2003,12 +1929,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SourceDisk, actual.SourceDisk, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceDisk")); len(ds) != 0 || err != nil {
@@ -2016,12 +1936,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SourceDiskEncryptionKey, actual.SourceDiskEncryptionKey, dcl.Info{ObjectFunction: compareImageSourceDiskEncryptionKeyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceDiskEncryptionKey")); len(ds) != 0 || err != nil {
@@ -2029,12 +1943,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SourceDiskId, actual.SourceDiskId, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceDiskId")); len(ds) != 0 || err != nil {
@@ -2042,12 +1950,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SourceImage, actual.SourceImage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceImage")); len(ds) != 0 || err != nil {
@@ -2055,12 +1957,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey, dcl.Info{ObjectFunction: compareImageSourceImageEncryptionKeyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceImageEncryptionKey")); len(ds) != 0 || err != nil {
@@ -2068,12 +1964,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SourceImageId, actual.SourceImageId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceImageId")); len(ds) != 0 || err != nil {
@@ -2081,12 +1971,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SourceSnapshot, actual.SourceSnapshot, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceSnapshot")); len(ds) != 0 || err != nil {
@@ -2094,12 +1978,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey, dcl.Info{ObjectFunction: compareImageSourceSnapshotEncryptionKeyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceSnapshotEncryptionKey")); len(ds) != 0 || err != nil {
@@ -2107,12 +1985,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SourceSnapshotId, actual.SourceSnapshotId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceSnapshotId")); len(ds) != 0 || err != nil {
@@ -2120,12 +1992,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SourceType, actual.SourceType, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceType")); len(ds) != 0 || err != nil {
@@ -2133,12 +1999,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
@@ -2146,12 +2006,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.StorageLocation, actual.StorageLocation, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StorageLocation")); len(ds) != 0 || err != nil {
@@ -2159,12 +2013,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Deprecated, actual.Deprecated, dcl.Info{ObjectFunction: compareImageDeprecatedNewStyle, OperationSelector: dcl.TriggersOperation("updateImageDeprecateOperation")}, fn.AddNest("Deprecated")); len(ds) != 0 || err != nil {
@@ -2172,12 +2020,6 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
@@ -2185,37 +2027,9 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]im
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToImageDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
-	// We need to ensure that this list does not contain identical operations *most of the time*.
-	// There may be some cases where we will need multiple copies of the same operation - for instance,
-	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
-	// such examples and so we deduplicate unconditionally.
-
-	// The best way for us to do this is to iterate through the list
-	// and remove any copies of operations which are identical to a previous operation.
-	// This is O(n^2) in the number of operations, but n will always be very small,
-	// even 10 would be an extremely high number.
-	var opTypes []string
-	var deduped []imageDiff
-	for _, d := range diffs {
-		// Two operations are considered identical if they have the same type.
-		// The type of an operation is derived from the name of the update method.
-		if !dcl.StringSliceContains(fmt.Sprintf("%T", d.UpdateOp), opTypes) {
-			deduped = append(deduped, d)
-			opTypes = append(opTypes, fmt.Sprintf("%T", d.UpdateOp))
-		} else {
-			c.Config.Logger.Infof("Omitting planned operation of type %T since once is already scheduled.", d.UpdateOp)
-		}
-	}
-
-	return deduped, nil
+	return newDiffs, nil
 }
 func compareImageGuestOsFeatureNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
@@ -4759,34 +4573,38 @@ func (r *Image) matcher(c *Client) func([]byte) bool {
 	}
 }
 
-func convertFieldDiffToImageDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]imageDiff, error) {
+type imageDiff struct {
+	// The diff should include one or the other of RequiresRecreate or UpdateOp.
+	RequiresRecreate bool
+	UpdateOp         imageApiOperation
+}
+
+func convertFieldDiffToImageOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]imageDiff, error) {
 	var diffs []imageDiff
-	for _, fd := range fds {
-		for _, op := range fd.ResultingOperation {
-			diff := imageDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
-			if op == "Recreate" {
-				diff.RequiresRecreate = true
-			} else {
-				op, err := convertOpNameToimageApiOperation(op, opts...)
-				if err != nil {
-					return nil, err
-				}
-				diff.UpdateOp = op
+	for _, op := range ops {
+		diff := imageDiff{}
+		if op == "Recreate" {
+			diff.RequiresRecreate = true
+		} else {
+			op, err := convertOpNameToimageApiOperation(op, fds, opts...)
+			if err != nil {
+				return diffs, err
 			}
-			diffs = append(diffs, diff)
+			diff.UpdateOp = op
 		}
+		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToimageApiOperation(op string, opts ...dcl.ApplyOption) (imageApiOperation, error) {
+func convertOpNameToimageApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (imageApiOperation, error) {
 	switch op {
 
 	case "updateImageDeprecateOperation":
-		return &updateImageDeprecateOperation{}, nil
+		return &updateImageDeprecateOperation{Diffs: diffs}, nil
 
 	case "updateImageSetLabelsOperation":
-		return &updateImageSetLabelsOperation{}, nil
+		return &updateImageSetLabelsOperation{Diffs: diffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", op)

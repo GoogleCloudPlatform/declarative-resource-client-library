@@ -113,6 +113,7 @@ type updateRealmUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -129,7 +130,7 @@ func (op *updateRealmUpdateOperation) do(ctx context.Context, r *Realm, c *Clien
 	if err != nil {
 		return err
 	}
-	mask := strings.Join([]string{"labels", "timeZone", "description"}, ",")
+	mask := dcl.UpdateMask(op.Diffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
@@ -356,7 +357,7 @@ func (c *Client) getRealmRaw(ctx context.Context, r *Realm) ([]byte, error) {
 	return b, nil
 }
 
-func (c *Client) realmDiffsForRawDesired(ctx context.Context, rawDesired *Realm, opts ...dcl.ApplyOption) (initial, desired *Realm, diffs []realmDiff, err error) {
+func (c *Client) realmDiffsForRawDesired(ctx context.Context, rawDesired *Realm, opts ...dcl.ApplyOption) (initial, desired *Realm, diffs []*dcl.FieldDiff, err error) {
 	c.Config.Logger.Info("Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *Realm
@@ -496,15 +497,6 @@ func canonicalizeRealmNewState(c *Client, rawNew, rawDesired *Realm) (*Realm, er
 	return rawNew, nil
 }
 
-type realmDiff struct {
-	// The diff should include one or the other of RequiresRecreate or UpdateOp.
-	RequiresRecreate bool
-	UpdateOp         realmApiOperation
-	Diffs            []*dcl.FieldDiff
-	// This is for reporting only.
-	FieldName string
-}
-
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -512,12 +504,11 @@ type realmDiff struct {
 // value. This empty value indicates that the user does not care about the state for
 // the field. Empty fields on the actual object will cause diffs.
 // TODO(magic-modules-eng): for efficiency in some resources, add batching.
-func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]realmDiff, error) {
+func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]*dcl.FieldDiff, error) {
 	if desired == nil || actual == nil {
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
-	var diffs []realmDiff
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -526,12 +517,6 @@ func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]re
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToRealmDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
@@ -539,12 +524,6 @@ func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]re
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToRealmDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
@@ -552,12 +531,6 @@ func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]re
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToRealmDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRealmUpdateOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
@@ -565,12 +538,6 @@ func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]re
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToRealmDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.TimeZone, actual.TimeZone, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRealmUpdateOperation")}, fn.AddNest("TimeZone")); len(ds) != 0 || err != nil {
@@ -578,12 +545,6 @@ func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]re
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToRealmDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRealmUpdateOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
@@ -591,12 +552,6 @@ func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]re
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToRealmDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
@@ -604,12 +559,6 @@ func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]re
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToRealmDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
@@ -617,37 +566,9 @@ func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]re
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToRealmDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
-	// We need to ensure that this list does not contain identical operations *most of the time*.
-	// There may be some cases where we will need multiple copies of the same operation - for instance,
-	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
-	// such examples and so we deduplicate unconditionally.
-
-	// The best way for us to do this is to iterate through the list
-	// and remove any copies of operations which are identical to a previous operation.
-	// This is O(n^2) in the number of operations, but n will always be very small,
-	// even 10 would be an extremely high number.
-	var opTypes []string
-	var deduped []realmDiff
-	for _, d := range diffs {
-		// Two operations are considered identical if they have the same type.
-		// The type of an operation is derived from the name of the update method.
-		if !dcl.StringSliceContains(fmt.Sprintf("%T", d.UpdateOp), opTypes) {
-			deduped = append(deduped, d)
-			opTypes = append(opTypes, fmt.Sprintf("%T", d.UpdateOp))
-		} else {
-			c.Config.Logger.Infof("Omitting planned operation of type %T since once is already scheduled.", d.UpdateOp)
-		}
-	}
-
-	return deduped, nil
+	return newDiffs, nil
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -819,31 +740,35 @@ func (r *Realm) matcher(c *Client) func([]byte) bool {
 	}
 }
 
-func convertFieldDiffToRealmDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]realmDiff, error) {
+type realmDiff struct {
+	// The diff should include one or the other of RequiresRecreate or UpdateOp.
+	RequiresRecreate bool
+	UpdateOp         realmApiOperation
+}
+
+func convertFieldDiffToRealmOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]realmDiff, error) {
 	var diffs []realmDiff
-	for _, fd := range fds {
-		for _, op := range fd.ResultingOperation {
-			diff := realmDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
-			if op == "Recreate" {
-				diff.RequiresRecreate = true
-			} else {
-				op, err := convertOpNameTorealmApiOperation(op, opts...)
-				if err != nil {
-					return nil, err
-				}
-				diff.UpdateOp = op
+	for _, op := range ops {
+		diff := realmDiff{}
+		if op == "Recreate" {
+			diff.RequiresRecreate = true
+		} else {
+			op, err := convertOpNameTorealmApiOperation(op, fds, opts...)
+			if err != nil {
+				return diffs, err
 			}
-			diffs = append(diffs, diff)
+			diff.UpdateOp = op
 		}
+		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameTorealmApiOperation(op string, opts ...dcl.ApplyOption) (realmApiOperation, error) {
+func convertOpNameTorealmApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (realmApiOperation, error) {
 	switch op {
 
 	case "updateRealmUpdateOperation":
-		return &updateRealmUpdateOperation{}, nil
+		return &updateRealmUpdateOperation{Diffs: diffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", op)

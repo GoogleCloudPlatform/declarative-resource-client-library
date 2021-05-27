@@ -378,6 +378,7 @@ type updateInstanceUpdateOperation struct {
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
 	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
 }
 
 // do creates a request and sends it to the appropriate URL. In most operations,
@@ -615,7 +616,7 @@ func (c *Client) getInstanceRaw(ctx context.Context, r *Instance) ([]byte, error
 	return b, nil
 }
 
-func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Instance, opts ...dcl.ApplyOption) (initial, desired *Instance, diffs []instanceDiff, err error) {
+func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Instance, opts ...dcl.ApplyOption) (initial, desired *Instance, diffs []*dcl.FieldDiff, err error) {
 	c.Config.Logger.Info("Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
 	var fetchState *Instance
@@ -3982,15 +3983,6 @@ func canonicalizeNewInstanceDiskEncryptionStatusSlice(c *Client, des, nw []Insta
 	return items
 }
 
-type instanceDiff struct {
-	// The diff should include one or the other of RequiresRecreate or UpdateOp.
-	RequiresRecreate bool
-	UpdateOp         instanceApiOperation
-	Diffs            []*dcl.FieldDiff
-	// This is for reporting only.
-	FieldName string
-}
-
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -3998,12 +3990,11 @@ type instanceDiff struct {
 // value. This empty value indicates that the user does not care about the state for
 // the field. Empty fields on the actual object will cause diffs.
 // TODO(magic-modules-eng): for efficiency in some resources, add batching.
-func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption) ([]instanceDiff, error) {
+func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption) ([]*dcl.FieldDiff, error) {
 	if desired == nil || actual == nil {
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
 
-	var diffs []instanceDiff
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
@@ -4012,12 +4003,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ConnectionName, actual.ConnectionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConnectionName")); len(ds) != 0 || err != nil {
@@ -4025,12 +4010,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.DatabaseVersion, actual.DatabaseVersion, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DatabaseVersion")); len(ds) != 0 || err != nil {
@@ -4038,12 +4017,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
@@ -4051,12 +4024,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.GceZone, actual.GceZone, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GceZone")); len(ds) != 0 || err != nil {
@@ -4064,12 +4031,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.InstanceType, actual.InstanceType, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceType")); len(ds) != 0 || err != nil {
@@ -4077,12 +4038,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.MasterInstanceName, actual.MasterInstanceName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterInstanceName")); len(ds) != 0 || err != nil {
@@ -4090,12 +4045,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.MaxDiskSize, actual.MaxDiskSize, dcl.Info{ObjectFunction: compareInstanceMaxDiskSizeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxDiskSize")); len(ds) != 0 || err != nil {
@@ -4103,12 +4052,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
@@ -4116,12 +4059,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
@@ -4129,12 +4066,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
@@ -4142,12 +4073,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.RootPassword, actual.RootPassword, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RootPassword")); len(ds) != 0 || err != nil {
@@ -4155,12 +4080,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.CurrentDiskSize, actual.CurrentDiskSize, dcl.Info{ObjectFunction: compareInstanceCurrentDiskSizeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CurrentDiskSize")); len(ds) != 0 || err != nil {
@@ -4168,12 +4087,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.DiskEncryptionConfiguration, actual.DiskEncryptionConfiguration, dcl.Info{ObjectFunction: compareInstanceDiskEncryptionConfigurationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskEncryptionConfiguration")); len(ds) != 0 || err != nil {
@@ -4181,12 +4094,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.FailoverReplica, actual.FailoverReplica, dcl.Info{ObjectFunction: compareInstanceFailoverReplicaNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FailoverReplica")); len(ds) != 0 || err != nil {
@@ -4194,12 +4101,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.IPAddresses, actual.IPAddresses, dcl.Info{ObjectFunction: compareInstanceIPAddressesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPAddresses")); len(ds) != 0 || err != nil {
@@ -4207,12 +4108,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.MasterInstance, actual.MasterInstance, dcl.Info{ObjectFunction: compareInstanceMasterInstanceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterInstance")); len(ds) != 0 || err != nil {
@@ -4220,12 +4115,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ReplicaConfiguration, actual.ReplicaConfiguration, dcl.Info{ObjectFunction: compareInstanceReplicaConfigurationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReplicaConfiguration")); len(ds) != 0 || err != nil {
@@ -4233,12 +4122,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ScheduledMaintenance, actual.ScheduledMaintenance, dcl.Info{ObjectFunction: compareInstanceScheduledMaintenanceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ScheduledMaintenance")); len(ds) != 0 || err != nil {
@@ -4246,12 +4129,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.Settings, actual.Settings, dcl.Info{ObjectFunction: compareInstanceSettingsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Settings")); len(ds) != 0 || err != nil {
@@ -4259,12 +4136,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateOperation")}, fn.AddNest("State")); len(ds) != 0 || err != nil {
@@ -4272,12 +4143,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ReplicaInstances, actual.ReplicaInstances, dcl.Info{ObjectFunction: compareInstanceReplicaInstancesNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateOperation")}, fn.AddNest("ReplicaInstances")); len(ds) != 0 || err != nil {
@@ -4285,12 +4150,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ServerCaCert, actual.ServerCaCert, dcl.Info{ObjectFunction: compareInstanceServerCaCertNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateOperation")}, fn.AddNest("ServerCaCert")); len(ds) != 0 || err != nil {
@@ -4298,12 +4157,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.IPv6Address, actual.IPv6Address, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateOperation")}, fn.AddNest("IPv6Address")); len(ds) != 0 || err != nil {
@@ -4311,12 +4164,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.ServiceAccountEmailAddress, actual.ServiceAccountEmailAddress, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateOperation")}, fn.AddNest("ServiceAccountEmailAddress")); len(ds) != 0 || err != nil {
@@ -4324,12 +4171,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.OnPremisesConfiguration, actual.OnPremisesConfiguration, dcl.Info{ObjectFunction: compareInstanceOnPremisesConfigurationNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateOperation")}, fn.AddNest("OnPremisesConfiguration")); len(ds) != 0 || err != nil {
@@ -4337,12 +4178,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.SuspensionReason, actual.SuspensionReason, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateOperation")}, fn.AddNest("SuspensionReason")); len(ds) != 0 || err != nil {
@@ -4350,12 +4185,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.DiskEncryptionStatus, actual.DiskEncryptionStatus, dcl.Info{ObjectFunction: compareInstanceDiskEncryptionStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateOperation")}, fn.AddNest("DiskEncryptionStatus")); len(ds) != 0 || err != nil {
@@ -4363,12 +4192,6 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
 	if ds, err := dcl.Diff(desired.InstanceUid, actual.InstanceUid, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateOperation")}, fn.AddNest("InstanceUid")); len(ds) != 0 || err != nil {
@@ -4376,37 +4199,9 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
-
-		dsOld, err := convertFieldDiffToInstanceDiff(ds, opts...)
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, dsOld...)
 	}
 
-	// We need to ensure that this list does not contain identical operations *most of the time*.
-	// There may be some cases where we will need multiple copies of the same operation - for instance,
-	// if a resource has multiple prerequisite-containing fields.  For now, we don't know of any
-	// such examples and so we deduplicate unconditionally.
-
-	// The best way for us to do this is to iterate through the list
-	// and remove any copies of operations which are identical to a previous operation.
-	// This is O(n^2) in the number of operations, but n will always be very small,
-	// even 10 would be an extremely high number.
-	var opTypes []string
-	var deduped []instanceDiff
-	for _, d := range diffs {
-		// Two operations are considered identical if they have the same type.
-		// The type of an operation is derived from the name of the update method.
-		if !dcl.StringSliceContains(fmt.Sprintf("%T", d.UpdateOp), opTypes) {
-			deduped = append(deduped, d)
-			opTypes = append(opTypes, fmt.Sprintf("%T", d.UpdateOp))
-		} else {
-			c.Config.Logger.Infof("Omitting planned operation of type %T since once is already scheduled.", d.UpdateOp)
-		}
-	}
-
-	return deduped, nil
+	return newDiffs, nil
 }
 func compareInstanceMaxDiskSizeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
@@ -11006,31 +10801,35 @@ func (r *Instance) matcher(c *Client) func([]byte) bool {
 	}
 }
 
-func convertFieldDiffToInstanceDiff(fds []*dcl.FieldDiff, opts ...dcl.ApplyOption) ([]instanceDiff, error) {
+type instanceDiff struct {
+	// The diff should include one or the other of RequiresRecreate or UpdateOp.
+	RequiresRecreate bool
+	UpdateOp         instanceApiOperation
+}
+
+func convertFieldDiffToInstanceOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]instanceDiff, error) {
 	var diffs []instanceDiff
-	for _, fd := range fds {
-		for _, op := range fd.ResultingOperation {
-			diff := instanceDiff{Diffs: []*dcl.FieldDiff{fd}, FieldName: fd.FieldName}
-			if op == "Recreate" {
-				diff.RequiresRecreate = true
-			} else {
-				op, err := convertOpNameToinstanceApiOperation(op, opts...)
-				if err != nil {
-					return nil, err
-				}
-				diff.UpdateOp = op
+	for _, op := range ops {
+		diff := instanceDiff{}
+		if op == "Recreate" {
+			diff.RequiresRecreate = true
+		} else {
+			op, err := convertOpNameToinstanceApiOperation(op, fds, opts...)
+			if err != nil {
+				return diffs, err
 			}
-			diffs = append(diffs, diff)
+			diff.UpdateOp = op
 		}
+		diffs = append(diffs, diff)
 	}
 	return diffs, nil
 }
 
-func convertOpNameToinstanceApiOperation(op string, opts ...dcl.ApplyOption) (instanceApiOperation, error) {
+func convertOpNameToinstanceApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (instanceApiOperation, error) {
 	switch op {
 
 	case "updateInstanceUpdateOperation":
-		return &updateInstanceUpdateOperation{}, nil
+		return &updateInstanceUpdateOperation{Diffs: diffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", op)
