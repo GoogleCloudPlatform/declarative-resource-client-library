@@ -357,3 +357,8 @@ func (op *deleteFeatureMembershipOperation) do(ctx context.Context, r *FeatureMe
 	}
 	return sendFeatureUpdate(ctx, req, c, u)
 }
+
+// CompareFeatureMembershipConfigmanagementHierarchyControllerNewStyle exists only for unit-testing the diff library.
+func CompareFeatureMembershipConfigmanagementHierarchyControllerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	return compareFeatureMembershipConfigmanagementHierarchyControllerNewStyle(d, a, fn)
+}

@@ -23,14 +23,17 @@ import (
 )
 
 type FirewallPolicy struct {
-	Name           *string `json:"name"`
-	Description    *string `json:"description"`
-	Fingerprint    *string `json:"fingerprint"`
-	SelfLink       *string `json:"selfLink"`
-	SelfLinkWithId *string `json:"selfLinkWithId"`
-	RuleTupleCount *int64  `json:"ruleTupleCount"`
-	DisplayName    *string `json:"displayName"`
-	Parent         *string `json:"parent"`
+	Name              *string `json:"name"`
+	Id                *string `json:"id"`
+	CreationTimestamp *string `json:"creationTimestamp"`
+	Description       *string `json:"description"`
+	Fingerprint       *string `json:"fingerprint"`
+	SelfLink          *string `json:"selfLink"`
+	SelfLinkWithId    *string `json:"selfLinkWithId"`
+	RuleTupleCount    *int64  `json:"ruleTupleCount"`
+	ShortName         *string `json:"shortName"`
+	DisplayName       *string `json:"displayName"`
+	Parent            *string `json:"parent"`
 }
 
 func (r *FirewallPolicy) String() string {

@@ -56,6 +56,8 @@ components:
       x-dcl-locations:
       - global
       type: object
+      required:
+      - firewallPolicy
       properties:
         action:
           type: string
@@ -158,16 +160,6 @@ components:
               items:
                 type: string
                 x-dcl-go-type: string
-            srcSecureLabels:
-              type: array
-              x-dcl-go-name: SrcSecureLabels
-              description: List of firewall label values, which should be matched
-                at the source of the traffic. Maximum number of source label values
-                allowed is 256.
-              x-dcl-list-type: list
-              items:
-                type: string
-                x-dcl-go-type: string
         priority:
           type: integer
           format: int64
@@ -197,20 +189,6 @@ components:
             x-dcl-references:
             - resource: Compute/Network
               field: selfLink
-        targetSecureLabels:
-          type: array
-          x-dcl-go-name: TargetSecureLabels
-          description: A list of secure labels that controls which instances the firewall
-            rule applies to. If `targetSecureLabel` are specified, then the firewall
-            rule applies only to instances in the VPC network that have one of those
-            secure labels. `targetSecureLabel` may not be set at the same time as
-            `targetServiceAccounts`. If neither `targetServiceAccounts` nor `targetSecureLabel`
-            are specified, the firewall rule applies to all instances on the specified
-            network. Maximum number of target label values allowed is 256.
-          x-dcl-list-type: list
-          items:
-            type: string
-            x-dcl-go-type: string
         targetServiceAccounts:
           type: array
           x-dcl-go-name: TargetServiceAccounts

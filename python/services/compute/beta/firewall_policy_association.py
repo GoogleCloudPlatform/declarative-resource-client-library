@@ -28,6 +28,7 @@ class FirewallPolicyAssociation(object):
         name: str = None,
         attachment_target: str = None,
         firewall_policy: str = None,
+        short_name: str = None,
         display_name: str = None,
         service_account_file: str = "",
     ):
@@ -62,6 +63,7 @@ class FirewallPolicyAssociation(object):
         self.name = Primitive.from_proto(response.name)
         self.attachment_target = Primitive.from_proto(response.attachment_target)
         self.firewall_policy = Primitive.from_proto(response.firewall_policy)
+        self.short_name = Primitive.from_proto(response.short_name)
         self.display_name = Primitive.from_proto(response.display_name)
 
     def delete(self):

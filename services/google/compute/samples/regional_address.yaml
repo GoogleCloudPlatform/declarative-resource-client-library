@@ -11,12 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-dependencies:
-- samples/basic.compute.subnetwork.json
-- samples/basic.compute.network.json
-description: TF example of a workflow template
-name: tf_workflow_template
-resource: samples/tf.workflow_template.json
-versions:
-- ga
-- beta
+description: An example of a regional compute address
+name: regional_address
+resource: samples/regional.address.json
+versions: []

@@ -12,11 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 dependencies:
-- samples/basic.compute.subnetwork.json
-- samples/basic.compute.network.json
-description: TF example of a workflow template
-name: tf_workflow_template
-resource: samples/tf.workflow_template.json
-versions:
-- ga
-- beta
+- samples/basic.target_pool.json
+description: An example of a compute forwarding rule
+name: basic_forwarding_rule
+resource: samples/basic.forwarding_rule.json
+versions: []

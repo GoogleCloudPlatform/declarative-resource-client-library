@@ -216,6 +216,13 @@ func Diff(desired, actual interface{}, info Info, fn FieldName) ([]*FieldDiff, e
 			return nil, nil
 		}
 
+		// Want empty value, but non-empty value currrently exists.
+		if IsEmptyValueIndirect(desired) && !IsEmptyValueIndirect(actual) {
+			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: desired, Actual: actual})
+			addOperationToDiffs(diffs, info)
+			return diffs, nil
+		}
+
 		if info.ObjectFunction == nil {
 			return nil, fmt.Errorf("struct %v given without an object function", desired)
 		}

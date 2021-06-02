@@ -179,7 +179,7 @@ func newUpdateSubnetworkSetPrivateIpGoogleAccessRequest(ctx context.Context, f *
 	req := map[string]interface{}{}
 
 	if v := f.PrivateIPGoogleAccess; !dcl.IsEmptyValueIndirect(v) {
-		req["privateIPGoogleAccess"] = v
+		req["privateIpGoogleAccess"] = v
 	}
 	return req, nil
 }
@@ -1259,7 +1259,7 @@ func expandSubnetwork(c *Client, f *Subnetwork) (map[string]interface{}, error) 
 		m["secondaryIpRanges"] = v
 	}
 	if v := f.PrivateIPGoogleAccess; !dcl.IsEmptyValueIndirect(v) {
-		m["privateIPGoogleAccess"] = v
+		m["privateIpGoogleAccess"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Region into region: %w", err)
@@ -1308,7 +1308,7 @@ func flattenSubnetwork(c *Client, i interface{}) *Subnetwork {
 	res.Purpose = flattenSubnetworkPurposeEnum(m["purpose"])
 	res.Role = flattenSubnetworkRoleEnum(m["role"])
 	res.SecondaryIPRanges = flattenSubnetworkSecondaryIPRangesSlice(c, m["secondaryIpRanges"])
-	res.PrivateIPGoogleAccess = dcl.FlattenBool(m["privateIPGoogleAccess"])
+	res.PrivateIPGoogleAccess = dcl.FlattenBool(m["privateIpGoogleAccess"])
 	res.Region = dcl.FlattenString(m["region"])
 	res.LogConfig = flattenSubnetworkLogConfig(c, m["logConfig"])
 	res.Project = dcl.FlattenString(m["project"])

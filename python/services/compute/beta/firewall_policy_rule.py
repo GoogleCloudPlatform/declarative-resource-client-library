@@ -32,7 +32,6 @@ class FirewallPolicyRule(object):
         enable_logging: bool = None,
         rule_tuple_count: int = None,
         target_service_accounts: list = None,
-        target_secure_labels: list = None,
         disabled: bool = None,
         kind: str = None,
         firewall_policy: str = None,
@@ -48,7 +47,6 @@ class FirewallPolicyRule(object):
         self.target_resources = target_resources
         self.enable_logging = enable_logging
         self.target_service_accounts = target_service_accounts
-        self.target_secure_labels = target_secure_labels
         self.disabled = disabled
         self.kind = kind
         self.firewall_policy = firewall_policy
@@ -90,10 +88,6 @@ class FirewallPolicyRule(object):
             request.resource.target_service_accounts.extend(
                 Primitive.to_proto(self.target_service_accounts)
             )
-        if Primitive.to_proto(self.target_secure_labels):
-            request.resource.target_secure_labels.extend(
-                Primitive.to_proto(self.target_secure_labels)
-            )
         if Primitive.to_proto(self.disabled):
             request.resource.disabled = Primitive.to_proto(self.disabled)
 
@@ -117,7 +111,6 @@ class FirewallPolicyRule(object):
         self.target_service_accounts = Primitive.from_proto(
             response.target_service_accounts
         )
-        self.target_secure_labels = Primitive.from_proto(response.target_secure_labels)
         self.disabled = Primitive.from_proto(response.disabled)
         self.kind = Primitive.from_proto(response.kind)
         self.firewall_policy = Primitive.from_proto(response.firewall_policy)
@@ -158,10 +151,6 @@ class FirewallPolicyRule(object):
         if Primitive.to_proto(self.target_service_accounts):
             request.resource.target_service_accounts.extend(
                 Primitive.to_proto(self.target_service_accounts)
-            )
-        if Primitive.to_proto(self.target_secure_labels):
-            request.resource.target_secure_labels.extend(
-                Primitive.to_proto(self.target_secure_labels)
             )
         if Primitive.to_proto(self.disabled):
             request.resource.disabled = Primitive.to_proto(self.disabled)
@@ -209,10 +198,6 @@ class FirewallPolicyRule(object):
             resource.target_service_accounts.extend(
                 Primitive.to_proto(self.target_service_accounts)
             )
-        if Primitive.to_proto(self.target_secure_labels):
-            resource.target_secure_labels.extend(
-                Primitive.to_proto(self.target_secure_labels)
-            )
         if Primitive.to_proto(self.disabled):
             resource.disabled = Primitive.to_proto(self.disabled)
         if Primitive.to_proto(self.kind):
@@ -228,12 +213,10 @@ class FirewallPolicyRuleMatch(object):
         src_ip_ranges: list = None,
         dest_ip_ranges: list = None,
         layer4_configs: list = None,
-        src_secure_labels: list = None,
     ):
         self.src_ip_ranges = src_ip_ranges
         self.dest_ip_ranges = dest_ip_ranges
         self.layer4_configs = layer4_configs
-        self.src_secure_labels = src_secure_labels
 
     @classmethod
     def to_proto(self, resource):
@@ -251,8 +234,6 @@ class FirewallPolicyRuleMatch(object):
                     resource.layer4_configs
                 )
             )
-        if Primitive.to_proto(resource.src_secure_labels):
-            res.src_secure_labels.extend(Primitive.to_proto(resource.src_secure_labels))
         return res
 
     @classmethod
@@ -264,7 +245,6 @@ class FirewallPolicyRuleMatch(object):
             src_ip_ranges=resource.src_ip_ranges,
             dest_ip_ranges=resource.dest_ip_ranges,
             layer4_configs=resource.layer4_configs,
-            src_secure_labels=resource.src_secure_labels,
         )
 
 

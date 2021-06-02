@@ -22,11 +22,14 @@ class FirewallPolicy(object):
     def __init__(
         self,
         name: str = None,
+        id: str = None,
+        creation_timestamp: str = None,
         description: str = None,
         fingerprint: str = None,
         self_link: str = None,
         self_link_with_id: str = None,
         rule_tuple_count: int = None,
+        short_name: str = None,
         display_name: str = None,
         parent: str = None,
         service_account_file: str = "",
@@ -36,6 +39,7 @@ class FirewallPolicy(object):
         self.name = name
         self.description = description
         self.fingerprint = fingerprint
+        self.short_name = short_name
         self.display_name = display_name
         self.parent = parent
         self.service_account_file = service_account_file
@@ -54,6 +58,9 @@ class FirewallPolicy(object):
         if Primitive.to_proto(self.fingerprint):
             request.resource.fingerprint = Primitive.to_proto(self.fingerprint)
 
+        if Primitive.to_proto(self.short_name):
+            request.resource.short_name = Primitive.to_proto(self.short_name)
+
         if Primitive.to_proto(self.display_name):
             request.resource.display_name = Primitive.to_proto(self.display_name)
 
@@ -64,11 +71,14 @@ class FirewallPolicy(object):
 
         response = stub.ApplyComputeFirewallPolicy(request)
         self.name = Primitive.from_proto(response.name)
+        self.id = Primitive.from_proto(response.id)
+        self.creation_timestamp = Primitive.from_proto(response.creation_timestamp)
         self.description = Primitive.from_proto(response.description)
         self.fingerprint = Primitive.from_proto(response.fingerprint)
         self.self_link = Primitive.from_proto(response.self_link)
         self.self_link_with_id = Primitive.from_proto(response.self_link_with_id)
         self.rule_tuple_count = Primitive.from_proto(response.rule_tuple_count)
+        self.short_name = Primitive.from_proto(response.short_name)
         self.display_name = Primitive.from_proto(response.display_name)
         self.parent = Primitive.from_proto(response.parent)
 
@@ -86,6 +96,9 @@ class FirewallPolicy(object):
 
         if Primitive.to_proto(self.fingerprint):
             request.resource.fingerprint = Primitive.to_proto(self.fingerprint)
+
+        if Primitive.to_proto(self.short_name):
+            request.resource.short_name = Primitive.to_proto(self.short_name)
 
         if Primitive.to_proto(self.display_name):
             request.resource.display_name = Primitive.to_proto(self.display_name)
@@ -114,6 +127,8 @@ class FirewallPolicy(object):
             resource.description = Primitive.to_proto(self.description)
         if Primitive.to_proto(self.fingerprint):
             resource.fingerprint = Primitive.to_proto(self.fingerprint)
+        if Primitive.to_proto(self.short_name):
+            resource.short_name = Primitive.to_proto(self.short_name)
         if Primitive.to_proto(self.display_name):
             resource.display_name = Primitive.to_proto(self.display_name)
         if Primitive.to_proto(self.parent):

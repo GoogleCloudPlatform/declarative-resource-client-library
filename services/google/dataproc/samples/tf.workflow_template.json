@@ -5,13 +5,17 @@
   "placement": {
     "managedCluster": {
       "clusterName": "my-cluster",
+      "labels": {
+        "environment": "env"
+      },
       "config": {
         "initializationActions": [],
         "gceClusterConfig": {
           "zone": "us-centra1-a",
-          "internalIPOnly": false,
           "tags": ["foo", "bar"],
-          "serviceAccountScopes": [],
+          "subnetwork": "{{ref:basic.compute.subnetwork.json:selfLink}}",
+          "serviceAccountScopes": ["https://www.googleapis.com/auth/cloud-platform"],
+          "internalIpOnly": true,
           "metadata": {}
         },
         "masterConfig": {
@@ -37,6 +41,9 @@
         },
         "softwareConfig": {
           "imageVersion": "1.3.7-deb9",
+          "properties": {
+            "dataproc:dataproc.allow.zero.workers": "true"
+          },
           "optionalComponents": []
         }
       }

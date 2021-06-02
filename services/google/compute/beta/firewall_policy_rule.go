@@ -34,7 +34,6 @@ type FirewallPolicyRule struct {
 	EnableLogging         *bool                            `json:"enableLogging"`
 	RuleTupleCount        *int64                           `json:"ruleTupleCount"`
 	TargetServiceAccounts []string                         `json:"targetServiceAccounts"`
-	TargetSecureLabels    []string                         `json:"targetSecureLabels"`
 	Disabled              *bool                            `json:"disabled"`
 	Kind                  *string                          `json:"kind"`
 	FirewallPolicy        *string                          `json:"firewallPolicy"`
@@ -72,11 +71,10 @@ func (v FirewallPolicyRuleDirectionEnum) Validate() error {
 }
 
 type FirewallPolicyRuleMatch struct {
-	empty           bool                                   `json:"-"`
-	SrcIPRanges     []string                               `json:"srcIPRanges"`
-	DestIPRanges    []string                               `json:"destIPRanges"`
-	Layer4Configs   []FirewallPolicyRuleMatchLayer4Configs `json:"layer4Configs"`
-	SrcSecureLabels []string                               `json:"srcSecureLabels"`
+	empty         bool                                   `json:"-"`
+	SrcIPRanges   []string                               `json:"srcIPRanges"`
+	DestIPRanges  []string                               `json:"destIPRanges"`
+	Layer4Configs []FirewallPolicyRuleMatchLayer4Configs `json:"layer4Configs"`
 }
 
 type jsonFirewallPolicyRuleMatch FirewallPolicyRuleMatch
@@ -99,8 +97,6 @@ func (r *FirewallPolicyRuleMatch) UnmarshalJSON(data []byte) error {
 		r.DestIPRanges = res.DestIPRanges
 
 		r.Layer4Configs = res.Layer4Configs
-
-		r.SrcSecureLabels = res.SrcSecureLabels
 
 	}
 	return nil

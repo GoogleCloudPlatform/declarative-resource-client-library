@@ -1,0 +1,28 @@
+{
+  "name": "{{ref:basic.router.json:name}}",
+  "project": "{{project}}",
+  "region": "{{region}}",
+  "network": "{{ref:basic.network.json:selfLink}}",
+  "bgp": {
+    "asn": 64514,
+    "advertiseMode": "CUSTOM",
+    "advertisedGroups": ["ALL_SUBNETS"],
+    "advertisedIpRanges": [
+      {
+        "range": "1.2.3.4"
+      },
+      {
+        "range": "6.7.0.0/16"
+      }
+    ]
+  },
+  "bgpPeers": [
+    {
+      "name": "my-router-peer",
+      "peerIPAddress": "169.254.1.2",
+      "peerAsn": 65513,
+      "advertisedRoutePriority": 100,
+      "interfaceName": "interface-1"
+    }
+  ]
+}

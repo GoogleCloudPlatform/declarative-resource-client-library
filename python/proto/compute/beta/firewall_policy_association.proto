@@ -22,7 +22,8 @@ message ComputeBetaFirewallPolicyAssociation {
   string name = 1;
   string attachment_target = 2;
   string firewall_policy = 3;
-  string display_name = 4;
+  string short_name = 4;
+  string display_name = 5;
 }
 
 message ApplyComputeBetaFirewallPolicyAssociationRequest {

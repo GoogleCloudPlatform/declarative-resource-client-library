@@ -18,6 +18,7 @@ import (
 	"math/rand"
 	"net/http"
 	"net/http/httputil"
+	"strings"
 	"time"
 
 	// glog aliased import is necessary since these packages will be open-sourced
@@ -115,7 +116,7 @@ func (t loggingTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	reqDump, err := httputil.DumpRequestOut(req, true)
 	randString := randomString(5)
 	if err == nil {
-		t.logger.Infof("Google API Request: (id %s)\n-----------[REQUEST]----------\n%s\n-------[END REQUEST]--------", randString, reqDump)
+		t.logger.Infof("Google API Request: (id %s)\n-----------[REQUEST]----------\n%s\n-------[END REQUEST]--------", randString, strings.ReplaceAll(string(reqDump), "\r\n", "\n"))
 	} else {
 		t.logger.Warningf("Failed to make request (id %s): %s", randString, err)
 	}
@@ -123,7 +124,7 @@ func (t loggingTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	if err == nil {
 		respDump, err := httputil.DumpResponse(resp, true)
 		if err == nil {
-			t.logger.Infof("Google API Response: (id %s) \n-----------[RESPONSE]----------\n%s\n-------[END RESPONSE]--------", randString, respDump)
+			t.logger.Infof("Google API Response: (id %s) \n-----------[RESPONSE]----------\n%s\n-------[END RESPONSE]--------", randString, strings.ReplaceAll(string(respDump), "\r\n", "\n"))
 		} else {
 			t.logger.Warningf("Failed to parse response (id %s): %s", randString, err)
 		}

@@ -3,9 +3,9 @@
  "location": "{{region}}",
  "project": "{{project}}",
   "workerConfig": {
-    "machineType": "e2-medium",
+    "machineType": "n1-standard-2",
     "diskSizeGb": 100,
-    "noExternalIP": false
+    "noExternalIP": true
   },
   "networkConfig": {}
 }

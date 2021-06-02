@@ -34,17 +34,15 @@ message ComputeFirewallPolicyRule {
   bool enable_logging = 7;
   int64 rule_tuple_count = 8;
   repeated string target_service_accounts = 9;
-  repeated string target_secure_labels = 10;
-  bool disabled = 11;
-  string kind = 12;
-  string firewall_policy = 13;
+  bool disabled = 10;
+  string kind = 11;
+  string firewall_policy = 12;
 }
 
 message ComputeFirewallPolicyRuleMatch {
   repeated string src_ip_ranges = 1;
   repeated string dest_ip_ranges = 2;
   repeated ComputeFirewallPolicyRuleMatchLayer4Configs layer4_configs = 3;
-  repeated string src_secure_labels = 4;
 }
 
 message ComputeFirewallPolicyRuleMatchLayer4Configs {

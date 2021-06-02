@@ -12,11 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 dependencies:
-- samples/basic.compute.subnetwork.json
-- samples/basic.compute.network.json
-description: TF example of a workflow template
-name: tf_workflow_template
-resource: samples/tf.workflow_template.json
-versions:
-- ga
-- beta
+- samples/basic.network.json
+description: An example of an internal compute address
+name: internal_address
+resource: samples/internal.address.json
+versions: []

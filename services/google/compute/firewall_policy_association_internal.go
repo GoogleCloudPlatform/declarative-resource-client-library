@@ -26,6 +26,9 @@ import (
 
 func (r *FirewallPolicyAssociation) validate() error {
 
+	if err := dcl.Required(r, "firewallPolicy"); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -279,6 +282,14 @@ func canonicalizeFirewallPolicyAssociationNewState(c *Client, rawNew, rawDesired
 		}
 	}
 
+	if dcl.IsEmptyValueIndirect(rawNew.ShortName) && dcl.IsEmptyValueIndirect(rawDesired.ShortName) {
+		rawNew.ShortName = rawDesired.ShortName
+	} else {
+		if dcl.StringCanonicalize(rawDesired.ShortName, rawNew.ShortName) {
+			rawNew.ShortName = rawDesired.ShortName
+		}
+	}
+
 	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
@@ -326,6 +337,13 @@ func diffFirewallPolicyAssociation(c *Client, desired, actual *FirewallPolicyAss
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.ShortName, actual.ShortName, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ShortName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -344,6 +362,7 @@ func (r *FirewallPolicyAssociation) urlNormalized() *FirewallPolicyAssociation {
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.AttachmentTarget = dcl.SelfLinkToName(r.AttachmentTarget)
 	normalized.FirewallPolicy = dcl.SelfLinkToName(r.FirewallPolicy)
+	normalized.ShortName = dcl.SelfLinkToName(r.ShortName)
 	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	return &normalized
 }
@@ -405,6 +424,9 @@ func expandFirewallPolicyAssociation(c *Client, f *FirewallPolicyAssociation) (m
 	if v := f.FirewallPolicy; !dcl.IsEmptyValueIndirect(v) {
 		m["firewallPolicyId"] = v
 	}
+	if v := f.ShortName; !dcl.IsEmptyValueIndirect(v) {
+		m["shortName"] = v
+	}
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		m["displayName"] = v
 	}
@@ -427,6 +449,7 @@ func flattenFirewallPolicyAssociation(c *Client, i interface{}) *FirewallPolicyA
 	res.Name = dcl.FlattenString(m["name"])
 	res.AttachmentTarget = dcl.FlattenString(m["attachmentTarget"])
 	res.FirewallPolicy = dcl.FlattenString(m["firewallPolicyId"])
+	res.ShortName = dcl.FlattenString(m["shortName"])
 	res.DisplayName = dcl.FlattenString(m["displayName"])
 
 	return res

@@ -26,6 +26,9 @@ import (
 
 func (r *FirewallPolicyRule) validate() error {
 
+	if err := dcl.Required(r, "firewallPolicy"); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.Match) {
 		if err := r.Match.validate(); err != nil {
 			return err
@@ -109,9 +112,6 @@ func newUpdateFirewallPolicyRulePatchRuleRequest(ctx context.Context, f *Firewal
 	}
 	if v := f.TargetServiceAccounts; !dcl.IsEmptyValueIndirect(v) {
 		req["targetServiceAccounts"] = v
-	}
-	if v := f.TargetSecureLabels; !dcl.IsEmptyValueIndirect(v) {
-		req["targetSecureLabels"] = v
 	}
 	if v := f.Disabled; !dcl.IsEmptyValueIndirect(v) {
 		req["disabled"] = v
@@ -334,9 +334,6 @@ func canonicalizeFirewallPolicyRuleDesiredState(rawDesired, rawInitial *Firewall
 	if dcl.IsZeroValue(rawDesired.TargetServiceAccounts) {
 		rawDesired.TargetServiceAccounts = rawInitial.TargetServiceAccounts
 	}
-	if dcl.IsZeroValue(rawDesired.TargetSecureLabels) {
-		rawDesired.TargetSecureLabels = rawInitial.TargetSecureLabels
-	}
 	if dcl.BoolCanonicalize(rawDesired.Disabled, rawInitial.Disabled) {
 		rawDesired.Disabled = rawInitial.Disabled
 	}
@@ -407,11 +404,6 @@ func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *Firew
 	} else {
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.TargetSecureLabels) && dcl.IsEmptyValueIndirect(rawDesired.TargetSecureLabels) {
-		rawNew.TargetSecureLabels = rawDesired.TargetSecureLabels
-	} else {
-	}
-
 	if dcl.IsEmptyValueIndirect(rawNew.Disabled) && dcl.IsEmptyValueIndirect(rawDesired.Disabled) {
 		rawNew.Disabled = rawDesired.Disabled
 	} else {
@@ -460,9 +452,6 @@ func canonicalizeFirewallPolicyRuleMatch(des, initial *FirewallPolicyRuleMatch, 
 	if dcl.IsZeroValue(des.Layer4Configs) {
 		des.Layer4Configs = initial.Layer4Configs
 	}
-	if dcl.IsZeroValue(des.SrcSecureLabels) {
-		des.SrcSecureLabels = initial.SrcSecureLabels
-	}
 
 	return des
 }
@@ -479,9 +468,6 @@ func canonicalizeNewFirewallPolicyRuleMatch(c *Client, des, nw *FirewallPolicyRu
 		nw.DestIPRanges = des.DestIPRanges
 	}
 	nw.Layer4Configs = canonicalizeNewFirewallPolicyRuleMatchLayer4ConfigsSlice(c, des.Layer4Configs, nw.Layer4Configs)
-	if dcl.IsZeroValue(nw.SrcSecureLabels) {
-		nw.SrcSecureLabels = des.SrcSecureLabels
-	}
 
 	return nw
 }
@@ -687,13 +673,6 @@ func diffFirewallPolicyRule(c *Client, desired, actual *FirewallPolicyRule, opts
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetSecureLabels, actual.TargetSecureLabels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("TargetSecureLabels")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.Disabled, actual.Disabled, dcl.Info{OperationSelector: dcl.TriggersOperation("updateFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("Disabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -752,13 +731,6 @@ func compareFirewallPolicyRuleMatchNewStyle(d, a interface{}, fn dcl.FieldName) 
 	}
 
 	if ds, err := dcl.Diff(desired.Layer4Configs, actual.Layer4Configs, dcl.Info{ObjectFunction: compareFirewallPolicyRuleMatchLayer4ConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Layer4Configs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.SrcSecureLabels, actual.SrcSecureLabels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SrcSecureLabels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -901,9 +873,6 @@ func expandFirewallPolicyRule(c *Client, f *FirewallPolicyRule) (map[string]inte
 	if v := f.TargetServiceAccounts; !dcl.IsEmptyValueIndirect(v) {
 		m["targetServiceAccounts"] = v
 	}
-	if v := f.TargetSecureLabels; !dcl.IsEmptyValueIndirect(v) {
-		m["targetSecureLabels"] = v
-	}
 	if v := f.Disabled; !dcl.IsEmptyValueIndirect(v) {
 		m["disabled"] = v
 	}
@@ -938,7 +907,6 @@ func flattenFirewallPolicyRule(c *Client, i interface{}) *FirewallPolicyRule {
 	res.EnableLogging = dcl.FlattenBool(m["enableLogging"])
 	res.RuleTupleCount = dcl.FlattenInteger(m["ruleTupleCount"])
 	res.TargetServiceAccounts = dcl.FlattenStringSlice(m["targetServiceAccounts"])
-	res.TargetSecureLabels = dcl.FlattenStringSlice(m["targetSecureLabels"])
 	res.Disabled = dcl.FlattenBool(m["disabled"])
 	res.Kind = dcl.FlattenString(m["kind"])
 	res.FirewallPolicy = dcl.FlattenString(m["firewallPolicy"])
@@ -1046,9 +1014,6 @@ func expandFirewallPolicyRuleMatch(c *Client, f *FirewallPolicyRuleMatch) (map[s
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["layer4Configs"] = v
 	}
-	if v := f.SrcSecureLabels; !dcl.IsEmptyValueIndirect(v) {
-		m["srcSecureLabels"] = v
-	}
 
 	return m, nil
 }
@@ -1069,7 +1034,6 @@ func flattenFirewallPolicyRuleMatch(c *Client, i interface{}) *FirewallPolicyRul
 	r.SrcIPRanges = dcl.FlattenStringSlice(m["srcIpRanges"])
 	r.DestIPRanges = dcl.FlattenStringSlice(m["destIpRanges"])
 	r.Layer4Configs = flattenFirewallPolicyRuleMatchLayer4ConfigsSlice(c, m["layer4Configs"])
-	r.SrcSecureLabels = dcl.FlattenStringSlice(m["srcSecureLabels"])
 
 	return r
 }

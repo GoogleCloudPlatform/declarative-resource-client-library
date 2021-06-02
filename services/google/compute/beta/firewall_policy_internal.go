@@ -77,6 +77,9 @@ func newUpdateFirewallPolicyPatchRequest(ctx context.Context, f *FirewallPolicy,
 	if v := f.Fingerprint; !dcl.IsEmptyValueIndirect(v) {
 		req["fingerprint"] = v
 	}
+	if v := f.ShortName; !dcl.IsEmptyValueIndirect(v) {
+		req["shortName"] = v
+	}
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
 	}
@@ -308,6 +311,9 @@ func canonicalizeFirewallPolicyDesiredState(rawDesired, rawInitial *FirewallPoli
 	if dcl.StringCanonicalize(rawDesired.Fingerprint, rawInitial.Fingerprint) {
 		rawDesired.Fingerprint = rawInitial.Fingerprint
 	}
+	if dcl.StringCanonicalize(rawDesired.ShortName, rawInitial.ShortName) {
+		rawDesired.ShortName = rawInitial.ShortName
+	}
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
 		rawDesired.DisplayName = rawInitial.DisplayName
 	}
@@ -323,6 +329,22 @@ func canonicalizeFirewallPolicyNewState(c *Client, rawNew, rawDesired *FirewallP
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
+		rawNew.Id = rawDesired.Id
+	} else {
+		if dcl.StringCanonicalize(rawDesired.Id, rawNew.Id) {
+			rawNew.Id = rawDesired.Id
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.CreationTimestamp) && dcl.IsEmptyValueIndirect(rawDesired.CreationTimestamp) {
+		rawNew.CreationTimestamp = rawDesired.CreationTimestamp
+	} else {
+		if dcl.StringCanonicalize(rawDesired.CreationTimestamp, rawNew.CreationTimestamp) {
+			rawNew.CreationTimestamp = rawDesired.CreationTimestamp
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
@@ -360,6 +382,14 @@ func canonicalizeFirewallPolicyNewState(c *Client, rawNew, rawDesired *FirewallP
 	if dcl.IsEmptyValueIndirect(rawNew.RuleTupleCount) && dcl.IsEmptyValueIndirect(rawDesired.RuleTupleCount) {
 		rawNew.RuleTupleCount = rawDesired.RuleTupleCount
 	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.ShortName) && dcl.IsEmptyValueIndirect(rawDesired.ShortName) {
+		rawNew.ShortName = rawDesired.ShortName
+	} else {
+		if dcl.StringCanonicalize(rawDesired.ShortName, rawNew.ShortName) {
+			rawNew.ShortName = rawDesired.ShortName
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
@@ -403,6 +433,20 @@ func diffFirewallPolicy(c *Client, desired, actual *FirewallPolicy, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateFirewallPolicyPatchOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -438,6 +482,13 @@ func diffFirewallPolicy(c *Client, desired, actual *FirewallPolicy, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.ShortName, actual.ShortName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateFirewallPolicyPatchOperation")}, fn.AddNest("ShortName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateFirewallPolicyPatchOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -461,10 +512,13 @@ func diffFirewallPolicy(c *Client, desired, actual *FirewallPolicy, opts ...dcl.
 func (r *FirewallPolicy) urlNormalized() *FirewallPolicy {
 	normalized := dcl.Copy(*r).(FirewallPolicy)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Id = dcl.SelfLinkToName(r.Id)
+	normalized.CreationTimestamp = dcl.SelfLinkToName(r.CreationTimestamp)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Fingerprint = dcl.SelfLinkToName(r.Fingerprint)
 	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	normalized.SelfLinkWithId = dcl.SelfLinkToName(r.SelfLinkWithId)
+	normalized.ShortName = dcl.SelfLinkToName(r.ShortName)
 	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	normalized.Parent = r.Parent
 	return &normalized
@@ -529,6 +583,12 @@ func expandFirewallPolicy(c *Client, f *FirewallPolicy) (map[string]interface{},
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
+	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
+		m["id"] = v
+	}
+	if v := f.CreationTimestamp; !dcl.IsEmptyValueIndirect(v) {
+		m["creationTimestamp"] = v
+	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
 	}
@@ -543,6 +603,9 @@ func expandFirewallPolicy(c *Client, f *FirewallPolicy) (map[string]interface{},
 	}
 	if v := f.RuleTupleCount; !dcl.IsEmptyValueIndirect(v) {
 		m["ruleTupleCount"] = v
+	}
+	if v := f.ShortName; !dcl.IsEmptyValueIndirect(v) {
+		m["shortName"] = v
 	}
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		m["displayName"] = v
@@ -567,11 +630,14 @@ func flattenFirewallPolicy(c *Client, i interface{}) *FirewallPolicy {
 
 	res := &FirewallPolicy{}
 	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	res.Id = dcl.FlattenString(m["id"])
+	res.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
 	res.Description = dcl.FlattenString(m["description"])
 	res.Fingerprint = dcl.FlattenString(m["fingerprint"])
 	res.SelfLink = dcl.FlattenString(m["selfLink"])
 	res.SelfLinkWithId = dcl.FlattenString(m["selfLinkWithId"])
 	res.RuleTupleCount = dcl.FlattenInteger(m["ruleTupleCount"])
+	res.ShortName = dcl.FlattenString(m["shortName"])
 	res.DisplayName = dcl.FlattenString(m["displayName"])
 	res.Parent = dcl.FlattenString(m["parent"])
 

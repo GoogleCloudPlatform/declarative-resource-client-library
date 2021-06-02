@@ -28,14 +28,17 @@ type FirewallPolicyServer struct{}
 // ProtoToFirewallPolicy converts a FirewallPolicy resource from its proto representation.
 func ProtoToFirewallPolicy(p *betapb.ComputeBetaFirewallPolicy) *beta.FirewallPolicy {
 	obj := &beta.FirewallPolicy{
-		Name:           dcl.StringOrNil(p.Name),
-		Description:    dcl.StringOrNil(p.Description),
-		Fingerprint:    dcl.StringOrNil(p.Fingerprint),
-		SelfLink:       dcl.StringOrNil(p.SelfLink),
-		SelfLinkWithId: dcl.StringOrNil(p.SelfLinkWithId),
-		RuleTupleCount: dcl.Int64OrNil(p.RuleTupleCount),
-		DisplayName:    dcl.StringOrNil(p.DisplayName),
-		Parent:         dcl.StringOrNil(p.Parent),
+		Name:              dcl.StringOrNil(p.Name),
+		Id:                dcl.StringOrNil(p.Id),
+		CreationTimestamp: dcl.StringOrNil(p.CreationTimestamp),
+		Description:       dcl.StringOrNil(p.Description),
+		Fingerprint:       dcl.StringOrNil(p.Fingerprint),
+		SelfLink:          dcl.StringOrNil(p.SelfLink),
+		SelfLinkWithId:    dcl.StringOrNil(p.SelfLinkWithId),
+		RuleTupleCount:    dcl.Int64OrNil(p.RuleTupleCount),
+		ShortName:         dcl.StringOrNil(p.ShortName),
+		DisplayName:       dcl.StringOrNil(p.DisplayName),
+		Parent:            dcl.StringOrNil(p.Parent),
 	}
 	return obj
 }
@@ -43,14 +46,17 @@ func ProtoToFirewallPolicy(p *betapb.ComputeBetaFirewallPolicy) *beta.FirewallPo
 // FirewallPolicyToProto converts a FirewallPolicy resource to its proto representation.
 func FirewallPolicyToProto(resource *beta.FirewallPolicy) *betapb.ComputeBetaFirewallPolicy {
 	p := &betapb.ComputeBetaFirewallPolicy{
-		Name:           dcl.ValueOrEmptyString(resource.Name),
-		Description:    dcl.ValueOrEmptyString(resource.Description),
-		Fingerprint:    dcl.ValueOrEmptyString(resource.Fingerprint),
-		SelfLink:       dcl.ValueOrEmptyString(resource.SelfLink),
-		SelfLinkWithId: dcl.ValueOrEmptyString(resource.SelfLinkWithId),
-		RuleTupleCount: dcl.ValueOrEmptyInt64(resource.RuleTupleCount),
-		DisplayName:    dcl.ValueOrEmptyString(resource.DisplayName),
-		Parent:         dcl.ValueOrEmptyString(resource.Parent),
+		Name:              dcl.ValueOrEmptyString(resource.Name),
+		Id:                dcl.ValueOrEmptyString(resource.Id),
+		CreationTimestamp: dcl.ValueOrEmptyString(resource.CreationTimestamp),
+		Description:       dcl.ValueOrEmptyString(resource.Description),
+		Fingerprint:       dcl.ValueOrEmptyString(resource.Fingerprint),
+		SelfLink:          dcl.ValueOrEmptyString(resource.SelfLink),
+		SelfLinkWithId:    dcl.ValueOrEmptyString(resource.SelfLinkWithId),
+		RuleTupleCount:    dcl.ValueOrEmptyInt64(resource.RuleTupleCount),
+		ShortName:         dcl.ValueOrEmptyString(resource.ShortName),
+		DisplayName:       dcl.ValueOrEmptyString(resource.DisplayName),
+		Parent:            dcl.ValueOrEmptyString(resource.Parent),
 	}
 
 	return p

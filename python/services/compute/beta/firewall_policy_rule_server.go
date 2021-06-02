@@ -52,9 +52,6 @@ func ProtoToComputeBetaFirewallPolicyRuleMatch(p *betapb.ComputeBetaFirewallPoli
 	for _, r := range p.GetLayer4Configs() {
 		obj.Layer4Configs = append(obj.Layer4Configs, *ProtoToComputeBetaFirewallPolicyRuleMatchLayer4Configs(r))
 	}
-	for _, r := range p.GetSrcSecureLabels() {
-		obj.SrcSecureLabels = append(obj.SrcSecureLabels, r)
-	}
 	return obj
 }
 
@@ -92,9 +89,6 @@ func ProtoToFirewallPolicyRule(p *betapb.ComputeBetaFirewallPolicyRule) *beta.Fi
 	for _, r := range p.GetTargetServiceAccounts() {
 		obj.TargetServiceAccounts = append(obj.TargetServiceAccounts, r)
 	}
-	for _, r := range p.GetTargetSecureLabels() {
-		obj.TargetSecureLabels = append(obj.TargetSecureLabels, r)
-	}
 	return obj
 }
 
@@ -123,9 +117,6 @@ func ComputeBetaFirewallPolicyRuleMatchToProto(o *beta.FirewallPolicyRuleMatch) 
 	}
 	for _, r := range o.Layer4Configs {
 		p.Layer4Configs = append(p.Layer4Configs, ComputeBetaFirewallPolicyRuleMatchLayer4ConfigsToProto(&r))
-	}
-	for _, r := range o.SrcSecureLabels {
-		p.SrcSecureLabels = append(p.SrcSecureLabels, r)
 	}
 	return p
 }
@@ -163,9 +154,6 @@ func FirewallPolicyRuleToProto(resource *beta.FirewallPolicyRule) *betapb.Comput
 	}
 	for _, r := range resource.TargetServiceAccounts {
 		p.TargetServiceAccounts = append(p.TargetServiceAccounts, r)
-	}
-	for _, r := range resource.TargetSecureLabels {
-		p.TargetSecureLabels = append(p.TargetSecureLabels, r)
 	}
 
 	return p

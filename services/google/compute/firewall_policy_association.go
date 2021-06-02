@@ -26,6 +26,7 @@ type FirewallPolicyAssociation struct {
 	Name             *string `json:"name"`
 	AttachmentTarget *string `json:"attachmentTarget"`
 	FirewallPolicy   *string `json:"firewallPolicy"`
+	ShortName        *string `json:"shortName"`
 	DisplayName      *string `json:"displayName"`
 }
 

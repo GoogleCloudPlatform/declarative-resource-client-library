@@ -56,6 +56,8 @@ components:
       x-dcl-locations:
       - global
       type: object
+      required:
+      - firewallPolicy
       properties:
         attachmentTarget:
           type: string
@@ -71,7 +73,8 @@ components:
           type: string
           x-dcl-go-name: DisplayName
           readOnly: true
-          description: The display name of the firewall policy of the association.
+          description: Deprecated, please use short name instead. The display name
+            of the firewall policy of the association.
           x-kubernetes-immutable: true
         firewallPolicy:
           type: string
@@ -85,4 +88,10 @@ components:
           type: string
           x-dcl-go-name: Name
           description: The name for an association.
+          x-kubernetes-immutable: true
+        shortName:
+          type: string
+          x-dcl-go-name: ShortName
+          readOnly: true
+          description: The short name of the firewall policy of the association.
           x-kubernetes-immutable: true
