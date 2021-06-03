@@ -34,11 +34,24 @@ func (r *Feature) validate() error {
 	if err := dcl.RequiredParameter(r.Location, "Location"); err != nil {
 		return err
 	}
+	if !dcl.IsEmptyValueIndirect(r.ResourceState) {
+		if err := r.ResourceState.validate(); err != nil {
+			return err
+		}
+	}
 	if !dcl.IsEmptyValueIndirect(r.Spec) {
 		if err := r.Spec.validate(); err != nil {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.State) {
+		if err := r.State.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *FeatureResourceState) validate() error {
 	return nil
 }
 func (r *FeatureSpec) validate() error {
@@ -50,6 +63,17 @@ func (r *FeatureSpec) validate() error {
 	return nil
 }
 func (r *FeatureSpecMulticlusteringress) validate() error {
+	return nil
+}
+func (r *FeatureState) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.State) {
+		if err := r.State.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *FeatureStateState) validate() error {
 	return nil
 }
 
@@ -355,7 +379,9 @@ func canonicalizeFeatureDesiredState(rawDesired, rawInitial *Feature, opts ...dc
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
+		rawDesired.ResourceState = canonicalizeFeatureResourceState(rawDesired.ResourceState, nil, opts...)
 		rawDesired.Spec = canonicalizeFeatureSpec(rawDesired.Spec, nil, opts...)
+		rawDesired.State = canonicalizeFeatureState(rawDesired.State, nil, opts...)
 
 		return rawDesired, nil
 	}
@@ -365,6 +391,7 @@ func canonicalizeFeatureDesiredState(rawDesired, rawInitial *Feature, opts ...dc
 	if dcl.IsZeroValue(rawDesired.Labels) {
 		rawDesired.Labels = rawInitial.Labels
 	}
+	rawDesired.ResourceState = canonicalizeFeatureResourceState(rawDesired.ResourceState, rawInitial.ResourceState, opts...)
 	rawDesired.Spec = canonicalizeFeatureSpec(rawDesired.Spec, rawInitial.Spec, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
@@ -391,10 +418,22 @@ func canonicalizeFeatureNewState(c *Client, rawNew, rawDesired *Feature) (*Featu
 	} else {
 	}
 
+	if dcl.IsEmptyValueIndirect(rawNew.ResourceState) && dcl.IsEmptyValueIndirect(rawDesired.ResourceState) {
+		rawNew.ResourceState = rawDesired.ResourceState
+	} else {
+		rawNew.ResourceState = canonicalizeNewFeatureResourceState(c, rawDesired.ResourceState, rawNew.ResourceState)
+	}
+
 	if dcl.IsEmptyValueIndirect(rawNew.Spec) && dcl.IsEmptyValueIndirect(rawDesired.Spec) {
 		rawNew.Spec = rawDesired.Spec
 	} else {
 		rawNew.Spec = canonicalizeNewFeatureSpec(c, rawDesired.Spec, rawNew.Spec)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
+		rawNew.State = rawDesired.State
+	} else {
+		rawNew.State = canonicalizeNewFeatureState(c, rawDesired.State, rawNew.State)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
@@ -417,6 +456,86 @@ func canonicalizeFeatureNewState(c *Client, rawNew, rawDesired *Feature) (*Featu
 	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
+}
+
+func canonicalizeFeatureResourceState(des, initial *FeatureResourceState, opts ...dcl.ApplyOption) *FeatureResourceState {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.IsZeroValue(des.State) {
+		des.State = initial.State
+	}
+	if dcl.BoolCanonicalize(des.HasResources, initial.HasResources) || dcl.IsZeroValue(des.HasResources) {
+		des.HasResources = initial.HasResources
+	}
+
+	return des
+}
+
+func canonicalizeNewFeatureResourceState(c *Client, des, nw *FeatureResourceState) *FeatureResourceState {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	if dcl.IsZeroValue(nw.State) {
+		nw.State = des.State
+	}
+	if dcl.BoolCanonicalize(des.HasResources, nw.HasResources) {
+		nw.HasResources = des.HasResources
+	}
+
+	return nw
+}
+
+func canonicalizeNewFeatureResourceStateSet(c *Client, des, nw []FeatureResourceState) []FeatureResourceState {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []FeatureResourceState
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareFeatureResourceStateNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewFeatureResourceStateSlice(c *Client, des, nw []FeatureResourceState) []FeatureResourceState {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []FeatureResourceState
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFeatureResourceState(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeFeatureSpec(des, initial *FeatureSpec, opts ...dcl.ApplyOption) *FeatureSpec {
@@ -563,6 +682,150 @@ func canonicalizeNewFeatureSpecMulticlusteringressSlice(c *Client, des, nw []Fea
 	return items
 }
 
+func canonicalizeFeatureState(des, initial *FeatureState, opts ...dcl.ApplyOption) *FeatureState {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	return des
+}
+
+func canonicalizeNewFeatureState(c *Client, des, nw *FeatureState) *FeatureState {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	nw.State = canonicalizeNewFeatureStateState(c, des.State, nw.State)
+
+	return nw
+}
+
+func canonicalizeNewFeatureStateSet(c *Client, des, nw []FeatureState) []FeatureState {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []FeatureState
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareFeatureStateNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewFeatureStateSlice(c *Client, des, nw []FeatureState) []FeatureState {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []FeatureState
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFeatureState(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeFeatureStateState(des, initial *FeatureStateState, opts ...dcl.ApplyOption) *FeatureStateState {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	return des
+}
+
+func canonicalizeNewFeatureStateState(c *Client, des, nw *FeatureStateState) *FeatureStateState {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	if dcl.IsZeroValue(nw.Code) {
+		nw.Code = des.Code
+	}
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
+		nw.Description = des.Description
+	}
+	if dcl.StringCanonicalize(des.UpdateTime, nw.UpdateTime) {
+		nw.UpdateTime = des.UpdateTime
+	}
+
+	return nw
+}
+
+func canonicalizeNewFeatureStateStateSet(c *Client, des, nw []FeatureStateState) []FeatureStateState {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []FeatureStateState
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareFeatureStateStateNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewFeatureStateStateSlice(c *Client, des, nw []FeatureStateState) []FeatureStateState {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []FeatureStateState
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFeatureStateState(c, &d, &n))
+	}
+
+	return items
+}
+
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -592,7 +855,21 @@ func diffFeature(c *Client, desired, actual *Feature, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.ResourceState, actual.ResourceState, dcl.Info{ObjectFunction: compareFeatureResourceStateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceState")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareFeatureSpecNewStyle, OperationSelector: dcl.TriggersOperation("updateFeatureUpdateFeatureOperation")}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, ObjectFunction: compareFeatureStateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -636,6 +913,42 @@ func diffFeature(c *Client, desired, actual *Feature, opts ...dcl.ApplyOption) (
 
 	return newDiffs, nil
 }
+func compareFeatureResourceStateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*FeatureResourceState)
+	if !ok {
+		desiredNotPointer, ok := d.(FeatureResourceState)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureResourceState or *FeatureResourceState", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*FeatureResourceState)
+	if !ok {
+		actualNotPointer, ok := a.(FeatureResourceState)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureResourceState", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.HasResources, actual.HasResources, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HasResources")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareFeatureSpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
@@ -686,6 +999,78 @@ func compareFeatureSpecMulticlusteringressNewStyle(d, a interface{}, fn dcl.Fiel
 	}
 
 	if ds, err := dcl.Diff(desired.ConfigMembership, actual.ConfigMembership, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigMembership")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareFeatureStateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*FeatureState)
+	if !ok {
+		desiredNotPointer, ok := d.(FeatureState)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureState or *FeatureState", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*FeatureState)
+	if !ok {
+		actualNotPointer, ok := a.(FeatureState)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureState", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, ObjectFunction: compareFeatureStateStateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareFeatureStateStateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*FeatureStateState)
+	if !ok {
+		desiredNotPointer, ok := d.(FeatureStateState)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureStateState or *FeatureStateState", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*FeatureStateState)
+	if !ok {
+		actualNotPointer, ok := a.(FeatureStateState)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureStateState", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -771,10 +1156,20 @@ func expandFeature(c *Client, f *Feature) (map[string]interface{}, error) {
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
 	}
+	if v, err := expandFeatureResourceState(c, f.ResourceState); err != nil {
+		return nil, fmt.Errorf("error expanding ResourceState into resourceState: %w", err)
+	} else if v != nil {
+		m["resourceState"] = v
+	}
 	if v, err := expandFeatureSpec(c, f.Spec); err != nil {
 		return nil, fmt.Errorf("error expanding Spec into spec: %w", err)
 	} else if v != nil {
 		m["spec"] = v
+	}
+	if v, err := expandFeatureState(c, f.State); err != nil {
+		return nil, fmt.Errorf("error expanding State into state: %w", err)
+	} else if v != nil {
+		m["state"] = v
 	}
 	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["createTime"] = v
@@ -813,7 +1208,9 @@ func flattenFeature(c *Client, i interface{}) *Feature {
 	res := &Feature{}
 	res.Name = dcl.FlattenString(m["name"])
 	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	res.ResourceState = flattenFeatureResourceState(c, m["resourceState"])
 	res.Spec = flattenFeatureSpec(c, m["spec"])
+	res.State = flattenFeatureState(c, m["state"])
 	res.CreateTime = dcl.FlattenString(m["createTime"])
 	res.UpdateTime = dcl.FlattenString(m["updateTime"])
 	res.DeleteTime = dcl.FlattenString(m["deleteTime"])
@@ -821,6 +1218,124 @@ func flattenFeature(c *Client, i interface{}) *Feature {
 	res.Location = dcl.FlattenString(m["location"])
 
 	return res
+}
+
+// expandFeatureResourceStateMap expands the contents of FeatureResourceState into a JSON
+// request object.
+func expandFeatureResourceStateMap(c *Client, f map[string]FeatureResourceState) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandFeatureResourceState(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandFeatureResourceStateSlice expands the contents of FeatureResourceState into a JSON
+// request object.
+func expandFeatureResourceStateSlice(c *Client, f []FeatureResourceState) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandFeatureResourceState(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenFeatureResourceStateMap flattens the contents of FeatureResourceState from a JSON
+// response object.
+func flattenFeatureResourceStateMap(c *Client, i interface{}) map[string]FeatureResourceState {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]FeatureResourceState{}
+	}
+
+	if len(a) == 0 {
+		return map[string]FeatureResourceState{}
+	}
+
+	items := make(map[string]FeatureResourceState)
+	for k, item := range a {
+		items[k] = *flattenFeatureResourceState(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenFeatureResourceStateSlice flattens the contents of FeatureResourceState from a JSON
+// response object.
+func flattenFeatureResourceStateSlice(c *Client, i interface{}) []FeatureResourceState {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []FeatureResourceState{}
+	}
+
+	if len(a) == 0 {
+		return []FeatureResourceState{}
+	}
+
+	items := make([]FeatureResourceState, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenFeatureResourceState(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandFeatureResourceState expands an instance of FeatureResourceState into a JSON
+// request object.
+func expandFeatureResourceState(c *Client, f *FeatureResourceState) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
+		m["state"] = v
+	}
+	if v := f.HasResources; !dcl.IsEmptyValueIndirect(v) {
+		m["hasResources"] = v
+	}
+
+	return m, nil
+}
+
+// flattenFeatureResourceState flattens an instance of FeatureResourceState from a JSON
+// response object.
+func flattenFeatureResourceState(c *Client, i interface{}) *FeatureResourceState {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &FeatureResourceState{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFeatureResourceState
+	}
+	r.State = flattenFeatureResourceStateStateEnum(m["state"])
+	r.HasResources = dcl.FlattenBool(m["hasResources"])
+
+	return r
 }
 
 // expandFeatureSpecMap expands the contents of FeatureSpec into a JSON
@@ -1051,6 +1566,306 @@ func flattenFeatureSpecMulticlusteringress(c *Client, i interface{}) *FeatureSpe
 	r.ConfigMembership = dcl.FlattenString(m["configMembership"])
 
 	return r
+}
+
+// expandFeatureStateMap expands the contents of FeatureState into a JSON
+// request object.
+func expandFeatureStateMap(c *Client, f map[string]FeatureState) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandFeatureState(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandFeatureStateSlice expands the contents of FeatureState into a JSON
+// request object.
+func expandFeatureStateSlice(c *Client, f []FeatureState) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandFeatureState(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenFeatureStateMap flattens the contents of FeatureState from a JSON
+// response object.
+func flattenFeatureStateMap(c *Client, i interface{}) map[string]FeatureState {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]FeatureState{}
+	}
+
+	if len(a) == 0 {
+		return map[string]FeatureState{}
+	}
+
+	items := make(map[string]FeatureState)
+	for k, item := range a {
+		items[k] = *flattenFeatureState(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenFeatureStateSlice flattens the contents of FeatureState from a JSON
+// response object.
+func flattenFeatureStateSlice(c *Client, i interface{}) []FeatureState {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []FeatureState{}
+	}
+
+	if len(a) == 0 {
+		return []FeatureState{}
+	}
+
+	items := make([]FeatureState, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenFeatureState(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandFeatureState expands an instance of FeatureState into a JSON
+// request object.
+func expandFeatureState(c *Client, f *FeatureState) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v, err := expandFeatureStateState(c, f.State); err != nil {
+		return nil, fmt.Errorf("error expanding State into state: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["state"] = v
+	}
+
+	return m, nil
+}
+
+// flattenFeatureState flattens an instance of FeatureState from a JSON
+// response object.
+func flattenFeatureState(c *Client, i interface{}) *FeatureState {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &FeatureState{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFeatureState
+	}
+	r.State = flattenFeatureStateState(c, m["state"])
+
+	return r
+}
+
+// expandFeatureStateStateMap expands the contents of FeatureStateState into a JSON
+// request object.
+func expandFeatureStateStateMap(c *Client, f map[string]FeatureStateState) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandFeatureStateState(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandFeatureStateStateSlice expands the contents of FeatureStateState into a JSON
+// request object.
+func expandFeatureStateStateSlice(c *Client, f []FeatureStateState) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandFeatureStateState(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenFeatureStateStateMap flattens the contents of FeatureStateState from a JSON
+// response object.
+func flattenFeatureStateStateMap(c *Client, i interface{}) map[string]FeatureStateState {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]FeatureStateState{}
+	}
+
+	if len(a) == 0 {
+		return map[string]FeatureStateState{}
+	}
+
+	items := make(map[string]FeatureStateState)
+	for k, item := range a {
+		items[k] = *flattenFeatureStateState(c, item.(map[string]interface{}))
+	}
+
+	return items
+}
+
+// flattenFeatureStateStateSlice flattens the contents of FeatureStateState from a JSON
+// response object.
+func flattenFeatureStateStateSlice(c *Client, i interface{}) []FeatureStateState {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []FeatureStateState{}
+	}
+
+	if len(a) == 0 {
+		return []FeatureStateState{}
+	}
+
+	items := make([]FeatureStateState, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenFeatureStateState(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandFeatureStateState expands an instance of FeatureStateState into a JSON
+// request object.
+func expandFeatureStateState(c *Client, f *FeatureStateState) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Code; !dcl.IsEmptyValueIndirect(v) {
+		m["code"] = v
+	}
+	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+		m["description"] = v
+	}
+	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
+		m["updateTime"] = v
+	}
+
+	return m, nil
+}
+
+// flattenFeatureStateState flattens an instance of FeatureStateState from a JSON
+// response object.
+func flattenFeatureStateState(c *Client, i interface{}) *FeatureStateState {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &FeatureStateState{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFeatureStateState
+	}
+	r.Code = flattenFeatureStateStateCodeEnum(m["code"])
+	r.Description = dcl.FlattenString(m["description"])
+	r.UpdateTime = dcl.FlattenString(m["updateTime"])
+
+	return r
+}
+
+// flattenFeatureResourceStateStateEnumSlice flattens the contents of FeatureResourceStateStateEnum from a JSON
+// response object.
+func flattenFeatureResourceStateStateEnumSlice(c *Client, i interface{}) []FeatureResourceStateStateEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []FeatureResourceStateStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return []FeatureResourceStateStateEnum{}
+	}
+
+	items := make([]FeatureResourceStateStateEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenFeatureResourceStateStateEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenFeatureResourceStateStateEnum asserts that an interface is a string, and returns a
+// pointer to a *FeatureResourceStateStateEnum with the same value as that string.
+func flattenFeatureResourceStateStateEnum(i interface{}) *FeatureResourceStateStateEnum {
+	s, ok := i.(string)
+	if !ok {
+		return FeatureResourceStateStateEnumRef("")
+	}
+
+	return FeatureResourceStateStateEnumRef(s)
+}
+
+// flattenFeatureStateStateCodeEnumSlice flattens the contents of FeatureStateStateCodeEnum from a JSON
+// response object.
+func flattenFeatureStateStateCodeEnumSlice(c *Client, i interface{}) []FeatureStateStateCodeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []FeatureStateStateCodeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []FeatureStateStateCodeEnum{}
+	}
+
+	items := make([]FeatureStateStateCodeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenFeatureStateStateCodeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenFeatureStateStateCodeEnum asserts that an interface is a string, and returns a
+// pointer to a *FeatureStateStateCodeEnum with the same value as that string.
+func flattenFeatureStateStateCodeEnum(i interface{}) *FeatureStateStateCodeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return FeatureStateStateCodeEnumRef("")
+	}
+
+	return FeatureStateStateCodeEnumRef(s)
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource

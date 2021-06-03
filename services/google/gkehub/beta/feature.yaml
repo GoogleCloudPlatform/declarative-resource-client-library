@@ -107,6 +107,34 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+        resourceState:
+          type: object
+          x-dcl-go-name: ResourceState
+          x-dcl-go-type: FeatureResourceState
+          description: State of the Feature resource itself.
+          x-kubernetes-immutable: true
+          properties:
+            hasResources:
+              type: boolean
+              x-dcl-go-name: HasResources
+              description: Whether this Feature has outstanding resources that need
+                to be cleaned up before it can be disabled.
+              x-kubernetes-immutable: true
+            state:
+              type: string
+              x-dcl-go-name: State
+              x-dcl-go-type: FeatureResourceStateStateEnum
+              description: 'The current state of the Feature resource in the Hub API.
+                Possible values: STATE_UNSPECIFIED, ENABLING, ACTIVE, DISABLING, UPDATING,
+                SERVICE_UPDATING'
+              x-kubernetes-immutable: true
+              enum:
+              - STATE_UNSPECIFIED
+              - ENABLING
+              - ACTIVE
+              - DISABLING
+              - UPDATING
+              - SERVICE_UPDATING
         spec:
           type: object
           x-dcl-go-name: Spec
@@ -128,6 +156,51 @@ components:
                   x-dcl-references:
                   - resource: Gkehub/Membership
                     field: name
+        state:
+          type: object
+          x-dcl-go-name: State
+          x-dcl-go-type: FeatureState
+          readOnly: true
+          description: Output only. The Hub-wide Feature state
+          x-kubernetes-immutable: true
+          properties:
+            state:
+              type: object
+              x-dcl-go-name: State
+              x-dcl-go-type: FeatureStateState
+              readOnly: true
+              description: Output only. The "running state" of the Feature in this
+                Hub.
+              x-kubernetes-immutable: true
+              properties:
+                code:
+                  type: string
+                  x-dcl-go-name: Code
+                  x-dcl-go-type: FeatureStateStateCodeEnum
+                  readOnly: true
+                  description: 'The high-level, machine-readable status of this Feature.
+                    Possible values: CODE_UNSPECIFIED, OK, WARNING, ERROR'
+                  x-kubernetes-immutable: true
+                  enum:
+                  - CODE_UNSPECIFIED
+                  - OK
+                  - WARNING
+                  - ERROR
+                description:
+                  type: string
+                  x-dcl-go-name: Description
+                  readOnly: true
+                  description: A human-readable description of the current status.
+                  x-kubernetes-immutable: true
+                updateTime:
+                  type: string
+                  x-dcl-go-name: UpdateTime
+                  readOnly: true
+                  description: 'The time this status and any related Feature-specific
+                    details were updated. A timestamp in RFC3339 UTC "Zulu" format,
+                    with nanosecond resolution and up to nine fractional digits. Examples:
+                    "2014-10-02T15:01:23Z" and "2014-10-02T15:01:23.045123456Z"'
+                  x-kubernetes-immutable: true
         updateTime:
           type: string
           format: date-time

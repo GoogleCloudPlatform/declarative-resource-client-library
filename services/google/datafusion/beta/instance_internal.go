@@ -132,11 +132,6 @@ func newUpdateInstanceUpdateInstanceRequest(ctx context.Context, f *Instance, c 
 	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
 		req["displayName"] = v
 	}
-	if v, err := expandInstanceAvailableVersionSlice(c, f.AvailableVersion); err != nil {
-		return nil, fmt.Errorf("error expanding AvailableVersion into availableVersion: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["availableVersion"] = v
-	}
 	if v := f.DataprocServiceAccount; !dcl.IsEmptyValueIndirect(v) {
 		req["dataprocServiceAccount"] = v
 	}
@@ -499,9 +494,6 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
 		rawDesired.DisplayName = rawInitial.DisplayName
 	}
-	if dcl.IsZeroValue(rawDesired.AvailableVersion) {
-		rawDesired.AvailableVersion = rawInitial.AvailableVersion
-	}
 	if dcl.NameToSelfLink(rawDesired.DataprocServiceAccount, rawInitial.DataprocServiceAccount) {
 		rawDesired.DataprocServiceAccount = rawInitial.DataprocServiceAccount
 	}
@@ -772,16 +764,6 @@ func canonicalizeInstanceAvailableVersion(des, initial *InstanceAvailableVersion
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.VersionNumber, initial.VersionNumber) || dcl.IsZeroValue(des.VersionNumber) {
-		des.VersionNumber = initial.VersionNumber
-	}
-	if dcl.BoolCanonicalize(des.DefaultVersion, initial.DefaultVersion) || dcl.IsZeroValue(des.DefaultVersion) {
-		des.DefaultVersion = initial.DefaultVersion
-	}
-	if dcl.IsZeroValue(des.AvailableFeatures) {
-		des.AvailableFeatures = initial.AvailableFeatures
-	}
-
 	return des
 }
 
@@ -980,7 +962,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AvailableVersion, actual.AvailableVersion, dcl.Info{ObjectFunction: compareInstanceAvailableVersionNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("AvailableVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AvailableVersion, actual.AvailableVersion, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceAvailableVersionNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AvailableVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1094,21 +1076,21 @@ func compareInstanceAvailableVersionNewStyle(d, a interface{}, fn dcl.FieldName)
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.VersionNumber, actual.VersionNumber, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VersionNumber")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VersionNumber, actual.VersionNumber, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VersionNumber")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DefaultVersion, actual.DefaultVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DefaultVersion, actual.DefaultVersion, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AvailableFeatures, actual.AvailableFeatures, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AvailableFeatures")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AvailableFeatures, actual.AvailableFeatures, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AvailableFeatures")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

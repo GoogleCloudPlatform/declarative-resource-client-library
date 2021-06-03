@@ -81,8 +81,9 @@ components:
         availableVersion:
           type: array
           x-dcl-go-name: AvailableVersion
-          description: Available versions that the instance can be upgraded to using
-            UpdateInstanceRequest.
+          readOnly: true
+          description: Available versions that the instance can be upgraded to.
+          x-kubernetes-immutable: true
           x-dcl-list-type: list
           items:
             type: object
@@ -91,8 +92,10 @@ components:
               availableFeatures:
                 type: array
                 x-dcl-go-name: AvailableFeatures
+                readOnly: true
                 description: Represents a list of available feature names for a given
                   version.
+                x-kubernetes-immutable: true
                 x-dcl-list-type: list
                 items:
                   type: string
@@ -100,13 +103,17 @@ components:
               defaultVersion:
                 type: boolean
                 x-dcl-go-name: DefaultVersion
+                readOnly: true
                 description: Whether this is currently the default version for Cloud
                   Data Fusion
+                x-kubernetes-immutable: true
               versionNumber:
                 type: string
                 x-dcl-go-name: VersionNumber
+                readOnly: true
                 description: The version number of the Data Fusion instance, such
                   as '6.0.1.0'.
+                x-kubernetes-immutable: true
         createTime:
           type: string
           format: date-time
@@ -274,7 +281,7 @@ components:
         version:
           type: string
           x-dcl-go-name: Version
-          description: Current version of the Data Fusion. Only specifiable in Update.
+          description: Current version of the Data Fusion.
         zone:
           type: string
           x-dcl-go-name: Zone

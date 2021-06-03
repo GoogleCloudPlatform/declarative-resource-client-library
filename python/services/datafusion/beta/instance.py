@@ -62,7 +62,6 @@ class Instance(object):
         self.zone = zone
         self.version = version
         self.display_name = display_name
-        self.available_version = available_version
         self.dataproc_service_account = dataproc_service_account
         self.project = project
         self.location = location
@@ -116,10 +115,6 @@ class Instance(object):
         if Primitive.to_proto(self.display_name):
             request.resource.display_name = Primitive.to_proto(self.display_name)
 
-        if InstanceAvailableVersionArray.to_proto(self.available_version):
-            request.resource.available_version.extend(
-                InstanceAvailableVersionArray.to_proto(self.available_version)
-            )
         if Primitive.to_proto(self.dataproc_service_account):
             request.resource.dataproc_service_account = Primitive.to_proto(
                 self.dataproc_service_account
@@ -217,10 +212,6 @@ class Instance(object):
         if Primitive.to_proto(self.display_name):
             request.resource.display_name = Primitive.to_proto(self.display_name)
 
-        if InstanceAvailableVersionArray.to_proto(self.available_version):
-            request.resource.available_version.extend(
-                InstanceAvailableVersionArray.to_proto(self.available_version)
-            )
         if Primitive.to_proto(self.dataproc_service_account):
             request.resource.dataproc_service_account = Primitive.to_proto(
                 self.dataproc_service_account
@@ -279,10 +270,6 @@ class Instance(object):
             resource.version = Primitive.to_proto(self.version)
         if Primitive.to_proto(self.display_name):
             resource.display_name = Primitive.to_proto(self.display_name)
-        if InstanceAvailableVersionArray.to_proto(self.available_version):
-            resource.available_version.extend(
-                InstanceAvailableVersionArray.to_proto(self.available_version)
-            )
         if Primitive.to_proto(self.dataproc_service_account):
             resource.dataproc_service_account = Primitive.to_proto(
                 self.dataproc_service_account

@@ -25,18 +25,123 @@ import (
 )
 
 type Feature struct {
-	Name       *string           `json:"name"`
-	Labels     map[string]string `json:"labels"`
-	Spec       *FeatureSpec      `json:"spec"`
-	CreateTime *string           `json:"createTime"`
-	UpdateTime *string           `json:"updateTime"`
-	DeleteTime *string           `json:"deleteTime"`
-	Project    *string           `json:"project"`
-	Location   *string           `json:"location"`
+	Name          *string               `json:"name"`
+	Labels        map[string]string     `json:"labels"`
+	ResourceState *FeatureResourceState `json:"resourceState"`
+	Spec          *FeatureSpec          `json:"spec"`
+	State         *FeatureState         `json:"state"`
+	CreateTime    *string               `json:"createTime"`
+	UpdateTime    *string               `json:"updateTime"`
+	DeleteTime    *string               `json:"deleteTime"`
+	Project       *string               `json:"project"`
+	Location      *string               `json:"location"`
 }
 
 func (r *Feature) String() string {
 	return dcl.SprintResource(r)
+}
+
+// The enum FeatureResourceStateStateEnum.
+type FeatureResourceStateStateEnum string
+
+// FeatureResourceStateStateEnumRef returns a *FeatureResourceStateStateEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func FeatureResourceStateStateEnumRef(s string) *FeatureResourceStateStateEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := FeatureResourceStateStateEnum(s)
+	return &v
+}
+
+func (v FeatureResourceStateStateEnum) Validate() error {
+	for _, s := range []string{"STATE_UNSPECIFIED", "ENABLING", "ACTIVE", "DISABLING", "UPDATING", "SERVICE_UPDATING"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "FeatureResourceStateStateEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum FeatureStateStateCodeEnum.
+type FeatureStateStateCodeEnum string
+
+// FeatureStateStateCodeEnumRef returns a *FeatureStateStateCodeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func FeatureStateStateCodeEnumRef(s string) *FeatureStateStateCodeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := FeatureStateStateCodeEnum(s)
+	return &v
+}
+
+func (v FeatureStateStateCodeEnum) Validate() error {
+	for _, s := range []string{"CODE_UNSPECIFIED", "OK", "WARNING", "ERROR"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "FeatureStateStateCodeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+type FeatureResourceState struct {
+	empty        bool                           `json:"-"`
+	State        *FeatureResourceStateStateEnum `json:"state"`
+	HasResources *bool                          `json:"hasResources"`
+}
+
+type jsonFeatureResourceState FeatureResourceState
+
+func (r *FeatureResourceState) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureResourceState
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureResourceState
+	} else {
+
+		r.State = res.State
+
+		r.HasResources = res.HasResources
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this FeatureResourceState is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyFeatureResourceState *FeatureResourceState = &FeatureResourceState{empty: true}
+
+func (r *FeatureResourceState) Empty() bool {
+	return r.empty
+}
+
+func (r *FeatureResourceState) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *FeatureResourceState) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
 }
 
 type FeatureSpec struct {
@@ -125,6 +230,104 @@ func (r *FeatureSpecMulticlusteringress) String() string {
 }
 
 func (r *FeatureSpecMulticlusteringress) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type FeatureState struct {
+	empty bool               `json:"-"`
+	State *FeatureStateState `json:"state"`
+}
+
+type jsonFeatureState FeatureState
+
+func (r *FeatureState) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureState
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureState
+	} else {
+
+		r.State = res.State
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this FeatureState is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyFeatureState *FeatureState = &FeatureState{empty: true}
+
+func (r *FeatureState) Empty() bool {
+	return r.empty
+}
+
+func (r *FeatureState) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *FeatureState) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type FeatureStateState struct {
+	empty       bool                       `json:"-"`
+	Code        *FeatureStateStateCodeEnum `json:"code"`
+	Description *string                    `json:"description"`
+	UpdateTime  *string                    `json:"updateTime"`
+}
+
+type jsonFeatureStateState FeatureStateState
+
+func (r *FeatureStateState) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureStateState
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureStateState
+	} else {
+
+		r.Code = res.Code
+
+		r.Description = res.Description
+
+		r.UpdateTime = res.UpdateTime
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this FeatureStateState is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyFeatureStateState *FeatureStateState = &FeatureStateState{empty: true}
+
+func (r *FeatureStateState) Empty() bool {
+	return r.empty
+}
+
+func (r *FeatureStateState) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *FeatureStateState) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

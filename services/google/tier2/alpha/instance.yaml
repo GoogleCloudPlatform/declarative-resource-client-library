@@ -208,7 +208,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -621,7 +623,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -1044,7 +1048,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -1505,7 +1511,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -1905,7 +1913,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -2312,7 +2322,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -2712,7 +2724,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -3112,7 +3126,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -3512,7 +3528,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -3912,7 +3930,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -4312,7 +4332,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -4712,7 +4734,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -5112,7 +5136,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -5512,7 +5538,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -5912,7 +5940,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -6312,7 +6342,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -6731,7 +6763,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -7131,7 +7165,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -7609,7 +7645,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -8009,7 +8047,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -8415,7 +8455,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -8865,7 +8907,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs
@@ -9265,7 +9309,9 @@ components:
                             x-dcl-go-name: Delegate
                             description: 'The MDB role to delegate KMS grant to so
                               CCFE can register the key to be watched on behalf of
-                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"'
+                              the CLH. Should be of the format: "serviceaccount:@prod.google.com"
+                              This field will always be populated by CCFE and cannot
+                              be updated by the CLH.'
                           keyNotificationConfigs:
                             type: array
                             x-dcl-go-name: KeyNotificationConfigs

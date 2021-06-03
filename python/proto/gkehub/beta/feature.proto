@@ -18,15 +18,40 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+enum GkehubBetaFeatureResourceStateStateEnum {
+  GkehubBetaFeatureResourceStateStateEnumNO_VALUE_DO_NOT_USE = 0;
+  GkehubBetaFeatureResourceStateStateEnumSTATE_UNSPECIFIED = 1;
+  GkehubBetaFeatureResourceStateStateEnumENABLING = 2;
+  GkehubBetaFeatureResourceStateStateEnumACTIVE = 3;
+  GkehubBetaFeatureResourceStateStateEnumDISABLING = 4;
+  GkehubBetaFeatureResourceStateStateEnumUPDATING = 5;
+  GkehubBetaFeatureResourceStateStateEnumSERVICE_UPDATING = 6;
+}
+
+enum GkehubBetaFeatureStateStateCodeEnum {
+  GkehubBetaFeatureStateStateCodeEnumNO_VALUE_DO_NOT_USE = 0;
+  GkehubBetaFeatureStateStateCodeEnumCODE_UNSPECIFIED = 1;
+  GkehubBetaFeatureStateStateCodeEnumOK = 2;
+  GkehubBetaFeatureStateStateCodeEnumWARNING = 3;
+  GkehubBetaFeatureStateStateCodeEnumERROR = 4;
+}
+
 message GkehubBetaFeature {
   string name = 1;
   map<string, string> labels = 2;
-  GkehubBetaFeatureSpec spec = 3;
-  string create_time = 4;
-  string update_time = 5;
-  string delete_time = 6;
-  string project = 7;
-  string location = 8;
+  GkehubBetaFeatureResourceState resource_state = 3;
+  GkehubBetaFeatureSpec spec = 4;
+  GkehubBetaFeatureState state = 5;
+  string create_time = 6;
+  string update_time = 7;
+  string delete_time = 8;
+  string project = 9;
+  string location = 10;
+}
+
+message GkehubBetaFeatureResourceState {
+  GkehubBetaFeatureResourceStateStateEnum state = 1;
+  bool has_resources = 2;
 }
 
 message GkehubBetaFeatureSpec {
@@ -35,6 +60,16 @@ message GkehubBetaFeatureSpec {
 
 message GkehubBetaFeatureSpecMulticlusteringress {
   string config_membership = 1;
+}
+
+message GkehubBetaFeatureState {
+  GkehubBetaFeatureStateState state = 1;
+}
+
+message GkehubBetaFeatureStateState {
+  GkehubBetaFeatureStateStateCodeEnum code = 1;
+  string description = 2;
+  string update_time = 3;
 }
 
 message ApplyGkehubBetaFeatureRequest {
