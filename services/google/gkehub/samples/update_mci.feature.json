@@ -1,13 +1,13 @@
 {
-  "project": "{{project}}",
-  "location": "global",
   "name": "multiclusteringress",
+  "project": "{{ref:mci.feature.json:project}}",
+  "location": "global",
   "labels": {
     "key": "two"
   },
   "spec": {
     "multiclusteringress": {
-      "configMembership": "projects/{{project}}/locations/global/memberships/{{ref:second.membership.json:name}}"
+      "configMembership": "projects/{{ref:mci.feature.json:project}}/locations/global/memberships/{{ref:second.membership.json:name}}"
     }
   }
 }

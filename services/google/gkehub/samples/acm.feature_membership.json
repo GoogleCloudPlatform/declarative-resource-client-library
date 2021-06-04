@@ -1,6 +1,6 @@
 {
-  "membership": "{{ref:basic.membership.json:name}}",
-  "project": "{{project}}",
+  "membership": "{{ref:first.membership.json:name}}",
+  "project": "{{ref:gkehub.serviceusage.service.json:project}}",
   "location": "global",
   "feature": "{{ref:acm.feature.json:name}}",
   "configmanagement": {

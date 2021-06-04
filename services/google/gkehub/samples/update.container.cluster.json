@@ -1,0 +1,9 @@
+{
+  "name": "{{ref:first.container.cluster.json:name}}",
+  "project": "{{ref:first.container.cluster.json:project}}",
+  "location": "us-central1-a",
+  "initialNodeCount": 1,
+  "workloadIdentityConfig": {
+    "identityNamespace": "{{ref:basic.cloudresourcemanager.project.json:name}}.svc.id.goog"
+  }
+}

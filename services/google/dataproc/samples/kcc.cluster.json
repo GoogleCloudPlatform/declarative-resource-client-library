@@ -11,7 +11,7 @@
    },
    "masterConfig": {
     "diskConfig": {
-     "bootDiskSizeGb": 30,
+     "bootDiskSizeGb": 50,
      "bootDiskType": "pd-standard"
     },
     "machineType": "n2-standard-2",

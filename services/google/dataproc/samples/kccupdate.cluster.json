@@ -7,11 +7,11 @@
   },
   "config": {
    "autoscalingConfig": {
-     "policy": "{{ref:basic.autoscaling_policy.json:name}}"
+     "policy": "projects/{{project}}/locations/{{region}}/autoscalingPolicies/{{ref:basic.autoscaling_policy.json:name}}"
    },
    "masterConfig": {
     "diskConfig": {
-     "bootDiskSizeGb": 30,
+     "bootDiskSizeGb": 50,
      "bootDiskType": "pd-standard"
     },
     "machineType": "n2-standard-2",

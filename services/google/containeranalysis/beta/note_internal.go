@@ -3957,11 +3957,11 @@ func flattenNote(c *Client, i interface{}) *Note {
 	res.RelatedNoteNames = dcl.FlattenStringSlice(m["relatedNoteNames"])
 	res.Vulnerability = flattenNoteVulnerability(c, m["vulnerability"])
 	res.Build = flattenNoteBuild(c, m["build"])
-	res.Image = flattenNoteImage(c, m["image"])
+	res.Image = flattenNoteImage(c, m["baseImage"])
 	res.Package = flattenNotePackage(c, m["package"])
 	res.Discovery = flattenNoteDiscovery(c, m["discovery"])
-	res.Deployment = flattenNoteDeployment(c, m["deployment"])
-	res.Attestation = flattenNoteAttestation(c, m["attestation"])
+	res.Deployment = flattenNoteDeployment(c, m["deployable"])
+	res.Attestation = flattenNoteAttestation(c, m["attestationAuthority"])
 	res.Project = dcl.FlattenString(m["project"])
 
 	return res

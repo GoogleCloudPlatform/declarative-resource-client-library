@@ -13,8 +13,13 @@
 # limitations under the License.
 dependencies:
 - samples/acm.feature.json
-- samples/basic.membership.json
-- samples/basicservice.container.cluster.json
+- samples/first.membership.json
+- samples/first.container.cluster.json
+- samples/anthosconfigmanagement.serviceusage.service.json
+- samples/gkehub.serviceusage.service.json
+- samples/container.serviceusage.service.json
+- samples/basic.cloudbilling.project_billing_info.json
+- samples/basic.cloudresourcemanager.project.json
 description: A basic example for a GKEHub acm feature membership
 name: acm_feature_membership
 resource: samples/acm.feature_membership.json

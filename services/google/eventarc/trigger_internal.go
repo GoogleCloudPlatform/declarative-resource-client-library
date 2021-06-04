@@ -1419,7 +1419,7 @@ func flattenTrigger(c *Client, i interface{}) *Trigger {
 	res.Uid = dcl.FlattenString(m["uid"])
 	res.CreateTime = dcl.FlattenString(m["createTime"])
 	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.MatchingCriteria = flattenTriggerMatchingCriteriaSlice(c, m["matchingCriteria"])
+	res.MatchingCriteria = flattenTriggerMatchingCriteriaSlice(c, m["eventFilters"])
 	res.ServiceAccount = dcl.FlattenString(m["serviceAccount"])
 	res.Destination = flattenTriggerDestination(c, m["destination"])
 	res.Transport = flattenTriggerTransport(c, m["transport"])
@@ -1663,7 +1663,7 @@ func flattenTriggerDestination(c *Client, i interface{}) *TriggerDestination {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyTriggerDestination
 	}
-	r.CloudRunService = flattenTriggerDestinationCloudRunService(c, m["cloudRunService"])
+	r.CloudRunService = flattenTriggerDestinationCloudRunService(c, m["cloudRun"])
 	r.CloudFunction = dcl.FlattenString(m["cloudFunction"])
 
 	return r

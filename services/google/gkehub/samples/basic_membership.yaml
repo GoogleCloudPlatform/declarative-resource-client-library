@@ -12,11 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 dependencies:
-- samples/basicservice.container.cluster.json
-description: A basic example for an GKEHub Membership
+- samples/first.container.cluster.json
+- samples/gkehub.serviceusage.service.json
+- samples/container.serviceusage.service.json
+- samples/basic.cloudbilling.project_billing_info.json
+- samples/basic.cloudresourcemanager.project.json
+description: A basic example for a GKEHub Membership
 name: basic_membership
-resource: samples/basic.membership.json
+resource: samples/first.membership.json
 updates:
-- resource: samples/update.membership.json
+- dependencies:
+  - samples/update.container.cluster.json
+  resource: samples/update.membership.json
 versions:
 - beta

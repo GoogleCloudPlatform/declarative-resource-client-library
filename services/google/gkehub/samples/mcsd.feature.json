@@ -1,5 +1,5 @@
 {
-  "project": "{{project}}",
-  "location": "global",
-  "name": "multiclusterservicediscovery"
+  "name": "multiclusterservicediscovery",
+  "project": "{{ref:multiclusterservicediscovery.serviceusage.service.json:project}}",
+  "location": "global"
 }

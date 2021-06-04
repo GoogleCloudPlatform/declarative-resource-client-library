@@ -1,6 +1,6 @@
 {
   "name": "configmanagement",
-  "project": "{{project}}",
+  "project": "{{ref:anthosconfigmanagement.serviceusage.service.json:project}}",
   "location": "global",
   "labels": {
     "label-one": "value-one"

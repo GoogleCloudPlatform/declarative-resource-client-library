@@ -12,10 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 dependencies:
-- samples/basic.membership.json
-- samples/basicservice.container.cluster.json
+- samples/first.membership.json
+- samples/first.container.cluster.json
 - samples/second.membership.json
-- samples/secondservice.container.cluster.json
+- samples/second.container.cluster.json
+- samples/multiclusteringress.serviceusage.service.json
+- samples/multiclusterservicediscovery.serviceusage.service.json
+- samples/gkehub.serviceusage.service.json
+- samples/container.serviceusage.service.json
+- samples/basic.cloudbilling.project_billing_info.json
+- samples/basic.cloudresourcemanager.project.json
 description: A basic example for an GKEHub MCI feature
 name: mci_feature
 resource: samples/mci.feature.json

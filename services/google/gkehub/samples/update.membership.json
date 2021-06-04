@@ -1,14 +1,14 @@
 {
-  "project": "{{project}}",
+  "name": "{{ref:first.membership.json:name}}",
+  "project": "{{ref:first.membership.json:project}}",
   "location": "global",
-  "name": "{{ref:basic.membership.json:name}}",
   "description": "description",
   "endpoint": {
     "gkeCluster": {
-      "resourceLink": "{{ref:basicservice.container.cluster.json:selfLink}}"
+      "resourceLink": "{{ref:first.container.cluster.json:selfLink}}"
     }
   },
   "authority": {
-    "issuer": "https://container.googleapis.com/v1/projects/{{ref:basicservice.container.cluster.json:project}}/locations/{{ref:basicservice.container.cluster.json:location}}/clusters/{{ref:basicservice.container.cluster.json:name}}"
+    "issuer": "https://container.googleapis.com/v1/projects/{{ref:first.membership.json:project}}/locations/{{ref:first.container.cluster.json:location}}/clusters/{{ref:first.container.cluster.json:name}}"
   }
 }
