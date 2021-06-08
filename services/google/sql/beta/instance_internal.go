@@ -4103,7 +4103,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPAddresses, actual.IPAddresses, dcl.Info{ObjectFunction: compareInstanceIPAddressesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPAddresses")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPAddresses, actual.IPAddresses, dcl.Info{ObjectFunction: compareInstanceIPAddressesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpAddresses")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4159,7 +4159,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPv6Address, actual.IPv6Address, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateOperation")}, fn.AddNest("IPv6Address")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPv6Address, actual.IPv6Address, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateOperation")}, fn.AddNest("Ipv6Address")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4403,7 +4403,7 @@ func compareInstanceIPAddressesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPAddress")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4717,7 +4717,7 @@ func compareInstanceReplicaConfigurationReplicaPoolConfigurationNewStyle(d, a in
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExposeReplicaIP, actual.ExposeReplicaIP, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExposeReplicaIP")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExposeReplicaIP, actual.ExposeReplicaIP, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExposeReplicaIp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5016,7 +5016,7 @@ func compareInstanceSettingsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPConfiguration, actual.IPConfiguration, dcl.Info{ObjectFunction: compareInstanceSettingsIPConfigurationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPConfiguration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPConfiguration, actual.IPConfiguration, dcl.Info{ObjectFunction: compareInstanceSettingsIPConfigurationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpConfiguration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5166,7 +5166,7 @@ func compareInstanceSettingsIPConfigurationNewStyle(d, a interface{}, fn dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.IPv4Enabled, actual.IPv4Enabled, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPv4Enabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPv4Enabled, actual.IPv4Enabled, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Ipv4Enabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

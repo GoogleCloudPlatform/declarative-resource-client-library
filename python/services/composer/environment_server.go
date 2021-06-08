@@ -31,7 +31,7 @@ func ProtoToComposerEnvironmentStateEnum(e composerpb.ComposerEnvironmentStateEn
 		return nil
 	}
 	if n, ok := composerpb.ComposerEnvironmentStateEnum_name[int32(e)]; ok {
-		e := composer.EnvironmentStateEnum(n[len("EnvironmentStateEnum"):])
+		e := composer.EnvironmentStateEnum(n[len("ComposerEnvironmentStateEnum"):])
 		return &e
 	}
 	return nil

@@ -31,7 +31,7 @@ func ProtoToComputeBetaSslPolicyProfileEnum(e betapb.ComputeBetaSslPolicyProfile
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaSslPolicyProfileEnum_name[int32(e)]; ok {
-		e := beta.SslPolicyProfileEnum(n[len("SslPolicyProfileEnum"):])
+		e := beta.SslPolicyProfileEnum(n[len("ComputeBetaSslPolicyProfileEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeBetaSslPolicyMinTlsVersionEnum(e betapb.ComputeBetaSslPolicyM
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaSslPolicyMinTlsVersionEnum_name[int32(e)]; ok {
-		e := beta.SslPolicyMinTlsVersionEnum(n[len("SslPolicyMinTlsVersionEnum"):])
+		e := beta.SslPolicyMinTlsVersionEnum(n[len("ComputeBetaSslPolicyMinTlsVersionEnum"):])
 		return &e
 	}
 	return nil

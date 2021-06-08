@@ -171,9 +171,9 @@ class ManagedSslCertificateManaged(object):
             return None
 
         return ManagedSslCertificateManaged(
-            domains=resource.domains,
-            status=resource.status,
-            domain_status=resource.domain_status,
+            domains=Primitive.from_proto(resource.domains),
+            status=ManagedSslCertificateManagedStatusEnum.from_proto(resource.status),
+            domain_status=Primitive.from_proto(resource.domain_status),
         )
 
 

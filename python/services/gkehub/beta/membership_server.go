@@ -31,7 +31,7 @@ func ProtoToGkehubBetaMembershipStateCodeEnum(e betapb.GkehubBetaMembershipState
 		return nil
 	}
 	if n, ok := betapb.GkehubBetaMembershipStateCodeEnum_name[int32(e)]; ok {
-		e := beta.MembershipStateCodeEnum(n[len("MembershipStateCodeEnum"):])
+		e := beta.MembershipStateCodeEnum(n[len("GkehubBetaMembershipStateCodeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToGkehubBetaMembershipInfrastructureTypeEnum(e betapb.GkehubBetaMember
 		return nil
 	}
 	if n, ok := betapb.GkehubBetaMembershipInfrastructureTypeEnum_name[int32(e)]; ok {
-		e := beta.MembershipInfrastructureTypeEnum(n[len("MembershipInfrastructureTypeEnum"):])
+		e := beta.MembershipInfrastructureTypeEnum(n[len("GkehubBetaMembershipInfrastructureTypeEnum"):])
 		return &e
 	}
 	return nil

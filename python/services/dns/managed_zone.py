@@ -276,10 +276,14 @@ class ManagedZoneDnssecConfig(object):
             return None
 
         return ManagedZoneDnssecConfig(
-            kind=resource.kind,
-            non_existence=resource.non_existence,
-            state=resource.state,
-            default_key_specs=resource.default_key_specs,
+            kind=Primitive.from_proto(resource.kind),
+            non_existence=ManagedZoneDnssecConfigNonExistenceEnum.from_proto(
+                resource.non_existence
+            ),
+            state=ManagedZoneDnssecConfigStateEnum.from_proto(resource.state),
+            default_key_specs=ManagedZoneDnssecConfigDefaultKeySpecsArray.from_proto(
+                resource.default_key_specs
+            ),
         )
 
 
@@ -338,10 +342,14 @@ class ManagedZoneDnssecConfigDefaultKeySpecs(object):
             return None
 
         return ManagedZoneDnssecConfigDefaultKeySpecs(
-            algorithm=resource.algorithm,
-            key_length=resource.key_length,
-            key_type=resource.key_type,
-            kind=resource.kind,
+            algorithm=ManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnum.from_proto(
+                resource.algorithm
+            ),
+            key_length=Primitive.from_proto(resource.key_length),
+            key_type=ManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnum.from_proto(
+                resource.key_type
+            ),
+            kind=Primitive.from_proto(resource.kind),
         )
 
 
@@ -380,7 +388,11 @@ class ManagedZonePrivateVisibilityConfig(object):
         if not resource:
             return None
 
-        return ManagedZonePrivateVisibilityConfig(networks=resource.networks,)
+        return ManagedZonePrivateVisibilityConfig(
+            networks=ManagedZonePrivateVisibilityConfigNetworksArray.from_proto(
+                resource.networks
+            ),
+        )
 
 
 class ManagedZonePrivateVisibilityConfigArray(object):
@@ -415,7 +427,7 @@ class ManagedZonePrivateVisibilityConfigNetworks(object):
             return None
 
         return ManagedZonePrivateVisibilityConfigNetworks(
-            network_url=resource.network_url,
+            network_url=Primitive.from_proto(resource.network_url),
         )
 
 
@@ -461,7 +473,9 @@ class ManagedZoneForwardingConfig(object):
             return None
 
         return ManagedZoneForwardingConfig(
-            target_name_servers=resource.target_name_servers,
+            target_name_servers=ManagedZoneForwardingConfigTargetNameServersArray.from_proto(
+                resource.target_name_servers
+            ),
         )
 
 
@@ -504,8 +518,10 @@ class ManagedZoneForwardingConfigTargetNameServers(object):
             return None
 
         return ManagedZoneForwardingConfigTargetNameServers(
-            ipv4_address=resource.ipv4_address,
-            forwarding_path=resource.forwarding_path,
+            ipv4_address=Primitive.from_proto(resource.ipv4_address),
+            forwarding_path=ManagedZoneForwardingConfigTargetNameServersForwardingPathEnum.from_proto(
+                resource.forwarding_path
+            ),
         )
 
 
@@ -549,7 +565,11 @@ class ManagedZonePeeringConfig(object):
         if not resource:
             return None
 
-        return ManagedZonePeeringConfig(target_network=resource.target_network,)
+        return ManagedZonePeeringConfig(
+            target_network=ManagedZonePeeringConfigTargetNetwork.from_proto(
+                resource.target_network
+            ),
+        )
 
 
 class ManagedZonePeeringConfigArray(object):
@@ -583,7 +603,9 @@ class ManagedZonePeeringConfigTargetNetwork(object):
         if not resource:
             return None
 
-        return ManagedZonePeeringConfigTargetNetwork(network_url=resource.network_url,)
+        return ManagedZonePeeringConfigTargetNetwork(
+            network_url=Primitive.from_proto(resource.network_url),
+        )
 
 
 class ManagedZonePeeringConfigTargetNetworkArray(object):

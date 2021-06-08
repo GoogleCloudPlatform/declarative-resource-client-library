@@ -31,7 +31,7 @@ func ProtoToComputeRouterNatsLogConfigFilterEnum(e computepb.ComputeRouterNatsLo
 		return nil
 	}
 	if n, ok := computepb.ComputeRouterNatsLogConfigFilterEnum_name[int32(e)]; ok {
-		e := compute.RouterNatsLogConfigFilterEnum(n[len("RouterNatsLogConfigFilterEnum"):])
+		e := compute.RouterNatsLogConfigFilterEnum(n[len("ComputeRouterNatsLogConfigFilterEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeRouterNatsSourceSubnetworkIPRangesToNatEnum(e computepb.Compu
 		return nil
 	}
 	if n, ok := computepb.ComputeRouterNatsSourceSubnetworkIPRangesToNatEnum_name[int32(e)]; ok {
-		e := compute.RouterNatsSourceSubnetworkIPRangesToNatEnum(n[len("RouterNatsSourceSubnetworkIPRangesToNatEnum"):])
+		e := compute.RouterNatsSourceSubnetworkIPRangesToNatEnum(n[len("ComputeRouterNatsSourceSubnetworkIPRangesToNatEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeRouterNatsNatIPAllocateOptionEnum(e computepb.ComputeRouterNa
 		return nil
 	}
 	if n, ok := computepb.ComputeRouterNatsNatIPAllocateOptionEnum_name[int32(e)]; ok {
-		e := compute.RouterNatsNatIPAllocateOptionEnum(n[len("RouterNatsNatIPAllocateOptionEnum"):])
+		e := compute.RouterNatsNatIPAllocateOptionEnum(n[len("ComputeRouterNatsNatIPAllocateOptionEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeRouterInterfacesManagementTypeEnum(e computepb.ComputeRouterI
 		return nil
 	}
 	if n, ok := computepb.ComputeRouterInterfacesManagementTypeEnum_name[int32(e)]; ok {
-		e := compute.RouterInterfacesManagementTypeEnum(n[len("RouterInterfacesManagementTypeEnum"):])
+		e := compute.RouterInterfacesManagementTypeEnum(n[len("ComputeRouterInterfacesManagementTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToComputeRouterBgpPeersAdvertisedGroupsEnum(e computepb.ComputeRouterB
 		return nil
 	}
 	if n, ok := computepb.ComputeRouterBgpPeersAdvertisedGroupsEnum_name[int32(e)]; ok {
-		e := compute.RouterBgpPeersAdvertisedGroupsEnum(n[len("RouterBgpPeersAdvertisedGroupsEnum"):])
+		e := compute.RouterBgpPeersAdvertisedGroupsEnum(n[len("ComputeRouterBgpPeersAdvertisedGroupsEnum"):])
 		return &e
 	}
 	return nil
@@ -91,7 +91,7 @@ func ProtoToComputeRouterBgpAdvertiseModeEnum(e computepb.ComputeRouterBgpAdvert
 		return nil
 	}
 	if n, ok := computepb.ComputeRouterBgpAdvertiseModeEnum_name[int32(e)]; ok {
-		e := compute.RouterBgpAdvertiseModeEnum(n[len("RouterBgpAdvertiseModeEnum"):])
+		e := compute.RouterBgpAdvertiseModeEnum(n[len("ComputeRouterBgpAdvertiseModeEnum"):])
 		return &e
 	}
 	return nil

@@ -1744,7 +1744,7 @@ func compareJobHttpTargetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fi
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OAuthToken, actual.OAuthToken, dcl.Info{ObjectFunction: compareJobHttpTargetOAuthTokenNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OAuthToken")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OAuthToken, actual.OAuthToken, dcl.Info{ObjectFunction: compareJobHttpTargetOAuthTokenNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OauthToken")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

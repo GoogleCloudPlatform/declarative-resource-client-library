@@ -31,7 +31,7 @@ func ProtoToFileBetaBackupStateEnum(e betapb.FileBetaBackupStateEnum) *beta.Back
 		return nil
 	}
 	if n, ok := betapb.FileBetaBackupStateEnum_name[int32(e)]; ok {
-		e := beta.BackupStateEnum(n[len("BackupStateEnum"):])
+		e := beta.BackupStateEnum(n[len("FileBetaBackupStateEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToFileBetaBackupSourceInstanceTierEnum(e betapb.FileBetaBackupSourceIn
 		return nil
 	}
 	if n, ok := betapb.FileBetaBackupSourceInstanceTierEnum_name[int32(e)]; ok {
-		e := beta.BackupSourceInstanceTierEnum(n[len("BackupSourceInstanceTierEnum"):])
+		e := beta.BackupSourceInstanceTierEnum(n[len("FileBetaBackupSourceInstanceTierEnum"):])
 		return &e
 	}
 	return nil

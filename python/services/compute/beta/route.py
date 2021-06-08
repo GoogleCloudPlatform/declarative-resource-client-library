@@ -245,7 +245,9 @@ class RouteWarning(object):
             return None
 
         return RouteWarning(
-            code=resource.code, message=resource.message, data=resource.data,
+            code=RouteWarningCodeEnum.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            data=Primitive.from_proto(resource.data),
         )
 
 

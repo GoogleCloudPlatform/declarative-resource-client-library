@@ -31,7 +31,7 @@ func ProtoToComputeBetaNetworkRoutingConfigRoutingModeEnum(e betapb.ComputeBetaN
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaNetworkRoutingConfigRoutingModeEnum_name[int32(e)]; ok {
-		e := beta.NetworkRoutingConfigRoutingModeEnum(n[len("NetworkRoutingConfigRoutingModeEnum"):])
+		e := beta.NetworkRoutingConfigRoutingModeEnum(n[len("ComputeBetaNetworkRoutingConfigRoutingModeEnum"):])
 		return &e
 	}
 	return nil

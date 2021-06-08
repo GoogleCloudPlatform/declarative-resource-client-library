@@ -716,14 +716,14 @@ func compareFirewallPolicyRuleMatchNewStyle(d, a interface{}, fn dcl.FieldName) 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.SrcIPRanges, actual.SrcIPRanges, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SrcIPRanges")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SrcIPRanges, actual.SrcIPRanges, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SrcIpRanges")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DestIPRanges, actual.DestIPRanges, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DestIPRanges")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DestIPRanges, actual.DestIPRanges, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DestIpRanges")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -759,7 +759,7 @@ func compareFirewallPolicyRuleMatchLayer4ConfigsNewStyle(d, a interface{}, fn dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.IPProtocol, actual.IPProtocol, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPProtocol")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPProtocol, actual.IPProtocol, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpProtocol")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -31,7 +31,7 @@ func ProtoToComputeTargetSslProxyProxyHeaderEnum(e computepb.ComputeTargetSslPro
 		return nil
 	}
 	if n, ok := computepb.ComputeTargetSslProxyProxyHeaderEnum_name[int32(e)]; ok {
-		e := compute.TargetSslProxyProxyHeaderEnum(n[len("TargetSslProxyProxyHeaderEnum"):])
+		e := compute.TargetSslProxyProxyHeaderEnum(n[len("ComputeTargetSslProxyProxyHeaderEnum"):])
 		return &e
 	}
 	return nil

@@ -403,8 +403,12 @@ class ForwardingRuleMetadataFilter(object):
             return None
 
         return ForwardingRuleMetadataFilter(
-            filter_match_criteria=resource.filter_match_criteria,
-            filter_label=resource.filter_label,
+            filter_match_criteria=ForwardingRuleMetadataFilterFilterMatchCriteriaEnum.from_proto(
+                resource.filter_match_criteria
+            ),
+            filter_label=ForwardingRuleMetadataFilterFilterLabelArray.from_proto(
+                resource.filter_label
+            ),
         )
 
 
@@ -443,7 +447,8 @@ class ForwardingRuleMetadataFilterFilterLabel(object):
             return None
 
         return ForwardingRuleMetadataFilterFilterLabel(
-            name=resource.name, value=resource.value,
+            name=Primitive.from_proto(resource.name),
+            value=Primitive.from_proto(resource.value),
         )
 
 

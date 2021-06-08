@@ -31,7 +31,7 @@ func ProtoToMonitoringNotificationChannelVerificationStatusEnum(e monitoringpb.M
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringNotificationChannelVerificationStatusEnum_name[int32(e)]; ok {
-		e := monitoring.NotificationChannelVerificationStatusEnum(n[len("NotificationChannelVerificationStatusEnum"):])
+		e := monitoring.NotificationChannelVerificationStatusEnum(n[len("MonitoringNotificationChannelVerificationStatusEnum"):])
 		return &e
 	}
 	return nil

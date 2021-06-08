@@ -31,7 +31,7 @@ func ProtoToComputeTargetVpnGatewayStatusEnum(e computepb.ComputeTargetVpnGatewa
 		return nil
 	}
 	if n, ok := computepb.ComputeTargetVpnGatewayStatusEnum_name[int32(e)]; ok {
-		e := compute.TargetVpnGatewayStatusEnum(n[len("TargetVpnGatewayStatusEnum"):])
+		e := compute.TargetVpnGatewayStatusEnum(n[len("ComputeTargetVpnGatewayStatusEnum"):])
 		return &e
 	}
 	return nil

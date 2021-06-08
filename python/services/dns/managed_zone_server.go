@@ -31,7 +31,7 @@ func ProtoToDnsManagedZoneDnssecConfigNonExistenceEnum(e dnspb.DnsManagedZoneDns
 		return nil
 	}
 	if n, ok := dnspb.DnsManagedZoneDnssecConfigNonExistenceEnum_name[int32(e)]; ok {
-		e := dns.ManagedZoneDnssecConfigNonExistenceEnum(n[len("ManagedZoneDnssecConfigNonExistenceEnum"):])
+		e := dns.ManagedZoneDnssecConfigNonExistenceEnum(n[len("DnsManagedZoneDnssecConfigNonExistenceEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToDnsManagedZoneDnssecConfigStateEnum(e dnspb.DnsManagedZoneDnssecConf
 		return nil
 	}
 	if n, ok := dnspb.DnsManagedZoneDnssecConfigStateEnum_name[int32(e)]; ok {
-		e := dns.ManagedZoneDnssecConfigStateEnum(n[len("ManagedZoneDnssecConfigStateEnum"):])
+		e := dns.ManagedZoneDnssecConfigStateEnum(n[len("DnsManagedZoneDnssecConfigStateEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToDnsManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnum(e dnspb.DnsMa
 		return nil
 	}
 	if n, ok := dnspb.DnsManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnum_name[int32(e)]; ok {
-		e := dns.ManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnum(n[len("ManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnum"):])
+		e := dns.ManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnum(n[len("DnsManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToDnsManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnum(e dnspb.DnsMana
 		return nil
 	}
 	if n, ok := dnspb.DnsManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnum_name[int32(e)]; ok {
-		e := dns.ManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnum(n[len("ManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnum"):])
+		e := dns.ManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnum(n[len("DnsManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToDnsManagedZoneVisibilityEnum(e dnspb.DnsManagedZoneVisibilityEnum) *
 		return nil
 	}
 	if n, ok := dnspb.DnsManagedZoneVisibilityEnum_name[int32(e)]; ok {
-		e := dns.ManagedZoneVisibilityEnum(n[len("ManagedZoneVisibilityEnum"):])
+		e := dns.ManagedZoneVisibilityEnum(n[len("DnsManagedZoneVisibilityEnum"):])
 		return &e
 	}
 	return nil
@@ -91,7 +91,7 @@ func ProtoToDnsManagedZoneForwardingConfigTargetNameServersForwardingPathEnum(e 
 		return nil
 	}
 	if n, ok := dnspb.DnsManagedZoneForwardingConfigTargetNameServersForwardingPathEnum_name[int32(e)]; ok {
-		e := dns.ManagedZoneForwardingConfigTargetNameServersForwardingPathEnum(n[len("ManagedZoneForwardingConfigTargetNameServersForwardingPathEnum"):])
+		e := dns.ManagedZoneForwardingConfigTargetNameServersForwardingPathEnum(n[len("DnsManagedZoneForwardingConfigTargetNameServersForwardingPathEnum"):])
 		return &e
 	}
 	return nil

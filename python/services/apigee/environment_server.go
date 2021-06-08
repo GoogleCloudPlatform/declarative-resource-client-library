@@ -31,7 +31,7 @@ func ProtoToApigeeEnvironmentStateEnum(e apigeepb.ApigeeEnvironmentStateEnum) *a
 		return nil
 	}
 	if n, ok := apigeepb.ApigeeEnvironmentStateEnum_name[int32(e)]; ok {
-		e := apigee.EnvironmentStateEnum(n[len("EnvironmentStateEnum"):])
+		e := apigee.EnvironmentStateEnum(n[len("ApigeeEnvironmentStateEnum"):])
 		return &e
 	}
 	return nil

@@ -193,7 +193,10 @@ class DashboardGridLayout(object):
         if not resource:
             return None
 
-        return DashboardGridLayout(columns=resource.columns, widgets=resource.widgets,)
+        return DashboardGridLayout(
+            columns=Primitive.from_proto(resource.columns),
+            widgets=DashboardWidgetArray.from_proto(resource.widgets),
+        )
 
 
 class DashboardGridLayoutArray(object):
@@ -230,7 +233,10 @@ class DashboardMosaicLayout(object):
         if not resource:
             return None
 
-        return DashboardMosaicLayout(columns=resource.columns, tiles=resource.tiles,)
+        return DashboardMosaicLayout(
+            columns=Primitive.from_proto(resource.columns),
+            tiles=DashboardMosaicLayoutTilesArray.from_proto(resource.tiles),
+        )
 
 
 class DashboardMosaicLayoutArray(object):
@@ -286,11 +292,11 @@ class DashboardMosaicLayoutTiles(object):
             return None
 
         return DashboardMosaicLayoutTiles(
-            x_pos=resource.x_pos,
-            y_pos=resource.y_pos,
-            width=resource.width,
-            height=resource.height,
-            widget=resource.widget,
+            x_pos=Primitive.from_proto(resource.x_pos),
+            y_pos=Primitive.from_proto(resource.y_pos),
+            width=Primitive.from_proto(resource.width),
+            height=Primitive.from_proto(resource.height),
+            widget=DashboardWidget.from_proto(resource.widget),
         )
 
 
@@ -325,7 +331,9 @@ class DashboardRowLayout(object):
         if not resource:
             return None
 
-        return DashboardRowLayout(rows=resource.rows,)
+        return DashboardRowLayout(
+            rows=DashboardRowLayoutRowsArray.from_proto(resource.rows),
+        )
 
 
 class DashboardRowLayoutArray(object):
@@ -362,7 +370,10 @@ class DashboardRowLayoutRows(object):
         if not resource:
             return None
 
-        return DashboardRowLayoutRows(weight=resource.weight, widgets=resource.widgets,)
+        return DashboardRowLayoutRows(
+            weight=Primitive.from_proto(resource.weight),
+            widgets=DashboardWidgetArray.from_proto(resource.widgets),
+        )
 
 
 class DashboardRowLayoutRowsArray(object):
@@ -398,7 +409,9 @@ class DashboardColumnLayout(object):
         if not resource:
             return None
 
-        return DashboardColumnLayout(columns=resource.columns,)
+        return DashboardColumnLayout(
+            columns=DashboardColumnLayoutColumnsArray.from_proto(resource.columns),
+        )
 
 
 class DashboardColumnLayoutArray(object):
@@ -436,7 +449,8 @@ class DashboardColumnLayoutColumns(object):
             return None
 
         return DashboardColumnLayoutColumns(
-            weight=resource.weight, widgets=resource.widgets,
+            weight=Primitive.from_proto(resource.weight),
+            widgets=DashboardWidgetArray.from_proto(resource.widgets),
         )
 
 
@@ -501,11 +515,11 @@ class DashboardWidget(object):
             return None
 
         return DashboardWidget(
-            title=resource.title,
-            xy_chart=resource.xy_chart,
-            scorecard=resource.scorecard,
-            text=resource.text,
-            blank=resource.blank,
+            title=Primitive.from_proto(resource.title),
+            xy_chart=DashboardWidgetXyChart.from_proto(resource.xy_chart),
+            scorecard=DashboardWidgetScorecard.from_proto(resource.scorecard),
+            text=DashboardWidgetText.from_proto(resource.text),
+            blank=DashboardWidgetBlank.from_proto(resource.blank),
         )
 
 
@@ -576,12 +590,18 @@ class DashboardWidgetXyChart(object):
             return None
 
         return DashboardWidgetXyChart(
-            data_sets=resource.data_sets,
-            timeshift_duration=resource.timeshift_duration,
-            thresholds=resource.thresholds,
-            x_axis=resource.x_axis,
-            y_axis=resource.y_axis,
-            chart_options=resource.chart_options,
+            data_sets=DashboardWidgetXyChartDataSetsArray.from_proto(
+                resource.data_sets
+            ),
+            timeshift_duration=Primitive.from_proto(resource.timeshift_duration),
+            thresholds=DashboardWidgetXyChartThresholdsArray.from_proto(
+                resource.thresholds
+            ),
+            x_axis=DashboardWidgetXyChartXAxis.from_proto(resource.x_axis),
+            y_axis=DashboardWidgetXyChartYAxis.from_proto(resource.y_axis),
+            chart_options=DashboardWidgetXyChartChartOptions.from_proto(
+                resource.chart_options
+            ),
         )
 
 
@@ -642,10 +662,14 @@ class DashboardWidgetXyChartDataSets(object):
             return None
 
         return DashboardWidgetXyChartDataSets(
-            time_series_query=resource.time_series_query,
-            plot_type=resource.plot_type,
-            legend_template=resource.legend_template,
-            min_alignment_period=resource.min_alignment_period,
+            time_series_query=DashboardWidgetXyChartDataSetsTimeSeriesQuery.from_proto(
+                resource.time_series_query
+            ),
+            plot_type=DashboardWidgetXyChartDataSetsPlotTypeEnum.from_proto(
+                resource.plot_type
+            ),
+            legend_template=Primitive.from_proto(resource.legend_template),
+            min_alignment_period=Primitive.from_proto(resource.min_alignment_period),
         )
 
 
@@ -722,11 +746,19 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQuery(object):
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQuery(
-            time_series_filter=resource.time_series_filter,
-            time_series_filter_ratio=resource.time_series_filter_ratio,
-            time_series_query_language=resource.time_series_query_language,
-            api_source=resource.api_source,
-            unit_override=resource.unit_override,
+            time_series_filter=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter.from_proto(
+                resource.time_series_filter
+            ),
+            time_series_filter_ratio=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio.from_proto(
+                resource.time_series_filter_ratio
+            ),
+            time_series_query_language=Primitive.from_proto(
+                resource.time_series_query_language
+            ),
+            api_source=DashboardWidgetXyChartDataSetsTimeSeriesQueryApiSourceEnum.from_proto(
+                resource.api_source
+            ),
+            unit_override=Primitive.from_proto(resource.unit_override),
         )
 
 
@@ -808,10 +840,16 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(object):
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(
-            filter=resource.filter,
-            aggregation=resource.aggregation,
-            secondary_aggregation=resource.secondary_aggregation,
-            pick_time_series_filter=resource.pick_time_series_filter,
+            filter=Primitive.from_proto(resource.filter),
+            aggregation=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation.from_proto(
+                resource.aggregation
+            ),
+            secondary_aggregation=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation.from_proto(
+                resource.secondary_aggregation
+            ),
+            pick_time_series_filter=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter.from_proto(
+                resource.pick_time_series_filter
+            ),
         )
 
 
@@ -902,12 +940,20 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(o
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(
-            alignment_period=resource.alignment_period,
-            per_series_aligner=resource.per_series_aligner,
-            cross_series_reducer=resource.cross_series_reducer,
-            group_by_fields=resource.group_by_fields,
-            reduce_fraction_less_than_params=resource.reduce_fraction_less_than_params,
-            reduce_make_distribution_params=resource.reduce_make_distribution_params,
+            alignment_period=Primitive.from_proto(resource.alignment_period),
+            per_series_aligner=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum.from_proto(
+                resource.per_series_aligner
+            ),
+            cross_series_reducer=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum.from_proto(
+                resource.cross_series_reducer
+            ),
+            group_by_fields=Primitive.from_proto(resource.group_by_fields),
+            reduce_fraction_less_than_params=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams.from_proto(
+                resource.reduce_fraction_less_than_params
+            ),
+            reduce_make_distribution_params=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams.from_proto(
+                resource.reduce_make_distribution_params
+            ),
         )
 
 
@@ -959,7 +1005,7 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationRe
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(
-            threshold=resource.threshold,
+            threshold=Primitive.from_proto(resource.threshold),
         )
 
 
@@ -1030,8 +1076,12 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationRe
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(
-            bucket_options=resource.bucket_options,
-            exemplar_sampling=resource.exemplar_sampling,
+            bucket_options=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions.from_proto(
+                resource.bucket_options
+            ),
+            exemplar_sampling=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling.from_proto(
+                resource.exemplar_sampling
+            ),
         )
 
 
@@ -1118,9 +1168,15 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationRe
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(
-            linear_buckets=resource.linear_buckets,
-            exponential_buckets=resource.exponential_buckets,
-            explicit_buckets=resource.explicit_buckets,
+            linear_buckets=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets.from_proto(
+                resource.linear_buckets
+            ),
+            exponential_buckets=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets.from_proto(
+                resource.exponential_buckets
+            ),
+            explicit_buckets=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets.from_proto(
+                resource.explicit_buckets
+            ),
         )
 
 
@@ -1180,9 +1236,9 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationRe
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            width=resource.width,
-            offset=resource.offset,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            width=Primitive.from_proto(resource.width),
+            offset=Primitive.from_proto(resource.offset),
         )
 
 
@@ -1245,9 +1301,9 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationRe
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            growth_factor=resource.growth_factor,
-            scale=resource.scale,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            growth_factor=Primitive.from_proto(resource.growth_factor),
+            scale=Primitive.from_proto(resource.scale),
         )
 
 
@@ -1299,7 +1355,7 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationRe
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(
-            bounds=resource.bounds,
+            bounds=float64Array.from_proto(resource.bounds),
         )
 
 
@@ -1351,7 +1407,7 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationRe
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(
-            minimum_value=resource.minimum_value,
+            minimum_value=Primitive.from_proto(resource.minimum_value),
         )
 
 
@@ -1450,12 +1506,20 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggr
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(
-            alignment_period=resource.alignment_period,
-            per_series_aligner=resource.per_series_aligner,
-            cross_series_reducer=resource.cross_series_reducer,
-            group_by_fields=resource.group_by_fields,
-            reduce_fraction_less_than_params=resource.reduce_fraction_less_than_params,
-            reduce_make_distribution_params=resource.reduce_make_distribution_params,
+            alignment_period=Primitive.from_proto(resource.alignment_period),
+            per_series_aligner=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum.from_proto(
+                resource.per_series_aligner
+            ),
+            cross_series_reducer=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum.from_proto(
+                resource.cross_series_reducer
+            ),
+            group_by_fields=Primitive.from_proto(resource.group_by_fields),
+            reduce_fraction_less_than_params=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams.from_proto(
+                resource.reduce_fraction_less_than_params
+            ),
+            reduce_make_distribution_params=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams.from_proto(
+                resource.reduce_make_distribution_params
+            ),
         )
 
 
@@ -1507,7 +1571,7 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggr
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(
-            threshold=resource.threshold,
+            threshold=Primitive.from_proto(resource.threshold),
         )
 
 
@@ -1578,8 +1642,12 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggr
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(
-            bucket_options=resource.bucket_options,
-            exemplar_sampling=resource.exemplar_sampling,
+            bucket_options=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions.from_proto(
+                resource.bucket_options
+            ),
+            exemplar_sampling=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling.from_proto(
+                resource.exemplar_sampling
+            ),
         )
 
 
@@ -1666,9 +1734,15 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggr
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(
-            linear_buckets=resource.linear_buckets,
-            exponential_buckets=resource.exponential_buckets,
-            explicit_buckets=resource.explicit_buckets,
+            linear_buckets=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets.from_proto(
+                resource.linear_buckets
+            ),
+            exponential_buckets=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets.from_proto(
+                resource.exponential_buckets
+            ),
+            explicit_buckets=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets.from_proto(
+                resource.explicit_buckets
+            ),
         )
 
 
@@ -1728,9 +1802,9 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggr
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            width=resource.width,
-            offset=resource.offset,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            width=Primitive.from_proto(resource.width),
+            offset=Primitive.from_proto(resource.offset),
         )
 
 
@@ -1793,9 +1867,9 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggr
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            growth_factor=resource.growth_factor,
-            scale=resource.scale,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            growth_factor=Primitive.from_proto(resource.growth_factor),
+            scale=Primitive.from_proto(resource.scale),
         )
 
 
@@ -1847,7 +1921,7 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggr
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(
-            bounds=resource.bounds,
+            bounds=float64Array.from_proto(resource.bounds),
         )
 
 
@@ -1899,7 +1973,7 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggr
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(
-            minimum_value=resource.minimum_value,
+            minimum_value=Primitive.from_proto(resource.minimum_value),
         )
 
 
@@ -1970,9 +2044,13 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSerie
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(
-            ranking_method=resource.ranking_method,
-            num_time_series=resource.num_time_series,
-            direction=resource.direction,
+            ranking_method=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum.from_proto(
+                resource.ranking_method
+            ),
+            num_time_series=Primitive.from_proto(resource.num_time_series),
+            direction=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum.from_proto(
+                resource.direction
+            ),
         )
 
 
@@ -2069,10 +2147,18 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(object)
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(
-            numerator=resource.numerator,
-            denominator=resource.denominator,
-            secondary_aggregation=resource.secondary_aggregation,
-            pick_time_series_filter=resource.pick_time_series_filter,
+            numerator=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator.from_proto(
+                resource.numerator
+            ),
+            denominator=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator.from_proto(
+                resource.denominator
+            ),
+            secondary_aggregation=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation.from_proto(
+                resource.secondary_aggregation
+            ),
+            pick_time_series_filter=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter.from_proto(
+                resource.pick_time_series_filter
+            ),
         )
 
 
@@ -2133,7 +2219,10 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerato
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(
-            filter=resource.filter, aggregation=resource.aggregation,
+            filter=Primitive.from_proto(resource.filter),
+            aggregation=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation.from_proto(
+                resource.aggregation
+            ),
         )
 
 
@@ -2232,12 +2321,20 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerato
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(
-            alignment_period=resource.alignment_period,
-            per_series_aligner=resource.per_series_aligner,
-            cross_series_reducer=resource.cross_series_reducer,
-            group_by_fields=resource.group_by_fields,
-            reduce_fraction_less_than_params=resource.reduce_fraction_less_than_params,
-            reduce_make_distribution_params=resource.reduce_make_distribution_params,
+            alignment_period=Primitive.from_proto(resource.alignment_period),
+            per_series_aligner=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum.from_proto(
+                resource.per_series_aligner
+            ),
+            cross_series_reducer=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum.from_proto(
+                resource.cross_series_reducer
+            ),
+            group_by_fields=Primitive.from_proto(resource.group_by_fields),
+            reduce_fraction_less_than_params=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams.from_proto(
+                resource.reduce_fraction_less_than_params
+            ),
+            reduce_make_distribution_params=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams.from_proto(
+                resource.reduce_make_distribution_params
+            ),
         )
 
 
@@ -2289,7 +2386,7 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerato
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(
-            threshold=resource.threshold,
+            threshold=Primitive.from_proto(resource.threshold),
         )
 
 
@@ -2360,8 +2457,12 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerato
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(
-            bucket_options=resource.bucket_options,
-            exemplar_sampling=resource.exemplar_sampling,
+            bucket_options=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions.from_proto(
+                resource.bucket_options
+            ),
+            exemplar_sampling=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling.from_proto(
+                resource.exemplar_sampling
+            ),
         )
 
 
@@ -2448,9 +2549,15 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerato
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(
-            linear_buckets=resource.linear_buckets,
-            exponential_buckets=resource.exponential_buckets,
-            explicit_buckets=resource.explicit_buckets,
+            linear_buckets=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets.from_proto(
+                resource.linear_buckets
+            ),
+            exponential_buckets=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets.from_proto(
+                resource.exponential_buckets
+            ),
+            explicit_buckets=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets.from_proto(
+                resource.explicit_buckets
+            ),
         )
 
 
@@ -2510,9 +2617,9 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerato
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            width=resource.width,
-            offset=resource.offset,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            width=Primitive.from_proto(resource.width),
+            offset=Primitive.from_proto(resource.offset),
         )
 
 
@@ -2575,9 +2682,9 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerato
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            growth_factor=resource.growth_factor,
-            scale=resource.scale,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            growth_factor=Primitive.from_proto(resource.growth_factor),
+            scale=Primitive.from_proto(resource.scale),
         )
 
 
@@ -2629,7 +2736,7 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerato
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(
-            bounds=resource.bounds,
+            bounds=float64Array.from_proto(resource.bounds),
         )
 
 
@@ -2681,7 +2788,7 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerato
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(
-            minimum_value=resource.minimum_value,
+            minimum_value=Primitive.from_proto(resource.minimum_value),
         )
 
 
@@ -2744,7 +2851,10 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenomina
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(
-            filter=resource.filter, aggregation=resource.aggregation,
+            filter=Primitive.from_proto(resource.filter),
+            aggregation=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation.from_proto(
+                resource.aggregation
+            ),
         )
 
 
@@ -2843,12 +2953,20 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenomina
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(
-            alignment_period=resource.alignment_period,
-            per_series_aligner=resource.per_series_aligner,
-            cross_series_reducer=resource.cross_series_reducer,
-            group_by_fields=resource.group_by_fields,
-            reduce_fraction_less_than_params=resource.reduce_fraction_less_than_params,
-            reduce_make_distribution_params=resource.reduce_make_distribution_params,
+            alignment_period=Primitive.from_proto(resource.alignment_period),
+            per_series_aligner=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum.from_proto(
+                resource.per_series_aligner
+            ),
+            cross_series_reducer=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum.from_proto(
+                resource.cross_series_reducer
+            ),
+            group_by_fields=Primitive.from_proto(resource.group_by_fields),
+            reduce_fraction_less_than_params=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams.from_proto(
+                resource.reduce_fraction_less_than_params
+            ),
+            reduce_make_distribution_params=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams.from_proto(
+                resource.reduce_make_distribution_params
+            ),
         )
 
 
@@ -2900,7 +3018,7 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenomina
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(
-            threshold=resource.threshold,
+            threshold=Primitive.from_proto(resource.threshold),
         )
 
 
@@ -2971,8 +3089,12 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenomina
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(
-            bucket_options=resource.bucket_options,
-            exemplar_sampling=resource.exemplar_sampling,
+            bucket_options=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions.from_proto(
+                resource.bucket_options
+            ),
+            exemplar_sampling=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling.from_proto(
+                resource.exemplar_sampling
+            ),
         )
 
 
@@ -3059,9 +3181,15 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenomina
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(
-            linear_buckets=resource.linear_buckets,
-            exponential_buckets=resource.exponential_buckets,
-            explicit_buckets=resource.explicit_buckets,
+            linear_buckets=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets.from_proto(
+                resource.linear_buckets
+            ),
+            exponential_buckets=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets.from_proto(
+                resource.exponential_buckets
+            ),
+            explicit_buckets=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets.from_proto(
+                resource.explicit_buckets
+            ),
         )
 
 
@@ -3121,9 +3249,9 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenomina
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            width=resource.width,
-            offset=resource.offset,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            width=Primitive.from_proto(resource.width),
+            offset=Primitive.from_proto(resource.offset),
         )
 
 
@@ -3186,9 +3314,9 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenomina
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            growth_factor=resource.growth_factor,
-            scale=resource.scale,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            growth_factor=Primitive.from_proto(resource.growth_factor),
+            scale=Primitive.from_proto(resource.scale),
         )
 
 
@@ -3240,7 +3368,7 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenomina
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(
-            bounds=resource.bounds,
+            bounds=float64Array.from_proto(resource.bounds),
         )
 
 
@@ -3292,7 +3420,7 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenomina
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(
-            minimum_value=resource.minimum_value,
+            minimum_value=Primitive.from_proto(resource.minimum_value),
         )
 
 
@@ -3391,12 +3519,20 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondar
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(
-            alignment_period=resource.alignment_period,
-            per_series_aligner=resource.per_series_aligner,
-            cross_series_reducer=resource.cross_series_reducer,
-            group_by_fields=resource.group_by_fields,
-            reduce_fraction_less_than_params=resource.reduce_fraction_less_than_params,
-            reduce_make_distribution_params=resource.reduce_make_distribution_params,
+            alignment_period=Primitive.from_proto(resource.alignment_period),
+            per_series_aligner=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum.from_proto(
+                resource.per_series_aligner
+            ),
+            cross_series_reducer=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum.from_proto(
+                resource.cross_series_reducer
+            ),
+            group_by_fields=Primitive.from_proto(resource.group_by_fields),
+            reduce_fraction_less_than_params=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams.from_proto(
+                resource.reduce_fraction_less_than_params
+            ),
+            reduce_make_distribution_params=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams.from_proto(
+                resource.reduce_make_distribution_params
+            ),
         )
 
 
@@ -3448,7 +3584,7 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondar
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(
-            threshold=resource.threshold,
+            threshold=Primitive.from_proto(resource.threshold),
         )
 
 
@@ -3519,8 +3655,12 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondar
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(
-            bucket_options=resource.bucket_options,
-            exemplar_sampling=resource.exemplar_sampling,
+            bucket_options=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions.from_proto(
+                resource.bucket_options
+            ),
+            exemplar_sampling=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling.from_proto(
+                resource.exemplar_sampling
+            ),
         )
 
 
@@ -3607,9 +3747,15 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondar
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(
-            linear_buckets=resource.linear_buckets,
-            exponential_buckets=resource.exponential_buckets,
-            explicit_buckets=resource.explicit_buckets,
+            linear_buckets=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets.from_proto(
+                resource.linear_buckets
+            ),
+            exponential_buckets=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets.from_proto(
+                resource.exponential_buckets
+            ),
+            explicit_buckets=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets.from_proto(
+                resource.explicit_buckets
+            ),
         )
 
 
@@ -3669,9 +3815,9 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondar
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            width=resource.width,
-            offset=resource.offset,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            width=Primitive.from_proto(resource.width),
+            offset=Primitive.from_proto(resource.offset),
         )
 
 
@@ -3734,9 +3880,9 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondar
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            growth_factor=resource.growth_factor,
-            scale=resource.scale,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            growth_factor=Primitive.from_proto(resource.growth_factor),
+            scale=Primitive.from_proto(resource.scale),
         )
 
 
@@ -3788,7 +3934,7 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondar
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(
-            bounds=resource.bounds,
+            bounds=float64Array.from_proto(resource.bounds),
         )
 
 
@@ -3840,7 +3986,7 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondar
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(
-            minimum_value=resource.minimum_value,
+            minimum_value=Primitive.from_proto(resource.minimum_value),
         )
 
 
@@ -3911,9 +4057,13 @@ class DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTime
             return None
 
         return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(
-            ranking_method=resource.ranking_method,
-            num_time_series=resource.num_time_series,
-            direction=resource.direction,
+            ranking_method=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum.from_proto(
+                resource.ranking_method
+            ),
+            num_time_series=Primitive.from_proto(resource.num_time_series),
+            direction=DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum.from_proto(
+                resource.direction
+            ),
         )
 
 
@@ -3980,10 +4130,12 @@ class DashboardWidgetXyChartThresholds(object):
             return None
 
         return DashboardWidgetXyChartThresholds(
-            label=resource.label,
-            value=resource.value,
-            color=resource.color,
-            direction=resource.direction,
+            label=Primitive.from_proto(resource.label),
+            value=Primitive.from_proto(resource.value),
+            color=DashboardWidgetXyChartThresholdsColorEnum.from_proto(resource.color),
+            direction=DashboardWidgetXyChartThresholdsDirectionEnum.from_proto(
+                resource.direction
+            ),
         )
 
 
@@ -4021,7 +4173,10 @@ class DashboardWidgetXyChartXAxis(object):
         if not resource:
             return None
 
-        return DashboardWidgetXyChartXAxis(label=resource.label, scale=resource.scale,)
+        return DashboardWidgetXyChartXAxis(
+            label=Primitive.from_proto(resource.label),
+            scale=DashboardWidgetXyChartXAxisScaleEnum.from_proto(resource.scale),
+        )
 
 
 class DashboardWidgetXyChartXAxisArray(object):
@@ -4058,7 +4213,10 @@ class DashboardWidgetXyChartYAxis(object):
         if not resource:
             return None
 
-        return DashboardWidgetXyChartYAxis(label=resource.label, scale=resource.scale,)
+        return DashboardWidgetXyChartYAxis(
+            label=Primitive.from_proto(resource.label),
+            scale=DashboardWidgetXyChartYAxisScaleEnum.from_proto(resource.scale),
+        )
 
 
 class DashboardWidgetXyChartYAxisArray(object):
@@ -4094,7 +4252,9 @@ class DashboardWidgetXyChartChartOptions(object):
         if not resource:
             return None
 
-        return DashboardWidgetXyChartChartOptions(mode=resource.mode,)
+        return DashboardWidgetXyChartChartOptions(
+            mode=DashboardWidgetXyChartChartOptionsModeEnum.from_proto(resource.mode),
+        )
 
 
 class DashboardWidgetXyChartChartOptionsArray(object):
@@ -4162,10 +4322,18 @@ class DashboardWidgetScorecard(object):
             return None
 
         return DashboardWidgetScorecard(
-            time_series_query=resource.time_series_query,
-            gauge_view=resource.gauge_view,
-            spark_chart_view=resource.spark_chart_view,
-            thresholds=resource.thresholds,
+            time_series_query=DashboardWidgetScorecardTimeSeriesQuery.from_proto(
+                resource.time_series_query
+            ),
+            gauge_view=DashboardWidgetScorecardGaugeView.from_proto(
+                resource.gauge_view
+            ),
+            spark_chart_view=DashboardWidgetScorecardSparkChartView.from_proto(
+                resource.spark_chart_view
+            ),
+            thresholds=DashboardWidgetScorecardThresholdsArray.from_proto(
+                resource.thresholds
+            ),
         )
 
 
@@ -4242,11 +4410,19 @@ class DashboardWidgetScorecardTimeSeriesQuery(object):
             return None
 
         return DashboardWidgetScorecardTimeSeriesQuery(
-            time_series_filter=resource.time_series_filter,
-            time_series_filter_ratio=resource.time_series_filter_ratio,
-            time_series_query_language=resource.time_series_query_language,
-            api_source=resource.api_source,
-            unit_override=resource.unit_override,
+            time_series_filter=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter.from_proto(
+                resource.time_series_filter
+            ),
+            time_series_filter_ratio=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio.from_proto(
+                resource.time_series_filter_ratio
+            ),
+            time_series_query_language=Primitive.from_proto(
+                resource.time_series_query_language
+            ),
+            api_source=DashboardWidgetScorecardTimeSeriesQueryApiSourceEnum.from_proto(
+                resource.api_source
+            ),
+            unit_override=Primitive.from_proto(resource.unit_override),
         )
 
 
@@ -4325,10 +4501,16 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(object):
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter(
-            filter=resource.filter,
-            aggregation=resource.aggregation,
-            secondary_aggregation=resource.secondary_aggregation,
-            pick_time_series_filter=resource.pick_time_series_filter,
+            filter=Primitive.from_proto(resource.filter),
+            aggregation=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation.from_proto(
+                resource.aggregation
+            ),
+            secondary_aggregation=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation.from_proto(
+                resource.secondary_aggregation
+            ),
+            pick_time_series_filter=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter.from_proto(
+                resource.pick_time_series_filter
+            ),
         )
 
 
@@ -4419,12 +4601,20 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(object)
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(
-            alignment_period=resource.alignment_period,
-            per_series_aligner=resource.per_series_aligner,
-            cross_series_reducer=resource.cross_series_reducer,
-            group_by_fields=resource.group_by_fields,
-            reduce_fraction_less_than_params=resource.reduce_fraction_less_than_params,
-            reduce_make_distribution_params=resource.reduce_make_distribution_params,
+            alignment_period=Primitive.from_proto(resource.alignment_period),
+            per_series_aligner=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum.from_proto(
+                resource.per_series_aligner
+            ),
+            cross_series_reducer=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum.from_proto(
+                resource.cross_series_reducer
+            ),
+            group_by_fields=Primitive.from_proto(resource.group_by_fields),
+            reduce_fraction_less_than_params=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams.from_proto(
+                resource.reduce_fraction_less_than_params
+            ),
+            reduce_make_distribution_params=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams.from_proto(
+                resource.reduce_make_distribution_params
+            ),
         )
 
 
@@ -4474,7 +4664,7 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFr
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceFractionLessThanParams(
-            threshold=resource.threshold,
+            threshold=Primitive.from_proto(resource.threshold),
         )
 
 
@@ -4545,8 +4735,12 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMa
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParams(
-            bucket_options=resource.bucket_options,
-            exemplar_sampling=resource.exemplar_sampling,
+            bucket_options=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions.from_proto(
+                resource.bucket_options
+            ),
+            exemplar_sampling=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling.from_proto(
+                resource.exemplar_sampling
+            ),
         )
 
 
@@ -4633,9 +4827,15 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMa
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptions(
-            linear_buckets=resource.linear_buckets,
-            exponential_buckets=resource.exponential_buckets,
-            explicit_buckets=resource.explicit_buckets,
+            linear_buckets=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets.from_proto(
+                resource.linear_buckets
+            ),
+            exponential_buckets=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets.from_proto(
+                resource.exponential_buckets
+            ),
+            explicit_buckets=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets.from_proto(
+                resource.explicit_buckets
+            ),
         )
 
 
@@ -4695,9 +4895,9 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMa
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            width=resource.width,
-            offset=resource.offset,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            width=Primitive.from_proto(resource.width),
+            offset=Primitive.from_proto(resource.offset),
         )
 
 
@@ -4760,9 +4960,9 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMa
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            growth_factor=resource.growth_factor,
-            scale=resource.scale,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            growth_factor=Primitive.from_proto(resource.growth_factor),
+            scale=Primitive.from_proto(resource.scale),
         )
 
 
@@ -4814,7 +5014,7 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMa
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(
-            bounds=resource.bounds,
+            bounds=float64Array.from_proto(resource.bounds),
         )
 
 
@@ -4866,7 +5066,7 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMa
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationReduceMakeDistributionParamsExemplarSampling(
-            minimum_value=resource.minimum_value,
+            minimum_value=Primitive.from_proto(resource.minimum_value),
         )
 
 
@@ -4965,12 +5165,20 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregatio
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(
-            alignment_period=resource.alignment_period,
-            per_series_aligner=resource.per_series_aligner,
-            cross_series_reducer=resource.cross_series_reducer,
-            group_by_fields=resource.group_by_fields,
-            reduce_fraction_less_than_params=resource.reduce_fraction_less_than_params,
-            reduce_make_distribution_params=resource.reduce_make_distribution_params,
+            alignment_period=Primitive.from_proto(resource.alignment_period),
+            per_series_aligner=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum.from_proto(
+                resource.per_series_aligner
+            ),
+            cross_series_reducer=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum.from_proto(
+                resource.cross_series_reducer
+            ),
+            group_by_fields=Primitive.from_proto(resource.group_by_fields),
+            reduce_fraction_less_than_params=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams.from_proto(
+                resource.reduce_fraction_less_than_params
+            ),
+            reduce_make_distribution_params=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams.from_proto(
+                resource.reduce_make_distribution_params
+            ),
         )
 
 
@@ -5022,7 +5230,7 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregatio
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceFractionLessThanParams(
-            threshold=resource.threshold,
+            threshold=Primitive.from_proto(resource.threshold),
         )
 
 
@@ -5093,8 +5301,12 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregatio
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParams(
-            bucket_options=resource.bucket_options,
-            exemplar_sampling=resource.exemplar_sampling,
+            bucket_options=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions.from_proto(
+                resource.bucket_options
+            ),
+            exemplar_sampling=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling.from_proto(
+                resource.exemplar_sampling
+            ),
         )
 
 
@@ -5181,9 +5393,15 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregatio
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptions(
-            linear_buckets=resource.linear_buckets,
-            exponential_buckets=resource.exponential_buckets,
-            explicit_buckets=resource.explicit_buckets,
+            linear_buckets=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets.from_proto(
+                resource.linear_buckets
+            ),
+            exponential_buckets=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets.from_proto(
+                resource.exponential_buckets
+            ),
+            explicit_buckets=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets.from_proto(
+                resource.explicit_buckets
+            ),
         )
 
 
@@ -5243,9 +5461,9 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregatio
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            width=resource.width,
-            offset=resource.offset,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            width=Primitive.from_proto(resource.width),
+            offset=Primitive.from_proto(resource.offset),
         )
 
 
@@ -5308,9 +5526,9 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregatio
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            growth_factor=resource.growth_factor,
-            scale=resource.scale,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            growth_factor=Primitive.from_proto(resource.growth_factor),
+            scale=Primitive.from_proto(resource.scale),
         )
 
 
@@ -5362,7 +5580,7 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregatio
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(
-            bounds=resource.bounds,
+            bounds=float64Array.from_proto(resource.bounds),
         )
 
 
@@ -5414,7 +5632,7 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregatio
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(
-            minimum_value=resource.minimum_value,
+            minimum_value=Primitive.from_proto(resource.minimum_value),
         )
 
 
@@ -5485,9 +5703,13 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilte
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(
-            ranking_method=resource.ranking_method,
-            num_time_series=resource.num_time_series,
-            direction=resource.direction,
+            ranking_method=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum.from_proto(
+                resource.ranking_method
+            ),
+            num_time_series=Primitive.from_proto(resource.num_time_series),
+            direction=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum.from_proto(
+                resource.direction
+            ),
         )
 
 
@@ -5584,10 +5806,18 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(object):
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(
-            numerator=resource.numerator,
-            denominator=resource.denominator,
-            secondary_aggregation=resource.secondary_aggregation,
-            pick_time_series_filter=resource.pick_time_series_filter,
+            numerator=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator.from_proto(
+                resource.numerator
+            ),
+            denominator=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator.from_proto(
+                resource.denominator
+            ),
+            secondary_aggregation=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation.from_proto(
+                resource.secondary_aggregation
+            ),
+            pick_time_series_filter=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter.from_proto(
+                resource.pick_time_series_filter
+            ),
         )
 
 
@@ -5642,7 +5872,10 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(obje
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(
-            filter=resource.filter, aggregation=resource.aggregation,
+            filter=Primitive.from_proto(resource.filter),
+            aggregation=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation.from_proto(
+                resource.aggregation
+            ),
         )
 
 
@@ -5741,12 +5974,20 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggre
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(
-            alignment_period=resource.alignment_period,
-            per_series_aligner=resource.per_series_aligner,
-            cross_series_reducer=resource.cross_series_reducer,
-            group_by_fields=resource.group_by_fields,
-            reduce_fraction_less_than_params=resource.reduce_fraction_less_than_params,
-            reduce_make_distribution_params=resource.reduce_make_distribution_params,
+            alignment_period=Primitive.from_proto(resource.alignment_period),
+            per_series_aligner=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum.from_proto(
+                resource.per_series_aligner
+            ),
+            cross_series_reducer=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum.from_proto(
+                resource.cross_series_reducer
+            ),
+            group_by_fields=Primitive.from_proto(resource.group_by_fields),
+            reduce_fraction_less_than_params=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams.from_proto(
+                resource.reduce_fraction_less_than_params
+            ),
+            reduce_make_distribution_params=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams.from_proto(
+                resource.reduce_make_distribution_params
+            ),
         )
 
 
@@ -5798,7 +6039,7 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggre
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceFractionLessThanParams(
-            threshold=resource.threshold,
+            threshold=Primitive.from_proto(resource.threshold),
         )
 
 
@@ -5869,8 +6110,12 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggre
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParams(
-            bucket_options=resource.bucket_options,
-            exemplar_sampling=resource.exemplar_sampling,
+            bucket_options=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions.from_proto(
+                resource.bucket_options
+            ),
+            exemplar_sampling=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling.from_proto(
+                resource.exemplar_sampling
+            ),
         )
 
 
@@ -5957,9 +6202,15 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggre
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptions(
-            linear_buckets=resource.linear_buckets,
-            exponential_buckets=resource.exponential_buckets,
-            explicit_buckets=resource.explicit_buckets,
+            linear_buckets=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets.from_proto(
+                resource.linear_buckets
+            ),
+            exponential_buckets=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets.from_proto(
+                resource.exponential_buckets
+            ),
+            explicit_buckets=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets.from_proto(
+                resource.explicit_buckets
+            ),
         )
 
 
@@ -6019,9 +6270,9 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggre
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            width=resource.width,
-            offset=resource.offset,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            width=Primitive.from_proto(resource.width),
+            offset=Primitive.from_proto(resource.offset),
         )
 
 
@@ -6084,9 +6335,9 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggre
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            growth_factor=resource.growth_factor,
-            scale=resource.scale,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            growth_factor=Primitive.from_proto(resource.growth_factor),
+            scale=Primitive.from_proto(resource.scale),
         )
 
 
@@ -6138,7 +6389,7 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggre
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(
-            bounds=resource.bounds,
+            bounds=float64Array.from_proto(resource.bounds),
         )
 
 
@@ -6190,7 +6441,7 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggre
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationReduceMakeDistributionParamsExemplarSampling(
-            minimum_value=resource.minimum_value,
+            minimum_value=Primitive.from_proto(resource.minimum_value),
         )
 
 
@@ -6251,7 +6502,10 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(ob
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(
-            filter=resource.filter, aggregation=resource.aggregation,
+            filter=Primitive.from_proto(resource.filter),
+            aggregation=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation.from_proto(
+                resource.aggregation
+            ),
         )
 
 
@@ -6350,12 +6604,20 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAgg
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(
-            alignment_period=resource.alignment_period,
-            per_series_aligner=resource.per_series_aligner,
-            cross_series_reducer=resource.cross_series_reducer,
-            group_by_fields=resource.group_by_fields,
-            reduce_fraction_less_than_params=resource.reduce_fraction_less_than_params,
-            reduce_make_distribution_params=resource.reduce_make_distribution_params,
+            alignment_period=Primitive.from_proto(resource.alignment_period),
+            per_series_aligner=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum.from_proto(
+                resource.per_series_aligner
+            ),
+            cross_series_reducer=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum.from_proto(
+                resource.cross_series_reducer
+            ),
+            group_by_fields=Primitive.from_proto(resource.group_by_fields),
+            reduce_fraction_less_than_params=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams.from_proto(
+                resource.reduce_fraction_less_than_params
+            ),
+            reduce_make_distribution_params=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams.from_proto(
+                resource.reduce_make_distribution_params
+            ),
         )
 
 
@@ -6407,7 +6669,7 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAgg
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceFractionLessThanParams(
-            threshold=resource.threshold,
+            threshold=Primitive.from_proto(resource.threshold),
         )
 
 
@@ -6478,8 +6740,12 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAgg
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParams(
-            bucket_options=resource.bucket_options,
-            exemplar_sampling=resource.exemplar_sampling,
+            bucket_options=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions.from_proto(
+                resource.bucket_options
+            ),
+            exemplar_sampling=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling.from_proto(
+                resource.exemplar_sampling
+            ),
         )
 
 
@@ -6566,9 +6832,15 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAgg
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptions(
-            linear_buckets=resource.linear_buckets,
-            exponential_buckets=resource.exponential_buckets,
-            explicit_buckets=resource.explicit_buckets,
+            linear_buckets=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets.from_proto(
+                resource.linear_buckets
+            ),
+            exponential_buckets=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets.from_proto(
+                resource.exponential_buckets
+            ),
+            explicit_buckets=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets.from_proto(
+                resource.explicit_buckets
+            ),
         )
 
 
@@ -6628,9 +6900,9 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAgg
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            width=resource.width,
-            offset=resource.offset,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            width=Primitive.from_proto(resource.width),
+            offset=Primitive.from_proto(resource.offset),
         )
 
 
@@ -6693,9 +6965,9 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAgg
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            growth_factor=resource.growth_factor,
-            scale=resource.scale,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            growth_factor=Primitive.from_proto(resource.growth_factor),
+            scale=Primitive.from_proto(resource.scale),
         )
 
 
@@ -6747,7 +7019,7 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAgg
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(
-            bounds=resource.bounds,
+            bounds=float64Array.from_proto(resource.bounds),
         )
 
 
@@ -6799,7 +7071,7 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAgg
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationReduceMakeDistributionParamsExemplarSampling(
-            minimum_value=resource.minimum_value,
+            minimum_value=Primitive.from_proto(resource.minimum_value),
         )
 
 
@@ -6898,12 +7170,20 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggre
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(
-            alignment_period=resource.alignment_period,
-            per_series_aligner=resource.per_series_aligner,
-            cross_series_reducer=resource.cross_series_reducer,
-            group_by_fields=resource.group_by_fields,
-            reduce_fraction_less_than_params=resource.reduce_fraction_less_than_params,
-            reduce_make_distribution_params=resource.reduce_make_distribution_params,
+            alignment_period=Primitive.from_proto(resource.alignment_period),
+            per_series_aligner=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum.from_proto(
+                resource.per_series_aligner
+            ),
+            cross_series_reducer=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum.from_proto(
+                resource.cross_series_reducer
+            ),
+            group_by_fields=Primitive.from_proto(resource.group_by_fields),
+            reduce_fraction_less_than_params=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams.from_proto(
+                resource.reduce_fraction_less_than_params
+            ),
+            reduce_make_distribution_params=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams.from_proto(
+                resource.reduce_make_distribution_params
+            ),
         )
 
 
@@ -6955,7 +7235,7 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggre
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceFractionLessThanParams(
-            threshold=resource.threshold,
+            threshold=Primitive.from_proto(resource.threshold),
         )
 
 
@@ -7026,8 +7306,12 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggre
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParams(
-            bucket_options=resource.bucket_options,
-            exemplar_sampling=resource.exemplar_sampling,
+            bucket_options=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions.from_proto(
+                resource.bucket_options
+            ),
+            exemplar_sampling=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling.from_proto(
+                resource.exemplar_sampling
+            ),
         )
 
 
@@ -7114,9 +7398,15 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggre
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptions(
-            linear_buckets=resource.linear_buckets,
-            exponential_buckets=resource.exponential_buckets,
-            explicit_buckets=resource.explicit_buckets,
+            linear_buckets=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets.from_proto(
+                resource.linear_buckets
+            ),
+            exponential_buckets=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets.from_proto(
+                resource.exponential_buckets
+            ),
+            explicit_buckets=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets.from_proto(
+                resource.explicit_buckets
+            ),
         )
 
 
@@ -7176,9 +7466,9 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggre
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsLinearBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            width=resource.width,
-            offset=resource.offset,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            width=Primitive.from_proto(resource.width),
+            offset=Primitive.from_proto(resource.offset),
         )
 
 
@@ -7241,9 +7531,9 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggre
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExponentialBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            growth_factor=resource.growth_factor,
-            scale=resource.scale,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            growth_factor=Primitive.from_proto(resource.growth_factor),
+            scale=Primitive.from_proto(resource.scale),
         )
 
 
@@ -7295,7 +7585,7 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggre
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsBucketOptionsExplicitBuckets(
-            bounds=resource.bounds,
+            bounds=float64Array.from_proto(resource.bounds),
         )
 
 
@@ -7347,7 +7637,7 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggre
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationReduceMakeDistributionParamsExemplarSampling(
-            minimum_value=resource.minimum_value,
+            minimum_value=Primitive.from_proto(resource.minimum_value),
         )
 
 
@@ -7418,9 +7708,13 @@ class DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeries
             return None
 
         return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(
-            ranking_method=resource.ranking_method,
-            num_time_series=resource.num_time_series,
-            direction=resource.direction,
+            ranking_method=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum.from_proto(
+                resource.ranking_method
+            ),
+            num_time_series=Primitive.from_proto(resource.num_time_series),
+            direction=DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum.from_proto(
+                resource.direction
+            ),
         )
 
 
@@ -7471,7 +7765,8 @@ class DashboardWidgetScorecardGaugeView(object):
             return None
 
         return DashboardWidgetScorecardGaugeView(
-            lower_bound=resource.lower_bound, upper_bound=resource.upper_bound,
+            lower_bound=Primitive.from_proto(resource.lower_bound),
+            upper_bound=Primitive.from_proto(resource.upper_bound),
         )
 
 
@@ -7514,8 +7809,10 @@ class DashboardWidgetScorecardSparkChartView(object):
             return None
 
         return DashboardWidgetScorecardSparkChartView(
-            spark_chart_type=resource.spark_chart_type,
-            min_alignment_period=resource.min_alignment_period,
+            spark_chart_type=DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum.from_proto(
+                resource.spark_chart_type
+            ),
+            min_alignment_period=Primitive.from_proto(resource.min_alignment_period),
         )
 
 
@@ -7570,10 +7867,14 @@ class DashboardWidgetScorecardThresholds(object):
             return None
 
         return DashboardWidgetScorecardThresholds(
-            label=resource.label,
-            value=resource.value,
-            color=resource.color,
-            direction=resource.direction,
+            label=Primitive.from_proto(resource.label),
+            value=Primitive.from_proto(resource.value),
+            color=DashboardWidgetScorecardThresholdsColorEnum.from_proto(
+                resource.color
+            ),
+            direction=DashboardWidgetScorecardThresholdsDirectionEnum.from_proto(
+                resource.direction
+            ),
         )
 
 
@@ -7611,7 +7912,10 @@ class DashboardWidgetText(object):
         if not resource:
             return None
 
-        return DashboardWidgetText(content=resource.content, format=resource.format,)
+        return DashboardWidgetText(
+            content=Primitive.from_proto(resource.content),
+            format=DashboardWidgetTextFormatEnum.from_proto(resource.format),
+        )
 
 
 class DashboardWidgetTextArray(object):

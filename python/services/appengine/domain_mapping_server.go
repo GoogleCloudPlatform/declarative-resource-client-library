@@ -31,7 +31,7 @@ func ProtoToAppengineDomainMappingSslSettingsSslManagementTypeEnum(e appenginepb
 		return nil
 	}
 	if n, ok := appenginepb.AppengineDomainMappingSslSettingsSslManagementTypeEnum_name[int32(e)]; ok {
-		e := appengine.DomainMappingSslSettingsSslManagementTypeEnum(n[len("DomainMappingSslSettingsSslManagementTypeEnum"):])
+		e := appengine.DomainMappingSslSettingsSslManagementTypeEnum(n[len("AppengineDomainMappingSslSettingsSslManagementTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToAppengineDomainMappingResourceRecordsTypeEnum(e appenginepb.Appengin
 		return nil
 	}
 	if n, ok := appenginepb.AppengineDomainMappingResourceRecordsTypeEnum_name[int32(e)]; ok {
-		e := appengine.DomainMappingResourceRecordsTypeEnum(n[len("DomainMappingResourceRecordsTypeEnum"):])
+		e := appengine.DomainMappingResourceRecordsTypeEnum(n[len("AppengineDomainMappingResourceRecordsTypeEnum"):])
 		return &e
 	}
 	return nil

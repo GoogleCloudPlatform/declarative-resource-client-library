@@ -31,7 +31,7 @@ func ProtoToComputeBetaSubnetworkPurposeEnum(e betapb.ComputeBetaSubnetworkPurpo
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaSubnetworkPurposeEnum_name[int32(e)]; ok {
-		e := beta.SubnetworkPurposeEnum(n[len("SubnetworkPurposeEnum"):])
+		e := beta.SubnetworkPurposeEnum(n[len("ComputeBetaSubnetworkPurposeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeBetaSubnetworkRoleEnum(e betapb.ComputeBetaSubnetworkRoleEnum
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaSubnetworkRoleEnum_name[int32(e)]; ok {
-		e := beta.SubnetworkRoleEnum(n[len("SubnetworkRoleEnum"):])
+		e := beta.SubnetworkRoleEnum(n[len("ComputeBetaSubnetworkRoleEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeBetaSubnetworkLogConfigAggregationIntervalEnum(e betapb.Compu
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaSubnetworkLogConfigAggregationIntervalEnum_name[int32(e)]; ok {
-		e := beta.SubnetworkLogConfigAggregationIntervalEnum(n[len("SubnetworkLogConfigAggregationIntervalEnum"):])
+		e := beta.SubnetworkLogConfigAggregationIntervalEnum(n[len("ComputeBetaSubnetworkLogConfigAggregationIntervalEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeBetaSubnetworkLogConfigMetadataEnum(e betapb.ComputeBetaSubne
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaSubnetworkLogConfigMetadataEnum_name[int32(e)]; ok {
-		e := beta.SubnetworkLogConfigMetadataEnum(n[len("SubnetworkLogConfigMetadataEnum"):])
+		e := beta.SubnetworkLogConfigMetadataEnum(n[len("ComputeBetaSubnetworkLogConfigMetadataEnum"):])
 		return &e
 	}
 	return nil

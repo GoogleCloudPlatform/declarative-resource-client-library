@@ -31,7 +31,7 @@ func ProtoToIdentitytoolkitTenantMfaConfigStateEnum(e identitytoolkitpb.Identity
 		return nil
 	}
 	if n, ok := identitytoolkitpb.IdentitytoolkitTenantMfaConfigStateEnum_name[int32(e)]; ok {
-		e := identitytoolkit.TenantMfaConfigStateEnum(n[len("TenantMfaConfigStateEnum"):])
+		e := identitytoolkit.TenantMfaConfigStateEnum(n[len("IdentitytoolkitTenantMfaConfigStateEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToIdentitytoolkitTenantMfaConfigEnabledProvidersEnum(e identitytoolkit
 		return nil
 	}
 	if n, ok := identitytoolkitpb.IdentitytoolkitTenantMfaConfigEnabledProvidersEnum_name[int32(e)]; ok {
-		e := identitytoolkit.TenantMfaConfigEnabledProvidersEnum(n[len("TenantMfaConfigEnabledProvidersEnum"):])
+		e := identitytoolkit.TenantMfaConfigEnabledProvidersEnum(n[len("IdentitytoolkitTenantMfaConfigEnabledProvidersEnum"):])
 		return &e
 	}
 	return nil

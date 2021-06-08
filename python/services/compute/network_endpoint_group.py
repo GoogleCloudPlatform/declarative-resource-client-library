@@ -287,7 +287,9 @@ class NetworkEndpointGroupCloudRun(object):
             return None
 
         return NetworkEndpointGroupCloudRun(
-            service=resource.service, tag=resource.tag, url_mask=resource.url_mask,
+            service=Primitive.from_proto(resource.service),
+            tag=Primitive.from_proto(resource.tag),
+            url_mask=Primitive.from_proto(resource.url_mask),
         )
 
 
@@ -329,9 +331,9 @@ class NetworkEndpointGroupAppEngine(object):
             return None
 
         return NetworkEndpointGroupAppEngine(
-            service=resource.service,
-            version=resource.version,
-            url_mask=resource.url_mask,
+            service=Primitive.from_proto(resource.service),
+            version=Primitive.from_proto(resource.version),
+            url_mask=Primitive.from_proto(resource.url_mask),
         )
 
 
@@ -370,7 +372,8 @@ class NetworkEndpointGroupCloudFunction(object):
             return None
 
         return NetworkEndpointGroupCloudFunction(
-            function=resource.function, url_mask=resource.url_mask,
+            function=Primitive.from_proto(resource.function),
+            url_mask=Primitive.from_proto(resource.url_mask),
         )
 
 

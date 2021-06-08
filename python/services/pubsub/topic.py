@@ -143,7 +143,9 @@ class TopicMessageStoragePolicy(object):
             return None
 
         return TopicMessageStoragePolicy(
-            allowed_persistence_regions=resource.allowed_persistence_regions,
+            allowed_persistence_regions=Primitive.from_proto(
+                resource.allowed_persistence_regions
+            ),
         )
 
 

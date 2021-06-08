@@ -441,7 +441,7 @@ func canonicalizeVpnGatewayDesiredState(rawDesired, rawInitial *VpnGateway, opts
 	if dcl.StringCanonicalize(rawDesired.Region, rawInitial.Region) {
 		rawDesired.Region = rawInitial.Region
 	}
-	if dcl.PartialSelfLinkToSelfLink(rawDesired.Network, rawInitial.Network) {
+	if dcl.NameToSelfLink(rawDesired.Network, rawInitial.Network) {
 		rawDesired.Network = rawInitial.Network
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
@@ -488,7 +488,7 @@ func canonicalizeVpnGatewayNewState(c *Client, rawNew, rawDesired *VpnGateway) (
 	if dcl.IsEmptyValueIndirect(rawNew.Network) && dcl.IsEmptyValueIndirect(rawDesired.Network) {
 		rawNew.Network = rawDesired.Network
 	} else {
-		if dcl.PartialSelfLinkToSelfLink(rawDesired.Network, rawNew.Network) {
+		if dcl.NameToSelfLink(rawDesired.Network, rawNew.Network) {
 			rawNew.Network = rawDesired.Network
 		}
 	}
@@ -661,7 +661,7 @@ func diffVpnGateway(c *Client, desired, actual *VpnGateway, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VpnInterface, actual.VpnInterface, dcl.Info{OutputOnly: true, ObjectFunction: compareVpnGatewayVpnInterfaceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VpnInterface")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VpnInterface, actual.VpnInterface, dcl.Info{OutputOnly: true, ObjectFunction: compareVpnGatewayVpnInterfaceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VpnInterfaces")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -697,7 +697,7 @@ func compareVpnGatewayVpnInterfaceNewStyle(d, a interface{}, fn dcl.FieldName) (
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPAddress")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -790,9 +790,7 @@ func expandVpnGateway(c *Client, f *VpnGateway) (map[string]interface{}, error) 
 	if v := f.Region; !dcl.IsEmptyValueIndirect(v) {
 		m["region"] = v
 	}
-	if v, err := dcl.DeriveField("projects/%s/global/networks/%s", f.Network, f.Project, f.Network); err != nil {
-		return nil, fmt.Errorf("error expanding Network into network: %w", err)
-	} else if v != nil {
+	if v := f.Network; !dcl.IsEmptyValueIndirect(v) {
 		m["network"] = v
 	}
 	if v := f.SelfLink; !dcl.IsEmptyValueIndirect(v) {

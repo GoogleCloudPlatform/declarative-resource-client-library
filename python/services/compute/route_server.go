@@ -31,7 +31,7 @@ func ProtoToComputeRouteWarningCodeEnum(e computepb.ComputeRouteWarningCodeEnum)
 		return nil
 	}
 	if n, ok := computepb.ComputeRouteWarningCodeEnum_name[int32(e)]; ok {
-		e := compute.RouteWarningCodeEnum(n[len("RouteWarningCodeEnum"):])
+		e := compute.RouteWarningCodeEnum(n[len("ComputeRouteWarningCodeEnum"):])
 		return &e
 	}
 	return nil

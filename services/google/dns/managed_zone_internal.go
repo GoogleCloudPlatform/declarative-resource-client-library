@@ -1262,7 +1262,7 @@ func diffManagedZone(c *Client, desired, actual *ManagedZone, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReverseLookup, actual.ReverseLookup, dcl.Info{Ignore: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReverseLookup")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReverseLookup, actual.ReverseLookup, dcl.Info{Ignore: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReverseLookupConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1492,7 +1492,7 @@ func compareManagedZoneForwardingConfigTargetNameServersNewStyle(d, a interface{
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.IPv4Address, actual.IPv4Address, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPv4Address")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPv4Address, actual.IPv4Address, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Ipv4Address")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

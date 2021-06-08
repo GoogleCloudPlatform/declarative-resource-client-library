@@ -238,9 +238,13 @@ class MembershipEndpoint(object):
             return None
 
         return MembershipEndpoint(
-            gke_cluster=resource.gke_cluster,
-            kubernetes_metadata=resource.kubernetes_metadata,
-            kubernetes_resource=resource.kubernetes_resource,
+            gke_cluster=MembershipEndpointGkeCluster.from_proto(resource.gke_cluster),
+            kubernetes_metadata=MembershipEndpointKubernetesMetadata.from_proto(
+                resource.kubernetes_metadata
+            ),
+            kubernetes_resource=MembershipEndpointKubernetesResource.from_proto(
+                resource.kubernetes_resource
+            ),
         )
 
 
@@ -275,7 +279,9 @@ class MembershipEndpointGkeCluster(object):
         if not resource:
             return None
 
-        return MembershipEndpointGkeCluster(resource_link=resource.resource_link,)
+        return MembershipEndpointGkeCluster(
+            resource_link=Primitive.from_proto(resource.resource_link),
+        )
 
 
 class MembershipEndpointGkeClusterArray(object):
@@ -335,12 +341,14 @@ class MembershipEndpointKubernetesMetadata(object):
             return None
 
         return MembershipEndpointKubernetesMetadata(
-            kubernetes_api_server_version=resource.kubernetes_api_server_version,
-            node_provider_id=resource.node_provider_id,
-            node_count=resource.node_count,
-            vcpu_count=resource.vcpu_count,
-            memory_mb=resource.memory_mb,
-            update_time=resource.update_time,
+            kubernetes_api_server_version=Primitive.from_proto(
+                resource.kubernetes_api_server_version
+            ),
+            node_provider_id=Primitive.from_proto(resource.node_provider_id),
+            node_count=Primitive.from_proto(resource.node_count),
+            vcpu_count=Primitive.from_proto(resource.vcpu_count),
+            memory_mb=Primitive.from_proto(resource.memory_mb),
+            update_time=Primitive.from_proto(resource.update_time),
         )
 
 
@@ -413,10 +421,18 @@ class MembershipEndpointKubernetesResource(object):
             return None
 
         return MembershipEndpointKubernetesResource(
-            membership_cr_manifest=resource.membership_cr_manifest,
-            membership_resources=resource.membership_resources,
-            connect_resources=resource.connect_resources,
-            resource_options=resource.resource_options,
+            membership_cr_manifest=Primitive.from_proto(
+                resource.membership_cr_manifest
+            ),
+            membership_resources=MembershipEndpointKubernetesResourceMembershipResourcesArray.from_proto(
+                resource.membership_resources
+            ),
+            connect_resources=MembershipEndpointKubernetesResourceConnectResourcesArray.from_proto(
+                resource.connect_resources
+            ),
+            resource_options=MembershipEndpointKubernetesResourceResourceOptions.from_proto(
+                resource.resource_options
+            ),
         )
 
 
@@ -457,7 +473,8 @@ class MembershipEndpointKubernetesResourceMembershipResources(object):
             return None
 
         return MembershipEndpointKubernetesResourceMembershipResources(
-            manifest=resource.manifest, cluster_scoped=resource.cluster_scoped,
+            manifest=Primitive.from_proto(resource.manifest),
+            cluster_scoped=Primitive.from_proto(resource.cluster_scoped),
         )
 
 
@@ -504,7 +521,8 @@ class MembershipEndpointKubernetesResourceConnectResources(object):
             return None
 
         return MembershipEndpointKubernetesResourceConnectResources(
-            manifest=resource.manifest, cluster_scoped=resource.cluster_scoped,
+            manifest=Primitive.from_proto(resource.manifest),
+            cluster_scoped=Primitive.from_proto(resource.cluster_scoped),
         )
 
 
@@ -551,7 +569,8 @@ class MembershipEndpointKubernetesResourceResourceOptions(object):
             return None
 
         return MembershipEndpointKubernetesResourceResourceOptions(
-            connect_version=resource.connect_version, v1beta1_crd=resource.v1beta1_crd,
+            connect_version=Primitive.from_proto(resource.connect_version),
+            v1beta1_crd=Primitive.from_proto(resource.v1beta1_crd),
         )
 
 
@@ -592,7 +611,7 @@ class MembershipState(object):
         if not resource:
             return None
 
-        return MembershipState(code=resource.code,)
+        return MembershipState(code=MembershipStateCodeEnum.from_proto(resource.code),)
 
 
 class MembershipStateArray(object):
@@ -640,9 +659,11 @@ class MembershipAuthority(object):
             return None
 
         return MembershipAuthority(
-            issuer=resource.issuer,
-            workload_identity_pool=resource.workload_identity_pool,
-            identity_provider=resource.identity_provider,
+            issuer=Primitive.from_proto(resource.issuer),
+            workload_identity_pool=Primitive.from_proto(
+                resource.workload_identity_pool
+            ),
+            identity_provider=Primitive.from_proto(resource.identity_provider),
         )
 
 

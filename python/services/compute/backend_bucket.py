@@ -169,8 +169,10 @@ class BackendBucketCdnPolicy(object):
             return None
 
         return BackendBucketCdnPolicy(
-            signed_url_key_names=resource.signed_url_key_names,
-            signed_url_cache_max_age_sec=resource.signed_url_cache_max_age_sec,
+            signed_url_key_names=Primitive.from_proto(resource.signed_url_key_names),
+            signed_url_cache_max_age_sec=Primitive.from_proto(
+                resource.signed_url_cache_max_age_sec
+            ),
         )
 
 

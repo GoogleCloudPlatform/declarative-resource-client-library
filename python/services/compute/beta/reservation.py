@@ -207,9 +207,11 @@ class ReservationSpecificReservation(object):
             return None
 
         return ReservationSpecificReservation(
-            instance_properties=resource.instance_properties,
-            count=resource.count,
-            in_use_count=resource.in_use_count,
+            instance_properties=ReservationSpecificReservationInstanceProperties.from_proto(
+                resource.instance_properties
+            ),
+            count=Primitive.from_proto(resource.count),
+            in_use_count=Primitive.from_proto(resource.in_use_count),
         )
 
 
@@ -274,10 +276,14 @@ class ReservationSpecificReservationInstanceProperties(object):
             return None
 
         return ReservationSpecificReservationInstanceProperties(
-            machine_type=resource.machine_type,
-            guest_accelerators=resource.guest_accelerators,
-            min_cpu_platform=resource.min_cpu_platform,
-            local_ssds=resource.local_ssds,
+            machine_type=Primitive.from_proto(resource.machine_type),
+            guest_accelerators=ReservationSpecificReservationInstancePropertiesGuestAcceleratorsArray.from_proto(
+                resource.guest_accelerators
+            ),
+            min_cpu_platform=Primitive.from_proto(resource.min_cpu_platform),
+            local_ssds=ReservationSpecificReservationInstancePropertiesLocalSsdsArray.from_proto(
+                resource.local_ssds
+            ),
         )
 
 
@@ -324,8 +330,8 @@ class ReservationSpecificReservationInstancePropertiesGuestAccelerators(object):
             return None
 
         return ReservationSpecificReservationInstancePropertiesGuestAccelerators(
-            accelerator_type=resource.accelerator_type,
-            accelerator_count=resource.accelerator_count,
+            accelerator_type=Primitive.from_proto(resource.accelerator_type),
+            accelerator_count=Primitive.from_proto(resource.accelerator_count),
         )
 
 
@@ -380,7 +386,10 @@ class ReservationSpecificReservationInstancePropertiesLocalSsds(object):
             return None
 
         return ReservationSpecificReservationInstancePropertiesLocalSsds(
-            disk_size_gb=resource.disk_size_gb, interface=resource.interface,
+            disk_size_gb=Primitive.from_proto(resource.disk_size_gb),
+            interface=ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum.from_proto(
+                resource.interface
+            ),
         )
 
 

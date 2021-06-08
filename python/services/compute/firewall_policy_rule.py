@@ -242,9 +242,11 @@ class FirewallPolicyRuleMatch(object):
             return None
 
         return FirewallPolicyRuleMatch(
-            src_ip_ranges=resource.src_ip_ranges,
-            dest_ip_ranges=resource.dest_ip_ranges,
-            layer4_configs=resource.layer4_configs,
+            src_ip_ranges=Primitive.from_proto(resource.src_ip_ranges),
+            dest_ip_ranges=Primitive.from_proto(resource.dest_ip_ranges),
+            layer4_configs=FirewallPolicyRuleMatchLayer4ConfigsArray.from_proto(
+                resource.layer4_configs
+            ),
         )
 
 
@@ -283,7 +285,8 @@ class FirewallPolicyRuleMatchLayer4Configs(object):
             return None
 
         return FirewallPolicyRuleMatchLayer4Configs(
-            ip_protocol=resource.ip_protocol, ports=resource.ports,
+            ip_protocol=Primitive.from_proto(resource.ip_protocol),
+            ports=Primitive.from_proto(resource.ports),
         )
 
 

@@ -273,7 +273,8 @@ class UptimeCheckConfigMonitoredResource(object):
             return None
 
         return UptimeCheckConfigMonitoredResource(
-            type=resource.type, filter_labels=resource.filter_labels,
+            type=Primitive.from_proto(resource.type),
+            filter_labels=Primitive.from_proto(resource.filter_labels),
         )
 
 
@@ -316,7 +317,10 @@ class UptimeCheckConfigResourceGroup(object):
             return None
 
         return UptimeCheckConfigResourceGroup(
-            group_id=resource.group_id, resource_type=resource.resource_type,
+            group_id=Primitive.from_proto(resource.group_id),
+            resource_type=UptimeCheckConfigResourceGroupResourceTypeEnum.from_proto(
+                resource.resource_type
+            ),
         )
 
 
@@ -401,16 +405,20 @@ class UptimeCheckConfigHttpCheck(object):
             return None
 
         return UptimeCheckConfigHttpCheck(
-            request_method=resource.request_method,
-            use_ssl=resource.use_ssl,
-            path=resource.path,
-            port=resource.port,
-            auth_info=resource.auth_info,
-            mask_headers=resource.mask_headers,
-            headers=resource.headers,
-            content_type=resource.content_type,
-            validate_ssl=resource.validate_ssl,
-            body=resource.body,
+            request_method=UptimeCheckConfigHttpCheckRequestMethodEnum.from_proto(
+                resource.request_method
+            ),
+            use_ssl=Primitive.from_proto(resource.use_ssl),
+            path=Primitive.from_proto(resource.path),
+            port=Primitive.from_proto(resource.port),
+            auth_info=UptimeCheckConfigHttpCheckAuthInfo.from_proto(resource.auth_info),
+            mask_headers=Primitive.from_proto(resource.mask_headers),
+            headers=Primitive.from_proto(resource.headers),
+            content_type=UptimeCheckConfigHttpCheckContentTypeEnum.from_proto(
+                resource.content_type
+            ),
+            validate_ssl=Primitive.from_proto(resource.validate_ssl),
+            body=Primitive.from_proto(resource.body),
         )
 
 
@@ -449,7 +457,8 @@ class UptimeCheckConfigHttpCheckAuthInfo(object):
             return None
 
         return UptimeCheckConfigHttpCheckAuthInfo(
-            username=resource.username, password=resource.password,
+            username=Primitive.from_proto(resource.username),
+            password=Primitive.from_proto(resource.password),
         )
 
 
@@ -484,7 +493,7 @@ class UptimeCheckConfigTcpCheck(object):
         if not resource:
             return None
 
-        return UptimeCheckConfigTcpCheck(port=resource.port,)
+        return UptimeCheckConfigTcpCheck(port=Primitive.from_proto(resource.port),)
 
 
 class UptimeCheckConfigTcpCheckArray(object):
@@ -524,7 +533,10 @@ class UptimeCheckConfigContentMatchers(object):
             return None
 
         return UptimeCheckConfigContentMatchers(
-            content=resource.content, matcher=resource.matcher,
+            content=Primitive.from_proto(resource.content),
+            matcher=UptimeCheckConfigContentMatchersMatcherEnum.from_proto(
+                resource.matcher
+            ),
         )
 
 

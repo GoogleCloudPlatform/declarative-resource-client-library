@@ -31,7 +31,7 @@ func ProtoToRedisInstanceStateEnum(e redispb.RedisInstanceStateEnum) *redis.Inst
 		return nil
 	}
 	if n, ok := redispb.RedisInstanceStateEnum_name[int32(e)]; ok {
-		e := redis.InstanceStateEnum(n[len("InstanceStateEnum"):])
+		e := redis.InstanceStateEnum(n[len("RedisInstanceStateEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToRedisInstanceTierEnum(e redispb.RedisInstanceTierEnum) *redis.Instan
 		return nil
 	}
 	if n, ok := redispb.RedisInstanceTierEnum_name[int32(e)]; ok {
-		e := redis.InstanceTierEnum(n[len("InstanceTierEnum"):])
+		e := redis.InstanceTierEnum(n[len("RedisInstanceTierEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToRedisInstanceConnectModeEnum(e redispb.RedisInstanceConnectModeEnum)
 		return nil
 	}
 	if n, ok := redispb.RedisInstanceConnectModeEnum_name[int32(e)]; ok {
-		e := redis.InstanceConnectModeEnum(n[len("InstanceConnectModeEnum"):])
+		e := redis.InstanceConnectModeEnum(n[len("RedisInstanceConnectModeEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToRedisInstanceTransitEncryptionModeEnum(e redispb.RedisInstanceTransi
 		return nil
 	}
 	if n, ok := redispb.RedisInstanceTransitEncryptionModeEnum_name[int32(e)]; ok {
-		e := redis.InstanceTransitEncryptionModeEnum(n[len("InstanceTransitEncryptionModeEnum"):])
+		e := redis.InstanceTransitEncryptionModeEnum(n[len("RedisInstanceTransitEncryptionModeEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToRedisInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum(e redis
 		return nil
 	}
 	if n, ok := redispb.RedisInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum_name[int32(e)]; ok {
-		e := redis.InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum(n[len("InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum"):])
+		e := redis.InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum(n[len("RedisInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum"):])
 		return &e
 	}
 	return nil

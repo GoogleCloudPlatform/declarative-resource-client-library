@@ -2007,7 +2007,7 @@ func diffNodePool(c *Client, desired, actual *NodePool, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NodeCount, actual.NodeCount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateNodePoolSetSizeOperation")}, fn.AddNest("NodeCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NodeCount, actual.NodeCount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateNodePoolSetSizeOperation")}, fn.AddNest("InitialNodeCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2141,7 +2141,7 @@ func compareNodePoolConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OAuthScopes, actual.OAuthScopes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OAuthScopes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OAuthScopes, actual.OAuthScopes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OauthScopes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

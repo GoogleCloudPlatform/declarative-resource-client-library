@@ -805,7 +805,9 @@ func StringEqualsWithSelfLink(l, r *string) bool {
 	if IsSelfLink(left) || IsSelfLink(right) {
 		return SelfLinkToSelfLink(l, r)
 	} else if IsPartialSelfLink(left) || IsPartialSelfLink(right) {
-		return PartialSelfLinkToSelfLink(l, r)
+		lp := strings.Split(left, "/")
+		rp := strings.Split(right, "/")
+		return lp[len(lp)-1] == rp[len(rp)-1]
 	} else {
 		return left == right
 	}

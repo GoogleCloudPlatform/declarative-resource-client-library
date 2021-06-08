@@ -31,7 +31,7 @@ func ProtoToComputeBetaVpnTunnelStatusEnum(e betapb.ComputeBetaVpnTunnelStatusEn
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaVpnTunnelStatusEnum_name[int32(e)]; ok {
-		e := beta.VpnTunnelStatusEnum(n[len("VpnTunnelStatusEnum"):])
+		e := beta.VpnTunnelStatusEnum(n[len("ComputeBetaVpnTunnelStatusEnum"):])
 		return &e
 	}
 	return nil

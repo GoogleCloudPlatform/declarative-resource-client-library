@@ -189,11 +189,19 @@ class KeyRestrictions(object):
             return None
 
         return KeyRestrictions(
-            browser_key_restrictions=resource.browser_key_restrictions,
-            server_key_restrictions=resource.server_key_restrictions,
-            android_key_restrictions=resource.android_key_restrictions,
-            ios_key_restrictions=resource.ios_key_restrictions,
-            api_targets=resource.api_targets,
+            browser_key_restrictions=KeyRestrictionsBrowserKeyRestrictions.from_proto(
+                resource.browser_key_restrictions
+            ),
+            server_key_restrictions=KeyRestrictionsServerKeyRestrictions.from_proto(
+                resource.server_key_restrictions
+            ),
+            android_key_restrictions=KeyRestrictionsAndroidKeyRestrictions.from_proto(
+                resource.android_key_restrictions
+            ),
+            ios_key_restrictions=KeyRestrictionsIosKeyRestrictions.from_proto(
+                resource.ios_key_restrictions
+            ),
+            api_targets=KeyRestrictionsApiTargetsArray.from_proto(resource.api_targets),
         )
 
 
@@ -229,7 +237,7 @@ class KeyRestrictionsBrowserKeyRestrictions(object):
             return None
 
         return KeyRestrictionsBrowserKeyRestrictions(
-            allowed_referrers=resource.allowed_referrers,
+            allowed_referrers=Primitive.from_proto(resource.allowed_referrers),
         )
 
 
@@ -264,7 +272,9 @@ class KeyRestrictionsServerKeyRestrictions(object):
         if not resource:
             return None
 
-        return KeyRestrictionsServerKeyRestrictions(allowed_ips=resource.allowed_ips,)
+        return KeyRestrictionsServerKeyRestrictions(
+            allowed_ips=Primitive.from_proto(resource.allowed_ips),
+        )
 
 
 class KeyRestrictionsServerKeyRestrictionsArray(object):
@@ -305,7 +315,9 @@ class KeyRestrictionsAndroidKeyRestrictions(object):
             return None
 
         return KeyRestrictionsAndroidKeyRestrictions(
-            allowed_applications=resource.allowed_applications,
+            allowed_applications=KeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsArray.from_proto(
+                resource.allowed_applications
+            ),
         )
 
 
@@ -344,8 +356,8 @@ class KeyRestrictionsAndroidKeyRestrictionsAllowedApplications(object):
             return None
 
         return KeyRestrictionsAndroidKeyRestrictionsAllowedApplications(
-            sha1_fingerprint=resource.sha1_fingerprint,
-            package_name=resource.package_name,
+            sha1_fingerprint=Primitive.from_proto(resource.sha1_fingerprint),
+            package_name=Primitive.from_proto(resource.package_name),
         )
 
 
@@ -389,7 +401,7 @@ class KeyRestrictionsIosKeyRestrictions(object):
             return None
 
         return KeyRestrictionsIosKeyRestrictions(
-            allowed_bundle_ids=resource.allowed_bundle_ids,
+            allowed_bundle_ids=Primitive.from_proto(resource.allowed_bundle_ids),
         )
 
 
@@ -428,7 +440,8 @@ class KeyRestrictionsApiTargets(object):
             return None
 
         return KeyRestrictionsApiTargets(
-            service=resource.service, methods=resource.methods,
+            service=Primitive.from_proto(resource.service),
+            methods=Primitive.from_proto(resource.methods),
         )
 
 

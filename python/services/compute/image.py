@@ -433,7 +433,9 @@ class ImageGuestOsFeature(object):
         if not resource:
             return None
 
-        return ImageGuestOsFeature(type=resource.type,)
+        return ImageGuestOsFeature(
+            type=ImageGuestOsFeatureTypeEnum.from_proto(resource.type),
+        )
 
 
 class ImageGuestOsFeatureArray(object):
@@ -485,10 +487,12 @@ class ImageImageEncryptionKey(object):
             return None
 
         return ImageImageEncryptionKey(
-            raw_key=resource.raw_key,
-            kms_key_name=resource.kms_key_name,
-            sha256=resource.sha256,
-            kms_key_service_account=resource.kms_key_service_account,
+            raw_key=Primitive.from_proto(resource.raw_key),
+            kms_key_name=Primitive.from_proto(resource.kms_key_name),
+            sha256=Primitive.from_proto(resource.sha256),
+            kms_key_service_account=Primitive.from_proto(
+                resource.kms_key_service_account
+            ),
         )
 
 
@@ -534,9 +538,11 @@ class ImageRawDisk(object):
             return None
 
         return ImageRawDisk(
-            source=resource.source,
-            sha1_checksum=resource.sha1_checksum,
-            container_type=resource.container_type,
+            source=Primitive.from_proto(resource.source),
+            sha1_checksum=Primitive.from_proto(resource.sha1_checksum),
+            container_type=ImageRawDiskContainerTypeEnum.from_proto(
+                resource.container_type
+            ),
         )
 
 
@@ -591,7 +597,10 @@ class ImageShieldedInstanceInitialState(object):
             return None
 
         return ImageShieldedInstanceInitialState(
-            pk=resource.pk, kek=resource.kek, db=resource.db, dbx=resource.dbx,
+            pk=ImageShieldedInstanceInitialStatePk.from_proto(resource.pk),
+            kek=ImageShieldedInstanceInitialStateKekArray.from_proto(resource.kek),
+            db=ImageShieldedInstanceInitialStateDbArray.from_proto(resource.db),
+            dbx=ImageShieldedInstanceInitialStateDbxArray.from_proto(resource.dbx),
         )
 
 
@@ -632,7 +641,10 @@ class ImageShieldedInstanceInitialStatePk(object):
             return None
 
         return ImageShieldedInstanceInitialStatePk(
-            content=resource.content, file_type=resource.file_type,
+            content=Primitive.from_proto(resource.content),
+            file_type=ImageShieldedInstanceInitialStatePkFileTypeEnum.from_proto(
+                resource.file_type
+            ),
         )
 
 
@@ -675,7 +687,10 @@ class ImageShieldedInstanceInitialStateKek(object):
             return None
 
         return ImageShieldedInstanceInitialStateKek(
-            content=resource.content, file_type=resource.file_type,
+            content=Primitive.from_proto(resource.content),
+            file_type=ImageShieldedInstanceInitialStateKekFileTypeEnum.from_proto(
+                resource.file_type
+            ),
         )
 
 
@@ -716,7 +731,10 @@ class ImageShieldedInstanceInitialStateDb(object):
             return None
 
         return ImageShieldedInstanceInitialStateDb(
-            content=resource.content, file_type=resource.file_type,
+            content=Primitive.from_proto(resource.content),
+            file_type=ImageShieldedInstanceInitialStateDbFileTypeEnum.from_proto(
+                resource.file_type
+            ),
         )
 
 
@@ -759,7 +777,10 @@ class ImageShieldedInstanceInitialStateDbx(object):
             return None
 
         return ImageShieldedInstanceInitialStateDbx(
-            content=resource.content, file_type=resource.file_type,
+            content=Primitive.from_proto(resource.content),
+            file_type=ImageShieldedInstanceInitialStateDbxFileTypeEnum.from_proto(
+                resource.file_type
+            ),
         )
 
 
@@ -812,10 +833,12 @@ class ImageSourceDiskEncryptionKey(object):
             return None
 
         return ImageSourceDiskEncryptionKey(
-            raw_key=resource.raw_key,
-            kms_key_name=resource.kms_key_name,
-            sha256=resource.sha256,
-            kms_key_service_account=resource.kms_key_service_account,
+            raw_key=Primitive.from_proto(resource.raw_key),
+            kms_key_name=Primitive.from_proto(resource.kms_key_name),
+            sha256=Primitive.from_proto(resource.sha256),
+            kms_key_service_account=Primitive.from_proto(
+                resource.kms_key_service_account
+            ),
         )
 
 
@@ -868,10 +891,12 @@ class ImageSourceImageEncryptionKey(object):
             return None
 
         return ImageSourceImageEncryptionKey(
-            raw_key=resource.raw_key,
-            kms_key_name=resource.kms_key_name,
-            sha256=resource.sha256,
-            kms_key_service_account=resource.kms_key_service_account,
+            raw_key=Primitive.from_proto(resource.raw_key),
+            kms_key_name=Primitive.from_proto(resource.kms_key_name),
+            sha256=Primitive.from_proto(resource.sha256),
+            kms_key_service_account=Primitive.from_proto(
+                resource.kms_key_service_account
+            ),
         )
 
 
@@ -924,10 +949,12 @@ class ImageSourceSnapshotEncryptionKey(object):
             return None
 
         return ImageSourceSnapshotEncryptionKey(
-            raw_key=resource.raw_key,
-            kms_key_name=resource.kms_key_name,
-            sha256=resource.sha256,
-            kms_key_service_account=resource.kms_key_service_account,
+            raw_key=Primitive.from_proto(resource.raw_key),
+            kms_key_name=Primitive.from_proto(resource.kms_key_name),
+            sha256=Primitive.from_proto(resource.sha256),
+            kms_key_service_account=Primitive.from_proto(
+                resource.kms_key_service_account
+            ),
         )
 
 
@@ -982,11 +1009,11 @@ class ImageDeprecated(object):
             return None
 
         return ImageDeprecated(
-            state=resource.state,
-            replacement=resource.replacement,
-            deprecated=resource.deprecated,
-            obsolete=resource.obsolete,
-            deleted=resource.deleted,
+            state=ImageDeprecatedStateEnum.from_proto(resource.state),
+            replacement=Primitive.from_proto(resource.replacement),
+            deprecated=Primitive.from_proto(resource.deprecated),
+            obsolete=Primitive.from_proto(resource.obsolete),
+            deleted=Primitive.from_proto(resource.deleted),
         )
 
 

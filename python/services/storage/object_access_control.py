@@ -160,7 +160,8 @@ class ObjectAccessControlProjectTeam(object):
             return None
 
         return ObjectAccessControlProjectTeam(
-            project_number=resource.project_number, team=resource.team,
+            project_number=Primitive.from_proto(resource.project_number),
+            team=ObjectAccessControlProjectTeamTeamEnum.from_proto(resource.team),
         )
 
 

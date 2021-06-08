@@ -31,7 +31,7 @@ func ProtoToComputeHealthCheckHttp2HealthCheckPortSpecificationEnum(e computepb.
 		return nil
 	}
 	if n, ok := computepb.ComputeHealthCheckHttp2HealthCheckPortSpecificationEnum_name[int32(e)]; ok {
-		e := compute.HealthCheckHttp2HealthCheckPortSpecificationEnum(n[len("HealthCheckHttp2HealthCheckPortSpecificationEnum"):])
+		e := compute.HealthCheckHttp2HealthCheckPortSpecificationEnum(n[len("ComputeHealthCheckHttp2HealthCheckPortSpecificationEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeHealthCheckHttp2HealthCheckProxyHeaderEnum(e computepb.Comput
 		return nil
 	}
 	if n, ok := computepb.ComputeHealthCheckHttp2HealthCheckProxyHeaderEnum_name[int32(e)]; ok {
-		e := compute.HealthCheckHttp2HealthCheckProxyHeaderEnum(n[len("HealthCheckHttp2HealthCheckProxyHeaderEnum"):])
+		e := compute.HealthCheckHttp2HealthCheckProxyHeaderEnum(n[len("ComputeHealthCheckHttp2HealthCheckProxyHeaderEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeHealthCheckHttpHealthCheckPortSpecificationEnum(e computepb.C
 		return nil
 	}
 	if n, ok := computepb.ComputeHealthCheckHttpHealthCheckPortSpecificationEnum_name[int32(e)]; ok {
-		e := compute.HealthCheckHttpHealthCheckPortSpecificationEnum(n[len("HealthCheckHttpHealthCheckPortSpecificationEnum"):])
+		e := compute.HealthCheckHttpHealthCheckPortSpecificationEnum(n[len("ComputeHealthCheckHttpHealthCheckPortSpecificationEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeHealthCheckHttpHealthCheckProxyHeaderEnum(e computepb.Compute
 		return nil
 	}
 	if n, ok := computepb.ComputeHealthCheckHttpHealthCheckProxyHeaderEnum_name[int32(e)]; ok {
-		e := compute.HealthCheckHttpHealthCheckProxyHeaderEnum(n[len("HealthCheckHttpHealthCheckProxyHeaderEnum"):])
+		e := compute.HealthCheckHttpHealthCheckProxyHeaderEnum(n[len("ComputeHealthCheckHttpHealthCheckProxyHeaderEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToComputeHealthCheckHttpsHealthCheckPortSpecificationEnum(e computepb.
 		return nil
 	}
 	if n, ok := computepb.ComputeHealthCheckHttpsHealthCheckPortSpecificationEnum_name[int32(e)]; ok {
-		e := compute.HealthCheckHttpsHealthCheckPortSpecificationEnum(n[len("HealthCheckHttpsHealthCheckPortSpecificationEnum"):])
+		e := compute.HealthCheckHttpsHealthCheckPortSpecificationEnum(n[len("ComputeHealthCheckHttpsHealthCheckPortSpecificationEnum"):])
 		return &e
 	}
 	return nil
@@ -91,7 +91,7 @@ func ProtoToComputeHealthCheckHttpsHealthCheckProxyHeaderEnum(e computepb.Comput
 		return nil
 	}
 	if n, ok := computepb.ComputeHealthCheckHttpsHealthCheckProxyHeaderEnum_name[int32(e)]; ok {
-		e := compute.HealthCheckHttpsHealthCheckProxyHeaderEnum(n[len("HealthCheckHttpsHealthCheckProxyHeaderEnum"):])
+		e := compute.HealthCheckHttpsHealthCheckProxyHeaderEnum(n[len("ComputeHealthCheckHttpsHealthCheckProxyHeaderEnum"):])
 		return &e
 	}
 	return nil
@@ -103,7 +103,7 @@ func ProtoToComputeHealthCheckSslHealthCheckPortSpecificationEnum(e computepb.Co
 		return nil
 	}
 	if n, ok := computepb.ComputeHealthCheckSslHealthCheckPortSpecificationEnum_name[int32(e)]; ok {
-		e := compute.HealthCheckSslHealthCheckPortSpecificationEnum(n[len("HealthCheckSslHealthCheckPortSpecificationEnum"):])
+		e := compute.HealthCheckSslHealthCheckPortSpecificationEnum(n[len("ComputeHealthCheckSslHealthCheckPortSpecificationEnum"):])
 		return &e
 	}
 	return nil
@@ -115,7 +115,7 @@ func ProtoToComputeHealthCheckSslHealthCheckProxyHeaderEnum(e computepb.ComputeH
 		return nil
 	}
 	if n, ok := computepb.ComputeHealthCheckSslHealthCheckProxyHeaderEnum_name[int32(e)]; ok {
-		e := compute.HealthCheckSslHealthCheckProxyHeaderEnum(n[len("HealthCheckSslHealthCheckProxyHeaderEnum"):])
+		e := compute.HealthCheckSslHealthCheckProxyHeaderEnum(n[len("ComputeHealthCheckSslHealthCheckProxyHeaderEnum"):])
 		return &e
 	}
 	return nil
@@ -127,7 +127,7 @@ func ProtoToComputeHealthCheckTcpHealthCheckPortSpecificationEnum(e computepb.Co
 		return nil
 	}
 	if n, ok := computepb.ComputeHealthCheckTcpHealthCheckPortSpecificationEnum_name[int32(e)]; ok {
-		e := compute.HealthCheckTcpHealthCheckPortSpecificationEnum(n[len("HealthCheckTcpHealthCheckPortSpecificationEnum"):])
+		e := compute.HealthCheckTcpHealthCheckPortSpecificationEnum(n[len("ComputeHealthCheckTcpHealthCheckPortSpecificationEnum"):])
 		return &e
 	}
 	return nil
@@ -139,7 +139,7 @@ func ProtoToComputeHealthCheckTcpHealthCheckProxyHeaderEnum(e computepb.ComputeH
 		return nil
 	}
 	if n, ok := computepb.ComputeHealthCheckTcpHealthCheckProxyHeaderEnum_name[int32(e)]; ok {
-		e := compute.HealthCheckTcpHealthCheckProxyHeaderEnum(n[len("HealthCheckTcpHealthCheckProxyHeaderEnum"):])
+		e := compute.HealthCheckTcpHealthCheckProxyHeaderEnum(n[len("ComputeHealthCheckTcpHealthCheckProxyHeaderEnum"):])
 		return &e
 	}
 	return nil
@@ -151,7 +151,7 @@ func ProtoToComputeHealthCheckTypeEnum(e computepb.ComputeHealthCheckTypeEnum) *
 		return nil
 	}
 	if n, ok := computepb.ComputeHealthCheckTypeEnum_name[int32(e)]; ok {
-		e := compute.HealthCheckTypeEnum(n[len("HealthCheckTypeEnum"):])
+		e := compute.HealthCheckTypeEnum(n[len("ComputeHealthCheckTypeEnum"):])
 		return &e
 	}
 	return nil

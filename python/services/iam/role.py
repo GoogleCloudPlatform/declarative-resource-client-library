@@ -240,8 +240,8 @@ class RoleLocalizedValues(object):
             return None
 
         return RoleLocalizedValues(
-            localized_title=resource.localized_title,
-            localized_description=resource.localized_description,
+            localized_title=Primitive.from_proto(resource.localized_title),
+            localized_description=Primitive.from_proto(resource.localized_description),
         )
 
 

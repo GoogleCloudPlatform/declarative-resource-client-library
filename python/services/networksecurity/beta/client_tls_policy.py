@@ -227,8 +227,12 @@ class ClientTlsPolicyClientCertificate(object):
             return None
 
         return ClientTlsPolicyClientCertificate(
-            grpc_endpoint=resource.grpc_endpoint,
-            certificate_provider_instance=resource.certificate_provider_instance,
+            grpc_endpoint=ClientTlsPolicyClientCertificateGrpcEndpoint.from_proto(
+                resource.grpc_endpoint
+            ),
+            certificate_provider_instance=ClientTlsPolicyClientCertificateCertificateProviderInstance.from_proto(
+                resource.certificate_provider_instance
+            ),
         )
 
 
@@ -266,7 +270,7 @@ class ClientTlsPolicyClientCertificateGrpcEndpoint(object):
             return None
 
         return ClientTlsPolicyClientCertificateGrpcEndpoint(
-            target_uri=resource.target_uri,
+            target_uri=Primitive.from_proto(resource.target_uri),
         )
 
 
@@ -309,7 +313,7 @@ class ClientTlsPolicyClientCertificateCertificateProviderInstance(object):
             return None
 
         return ClientTlsPolicyClientCertificateCertificateProviderInstance(
-            plugin_instance=resource.plugin_instance,
+            plugin_instance=Primitive.from_proto(resource.plugin_instance),
         )
 
 
@@ -374,8 +378,12 @@ class ClientTlsPolicyServerValidationCa(object):
             return None
 
         return ClientTlsPolicyServerValidationCa(
-            grpc_endpoint=resource.grpc_endpoint,
-            certificate_provider_instance=resource.certificate_provider_instance,
+            grpc_endpoint=ClientTlsPolicyServerValidationCaGrpcEndpoint.from_proto(
+                resource.grpc_endpoint
+            ),
+            certificate_provider_instance=ClientTlsPolicyServerValidationCaCertificateProviderInstance.from_proto(
+                resource.certificate_provider_instance
+            ),
         )
 
 
@@ -413,7 +421,7 @@ class ClientTlsPolicyServerValidationCaGrpcEndpoint(object):
             return None
 
         return ClientTlsPolicyServerValidationCaGrpcEndpoint(
-            target_uri=resource.target_uri,
+            target_uri=Primitive.from_proto(resource.target_uri),
         )
 
 
@@ -456,7 +464,7 @@ class ClientTlsPolicyServerValidationCaCertificateProviderInstance(object):
             return None
 
         return ClientTlsPolicyServerValidationCaCertificateProviderInstance(
-            plugin_instance=resource.plugin_instance,
+            plugin_instance=Primitive.from_proto(resource.plugin_instance),
         )
 
 

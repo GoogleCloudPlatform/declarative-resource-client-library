@@ -31,7 +31,7 @@ func ProtoToNetworksecurityAlphaAuthorizationPolicyActionEnum(e alphapb.Networks
 		return nil
 	}
 	if n, ok := alphapb.NetworksecurityAlphaAuthorizationPolicyActionEnum_name[int32(e)]; ok {
-		e := alpha.AuthorizationPolicyActionEnum(n[len("AuthorizationPolicyActionEnum"):])
+		e := alpha.AuthorizationPolicyActionEnum(n[len("NetworksecurityAlphaAuthorizationPolicyActionEnum"):])
 		return &e
 	}
 	return nil

@@ -31,7 +31,7 @@ func ProtoToStorageBucketLifecycleRuleActionTypeEnum(e storagepb.StorageBucketLi
 		return nil
 	}
 	if n, ok := storagepb.StorageBucketLifecycleRuleActionTypeEnum_name[int32(e)]; ok {
-		e := storage.BucketLifecycleRuleActionTypeEnum(n[len("BucketLifecycleRuleActionTypeEnum"):])
+		e := storage.BucketLifecycleRuleActionTypeEnum(n[len("StorageBucketLifecycleRuleActionTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToStorageBucketLifecycleRuleConditionWithStateEnum(e storagepb.Storage
 		return nil
 	}
 	if n, ok := storagepb.StorageBucketLifecycleRuleConditionWithStateEnum_name[int32(e)]; ok {
-		e := storage.BucketLifecycleRuleConditionWithStateEnum(n[len("BucketLifecycleRuleConditionWithStateEnum"):])
+		e := storage.BucketLifecycleRuleConditionWithStateEnum(n[len("StorageBucketLifecycleRuleConditionWithStateEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToStorageBucketStorageClassEnum(e storagepb.StorageBucketStorageClassE
 		return nil
 	}
 	if n, ok := storagepb.StorageBucketStorageClassEnum_name[int32(e)]; ok {
-		e := storage.BucketStorageClassEnum(n[len("BucketStorageClassEnum"):])
+		e := storage.BucketStorageClassEnum(n[len("StorageBucketStorageClassEnum"):])
 		return &e
 	}
 	return nil

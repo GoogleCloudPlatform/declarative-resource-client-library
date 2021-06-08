@@ -31,7 +31,7 @@ func ProtoToOsconfigBetaGuestPolicyPackagesDesiredStateEnum(e betapb.OsconfigBet
 		return nil
 	}
 	if n, ok := betapb.OsconfigBetaGuestPolicyPackagesDesiredStateEnum_name[int32(e)]; ok {
-		e := beta.GuestPolicyPackagesDesiredStateEnum(n[len("GuestPolicyPackagesDesiredStateEnum"):])
+		e := beta.GuestPolicyPackagesDesiredStateEnum(n[len("OsconfigBetaGuestPolicyPackagesDesiredStateEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToOsconfigBetaGuestPolicyPackagesManagerEnum(e betapb.OsconfigBetaGues
 		return nil
 	}
 	if n, ok := betapb.OsconfigBetaGuestPolicyPackagesManagerEnum_name[int32(e)]; ok {
-		e := beta.GuestPolicyPackagesManagerEnum(n[len("GuestPolicyPackagesManagerEnum"):])
+		e := beta.GuestPolicyPackagesManagerEnum(n[len("OsconfigBetaGuestPolicyPackagesManagerEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToOsconfigBetaGuestPolicyPackageRepositoriesAptArchiveTypeEnum(e betap
 		return nil
 	}
 	if n, ok := betapb.OsconfigBetaGuestPolicyPackageRepositoriesAptArchiveTypeEnum_name[int32(e)]; ok {
-		e := beta.GuestPolicyPackageRepositoriesAptArchiveTypeEnum(n[len("GuestPolicyPackageRepositoriesAptArchiveTypeEnum"):])
+		e := beta.GuestPolicyPackageRepositoriesAptArchiveTypeEnum(n[len("OsconfigBetaGuestPolicyPackageRepositoriesAptArchiveTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToOsconfigBetaGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum(
 		return nil
 	}
 	if n, ok := betapb.OsconfigBetaGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum_name[int32(e)]; ok {
-		e := beta.GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum(n[len("GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum"):])
+		e := beta.GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum(n[len("OsconfigBetaGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToOsconfigBetaGuestPolicyRecipesInstallStepsScriptRunInterpreterEnum(e
 		return nil
 	}
 	if n, ok := betapb.OsconfigBetaGuestPolicyRecipesInstallStepsScriptRunInterpreterEnum_name[int32(e)]; ok {
-		e := beta.GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum(n[len("GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum"):])
+		e := beta.GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum(n[len("OsconfigBetaGuestPolicyRecipesInstallStepsScriptRunInterpreterEnum"):])
 		return &e
 	}
 	return nil
@@ -91,7 +91,7 @@ func ProtoToOsconfigBetaGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum(e
 		return nil
 	}
 	if n, ok := betapb.OsconfigBetaGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum_name[int32(e)]; ok {
-		e := beta.GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum(n[len("GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum"):])
+		e := beta.GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum(n[len("OsconfigBetaGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -103,7 +103,7 @@ func ProtoToOsconfigBetaGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum(e 
 		return nil
 	}
 	if n, ok := betapb.OsconfigBetaGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum_name[int32(e)]; ok {
-		e := beta.GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum(n[len("GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum"):])
+		e := beta.GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum(n[len("OsconfigBetaGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum"):])
 		return &e
 	}
 	return nil
@@ -115,7 +115,7 @@ func ProtoToOsconfigBetaGuestPolicyRecipesDesiredStateEnum(e betapb.OsconfigBeta
 		return nil
 	}
 	if n, ok := betapb.OsconfigBetaGuestPolicyRecipesDesiredStateEnum_name[int32(e)]; ok {
-		e := beta.GuestPolicyRecipesDesiredStateEnum(n[len("GuestPolicyRecipesDesiredStateEnum"):])
+		e := beta.GuestPolicyRecipesDesiredStateEnum(n[len("OsconfigBetaGuestPolicyRecipesDesiredStateEnum"):])
 		return &e
 	}
 	return nil

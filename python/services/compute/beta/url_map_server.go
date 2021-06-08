@@ -31,7 +31,7 @@ func ProtoToComputeBetaUrlMapDefaultUrlRedirectRedirectResponseCodeEnum(e betapb
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaUrlMapDefaultUrlRedirectRedirectResponseCodeEnum_name[int32(e)]; ok {
-		e := beta.UrlMapDefaultUrlRedirectRedirectResponseCodeEnum(n[len("UrlMapDefaultUrlRedirectRedirectResponseCodeEnum"):])
+		e := beta.UrlMapDefaultUrlRedirectRedirectResponseCodeEnum(n[len("ComputeBetaUrlMapDefaultUrlRedirectRedirectResponseCodeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeBetaUrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEn
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaUrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum_name[int32(e)]; ok {
-		e := beta.UrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum(n[len("UrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum"):])
+		e := beta.UrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum(n[len("ComputeBetaUrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeBetaUrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeE
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaUrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum_name[int32(e)]; ok {
-		e := beta.UrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum(n[len("UrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum"):])
+		e := beta.UrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum(n[len("ComputeBetaUrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeBetaUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMa
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum_name[int32(e)]; ok {
-		e := beta.UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum(n[len("UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum"):])
+		e := beta.UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum(n[len("ComputeBetaUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToComputeBetaUrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCode
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaUrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum_name[int32(e)]; ok {
-		e := beta.UrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum(n[len("UrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum"):])
+		e := beta.UrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum(n[len("ComputeBetaUrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum"):])
 		return &e
 	}
 	return nil

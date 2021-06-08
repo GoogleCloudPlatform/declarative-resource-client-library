@@ -31,7 +31,7 @@ func ProtoToDatastoreIndexAncestorEnum(e datastorepb.DatastoreIndexAncestorEnum)
 		return nil
 	}
 	if n, ok := datastorepb.DatastoreIndexAncestorEnum_name[int32(e)]; ok {
-		e := datastore.IndexAncestorEnum(n[len("IndexAncestorEnum"):])
+		e := datastore.IndexAncestorEnum(n[len("DatastoreIndexAncestorEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToDatastoreIndexPropertiesDirectionEnum(e datastorepb.DatastoreIndexPr
 		return nil
 	}
 	if n, ok := datastorepb.DatastoreIndexPropertiesDirectionEnum_name[int32(e)]; ok {
-		e := datastore.IndexPropertiesDirectionEnum(n[len("IndexPropertiesDirectionEnum"):])
+		e := datastore.IndexPropertiesDirectionEnum(n[len("DatastoreIndexPropertiesDirectionEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToDatastoreIndexStateEnum(e datastorepb.DatastoreIndexStateEnum) *data
 		return nil
 	}
 	if n, ok := datastorepb.DatastoreIndexStateEnum_name[int32(e)]; ok {
-		e := datastore.IndexStateEnum(n[len("IndexStateEnum"):])
+		e := datastore.IndexStateEnum(n[len("DatastoreIndexStateEnum"):])
 		return &e
 	}
 	return nil

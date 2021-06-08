@@ -884,7 +884,10 @@ class InstanceSku(object):
         if not resource:
             return None
 
-        return InstanceSku(tier=resource.tier, size=resource.size,)
+        return InstanceSku(
+            tier=InstanceSkuTierEnum.from_proto(resource.tier),
+            size=InstanceSkuSizeEnum.from_proto(resource.size),
+        )
 
 
 class InstanceSkuArray(object):
@@ -940,11 +943,11 @@ class InstanceReferences(object):
             return None
 
         return InstanceReferences(
-            name=resource.name,
-            type=resource.type,
-            source_resource=resource.source_resource,
-            details=resource.details,
-            create_time=resource.create_time,
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            source_resource=Primitive.from_proto(resource.source_resource),
+            details=InstanceReferencesDetailsArray.from_proto(resource.details),
+            create_time=Primitive.from_proto(resource.create_time),
         )
 
 
@@ -983,7 +986,8 @@ class InstanceReferencesDetails(object):
             return None
 
         return InstanceReferencesDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -1066,14 +1070,24 @@ class InstancePreprocessCreateRecipe(object):
             return None
 
         return InstancePreprocessCreateRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstancePreprocessCreateRecipeStepsArray.from_proto(resource.steps),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -1224,23 +1238,43 @@ class InstancePreprocessCreateRecipeSteps(object):
             return None
 
         return InstancePreprocessCreateRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstancePreprocessCreateRecipeStepsActionEnum.from_proto(
+                resource.action
+            ),
+            status=InstancePreprocessCreateRecipeStepsStatus.from_proto(
+                resource.status
+            ),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstancePreprocessCreateRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstancePreprocessCreateRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstancePreprocessCreateRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstancePreprocessCreateRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -1288,7 +1322,11 @@ class InstancePreprocessCreateRecipeStepsStatus(object):
             return None
 
         return InstancePreprocessCreateRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstancePreprocessCreateRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -1331,7 +1369,8 @@ class InstancePreprocessCreateRecipeStepsStatusDetails(object):
             return None
 
         return InstancePreprocessCreateRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -1378,7 +1417,8 @@ class InstancePreprocessCreateRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstancePreprocessCreateRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -1431,8 +1471,12 @@ class InstancePreprocessCreateRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstancePreprocessCreateRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -1486,7 +1530,11 @@ class InstancePreprocessCreateRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstancePreprocessCreateRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -1563,10 +1611,14 @@ class InstancePreprocessCreateRecipeStepsPermissionsInfo(object):
             return None
 
         return InstancePreprocessCreateRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -1616,7 +1668,9 @@ class InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -1660,7 +1714,7 @@ class InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions(object):
             return None
 
         return InstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -1743,7 +1797,9 @@ class InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstancePreprocessCreateRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -1806,9 +1862,11 @@ class InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsI
             return None
 
         return InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -1871,9 +1929,9 @@ class InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsI
             return None
 
         return InstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -1966,14 +2024,24 @@ class InstanceCreateRecipe(object):
             return None
 
         return InstanceCreateRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstanceCreateRecipeStepsArray.from_proto(resource.steps),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -2122,23 +2190,39 @@ class InstanceCreateRecipeSteps(object):
             return None
 
         return InstanceCreateRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstanceCreateRecipeStepsActionEnum.from_proto(resource.action),
+            status=InstanceCreateRecipeStepsStatus.from_proto(resource.status),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstanceCreateRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstanceCreateRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstanceCreateRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstanceCreateRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstanceCreateRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -2182,7 +2266,11 @@ class InstanceCreateRecipeStepsStatus(object):
             return None
 
         return InstanceCreateRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstanceCreateRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -2221,7 +2309,8 @@ class InstanceCreateRecipeStepsStatusDetails(object):
             return None
 
         return InstanceCreateRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -2260,7 +2349,8 @@ class InstanceCreateRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstanceCreateRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -2309,8 +2399,12 @@ class InstanceCreateRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstanceCreateRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -2360,7 +2454,11 @@ class InstanceCreateRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstanceCreateRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstanceCreateRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -2435,10 +2533,14 @@ class InstanceCreateRecipeStepsPermissionsInfo(object):
             return None
 
         return InstanceCreateRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstanceCreateRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstanceCreateRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -2484,7 +2586,9 @@ class InstanceCreateRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstanceCreateRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -2528,7 +2632,7 @@ class InstanceCreateRecipeStepsPermissionsInfoIamPermissions(object):
             return None
 
         return InstanceCreateRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -2578,7 +2682,9 @@ class InstanceCreateRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstanceCreateRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -2639,9 +2745,11 @@ class InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object
             return None
 
         return InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -2702,9 +2810,9 @@ class InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNoti
             return None
 
         return InstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -2797,14 +2905,24 @@ class InstanceDeleteRecipe(object):
             return None
 
         return InstanceDeleteRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstanceDeleteRecipeStepsArray.from_proto(resource.steps),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -2953,23 +3071,39 @@ class InstanceDeleteRecipeSteps(object):
             return None
 
         return InstanceDeleteRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstanceDeleteRecipeStepsActionEnum.from_proto(resource.action),
+            status=InstanceDeleteRecipeStepsStatus.from_proto(resource.status),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstanceDeleteRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstanceDeleteRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstanceDeleteRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstanceDeleteRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstanceDeleteRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -3013,7 +3147,11 @@ class InstanceDeleteRecipeStepsStatus(object):
             return None
 
         return InstanceDeleteRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstanceDeleteRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -3052,7 +3190,8 @@ class InstanceDeleteRecipeStepsStatusDetails(object):
             return None
 
         return InstanceDeleteRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -3091,7 +3230,8 @@ class InstanceDeleteRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstanceDeleteRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -3140,8 +3280,12 @@ class InstanceDeleteRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstanceDeleteRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -3191,7 +3335,11 @@ class InstanceDeleteRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstanceDeleteRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstanceDeleteRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -3266,10 +3414,14 @@ class InstanceDeleteRecipeStepsPermissionsInfo(object):
             return None
 
         return InstanceDeleteRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstanceDeleteRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstanceDeleteRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -3315,7 +3467,9 @@ class InstanceDeleteRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstanceDeleteRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -3359,7 +3513,7 @@ class InstanceDeleteRecipeStepsPermissionsInfoIamPermissions(object):
             return None
 
         return InstanceDeleteRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -3409,7 +3563,9 @@ class InstanceDeleteRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstanceDeleteRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -3470,9 +3626,11 @@ class InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object
             return None
 
         return InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -3533,9 +3691,9 @@ class InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNoti
             return None
 
         return InstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -3628,14 +3786,24 @@ class InstanceUpdateRecipe(object):
             return None
 
         return InstanceUpdateRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstanceUpdateRecipeStepsArray.from_proto(resource.steps),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -3784,23 +3952,39 @@ class InstanceUpdateRecipeSteps(object):
             return None
 
         return InstanceUpdateRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstanceUpdateRecipeStepsActionEnum.from_proto(resource.action),
+            status=InstanceUpdateRecipeStepsStatus.from_proto(resource.status),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstanceUpdateRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstanceUpdateRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstanceUpdateRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstanceUpdateRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstanceUpdateRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -3844,7 +4028,11 @@ class InstanceUpdateRecipeStepsStatus(object):
             return None
 
         return InstanceUpdateRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstanceUpdateRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -3883,7 +4071,8 @@ class InstanceUpdateRecipeStepsStatusDetails(object):
             return None
 
         return InstanceUpdateRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -3922,7 +4111,8 @@ class InstanceUpdateRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstanceUpdateRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -3971,8 +4161,12 @@ class InstanceUpdateRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstanceUpdateRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -4022,7 +4216,11 @@ class InstanceUpdateRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstanceUpdateRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -4097,10 +4295,14 @@ class InstanceUpdateRecipeStepsPermissionsInfo(object):
             return None
 
         return InstanceUpdateRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstanceUpdateRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstanceUpdateRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -4146,7 +4348,9 @@ class InstanceUpdateRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstanceUpdateRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -4190,7 +4394,7 @@ class InstanceUpdateRecipeStepsPermissionsInfoIamPermissions(object):
             return None
 
         return InstanceUpdateRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -4240,7 +4444,9 @@ class InstanceUpdateRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstanceUpdateRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -4301,9 +4507,11 @@ class InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object
             return None
 
         return InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -4364,9 +4572,9 @@ class InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNoti
             return None
 
         return InstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -4461,14 +4669,24 @@ class InstancePreprocessResetRecipe(object):
             return None
 
         return InstancePreprocessResetRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstancePreprocessResetRecipeStepsArray.from_proto(resource.steps),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -4619,23 +4837,41 @@ class InstancePreprocessResetRecipeSteps(object):
             return None
 
         return InstancePreprocessResetRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstancePreprocessResetRecipeStepsActionEnum.from_proto(
+                resource.action
+            ),
+            status=InstancePreprocessResetRecipeStepsStatus.from_proto(resource.status),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstancePreprocessResetRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstancePreprocessResetRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstancePreprocessResetRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstancePreprocessResetRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstancePreprocessResetRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -4683,7 +4919,11 @@ class InstancePreprocessResetRecipeStepsStatus(object):
             return None
 
         return InstancePreprocessResetRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstancePreprocessResetRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -4724,7 +4964,8 @@ class InstancePreprocessResetRecipeStepsStatusDetails(object):
             return None
 
         return InstancePreprocessResetRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -4771,7 +5012,8 @@ class InstancePreprocessResetRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstancePreprocessResetRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -4824,8 +5066,12 @@ class InstancePreprocessResetRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstancePreprocessResetRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -4879,7 +5125,11 @@ class InstancePreprocessResetRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstancePreprocessResetRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -4954,10 +5204,14 @@ class InstancePreprocessResetRecipeStepsPermissionsInfo(object):
             return None
 
         return InstancePreprocessResetRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -5007,7 +5261,9 @@ class InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstancePreprocessResetRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -5051,7 +5307,7 @@ class InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions(object):
             return None
 
         return InstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -5105,7 +5361,9 @@ class InstancePreprocessResetRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstancePreprocessResetRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -5168,9 +5426,11 @@ class InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
             return None
 
         return InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -5233,9 +5493,9 @@ class InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
             return None
 
         return InstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -5328,14 +5588,24 @@ class InstanceResetRecipe(object):
             return None
 
         return InstanceResetRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstanceResetRecipeStepsArray.from_proto(resource.steps),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -5484,23 +5754,39 @@ class InstanceResetRecipeSteps(object):
             return None
 
         return InstanceResetRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstanceResetRecipeStepsActionEnum.from_proto(resource.action),
+            status=InstanceResetRecipeStepsStatus.from_proto(resource.status),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstanceResetRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstanceResetRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstanceResetRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstanceResetRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstanceResetRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -5544,7 +5830,11 @@ class InstanceResetRecipeStepsStatus(object):
             return None
 
         return InstanceResetRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstanceResetRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -5583,7 +5873,8 @@ class InstanceResetRecipeStepsStatusDetails(object):
             return None
 
         return InstanceResetRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -5622,7 +5913,8 @@ class InstanceResetRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstanceResetRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -5671,8 +5963,12 @@ class InstanceResetRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstanceResetRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -5720,7 +6016,11 @@ class InstanceResetRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstanceResetRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstanceResetRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -5795,10 +6095,14 @@ class InstanceResetRecipeStepsPermissionsInfo(object):
             return None
 
         return InstanceResetRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstanceResetRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstanceResetRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -5842,7 +6146,9 @@ class InstanceResetRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstanceResetRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -5886,7 +6192,7 @@ class InstanceResetRecipeStepsPermissionsInfoIamPermissions(object):
             return None
 
         return InstanceResetRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -5936,7 +6242,9 @@ class InstanceResetRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstanceResetRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -5997,9 +6305,11 @@ class InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object)
             return None
 
         return InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -6060,9 +6370,9 @@ class InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotif
             return None
 
         return InstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -6157,14 +6467,24 @@ class InstancePreprocessRepairRecipe(object):
             return None
 
         return InstancePreprocessRepairRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstancePreprocessRepairRecipeStepsArray.from_proto(resource.steps),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -6315,23 +6635,43 @@ class InstancePreprocessRepairRecipeSteps(object):
             return None
 
         return InstancePreprocessRepairRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstancePreprocessRepairRecipeStepsActionEnum.from_proto(
+                resource.action
+            ),
+            status=InstancePreprocessRepairRecipeStepsStatus.from_proto(
+                resource.status
+            ),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstancePreprocessRepairRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstancePreprocessRepairRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstancePreprocessRepairRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstancePreprocessRepairRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -6379,7 +6719,11 @@ class InstancePreprocessRepairRecipeStepsStatus(object):
             return None
 
         return InstancePreprocessRepairRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstancePreprocessRepairRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -6422,7 +6766,8 @@ class InstancePreprocessRepairRecipeStepsStatusDetails(object):
             return None
 
         return InstancePreprocessRepairRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -6469,7 +6814,8 @@ class InstancePreprocessRepairRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstancePreprocessRepairRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -6522,8 +6868,12 @@ class InstancePreprocessRepairRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstancePreprocessRepairRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -6577,7 +6927,11 @@ class InstancePreprocessRepairRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstancePreprocessRepairRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -6654,10 +7008,14 @@ class InstancePreprocessRepairRecipeStepsPermissionsInfo(object):
             return None
 
         return InstancePreprocessRepairRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -6707,7 +7065,9 @@ class InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -6751,7 +7111,7 @@ class InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions(object):
             return None
 
         return InstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -6805,7 +7165,9 @@ class InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstancePreprocessRepairRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -6868,9 +7230,11 @@ class InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsI
             return None
 
         return InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -6933,9 +7297,9 @@ class InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsI
             return None
 
         return InstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -7028,14 +7392,24 @@ class InstanceRepairRecipe(object):
             return None
 
         return InstanceRepairRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstanceRepairRecipeStepsArray.from_proto(resource.steps),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -7184,23 +7558,39 @@ class InstanceRepairRecipeSteps(object):
             return None
 
         return InstanceRepairRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstanceRepairRecipeStepsActionEnum.from_proto(resource.action),
+            status=InstanceRepairRecipeStepsStatus.from_proto(resource.status),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstanceRepairRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstanceRepairRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstanceRepairRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstanceRepairRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstanceRepairRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -7244,7 +7634,11 @@ class InstanceRepairRecipeStepsStatus(object):
             return None
 
         return InstanceRepairRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstanceRepairRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -7283,7 +7677,8 @@ class InstanceRepairRecipeStepsStatusDetails(object):
             return None
 
         return InstanceRepairRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -7322,7 +7717,8 @@ class InstanceRepairRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstanceRepairRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -7371,8 +7767,12 @@ class InstanceRepairRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstanceRepairRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -7422,7 +7822,11 @@ class InstanceRepairRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstanceRepairRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstanceRepairRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -7497,10 +7901,14 @@ class InstanceRepairRecipeStepsPermissionsInfo(object):
             return None
 
         return InstanceRepairRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstanceRepairRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstanceRepairRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -7546,7 +7954,9 @@ class InstanceRepairRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstanceRepairRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -7590,7 +8000,7 @@ class InstanceRepairRecipeStepsPermissionsInfoIamPermissions(object):
             return None
 
         return InstanceRepairRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -7640,7 +8050,9 @@ class InstanceRepairRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstanceRepairRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -7701,9 +8113,11 @@ class InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object
             return None
 
         return InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -7764,9 +8178,9 @@ class InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNoti
             return None
 
         return InstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -7861,14 +8275,24 @@ class InstancePreprocessDeleteRecipe(object):
             return None
 
         return InstancePreprocessDeleteRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstancePreprocessDeleteRecipeStepsArray.from_proto(resource.steps),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -8019,23 +8443,43 @@ class InstancePreprocessDeleteRecipeSteps(object):
             return None
 
         return InstancePreprocessDeleteRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstancePreprocessDeleteRecipeStepsActionEnum.from_proto(
+                resource.action
+            ),
+            status=InstancePreprocessDeleteRecipeStepsStatus.from_proto(
+                resource.status
+            ),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstancePreprocessDeleteRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstancePreprocessDeleteRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstancePreprocessDeleteRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstancePreprocessDeleteRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -8083,7 +8527,11 @@ class InstancePreprocessDeleteRecipeStepsStatus(object):
             return None
 
         return InstancePreprocessDeleteRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstancePreprocessDeleteRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -8126,7 +8574,8 @@ class InstancePreprocessDeleteRecipeStepsStatusDetails(object):
             return None
 
         return InstancePreprocessDeleteRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -8173,7 +8622,8 @@ class InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -8226,8 +8676,12 @@ class InstancePreprocessDeleteRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstancePreprocessDeleteRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -8281,7 +8735,11 @@ class InstancePreprocessDeleteRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstancePreprocessDeleteRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -8358,10 +8816,14 @@ class InstancePreprocessDeleteRecipeStepsPermissionsInfo(object):
             return None
 
         return InstancePreprocessDeleteRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -8411,7 +8873,9 @@ class InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -8455,7 +8919,7 @@ class InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions(object):
             return None
 
         return InstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -8509,7 +8973,9 @@ class InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -8572,9 +9038,11 @@ class InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsI
             return None
 
         return InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -8637,9 +9105,9 @@ class InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsI
             return None
 
         return InstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -8734,14 +9202,24 @@ class InstancePreprocessUpdateRecipe(object):
             return None
 
         return InstancePreprocessUpdateRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstancePreprocessUpdateRecipeStepsArray.from_proto(resource.steps),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -8892,23 +9370,43 @@ class InstancePreprocessUpdateRecipeSteps(object):
             return None
 
         return InstancePreprocessUpdateRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstancePreprocessUpdateRecipeStepsActionEnum.from_proto(
+                resource.action
+            ),
+            status=InstancePreprocessUpdateRecipeStepsStatus.from_proto(
+                resource.status
+            ),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstancePreprocessUpdateRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstancePreprocessUpdateRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstancePreprocessUpdateRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstancePreprocessUpdateRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -8956,7 +9454,11 @@ class InstancePreprocessUpdateRecipeStepsStatus(object):
             return None
 
         return InstancePreprocessUpdateRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstancePreprocessUpdateRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -8999,7 +9501,8 @@ class InstancePreprocessUpdateRecipeStepsStatusDetails(object):
             return None
 
         return InstancePreprocessUpdateRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -9046,7 +9549,8 @@ class InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -9099,8 +9603,12 @@ class InstancePreprocessUpdateRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstancePreprocessUpdateRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -9154,7 +9662,11 @@ class InstancePreprocessUpdateRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstancePreprocessUpdateRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -9231,10 +9743,14 @@ class InstancePreprocessUpdateRecipeStepsPermissionsInfo(object):
             return None
 
         return InstancePreprocessUpdateRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -9284,7 +9800,9 @@ class InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -9328,7 +9846,7 @@ class InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions(object):
             return None
 
         return InstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -9382,7 +9900,9 @@ class InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -9445,9 +9965,11 @@ class InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsI
             return None
 
         return InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -9510,9 +10032,9 @@ class InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsI
             return None
 
         return InstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -9607,14 +10129,24 @@ class InstancePreprocessFreezeRecipe(object):
             return None
 
         return InstancePreprocessFreezeRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstancePreprocessFreezeRecipeStepsArray.from_proto(resource.steps),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -9765,23 +10297,43 @@ class InstancePreprocessFreezeRecipeSteps(object):
             return None
 
         return InstancePreprocessFreezeRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstancePreprocessFreezeRecipeStepsActionEnum.from_proto(
+                resource.action
+            ),
+            status=InstancePreprocessFreezeRecipeStepsStatus.from_proto(
+                resource.status
+            ),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstancePreprocessFreezeRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstancePreprocessFreezeRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstancePreprocessFreezeRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstancePreprocessFreezeRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -9829,7 +10381,11 @@ class InstancePreprocessFreezeRecipeStepsStatus(object):
             return None
 
         return InstancePreprocessFreezeRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstancePreprocessFreezeRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -9872,7 +10428,8 @@ class InstancePreprocessFreezeRecipeStepsStatusDetails(object):
             return None
 
         return InstancePreprocessFreezeRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -9919,7 +10476,8 @@ class InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -9972,8 +10530,12 @@ class InstancePreprocessFreezeRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstancePreprocessFreezeRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -10027,7 +10589,11 @@ class InstancePreprocessFreezeRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstancePreprocessFreezeRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -10104,10 +10670,14 @@ class InstancePreprocessFreezeRecipeStepsPermissionsInfo(object):
             return None
 
         return InstancePreprocessFreezeRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -10157,7 +10727,9 @@ class InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -10201,7 +10773,7 @@ class InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions(object):
             return None
 
         return InstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -10255,7 +10827,9 @@ class InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -10318,9 +10892,11 @@ class InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsI
             return None
 
         return InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -10383,9 +10959,9 @@ class InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsI
             return None
 
         return InstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -10478,14 +11054,24 @@ class InstanceFreezeRecipe(object):
             return None
 
         return InstanceFreezeRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstanceFreezeRecipeStepsArray.from_proto(resource.steps),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -10634,23 +11220,39 @@ class InstanceFreezeRecipeSteps(object):
             return None
 
         return InstanceFreezeRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstanceFreezeRecipeStepsActionEnum.from_proto(resource.action),
+            status=InstanceFreezeRecipeStepsStatus.from_proto(resource.status),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstanceFreezeRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstanceFreezeRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstanceFreezeRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstanceFreezeRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstanceFreezeRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -10694,7 +11296,11 @@ class InstanceFreezeRecipeStepsStatus(object):
             return None
 
         return InstanceFreezeRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstanceFreezeRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -10733,7 +11339,8 @@ class InstanceFreezeRecipeStepsStatusDetails(object):
             return None
 
         return InstanceFreezeRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -10772,7 +11379,8 @@ class InstanceFreezeRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstanceFreezeRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -10821,8 +11429,12 @@ class InstanceFreezeRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstanceFreezeRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -10872,7 +11484,11 @@ class InstanceFreezeRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstanceFreezeRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -10947,10 +11563,14 @@ class InstanceFreezeRecipeStepsPermissionsInfo(object):
             return None
 
         return InstanceFreezeRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstanceFreezeRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstanceFreezeRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -10996,7 +11616,9 @@ class InstanceFreezeRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstanceFreezeRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -11040,7 +11662,7 @@ class InstanceFreezeRecipeStepsPermissionsInfoIamPermissions(object):
             return None
 
         return InstanceFreezeRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -11090,7 +11712,9 @@ class InstanceFreezeRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstanceFreezeRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -11151,9 +11775,11 @@ class InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(object
             return None
 
         return InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -11214,9 +11840,9 @@ class InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNoti
             return None
 
         return InstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -11311,14 +11937,24 @@ class InstancePreprocessUnfreezeRecipe(object):
             return None
 
         return InstancePreprocessUnfreezeRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstancePreprocessUnfreezeRecipeStepsArray.from_proto(resource.steps),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -11469,23 +12105,43 @@ class InstancePreprocessUnfreezeRecipeSteps(object):
             return None
 
         return InstancePreprocessUnfreezeRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstancePreprocessUnfreezeRecipeStepsActionEnum.from_proto(
+                resource.action
+            ),
+            status=InstancePreprocessUnfreezeRecipeStepsStatus.from_proto(
+                resource.status
+            ),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstancePreprocessUnfreezeRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -11533,7 +12189,11 @@ class InstancePreprocessUnfreezeRecipeStepsStatus(object):
             return None
 
         return InstancePreprocessUnfreezeRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstancePreprocessUnfreezeRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -11578,7 +12238,8 @@ class InstancePreprocessUnfreezeRecipeStepsStatusDetails(object):
             return None
 
         return InstancePreprocessUnfreezeRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -11625,7 +12286,8 @@ class InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -11678,8 +12340,12 @@ class InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstancePreprocessUnfreezeRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -11733,7 +12399,11 @@ class InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstancePreprocessUnfreezeRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -11810,10 +12480,14 @@ class InstancePreprocessUnfreezeRecipeStepsPermissionsInfo(object):
             return None
 
         return InstancePreprocessUnfreezeRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -11863,7 +12537,9 @@ class InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -11907,7 +12583,7 @@ class InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions(object)
             return None
 
         return InstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -11963,7 +12639,9 @@ class InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -12026,9 +12704,11 @@ class InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotification
             return None
 
         return InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -12091,9 +12771,9 @@ class InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotification
             return None
 
         return InstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -12186,14 +12866,24 @@ class InstanceUnfreezeRecipe(object):
             return None
 
         return InstanceUnfreezeRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstanceUnfreezeRecipeStepsArray.from_proto(resource.steps),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -12342,23 +13032,39 @@ class InstanceUnfreezeRecipeSteps(object):
             return None
 
         return InstanceUnfreezeRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstanceUnfreezeRecipeStepsActionEnum.from_proto(resource.action),
+            status=InstanceUnfreezeRecipeStepsStatus.from_proto(resource.status),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstanceUnfreezeRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstanceUnfreezeRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstanceUnfreezeRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstanceUnfreezeRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstanceUnfreezeRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -12402,7 +13108,11 @@ class InstanceUnfreezeRecipeStepsStatus(object):
             return None
 
         return InstanceUnfreezeRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstanceUnfreezeRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -12441,7 +13151,8 @@ class InstanceUnfreezeRecipeStepsStatusDetails(object):
             return None
 
         return InstanceUnfreezeRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -12482,7 +13193,8 @@ class InstanceUnfreezeRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstanceUnfreezeRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -12532,8 +13244,12 @@ class InstanceUnfreezeRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstanceUnfreezeRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -12583,7 +13299,11 @@ class InstanceUnfreezeRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstanceUnfreezeRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -12658,10 +13378,14 @@ class InstanceUnfreezeRecipeStepsPermissionsInfo(object):
             return None
 
         return InstanceUnfreezeRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -12709,7 +13433,9 @@ class InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstanceUnfreezeRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -12753,7 +13479,7 @@ class InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions(object):
             return None
 
         return InstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -12803,7 +13529,9 @@ class InstanceUnfreezeRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstanceUnfreezeRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -12864,9 +13592,11 @@ class InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(obje
             return None
 
         return InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -12929,9 +13659,9 @@ class InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNo
             return None
 
         return InstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -13030,14 +13760,26 @@ class InstancePreprocessReportInstanceHealthRecipe(object):
             return None
 
         return InstancePreprocessReportInstanceHealthRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstancePreprocessReportInstanceHealthRecipeStepsArray.from_proto(
+                resource.steps
+            ),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -13199,23 +13941,43 @@ class InstancePreprocessReportInstanceHealthRecipeSteps(object):
             return None
 
         return InstancePreprocessReportInstanceHealthRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstancePreprocessReportInstanceHealthRecipeStepsActionEnum.from_proto(
+                resource.action
+            ),
+            status=InstancePreprocessReportInstanceHealthRecipeStepsStatus.from_proto(
+                resource.status
+            ),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -13271,7 +14033,11 @@ class InstancePreprocessReportInstanceHealthRecipeStepsStatus(object):
             return None
 
         return InstancePreprocessReportInstanceHealthRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstancePreprocessReportInstanceHealthRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -13318,7 +14084,8 @@ class InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails(object):
             return None
 
         return InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -13365,7 +14132,8 @@ class InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas(object
             return None
 
         return InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -13422,8 +14190,12 @@ class InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -13481,7 +14253,11 @@ class InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject(ob
             return None
 
         return InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -13564,10 +14340,14 @@ class InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo(object):
             return None
 
         return InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -13621,7 +14401,9 @@ class InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName
             return None
 
         return InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -13673,7 +14455,7 @@ class InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermiss
             return None
 
         return InstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -13731,7 +14513,9 @@ class InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate(ob
             return None
 
         return InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -13800,9 +14584,11 @@ class InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKey
             return None
 
         return InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -13865,9 +14651,9 @@ class InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKey
             return None
 
         return InstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -13962,14 +14748,26 @@ class InstanceReportInstanceHealthRecipe(object):
             return None
 
         return InstanceReportInstanceHealthRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstanceReportInstanceHealthRecipeStepsArray.from_proto(
+                resource.steps
+            ),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -14120,23 +14918,43 @@ class InstanceReportInstanceHealthRecipeSteps(object):
             return None
 
         return InstanceReportInstanceHealthRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstanceReportInstanceHealthRecipeStepsActionEnum.from_proto(
+                resource.action
+            ),
+            status=InstanceReportInstanceHealthRecipeStepsStatus.from_proto(
+                resource.status
+            ),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstanceReportInstanceHealthRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstanceReportInstanceHealthRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstanceReportInstanceHealthRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -14186,7 +15004,11 @@ class InstanceReportInstanceHealthRecipeStepsStatus(object):
             return None
 
         return InstanceReportInstanceHealthRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstanceReportInstanceHealthRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -14232,7 +15054,8 @@ class InstanceReportInstanceHealthRecipeStepsStatusDetails(object):
             return None
 
         return InstanceReportInstanceHealthRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -14279,7 +15102,8 @@ class InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -14332,8 +15156,12 @@ class InstanceReportInstanceHealthRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstanceReportInstanceHealthRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -14387,7 +15215,11 @@ class InstanceReportInstanceHealthRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstanceReportInstanceHealthRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -14464,10 +15296,14 @@ class InstanceReportInstanceHealthRecipeStepsPermissionsInfo(object):
             return None
 
         return InstanceReportInstanceHealthRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -14517,7 +15353,9 @@ class InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -14563,7 +15401,7 @@ class InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(objec
             return None
 
         return InstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -14619,7 +15457,9 @@ class InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -14682,9 +15522,11 @@ class InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificati
             return None
 
         return InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -14747,9 +15589,9 @@ class InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificati
             return None
 
         return InstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -14844,14 +15686,24 @@ class InstancePreprocessGetRecipe(object):
             return None
 
         return InstancePreprocessGetRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstancePreprocessGetRecipeStepsArray.from_proto(resource.steps),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -15002,23 +15854,41 @@ class InstancePreprocessGetRecipeSteps(object):
             return None
 
         return InstancePreprocessGetRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstancePreprocessGetRecipeStepsActionEnum.from_proto(
+                resource.action
+            ),
+            status=InstancePreprocessGetRecipeStepsStatus.from_proto(resource.status),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstancePreprocessGetRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstancePreprocessGetRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstancePreprocessGetRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstancePreprocessGetRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstancePreprocessGetRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -15066,7 +15936,11 @@ class InstancePreprocessGetRecipeStepsStatus(object):
             return None
 
         return InstancePreprocessGetRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstancePreprocessGetRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -15105,7 +15979,8 @@ class InstancePreprocessGetRecipeStepsStatusDetails(object):
             return None
 
         return InstancePreprocessGetRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -15151,7 +16026,8 @@ class InstancePreprocessGetRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstancePreprocessGetRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -15202,8 +16078,12 @@ class InstancePreprocessGetRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstancePreprocessGetRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -15257,7 +16137,11 @@ class InstancePreprocessGetRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstancePreprocessGetRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -15332,10 +16216,14 @@ class InstancePreprocessGetRecipeStepsPermissionsInfo(object):
             return None
 
         return InstancePreprocessGetRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -15385,7 +16273,9 @@ class InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstancePreprocessGetRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -15429,7 +16319,7 @@ class InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions(object):
             return None
 
         return InstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -15481,7 +16371,9 @@ class InstancePreprocessGetRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstancePreprocessGetRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -15544,9 +16436,11 @@ class InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
             return None
 
         return InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -15609,9 +16503,9 @@ class InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo
             return None
 
         return InstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -15706,14 +16600,24 @@ class InstanceNotifyKeyAvailableRecipe(object):
             return None
 
         return InstanceNotifyKeyAvailableRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstanceNotifyKeyAvailableRecipeStepsArray.from_proto(resource.steps),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -15864,23 +16768,43 @@ class InstanceNotifyKeyAvailableRecipeSteps(object):
             return None
 
         return InstanceNotifyKeyAvailableRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstanceNotifyKeyAvailableRecipeStepsActionEnum.from_proto(
+                resource.action
+            ),
+            status=InstanceNotifyKeyAvailableRecipeStepsStatus.from_proto(
+                resource.status
+            ),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -15928,7 +16852,11 @@ class InstanceNotifyKeyAvailableRecipeStepsStatus(object):
             return None
 
         return InstanceNotifyKeyAvailableRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstanceNotifyKeyAvailableRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -15973,7 +16901,8 @@ class InstanceNotifyKeyAvailableRecipeStepsStatusDetails(object):
             return None
 
         return InstanceNotifyKeyAvailableRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -16020,7 +16949,8 @@ class InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -16073,8 +17003,12 @@ class InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -16128,7 +17062,11 @@ class InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -16205,10 +17143,14 @@ class InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(object):
             return None
 
         return InstanceNotifyKeyAvailableRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -16258,7 +17200,9 @@ class InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -16302,7 +17246,7 @@ class InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions(object)
             return None
 
         return InstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -16358,7 +17302,9 @@ class InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -16421,9 +17367,11 @@ class InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotification
             return None
 
         return InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -16486,9 +17434,9 @@ class InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotification
             return None
 
         return InstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -16583,14 +17531,26 @@ class InstanceNotifyKeyUnavailableRecipe(object):
             return None
 
         return InstanceNotifyKeyUnavailableRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstanceNotifyKeyUnavailableRecipeStepsArray.from_proto(
+                resource.steps
+            ),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -16741,23 +17701,43 @@ class InstanceNotifyKeyUnavailableRecipeSteps(object):
             return None
 
         return InstanceNotifyKeyUnavailableRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstanceNotifyKeyUnavailableRecipeStepsActionEnum.from_proto(
+                resource.action
+            ),
+            status=InstanceNotifyKeyUnavailableRecipeStepsStatus.from_proto(
+                resource.status
+            ),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -16807,7 +17787,11 @@ class InstanceNotifyKeyUnavailableRecipeStepsStatus(object):
             return None
 
         return InstanceNotifyKeyUnavailableRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstanceNotifyKeyUnavailableRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -16853,7 +17837,8 @@ class InstanceNotifyKeyUnavailableRecipeStepsStatusDetails(object):
             return None
 
         return InstanceNotifyKeyUnavailableRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -16900,7 +17885,8 @@ class InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -16953,8 +17939,12 @@ class InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -17008,7 +17998,11 @@ class InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -17085,10 +18079,14 @@ class InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(object):
             return None
 
         return InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -17138,7 +18136,9 @@ class InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -17184,7 +18184,7 @@ class InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions(objec
             return None
 
         return InstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -17240,7 +18240,9 @@ class InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -17303,9 +18305,11 @@ class InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificati
             return None
 
         return InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -17368,9 +18372,9 @@ class InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificati
             return None
 
         return InstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -17463,14 +18467,24 @@ class InstanceReadonlyRecipe(object):
             return None
 
         return InstanceReadonlyRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstanceReadonlyRecipeStepsArray.from_proto(resource.steps),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -17619,23 +18633,39 @@ class InstanceReadonlyRecipeSteps(object):
             return None
 
         return InstanceReadonlyRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstanceReadonlyRecipeStepsActionEnum.from_proto(resource.action),
+            status=InstanceReadonlyRecipeStepsStatus.from_proto(resource.status),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstanceReadonlyRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstanceReadonlyRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstanceReadonlyRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstanceReadonlyRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstanceReadonlyRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -17679,7 +18709,11 @@ class InstanceReadonlyRecipeStepsStatus(object):
             return None
 
         return InstanceReadonlyRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstanceReadonlyRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -17718,7 +18752,8 @@ class InstanceReadonlyRecipeStepsStatusDetails(object):
             return None
 
         return InstanceReadonlyRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -17759,7 +18794,8 @@ class InstanceReadonlyRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstanceReadonlyRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -17809,8 +18845,12 @@ class InstanceReadonlyRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstanceReadonlyRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -17860,7 +18900,11 @@ class InstanceReadonlyRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstanceReadonlyRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -17935,10 +18979,14 @@ class InstanceReadonlyRecipeStepsPermissionsInfo(object):
             return None
 
         return InstanceReadonlyRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstanceReadonlyRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -17986,7 +19034,9 @@ class InstanceReadonlyRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstanceReadonlyRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -18030,7 +19080,7 @@ class InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions(object):
             return None
 
         return InstanceReadonlyRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -18080,7 +19130,9 @@ class InstanceReadonlyRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstanceReadonlyRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -18141,9 +19193,11 @@ class InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(obje
             return None
 
         return InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -18206,9 +19260,9 @@ class InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNo
             return None
 
         return InstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -18301,14 +19355,24 @@ class InstanceReconcileRecipe(object):
             return None
 
         return InstanceReconcileRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstanceReconcileRecipeStepsArray.from_proto(resource.steps),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -18459,23 +19523,39 @@ class InstanceReconcileRecipeSteps(object):
             return None
 
         return InstanceReconcileRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstanceReconcileRecipeStepsActionEnum.from_proto(resource.action),
+            status=InstanceReconcileRecipeStepsStatus.from_proto(resource.status),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstanceReconcileRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstanceReconcileRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstanceReconcileRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstanceReconcileRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstanceReconcileRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -18521,7 +19601,11 @@ class InstanceReconcileRecipeStepsStatus(object):
             return None
 
         return InstanceReconcileRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstanceReconcileRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -18560,7 +19644,8 @@ class InstanceReconcileRecipeStepsStatusDetails(object):
             return None
 
         return InstanceReconcileRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -18603,7 +19688,8 @@ class InstanceReconcileRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstanceReconcileRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -18654,8 +19740,12 @@ class InstanceReconcileRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstanceReconcileRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -18708,7 +19798,11 @@ class InstanceReconcileRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstanceReconcileRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -18783,10 +19877,14 @@ class InstanceReconcileRecipeStepsPermissionsInfo(object):
             return None
 
         return InstanceReconcileRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstanceReconcileRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstanceReconcileRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -18834,7 +19932,9 @@ class InstanceReconcileRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstanceReconcileRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -18878,7 +19978,7 @@ class InstanceReconcileRecipeStepsPermissionsInfoIamPermissions(object):
             return None
 
         return InstanceReconcileRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -18930,7 +20030,9 @@ class InstanceReconcileRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstanceReconcileRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -18991,9 +20093,11 @@ class InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(obj
             return None
 
         return InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -19056,9 +20160,9 @@ class InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyN
             return None
 
         return InstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -19153,14 +20257,26 @@ class InstancePreprocessPassthroughRecipe(object):
             return None
 
         return InstancePreprocessPassthroughRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstancePreprocessPassthroughRecipeStepsArray.from_proto(
+                resource.steps
+            ),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -19311,23 +20427,43 @@ class InstancePreprocessPassthroughRecipeSteps(object):
             return None
 
         return InstancePreprocessPassthroughRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstancePreprocessPassthroughRecipeStepsActionEnum.from_proto(
+                resource.action
+            ),
+            status=InstancePreprocessPassthroughRecipeStepsStatus.from_proto(
+                resource.status
+            ),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstancePreprocessPassthroughRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstancePreprocessPassthroughRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstancePreprocessPassthroughRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -19377,7 +20513,11 @@ class InstancePreprocessPassthroughRecipeStepsStatus(object):
             return None
 
         return InstancePreprocessPassthroughRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstancePreprocessPassthroughRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -19424,7 +20564,8 @@ class InstancePreprocessPassthroughRecipeStepsStatusDetails(object):
             return None
 
         return InstancePreprocessPassthroughRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -19471,7 +20612,8 @@ class InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -19524,8 +20666,12 @@ class InstancePreprocessPassthroughRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstancePreprocessPassthroughRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -19579,7 +20725,11 @@ class InstancePreprocessPassthroughRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstancePreprocessPassthroughRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -19656,10 +20806,14 @@ class InstancePreprocessPassthroughRecipeStepsPermissionsInfo(object):
             return None
 
         return InstancePreprocessPassthroughRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -19709,7 +20863,9 @@ class InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -19757,7 +20913,7 @@ class InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions(obje
             return None
 
         return InstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -19815,7 +20971,9 @@ class InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -19878,9 +21036,11 @@ class InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificat
             return None
 
         return InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -19943,9 +21103,9 @@ class InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificat
             return None
 
         return InstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -20040,14 +21200,26 @@ class InstancePreprocessReconcileRecipe(object):
             return None
 
         return InstancePreprocessReconcileRecipe(
-            steps=resource.steps,
-            honor_cancel_request=resource.honor_cancel_request,
-            ignore_recipe_after=resource.ignore_recipe_after,
-            verify_deadline_seconds_below=resource.verify_deadline_seconds_below,
-            populate_operation_result=resource.populate_operation_result,
-            readonly_recipe_start_time=resource.readonly_recipe_start_time,
-            resource_names_stored_in_clh_with_delay=resource.resource_names_stored_in_clh_with_delay,
-            delay_to_store_resources_in_clh_db_nanos=resource.delay_to_store_resources_in_clh_db_nanos,
+            steps=InstancePreprocessReconcileRecipeStepsArray.from_proto(
+                resource.steps
+            ),
+            honor_cancel_request=Primitive.from_proto(resource.honor_cancel_request),
+            ignore_recipe_after=Primitive.from_proto(resource.ignore_recipe_after),
+            verify_deadline_seconds_below=Primitive.from_proto(
+                resource.verify_deadline_seconds_below
+            ),
+            populate_operation_result=Primitive.from_proto(
+                resource.populate_operation_result
+            ),
+            readonly_recipe_start_time=Primitive.from_proto(
+                resource.readonly_recipe_start_time
+            ),
+            resource_names_stored_in_clh_with_delay=Primitive.from_proto(
+                resource.resource_names_stored_in_clh_with_delay
+            ),
+            delay_to_store_resources_in_clh_db_nanos=Primitive.from_proto(
+                resource.delay_to_store_resources_in_clh_db_nanos
+            ),
         )
 
 
@@ -20198,23 +21370,43 @@ class InstancePreprocessReconcileRecipeSteps(object):
             return None
 
         return InstancePreprocessReconcileRecipeSteps(
-            relative_time=resource.relative_time,
-            sleep_duration=resource.sleep_duration,
-            action=resource.action,
-            status=resource.status,
-            error_space=resource.error_space,
-            p4_service_account=resource.p4_service_account,
-            resource_metadata_size=resource.resource_metadata_size,
-            description=resource.description,
-            updated_repeat_operation_delay_sec=resource.updated_repeat_operation_delay_sec,
-            quota_request_deltas=resource.quota_request_deltas,
-            preprocess_update=resource.preprocess_update,
-            public_operation_metadata=resource.public_operation_metadata,
-            requested_tenant_project=resource.requested_tenant_project,
-            permissions_info=resource.permissions_info,
-            key_notifications_update=resource.key_notifications_update,
-            clh_data_update_time=resource.clh_data_update_time,
-            public_error_message=resource.public_error_message,
+            relative_time=Primitive.from_proto(resource.relative_time),
+            sleep_duration=Primitive.from_proto(resource.sleep_duration),
+            action=InstancePreprocessReconcileRecipeStepsActionEnum.from_proto(
+                resource.action
+            ),
+            status=InstancePreprocessReconcileRecipeStepsStatus.from_proto(
+                resource.status
+            ),
+            error_space=Primitive.from_proto(resource.error_space),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
+            resource_metadata_size=Primitive.from_proto(
+                resource.resource_metadata_size
+            ),
+            description=Primitive.from_proto(resource.description),
+            updated_repeat_operation_delay_sec=Primitive.from_proto(
+                resource.updated_repeat_operation_delay_sec
+            ),
+            quota_request_deltas=InstancePreprocessReconcileRecipeStepsQuotaRequestDeltasArray.from_proto(
+                resource.quota_request_deltas
+            ),
+            preprocess_update=InstancePreprocessReconcileRecipeStepsPreprocessUpdate.from_proto(
+                resource.preprocess_update
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
+            requested_tenant_project=InstancePreprocessReconcileRecipeStepsRequestedTenantProject.from_proto(
+                resource.requested_tenant_project
+            ),
+            permissions_info=InstancePreprocessReconcileRecipeStepsPermissionsInfoArray.from_proto(
+                resource.permissions_info
+            ),
+            key_notifications_update=InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate.from_proto(
+                resource.key_notifications_update
+            ),
+            clh_data_update_time=Primitive.from_proto(resource.clh_data_update_time),
+            public_error_message=Primitive.from_proto(resource.public_error_message),
         )
 
 
@@ -20262,7 +21454,11 @@ class InstancePreprocessReconcileRecipeStepsStatus(object):
             return None
 
         return InstancePreprocessReconcileRecipeStepsStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=InstancePreprocessReconcileRecipeStepsStatusDetailsArray.from_proto(
+                resource.details
+            ),
         )
 
 
@@ -20308,7 +21504,8 @@ class InstancePreprocessReconcileRecipeStepsStatusDetails(object):
             return None
 
         return InstancePreprocessReconcileRecipeStepsStatusDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -20355,7 +21552,8 @@ class InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(object):
             return None
 
         return InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(
-            metric_name=resource.metric_name, amount=resource.amount,
+            metric_name=Primitive.from_proto(resource.metric_name),
+            amount=Primitive.from_proto(resource.amount),
         )
 
 
@@ -20408,8 +21606,12 @@ class InstancePreprocessReconcileRecipeStepsPreprocessUpdate(object):
             return None
 
         return InstancePreprocessReconcileRecipeStepsPreprocessUpdate(
-            latency_slo_bucket_name=resource.latency_slo_bucket_name,
-            public_operation_metadata=resource.public_operation_metadata,
+            latency_slo_bucket_name=Primitive.from_proto(
+                resource.latency_slo_bucket_name
+            ),
+            public_operation_metadata=Primitive.from_proto(
+                resource.public_operation_metadata
+            ),
         )
 
 
@@ -20463,7 +21665,11 @@ class InstancePreprocessReconcileRecipeStepsRequestedTenantProject(object):
             return None
 
         return InstancePreprocessReconcileRecipeStepsRequestedTenantProject(
-            tag=resource.tag, folder=resource.folder, scope=resource.scope,
+            tag=Primitive.from_proto(resource.tag),
+            folder=Primitive.from_proto(resource.folder),
+            scope=InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum.from_proto(
+                resource.scope
+            ),
         )
 
 
@@ -20540,10 +21746,14 @@ class InstancePreprocessReconcileRecipeStepsPermissionsInfo(object):
             return None
 
         return InstancePreprocessReconcileRecipeStepsPermissionsInfo(
-            policy_name=resource.policy_name,
-            iam_permissions=resource.iam_permissions,
-            resource_path=resource.resource_path,
-            api_attrs=resource.api_attrs,
+            policy_name=InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName.from_proto(
+                resource.policy_name
+            ),
+            iam_permissions=InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissionsArray.from_proto(
+                resource.iam_permissions
+            ),
+            resource_path=Primitive.from_proto(resource.resource_path),
+            api_attrs=InstanceGoogleprotobufstruct.from_proto(resource.api_attrs),
         )
 
 
@@ -20593,7 +21803,9 @@ class InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName(object):
             return None
 
         return InstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName(
-            type=resource.type, id=resource.id, region=resource.region,
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -20639,7 +21851,7 @@ class InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions(object
             return None
 
         return InstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions(
-            permission=resource.permission,
+            permission=Primitive.from_proto(resource.permission),
         )
 
 
@@ -20695,7 +21907,9 @@ class InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate(object):
             return None
 
         return InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate(
-            key_notifications_info=resource.key_notifications_info,
+            key_notifications_info=InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo.from_proto(
+                resource.key_notifications_info
+            ),
         )
 
 
@@ -20758,9 +21972,11 @@ class InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificatio
             return None
 
         return InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo(
-            data_version=resource.data_version,
-            delegate=resource.delegate,
-            key_notification_configs=resource.key_notification_configs,
+            data_version=Primitive.from_proto(resource.data_version),
+            delegate=Primitive.from_proto(resource.delegate),
+            key_notification_configs=InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsArray.from_proto(
+                resource.key_notification_configs
+            ),
         )
 
 
@@ -20823,9 +22039,9 @@ class InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificatio
             return None
 
         return InstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs(
-            key_or_version_name=resource.key_or_version_name,
-            grant=resource.grant,
-            delegator_gaia_id=resource.delegator_gaia_id,
+            key_or_version_name=Primitive.from_proto(resource.key_or_version_name),
+            grant=Primitive.from_proto(resource.grant),
+            delegator_gaia_id=Primitive.from_proto(resource.delegator_gaia_id),
         )
 
 
@@ -20902,13 +22118,13 @@ class InstanceHistory(object):
             return None
 
         return InstanceHistory(
-            timestamp=resource.timestamp,
-            operation_handle=resource.operation_handle,
-            description=resource.description,
-            step_index=resource.step_index,
-            tenant_project_number=resource.tenant_project_number,
-            tenant_project_id=resource.tenant_project_id,
-            p4_service_account=resource.p4_service_account,
+            timestamp=Primitive.from_proto(resource.timestamp),
+            operation_handle=Primitive.from_proto(resource.operation_handle),
+            description=Primitive.from_proto(resource.description),
+            step_index=Primitive.from_proto(resource.step_index),
+            tenant_project_number=Primitive.from_proto(resource.tenant_project_number),
+            tenant_project_id=Primitive.from_proto(resource.tenant_project_id),
+            p4_service_account=Primitive.from_proto(resource.p4_service_account),
         )
 
 

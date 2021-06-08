@@ -304,7 +304,8 @@ class InstanceNetworkConfig(object):
             return None
 
         return InstanceNetworkConfig(
-            network=resource.network, ip_allocation=resource.ip_allocation,
+            network=Primitive.from_proto(resource.network),
+            ip_allocation=Primitive.from_proto(resource.ip_allocation),
         )
 
 
@@ -353,9 +354,9 @@ class InstanceAvailableVersion(object):
             return None
 
         return InstanceAvailableVersion(
-            version_number=resource.version_number,
-            default_version=resource.default_version,
-            available_features=resource.available_features,
+            version_number=Primitive.from_proto(resource.version_number),
+            default_version=Primitive.from_proto(resource.default_version),
+            available_features=Primitive.from_proto(resource.available_features),
         )
 
 

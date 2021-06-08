@@ -246,20 +246,32 @@ class InstanceTemplateProperties(object):
             return None
 
         return InstanceTemplateProperties(
-            can_ip_forward=resource.can_ip_forward,
-            description=resource.description,
-            disks=resource.disks,
-            labels=resource.labels,
-            machine_type=resource.machine_type,
-            min_cpu_platform=resource.min_cpu_platform,
-            metadata=resource.metadata,
-            reservation_affinity=resource.reservation_affinity,
-            guest_accelerators=resource.guest_accelerators,
-            network_interfaces=resource.network_interfaces,
-            shielded_instance_config=resource.shielded_instance_config,
-            scheduling=resource.scheduling,
-            service_accounts=resource.service_accounts,
-            tags=resource.tags,
+            can_ip_forward=Primitive.from_proto(resource.can_ip_forward),
+            description=Primitive.from_proto(resource.description),
+            disks=InstanceTemplatePropertiesDisksArray.from_proto(resource.disks),
+            labels=Primitive.from_proto(resource.labels),
+            machine_type=Primitive.from_proto(resource.machine_type),
+            min_cpu_platform=Primitive.from_proto(resource.min_cpu_platform),
+            metadata=Primitive.from_proto(resource.metadata),
+            reservation_affinity=InstanceTemplatePropertiesReservationAffinity.from_proto(
+                resource.reservation_affinity
+            ),
+            guest_accelerators=InstanceTemplatePropertiesGuestAcceleratorsArray.from_proto(
+                resource.guest_accelerators
+            ),
+            network_interfaces=InstanceTemplatePropertiesNetworkInterfacesArray.from_proto(
+                resource.network_interfaces
+            ),
+            shielded_instance_config=InstanceTemplatePropertiesShieldedInstanceConfig.from_proto(
+                resource.shielded_instance_config
+            ),
+            scheduling=InstanceTemplatePropertiesScheduling.from_proto(
+                resource.scheduling
+            ),
+            service_accounts=InstanceTemplatePropertiesServiceAccountsArray.from_proto(
+                resource.service_accounts
+            ),
+            tags=Primitive.from_proto(resource.tags),
         )
 
 
@@ -362,17 +374,25 @@ class InstanceTemplatePropertiesDisks(object):
             return None
 
         return InstanceTemplatePropertiesDisks(
-            auto_delete=resource.auto_delete,
-            boot=resource.boot,
-            device_name=resource.device_name,
-            disk_encryption_key=resource.disk_encryption_key,
-            index=resource.index,
-            initialize_params=resource.initialize_params,
-            guest_os_features=resource.guest_os_features,
-            interface=resource.interface,
-            mode=resource.mode,
-            source=resource.source,
-            type=resource.type,
+            auto_delete=Primitive.from_proto(resource.auto_delete),
+            boot=Primitive.from_proto(resource.boot),
+            device_name=Primitive.from_proto(resource.device_name),
+            disk_encryption_key=InstanceTemplatePropertiesDisksDiskEncryptionKey.from_proto(
+                resource.disk_encryption_key
+            ),
+            index=Primitive.from_proto(resource.index),
+            initialize_params=InstanceTemplatePropertiesDisksInitializeParams.from_proto(
+                resource.initialize_params
+            ),
+            guest_os_features=InstanceTemplatePropertiesDisksGuestOsFeaturesArray.from_proto(
+                resource.guest_os_features
+            ),
+            interface=InstanceTemplatePropertiesDisksInterfaceEnum.from_proto(
+                resource.interface
+            ),
+            mode=InstanceTemplatePropertiesDisksModeEnum.from_proto(resource.mode),
+            source=Primitive.from_proto(resource.source),
+            type=InstanceTemplatePropertiesDisksTypeEnum.from_proto(resource.type),
         )
 
 
@@ -418,9 +438,9 @@ class InstanceTemplatePropertiesDisksDiskEncryptionKey(object):
             return None
 
         return InstanceTemplatePropertiesDisksDiskEncryptionKey(
-            raw_key=resource.raw_key,
-            rsa_encrypted_key=resource.rsa_encrypted_key,
-            sha256=resource.sha256,
+            raw_key=Primitive.from_proto(resource.raw_key),
+            rsa_encrypted_key=Primitive.from_proto(resource.rsa_encrypted_key),
+            sha256=Primitive.from_proto(resource.sha256),
         )
 
 
@@ -523,17 +543,21 @@ class InstanceTemplatePropertiesDisksInitializeParams(object):
             return None
 
         return InstanceTemplatePropertiesDisksInitializeParams(
-            disk_name=resource.disk_name,
-            disk_size_gb=resource.disk_size_gb,
-            disk_type=resource.disk_type,
-            source_image=resource.source_image,
-            labels=resource.labels,
-            source_snapshot=resource.source_snapshot,
-            source_snapshot_encryption_key=resource.source_snapshot_encryption_key,
-            description=resource.description,
-            resource_policies=resource.resource_policies,
-            on_update_action=resource.on_update_action,
-            source_image_encryption_key=resource.source_image_encryption_key,
+            disk_name=Primitive.from_proto(resource.disk_name),
+            disk_size_gb=Primitive.from_proto(resource.disk_size_gb),
+            disk_type=Primitive.from_proto(resource.disk_type),
+            source_image=Primitive.from_proto(resource.source_image),
+            labels=Primitive.from_proto(resource.labels),
+            source_snapshot=Primitive.from_proto(resource.source_snapshot),
+            source_snapshot_encryption_key=InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey.from_proto(
+                resource.source_snapshot_encryption_key
+            ),
+            description=Primitive.from_proto(resource.description),
+            resource_policies=Primitive.from_proto(resource.resource_policies),
+            on_update_action=Primitive.from_proto(resource.on_update_action),
+            source_image_encryption_key=InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey.from_proto(
+                resource.source_image_encryption_key
+            ),
         )
 
 
@@ -587,9 +611,9 @@ class InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey
             return None
 
         return InstanceTemplatePropertiesDisksInitializeParamsSourceSnapshotEncryptionKey(
-            raw_key=resource.raw_key,
-            sha256=resource.sha256,
-            kms_key_name=resource.kms_key_name,
+            raw_key=Primitive.from_proto(resource.raw_key),
+            sha256=Primitive.from_proto(resource.sha256),
+            kms_key_name=Primitive.from_proto(resource.kms_key_name),
         )
 
 
@@ -647,9 +671,9 @@ class InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey(ob
             return None
 
         return InstanceTemplatePropertiesDisksInitializeParamsSourceImageEncryptionKey(
-            raw_key=resource.raw_key,
-            sha256=resource.sha256,
-            kms_key_name=resource.kms_key_name,
+            raw_key=Primitive.from_proto(resource.raw_key),
+            sha256=Primitive.from_proto(resource.sha256),
+            kms_key_name=Primitive.from_proto(resource.kms_key_name),
         )
 
 
@@ -698,7 +722,9 @@ class InstanceTemplatePropertiesDisksGuestOsFeatures(object):
         if not resource:
             return None
 
-        return InstanceTemplatePropertiesDisksGuestOsFeatures(type=resource.type,)
+        return InstanceTemplatePropertiesDisksGuestOsFeatures(
+            type=Primitive.from_proto(resource.type),
+        )
 
 
 class InstanceTemplatePropertiesDisksGuestOsFeaturesArray(object):
@@ -744,7 +770,8 @@ class InstanceTemplatePropertiesReservationAffinity(object):
             return None
 
         return InstanceTemplatePropertiesReservationAffinity(
-            key=resource.key, value=resource.value,
+            key=Primitive.from_proto(resource.key),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -788,8 +815,8 @@ class InstanceTemplatePropertiesGuestAccelerators(object):
             return None
 
         return InstanceTemplatePropertiesGuestAccelerators(
-            accelerator_count=resource.accelerator_count,
-            accelerator_type=resource.accelerator_type,
+            accelerator_count=Primitive.from_proto(resource.accelerator_count),
+            accelerator_type=Primitive.from_proto(resource.accelerator_type),
         )
 
 
@@ -864,12 +891,16 @@ class InstanceTemplatePropertiesNetworkInterfaces(object):
             return None
 
         return InstanceTemplatePropertiesNetworkInterfaces(
-            access_configs=resource.access_configs,
-            alias_ip_ranges=resource.alias_ip_ranges,
-            name=resource.name,
-            network=resource.network,
-            network_ip=resource.network_ip,
-            subnetwork=resource.subnetwork,
+            access_configs=InstanceTemplatePropertiesNetworkInterfacesAccessConfigsArray.from_proto(
+                resource.access_configs
+            ),
+            alias_ip_ranges=InstanceTemplatePropertiesNetworkInterfacesAliasIPRangesArray.from_proto(
+                resource.alias_ip_ranges
+            ),
+            name=Primitive.from_proto(resource.name),
+            network=Primitive.from_proto(resource.network),
+            network_ip=Primitive.from_proto(resource.network_ip),
+            subnetwork=Primitive.from_proto(resource.subnetwork),
         )
 
 
@@ -944,12 +975,18 @@ class InstanceTemplatePropertiesNetworkInterfacesAccessConfigs(object):
             return None
 
         return InstanceTemplatePropertiesNetworkInterfacesAccessConfigs(
-            name=resource.name,
-            nat_ip=resource.nat_ip,
-            type=resource.type,
-            set_public_ptr=resource.set_public_ptr,
-            public_ptr_domain_name=resource.public_ptr_domain_name,
-            network_tier=resource.network_tier,
+            name=Primitive.from_proto(resource.name),
+            nat_ip=Primitive.from_proto(resource.nat_ip),
+            type=InstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum.from_proto(
+                resource.type
+            ),
+            set_public_ptr=Primitive.from_proto(resource.set_public_ptr),
+            public_ptr_domain_name=Primitive.from_proto(
+                resource.public_ptr_domain_name
+            ),
+            network_tier=InstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum.from_proto(
+                resource.network_tier
+            ),
         )
 
 
@@ -998,8 +1035,8 @@ class InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges(object):
             return None
 
         return InstanceTemplatePropertiesNetworkInterfacesAliasIPRanges(
-            ip_cidr_range=resource.ip_cidr_range,
-            subnetwork_range_name=resource.subnetwork_range_name,
+            ip_cidr_range=Primitive.from_proto(resource.ip_cidr_range),
+            subnetwork_range_name=Primitive.from_proto(resource.subnetwork_range_name),
         )
 
 
@@ -1056,9 +1093,11 @@ class InstanceTemplatePropertiesShieldedInstanceConfig(object):
             return None
 
         return InstanceTemplatePropertiesShieldedInstanceConfig(
-            enable_secure_boot=resource.enable_secure_boot,
-            enable_vtpm=resource.enable_vtpm,
-            enable_integrity_monitoring=resource.enable_integrity_monitoring,
+            enable_secure_boot=Primitive.from_proto(resource.enable_secure_boot),
+            enable_vtpm=Primitive.from_proto(resource.enable_vtpm),
+            enable_integrity_monitoring=Primitive.from_proto(
+                resource.enable_integrity_monitoring
+            ),
         )
 
 
@@ -1121,10 +1160,12 @@ class InstanceTemplatePropertiesScheduling(object):
             return None
 
         return InstanceTemplatePropertiesScheduling(
-            automatic_restart=resource.automatic_restart,
-            on_host_maintenance=resource.on_host_maintenance,
-            preemptible=resource.preemptible,
-            node_affinities=resource.node_affinities,
+            automatic_restart=Primitive.from_proto(resource.automatic_restart),
+            on_host_maintenance=Primitive.from_proto(resource.on_host_maintenance),
+            preemptible=Primitive.from_proto(resource.preemptible),
+            node_affinities=InstanceTemplatePropertiesSchedulingNodeAffinitiesArray.from_proto(
+                resource.node_affinities
+            ),
         )
 
 
@@ -1172,7 +1213,11 @@ class InstanceTemplatePropertiesSchedulingNodeAffinities(object):
             return None
 
         return InstanceTemplatePropertiesSchedulingNodeAffinities(
-            key=resource.key, operator=resource.operator, values=resource.values,
+            key=Primitive.from_proto(resource.key),
+            operator=InstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum.from_proto(
+                resource.operator
+            ),
+            values=Primitive.from_proto(resource.values),
         )
 
 
@@ -1217,7 +1262,8 @@ class InstanceTemplatePropertiesServiceAccounts(object):
             return None
 
         return InstanceTemplatePropertiesServiceAccounts(
-            email=resource.email, scopes=resource.scopes,
+            email=Primitive.from_proto(resource.email),
+            scopes=Primitive.from_proto(resource.scopes),
         )
 
 

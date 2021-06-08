@@ -300,13 +300,25 @@ class UrlMapDefaultRouteAction(object):
             return None
 
         return UrlMapDefaultRouteAction(
-            weighted_backend_service=resource.weighted_backend_service,
-            url_rewrite=resource.url_rewrite,
-            timeout=resource.timeout,
-            retry_policy=resource.retry_policy,
-            request_mirror_policy=resource.request_mirror_policy,
-            cors_policy=resource.cors_policy,
-            fault_injection_policy=resource.fault_injection_policy,
+            weighted_backend_service=UrlMapDefaultRouteActionWeightedBackendServiceArray.from_proto(
+                resource.weighted_backend_service
+            ),
+            url_rewrite=UrlMapDefaultRouteActionUrlRewrite.from_proto(
+                resource.url_rewrite
+            ),
+            timeout=UrlMapDefaultRouteActionTimeout.from_proto(resource.timeout),
+            retry_policy=UrlMapDefaultRouteActionRetryPolicy.from_proto(
+                resource.retry_policy
+            ),
+            request_mirror_policy=UrlMapDefaultRouteActionRequestMirrorPolicy.from_proto(
+                resource.request_mirror_policy
+            ),
+            cors_policy=UrlMapDefaultRouteActionCorsPolicy.from_proto(
+                resource.cors_policy
+            ),
+            fault_injection_policy=UrlMapDefaultRouteActionFaultInjectionPolicy.from_proto(
+                resource.fault_injection_policy
+            ),
         )
 
 
@@ -357,9 +369,9 @@ class UrlMapDefaultRouteActionWeightedBackendService(object):
             return None
 
         return UrlMapDefaultRouteActionWeightedBackendService(
-            backend_service=resource.backend_service,
-            weight=resource.weight,
-            header_action=resource.header_action,
+            backend_service=Primitive.from_proto(resource.backend_service),
+            weight=Primitive.from_proto(resource.weight),
+            header_action=UrlMapHeaderAction.from_proto(resource.header_action),
         )
 
 
@@ -432,10 +444,18 @@ class UrlMapHeaderAction(object):
             return None
 
         return UrlMapHeaderAction(
-            request_headers_to_remove=resource.request_headers_to_remove,
-            request_headers_to_add=resource.request_headers_to_add,
-            response_headers_to_remove=resource.response_headers_to_remove,
-            response_headers_to_add=resource.response_headers_to_add,
+            request_headers_to_remove=Primitive.from_proto(
+                resource.request_headers_to_remove
+            ),
+            request_headers_to_add=UrlMapHeaderActionRequestHeadersToAddArray.from_proto(
+                resource.request_headers_to_add
+            ),
+            response_headers_to_remove=Primitive.from_proto(
+                resource.response_headers_to_remove
+            ),
+            response_headers_to_add=UrlMapHeaderActionResponseHeadersToAddArray.from_proto(
+                resource.response_headers_to_add
+            ),
         )
 
 
@@ -479,9 +499,9 @@ class UrlMapHeaderActionRequestHeadersToAdd(object):
             return None
 
         return UrlMapHeaderActionRequestHeadersToAdd(
-            header_name=resource.header_name,
-            header_value=resource.header_value,
-            replace=resource.replace,
+            header_name=Primitive.from_proto(resource.header_name),
+            header_value=Primitive.from_proto(resource.header_value),
+            replace=Primitive.from_proto(resource.replace),
         )
 
 
@@ -525,9 +545,9 @@ class UrlMapHeaderActionResponseHeadersToAdd(object):
             return None
 
         return UrlMapHeaderActionResponseHeadersToAdd(
-            header_name=resource.header_name,
-            header_value=resource.header_value,
-            replace=resource.replace,
+            header_name=Primitive.from_proto(resource.header_name),
+            header_value=Primitive.from_proto(resource.header_value),
+            replace=Primitive.from_proto(resource.replace),
         )
 
 
@@ -566,8 +586,8 @@ class UrlMapDefaultRouteActionUrlRewrite(object):
             return None
 
         return UrlMapDefaultRouteActionUrlRewrite(
-            path_prefix_rewrite=resource.path_prefix_rewrite,
-            host_rewrite=resource.host_rewrite,
+            path_prefix_rewrite=Primitive.from_proto(resource.path_prefix_rewrite),
+            host_rewrite=Primitive.from_proto(resource.host_rewrite),
         )
 
 
@@ -606,7 +626,8 @@ class UrlMapDefaultRouteActionTimeout(object):
             return None
 
         return UrlMapDefaultRouteActionTimeout(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -661,9 +682,11 @@ class UrlMapDefaultRouteActionRetryPolicy(object):
             return None
 
         return UrlMapDefaultRouteActionRetryPolicy(
-            retry_condition=resource.retry_condition,
-            num_retries=resource.num_retries,
-            per_try_timeout=resource.per_try_timeout,
+            retry_condition=Primitive.from_proto(resource.retry_condition),
+            num_retries=Primitive.from_proto(resource.num_retries),
+            per_try_timeout=UrlMapDefaultRouteActionRetryPolicyPerTryTimeout.from_proto(
+                resource.per_try_timeout
+            ),
         )
 
 
@@ -702,7 +725,8 @@ class UrlMapDefaultRouteActionRetryPolicyPerTryTimeout(object):
             return None
 
         return UrlMapDefaultRouteActionRetryPolicyPerTryTimeout(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -744,7 +768,7 @@ class UrlMapDefaultRouteActionRequestMirrorPolicy(object):
             return None
 
         return UrlMapDefaultRouteActionRequestMirrorPolicy(
-            backend_service=resource.backend_service,
+            backend_service=Primitive.from_proto(resource.backend_service),
         )
 
 
@@ -817,14 +841,14 @@ class UrlMapDefaultRouteActionCorsPolicy(object):
             return None
 
         return UrlMapDefaultRouteActionCorsPolicy(
-            allow_origin=resource.allow_origin,
-            allow_origin_regex=resource.allow_origin_regex,
-            allow_method=resource.allow_method,
-            allow_header=resource.allow_header,
-            expose_header=resource.expose_header,
-            max_age=resource.max_age,
-            allow_credentials=resource.allow_credentials,
-            disabled=resource.disabled,
+            allow_origin=Primitive.from_proto(resource.allow_origin),
+            allow_origin_regex=Primitive.from_proto(resource.allow_origin_regex),
+            allow_method=Primitive.from_proto(resource.allow_method),
+            allow_header=Primitive.from_proto(resource.allow_header),
+            expose_header=Primitive.from_proto(resource.expose_header),
+            max_age=Primitive.from_proto(resource.max_age),
+            allow_credentials=Primitive.from_proto(resource.allow_credentials),
+            disabled=Primitive.from_proto(resource.disabled),
         )
 
 
@@ -875,7 +899,12 @@ class UrlMapDefaultRouteActionFaultInjectionPolicy(object):
             return None
 
         return UrlMapDefaultRouteActionFaultInjectionPolicy(
-            delay=resource.delay, abort=resource.abort,
+            delay=UrlMapDefaultRouteActionFaultInjectionPolicyDelay.from_proto(
+                resource.delay
+            ),
+            abort=UrlMapDefaultRouteActionFaultInjectionPolicyAbort.from_proto(
+                resource.abort
+            ),
         )
 
 
@@ -927,7 +956,10 @@ class UrlMapDefaultRouteActionFaultInjectionPolicyDelay(object):
             return None
 
         return UrlMapDefaultRouteActionFaultInjectionPolicyDelay(
-            fixed_delay=resource.fixed_delay, percentage=resource.percentage,
+            fixed_delay=UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay.from_proto(
+                resource.fixed_delay
+            ),
+            percentage=Primitive.from_proto(resource.percentage),
         )
 
 
@@ -974,7 +1006,8 @@ class UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay(object):
             return None
 
         return UrlMapDefaultRouteActionFaultInjectionPolicyDelayFixedDelay(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -1019,7 +1052,8 @@ class UrlMapDefaultRouteActionFaultInjectionPolicyAbort(object):
             return None
 
         return UrlMapDefaultRouteActionFaultInjectionPolicyAbort(
-            http_status=resource.http_status, percentage=resource.percentage,
+            http_status=Primitive.from_proto(resource.http_status),
+            percentage=Primitive.from_proto(resource.percentage),
         )
 
 
@@ -1088,12 +1122,14 @@ class UrlMapDefaultUrlRedirect(object):
             return None
 
         return UrlMapDefaultUrlRedirect(
-            host_redirect=resource.host_redirect,
-            path_redirect=resource.path_redirect,
-            prefix_redirect=resource.prefix_redirect,
-            redirect_response_code=resource.redirect_response_code,
-            https_redirect=resource.https_redirect,
-            strip_query=resource.strip_query,
+            host_redirect=Primitive.from_proto(resource.host_redirect),
+            path_redirect=Primitive.from_proto(resource.path_redirect),
+            prefix_redirect=Primitive.from_proto(resource.prefix_redirect),
+            redirect_response_code=UrlMapDefaultUrlRedirectRedirectResponseCodeEnum.from_proto(
+                resource.redirect_response_code
+            ),
+            https_redirect=Primitive.from_proto(resource.https_redirect),
+            strip_query=Primitive.from_proto(resource.strip_query),
         )
 
 
@@ -1137,9 +1173,9 @@ class UrlMapHostRule(object):
             return None
 
         return UrlMapHostRule(
-            description=resource.description,
-            host=resource.host,
-            path_matcher=resource.path_matcher,
+            description=Primitive.from_proto(resource.description),
+            host=Primitive.from_proto(resource.host),
+            path_matcher=Primitive.from_proto(resource.path_matcher),
         )
 
 
@@ -1224,14 +1260,18 @@ class UrlMapPathMatcher(object):
             return None
 
         return UrlMapPathMatcher(
-            name=resource.name,
-            description=resource.description,
-            default_service=resource.default_service,
-            default_route_action=resource.default_route_action,
-            default_url_redirect=resource.default_url_redirect,
-            path_rule=resource.path_rule,
-            route_rule=resource.route_rule,
-            header_action=resource.header_action,
+            name=Primitive.from_proto(resource.name),
+            description=Primitive.from_proto(resource.description),
+            default_service=Primitive.from_proto(resource.default_service),
+            default_route_action=UrlMapDefaultRouteAction.from_proto(
+                resource.default_route_action
+            ),
+            default_url_redirect=UrlMapPathMatcherDefaultUrlRedirect.from_proto(
+                resource.default_url_redirect
+            ),
+            path_rule=UrlMapPathMatcherPathRuleArray.from_proto(resource.path_rule),
+            route_rule=UrlMapPathMatcherRouteRuleArray.from_proto(resource.route_rule),
+            header_action=UrlMapHeaderAction.from_proto(resource.header_action),
         )
 
 
@@ -1294,12 +1334,14 @@ class UrlMapPathMatcherDefaultUrlRedirect(object):
             return None
 
         return UrlMapPathMatcherDefaultUrlRedirect(
-            host_redirect=resource.host_redirect,
-            path_redirect=resource.path_redirect,
-            prefix_redirect=resource.prefix_redirect,
-            redirect_response_code=resource.redirect_response_code,
-            https_redirect=resource.https_redirect,
-            strip_query=resource.strip_query,
+            host_redirect=Primitive.from_proto(resource.host_redirect),
+            path_redirect=Primitive.from_proto(resource.path_redirect),
+            prefix_redirect=Primitive.from_proto(resource.prefix_redirect),
+            redirect_response_code=UrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum.from_proto(
+                resource.redirect_response_code
+            ),
+            https_redirect=Primitive.from_proto(resource.https_redirect),
+            strip_query=Primitive.from_proto(resource.strip_query),
         )
 
 
@@ -1358,10 +1400,14 @@ class UrlMapPathMatcherPathRule(object):
             return None
 
         return UrlMapPathMatcherPathRule(
-            backend_service=resource.backend_service,
-            route_action=resource.route_action,
-            url_redirect=resource.url_redirect,
-            path=resource.path,
+            backend_service=Primitive.from_proto(resource.backend_service),
+            route_action=UrlMapPathMatcherPathRuleRouteAction.from_proto(
+                resource.route_action
+            ),
+            url_redirect=UrlMapPathMatcherPathRuleUrlRedirect.from_proto(
+                resource.url_redirect
+            ),
+            path=Primitive.from_proto(resource.path),
         )
 
 
@@ -1474,13 +1520,27 @@ class UrlMapPathMatcherPathRuleRouteAction(object):
             return None
 
         return UrlMapPathMatcherPathRuleRouteAction(
-            weighted_backend_service=resource.weighted_backend_service,
-            url_rewrite=resource.url_rewrite,
-            timeout=resource.timeout,
-            retry_policy=resource.retry_policy,
-            request_mirror_policy=resource.request_mirror_policy,
-            cors_policy=resource.cors_policy,
-            fault_injection_policy=resource.fault_injection_policy,
+            weighted_backend_service=UrlMapPathMatcherPathRuleRouteActionWeightedBackendServiceArray.from_proto(
+                resource.weighted_backend_service
+            ),
+            url_rewrite=UrlMapPathMatcherPathRuleRouteActionUrlRewrite.from_proto(
+                resource.url_rewrite
+            ),
+            timeout=UrlMapPathMatcherPathRuleRouteActionTimeout.from_proto(
+                resource.timeout
+            ),
+            retry_policy=UrlMapPathMatcherPathRuleRouteActionRetryPolicy.from_proto(
+                resource.retry_policy
+            ),
+            request_mirror_policy=UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy.from_proto(
+                resource.request_mirror_policy
+            ),
+            cors_policy=UrlMapPathMatcherPathRuleRouteActionCorsPolicy.from_proto(
+                resource.cors_policy
+            ),
+            fault_injection_policy=UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy.from_proto(
+                resource.fault_injection_policy
+            ),
         )
 
 
@@ -1533,9 +1593,9 @@ class UrlMapPathMatcherPathRuleRouteActionWeightedBackendService(object):
             return None
 
         return UrlMapPathMatcherPathRuleRouteActionWeightedBackendService(
-            backend_service=resource.backend_service,
-            weight=resource.weight,
-            header_action=resource.header_action,
+            backend_service=Primitive.from_proto(resource.backend_service),
+            weight=Primitive.from_proto(resource.weight),
+            header_action=UrlMapHeaderAction.from_proto(resource.header_action),
         )
 
 
@@ -1580,8 +1640,8 @@ class UrlMapPathMatcherPathRuleRouteActionUrlRewrite(object):
             return None
 
         return UrlMapPathMatcherPathRuleRouteActionUrlRewrite(
-            path_prefix_rewrite=resource.path_prefix_rewrite,
-            host_rewrite=resource.host_rewrite,
+            path_prefix_rewrite=Primitive.from_proto(resource.path_prefix_rewrite),
+            host_rewrite=Primitive.from_proto(resource.host_rewrite),
         )
 
 
@@ -1626,7 +1686,8 @@ class UrlMapPathMatcherPathRuleRouteActionTimeout(object):
             return None
 
         return UrlMapPathMatcherPathRuleRouteActionTimeout(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -1685,9 +1746,11 @@ class UrlMapPathMatcherPathRuleRouteActionRetryPolicy(object):
             return None
 
         return UrlMapPathMatcherPathRuleRouteActionRetryPolicy(
-            retry_condition=resource.retry_condition,
-            num_retries=resource.num_retries,
-            per_try_timeout=resource.per_try_timeout,
+            retry_condition=Primitive.from_proto(resource.retry_condition),
+            num_retries=Primitive.from_proto(resource.num_retries),
+            per_try_timeout=UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout.from_proto(
+                resource.per_try_timeout
+            ),
         )
 
 
@@ -1734,7 +1797,8 @@ class UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout(object):
             return None
 
         return UrlMapPathMatcherPathRuleRouteActionRetryPolicyPerTryTimeout(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -1778,7 +1842,7 @@ class UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy(object):
             return None
 
         return UrlMapPathMatcherPathRuleRouteActionRequestMirrorPolicy(
-            backend_service=resource.backend_service,
+            backend_service=Primitive.from_proto(resource.backend_service),
         )
 
 
@@ -1853,14 +1917,14 @@ class UrlMapPathMatcherPathRuleRouteActionCorsPolicy(object):
             return None
 
         return UrlMapPathMatcherPathRuleRouteActionCorsPolicy(
-            allow_origin=resource.allow_origin,
-            allow_origin_regex=resource.allow_origin_regex,
-            allow_method=resource.allow_method,
-            allow_header=resource.allow_header,
-            expose_header=resource.expose_header,
-            max_age=resource.max_age,
-            allow_credentials=resource.allow_credentials,
-            disabled=resource.disabled,
+            allow_origin=Primitive.from_proto(resource.allow_origin),
+            allow_origin_regex=Primitive.from_proto(resource.allow_origin_regex),
+            allow_method=Primitive.from_proto(resource.allow_method),
+            allow_header=Primitive.from_proto(resource.allow_header),
+            expose_header=Primitive.from_proto(resource.expose_header),
+            max_age=Primitive.from_proto(resource.max_age),
+            allow_credentials=Primitive.from_proto(resource.allow_credentials),
+            disabled=Primitive.from_proto(resource.disabled),
         )
 
 
@@ -1923,7 +1987,12 @@ class UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy(object):
             return None
 
         return UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicy(
-            delay=resource.delay, abort=resource.abort,
+            delay=UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay.from_proto(
+                resource.delay
+            ),
+            abort=UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort.from_proto(
+                resource.abort
+            ),
         )
 
 
@@ -1978,7 +2047,10 @@ class UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay(object):
             return None
 
         return UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelay(
-            fixed_delay=resource.fixed_delay, percentage=resource.percentage,
+            fixed_delay=UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay.from_proto(
+                resource.fixed_delay
+            ),
+            percentage=Primitive.from_proto(resource.percentage),
         )
 
 
@@ -2025,7 +2097,8 @@ class UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay(ob
             return None
 
         return UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyDelayFixedDelay(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -2078,7 +2151,8 @@ class UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort(object):
             return None
 
         return UrlMapPathMatcherPathRuleRouteActionFaultInjectionPolicyAbort(
-            http_status=resource.http_status, percentage=resource.percentage,
+            http_status=Primitive.from_proto(resource.http_status),
+            percentage=Primitive.from_proto(resource.percentage),
         )
 
 
@@ -2147,12 +2221,14 @@ class UrlMapPathMatcherPathRuleUrlRedirect(object):
             return None
 
         return UrlMapPathMatcherPathRuleUrlRedirect(
-            host_redirect=resource.host_redirect,
-            path_redirect=resource.path_redirect,
-            prefix_redirect=resource.prefix_redirect,
-            redirect_response_code=resource.redirect_response_code,
-            https_redirect=resource.https_redirect,
-            strip_query=resource.strip_query,
+            host_redirect=Primitive.from_proto(resource.host_redirect),
+            path_redirect=Primitive.from_proto(resource.path_redirect),
+            prefix_redirect=Primitive.from_proto(resource.prefix_redirect),
+            redirect_response_code=UrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum.from_proto(
+                resource.redirect_response_code
+            ),
+            https_redirect=Primitive.from_proto(resource.https_redirect),
+            strip_query=Primitive.from_proto(resource.strip_query),
         )
 
 
@@ -2229,13 +2305,19 @@ class UrlMapPathMatcherRouteRule(object):
             return None
 
         return UrlMapPathMatcherRouteRule(
-            priority=resource.priority,
-            description=resource.description,
-            match_rule=resource.match_rule,
-            backend_service=resource.backend_service,
-            route_action=resource.route_action,
-            url_redirect=resource.url_redirect,
-            header_action=resource.header_action,
+            priority=Primitive.from_proto(resource.priority),
+            description=Primitive.from_proto(resource.description),
+            match_rule=UrlMapPathMatcherRouteRuleMatchRuleArray.from_proto(
+                resource.match_rule
+            ),
+            backend_service=Primitive.from_proto(resource.backend_service),
+            route_action=UrlMapPathMatcherRouteRuleRouteAction.from_proto(
+                resource.route_action
+            ),
+            url_redirect=UrlMapPathMatcherRouteRuleUrlRedirect.from_proto(
+                resource.url_redirect
+            ),
+            header_action=UrlMapHeaderAction.from_proto(resource.header_action),
         )
 
 
@@ -2316,13 +2398,19 @@ class UrlMapPathMatcherRouteRuleMatchRule(object):
             return None
 
         return UrlMapPathMatcherRouteRuleMatchRule(
-            prefix_match=resource.prefix_match,
-            full_path_match=resource.full_path_match,
-            regex_match=resource.regex_match,
-            ignore_case=resource.ignore_case,
-            header_match=resource.header_match,
-            query_parameter_match=resource.query_parameter_match,
-            metadata_filter=resource.metadata_filter,
+            prefix_match=Primitive.from_proto(resource.prefix_match),
+            full_path_match=Primitive.from_proto(resource.full_path_match),
+            regex_match=Primitive.from_proto(resource.regex_match),
+            ignore_case=Primitive.from_proto(resource.ignore_case),
+            header_match=UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchArray.from_proto(
+                resource.header_match
+            ),
+            query_parameter_match=UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatchArray.from_proto(
+                resource.query_parameter_match
+            ),
+            metadata_filter=UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterArray.from_proto(
+                resource.metadata_filter
+            ),
         )
 
 
@@ -2397,14 +2485,16 @@ class UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch(object):
             return None
 
         return UrlMapPathMatcherRouteRuleMatchRuleHeaderMatch(
-            header_name=resource.header_name,
-            exact_match=resource.exact_match,
-            regex_match=resource.regex_match,
-            range_match=resource.range_match,
-            present_match=resource.present_match,
-            prefix_match=resource.prefix_match,
-            suffix_match=resource.suffix_match,
-            invert_match=resource.invert_match,
+            header_name=Primitive.from_proto(resource.header_name),
+            exact_match=Primitive.from_proto(resource.exact_match),
+            regex_match=Primitive.from_proto(resource.regex_match),
+            range_match=UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch.from_proto(
+                resource.range_match
+            ),
+            present_match=Primitive.from_proto(resource.present_match),
+            prefix_match=Primitive.from_proto(resource.prefix_match),
+            suffix_match=Primitive.from_proto(resource.suffix_match),
+            invert_match=Primitive.from_proto(resource.invert_match),
         )
 
 
@@ -2451,7 +2541,8 @@ class UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch(object):
             return None
 
         return UrlMapPathMatcherRouteRuleMatchRuleHeaderMatchRangeMatch(
-            range_start=resource.range_start, range_end=resource.range_end,
+            range_start=Primitive.from_proto(resource.range_start),
+            range_end=Primitive.from_proto(resource.range_end),
         )
 
 
@@ -2510,10 +2601,10 @@ class UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch(object):
             return None
 
         return UrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatch(
-            name=resource.name,
-            present_match=resource.present_match,
-            exact_match=resource.exact_match,
-            regex_match=resource.regex_match,
+            name=Primitive.from_proto(resource.name),
+            present_match=Primitive.from_proto(resource.present_match),
+            exact_match=Primitive.from_proto(resource.exact_match),
+            regex_match=Primitive.from_proto(resource.regex_match),
         )
 
 
@@ -2568,8 +2659,12 @@ class UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter(object):
             return None
 
         return UrlMapPathMatcherRouteRuleMatchRuleMetadataFilter(
-            filter_match_criteria=resource.filter_match_criteria,
-            filter_label=resource.filter_label,
+            filter_match_criteria=UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum.from_proto(
+                resource.filter_match_criteria
+            ),
+            filter_label=UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabelArray.from_proto(
+                resource.filter_label
+            ),
         )
 
 
@@ -2616,7 +2711,8 @@ class UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel(object):
             return None
 
         return UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabel(
-            name=resource.name, value=resource.value,
+            name=Primitive.from_proto(resource.name),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -2735,13 +2831,27 @@ class UrlMapPathMatcherRouteRuleRouteAction(object):
             return None
 
         return UrlMapPathMatcherRouteRuleRouteAction(
-            weighted_backend_service=resource.weighted_backend_service,
-            url_rewrite=resource.url_rewrite,
-            timeout=resource.timeout,
-            retry_policy=resource.retry_policy,
-            request_mirror_policy=resource.request_mirror_policy,
-            cors_policy=resource.cors_policy,
-            fault_injection_policy=resource.fault_injection_policy,
+            weighted_backend_service=UrlMapPathMatcherRouteRuleRouteActionWeightedBackendServiceArray.from_proto(
+                resource.weighted_backend_service
+            ),
+            url_rewrite=UrlMapPathMatcherRouteRuleRouteActionUrlRewrite.from_proto(
+                resource.url_rewrite
+            ),
+            timeout=UrlMapPathMatcherRouteRuleRouteActionTimeout.from_proto(
+                resource.timeout
+            ),
+            retry_policy=UrlMapPathMatcherRouteRuleRouteActionRetryPolicy.from_proto(
+                resource.retry_policy
+            ),
+            request_mirror_policy=UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy.from_proto(
+                resource.request_mirror_policy
+            ),
+            cors_policy=UrlMapPathMatcherRouteRuleRouteActionCorsPolicy.from_proto(
+                resource.cors_policy
+            ),
+            fault_injection_policy=UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy.from_proto(
+                resource.fault_injection_policy
+            ),
         )
 
 
@@ -2794,9 +2904,9 @@ class UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService(object):
             return None
 
         return UrlMapPathMatcherRouteRuleRouteActionWeightedBackendService(
-            backend_service=resource.backend_service,
-            weight=resource.weight,
-            header_action=resource.header_action,
+            backend_service=Primitive.from_proto(resource.backend_service),
+            weight=Primitive.from_proto(resource.weight),
+            header_action=UrlMapHeaderAction.from_proto(resource.header_action),
         )
 
 
@@ -2841,8 +2951,8 @@ class UrlMapPathMatcherRouteRuleRouteActionUrlRewrite(object):
             return None
 
         return UrlMapPathMatcherRouteRuleRouteActionUrlRewrite(
-            path_prefix_rewrite=resource.path_prefix_rewrite,
-            host_rewrite=resource.host_rewrite,
+            path_prefix_rewrite=Primitive.from_proto(resource.path_prefix_rewrite),
+            host_rewrite=Primitive.from_proto(resource.host_rewrite),
         )
 
 
@@ -2887,7 +2997,8 @@ class UrlMapPathMatcherRouteRuleRouteActionTimeout(object):
             return None
 
         return UrlMapPathMatcherRouteRuleRouteActionTimeout(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -2947,9 +3058,11 @@ class UrlMapPathMatcherRouteRuleRouteActionRetryPolicy(object):
             return None
 
         return UrlMapPathMatcherRouteRuleRouteActionRetryPolicy(
-            retry_condition=resource.retry_condition,
-            num_retries=resource.num_retries,
-            per_try_timeout=resource.per_try_timeout,
+            retry_condition=Primitive.from_proto(resource.retry_condition),
+            num_retries=Primitive.from_proto(resource.num_retries),
+            per_try_timeout=UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout.from_proto(
+                resource.per_try_timeout
+            ),
         )
 
 
@@ -2996,7 +3109,8 @@ class UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout(object):
             return None
 
         return UrlMapPathMatcherRouteRuleRouteActionRetryPolicyPerTryTimeout(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -3040,7 +3154,7 @@ class UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy(object):
             return None
 
         return UrlMapPathMatcherRouteRuleRouteActionRequestMirrorPolicy(
-            backend_service=resource.backend_service,
+            backend_service=Primitive.from_proto(resource.backend_service),
         )
 
 
@@ -3115,14 +3229,14 @@ class UrlMapPathMatcherRouteRuleRouteActionCorsPolicy(object):
             return None
 
         return UrlMapPathMatcherRouteRuleRouteActionCorsPolicy(
-            allow_origin=resource.allow_origin,
-            allow_origin_regex=resource.allow_origin_regex,
-            allow_method=resource.allow_method,
-            allow_header=resource.allow_header,
-            expose_header=resource.expose_header,
-            max_age=resource.max_age,
-            allow_credentials=resource.allow_credentials,
-            disabled=resource.disabled,
+            allow_origin=Primitive.from_proto(resource.allow_origin),
+            allow_origin_regex=Primitive.from_proto(resource.allow_origin_regex),
+            allow_method=Primitive.from_proto(resource.allow_method),
+            allow_header=Primitive.from_proto(resource.allow_header),
+            expose_header=Primitive.from_proto(resource.expose_header),
+            max_age=Primitive.from_proto(resource.max_age),
+            allow_credentials=Primitive.from_proto(resource.allow_credentials),
+            disabled=Primitive.from_proto(resource.disabled),
         )
 
 
@@ -3185,7 +3299,12 @@ class UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy(object):
             return None
 
         return UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicy(
-            delay=resource.delay, abort=resource.abort,
+            delay=UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay.from_proto(
+                resource.delay
+            ),
+            abort=UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort.from_proto(
+                resource.abort
+            ),
         )
 
 
@@ -3240,7 +3359,10 @@ class UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay(object):
             return None
 
         return UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelay(
-            fixed_delay=resource.fixed_delay, percentage=resource.percentage,
+            fixed_delay=UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay.from_proto(
+                resource.fixed_delay
+            ),
+            percentage=Primitive.from_proto(resource.percentage),
         )
 
 
@@ -3287,7 +3409,8 @@ class UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay(o
             return None
 
         return UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyDelayFixedDelay(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -3340,7 +3463,8 @@ class UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort(object):
             return None
 
         return UrlMapPathMatcherRouteRuleRouteActionFaultInjectionPolicyAbort(
-            http_status=resource.http_status, percentage=resource.percentage,
+            http_status=Primitive.from_proto(resource.http_status),
+            percentage=Primitive.from_proto(resource.percentage),
         )
 
 
@@ -3409,12 +3533,14 @@ class UrlMapPathMatcherRouteRuleUrlRedirect(object):
             return None
 
         return UrlMapPathMatcherRouteRuleUrlRedirect(
-            host_redirect=resource.host_redirect,
-            path_redirect=resource.path_redirect,
-            prefix_redirect=resource.prefix_redirect,
-            redirect_response_code=resource.redirect_response_code,
-            https_redirect=resource.https_redirect,
-            strip_query=resource.strip_query,
+            host_redirect=Primitive.from_proto(resource.host_redirect),
+            path_redirect=Primitive.from_proto(resource.path_redirect),
+            prefix_redirect=Primitive.from_proto(resource.prefix_redirect),
+            redirect_response_code=UrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum.from_proto(
+                resource.redirect_response_code
+            ),
+            https_redirect=Primitive.from_proto(resource.https_redirect),
+            strip_query=Primitive.from_proto(resource.strip_query),
         )
 
 
@@ -3467,10 +3593,12 @@ class UrlMapTest(object):
             return None
 
         return UrlMapTest(
-            description=resource.description,
-            host=resource.host,
-            path=resource.path,
-            expected_backend_service=resource.expected_backend_service,
+            description=Primitive.from_proto(resource.description),
+            host=Primitive.from_proto(resource.host),
+            path=Primitive.from_proto(resource.path),
+            expected_backend_service=Primitive.from_proto(
+                resource.expected_backend_service
+            ),
         )
 
 

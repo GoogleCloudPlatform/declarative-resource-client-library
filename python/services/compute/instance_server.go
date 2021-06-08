@@ -31,7 +31,7 @@ func ProtoToComputeInstanceDisksInterfaceEnum(e computepb.ComputeInstanceDisksIn
 		return nil
 	}
 	if n, ok := computepb.ComputeInstanceDisksInterfaceEnum_name[int32(e)]; ok {
-		e := compute.InstanceDisksInterfaceEnum(n[len("InstanceDisksInterfaceEnum"):])
+		e := compute.InstanceDisksInterfaceEnum(n[len("ComputeInstanceDisksInterfaceEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeInstanceDisksModeEnum(e computepb.ComputeInstanceDisksModeEnu
 		return nil
 	}
 	if n, ok := computepb.ComputeInstanceDisksModeEnum_name[int32(e)]; ok {
-		e := compute.InstanceDisksModeEnum(n[len("InstanceDisksModeEnum"):])
+		e := compute.InstanceDisksModeEnum(n[len("ComputeInstanceDisksModeEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeInstanceDisksTypeEnum(e computepb.ComputeInstanceDisksTypeEnu
 		return nil
 	}
 	if n, ok := computepb.ComputeInstanceDisksTypeEnum_name[int32(e)]; ok {
-		e := compute.InstanceDisksTypeEnum(n[len("InstanceDisksTypeEnum"):])
+		e := compute.InstanceDisksTypeEnum(n[len("ComputeInstanceDisksTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeInstanceNetworkInterfacesAccessConfigsTypeEnum(e computepb.Co
 		return nil
 	}
 	if n, ok := computepb.ComputeInstanceNetworkInterfacesAccessConfigsTypeEnum_name[int32(e)]; ok {
-		e := compute.InstanceNetworkInterfacesAccessConfigsTypeEnum(n[len("InstanceNetworkInterfacesAccessConfigsTypeEnum"):])
+		e := compute.InstanceNetworkInterfacesAccessConfigsTypeEnum(n[len("ComputeInstanceNetworkInterfacesAccessConfigsTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToComputeInstanceStatusEnum(e computepb.ComputeInstanceStatusEnum) *co
 		return nil
 	}
 	if n, ok := computepb.ComputeInstanceStatusEnum_name[int32(e)]; ok {
-		e := compute.InstanceStatusEnum(n[len("InstanceStatusEnum"):])
+		e := compute.InstanceStatusEnum(n[len("ComputeInstanceStatusEnum"):])
 		return &e
 	}
 	return nil

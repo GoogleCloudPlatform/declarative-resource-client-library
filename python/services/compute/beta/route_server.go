@@ -31,7 +31,7 @@ func ProtoToComputeBetaRouteWarningCodeEnum(e betapb.ComputeBetaRouteWarningCode
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaRouteWarningCodeEnum_name[int32(e)]; ok {
-		e := beta.RouteWarningCodeEnum(n[len("RouteWarningCodeEnum"):])
+		e := beta.RouteWarningCodeEnum(n[len("ComputeBetaRouteWarningCodeEnum"):])
 		return &e
 	}
 	return nil

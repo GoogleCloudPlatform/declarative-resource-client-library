@@ -31,7 +31,7 @@ func ProtoToComputeFirewallDirectionEnum(e computepb.ComputeFirewallDirectionEnu
 		return nil
 	}
 	if n, ok := computepb.ComputeFirewallDirectionEnum_name[int32(e)]; ok {
-		e := compute.FirewallDirectionEnum(n[len("FirewallDirectionEnum"):])
+		e := compute.FirewallDirectionEnum(n[len("ComputeFirewallDirectionEnum"):])
 		return &e
 	}
 	return nil

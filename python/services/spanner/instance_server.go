@@ -31,7 +31,7 @@ func ProtoToSpannerInstanceStateEnum(e spannerpb.SpannerInstanceStateEnum) *span
 		return nil
 	}
 	if n, ok := spannerpb.SpannerInstanceStateEnum_name[int32(e)]; ok {
-		e := spanner.InstanceStateEnum(n[len("InstanceStateEnum"):])
+		e := spanner.InstanceStateEnum(n[len("SpannerInstanceStateEnum"):])
 		return &e
 	}
 	return nil

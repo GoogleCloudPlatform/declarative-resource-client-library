@@ -172,8 +172,10 @@ class AccessLevelBasic(object):
             return None
 
         return AccessLevelBasic(
-            combining_function=resource.combining_function,
-            conditions=resource.conditions,
+            combining_function=AccessLevelBasicCombiningFunctionEnum.from_proto(
+                resource.combining_function
+            ),
+            conditions=AccessLevelBasicConditionsArray.from_proto(resource.conditions),
         )
 
 
@@ -238,12 +240,16 @@ class AccessLevelBasicConditions(object):
             return None
 
         return AccessLevelBasicConditions(
-            regions=resource.regions,
-            ip_subnetworks=resource.ip_subnetworks,
-            required_access_levels=resource.required_access_levels,
-            members=resource.members,
-            negate=resource.negate,
-            device_policy=resource.device_policy,
+            regions=Primitive.from_proto(resource.regions),
+            ip_subnetworks=Primitive.from_proto(resource.ip_subnetworks),
+            required_access_levels=Primitive.from_proto(
+                resource.required_access_levels
+            ),
+            members=Primitive.from_proto(resource.members),
+            negate=Primitive.from_proto(resource.negate),
+            device_policy=AccessLevelBasicConditionsDevicePolicy.from_proto(
+                resource.device_policy
+            ),
         )
 
 
@@ -324,12 +330,20 @@ class AccessLevelBasicConditionsDevicePolicy(object):
             return None
 
         return AccessLevelBasicConditionsDevicePolicy(
-            require_screenlock=resource.require_screenlock,
-            require_admin_approval=resource.require_admin_approval,
-            require_corp_owned=resource.require_corp_owned,
-            allowed_encryption_statuses=resource.allowed_encryption_statuses,
-            allowed_device_management_levels=resource.allowed_device_management_levels,
-            os_constraints=resource.os_constraints,
+            require_screenlock=Primitive.from_proto(resource.require_screenlock),
+            require_admin_approval=Primitive.from_proto(
+                resource.require_admin_approval
+            ),
+            require_corp_owned=Primitive.from_proto(resource.require_corp_owned),
+            allowed_encryption_statuses=AccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnumArray.from_proto(
+                resource.allowed_encryption_statuses
+            ),
+            allowed_device_management_levels=AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnumArray.from_proto(
+                resource.allowed_device_management_levels
+            ),
+            os_constraints=AccessLevelBasicConditionsDevicePolicyOsConstraintsArray.from_proto(
+                resource.os_constraints
+            ),
         )
 
 
@@ -384,9 +398,13 @@ class AccessLevelBasicConditionsDevicePolicyOsConstraints(object):
             return None
 
         return AccessLevelBasicConditionsDevicePolicyOsConstraints(
-            minimum_version=resource.minimum_version,
-            os_type=resource.os_type,
-            require_verified_chrome_os=resource.require_verified_chrome_os,
+            minimum_version=Primitive.from_proto(resource.minimum_version),
+            os_type=AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum.from_proto(
+                resource.os_type
+            ),
+            require_verified_chrome_os=Primitive.from_proto(
+                resource.require_verified_chrome_os
+            ),
         )
 
 

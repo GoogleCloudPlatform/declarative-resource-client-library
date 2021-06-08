@@ -31,7 +31,7 @@ func ProtoToMonitoringUptimeCheckConfigResourceGroupResourceTypeEnum(e monitorin
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringUptimeCheckConfigResourceGroupResourceTypeEnum_name[int32(e)]; ok {
-		e := monitoring.UptimeCheckConfigResourceGroupResourceTypeEnum(n[len("UptimeCheckConfigResourceGroupResourceTypeEnum"):])
+		e := monitoring.UptimeCheckConfigResourceGroupResourceTypeEnum(n[len("MonitoringUptimeCheckConfigResourceGroupResourceTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToMonitoringUptimeCheckConfigHttpCheckRequestMethodEnum(e monitoringpb
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringUptimeCheckConfigHttpCheckRequestMethodEnum_name[int32(e)]; ok {
-		e := monitoring.UptimeCheckConfigHttpCheckRequestMethodEnum(n[len("UptimeCheckConfigHttpCheckRequestMethodEnum"):])
+		e := monitoring.UptimeCheckConfigHttpCheckRequestMethodEnum(n[len("MonitoringUptimeCheckConfigHttpCheckRequestMethodEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToMonitoringUptimeCheckConfigHttpCheckContentTypeEnum(e monitoringpb.M
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringUptimeCheckConfigHttpCheckContentTypeEnum_name[int32(e)]; ok {
-		e := monitoring.UptimeCheckConfigHttpCheckContentTypeEnum(n[len("UptimeCheckConfigHttpCheckContentTypeEnum"):])
+		e := monitoring.UptimeCheckConfigHttpCheckContentTypeEnum(n[len("MonitoringUptimeCheckConfigHttpCheckContentTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToMonitoringUptimeCheckConfigContentMatchersMatcherEnum(e monitoringpb
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringUptimeCheckConfigContentMatchersMatcherEnum_name[int32(e)]; ok {
-		e := monitoring.UptimeCheckConfigContentMatchersMatcherEnum(n[len("UptimeCheckConfigContentMatchersMatcherEnum"):])
+		e := monitoring.UptimeCheckConfigContentMatchersMatcherEnum(n[len("MonitoringUptimeCheckConfigContentMatchersMatcherEnum"):])
 		return &e
 	}
 	return nil

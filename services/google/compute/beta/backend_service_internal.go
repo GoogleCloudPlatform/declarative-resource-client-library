@@ -3011,7 +3011,7 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EnableCdn, actual.EnableCdn, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("EnableCdn")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnableCdn, actual.EnableCdn, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("EnableCDN")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3032,7 +3032,7 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3379,21 +3379,21 @@ func compareBackendServiceIapNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OAuth2ClientId, actual.OAuth2ClientId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("OAuth2ClientId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OAuth2ClientId, actual.OAuth2ClientId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("Oauth2ClientId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OAuth2ClientSecret, actual.OAuth2ClientSecret, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("OAuth2ClientSecret")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OAuth2ClientSecret, actual.OAuth2ClientSecret, dcl.Info{OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("Oauth2ClientSecret")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OAuth2ClientSecretSha256, actual.OAuth2ClientSecretSha256, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OAuth2ClientSecretSha256")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OAuth2ClientSecretSha256, actual.OAuth2ClientSecretSha256, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Oauth2ClientSecretSha256")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

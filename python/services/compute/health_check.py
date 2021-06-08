@@ -348,13 +348,17 @@ class HealthCheckHttp2HealthCheck(object):
             return None
 
         return HealthCheckHttp2HealthCheck(
-            port=resource.port,
-            port_name=resource.port_name,
-            port_specification=resource.port_specification,
-            host=resource.host,
-            request_path=resource.request_path,
-            proxy_header=resource.proxy_header,
-            response=resource.response,
+            port=Primitive.from_proto(resource.port),
+            port_name=Primitive.from_proto(resource.port_name),
+            port_specification=HealthCheckHttp2HealthCheckPortSpecificationEnum.from_proto(
+                resource.port_specification
+            ),
+            host=Primitive.from_proto(resource.host),
+            request_path=Primitive.from_proto(resource.request_path),
+            proxy_header=HealthCheckHttp2HealthCheckProxyHeaderEnum.from_proto(
+                resource.proxy_header
+            ),
+            response=Primitive.from_proto(resource.response),
         )
 
 
@@ -423,13 +427,17 @@ class HealthCheckHttpHealthCheck(object):
             return None
 
         return HealthCheckHttpHealthCheck(
-            port=resource.port,
-            port_name=resource.port_name,
-            port_specification=resource.port_specification,
-            host=resource.host,
-            request_path=resource.request_path,
-            proxy_header=resource.proxy_header,
-            response=resource.response,
+            port=Primitive.from_proto(resource.port),
+            port_name=Primitive.from_proto(resource.port_name),
+            port_specification=HealthCheckHttpHealthCheckPortSpecificationEnum.from_proto(
+                resource.port_specification
+            ),
+            host=Primitive.from_proto(resource.host),
+            request_path=Primitive.from_proto(resource.request_path),
+            proxy_header=HealthCheckHttpHealthCheckProxyHeaderEnum.from_proto(
+                resource.proxy_header
+            ),
+            response=Primitive.from_proto(resource.response),
         )
 
 
@@ -498,13 +506,17 @@ class HealthCheckHttpsHealthCheck(object):
             return None
 
         return HealthCheckHttpsHealthCheck(
-            port=resource.port,
-            port_name=resource.port_name,
-            port_specification=resource.port_specification,
-            host=resource.host,
-            request_path=resource.request_path,
-            proxy_header=resource.proxy_header,
-            response=resource.response,
+            port=Primitive.from_proto(resource.port),
+            port_name=Primitive.from_proto(resource.port_name),
+            port_specification=HealthCheckHttpsHealthCheckPortSpecificationEnum.from_proto(
+                resource.port_specification
+            ),
+            host=Primitive.from_proto(resource.host),
+            request_path=Primitive.from_proto(resource.request_path),
+            proxy_header=HealthCheckHttpsHealthCheckProxyHeaderEnum.from_proto(
+                resource.proxy_header
+            ),
+            response=Primitive.from_proto(resource.response),
         )
 
 
@@ -569,12 +581,16 @@ class HealthCheckSslHealthCheck(object):
             return None
 
         return HealthCheckSslHealthCheck(
-            port=resource.port,
-            port_name=resource.port_name,
-            port_specification=resource.port_specification,
-            request=resource.request,
-            response=resource.response,
-            proxy_header=resource.proxy_header,
+            port=Primitive.from_proto(resource.port),
+            port_name=Primitive.from_proto(resource.port_name),
+            port_specification=HealthCheckSslHealthCheckPortSpecificationEnum.from_proto(
+                resource.port_specification
+            ),
+            request=Primitive.from_proto(resource.request),
+            response=Primitive.from_proto(resource.response),
+            proxy_header=HealthCheckSslHealthCheckProxyHeaderEnum.from_proto(
+                resource.proxy_header
+            ),
         )
 
 
@@ -639,12 +655,16 @@ class HealthCheckTcpHealthCheck(object):
             return None
 
         return HealthCheckTcpHealthCheck(
-            port=resource.port,
-            port_name=resource.port_name,
-            port_specification=resource.port_specification,
-            request=resource.request,
-            response=resource.response,
-            proxy_header=resource.proxy_header,
+            port=Primitive.from_proto(resource.port),
+            port_name=Primitive.from_proto(resource.port_name),
+            port_specification=HealthCheckTcpHealthCheckPortSpecificationEnum.from_proto(
+                resource.port_specification
+            ),
+            request=Primitive.from_proto(resource.request),
+            response=Primitive.from_proto(resource.response),
+            proxy_header=HealthCheckTcpHealthCheckProxyHeaderEnum.from_proto(
+                resource.proxy_header
+            ),
         )
 
 

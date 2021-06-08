@@ -11,6 +11,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+dependencies:
+- samples/basic.compute.network.json
+- samples/basic.compute.address.json
+- samples/basic.servicenetworking.connection.json
 description: Example for workerpool instance
 name: worker_pool_instance
 resource: samples/basic.worker_pool.json

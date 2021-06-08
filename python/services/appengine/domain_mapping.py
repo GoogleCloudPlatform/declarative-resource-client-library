@@ -157,9 +157,13 @@ class DomainMappingSslSettings(object):
             return None
 
         return DomainMappingSslSettings(
-            certificate_id=resource.certificate_id,
-            ssl_management_type=resource.ssl_management_type,
-            pending_managed_certificate_id=resource.pending_managed_certificate_id,
+            certificate_id=Primitive.from_proto(resource.certificate_id),
+            ssl_management_type=DomainMappingSslSettingsSslManagementTypeEnum.from_proto(
+                resource.ssl_management_type
+            ),
+            pending_managed_certificate_id=Primitive.from_proto(
+                resource.pending_managed_certificate_id
+            ),
         )
 
 
@@ -201,7 +205,9 @@ class DomainMappingResourceRecords(object):
             return None
 
         return DomainMappingResourceRecords(
-            name=resource.name, rrdata=resource.rrdata, type=resource.type,
+            name=Primitive.from_proto(resource.name),
+            rrdata=Primitive.from_proto(resource.rrdata),
+            type=DomainMappingResourceRecordsTypeEnum.from_proto(resource.type),
         )
 
 

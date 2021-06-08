@@ -244,9 +244,11 @@ class MetricDescriptorDescriptorLabels(object):
             return None
 
         return MetricDescriptorDescriptorLabels(
-            key=resource.key,
-            value_type=resource.value_type,
-            description=resource.description,
+            key=Primitive.from_proto(resource.key),
+            value_type=MetricDescriptorDescriptorLabelsValueTypeEnum.from_proto(
+                resource.value_type
+            ),
+            description=Primitive.from_proto(resource.description),
         )
 
 
@@ -295,9 +297,11 @@ class MetricDescriptorMetadata(object):
             return None
 
         return MetricDescriptorMetadata(
-            launch_stage=resource.launch_stage,
-            sample_period=resource.sample_period,
-            ingest_delay=resource.ingest_delay,
+            launch_stage=MetricDescriptorMetadataLaunchStageEnum.from_proto(
+                resource.launch_stage
+            ),
+            sample_period=Primitive.from_proto(resource.sample_period),
+            ingest_delay=Primitive.from_proto(resource.ingest_delay),
         )
 
 

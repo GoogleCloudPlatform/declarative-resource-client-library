@@ -31,7 +31,7 @@ func ProtoToDataprocBetaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAcc
 		return nil
 	}
 	if n, ok := betapb.DataprocBetaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum_name[int32(e)]; ok {
-		e := beta.ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(n[len("ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum"):])
+		e := beta.ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(n[len("DataprocBetaClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToDataprocBetaClusterClusterConfigGceClusterConfigReservationAffinityC
 		return nil
 	}
 	if n, ok := betapb.DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum_name[int32(e)]; ok {
-		e := beta.ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum(n[len("ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum"):])
+		e := beta.ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum(n[len("DataprocBetaClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToDataprocBetaClusterInstanceGroupConfigPreemptibilityEnum(e betapb.Da
 		return nil
 	}
 	if n, ok := betapb.DataprocBetaClusterInstanceGroupConfigPreemptibilityEnum_name[int32(e)]; ok {
-		e := beta.ClusterInstanceGroupConfigPreemptibilityEnum(n[len("ClusterInstanceGroupConfigPreemptibilityEnum"):])
+		e := beta.ClusterInstanceGroupConfigPreemptibilityEnum(n[len("DataprocBetaClusterInstanceGroupConfigPreemptibilityEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToDataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnum
 		return nil
 	}
 	if n, ok := betapb.DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnum_name[int32(e)]; ok {
-		e := beta.ClusterClusterConfigSoftwareConfigOptionalComponentsEnum(n[len("ClusterClusterConfigSoftwareConfigOptionalComponentsEnum"):])
+		e := beta.ClusterClusterConfigSoftwareConfigOptionalComponentsEnum(n[len("DataprocBetaClusterClusterConfigSoftwareConfigOptionalComponentsEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToDataprocBetaClusterStatusStateEnum(e betapb.DataprocBetaClusterStatu
 		return nil
 	}
 	if n, ok := betapb.DataprocBetaClusterStatusStateEnum_name[int32(e)]; ok {
-		e := beta.ClusterStatusStateEnum(n[len("ClusterStatusStateEnum"):])
+		e := beta.ClusterStatusStateEnum(n[len("DataprocBetaClusterStatusStateEnum"):])
 		return &e
 	}
 	return nil
@@ -91,7 +91,7 @@ func ProtoToDataprocBetaClusterStatusSubstateEnum(e betapb.DataprocBetaClusterSt
 		return nil
 	}
 	if n, ok := betapb.DataprocBetaClusterStatusSubstateEnum_name[int32(e)]; ok {
-		e := beta.ClusterStatusSubstateEnum(n[len("ClusterStatusSubstateEnum"):])
+		e := beta.ClusterStatusSubstateEnum(n[len("DataprocBetaClusterStatusSubstateEnum"):])
 		return &e
 	}
 	return nil
@@ -103,7 +103,7 @@ func ProtoToDataprocBetaClusterStatusHistoryStateEnum(e betapb.DataprocBetaClust
 		return nil
 	}
 	if n, ok := betapb.DataprocBetaClusterStatusHistoryStateEnum_name[int32(e)]; ok {
-		e := beta.ClusterStatusHistoryStateEnum(n[len("ClusterStatusHistoryStateEnum"):])
+		e := beta.ClusterStatusHistoryStateEnum(n[len("DataprocBetaClusterStatusHistoryStateEnum"):])
 		return &e
 	}
 	return nil
@@ -115,7 +115,7 @@ func ProtoToDataprocBetaClusterStatusHistorySubstateEnum(e betapb.DataprocBetaCl
 		return nil
 	}
 	if n, ok := betapb.DataprocBetaClusterStatusHistorySubstateEnum_name[int32(e)]; ok {
-		e := beta.ClusterStatusHistorySubstateEnum(n[len("ClusterStatusHistorySubstateEnum"):])
+		e := beta.ClusterStatusHistorySubstateEnum(n[len("DataprocBetaClusterStatusHistorySubstateEnum"):])
 		return &e
 	}
 	return nil

@@ -2749,7 +2749,7 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Image, actual.Image, dcl.Info{ObjectFunction: compareNoteImageNewStyle, OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("Image")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Image, actual.Image, dcl.Info{ObjectFunction: compareNoteImageNewStyle, OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("BaseImage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2770,14 +2770,14 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Deployment, actual.Deployment, dcl.Info{ObjectFunction: compareNoteDeploymentNewStyle, OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("Deployment")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Deployment, actual.Deployment, dcl.Info{ObjectFunction: compareNoteDeploymentNewStyle, OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("Deployable")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Attestation, actual.Attestation, dcl.Info{ObjectFunction: compareNoteAttestationNewStyle, OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("Attestation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Attestation, actual.Attestation, dcl.Info{ObjectFunction: compareNoteAttestationNewStyle, OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("AttestationAuthority")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -31,7 +31,7 @@ func ProtoToNetworkservicesAlphaEndpointConfigSelectorTypeEnum(e alphapb.Network
 		return nil
 	}
 	if n, ok := alphapb.NetworkservicesAlphaEndpointConfigSelectorTypeEnum_name[int32(e)]; ok {
-		e := alpha.EndpointConfigSelectorTypeEnum(n[len("EndpointConfigSelectorTypeEnum"):])
+		e := alpha.EndpointConfigSelectorTypeEnum(n[len("NetworkservicesAlphaEndpointConfigSelectorTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToNetworkservicesAlphaEndpointConfigSelectorEndpointMatcherMetadataLab
 		return nil
 	}
 	if n, ok := alphapb.NetworkservicesAlphaEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum_name[int32(e)]; ok {
-		e := alpha.EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum(n[len("EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum"):])
+		e := alpha.EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum(n[len("NetworkservicesAlphaEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum"):])
 		return &e
 	}
 	return nil

@@ -31,7 +31,7 @@ func ProtoToGkehubBetaFeatureResourceStateStateEnum(e betapb.GkehubBetaFeatureRe
 		return nil
 	}
 	if n, ok := betapb.GkehubBetaFeatureResourceStateStateEnum_name[int32(e)]; ok {
-		e := beta.FeatureResourceStateStateEnum(n[len("FeatureResourceStateStateEnum"):])
+		e := beta.FeatureResourceStateStateEnum(n[len("GkehubBetaFeatureResourceStateStateEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToGkehubBetaFeatureStateStateCodeEnum(e betapb.GkehubBetaFeatureStateS
 		return nil
 	}
 	if n, ok := betapb.GkehubBetaFeatureStateStateCodeEnum_name[int32(e)]; ok {
-		e := beta.FeatureStateStateCodeEnum(n[len("FeatureStateStateCodeEnum"):])
+		e := beta.FeatureStateStateCodeEnum(n[len("GkehubBetaFeatureStateStateCodeEnum"):])
 		return &e
 	}
 	return nil

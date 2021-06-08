@@ -247,7 +247,10 @@ class NodeCreateTime(object):
         if not resource:
             return None
 
-        return NodeCreateTime(seconds=resource.seconds, nanos=resource.nanos,)
+        return NodeCreateTime(
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
+        )
 
 
 class NodeCreateTimeArray(object):
@@ -285,7 +288,8 @@ class NodeSchedulingConfig(object):
             return None
 
         return NodeSchedulingConfig(
-            preemptible=resource.preemptible, reserved=resource.reserved,
+            preemptible=Primitive.from_proto(resource.preemptible),
+            reserved=Primitive.from_proto(resource.reserved),
         )
 
 
@@ -323,7 +327,10 @@ class NodeNetworkEndpoints(object):
         if not resource:
             return None
 
-        return NodeNetworkEndpoints(ip_address=resource.ip_address, port=resource.port,)
+        return NodeNetworkEndpoints(
+            ip_address=Primitive.from_proto(resource.ip_address),
+            port=Primitive.from_proto(resource.port),
+        )
 
 
 class NodeNetworkEndpointsArray(object):
@@ -379,10 +386,10 @@ class NodeSymptoms(object):
             return None
 
         return NodeSymptoms(
-            create_time=resource.create_time,
-            symptom_type=resource.symptom_type,
-            details=resource.details,
-            worker_id=resource.worker_id,
+            create_time=NodeSymptomsCreateTime.from_proto(resource.create_time),
+            symptom_type=NodeSymptomsSymptomTypeEnum.from_proto(resource.symptom_type),
+            details=Primitive.from_proto(resource.details),
+            worker_id=Primitive.from_proto(resource.worker_id),
         )
 
 
@@ -420,7 +427,10 @@ class NodeSymptomsCreateTime(object):
         if not resource:
             return None
 
-        return NodeSymptomsCreateTime(seconds=resource.seconds, nanos=resource.nanos,)
+        return NodeSymptomsCreateTime(
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
+        )
 
 
 class NodeSymptomsCreateTimeArray(object):

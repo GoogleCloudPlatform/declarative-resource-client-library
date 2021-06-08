@@ -346,11 +346,11 @@ class InstanceServerCaCerts(object):
             return None
 
         return InstanceServerCaCerts(
-            serial_number=resource.serial_number,
-            cert=resource.cert,
-            create_time=resource.create_time,
-            expire_time=resource.expire_time,
-            sha1_fingerprint=resource.sha1_fingerprint,
+            serial_number=Primitive.from_proto(resource.serial_number),
+            cert=Primitive.from_proto(resource.cert),
+            create_time=Primitive.from_proto(resource.create_time),
+            expire_time=Primitive.from_proto(resource.expire_time),
+            sha1_fingerprint=Primitive.from_proto(resource.sha1_fingerprint),
         )
 
 
@@ -407,10 +407,12 @@ class InstanceMaintenancePolicy(object):
             return None
 
         return InstanceMaintenancePolicy(
-            create_time=resource.create_time,
-            update_time=resource.update_time,
-            description=resource.description,
-            weekly_maintenance_window=resource.weekly_maintenance_window,
+            create_time=Primitive.from_proto(resource.create_time),
+            update_time=Primitive.from_proto(resource.update_time),
+            description=Primitive.from_proto(resource.description),
+            weekly_maintenance_window=InstanceMaintenancePolicyWeeklyMaintenanceWindowArray.from_proto(
+                resource.weekly_maintenance_window
+            ),
         )
 
 
@@ -464,9 +466,13 @@ class InstanceMaintenancePolicyWeeklyMaintenanceWindow(object):
             return None
 
         return InstanceMaintenancePolicyWeeklyMaintenanceWindow(
-            day=resource.day,
-            start_time=resource.start_time,
-            duration=resource.duration,
+            day=InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum.from_proto(
+                resource.day
+            ),
+            start_time=InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime.from_proto(
+                resource.start_time
+            ),
+            duration=Primitive.from_proto(resource.duration),
         )
 
 
@@ -525,10 +531,10 @@ class InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(object):
             return None
 
         return InstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime(
-            hours=resource.hours,
-            minutes=resource.minutes,
-            seconds=resource.seconds,
-            nanos=resource.nanos,
+            hours=Primitive.from_proto(resource.hours),
+            minutes=Primitive.from_proto(resource.minutes),
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -587,10 +593,12 @@ class InstanceMaintenanceSchedule(object):
             return None
 
         return InstanceMaintenanceSchedule(
-            start_time=resource.start_time,
-            end_time=resource.end_time,
-            can_reschedule=resource.can_reschedule,
-            schedule_deadline_time=resource.schedule_deadline_time,
+            start_time=Primitive.from_proto(resource.start_time),
+            end_time=Primitive.from_proto(resource.end_time),
+            can_reschedule=Primitive.from_proto(resource.can_reschedule),
+            schedule_deadline_time=Primitive.from_proto(
+                resource.schedule_deadline_time
+            ),
         )
 
 

@@ -31,7 +31,7 @@ func ProtoToTPUNodeStateEnum(e tpupb.TPUNodeStateEnum) *tpu.NodeStateEnum {
 		return nil
 	}
 	if n, ok := tpupb.TPUNodeStateEnum_name[int32(e)]; ok {
-		e := tpu.NodeStateEnum(n[len("NodeStateEnum"):])
+		e := tpu.NodeStateEnum(n[len("TPUNodeStateEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToTPUNodeHealthEnum(e tpupb.TPUNodeHealthEnum) *tpu.NodeHealthEnum {
 		return nil
 	}
 	if n, ok := tpupb.TPUNodeHealthEnum_name[int32(e)]; ok {
-		e := tpu.NodeHealthEnum(n[len("NodeHealthEnum"):])
+		e := tpu.NodeHealthEnum(n[len("TPUNodeHealthEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToTPUNodeSymptomsSymptomTypeEnum(e tpupb.TPUNodeSymptomsSymptomTypeEnu
 		return nil
 	}
 	if n, ok := tpupb.TPUNodeSymptomsSymptomTypeEnum_name[int32(e)]; ok {
-		e := tpu.NodeSymptomsSymptomTypeEnum(n[len("NodeSymptomsSymptomTypeEnum"):])
+		e := tpu.NodeSymptomsSymptomTypeEnum(n[len("TPUNodeSymptomsSymptomTypeEnum"):])
 		return &e
 	}
 	return nil

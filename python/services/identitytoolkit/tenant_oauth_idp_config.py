@@ -211,7 +211,9 @@ class TenantOAuthIdpConfigResponseType(object):
             return None
 
         return TenantOAuthIdpConfigResponseType(
-            id_token=resource.id_token, code=resource.code, token=resource.token,
+            id_token=Primitive.from_proto(resource.id_token),
+            code=Primitive.from_proto(resource.code),
+            token=Primitive.from_proto(resource.token),
         )
 
 

@@ -233,7 +233,8 @@ class RouterPeerAdvertisedIPRanges(object):
             return None
 
         return RouterPeerAdvertisedIPRanges(
-            range=resource.range, description=resource.description,
+            range=Primitive.from_proto(resource.range),
+            description=Primitive.from_proto(resource.description),
         )
 
 

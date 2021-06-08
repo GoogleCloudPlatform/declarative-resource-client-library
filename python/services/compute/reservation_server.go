@@ -31,7 +31,7 @@ func ProtoToComputeReservationSpecificReservationInstancePropertiesLocalSsdsInte
 		return nil
 	}
 	if n, ok := computepb.ComputeReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum_name[int32(e)]; ok {
-		e := compute.ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum(n[len("ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum"):])
+		e := compute.ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum(n[len("ComputeReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeReservationStatusEnum(e computepb.ComputeReservationStatusEnu
 		return nil
 	}
 	if n, ok := computepb.ComputeReservationStatusEnum_name[int32(e)]; ok {
-		e := compute.ReservationStatusEnum(n[len("ReservationStatusEnum"):])
+		e := compute.ReservationStatusEnum(n[len("ComputeReservationStatusEnum"):])
 		return &e
 	}
 	return nil

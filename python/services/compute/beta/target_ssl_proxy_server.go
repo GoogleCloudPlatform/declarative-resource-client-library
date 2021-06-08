@@ -31,7 +31,7 @@ func ProtoToComputeBetaTargetSslProxyProxyHeaderEnum(e betapb.ComputeBetaTargetS
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaTargetSslProxyProxyHeaderEnum_name[int32(e)]; ok {
-		e := beta.TargetSslProxyProxyHeaderEnum(n[len("TargetSslProxyProxyHeaderEnum"):])
+		e := beta.TargetSslProxyProxyHeaderEnum(n[len("ComputeBetaTargetSslProxyProxyHeaderEnum"):])
 		return &e
 	}
 	return nil

@@ -31,7 +31,7 @@ func ProtoToContaineranalysisNoteVulnerabilitySeverityEnum(e containeranalysispb
 		return nil
 	}
 	if n, ok := containeranalysispb.ContaineranalysisNoteVulnerabilitySeverityEnum_name[int32(e)]; ok {
-		e := containeranalysis.NoteVulnerabilitySeverityEnum(n[len("NoteVulnerabilitySeverityEnum"):])
+		e := containeranalysis.NoteVulnerabilitySeverityEnum(n[len("ContaineranalysisNoteVulnerabilitySeverityEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToContaineranalysisNoteVulnerabilityDetailsAffectedVersionStartKindEnu
 		return nil
 	}
 	if n, ok := containeranalysispb.ContaineranalysisNoteVulnerabilityDetailsAffectedVersionStartKindEnum_name[int32(e)]; ok {
-		e := containeranalysis.NoteVulnerabilityDetailsAffectedVersionStartKindEnum(n[len("NoteVulnerabilityDetailsAffectedVersionStartKindEnum"):])
+		e := containeranalysis.NoteVulnerabilityDetailsAffectedVersionStartKindEnum(n[len("ContaineranalysisNoteVulnerabilityDetailsAffectedVersionStartKindEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToContaineranalysisNoteVulnerabilityDetailsAffectedVersionEndKindEnum(
 		return nil
 	}
 	if n, ok := containeranalysispb.ContaineranalysisNoteVulnerabilityDetailsAffectedVersionEndKindEnum_name[int32(e)]; ok {
-		e := containeranalysis.NoteVulnerabilityDetailsAffectedVersionEndKindEnum(n[len("NoteVulnerabilityDetailsAffectedVersionEndKindEnum"):])
+		e := containeranalysis.NoteVulnerabilityDetailsAffectedVersionEndKindEnum(n[len("ContaineranalysisNoteVulnerabilityDetailsAffectedVersionEndKindEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToContaineranalysisNoteVulnerabilityDetailsFixedVersionKindEnum(e cont
 		return nil
 	}
 	if n, ok := containeranalysispb.ContaineranalysisNoteVulnerabilityDetailsFixedVersionKindEnum_name[int32(e)]; ok {
-		e := containeranalysis.NoteVulnerabilityDetailsFixedVersionKindEnum(n[len("NoteVulnerabilityDetailsFixedVersionKindEnum"):])
+		e := containeranalysis.NoteVulnerabilityDetailsFixedVersionKindEnum(n[len("ContaineranalysisNoteVulnerabilityDetailsFixedVersionKindEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToContaineranalysisNoteVulnerabilityCvssV3AttackVectorEnum(e container
 		return nil
 	}
 	if n, ok := containeranalysispb.ContaineranalysisNoteVulnerabilityCvssV3AttackVectorEnum_name[int32(e)]; ok {
-		e := containeranalysis.NoteVulnerabilityCvssV3AttackVectorEnum(n[len("NoteVulnerabilityCvssV3AttackVectorEnum"):])
+		e := containeranalysis.NoteVulnerabilityCvssV3AttackVectorEnum(n[len("ContaineranalysisNoteVulnerabilityCvssV3AttackVectorEnum"):])
 		return &e
 	}
 	return nil
@@ -91,7 +91,7 @@ func ProtoToContaineranalysisNoteVulnerabilityCvssV3AttackComplexityEnum(e conta
 		return nil
 	}
 	if n, ok := containeranalysispb.ContaineranalysisNoteVulnerabilityCvssV3AttackComplexityEnum_name[int32(e)]; ok {
-		e := containeranalysis.NoteVulnerabilityCvssV3AttackComplexityEnum(n[len("NoteVulnerabilityCvssV3AttackComplexityEnum"):])
+		e := containeranalysis.NoteVulnerabilityCvssV3AttackComplexityEnum(n[len("ContaineranalysisNoteVulnerabilityCvssV3AttackComplexityEnum"):])
 		return &e
 	}
 	return nil
@@ -103,7 +103,7 @@ func ProtoToContaineranalysisNoteVulnerabilityCvssV3PrivilegesRequiredEnum(e con
 		return nil
 	}
 	if n, ok := containeranalysispb.ContaineranalysisNoteVulnerabilityCvssV3PrivilegesRequiredEnum_name[int32(e)]; ok {
-		e := containeranalysis.NoteVulnerabilityCvssV3PrivilegesRequiredEnum(n[len("NoteVulnerabilityCvssV3PrivilegesRequiredEnum"):])
+		e := containeranalysis.NoteVulnerabilityCvssV3PrivilegesRequiredEnum(n[len("ContaineranalysisNoteVulnerabilityCvssV3PrivilegesRequiredEnum"):])
 		return &e
 	}
 	return nil
@@ -115,7 +115,7 @@ func ProtoToContaineranalysisNoteVulnerabilityCvssV3UserInteractionEnum(e contai
 		return nil
 	}
 	if n, ok := containeranalysispb.ContaineranalysisNoteVulnerabilityCvssV3UserInteractionEnum_name[int32(e)]; ok {
-		e := containeranalysis.NoteVulnerabilityCvssV3UserInteractionEnum(n[len("NoteVulnerabilityCvssV3UserInteractionEnum"):])
+		e := containeranalysis.NoteVulnerabilityCvssV3UserInteractionEnum(n[len("ContaineranalysisNoteVulnerabilityCvssV3UserInteractionEnum"):])
 		return &e
 	}
 	return nil
@@ -127,7 +127,7 @@ func ProtoToContaineranalysisNoteVulnerabilityCvssV3ScopeEnum(e containeranalysi
 		return nil
 	}
 	if n, ok := containeranalysispb.ContaineranalysisNoteVulnerabilityCvssV3ScopeEnum_name[int32(e)]; ok {
-		e := containeranalysis.NoteVulnerabilityCvssV3ScopeEnum(n[len("NoteVulnerabilityCvssV3ScopeEnum"):])
+		e := containeranalysis.NoteVulnerabilityCvssV3ScopeEnum(n[len("ContaineranalysisNoteVulnerabilityCvssV3ScopeEnum"):])
 		return &e
 	}
 	return nil
@@ -139,7 +139,7 @@ func ProtoToContaineranalysisNoteVulnerabilityCvssV3ConfidentialityImpactEnum(e 
 		return nil
 	}
 	if n, ok := containeranalysispb.ContaineranalysisNoteVulnerabilityCvssV3ConfidentialityImpactEnum_name[int32(e)]; ok {
-		e := containeranalysis.NoteVulnerabilityCvssV3ConfidentialityImpactEnum(n[len("NoteVulnerabilityCvssV3ConfidentialityImpactEnum"):])
+		e := containeranalysis.NoteVulnerabilityCvssV3ConfidentialityImpactEnum(n[len("ContaineranalysisNoteVulnerabilityCvssV3ConfidentialityImpactEnum"):])
 		return &e
 	}
 	return nil
@@ -151,7 +151,7 @@ func ProtoToContaineranalysisNoteVulnerabilityCvssV3IntegrityImpactEnum(e contai
 		return nil
 	}
 	if n, ok := containeranalysispb.ContaineranalysisNoteVulnerabilityCvssV3IntegrityImpactEnum_name[int32(e)]; ok {
-		e := containeranalysis.NoteVulnerabilityCvssV3IntegrityImpactEnum(n[len("NoteVulnerabilityCvssV3IntegrityImpactEnum"):])
+		e := containeranalysis.NoteVulnerabilityCvssV3IntegrityImpactEnum(n[len("ContaineranalysisNoteVulnerabilityCvssV3IntegrityImpactEnum"):])
 		return &e
 	}
 	return nil
@@ -163,7 +163,7 @@ func ProtoToContaineranalysisNoteVulnerabilityCvssV3AvailabilityImpactEnum(e con
 		return nil
 	}
 	if n, ok := containeranalysispb.ContaineranalysisNoteVulnerabilityCvssV3AvailabilityImpactEnum_name[int32(e)]; ok {
-		e := containeranalysis.NoteVulnerabilityCvssV3AvailabilityImpactEnum(n[len("NoteVulnerabilityCvssV3AvailabilityImpactEnum"):])
+		e := containeranalysis.NoteVulnerabilityCvssV3AvailabilityImpactEnum(n[len("ContaineranalysisNoteVulnerabilityCvssV3AvailabilityImpactEnum"):])
 		return &e
 	}
 	return nil
@@ -175,7 +175,7 @@ func ProtoToContaineranalysisNotePackageDistributionArchitectureEnum(e container
 		return nil
 	}
 	if n, ok := containeranalysispb.ContaineranalysisNotePackageDistributionArchitectureEnum_name[int32(e)]; ok {
-		e := containeranalysis.NotePackageDistributionArchitectureEnum(n[len("NotePackageDistributionArchitectureEnum"):])
+		e := containeranalysis.NotePackageDistributionArchitectureEnum(n[len("ContaineranalysisNotePackageDistributionArchitectureEnum"):])
 		return &e
 	}
 	return nil
@@ -187,7 +187,7 @@ func ProtoToContaineranalysisNotePackageDistributionLatestVersionKindEnum(e cont
 		return nil
 	}
 	if n, ok := containeranalysispb.ContaineranalysisNotePackageDistributionLatestVersionKindEnum_name[int32(e)]; ok {
-		e := containeranalysis.NotePackageDistributionLatestVersionKindEnum(n[len("NotePackageDistributionLatestVersionKindEnum"):])
+		e := containeranalysis.NotePackageDistributionLatestVersionKindEnum(n[len("ContaineranalysisNotePackageDistributionLatestVersionKindEnum"):])
 		return &e
 	}
 	return nil
@@ -199,7 +199,7 @@ func ProtoToContaineranalysisNoteDiscoveryAnalysisKindEnum(e containeranalysispb
 		return nil
 	}
 	if n, ok := containeranalysispb.ContaineranalysisNoteDiscoveryAnalysisKindEnum_name[int32(e)]; ok {
-		e := containeranalysis.NoteDiscoveryAnalysisKindEnum(n[len("NoteDiscoveryAnalysisKindEnum"):])
+		e := containeranalysis.NoteDiscoveryAnalysisKindEnum(n[len("ContaineranalysisNoteDiscoveryAnalysisKindEnum"):])
 		return &e
 	}
 	return nil

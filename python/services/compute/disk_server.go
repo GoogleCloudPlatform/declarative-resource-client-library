@@ -31,7 +31,7 @@ func ProtoToComputeDiskGuestOsFeatureTypeEnum(e computepb.ComputeDiskGuestOsFeat
 		return nil
 	}
 	if n, ok := computepb.ComputeDiskGuestOsFeatureTypeEnum_name[int32(e)]; ok {
-		e := compute.DiskGuestOsFeatureTypeEnum(n[len("DiskGuestOsFeatureTypeEnum"):])
+		e := compute.DiskGuestOsFeatureTypeEnum(n[len("ComputeDiskGuestOsFeatureTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeDiskGuestOsFeatureTypeAltEnum(e computepb.ComputeDiskGuestOsF
 		return nil
 	}
 	if n, ok := computepb.ComputeDiskGuestOsFeatureTypeAltEnum_name[int32(e)]; ok {
-		e := compute.DiskGuestOsFeatureTypeAltEnum(n[len("DiskGuestOsFeatureTypeAltEnum"):])
+		e := compute.DiskGuestOsFeatureTypeAltEnum(n[len("ComputeDiskGuestOsFeatureTypeAltEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeDiskStatusEnum(e computepb.ComputeDiskStatusEnum) *compute.Di
 		return nil
 	}
 	if n, ok := computepb.ComputeDiskStatusEnum_name[int32(e)]; ok {
-		e := compute.DiskStatusEnum(n[len("DiskStatusEnum"):])
+		e := compute.DiskStatusEnum(n[len("ComputeDiskStatusEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeDiskGuestOsFeaturesTypeEnum(e computepb.ComputeDiskGuestOsFea
 		return nil
 	}
 	if n, ok := computepb.ComputeDiskGuestOsFeaturesTypeEnum_name[int32(e)]; ok {
-		e := compute.DiskGuestOsFeaturesTypeEnum(n[len("DiskGuestOsFeaturesTypeEnum"):])
+		e := compute.DiskGuestOsFeaturesTypeEnum(n[len("ComputeDiskGuestOsFeaturesTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToComputeDiskGuestOsFeaturesTypeAltsEnum(e computepb.ComputeDiskGuestO
 		return nil
 	}
 	if n, ok := computepb.ComputeDiskGuestOsFeaturesTypeAltsEnum_name[int32(e)]; ok {
-		e := compute.DiskGuestOsFeaturesTypeAltsEnum(n[len("DiskGuestOsFeaturesTypeAltsEnum"):])
+		e := compute.DiskGuestOsFeaturesTypeAltsEnum(n[len("ComputeDiskGuestOsFeaturesTypeAltsEnum"):])
 		return &e
 	}
 	return nil

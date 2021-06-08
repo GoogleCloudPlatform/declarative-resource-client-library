@@ -31,7 +31,7 @@ func ProtoToComputeBetaImageGuestOsFeatureTypeEnum(e betapb.ComputeBetaImageGues
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaImageGuestOsFeatureTypeEnum_name[int32(e)]; ok {
-		e := beta.ImageGuestOsFeatureTypeEnum(n[len("ImageGuestOsFeatureTypeEnum"):])
+		e := beta.ImageGuestOsFeatureTypeEnum(n[len("ComputeBetaImageGuestOsFeatureTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeBetaImageRawDiskContainerTypeEnum(e betapb.ComputeBetaImageRa
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaImageRawDiskContainerTypeEnum_name[int32(e)]; ok {
-		e := beta.ImageRawDiskContainerTypeEnum(n[len("ImageRawDiskContainerTypeEnum"):])
+		e := beta.ImageRawDiskContainerTypeEnum(n[len("ComputeBetaImageRawDiskContainerTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeBetaImageShieldedInstanceInitialStatePkFileTypeEnum(e betapb.
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaImageShieldedInstanceInitialStatePkFileTypeEnum_name[int32(e)]; ok {
-		e := beta.ImageShieldedInstanceInitialStatePkFileTypeEnum(n[len("ImageShieldedInstanceInitialStatePkFileTypeEnum"):])
+		e := beta.ImageShieldedInstanceInitialStatePkFileTypeEnum(n[len("ComputeBetaImageShieldedInstanceInitialStatePkFileTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeBetaImageShieldedInstanceInitialStateKekFileTypeEnum(e betapb
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaImageShieldedInstanceInitialStateKekFileTypeEnum_name[int32(e)]; ok {
-		e := beta.ImageShieldedInstanceInitialStateKekFileTypeEnum(n[len("ImageShieldedInstanceInitialStateKekFileTypeEnum"):])
+		e := beta.ImageShieldedInstanceInitialStateKekFileTypeEnum(n[len("ComputeBetaImageShieldedInstanceInitialStateKekFileTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToComputeBetaImageShieldedInstanceInitialStateDbFileTypeEnum(e betapb.
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaImageShieldedInstanceInitialStateDbFileTypeEnum_name[int32(e)]; ok {
-		e := beta.ImageShieldedInstanceInitialStateDbFileTypeEnum(n[len("ImageShieldedInstanceInitialStateDbFileTypeEnum"):])
+		e := beta.ImageShieldedInstanceInitialStateDbFileTypeEnum(n[len("ComputeBetaImageShieldedInstanceInitialStateDbFileTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -91,7 +91,7 @@ func ProtoToComputeBetaImageShieldedInstanceInitialStateDbxFileTypeEnum(e betapb
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaImageShieldedInstanceInitialStateDbxFileTypeEnum_name[int32(e)]; ok {
-		e := beta.ImageShieldedInstanceInitialStateDbxFileTypeEnum(n[len("ImageShieldedInstanceInitialStateDbxFileTypeEnum"):])
+		e := beta.ImageShieldedInstanceInitialStateDbxFileTypeEnum(n[len("ComputeBetaImageShieldedInstanceInitialStateDbxFileTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -103,7 +103,7 @@ func ProtoToComputeBetaImageSourceTypeEnum(e betapb.ComputeBetaImageSourceTypeEn
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaImageSourceTypeEnum_name[int32(e)]; ok {
-		e := beta.ImageSourceTypeEnum(n[len("ImageSourceTypeEnum"):])
+		e := beta.ImageSourceTypeEnum(n[len("ComputeBetaImageSourceTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -115,7 +115,7 @@ func ProtoToComputeBetaImageStatusEnum(e betapb.ComputeBetaImageStatusEnum) *bet
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaImageStatusEnum_name[int32(e)]; ok {
-		e := beta.ImageStatusEnum(n[len("ImageStatusEnum"):])
+		e := beta.ImageStatusEnum(n[len("ComputeBetaImageStatusEnum"):])
 		return &e
 	}
 	return nil
@@ -127,7 +127,7 @@ func ProtoToComputeBetaImageDeprecatedStateEnum(e betapb.ComputeBetaImageDepreca
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaImageDeprecatedStateEnum_name[int32(e)]; ok {
-		e := beta.ImageDeprecatedStateEnum(n[len("ImageDeprecatedStateEnum"):])
+		e := beta.ImageDeprecatedStateEnum(n[len("ComputeBetaImageDeprecatedStateEnum"):])
 		return &e
 	}
 	return nil

@@ -205,8 +205,12 @@ class WorkflowTemplatePlacement(object):
             return None
 
         return WorkflowTemplatePlacement(
-            managed_cluster=resource.managed_cluster,
-            cluster_selector=resource.cluster_selector,
+            managed_cluster=WorkflowTemplatePlacementManagedCluster.from_proto(
+                resource.managed_cluster
+            ),
+            cluster_selector=WorkflowTemplatePlacementClusterSelector.from_proto(
+                resource.cluster_selector
+            ),
         )
 
 
@@ -252,9 +256,9 @@ class WorkflowTemplatePlacementManagedCluster(object):
             return None
 
         return WorkflowTemplatePlacementManagedCluster(
-            cluster_name=resource.cluster_name,
-            config=resource.config,
-            labels=resource.labels,
+            cluster_name=Primitive.from_proto(resource.cluster_name),
+            config=ClusterClusterConfig.from_proto(resource.config),
+            labels=Primitive.from_proto(resource.labels),
         )
 
 
@@ -295,7 +299,8 @@ class WorkflowTemplatePlacementClusterSelector(object):
             return None
 
         return WorkflowTemplatePlacementClusterSelector(
-            zone=resource.zone, cluster_labels=resource.cluster_labels,
+            zone=Primitive.from_proto(resource.zone),
+            cluster_labels=Primitive.from_proto(resource.cluster_labels),
         )
 
 
@@ -416,18 +421,20 @@ class WorkflowTemplateJobs(object):
             return None
 
         return WorkflowTemplateJobs(
-            step_id=resource.step_id,
-            hadoop_job=resource.hadoop_job,
-            spark_job=resource.spark_job,
-            pyspark_job=resource.pyspark_job,
-            hive_job=resource.hive_job,
-            pig_job=resource.pig_job,
-            spark_r_job=resource.spark_r_job,
-            spark_sql_job=resource.spark_sql_job,
-            presto_job=resource.presto_job,
-            labels=resource.labels,
-            scheduling=resource.scheduling,
-            prerequisite_step_ids=resource.prerequisite_step_ids,
+            step_id=Primitive.from_proto(resource.step_id),
+            hadoop_job=WorkflowTemplateJobsHadoopJob.from_proto(resource.hadoop_job),
+            spark_job=WorkflowTemplateJobsSparkJob.from_proto(resource.spark_job),
+            pyspark_job=WorkflowTemplateJobsPysparkJob.from_proto(resource.pyspark_job),
+            hive_job=WorkflowTemplateJobsHiveJob.from_proto(resource.hive_job),
+            pig_job=WorkflowTemplateJobsPigJob.from_proto(resource.pig_job),
+            spark_r_job=WorkflowTemplateJobsSparkRJob.from_proto(resource.spark_r_job),
+            spark_sql_job=WorkflowTemplateJobsSparkSqlJob.from_proto(
+                resource.spark_sql_job
+            ),
+            presto_job=WorkflowTemplateJobsPrestoJob.from_proto(resource.presto_job),
+            labels=Primitive.from_proto(resource.labels),
+            scheduling=WorkflowTemplateJobsScheduling.from_proto(resource.scheduling),
+            prerequisite_step_ids=Primitive.from_proto(resource.prerequisite_step_ids),
         )
 
 
@@ -500,14 +507,16 @@ class WorkflowTemplateJobsHadoopJob(object):
             return None
 
         return WorkflowTemplateJobsHadoopJob(
-            main_jar_file_uri=resource.main_jar_file_uri,
-            main_class=resource.main_class,
-            args=resource.args,
-            jar_file_uris=resource.jar_file_uris,
-            file_uris=resource.file_uris,
-            archive_uris=resource.archive_uris,
-            properties=resource.properties,
-            logging_config=resource.logging_config,
+            main_jar_file_uri=Primitive.from_proto(resource.main_jar_file_uri),
+            main_class=Primitive.from_proto(resource.main_class),
+            args=Primitive.from_proto(resource.args),
+            jar_file_uris=Primitive.from_proto(resource.jar_file_uris),
+            file_uris=Primitive.from_proto(resource.file_uris),
+            archive_uris=Primitive.from_proto(resource.archive_uris),
+            properties=Primitive.from_proto(resource.properties),
+            logging_config=WorkflowTemplateJobsHadoopJobLoggingConfig.from_proto(
+                resource.logging_config
+            ),
         )
 
 
@@ -543,7 +552,7 @@ class WorkflowTemplateJobsHadoopJobLoggingConfig(object):
             return None
 
         return WorkflowTemplateJobsHadoopJobLoggingConfig(
-            driver_log_levels=resource.driver_log_levels,
+            driver_log_levels=Primitive.from_proto(resource.driver_log_levels),
         )
 
 
@@ -620,14 +629,16 @@ class WorkflowTemplateJobsSparkJob(object):
             return None
 
         return WorkflowTemplateJobsSparkJob(
-            main_jar_file_uri=resource.main_jar_file_uri,
-            main_class=resource.main_class,
-            args=resource.args,
-            jar_file_uris=resource.jar_file_uris,
-            file_uris=resource.file_uris,
-            archive_uris=resource.archive_uris,
-            properties=resource.properties,
-            logging_config=resource.logging_config,
+            main_jar_file_uri=Primitive.from_proto(resource.main_jar_file_uri),
+            main_class=Primitive.from_proto(resource.main_class),
+            args=Primitive.from_proto(resource.args),
+            jar_file_uris=Primitive.from_proto(resource.jar_file_uris),
+            file_uris=Primitive.from_proto(resource.file_uris),
+            archive_uris=Primitive.from_proto(resource.archive_uris),
+            properties=Primitive.from_proto(resource.properties),
+            logging_config=WorkflowTemplateJobsSparkJobLoggingConfig.from_proto(
+                resource.logging_config
+            ),
         )
 
 
@@ -663,7 +674,7 @@ class WorkflowTemplateJobsSparkJobLoggingConfig(object):
             return None
 
         return WorkflowTemplateJobsSparkJobLoggingConfig(
-            driver_log_levels=resource.driver_log_levels,
+            driver_log_levels=Primitive.from_proto(resource.driver_log_levels),
         )
 
 
@@ -742,14 +753,16 @@ class WorkflowTemplateJobsPysparkJob(object):
             return None
 
         return WorkflowTemplateJobsPysparkJob(
-            main_python_file_uri=resource.main_python_file_uri,
-            args=resource.args,
-            python_file_uris=resource.python_file_uris,
-            jar_file_uris=resource.jar_file_uris,
-            file_uris=resource.file_uris,
-            archive_uris=resource.archive_uris,
-            properties=resource.properties,
-            logging_config=resource.logging_config,
+            main_python_file_uri=Primitive.from_proto(resource.main_python_file_uri),
+            args=Primitive.from_proto(resource.args),
+            python_file_uris=Primitive.from_proto(resource.python_file_uris),
+            jar_file_uris=Primitive.from_proto(resource.jar_file_uris),
+            file_uris=Primitive.from_proto(resource.file_uris),
+            archive_uris=Primitive.from_proto(resource.archive_uris),
+            properties=Primitive.from_proto(resource.properties),
+            logging_config=WorkflowTemplateJobsPysparkJobLoggingConfig.from_proto(
+                resource.logging_config
+            ),
         )
 
 
@@ -787,7 +800,7 @@ class WorkflowTemplateJobsPysparkJobLoggingConfig(object):
             return None
 
         return WorkflowTemplateJobsPysparkJobLoggingConfig(
-            driver_log_levels=resource.driver_log_levels,
+            driver_log_levels=Primitive.from_proto(resource.driver_log_levels),
         )
 
 
@@ -854,12 +867,14 @@ class WorkflowTemplateJobsHiveJob(object):
             return None
 
         return WorkflowTemplateJobsHiveJob(
-            query_file_uri=resource.query_file_uri,
-            query_list=resource.query_list,
-            continue_on_failure=resource.continue_on_failure,
-            script_variables=resource.script_variables,
-            properties=resource.properties,
-            jar_file_uris=resource.jar_file_uris,
+            query_file_uri=Primitive.from_proto(resource.query_file_uri),
+            query_list=WorkflowTemplateJobsHiveJobQueryList.from_proto(
+                resource.query_list
+            ),
+            continue_on_failure=Primitive.from_proto(resource.continue_on_failure),
+            script_variables=Primitive.from_proto(resource.script_variables),
+            properties=Primitive.from_proto(resource.properties),
+            jar_file_uris=Primitive.from_proto(resource.jar_file_uris),
         )
 
 
@@ -894,7 +909,9 @@ class WorkflowTemplateJobsHiveJobQueryList(object):
         if not resource:
             return None
 
-        return WorkflowTemplateJobsHiveJobQueryList(queries=resource.queries,)
+        return WorkflowTemplateJobsHiveJobQueryList(
+            queries=Primitive.from_proto(resource.queries),
+        )
 
 
 class WorkflowTemplateJobsHiveJobQueryListArray(object):
@@ -966,13 +983,17 @@ class WorkflowTemplateJobsPigJob(object):
             return None
 
         return WorkflowTemplateJobsPigJob(
-            query_file_uri=resource.query_file_uri,
-            query_list=resource.query_list,
-            continue_on_failure=resource.continue_on_failure,
-            script_variables=resource.script_variables,
-            properties=resource.properties,
-            jar_file_uris=resource.jar_file_uris,
-            logging_config=resource.logging_config,
+            query_file_uri=Primitive.from_proto(resource.query_file_uri),
+            query_list=WorkflowTemplateJobsPigJobQueryList.from_proto(
+                resource.query_list
+            ),
+            continue_on_failure=Primitive.from_proto(resource.continue_on_failure),
+            script_variables=Primitive.from_proto(resource.script_variables),
+            properties=Primitive.from_proto(resource.properties),
+            jar_file_uris=Primitive.from_proto(resource.jar_file_uris),
+            logging_config=WorkflowTemplateJobsPigJobLoggingConfig.from_proto(
+                resource.logging_config
+            ),
         )
 
 
@@ -1007,7 +1028,9 @@ class WorkflowTemplateJobsPigJobQueryList(object):
         if not resource:
             return None
 
-        return WorkflowTemplateJobsPigJobQueryList(queries=resource.queries,)
+        return WorkflowTemplateJobsPigJobQueryList(
+            queries=Primitive.from_proto(resource.queries),
+        )
 
 
 class WorkflowTemplateJobsPigJobQueryListArray(object):
@@ -1042,7 +1065,7 @@ class WorkflowTemplateJobsPigJobLoggingConfig(object):
             return None
 
         return WorkflowTemplateJobsPigJobLoggingConfig(
-            driver_log_levels=resource.driver_log_levels,
+            driver_log_levels=Primitive.from_proto(resource.driver_log_levels),
         )
 
 
@@ -1109,12 +1132,14 @@ class WorkflowTemplateJobsSparkRJob(object):
             return None
 
         return WorkflowTemplateJobsSparkRJob(
-            main_r_file_uri=resource.main_r_file_uri,
-            args=resource.args,
-            file_uris=resource.file_uris,
-            archive_uris=resource.archive_uris,
-            properties=resource.properties,
-            logging_config=resource.logging_config,
+            main_r_file_uri=Primitive.from_proto(resource.main_r_file_uri),
+            args=Primitive.from_proto(resource.args),
+            file_uris=Primitive.from_proto(resource.file_uris),
+            archive_uris=Primitive.from_proto(resource.archive_uris),
+            properties=Primitive.from_proto(resource.properties),
+            logging_config=WorkflowTemplateJobsSparkRJobLoggingConfig.from_proto(
+                resource.logging_config
+            ),
         )
 
 
@@ -1150,7 +1175,7 @@ class WorkflowTemplateJobsSparkRJobLoggingConfig(object):
             return None
 
         return WorkflowTemplateJobsSparkRJobLoggingConfig(
-            driver_log_levels=resource.driver_log_levels,
+            driver_log_levels=Primitive.from_proto(resource.driver_log_levels),
         )
 
 
@@ -1225,12 +1250,16 @@ class WorkflowTemplateJobsSparkSqlJob(object):
             return None
 
         return WorkflowTemplateJobsSparkSqlJob(
-            query_file_uri=resource.query_file_uri,
-            query_list=resource.query_list,
-            script_variables=resource.script_variables,
-            properties=resource.properties,
-            jar_file_uris=resource.jar_file_uris,
-            logging_config=resource.logging_config,
+            query_file_uri=Primitive.from_proto(resource.query_file_uri),
+            query_list=WorkflowTemplateJobsSparkSqlJobQueryList.from_proto(
+                resource.query_list
+            ),
+            script_variables=Primitive.from_proto(resource.script_variables),
+            properties=Primitive.from_proto(resource.properties),
+            jar_file_uris=Primitive.from_proto(resource.jar_file_uris),
+            logging_config=WorkflowTemplateJobsSparkSqlJobLoggingConfig.from_proto(
+                resource.logging_config
+            ),
         )
 
 
@@ -1265,7 +1294,9 @@ class WorkflowTemplateJobsSparkSqlJobQueryList(object):
         if not resource:
             return None
 
-        return WorkflowTemplateJobsSparkSqlJobQueryList(queries=resource.queries,)
+        return WorkflowTemplateJobsSparkSqlJobQueryList(
+            queries=Primitive.from_proto(resource.queries),
+        )
 
 
 class WorkflowTemplateJobsSparkSqlJobQueryListArray(object):
@@ -1304,7 +1335,7 @@ class WorkflowTemplateJobsSparkSqlJobLoggingConfig(object):
             return None
 
         return WorkflowTemplateJobsSparkSqlJobLoggingConfig(
-            driver_log_levels=resource.driver_log_levels,
+            driver_log_levels=Primitive.from_proto(resource.driver_log_levels),
         )
 
 
@@ -1382,13 +1413,17 @@ class WorkflowTemplateJobsPrestoJob(object):
             return None
 
         return WorkflowTemplateJobsPrestoJob(
-            query_file_uri=resource.query_file_uri,
-            query_list=resource.query_list,
-            continue_on_failure=resource.continue_on_failure,
-            output_format=resource.output_format,
-            client_tags=resource.client_tags,
-            properties=resource.properties,
-            logging_config=resource.logging_config,
+            query_file_uri=Primitive.from_proto(resource.query_file_uri),
+            query_list=WorkflowTemplateJobsPrestoJobQueryList.from_proto(
+                resource.query_list
+            ),
+            continue_on_failure=Primitive.from_proto(resource.continue_on_failure),
+            output_format=Primitive.from_proto(resource.output_format),
+            client_tags=Primitive.from_proto(resource.client_tags),
+            properties=Primitive.from_proto(resource.properties),
+            logging_config=WorkflowTemplateJobsPrestoJobLoggingConfig.from_proto(
+                resource.logging_config
+            ),
         )
 
 
@@ -1423,7 +1458,9 @@ class WorkflowTemplateJobsPrestoJobQueryList(object):
         if not resource:
             return None
 
-        return WorkflowTemplateJobsPrestoJobQueryList(queries=resource.queries,)
+        return WorkflowTemplateJobsPrestoJobQueryList(
+            queries=Primitive.from_proto(resource.queries),
+        )
 
 
 class WorkflowTemplateJobsPrestoJobQueryListArray(object):
@@ -1458,7 +1495,7 @@ class WorkflowTemplateJobsPrestoJobLoggingConfig(object):
             return None
 
         return WorkflowTemplateJobsPrestoJobLoggingConfig(
-            driver_log_levels=resource.driver_log_levels,
+            driver_log_levels=Primitive.from_proto(resource.driver_log_levels),
         )
 
 
@@ -1505,8 +1542,8 @@ class WorkflowTemplateJobsScheduling(object):
             return None
 
         return WorkflowTemplateJobsScheduling(
-            max_failures_per_hour=resource.max_failures_per_hour,
-            max_failures_total=resource.max_failures_total,
+            max_failures_per_hour=Primitive.from_proto(resource.max_failures_per_hour),
+            max_failures_total=Primitive.from_proto(resource.max_failures_total),
         )
 
 
@@ -1561,10 +1598,12 @@ class WorkflowTemplateParameters(object):
             return None
 
         return WorkflowTemplateParameters(
-            name=resource.name,
-            fields=resource.fields,
-            description=resource.description,
-            validation=resource.validation,
+            name=Primitive.from_proto(resource.name),
+            fields=Primitive.from_proto(resource.fields),
+            description=Primitive.from_proto(resource.description),
+            validation=WorkflowTemplateParametersValidation.from_proto(
+                resource.validation
+            ),
         )
 
 
@@ -1611,7 +1650,10 @@ class WorkflowTemplateParametersValidation(object):
             return None
 
         return WorkflowTemplateParametersValidation(
-            regex=resource.regex, values=resource.values,
+            regex=WorkflowTemplateParametersValidationRegex.from_proto(resource.regex),
+            values=WorkflowTemplateParametersValidationValues.from_proto(
+                resource.values
+            ),
         )
 
 
@@ -1646,7 +1688,9 @@ class WorkflowTemplateParametersValidationRegex(object):
         if not resource:
             return None
 
-        return WorkflowTemplateParametersValidationRegex(regexes=resource.regexes,)
+        return WorkflowTemplateParametersValidationRegex(
+            regexes=Primitive.from_proto(resource.regexes),
+        )
 
 
 class WorkflowTemplateParametersValidationRegexArray(object):
@@ -1684,7 +1728,9 @@ class WorkflowTemplateParametersValidationValues(object):
         if not resource:
             return None
 
-        return WorkflowTemplateParametersValidationValues(values=resource.values,)
+        return WorkflowTemplateParametersValidationValues(
+            values=Primitive.from_proto(resource.values),
+        )
 
 
 class WorkflowTemplateParametersValidationValuesArray(object):

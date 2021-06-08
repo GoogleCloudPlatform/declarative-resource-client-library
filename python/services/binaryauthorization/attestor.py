@@ -159,9 +159,13 @@ class AttestorUserOwnedGrafeasNote(object):
             return None
 
         return AttestorUserOwnedGrafeasNote(
-            note_reference=resource.note_reference,
-            public_keys=resource.public_keys,
-            delegation_service_account_email=resource.delegation_service_account_email,
+            note_reference=Primitive.from_proto(resource.note_reference),
+            public_keys=AttestorUserOwnedGrafeasNotePublicKeysArray.from_proto(
+                resource.public_keys
+            ),
+            delegation_service_account_email=Primitive.from_proto(
+                resource.delegation_service_account_email
+            ),
         )
 
 
@@ -222,10 +226,14 @@ class AttestorUserOwnedGrafeasNotePublicKeys(object):
             return None
 
         return AttestorUserOwnedGrafeasNotePublicKeys(
-            comment=resource.comment,
-            id=resource.id,
-            ascii_armored_pgp_public_key=resource.ascii_armored_pgp_public_key,
-            pkix_public_key=resource.pkix_public_key,
+            comment=Primitive.from_proto(resource.comment),
+            id=Primitive.from_proto(resource.id),
+            ascii_armored_pgp_public_key=Primitive.from_proto(
+                resource.ascii_armored_pgp_public_key
+            ),
+            pkix_public_key=AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey.from_proto(
+                resource.pkix_public_key
+            ),
         )
 
 
@@ -270,8 +278,10 @@ class AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(object):
             return None
 
         return AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(
-            public_key_pem=resource.public_key_pem,
-            signature_algorithm=resource.signature_algorithm,
+            public_key_pem=Primitive.from_proto(resource.public_key_pem),
+            signature_algorithm=AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum.from_proto(
+                resource.signature_algorithm
+            ),
         )
 
 

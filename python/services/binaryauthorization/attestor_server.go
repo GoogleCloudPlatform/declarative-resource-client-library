@@ -31,7 +31,7 @@ func ProtoToBinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicK
 		return nil
 	}
 	if n, ok := binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum_name[int32(e)]; ok {
-		e := binaryauthorization.AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(n[len("AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum"):])
+		e := binaryauthorization.AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(n[len("BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum"):])
 		return &e
 	}
 	return nil

@@ -283,14 +283,22 @@ class AutoscalerAutoscalingPolicy(object):
             return None
 
         return AutoscalerAutoscalingPolicy(
-            min_num_replicas=resource.min_num_replicas,
-            max_num_replicas=resource.max_num_replicas,
-            scale_in_control=resource.scale_in_control,
-            cool_down_period_sec=resource.cool_down_period_sec,
-            cpu_utilization=resource.cpu_utilization,
-            custom_metric_utilizations=resource.custom_metric_utilizations,
-            load_balancing_utilization=resource.load_balancing_utilization,
-            mode=resource.mode,
+            min_num_replicas=Primitive.from_proto(resource.min_num_replicas),
+            max_num_replicas=Primitive.from_proto(resource.max_num_replicas),
+            scale_in_control=AutoscalerAutoscalingPolicyScaleInControl.from_proto(
+                resource.scale_in_control
+            ),
+            cool_down_period_sec=Primitive.from_proto(resource.cool_down_period_sec),
+            cpu_utilization=AutoscalerAutoscalingPolicyCpuUtilization.from_proto(
+                resource.cpu_utilization
+            ),
+            custom_metric_utilizations=AutoscalerAutoscalingPolicyCustomMetricUtilizationsArray.from_proto(
+                resource.custom_metric_utilizations
+            ),
+            load_balancing_utilization=AutoscalerAutoscalingPolicyLoadBalancingUtilization.from_proto(
+                resource.load_balancing_utilization
+            ),
+            mode=AutoscalerAutoscalingPolicyModeEnum.from_proto(resource.mode),
         )
 
 
@@ -339,8 +347,10 @@ class AutoscalerAutoscalingPolicyScaleInControl(object):
             return None
 
         return AutoscalerAutoscalingPolicyScaleInControl(
-            max_scaled_in_replicas=resource.max_scaled_in_replicas,
-            time_window_sec=resource.time_window_sec,
+            max_scaled_in_replicas=AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas.from_proto(
+                resource.max_scaled_in_replicas
+            ),
+            time_window_sec=Primitive.from_proto(resource.time_window_sec),
         )
 
 
@@ -388,9 +398,9 @@ class AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(object):
             return None
 
         return AutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas(
-            fixed=resource.fixed,
-            percent=resource.percent,
-            calculated=resource.calculated,
+            fixed=Primitive.from_proto(resource.fixed),
+            percent=Primitive.from_proto(resource.percent),
+            calculated=Primitive.from_proto(resource.calculated),
         )
 
 
@@ -432,7 +442,7 @@ class AutoscalerAutoscalingPolicyCpuUtilization(object):
             return None
 
         return AutoscalerAutoscalingPolicyCpuUtilization(
-            utilization_target=resource.utilization_target,
+            utilization_target=Primitive.from_proto(resource.utilization_target),
         )
 
 
@@ -489,9 +499,11 @@ class AutoscalerAutoscalingPolicyCustomMetricUtilizations(object):
             return None
 
         return AutoscalerAutoscalingPolicyCustomMetricUtilizations(
-            metric=resource.metric,
-            utilization_target=resource.utilization_target,
-            utilization_target_type=resource.utilization_target_type,
+            metric=Primitive.from_proto(resource.metric),
+            utilization_target=Primitive.from_proto(resource.utilization_target),
+            utilization_target_type=AutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum.from_proto(
+                resource.utilization_target_type
+            ),
         )
 
 
@@ -535,7 +547,7 @@ class AutoscalerAutoscalingPolicyLoadBalancingUtilization(object):
             return None
 
         return AutoscalerAutoscalingPolicyLoadBalancingUtilization(
-            utilization_target=resource.utilization_target,
+            utilization_target=Primitive.from_proto(resource.utilization_target),
         )
 
 
@@ -579,7 +591,10 @@ class AutoscalerStatusDetails(object):
         if not resource:
             return None
 
-        return AutoscalerStatusDetails(message=resource.message, type=resource.type,)
+        return AutoscalerStatusDetails(
+            message=Primitive.from_proto(resource.message),
+            type=AutoscalerStatusDetailsTypeEnum.from_proto(resource.type),
+        )
 
 
 class AutoscalerStatusDetailsArray(object):

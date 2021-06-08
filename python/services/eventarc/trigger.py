@@ -197,7 +197,8 @@ class TriggerMatchingCriteria(object):
             return None
 
         return TriggerMatchingCriteria(
-            attribute=resource.attribute, value=resource.value,
+            attribute=Primitive.from_proto(resource.attribute),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -240,8 +241,10 @@ class TriggerDestination(object):
             return None
 
         return TriggerDestination(
-            cloud_run_service=resource.cloud_run_service,
-            cloud_function=resource.cloud_function,
+            cloud_run_service=TriggerDestinationCloudRunService.from_proto(
+                resource.cloud_run_service
+            ),
+            cloud_function=Primitive.from_proto(resource.cloud_function),
         )
 
 
@@ -283,7 +286,9 @@ class TriggerDestinationCloudRunService(object):
             return None
 
         return TriggerDestinationCloudRunService(
-            service=resource.service, path=resource.path, region=resource.region,
+            service=Primitive.from_proto(resource.service),
+            path=Primitive.from_proto(resource.path),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -320,7 +325,9 @@ class TriggerTransport(object):
         if not resource:
             return None
 
-        return TriggerTransport(pubsub=resource.pubsub,)
+        return TriggerTransport(
+            pubsub=TriggerTransportPubsub.from_proto(resource.pubsub),
+        )
 
 
 class TriggerTransportArray(object):
@@ -358,7 +365,8 @@ class TriggerTransportPubsub(object):
             return None
 
         return TriggerTransportPubsub(
-            topic=resource.topic, subscription=resource.subscription,
+            topic=Primitive.from_proto(resource.topic),
+            subscription=Primitive.from_proto(resource.subscription),
         )
 
 

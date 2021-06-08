@@ -31,7 +31,7 @@ func ProtoToComputeBetaReservationSpecificReservationInstancePropertiesLocalSsds
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum_name[int32(e)]; ok {
-		e := beta.ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum(n[len("ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum"):])
+		e := beta.ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum(n[len("ComputeBetaReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeBetaReservationStatusEnum(e betapb.ComputeBetaReservationStat
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaReservationStatusEnum_name[int32(e)]; ok {
-		e := beta.ReservationStatusEnum(n[len("ReservationStatusEnum"):])
+		e := beta.ReservationStatusEnum(n[len("ComputeBetaReservationStatusEnum"):])
 		return &e
 	}
 	return nil

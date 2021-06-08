@@ -31,7 +31,7 @@ func ProtoToCloudbuildBuildTriggerGithubPullRequestCommentControlEnum(e cloudbui
 		return nil
 	}
 	if n, ok := cloudbuildpb.CloudbuildBuildTriggerGithubPullRequestCommentControlEnum_name[int32(e)]; ok {
-		e := cloudbuild.BuildTriggerGithubPullRequestCommentControlEnum(n[len("BuildTriggerGithubPullRequestCommentControlEnum"):])
+		e := cloudbuild.BuildTriggerGithubPullRequestCommentControlEnum(n[len("CloudbuildBuildTriggerGithubPullRequestCommentControlEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToCloudbuildBuildTriggerBuildStepsStatusEnum(e cloudbuildpb.Cloudbuild
 		return nil
 	}
 	if n, ok := cloudbuildpb.CloudbuildBuildTriggerBuildStepsStatusEnum_name[int32(e)]; ok {
-		e := cloudbuild.BuildTriggerBuildStepsStatusEnum(n[len("BuildTriggerBuildStepsStatusEnum"):])
+		e := cloudbuild.BuildTriggerBuildStepsStatusEnum(n[len("CloudbuildBuildTriggerBuildStepsStatusEnum"):])
 		return &e
 	}
 	return nil

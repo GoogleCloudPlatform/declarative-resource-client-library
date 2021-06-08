@@ -158,7 +158,8 @@ class SslCertificateSelfManaged(object):
             return None
 
         return SslCertificateSelfManaged(
-            certificate=resource.certificate, private_key=resource.private_key,
+            certificate=Primitive.from_proto(resource.certificate),
+            private_key=Primitive.from_proto(resource.private_key),
         )
 
 

@@ -146,7 +146,9 @@ class EnvironmentProperties(object):
         if not resource:
             return None
 
-        return EnvironmentProperties(property=resource.property,)
+        return EnvironmentProperties(
+            property=EnvironmentPropertiesPropertyArray.from_proto(resource.property),
+        )
 
 
 class EnvironmentPropertiesArray(object):
@@ -183,7 +185,10 @@ class EnvironmentPropertiesProperty(object):
         if not resource:
             return None
 
-        return EnvironmentPropertiesProperty(name=resource.name, value=resource.value,)
+        return EnvironmentPropertiesProperty(
+            name=Primitive.from_proto(resource.name),
+            value=Primitive.from_proto(resource.value),
+        )
 
 
 class EnvironmentPropertiesPropertyArray(object):

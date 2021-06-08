@@ -1462,7 +1462,7 @@ func compareBucketLifecycleRuleConditionNewStyle(d, a interface{}, fn dcl.FieldN
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WithState, actual.WithState, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("WithState")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WithState, actual.WithState, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("IsLive")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -141,7 +141,11 @@ class ServiceAccountActasResources(object):
         if not resource:
             return None
 
-        return ServiceAccountActasResources(resources=resource.resources,)
+        return ServiceAccountActasResources(
+            resources=ServiceAccountActasResourcesResourcesArray.from_proto(
+                resource.resources
+            ),
+        )
 
 
 class ServiceAccountActasResourcesArray(object):
@@ -176,7 +180,7 @@ class ServiceAccountActasResourcesResources(object):
             return None
 
         return ServiceAccountActasResourcesResources(
-            full_resource_name=resource.full_resource_name,
+            full_resource_name=Primitive.from_proto(resource.full_resource_name),
         )
 
 

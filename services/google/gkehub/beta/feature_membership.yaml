@@ -71,6 +71,9 @@ components:
       x-dcl-id: projects/{{project}}/locations/{{location}}/features/{{feature}}
       x-dcl-parent-container: project
       type: object
+      required:
+      - membership
+      - feature
       properties:
         configmanagement:
           type: object

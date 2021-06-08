@@ -31,7 +31,7 @@ func ProtoToAccesscontextmanagerServicePerimeterPerimeterTypeEnum(e accesscontex
 		return nil
 	}
 	if n, ok := accesscontextmanagerpb.AccesscontextmanagerServicePerimeterPerimeterTypeEnum_name[int32(e)]; ok {
-		e := accesscontextmanager.ServicePerimeterPerimeterTypeEnum(n[len("ServicePerimeterPerimeterTypeEnum"):])
+		e := accesscontextmanager.ServicePerimeterPerimeterTypeEnum(n[len("AccesscontextmanagerServicePerimeterPerimeterTypeEnum"):])
 		return &e
 	}
 	return nil

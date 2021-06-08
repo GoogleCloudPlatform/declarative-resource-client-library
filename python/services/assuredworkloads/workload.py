@@ -203,7 +203,10 @@ class WorkloadResources(object):
             return None
 
         return WorkloadResources(
-            resource_id=resource.resource_id, resource_type=resource.resource_type,
+            resource_id=Primitive.from_proto(resource.resource_id),
+            resource_type=WorkloadResourcesResourceTypeEnum.from_proto(
+                resource.resource_type
+            ),
         )
 
 
@@ -242,8 +245,8 @@ class WorkloadKmsSettings(object):
             return None
 
         return WorkloadKmsSettings(
-            next_rotation_time=resource.next_rotation_time,
-            rotation_period=resource.rotation_period,
+            next_rotation_time=Primitive.from_proto(resource.next_rotation_time),
+            rotation_period=Primitive.from_proto(resource.rotation_period),
         )
 
 

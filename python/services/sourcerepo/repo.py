@@ -128,9 +128,9 @@ class RepoPubsubConfigs(object):
             return None
 
         return RepoPubsubConfigs(
-            topic=resource.topic,
-            message_format=resource.message_format,
-            service_account_email=resource.service_account_email,
+            topic=Primitive.from_proto(resource.topic),
+            message_format=Primitive.from_proto(resource.message_format),
+            service_account_email=Primitive.from_proto(resource.service_account_email),
         )
 
 

@@ -243,9 +243,15 @@ class ClientTlsPolicyClientCertificate(object):
             return None
 
         return ClientTlsPolicyClientCertificate(
-            local_filepath=resource.local_filepath,
-            grpc_endpoint=resource.grpc_endpoint,
-            certificate_provider_instance=resource.certificate_provider_instance,
+            local_filepath=ClientTlsPolicyClientCertificateLocalFilepath.from_proto(
+                resource.local_filepath
+            ),
+            grpc_endpoint=ClientTlsPolicyClientCertificateGrpcEndpoint.from_proto(
+                resource.grpc_endpoint
+            ),
+            certificate_provider_instance=ClientTlsPolicyClientCertificateCertificateProviderInstance.from_proto(
+                resource.certificate_provider_instance
+            ),
         )
 
 
@@ -286,8 +292,8 @@ class ClientTlsPolicyClientCertificateLocalFilepath(object):
             return None
 
         return ClientTlsPolicyClientCertificateLocalFilepath(
-            certificate_path=resource.certificate_path,
-            private_key_path=resource.private_key_path,
+            certificate_path=Primitive.from_proto(resource.certificate_path),
+            private_key_path=Primitive.from_proto(resource.private_key_path),
         )
 
 
@@ -330,7 +336,7 @@ class ClientTlsPolicyClientCertificateGrpcEndpoint(object):
             return None
 
         return ClientTlsPolicyClientCertificateGrpcEndpoint(
-            target_uri=resource.target_uri,
+            target_uri=Primitive.from_proto(resource.target_uri),
         )
 
 
@@ -373,7 +379,7 @@ class ClientTlsPolicyClientCertificateCertificateProviderInstance(object):
             return None
 
         return ClientTlsPolicyClientCertificateCertificateProviderInstance(
-            plugin_instance=resource.plugin_instance,
+            plugin_instance=Primitive.from_proto(resource.plugin_instance),
         )
 
 
@@ -444,9 +450,13 @@ class ClientTlsPolicyServerValidationCa(object):
             return None
 
         return ClientTlsPolicyServerValidationCa(
-            ca_cert_path=resource.ca_cert_path,
-            grpc_endpoint=resource.grpc_endpoint,
-            certificate_provider_instance=resource.certificate_provider_instance,
+            ca_cert_path=Primitive.from_proto(resource.ca_cert_path),
+            grpc_endpoint=ClientTlsPolicyServerValidationCaGrpcEndpoint.from_proto(
+                resource.grpc_endpoint
+            ),
+            certificate_provider_instance=ClientTlsPolicyServerValidationCaCertificateProviderInstance.from_proto(
+                resource.certificate_provider_instance
+            ),
         )
 
 
@@ -484,7 +494,7 @@ class ClientTlsPolicyServerValidationCaGrpcEndpoint(object):
             return None
 
         return ClientTlsPolicyServerValidationCaGrpcEndpoint(
-            target_uri=resource.target_uri,
+            target_uri=Primitive.from_proto(resource.target_uri),
         )
 
 
@@ -527,7 +537,7 @@ class ClientTlsPolicyServerValidationCaCertificateProviderInstance(object):
             return None
 
         return ClientTlsPolicyServerValidationCaCertificateProviderInstance(
-            plugin_instance=resource.plugin_instance,
+            plugin_instance=Primitive.from_proto(resource.plugin_instance),
         )
 
 

@@ -154,7 +154,11 @@ class NetworkRoutingConfig(object):
         if not resource:
             return None
 
-        return NetworkRoutingConfig(routing_mode=resource.routing_mode,)
+        return NetworkRoutingConfig(
+            routing_mode=NetworkRoutingConfigRoutingModeEnum.from_proto(
+                resource.routing_mode
+            ),
+        )
 
 
 class NetworkRoutingConfigArray(object):

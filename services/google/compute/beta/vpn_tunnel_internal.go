@@ -718,7 +718,7 @@ func diffVpnTunnel(c *Client, desired, actual *VpnTunnel, opts ...dcl.ApplyOptio
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PeerIP, actual.PeerIP, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PeerIP")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PeerIP, actual.PeerIP, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PeerIp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

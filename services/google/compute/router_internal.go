@@ -1647,7 +1647,7 @@ func compareRouterInterfacesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPRange, actual.IPRange, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("IPRange")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPRange, actual.IPRange, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("IpRange")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1697,7 +1697,7 @@ func compareRouterBgpPeersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("IPAddress")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("IpAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1746,7 +1746,7 @@ func compareRouterBgpPeersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AdvertisedIPRanges, actual.AdvertisedIPRanges, dcl.Info{ObjectFunction: compareRouterBgpPeersAdvertisedIPRangesNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("AdvertisedIPRanges")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdvertisedIPRanges, actual.AdvertisedIPRanges, dcl.Info{ObjectFunction: compareRouterBgpPeersAdvertisedIPRangesNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("AdvertisedIpRanges")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1832,7 +1832,7 @@ func compareRouterBgpNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldD
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AdvertisedIPRanges, actual.AdvertisedIPRanges, dcl.Info{ObjectFunction: compareRouterBgpAdvertisedIPRangesNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("AdvertisedIPRanges")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdvertisedIPRanges, actual.AdvertisedIPRanges, dcl.Info{ObjectFunction: compareRouterBgpAdvertisedIPRangesNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("AdvertisedIpRanges")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

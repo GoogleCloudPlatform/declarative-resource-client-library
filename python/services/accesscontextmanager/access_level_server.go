@@ -31,7 +31,7 @@ func ProtoToAccesscontextmanagerAccessLevelBasicCombiningFunctionEnum(e accessco
 		return nil
 	}
 	if n, ok := accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicCombiningFunctionEnum_name[int32(e)]; ok {
-		e := accesscontextmanager.AccessLevelBasicCombiningFunctionEnum(n[len("AccessLevelBasicCombiningFunctionEnum"):])
+		e := accesscontextmanager.AccessLevelBasicCombiningFunctionEnum(n[len("AccesscontextmanagerAccessLevelBasicCombiningFunctionEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToAccesscontextmanagerAccessLevelBasicConditionsDevicePolicyAllowedEnc
 		return nil
 	}
 	if n, ok := accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnum_name[int32(e)]; ok {
-		e := accesscontextmanager.AccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnum(n[len("AccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnum"):])
+		e := accesscontextmanager.AccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnum(n[len("AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToAccesscontextmanagerAccessLevelBasicConditionsDevicePolicyAllowedDev
 		return nil
 	}
 	if n, ok := accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum_name[int32(e)]; ok {
-		e := accesscontextmanager.AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum(n[len("AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum"):])
+		e := accesscontextmanager.AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum(n[len("AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToAccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstrai
 		return nil
 	}
 	if n, ok := accesscontextmanagerpb.AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum_name[int32(e)]; ok {
-		e := accesscontextmanager.AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum(n[len("AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum"):])
+		e := accesscontextmanager.AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum(n[len("AccesscontextmanagerAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum"):])
 		return &e
 	}
 	return nil

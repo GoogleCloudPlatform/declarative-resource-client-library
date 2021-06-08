@@ -31,7 +31,7 @@ func ProtoToSqlBetaUserTypeEnum(e betapb.SqlBetaUserTypeEnum) *beta.UserTypeEnum
 		return nil
 	}
 	if n, ok := betapb.SqlBetaUserTypeEnum_name[int32(e)]; ok {
-		e := beta.UserTypeEnum(n[len("UserTypeEnum"):])
+		e := beta.UserTypeEnum(n[len("SqlBetaUserTypeEnum"):])
 		return &e
 	}
 	return nil

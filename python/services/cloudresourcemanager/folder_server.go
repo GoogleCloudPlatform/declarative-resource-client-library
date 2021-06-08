@@ -31,7 +31,7 @@ func ProtoToCloudresourcemanagerFolderStateEnum(e cloudresourcemanagerpb.Cloudre
 		return nil
 	}
 	if n, ok := cloudresourcemanagerpb.CloudresourcemanagerFolderStateEnum_name[int32(e)]; ok {
-		e := cloudresourcemanager.FolderStateEnum(n[len("FolderStateEnum"):])
+		e := cloudresourcemanager.FolderStateEnum(n[len("CloudresourcemanagerFolderStateEnum"):])
 		return &e
 	}
 	return nil

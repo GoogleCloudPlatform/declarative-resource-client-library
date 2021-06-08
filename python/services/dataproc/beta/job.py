@@ -314,7 +314,10 @@ class JobReference(object):
         if not resource:
             return None
 
-        return JobReference(project_id=resource.project_id, job_id=resource.job_id,)
+        return JobReference(
+            project_id=Primitive.from_proto(resource.project_id),
+            job_id=Primitive.from_proto(resource.job_id),
+        )
 
 
 class JobReferenceArray(object):
@@ -360,9 +363,9 @@ class JobPlacement(object):
             return None
 
         return JobPlacement(
-            cluster_name=resource.cluster_name,
-            cluster_uuid=resource.cluster_uuid,
-            cluster_labels=resource.cluster_labels,
+            cluster_name=Primitive.from_proto(resource.cluster_name),
+            cluster_uuid=Primitive.from_proto(resource.cluster_uuid),
+            cluster_labels=Primitive.from_proto(resource.cluster_labels),
         )
 
 
@@ -433,14 +436,16 @@ class JobHadoopJob(object):
             return None
 
         return JobHadoopJob(
-            main_jar_file_uri=resource.main_jar_file_uri,
-            main_class=resource.main_class,
-            args=resource.args,
-            jar_file_uris=resource.jar_file_uris,
-            file_uris=resource.file_uris,
-            archive_uris=resource.archive_uris,
-            properties=resource.properties,
-            logging_config=resource.logging_config,
+            main_jar_file_uri=Primitive.from_proto(resource.main_jar_file_uri),
+            main_class=Primitive.from_proto(resource.main_class),
+            args=Primitive.from_proto(resource.args),
+            jar_file_uris=Primitive.from_proto(resource.jar_file_uris),
+            file_uris=Primitive.from_proto(resource.file_uris),
+            archive_uris=Primitive.from_proto(resource.archive_uris),
+            properties=Primitive.from_proto(resource.properties),
+            logging_config=JobHadoopJobLoggingConfig.from_proto(
+                resource.logging_config
+            ),
         )
 
 
@@ -475,7 +480,9 @@ class JobHadoopJobLoggingConfig(object):
         if not resource:
             return None
 
-        return JobHadoopJobLoggingConfig(driver_log_levels=resource.driver_log_levels,)
+        return JobHadoopJobLoggingConfig(
+            driver_log_levels=Primitive.from_proto(resource.driver_log_levels),
+        )
 
 
 class JobHadoopJobLoggingConfigArray(object):
@@ -545,14 +552,14 @@ class JobSparkJob(object):
             return None
 
         return JobSparkJob(
-            main_jar_file_uri=resource.main_jar_file_uri,
-            main_class=resource.main_class,
-            args=resource.args,
-            jar_file_uris=resource.jar_file_uris,
-            file_uris=resource.file_uris,
-            archive_uris=resource.archive_uris,
-            properties=resource.properties,
-            logging_config=resource.logging_config,
+            main_jar_file_uri=Primitive.from_proto(resource.main_jar_file_uri),
+            main_class=Primitive.from_proto(resource.main_class),
+            args=Primitive.from_proto(resource.args),
+            jar_file_uris=Primitive.from_proto(resource.jar_file_uris),
+            file_uris=Primitive.from_proto(resource.file_uris),
+            archive_uris=Primitive.from_proto(resource.archive_uris),
+            properties=Primitive.from_proto(resource.properties),
+            logging_config=JobSparkJobLoggingConfig.from_proto(resource.logging_config),
         )
 
 
@@ -587,7 +594,9 @@ class JobSparkJobLoggingConfig(object):
         if not resource:
             return None
 
-        return JobSparkJobLoggingConfig(driver_log_levels=resource.driver_log_levels,)
+        return JobSparkJobLoggingConfig(
+            driver_log_levels=Primitive.from_proto(resource.driver_log_levels),
+        )
 
 
 class JobSparkJobLoggingConfigArray(object):
@@ -657,14 +666,16 @@ class JobPysparkJob(object):
             return None
 
         return JobPysparkJob(
-            main_python_file_uri=resource.main_python_file_uri,
-            args=resource.args,
-            python_file_uris=resource.python_file_uris,
-            jar_file_uris=resource.jar_file_uris,
-            file_uris=resource.file_uris,
-            archive_uris=resource.archive_uris,
-            properties=resource.properties,
-            logging_config=resource.logging_config,
+            main_python_file_uri=Primitive.from_proto(resource.main_python_file_uri),
+            args=Primitive.from_proto(resource.args),
+            python_file_uris=Primitive.from_proto(resource.python_file_uris),
+            jar_file_uris=Primitive.from_proto(resource.jar_file_uris),
+            file_uris=Primitive.from_proto(resource.file_uris),
+            archive_uris=Primitive.from_proto(resource.archive_uris),
+            properties=Primitive.from_proto(resource.properties),
+            logging_config=JobPysparkJobLoggingConfig.from_proto(
+                resource.logging_config
+            ),
         )
 
 
@@ -699,7 +710,9 @@ class JobPysparkJobLoggingConfig(object):
         if not resource:
             return None
 
-        return JobPysparkJobLoggingConfig(driver_log_levels=resource.driver_log_levels,)
+        return JobPysparkJobLoggingConfig(
+            driver_log_levels=Primitive.from_proto(resource.driver_log_levels),
+        )
 
 
 class JobPysparkJobLoggingConfigArray(object):
@@ -759,12 +772,12 @@ class JobHiveJob(object):
             return None
 
         return JobHiveJob(
-            query_file_uri=resource.query_file_uri,
-            query_list=resource.query_list,
-            continue_on_failure=resource.continue_on_failure,
-            script_variables=resource.script_variables,
-            properties=resource.properties,
-            jar_file_uris=resource.jar_file_uris,
+            query_file_uri=Primitive.from_proto(resource.query_file_uri),
+            query_list=JobHiveJobQueryList.from_proto(resource.query_list),
+            continue_on_failure=Primitive.from_proto(resource.continue_on_failure),
+            script_variables=Primitive.from_proto(resource.script_variables),
+            properties=Primitive.from_proto(resource.properties),
+            jar_file_uris=Primitive.from_proto(resource.jar_file_uris),
         )
 
 
@@ -799,7 +812,7 @@ class JobHiveJobQueryList(object):
         if not resource:
             return None
 
-        return JobHiveJobQueryList(queries=resource.queries,)
+        return JobHiveJobQueryList(queries=Primitive.from_proto(resource.queries),)
 
 
 class JobHiveJobQueryListArray(object):
@@ -867,13 +880,13 @@ class JobPigJob(object):
             return None
 
         return JobPigJob(
-            query_file_uri=resource.query_file_uri,
-            query_list=resource.query_list,
-            continue_on_failure=resource.continue_on_failure,
-            script_variables=resource.script_variables,
-            properties=resource.properties,
-            jar_file_uris=resource.jar_file_uris,
-            logging_config=resource.logging_config,
+            query_file_uri=Primitive.from_proto(resource.query_file_uri),
+            query_list=JobPigJobQueryList.from_proto(resource.query_list),
+            continue_on_failure=Primitive.from_proto(resource.continue_on_failure),
+            script_variables=Primitive.from_proto(resource.script_variables),
+            properties=Primitive.from_proto(resource.properties),
+            jar_file_uris=Primitive.from_proto(resource.jar_file_uris),
+            logging_config=JobPigJobLoggingConfig.from_proto(resource.logging_config),
         )
 
 
@@ -908,7 +921,7 @@ class JobPigJobQueryList(object):
         if not resource:
             return None
 
-        return JobPigJobQueryList(queries=resource.queries,)
+        return JobPigJobQueryList(queries=Primitive.from_proto(resource.queries),)
 
 
 class JobPigJobQueryListArray(object):
@@ -942,7 +955,9 @@ class JobPigJobLoggingConfig(object):
         if not resource:
             return None
 
-        return JobPigJobLoggingConfig(driver_log_levels=resource.driver_log_levels,)
+        return JobPigJobLoggingConfig(
+            driver_log_levels=Primitive.from_proto(resource.driver_log_levels),
+        )
 
 
 class JobPigJobLoggingConfigArray(object):
@@ -1004,12 +1019,14 @@ class JobSparkRJob(object):
             return None
 
         return JobSparkRJob(
-            main_r_file_uri=resource.main_r_file_uri,
-            args=resource.args,
-            file_uris=resource.file_uris,
-            archive_uris=resource.archive_uris,
-            properties=resource.properties,
-            logging_config=resource.logging_config,
+            main_r_file_uri=Primitive.from_proto(resource.main_r_file_uri),
+            args=Primitive.from_proto(resource.args),
+            file_uris=Primitive.from_proto(resource.file_uris),
+            archive_uris=Primitive.from_proto(resource.archive_uris),
+            properties=Primitive.from_proto(resource.properties),
+            logging_config=JobSparkRJobLoggingConfig.from_proto(
+                resource.logging_config
+            ),
         )
 
 
@@ -1044,7 +1061,9 @@ class JobSparkRJobLoggingConfig(object):
         if not resource:
             return None
 
-        return JobSparkRJobLoggingConfig(driver_log_levels=resource.driver_log_levels,)
+        return JobSparkRJobLoggingConfig(
+            driver_log_levels=Primitive.from_proto(resource.driver_log_levels),
+        )
 
 
 class JobSparkRJobLoggingConfigArray(object):
@@ -1110,12 +1129,14 @@ class JobSparkSqlJob(object):
             return None
 
         return JobSparkSqlJob(
-            query_file_uri=resource.query_file_uri,
-            query_list=resource.query_list,
-            script_variables=resource.script_variables,
-            properties=resource.properties,
-            jar_file_uris=resource.jar_file_uris,
-            logging_config=resource.logging_config,
+            query_file_uri=Primitive.from_proto(resource.query_file_uri),
+            query_list=JobSparkSqlJobQueryList.from_proto(resource.query_list),
+            script_variables=Primitive.from_proto(resource.script_variables),
+            properties=Primitive.from_proto(resource.properties),
+            jar_file_uris=Primitive.from_proto(resource.jar_file_uris),
+            logging_config=JobSparkSqlJobLoggingConfig.from_proto(
+                resource.logging_config
+            ),
         )
 
 
@@ -1150,7 +1171,7 @@ class JobSparkSqlJobQueryList(object):
         if not resource:
             return None
 
-        return JobSparkSqlJobQueryList(queries=resource.queries,)
+        return JobSparkSqlJobQueryList(queries=Primitive.from_proto(resource.queries),)
 
 
 class JobSparkSqlJobQueryListArray(object):
@@ -1185,7 +1206,7 @@ class JobSparkSqlJobLoggingConfig(object):
             return None
 
         return JobSparkSqlJobLoggingConfig(
-            driver_log_levels=resource.driver_log_levels,
+            driver_log_levels=Primitive.from_proto(resource.driver_log_levels),
         )
 
 
@@ -1254,13 +1275,15 @@ class JobPrestoJob(object):
             return None
 
         return JobPrestoJob(
-            query_file_uri=resource.query_file_uri,
-            query_list=resource.query_list,
-            continue_on_failure=resource.continue_on_failure,
-            output_format=resource.output_format,
-            client_tags=resource.client_tags,
-            properties=resource.properties,
-            logging_config=resource.logging_config,
+            query_file_uri=Primitive.from_proto(resource.query_file_uri),
+            query_list=JobPrestoJobQueryList.from_proto(resource.query_list),
+            continue_on_failure=Primitive.from_proto(resource.continue_on_failure),
+            output_format=Primitive.from_proto(resource.output_format),
+            client_tags=Primitive.from_proto(resource.client_tags),
+            properties=Primitive.from_proto(resource.properties),
+            logging_config=JobPrestoJobLoggingConfig.from_proto(
+                resource.logging_config
+            ),
         )
 
 
@@ -1295,7 +1318,7 @@ class JobPrestoJobQueryList(object):
         if not resource:
             return None
 
-        return JobPrestoJobQueryList(queries=resource.queries,)
+        return JobPrestoJobQueryList(queries=Primitive.from_proto(resource.queries),)
 
 
 class JobPrestoJobQueryListArray(object):
@@ -1329,7 +1352,9 @@ class JobPrestoJobLoggingConfig(object):
         if not resource:
             return None
 
-        return JobPrestoJobLoggingConfig(driver_log_levels=resource.driver_log_levels,)
+        return JobPrestoJobLoggingConfig(
+            driver_log_levels=Primitive.from_proto(resource.driver_log_levels),
+        )
 
 
 class JobPrestoJobLoggingConfigArray(object):
@@ -1379,10 +1404,10 @@ class JobStatus(object):
             return None
 
         return JobStatus(
-            state=resource.state,
-            details=resource.details,
-            state_start_time=resource.state_start_time,
-            substate=resource.substate,
+            state=JobStatusStateEnum.from_proto(resource.state),
+            details=Primitive.from_proto(resource.details),
+            state_start_time=Primitive.from_proto(resource.state_start_time),
+            substate=JobStatusSubstateEnum.from_proto(resource.substate),
         )
 
 
@@ -1433,10 +1458,10 @@ class JobStatusHistory(object):
             return None
 
         return JobStatusHistory(
-            state=resource.state,
-            details=resource.details,
-            state_start_time=resource.state_start_time,
-            substate=resource.substate,
+            state=JobStatusHistoryStateEnum.from_proto(resource.state),
+            details=Primitive.from_proto(resource.details),
+            state_start_time=Primitive.from_proto(resource.state_start_time),
+            substate=JobStatusHistorySubstateEnum.from_proto(resource.substate),
         )
 
 
@@ -1487,10 +1512,10 @@ class JobYarnApplications(object):
             return None
 
         return JobYarnApplications(
-            name=resource.name,
-            state=resource.state,
-            progress=resource.progress,
-            tracking_url=resource.tracking_url,
+            name=Primitive.from_proto(resource.name),
+            state=JobYarnApplicationsStateEnum.from_proto(resource.state),
+            progress=Primitive.from_proto(resource.progress),
+            tracking_url=Primitive.from_proto(resource.tracking_url),
         )
 
 
@@ -1533,8 +1558,8 @@ class JobScheduling(object):
             return None
 
         return JobScheduling(
-            max_failures_per_hour=resource.max_failures_per_hour,
-            max_failures_total=resource.max_failures_total,
+            max_failures_per_hour=Primitive.from_proto(resource.max_failures_per_hour),
+            max_failures_total=Primitive.from_proto(resource.max_failures_total),
         )
 
 

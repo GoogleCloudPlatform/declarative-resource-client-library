@@ -31,7 +31,7 @@ func ProtoToCloudresourcemanagerProjectLifecycleStateEnum(e cloudresourcemanager
 		return nil
 	}
 	if n, ok := cloudresourcemanagerpb.CloudresourcemanagerProjectLifecycleStateEnum_name[int32(e)]; ok {
-		e := cloudresourcemanager.ProjectLifecycleStateEnum(n[len("ProjectLifecycleStateEnum"):])
+		e := cloudresourcemanager.ProjectLifecycleStateEnum(n[len("CloudresourcemanagerProjectLifecycleStateEnum"):])
 		return &e
 	}
 	return nil

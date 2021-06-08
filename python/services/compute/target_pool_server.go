@@ -31,7 +31,7 @@ func ProtoToComputeTargetPoolSessionAffinityEnum(e computepb.ComputeTargetPoolSe
 		return nil
 	}
 	if n, ok := computepb.ComputeTargetPoolSessionAffinityEnum_name[int32(e)]; ok {
-		e := compute.TargetPoolSessionAffinityEnum(n[len("TargetPoolSessionAffinityEnum"):])
+		e := compute.TargetPoolSessionAffinityEnum(n[len("ComputeTargetPoolSessionAffinityEnum"):])
 		return &e
 	}
 	return nil

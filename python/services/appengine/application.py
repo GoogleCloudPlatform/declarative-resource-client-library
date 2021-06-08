@@ -222,7 +222,9 @@ class ApplicationDispatchRules(object):
             return None
 
         return ApplicationDispatchRules(
-            domain=resource.domain, path=resource.path, service=resource.service,
+            domain=Primitive.from_proto(resource.domain),
+            path=Primitive.from_proto(resource.path),
+            service=Primitive.from_proto(resource.service),
         )
 
 
@@ -265,8 +267,10 @@ class ApplicationFeatureSettings(object):
             return None
 
         return ApplicationFeatureSettings(
-            split_health_checks=resource.split_health_checks,
-            use_container_optimized_os=resource.use_container_optimized_os,
+            split_health_checks=Primitive.from_proto(resource.split_health_checks),
+            use_container_optimized_os=Primitive.from_proto(
+                resource.use_container_optimized_os
+            ),
         )
 
 
@@ -319,10 +323,12 @@ class ApplicationIap(object):
             return None
 
         return ApplicationIap(
-            enabled=resource.enabled,
-            oauth2_client_id=resource.oauth2_client_id,
-            oauth2_client_secret=resource.oauth2_client_secret,
-            oauth2_client_secret_sha256=resource.oauth2_client_secret_sha256,
+            enabled=Primitive.from_proto(resource.enabled),
+            oauth2_client_id=Primitive.from_proto(resource.oauth2_client_id),
+            oauth2_client_secret=Primitive.from_proto(resource.oauth2_client_secret),
+            oauth2_client_secret_sha256=Primitive.from_proto(
+                resource.oauth2_client_secret_sha256
+            ),
         )
 
 

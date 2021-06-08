@@ -31,7 +31,7 @@ func ProtoToAssuredworkloadsWorkloadResourcesResourceTypeEnum(e assuredworkloads
 		return nil
 	}
 	if n, ok := assuredworkloadspb.AssuredworkloadsWorkloadResourcesResourceTypeEnum_name[int32(e)]; ok {
-		e := assuredworkloads.WorkloadResourcesResourceTypeEnum(n[len("WorkloadResourcesResourceTypeEnum"):])
+		e := assuredworkloads.WorkloadResourcesResourceTypeEnum(n[len("AssuredworkloadsWorkloadResourcesResourceTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToAssuredworkloadsWorkloadComplianceRegimeEnum(e assuredworkloadspb.As
 		return nil
 	}
 	if n, ok := assuredworkloadspb.AssuredworkloadsWorkloadComplianceRegimeEnum_name[int32(e)]; ok {
-		e := assuredworkloads.WorkloadComplianceRegimeEnum(n[len("WorkloadComplianceRegimeEnum"):])
+		e := assuredworkloads.WorkloadComplianceRegimeEnum(n[len("AssuredworkloadsWorkloadComplianceRegimeEnum"):])
 		return &e
 	}
 	return nil

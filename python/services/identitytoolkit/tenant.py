@@ -218,7 +218,10 @@ class TenantMfaConfig(object):
             return None
 
         return TenantMfaConfig(
-            state=resource.state, enabled_providers=resource.enabled_providers,
+            state=TenantMfaConfigStateEnum.from_proto(resource.state),
+            enabled_providers=TenantMfaConfigEnabledProvidersEnumArray.from_proto(
+                resource.enabled_providers
+            ),
         )
 
 

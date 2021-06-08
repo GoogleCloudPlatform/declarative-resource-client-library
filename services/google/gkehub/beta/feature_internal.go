@@ -63,6 +63,9 @@ func (r *FeatureSpec) validate() error {
 	return nil
 }
 func (r *FeatureSpecMulticlusteringress) validate() error {
+	if err := dcl.Required(r, "configMembership"); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *FeatureState) validate() error {

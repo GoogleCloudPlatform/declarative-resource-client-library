@@ -208,10 +208,12 @@ class InstanceFileShares(object):
             return None
 
         return InstanceFileShares(
-            name=resource.name,
-            capacity_gb=resource.capacity_gb,
-            source_backup=resource.source_backup,
-            nfs_export_options=resource.nfs_export_options,
+            name=Primitive.from_proto(resource.name),
+            capacity_gb=Primitive.from_proto(resource.capacity_gb),
+            source_backup=Primitive.from_proto(resource.source_backup),
+            nfs_export_options=InstanceFileSharesNfsExportOptionsArray.from_proto(
+                resource.nfs_export_options
+            ),
         )
 
 
@@ -274,11 +276,15 @@ class InstanceFileSharesNfsExportOptions(object):
             return None
 
         return InstanceFileSharesNfsExportOptions(
-            ip_ranges=resource.ip_ranges,
-            access_mode=resource.access_mode,
-            squash_mode=resource.squash_mode,
-            anon_uid=resource.anon_uid,
-            anon_gid=resource.anon_gid,
+            ip_ranges=Primitive.from_proto(resource.ip_ranges),
+            access_mode=InstanceFileSharesNfsExportOptionsAccessModeEnum.from_proto(
+                resource.access_mode
+            ),
+            squash_mode=InstanceFileSharesNfsExportOptionsSquashModeEnum.from_proto(
+                resource.squash_mode
+            ),
+            anon_uid=Primitive.from_proto(resource.anon_uid),
+            anon_gid=Primitive.from_proto(resource.anon_gid),
         )
 
 
@@ -329,10 +335,10 @@ class InstanceNetworks(object):
             return None
 
         return InstanceNetworks(
-            network=resource.network,
-            modes=resource.modes,
-            reserved_ip_range=resource.reserved_ip_range,
-            ip_addresses=resource.ip_addresses,
+            network=Primitive.from_proto(resource.network),
+            modes=InstanceNetworksModesEnumArray.from_proto(resource.modes),
+            reserved_ip_range=Primitive.from_proto(resource.reserved_ip_range),
+            ip_addresses=Primitive.from_proto(resource.ip_addresses),
         )
 
 

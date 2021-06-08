@@ -1047,7 +1047,7 @@ func compareInstanceNetworkConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPAllocation, actual.IPAllocation, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPAllocation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPAllocation, actual.IPAllocation, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpAllocation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -31,7 +31,7 @@ func ProtoToComputeBetaAddressStatusEnum(e betapb.ComputeBetaAddressStatusEnum) 
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaAddressStatusEnum_name[int32(e)]; ok {
-		e := beta.AddressStatusEnum(n[len("AddressStatusEnum"):])
+		e := beta.AddressStatusEnum(n[len("ComputeBetaAddressStatusEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeBetaAddressNetworkTierEnum(e betapb.ComputeBetaAddressNetwork
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaAddressNetworkTierEnum_name[int32(e)]; ok {
-		e := beta.AddressNetworkTierEnum(n[len("AddressNetworkTierEnum"):])
+		e := beta.AddressNetworkTierEnum(n[len("ComputeBetaAddressNetworkTierEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeBetaAddressIPVersionEnum(e betapb.ComputeBetaAddressIPVersion
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaAddressIPVersionEnum_name[int32(e)]; ok {
-		e := beta.AddressIPVersionEnum(n[len("AddressIPVersionEnum"):])
+		e := beta.AddressIPVersionEnum(n[len("ComputeBetaAddressIPVersionEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeBetaAddressAddressTypeEnum(e betapb.ComputeBetaAddressAddress
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaAddressAddressTypeEnum_name[int32(e)]; ok {
-		e := beta.AddressAddressTypeEnum(n[len("AddressAddressTypeEnum"):])
+		e := beta.AddressAddressTypeEnum(n[len("ComputeBetaAddressAddressTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToComputeBetaAddressPurposeEnum(e betapb.ComputeBetaAddressPurposeEnum
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaAddressPurposeEnum_name[int32(e)]; ok {
-		e := beta.AddressPurposeEnum(n[len("AddressPurposeEnum"):])
+		e := beta.AddressPurposeEnum(n[len("ComputeBetaAddressPurposeEnum"):])
 		return &e
 	}
 	return nil

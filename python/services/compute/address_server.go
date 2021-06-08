@@ -31,7 +31,7 @@ func ProtoToComputeAddressStatusEnum(e computepb.ComputeAddressStatusEnum) *comp
 		return nil
 	}
 	if n, ok := computepb.ComputeAddressStatusEnum_name[int32(e)]; ok {
-		e := compute.AddressStatusEnum(n[len("AddressStatusEnum"):])
+		e := compute.AddressStatusEnum(n[len("ComputeAddressStatusEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeAddressNetworkTierEnum(e computepb.ComputeAddressNetworkTierE
 		return nil
 	}
 	if n, ok := computepb.ComputeAddressNetworkTierEnum_name[int32(e)]; ok {
-		e := compute.AddressNetworkTierEnum(n[len("AddressNetworkTierEnum"):])
+		e := compute.AddressNetworkTierEnum(n[len("ComputeAddressNetworkTierEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeAddressIPVersionEnum(e computepb.ComputeAddressIPVersionEnum)
 		return nil
 	}
 	if n, ok := computepb.ComputeAddressIPVersionEnum_name[int32(e)]; ok {
-		e := compute.AddressIPVersionEnum(n[len("AddressIPVersionEnum"):])
+		e := compute.AddressIPVersionEnum(n[len("ComputeAddressIPVersionEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeAddressAddressTypeEnum(e computepb.ComputeAddressAddressTypeE
 		return nil
 	}
 	if n, ok := computepb.ComputeAddressAddressTypeEnum_name[int32(e)]; ok {
-		e := compute.AddressAddressTypeEnum(n[len("AddressAddressTypeEnum"):])
+		e := compute.AddressAddressTypeEnum(n[len("ComputeAddressAddressTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToComputeAddressPurposeEnum(e computepb.ComputeAddressPurposeEnum) *co
 		return nil
 	}
 	if n, ok := computepb.ComputeAddressPurposeEnum_name[int32(e)]; ok {
-		e := compute.AddressPurposeEnum(n[len("AddressPurposeEnum"):])
+		e := compute.AddressPurposeEnum(n[len("ComputeAddressPurposeEnum"):])
 		return &e
 	}
 	return nil

@@ -682,18 +682,24 @@ class BackendServiceBackends(object):
             return None
 
         return BackendServiceBackends(
-            description=resource.description,
-            group=resource.group,
-            balancing_mode=resource.balancing_mode,
-            max_utilization=resource.max_utilization,
-            max_rate=resource.max_rate,
-            max_rate_per_instance=resource.max_rate_per_instance,
-            max_rate_per_endpoint=resource.max_rate_per_endpoint,
-            max_connections=resource.max_connections,
-            max_connections_per_instance=resource.max_connections_per_instance,
-            max_connections_per_endpoint=resource.max_connections_per_endpoint,
-            capacity_scaler=resource.capacity_scaler,
-            failover=resource.failover,
+            description=Primitive.from_proto(resource.description),
+            group=Primitive.from_proto(resource.group),
+            balancing_mode=BackendServiceBackendsBalancingModeEnum.from_proto(
+                resource.balancing_mode
+            ),
+            max_utilization=Primitive.from_proto(resource.max_utilization),
+            max_rate=Primitive.from_proto(resource.max_rate),
+            max_rate_per_instance=Primitive.from_proto(resource.max_rate_per_instance),
+            max_rate_per_endpoint=Primitive.from_proto(resource.max_rate_per_endpoint),
+            max_connections=Primitive.from_proto(resource.max_connections),
+            max_connections_per_instance=Primitive.from_proto(
+                resource.max_connections_per_instance
+            ),
+            max_connections_per_endpoint=Primitive.from_proto(
+                resource.max_connections_per_endpoint
+            ),
+            capacity_scaler=Primitive.from_proto(resource.capacity_scaler),
+            failover=Primitive.from_proto(resource.failover),
         )
 
 
@@ -744,9 +750,13 @@ class BackendServiceFailoverPolicy(object):
             return None
 
         return BackendServiceFailoverPolicy(
-            disable_connection_drain_on_failover=resource.disable_connection_drain_on_failover,
-            drop_traffic_if_unhealthy=resource.drop_traffic_if_unhealthy,
-            failover_ratio=resource.failover_ratio,
+            disable_connection_drain_on_failover=Primitive.from_proto(
+                resource.disable_connection_drain_on_failover
+            ),
+            drop_traffic_if_unhealthy=Primitive.from_proto(
+                resource.drop_traffic_if_unhealthy
+            ),
+            failover_ratio=Primitive.from_proto(resource.failover_ratio),
         )
 
 
@@ -782,7 +792,7 @@ class BackendServiceConnectionDraining(object):
             return None
 
         return BackendServiceConnectionDraining(
-            draining_timeout_sec=resource.draining_timeout_sec,
+            draining_timeout_sec=Primitive.from_proto(resource.draining_timeout_sec),
         )
 
 
@@ -835,10 +845,12 @@ class BackendServiceIap(object):
             return None
 
         return BackendServiceIap(
-            enabled=resource.enabled,
-            oauth2_client_id=resource.oauth2_client_id,
-            oauth2_client_secret=resource.oauth2_client_secret,
-            oauth2_client_secret_sha256=resource.oauth2_client_secret_sha256,
+            enabled=Primitive.from_proto(resource.enabled),
+            oauth2_client_id=Primitive.from_proto(resource.oauth2_client_id),
+            oauth2_client_secret=Primitive.from_proto(resource.oauth2_client_secret),
+            oauth2_client_secret_sha256=Primitive.from_proto(
+                resource.oauth2_client_secret_sha256
+            ),
         )
 
 
@@ -945,18 +957,28 @@ class BackendServiceCdnPolicy(object):
             return None
 
         return BackendServiceCdnPolicy(
-            cache_key_policy=resource.cache_key_policy,
-            signed_url_key_names=resource.signed_url_key_names,
-            signed_url_cache_max_age_sec=resource.signed_url_cache_max_age_sec,
-            request_coalescing=resource.request_coalescing,
-            cache_mode=resource.cache_mode,
-            default_ttl=resource.default_ttl,
-            max_ttl=resource.max_ttl,
-            client_ttl=resource.client_ttl,
-            negative_caching=resource.negative_caching,
-            negative_caching_policy=resource.negative_caching_policy,
-            bypass_cache_on_request_headers=resource.bypass_cache_on_request_headers,
-            serve_while_stale=resource.serve_while_stale,
+            cache_key_policy=BackendServiceCdnPolicyCacheKeyPolicy.from_proto(
+                resource.cache_key_policy
+            ),
+            signed_url_key_names=Primitive.from_proto(resource.signed_url_key_names),
+            signed_url_cache_max_age_sec=Primitive.from_proto(
+                resource.signed_url_cache_max_age_sec
+            ),
+            request_coalescing=Primitive.from_proto(resource.request_coalescing),
+            cache_mode=BackendServiceCdnPolicyCacheModeEnum.from_proto(
+                resource.cache_mode
+            ),
+            default_ttl=Primitive.from_proto(resource.default_ttl),
+            max_ttl=Primitive.from_proto(resource.max_ttl),
+            client_ttl=Primitive.from_proto(resource.client_ttl),
+            negative_caching=Primitive.from_proto(resource.negative_caching),
+            negative_caching_policy=BackendServiceCdnPolicyNegativeCachingPolicyArray.from_proto(
+                resource.negative_caching_policy
+            ),
+            bypass_cache_on_request_headers=BackendServiceCdnPolicyBypassCacheOnRequestHeadersArray.from_proto(
+                resource.bypass_cache_on_request_headers
+            ),
+            serve_while_stale=Primitive.from_proto(resource.serve_while_stale),
         )
 
 
@@ -1027,13 +1049,17 @@ class BackendServiceCdnPolicyCacheKeyPolicy(object):
             return None
 
         return BackendServiceCdnPolicyCacheKeyPolicy(
-            include_protocol=resource.include_protocol,
-            include_host=resource.include_host,
-            include_query_string=resource.include_query_string,
-            query_string_whitelist=resource.query_string_whitelist,
-            query_string_blacklist=resource.query_string_blacklist,
-            include_http_headers=resource.include_http_headers,
-            include_named_cookies=resource.include_named_cookies,
+            include_protocol=Primitive.from_proto(resource.include_protocol),
+            include_host=Primitive.from_proto(resource.include_host),
+            include_query_string=Primitive.from_proto(resource.include_query_string),
+            query_string_whitelist=Primitive.from_proto(
+                resource.query_string_whitelist
+            ),
+            query_string_blacklist=Primitive.from_proto(
+                resource.query_string_blacklist
+            ),
+            include_http_headers=Primitive.from_proto(resource.include_http_headers),
+            include_named_cookies=Primitive.from_proto(resource.include_named_cookies),
         )
 
 
@@ -1074,7 +1100,8 @@ class BackendServiceCdnPolicyNegativeCachingPolicy(object):
             return None
 
         return BackendServiceCdnPolicyNegativeCachingPolicy(
-            code=resource.code, ttl=resource.ttl,
+            code=Primitive.from_proto(resource.code),
+            ttl=Primitive.from_proto(resource.ttl),
         )
 
 
@@ -1117,7 +1144,7 @@ class BackendServiceCdnPolicyBypassCacheOnRequestHeaders(object):
             return None
 
         return BackendServiceCdnPolicyBypassCacheOnRequestHeaders(
-            header_name=resource.header_name,
+            header_name=Primitive.from_proto(resource.header_name),
         )
 
 
@@ -1162,7 +1189,8 @@ class BackendServiceLogConfig(object):
             return None
 
         return BackendServiceLogConfig(
-            enable=resource.enable, sample_rate=resource.sample_rate,
+            enable=Primitive.from_proto(resource.enable),
+            sample_rate=Primitive.from_proto(resource.sample_rate),
         )
 
 
@@ -1209,9 +1237,9 @@ class BackendServiceSecuritySettings(object):
             return None
 
         return BackendServiceSecuritySettings(
-            client_tls_policy=resource.client_tls_policy,
-            authentication=resource.authentication,
-            subject_alt_names=resource.subject_alt_names,
+            client_tls_policy=Primitive.from_proto(resource.client_tls_policy),
+            authentication=Primitive.from_proto(resource.authentication),
+            subject_alt_names=Primitive.from_proto(resource.subject_alt_names),
         )
 
 
@@ -1262,9 +1290,11 @@ class BackendServiceConsistentHash(object):
             return None
 
         return BackendServiceConsistentHash(
-            http_cookie=resource.http_cookie,
-            http_header_name=resource.http_header_name,
-            minimum_ring_size=resource.minimum_ring_size,
+            http_cookie=BackendServiceConsistentHashHttpCookie.from_proto(
+                resource.http_cookie
+            ),
+            http_header_name=Primitive.from_proto(resource.http_header_name),
+            minimum_ring_size=Primitive.from_proto(resource.minimum_ring_size),
         )
 
 
@@ -1310,7 +1340,9 @@ class BackendServiceConsistentHashHttpCookie(object):
             return None
 
         return BackendServiceConsistentHashHttpCookie(
-            name=resource.name, path=resource.path, ttl=resource.ttl,
+            name=Primitive.from_proto(resource.name),
+            path=Primitive.from_proto(resource.path),
+            ttl=BackendServiceConsistentHashHttpCookieTtl.from_proto(resource.ttl),
         )
 
 
@@ -1349,7 +1381,8 @@ class BackendServiceConsistentHashHttpCookieTtl(object):
             return None
 
         return BackendServiceConsistentHashHttpCookieTtl(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -1422,12 +1455,16 @@ class BackendServiceCircuitBreakers(object):
             return None
 
         return BackendServiceCircuitBreakers(
-            connect_timeout=resource.connect_timeout,
-            max_requests_per_connection=resource.max_requests_per_connection,
-            max_connections=resource.max_connections,
-            max_pending_requests=resource.max_pending_requests,
-            max_requests=resource.max_requests,
-            max_retries=resource.max_retries,
+            connect_timeout=BackendServiceCircuitBreakersConnectTimeout.from_proto(
+                resource.connect_timeout
+            ),
+            max_requests_per_connection=Primitive.from_proto(
+                resource.max_requests_per_connection
+            ),
+            max_connections=Primitive.from_proto(resource.max_connections),
+            max_pending_requests=Primitive.from_proto(resource.max_pending_requests),
+            max_requests=Primitive.from_proto(resource.max_requests),
+            max_retries=Primitive.from_proto(resource.max_retries),
         )
 
 
@@ -1468,7 +1505,8 @@ class BackendServiceCircuitBreakersConnectTimeout(object):
             return None
 
         return BackendServiceCircuitBreakersConnectTimeout(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -1579,17 +1617,35 @@ class BackendServiceOutlierDetection(object):
             return None
 
         return BackendServiceOutlierDetection(
-            consecutive_errors=resource.consecutive_errors,
-            interval=resource.interval,
-            base_ejection_time=resource.base_ejection_time,
-            max_ejection_percent=resource.max_ejection_percent,
-            enforcing_consecutive_errors=resource.enforcing_consecutive_errors,
-            enforcing_success_rate=resource.enforcing_success_rate,
-            success_rate_minimum_hosts=resource.success_rate_minimum_hosts,
-            success_rate_request_volume=resource.success_rate_request_volume,
-            success_rate_stdev_factor=resource.success_rate_stdev_factor,
-            consecutive_gateway_failure=resource.consecutive_gateway_failure,
-            enforcing_consecutive_gateway_failure=resource.enforcing_consecutive_gateway_failure,
+            consecutive_errors=Primitive.from_proto(resource.consecutive_errors),
+            interval=BackendServiceOutlierDetectionInterval.from_proto(
+                resource.interval
+            ),
+            base_ejection_time=BackendServiceOutlierDetectionBaseEjectionTime.from_proto(
+                resource.base_ejection_time
+            ),
+            max_ejection_percent=Primitive.from_proto(resource.max_ejection_percent),
+            enforcing_consecutive_errors=Primitive.from_proto(
+                resource.enforcing_consecutive_errors
+            ),
+            enforcing_success_rate=Primitive.from_proto(
+                resource.enforcing_success_rate
+            ),
+            success_rate_minimum_hosts=Primitive.from_proto(
+                resource.success_rate_minimum_hosts
+            ),
+            success_rate_request_volume=Primitive.from_proto(
+                resource.success_rate_request_volume
+            ),
+            success_rate_stdev_factor=Primitive.from_proto(
+                resource.success_rate_stdev_factor
+            ),
+            consecutive_gateway_failure=Primitive.from_proto(
+                resource.consecutive_gateway_failure
+            ),
+            enforcing_consecutive_gateway_failure=Primitive.from_proto(
+                resource.enforcing_consecutive_gateway_failure
+            ),
         )
 
 
@@ -1628,7 +1684,8 @@ class BackendServiceOutlierDetectionInterval(object):
             return None
 
         return BackendServiceOutlierDetectionInterval(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -1669,7 +1726,8 @@ class BackendServiceOutlierDetectionBaseEjectionTime(object):
             return None
 
         return BackendServiceOutlierDetectionBaseEjectionTime(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -1710,7 +1768,9 @@ class BackendServiceSubsetting(object):
         if not resource:
             return None
 
-        return BackendServiceSubsetting(policy=resource.policy,)
+        return BackendServiceSubsetting(
+            policy=BackendServiceSubsettingPolicyEnum.from_proto(resource.policy),
+        )
 
 
 class BackendServiceSubsettingArray(object):
@@ -1766,9 +1826,13 @@ class BackendServiceConnectionTrackingPolicy(object):
             return None
 
         return BackendServiceConnectionTrackingPolicy(
-            tracking_mode=resource.tracking_mode,
-            connection_persistence_on_unhealthy_backends=resource.connection_persistence_on_unhealthy_backends,
-            idle_timeout_sec=resource.idle_timeout_sec,
+            tracking_mode=BackendServiceConnectionTrackingPolicyTrackingModeEnum.from_proto(
+                resource.tracking_mode
+            ),
+            connection_persistence_on_unhealthy_backends=BackendServiceConnectionTrackingPolicyConnectionPersistenceOnUnhealthyBackendsEnum.from_proto(
+                resource.connection_persistence_on_unhealthy_backends
+            ),
+            idle_timeout_sec=Primitive.from_proto(resource.idle_timeout_sec),
         )
 
 
@@ -1807,7 +1871,8 @@ class BackendServiceMaxStreamDuration(object):
             return None
 
         return BackendServiceMaxStreamDuration(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 

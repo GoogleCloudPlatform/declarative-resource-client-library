@@ -1021,7 +1021,7 @@ func compareAccessLevelBasicConditionsNewStyle(d, a interface{}, fn dcl.FieldNam
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPSubnetworks, actual.IPSubnetworks, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAccessLevelUpdateOperation")}, fn.AddNest("IPSubnetworks")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPSubnetworks, actual.IPSubnetworks, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAccessLevelUpdateOperation")}, fn.AddNest("IpSubnetworks")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

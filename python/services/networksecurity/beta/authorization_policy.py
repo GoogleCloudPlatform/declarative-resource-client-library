@@ -188,7 +188,10 @@ class AuthorizationPolicyRules(object):
             return None
 
         return AuthorizationPolicyRules(
-            sources=resource.sources, destinations=resource.destinations,
+            sources=AuthorizationPolicyRulesSourcesArray.from_proto(resource.sources),
+            destinations=AuthorizationPolicyRulesDestinationsArray.from_proto(
+                resource.destinations
+            ),
         )
 
 
@@ -229,7 +232,8 @@ class AuthorizationPolicyRulesSources(object):
             return None
 
         return AuthorizationPolicyRulesSources(
-            principals=resource.principals, ip_blocks=resource.ip_blocks,
+            principals=Primitive.from_proto(resource.principals),
+            ip_blocks=Primitive.from_proto(resource.ip_blocks),
         )
 
 
@@ -294,11 +298,13 @@ class AuthorizationPolicyRulesDestinations(object):
             return None
 
         return AuthorizationPolicyRulesDestinations(
-            hosts=resource.hosts,
-            ports=resource.ports,
-            paths=resource.paths,
-            methods=resource.methods,
-            http_header_match=resource.http_header_match,
+            hosts=Primitive.from_proto(resource.hosts),
+            ports=int64Array.from_proto(resource.ports),
+            paths=Primitive.from_proto(resource.paths),
+            methods=Primitive.from_proto(resource.methods),
+            http_header_match=AuthorizationPolicyRulesDestinationsHttpHeaderMatch.from_proto(
+                resource.http_header_match
+            ),
         )
 
 
@@ -339,7 +345,8 @@ class AuthorizationPolicyRulesDestinationsHttpHeaderMatch(object):
             return None
 
         return AuthorizationPolicyRulesDestinationsHttpHeaderMatch(
-            header_name=resource.header_name, regex_match=resource.regex_match,
+            header_name=Primitive.from_proto(resource.header_name),
+            regex_match=Primitive.from_proto(resource.regex_match),
         )
 
 

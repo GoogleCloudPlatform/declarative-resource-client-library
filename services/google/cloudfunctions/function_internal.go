@@ -1128,14 +1128,14 @@ func diffFunction(c *Client, desired, actual *Function, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VPCConnector, actual.VPCConnector, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VPCConnector")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VPCConnector, actual.VPCConnector, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VpcConnector")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VPCConnectorEgressSettings, actual.VPCConnectorEgressSettings, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateFunctionUpdateOperation")}, fn.AddNest("VPCConnectorEgressSettings")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VPCConnectorEgressSettings, actual.VPCConnectorEgressSettings, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateFunctionUpdateOperation")}, fn.AddNest("VpcConnectorEgressSettings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

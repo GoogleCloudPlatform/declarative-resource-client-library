@@ -5653,7 +5653,7 @@ func diffUrlMap(c *Client, desired, actual *UrlMap, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HostRule, actual.HostRule, dcl.Info{Type: "Set", ObjectFunction: compareUrlMapHostRuleNewStyle, OperationSelector: dcl.TriggersOperation("updateUrlMapUpdateOperation")}, fn.AddNest("HostRule")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HostRule, actual.HostRule, dcl.Info{Type: "Set", ObjectFunction: compareUrlMapHostRuleNewStyle, OperationSelector: dcl.TriggersOperation("updateUrlMapUpdateOperation")}, fn.AddNest("HostRules")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5667,7 +5667,7 @@ func diffUrlMap(c *Client, desired, actual *UrlMap, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PathMatcher, actual.PathMatcher, dcl.Info{Type: "Set", ObjectFunction: compareUrlMapPathMatcherNewStyle, OperationSelector: dcl.TriggersOperation("updateUrlMapUpdateOperation")}, fn.AddNest("PathMatcher")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PathMatcher, actual.PathMatcher, dcl.Info{Type: "Set", ObjectFunction: compareUrlMapPathMatcherNewStyle, OperationSelector: dcl.TriggersOperation("updateUrlMapUpdateOperation")}, fn.AddNest("PathMatchers")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5681,7 +5681,7 @@ func diffUrlMap(c *Client, desired, actual *UrlMap, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Test, actual.Test, dcl.Info{ObjectFunction: compareUrlMapTestNewStyle, OperationSelector: dcl.TriggersOperation("updateUrlMapUpdateOperation")}, fn.AddNest("Test")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Test, actual.Test, dcl.Info{ObjectFunction: compareUrlMapTestNewStyle, OperationSelector: dcl.TriggersOperation("updateUrlMapUpdateOperation")}, fn.AddNest("Tests")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5717,7 +5717,7 @@ func compareUrlMapDefaultRouteActionNewStyle(d, a interface{}, fn dcl.FieldName)
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.WeightedBackendService, actual.WeightedBackendService, dcl.Info{ObjectFunction: compareUrlMapDefaultRouteActionWeightedBackendServiceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WeightedBackendService")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WeightedBackendService, actual.WeightedBackendService, dcl.Info{ObjectFunction: compareUrlMapDefaultRouteActionWeightedBackendServiceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WeightedBackendServices")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6039,7 +6039,7 @@ func compareUrlMapDefaultRouteActionRetryPolicyNewStyle(d, a interface{}, fn dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RetryCondition, actual.RetryCondition, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RetryCondition")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RetryCondition, actual.RetryCondition, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RetryConditions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6147,35 +6147,35 @@ func compareUrlMapDefaultRouteActionCorsPolicyNewStyle(d, a interface{}, fn dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AllowOrigin, actual.AllowOrigin, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowOrigin")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowOrigin, actual.AllowOrigin, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowOrigins")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowOriginRegex, actual.AllowOriginRegex, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowOriginRegex")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowOriginRegex, actual.AllowOriginRegex, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowOriginRegexes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowMethod, actual.AllowMethod, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowMethod, actual.AllowMethod, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowMethods")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowHeader, actual.AllowHeader, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowHeader")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowHeader, actual.AllowHeader, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowHeaders")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExposeHeader, actual.ExposeHeader, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExposeHeader")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExposeHeader, actual.ExposeHeader, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExposeHeaders")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6440,7 +6440,7 @@ func compareUrlMapHostRuleNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Host")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Host, actual.Host, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Hosts")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6511,14 +6511,14 @@ func compareUrlMapPathMatcherNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PathRule, actual.PathRule, dcl.Info{ObjectFunction: compareUrlMapPathMatcherPathRuleNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PathRule")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PathRule, actual.PathRule, dcl.Info{ObjectFunction: compareUrlMapPathMatcherPathRuleNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PathRules")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RouteRule, actual.RouteRule, dcl.Info{ObjectFunction: compareUrlMapPathMatcherRouteRuleNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RouteRule")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RouteRule, actual.RouteRule, dcl.Info{ObjectFunction: compareUrlMapPathMatcherRouteRuleNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RouteRules")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6618,7 +6618,7 @@ func compareUrlMapPathMatcherPathRuleNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.BackendService, actual.BackendService, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BackendService")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BackendService, actual.BackendService, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6639,7 +6639,7 @@ func compareUrlMapPathMatcherPathRuleNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Paths")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6668,7 +6668,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionNewStyle(d, a interface{}, fn dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.WeightedBackendService, actual.WeightedBackendService, dcl.Info{ObjectFunction: compareUrlMapPathMatcherPathRuleRouteActionWeightedBackendServiceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WeightedBackendService")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WeightedBackendService, actual.WeightedBackendService, dcl.Info{ObjectFunction: compareUrlMapPathMatcherPathRuleRouteActionWeightedBackendServiceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WeightedBackendServices")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6854,7 +6854,7 @@ func compareUrlMapPathMatcherPathRuleRouteActionRetryPolicyNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RetryCondition, actual.RetryCondition, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RetryCondition")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RetryCondition, actual.RetryCondition, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RetryConditions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6962,35 +6962,35 @@ func compareUrlMapPathMatcherPathRuleRouteActionCorsPolicyNewStyle(d, a interfac
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AllowOrigin, actual.AllowOrigin, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowOrigin")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowOrigin, actual.AllowOrigin, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowOrigins")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowOriginRegex, actual.AllowOriginRegex, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowOriginRegex")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowOriginRegex, actual.AllowOriginRegex, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowOriginRegexes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowMethod, actual.AllowMethod, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowMethod, actual.AllowMethod, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowMethods")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowHeader, actual.AllowHeader, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowHeader")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowHeader, actual.AllowHeader, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowHeaders")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExposeHeader, actual.ExposeHeader, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExposeHeader")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExposeHeader, actual.ExposeHeader, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExposeHeaders")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7262,14 +7262,14 @@ func compareUrlMapPathMatcherRouteRuleNewStyle(d, a interface{}, fn dcl.FieldNam
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MatchRule, actual.MatchRule, dcl.Info{ObjectFunction: compareUrlMapPathMatcherRouteRuleMatchRuleNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MatchRule")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MatchRule, actual.MatchRule, dcl.Info{ObjectFunction: compareUrlMapPathMatcherRouteRuleMatchRuleNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MatchRules")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BackendService, actual.BackendService, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BackendService")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BackendService, actual.BackendService, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7347,21 +7347,21 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleNewStyle(d, a interface{}, fn dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HeaderMatch, actual.HeaderMatch, dcl.Info{ObjectFunction: compareUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HeaderMatch")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HeaderMatch, actual.HeaderMatch, dcl.Info{ObjectFunction: compareUrlMapPathMatcherRouteRuleMatchRuleHeaderMatchNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HeaderMatches")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QueryParameterMatch, actual.QueryParameterMatch, dcl.Info{ObjectFunction: compareUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatchNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryParameterMatch")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryParameterMatch, actual.QueryParameterMatch, dcl.Info{ObjectFunction: compareUrlMapPathMatcherRouteRuleMatchRuleQueryParameterMatchNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryParameterMatches")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MetadataFilter, actual.MetadataFilter, dcl.Info{ObjectFunction: compareUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetadataFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetadataFilter, actual.MetadataFilter, dcl.Info{ObjectFunction: compareUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetadataFilters")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7561,7 +7561,7 @@ func compareUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterNewStyle(d, a inter
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FilterLabel, actual.FilterLabel, dcl.Info{ObjectFunction: compareUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabelNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FilterLabel")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FilterLabel, actual.FilterLabel, dcl.Info{ObjectFunction: compareUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterLabelNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FilterLabels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7626,7 +7626,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionNewStyle(d, a interface{}, fn d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.WeightedBackendService, actual.WeightedBackendService, dcl.Info{ObjectFunction: compareUrlMapPathMatcherRouteRuleRouteActionWeightedBackendServiceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WeightedBackendService")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WeightedBackendService, actual.WeightedBackendService, dcl.Info{ObjectFunction: compareUrlMapPathMatcherRouteRuleRouteActionWeightedBackendServiceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WeightedBackendServices")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7812,7 +7812,7 @@ func compareUrlMapPathMatcherRouteRuleRouteActionRetryPolicyNewStyle(d, a interf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RetryCondition, actual.RetryCondition, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RetryCondition")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RetryCondition, actual.RetryCondition, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RetryConditions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7920,35 +7920,35 @@ func compareUrlMapPathMatcherRouteRuleRouteActionCorsPolicyNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AllowOrigin, actual.AllowOrigin, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowOrigin")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowOrigin, actual.AllowOrigin, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowOrigins")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowOriginRegex, actual.AllowOriginRegex, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowOriginRegex")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowOriginRegex, actual.AllowOriginRegex, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowOriginRegexes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowMethod, actual.AllowMethod, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowMethod, actual.AllowMethod, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowMethods")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowHeader, actual.AllowHeader, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowHeader")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowHeader, actual.AllowHeader, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowHeaders")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExposeHeader, actual.ExposeHeader, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExposeHeader")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExposeHeader, actual.ExposeHeader, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExposeHeaders")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8227,7 +8227,7 @@ func compareUrlMapTestNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Field
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExpectedBackendService, actual.ExpectedBackendService, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExpectedBackendService")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExpectedBackendService, actual.ExpectedBackendService, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

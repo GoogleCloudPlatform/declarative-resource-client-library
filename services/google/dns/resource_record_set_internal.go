@@ -380,14 +380,14 @@ func diffResourceRecordSet(c *Client, desired, actual *ResourceRecordSet, opts .
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.DnsName, actual.DnsName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateResourceRecordSetUpdateOperation")}, fn.AddNest("DnsName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DnsName, actual.DnsName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateResourceRecordSetUpdateOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DnsType, actual.DnsType, dcl.Info{OperationSelector: dcl.TriggersOperation("updateResourceRecordSetUpdateOperation")}, fn.AddNest("DnsType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DnsType, actual.DnsType, dcl.Info{OperationSelector: dcl.TriggersOperation("updateResourceRecordSetUpdateOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -401,7 +401,7 @@ func diffResourceRecordSet(c *Client, desired, actual *ResourceRecordSet, opts .
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Target, actual.Target, dcl.Info{OperationSelector: dcl.TriggersOperation("updateResourceRecordSetUpdateOperation")}, fn.AddNest("Target")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Target, actual.Target, dcl.Info{OperationSelector: dcl.TriggersOperation("updateResourceRecordSetUpdateOperation")}, fn.AddNest("Rrdatas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

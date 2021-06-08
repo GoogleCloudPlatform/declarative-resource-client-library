@@ -178,9 +178,9 @@ class WorkerPoolWorkerConfig(object):
             return None
 
         return WorkerPoolWorkerConfig(
-            machine_type=resource.machine_type,
-            disk_size_gb=resource.disk_size_gb,
-            no_external_ip=resource.no_external_ip,
+            machine_type=Primitive.from_proto(resource.machine_type),
+            disk_size_gb=Primitive.from_proto(resource.disk_size_gb),
+            no_external_ip=Primitive.from_proto(resource.no_external_ip),
         )
 
 
@@ -215,7 +215,9 @@ class WorkerPoolNetworkConfig(object):
         if not resource:
             return None
 
-        return WorkerPoolNetworkConfig(peered_network=resource.peered_network,)
+        return WorkerPoolNetworkConfig(
+            peered_network=Primitive.from_proto(resource.peered_network),
+        )
 
 
 class WorkerPoolNetworkConfigArray(object):

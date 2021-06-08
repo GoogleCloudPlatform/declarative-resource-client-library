@@ -267,13 +267,13 @@ class BuildTriggerTriggerTemplate(object):
             return None
 
         return BuildTriggerTriggerTemplate(
-            project_id=resource.project_id,
-            repo_name=resource.repo_name,
-            branch_name=resource.branch_name,
-            tag_name=resource.tag_name,
-            commit_sha=resource.commit_sha,
-            dir=resource.dir,
-            invert_regex=resource.invert_regex,
+            project_id=Primitive.from_proto(resource.project_id),
+            repo_name=Primitive.from_proto(resource.repo_name),
+            branch_name=Primitive.from_proto(resource.branch_name),
+            tag_name=Primitive.from_proto(resource.tag_name),
+            commit_sha=Primitive.from_proto(resource.commit_sha),
+            dir=Primitive.from_proto(resource.dir),
+            invert_regex=Primitive.from_proto(resource.invert_regex),
         )
 
 
@@ -330,10 +330,12 @@ class BuildTriggerGithub(object):
             return None
 
         return BuildTriggerGithub(
-            owner=resource.owner,
-            name=resource.name,
-            pull_request=resource.pull_request,
-            push=resource.push,
+            owner=Primitive.from_proto(resource.owner),
+            name=Primitive.from_proto(resource.name),
+            pull_request=BuildTriggerGithubPullRequest.from_proto(
+                resource.pull_request
+            ),
+            push=BuildTriggerGithubPush.from_proto(resource.push),
         )
 
 
@@ -381,9 +383,11 @@ class BuildTriggerGithubPullRequest(object):
             return None
 
         return BuildTriggerGithubPullRequest(
-            branch=resource.branch,
-            comment_control=resource.comment_control,
-            invert_regex=resource.invert_regex,
+            branch=Primitive.from_proto(resource.branch),
+            comment_control=BuildTriggerGithubPullRequestCommentControlEnum.from_proto(
+                resource.comment_control
+            ),
+            invert_regex=Primitive.from_proto(resource.invert_regex),
         )
 
 
@@ -425,9 +429,9 @@ class BuildTriggerGithubPush(object):
             return None
 
         return BuildTriggerGithubPush(
-            branch=resource.branch,
-            tag=resource.tag,
-            invert_regex=resource.invert_regex,
+            branch=Primitive.from_proto(resource.branch),
+            tag=Primitive.from_proto(resource.tag),
+            invert_regex=Primitive.from_proto(resource.invert_regex),
         )
 
 
@@ -500,15 +504,15 @@ class BuildTriggerBuild(object):
             return None
 
         return BuildTriggerBuild(
-            tags=resource.tags,
-            images=resource.images,
-            substitutions=resource.substitutions,
-            queue_ttl=resource.queue_ttl,
-            logs_bucket=resource.logs_bucket,
-            timeout=resource.timeout,
-            secrets=resource.secrets,
-            steps=resource.steps,
-            source=resource.source,
+            tags=Primitive.from_proto(resource.tags),
+            images=Primitive.from_proto(resource.images),
+            substitutions=Primitive.from_proto(resource.substitutions),
+            queue_ttl=Primitive.from_proto(resource.queue_ttl),
+            logs_bucket=Primitive.from_proto(resource.logs_bucket),
+            timeout=Primitive.from_proto(resource.timeout),
+            secrets=BuildTriggerBuildSecretsArray.from_proto(resource.secrets),
+            steps=BuildTriggerBuildStepsArray.from_proto(resource.steps),
+            source=BuildTriggerBuildSource.from_proto(resource.source),
         )
 
 
@@ -547,7 +551,8 @@ class BuildTriggerBuildSecrets(object):
             return None
 
         return BuildTriggerBuildSecrets(
-            kms_key_name=resource.kms_key_name, secret_env=resource.secret_env,
+            kms_key_name=Primitive.from_proto(resource.kms_key_name),
+            secret_env=Primitive.from_proto(resource.secret_env),
         )
 
 
@@ -642,19 +647,21 @@ class BuildTriggerBuildSteps(object):
             return None
 
         return BuildTriggerBuildSteps(
-            name=resource.name,
-            env=resource.env,
-            args=resource.args,
-            dir=resource.dir,
-            id=resource.id,
-            wait_for=resource.wait_for,
-            entrypoint=resource.entrypoint,
-            secret_env=resource.secret_env,
-            volumes=resource.volumes,
-            timing=resource.timing,
-            pull_timing=resource.pull_timing,
-            timeout=resource.timeout,
-            status=resource.status,
+            name=Primitive.from_proto(resource.name),
+            env=Primitive.from_proto(resource.env),
+            args=Primitive.from_proto(resource.args),
+            dir=Primitive.from_proto(resource.dir),
+            id=Primitive.from_proto(resource.id),
+            wait_for=Primitive.from_proto(resource.wait_for),
+            entrypoint=Primitive.from_proto(resource.entrypoint),
+            secret_env=Primitive.from_proto(resource.secret_env),
+            volumes=BuildTriggerBuildStepsVolumesArray.from_proto(resource.volumes),
+            timing=BuildTriggerBuildStepsTiming.from_proto(resource.timing),
+            pull_timing=BuildTriggerBuildStepsPullTiming.from_proto(
+                resource.pull_timing
+            ),
+            timeout=Primitive.from_proto(resource.timeout),
+            status=BuildTriggerBuildStepsStatusEnum.from_proto(resource.status),
         )
 
 
@@ -692,7 +699,10 @@ class BuildTriggerBuildStepsVolumes(object):
         if not resource:
             return None
 
-        return BuildTriggerBuildStepsVolumes(name=resource.name, path=resource.path,)
+        return BuildTriggerBuildStepsVolumes(
+            name=Primitive.from_proto(resource.name),
+            path=Primitive.from_proto(resource.path),
+        )
 
 
 class BuildTriggerBuildStepsVolumesArray(object):
@@ -730,7 +740,8 @@ class BuildTriggerBuildStepsTiming(object):
             return None
 
         return BuildTriggerBuildStepsTiming(
-            start_time=resource.start_time, end_time=resource.end_time,
+            start_time=Primitive.from_proto(resource.start_time),
+            end_time=Primitive.from_proto(resource.end_time),
         )
 
 
@@ -769,7 +780,8 @@ class BuildTriggerBuildStepsPullTiming(object):
             return None
 
         return BuildTriggerBuildStepsPullTiming(
-            start_time=resource.start_time, end_time=resource.end_time,
+            start_time=Primitive.from_proto(resource.start_time),
+            end_time=Primitive.from_proto(resource.end_time),
         )
 
 
@@ -816,7 +828,12 @@ class BuildTriggerBuildSource(object):
             return None
 
         return BuildTriggerBuildSource(
-            storage_source=resource.storage_source, repo_source=resource.repo_source,
+            storage_source=BuildTriggerBuildSourceStorageSource.from_proto(
+                resource.storage_source
+            ),
+            repo_source=BuildTriggerBuildSourceRepoSource.from_proto(
+                resource.repo_source
+            ),
         )
 
 
@@ -858,9 +875,9 @@ class BuildTriggerBuildSourceStorageSource(object):
             return None
 
         return BuildTriggerBuildSourceStorageSource(
-            bucket=resource.bucket,
-            object=resource.object,
-            generation=resource.generation,
+            bucket=Primitive.from_proto(resource.bucket),
+            object=Primitive.from_proto(resource.object),
+            generation=Primitive.from_proto(resource.generation),
         )
 
 
@@ -927,14 +944,14 @@ class BuildTriggerBuildSourceRepoSource(object):
             return None
 
         return BuildTriggerBuildSourceRepoSource(
-            project_id=resource.project_id,
-            repo_name=resource.repo_name,
-            branch_name=resource.branch_name,
-            tag_name=resource.tag_name,
-            commit_sha=resource.commit_sha,
-            dir=resource.dir,
-            invert_regex=resource.invert_regex,
-            substitutions=resource.substitutions,
+            project_id=Primitive.from_proto(resource.project_id),
+            repo_name=Primitive.from_proto(resource.repo_name),
+            branch_name=Primitive.from_proto(resource.branch_name),
+            tag_name=Primitive.from_proto(resource.tag_name),
+            commit_sha=Primitive.from_proto(resource.commit_sha),
+            dir=Primitive.from_proto(resource.dir),
+            invert_regex=Primitive.from_proto(resource.invert_regex),
+            substitutions=Primitive.from_proto(resource.substitutions),
         )
 
 

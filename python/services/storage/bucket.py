@@ -214,10 +214,10 @@ class BucketCors(object):
             return None
 
         return BucketCors(
-            max_age_seconds=resource.max_age_seconds,
-            method=resource.method,
-            origin=resource.origin,
-            response_header=resource.response_header,
+            max_age_seconds=Primitive.from_proto(resource.max_age_seconds),
+            method=Primitive.from_proto(resource.method),
+            origin=Primitive.from_proto(resource.origin),
+            response_header=Primitive.from_proto(resource.response_header),
         )
 
 
@@ -252,7 +252,7 @@ class BucketLifecycle(object):
         if not resource:
             return None
 
-        return BucketLifecycle(rule=resource.rule,)
+        return BucketLifecycle(rule=BucketLifecycleRuleArray.from_proto(resource.rule),)
 
 
 class BucketLifecycleArray(object):
@@ -296,7 +296,8 @@ class BucketLifecycleRule(object):
             return None
 
         return BucketLifecycleRule(
-            action=resource.action, condition=resource.condition,
+            action=BucketLifecycleRuleAction.from_proto(resource.action),
+            condition=BucketLifecycleRuleCondition.from_proto(resource.condition),
         )
 
 
@@ -335,7 +336,8 @@ class BucketLifecycleRuleAction(object):
             return None
 
         return BucketLifecycleRuleAction(
-            storage_class=resource.storage_class, type=resource.type,
+            storage_class=Primitive.from_proto(resource.storage_class),
+            type=BucketLifecycleRuleActionTypeEnum.from_proto(resource.type),
         )
 
 
@@ -394,11 +396,13 @@ class BucketLifecycleRuleCondition(object):
             return None
 
         return BucketLifecycleRuleCondition(
-            age=resource.age,
-            created_before=resource.created_before,
-            with_state=resource.with_state,
-            matches_storage_class=resource.matches_storage_class,
-            num_newer_versions=resource.num_newer_versions,
+            age=Primitive.from_proto(resource.age),
+            created_before=Primitive.from_proto(resource.created_before),
+            with_state=BucketLifecycleRuleConditionWithStateEnum.from_proto(
+                resource.with_state
+            ),
+            matches_storage_class=Primitive.from_proto(resource.matches_storage_class),
+            num_newer_versions=Primitive.from_proto(resource.num_newer_versions),
         )
 
 
@@ -437,8 +441,8 @@ class BucketLogging(object):
             return None
 
         return BucketLogging(
-            log_bucket=resource.log_bucket,
-            log_object_prefix=resource.log_object_prefix,
+            log_bucket=Primitive.from_proto(resource.log_bucket),
+            log_object_prefix=Primitive.from_proto(resource.log_object_prefix),
         )
 
 
@@ -473,7 +477,7 @@ class BucketVersioning(object):
         if not resource:
             return None
 
-        return BucketVersioning(enabled=resource.enabled,)
+        return BucketVersioning(enabled=Primitive.from_proto(resource.enabled),)
 
 
 class BucketVersioningArray(object):
@@ -511,8 +515,8 @@ class BucketWebsite(object):
             return None
 
         return BucketWebsite(
-            main_page_suffix=resource.main_page_suffix,
-            not_found_page=resource.not_found_page,
+            main_page_suffix=Primitive.from_proto(resource.main_page_suffix),
+            not_found_page=Primitive.from_proto(resource.not_found_page),
         )
 
 

@@ -570,7 +570,7 @@ class InstanceMaxDiskSize(object):
         if not resource:
             return None
 
-        return InstanceMaxDiskSize(value=resource.value,)
+        return InstanceMaxDiskSize(value=Primitive.from_proto(resource.value),)
 
 
 class InstanceMaxDiskSizeArray(object):
@@ -604,7 +604,7 @@ class InstanceCurrentDiskSize(object):
         if not resource:
             return None
 
-        return InstanceCurrentDiskSize(value=resource.value,)
+        return InstanceCurrentDiskSize(value=Primitive.from_proto(resource.value),)
 
 
 class InstanceCurrentDiskSizeArray(object):
@@ -642,7 +642,8 @@ class InstanceDiskEncryptionConfiguration(object):
             return None
 
         return InstanceDiskEncryptionConfiguration(
-            kms_key_name=resource.kms_key_name, kind=resource.kind,
+            kms_key_name=Primitive.from_proto(resource.kms_key_name),
+            kind=Primitive.from_proto(resource.kind),
         )
 
 
@@ -692,9 +693,11 @@ class InstanceFailoverReplica(object):
             return None
 
         return InstanceFailoverReplica(
-            name=resource.name,
-            available=resource.available,
-            failover_instance=resource.failover_instance,
+            name=Primitive.from_proto(resource.name),
+            available=Primitive.from_proto(resource.available),
+            failover_instance=InstanceFailoverReplicaFailoverInstance.from_proto(
+                resource.failover_instance
+            ),
         )
 
 
@@ -733,7 +736,8 @@ class InstanceFailoverReplicaFailoverInstance(object):
             return None
 
         return InstanceFailoverReplicaFailoverInstance(
-            name=resource.name, region=resource.region,
+            name=Primitive.from_proto(resource.name),
+            region=Primitive.from_proto(resource.region),
         )
 
 
@@ -783,9 +787,11 @@ class InstanceIPAddresses(object):
             return None
 
         return InstanceIPAddresses(
-            type=resource.type,
-            ip_address=resource.ip_address,
-            time_to_retire=resource.time_to_retire,
+            type=InstanceIPAddressesTypeEnum.from_proto(resource.type),
+            ip_address=Primitive.from_proto(resource.ip_address),
+            time_to_retire=InstanceIPAddressesTimeToRetire.from_proto(
+                resource.time_to_retire
+            ),
         )
 
 
@@ -824,7 +830,8 @@ class InstanceIPAddressesTimeToRetire(object):
             return None
 
         return InstanceIPAddressesTimeToRetire(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -862,7 +869,10 @@ class InstanceMasterInstance(object):
         if not resource:
             return None
 
-        return InstanceMasterInstance(name=resource.name, region=resource.region,)
+        return InstanceMasterInstance(
+            name=Primitive.from_proto(resource.name),
+            region=Primitive.from_proto(resource.region),
+        )
 
 
 class InstanceMasterInstanceArray(object):
@@ -928,10 +938,14 @@ class InstanceReplicaConfiguration(object):
             return None
 
         return InstanceReplicaConfiguration(
-            kind=resource.kind,
-            mysql_replica_configuration=resource.mysql_replica_configuration,
-            failover_target=resource.failover_target,
-            replica_pool_configuration=resource.replica_pool_configuration,
+            kind=Primitive.from_proto(resource.kind),
+            mysql_replica_configuration=InstanceReplicaConfigurationMysqlReplicaConfiguration.from_proto(
+                resource.mysql_replica_configuration
+            ),
+            failover_target=Primitive.from_proto(resource.failover_target),
+            replica_pool_configuration=InstanceReplicaConfigurationReplicaPoolConfiguration.from_proto(
+                resource.replica_pool_configuration
+            ),
         )
 
 
@@ -1024,17 +1038,23 @@ class InstanceReplicaConfigurationMysqlReplicaConfiguration(object):
             return None
 
         return InstanceReplicaConfigurationMysqlReplicaConfiguration(
-            dump_file_path=resource.dump_file_path,
-            username=resource.username,
-            password=resource.password,
-            connect_retry_interval=resource.connect_retry_interval,
-            master_heartbeat_period=resource.master_heartbeat_period,
-            ca_certificate=resource.ca_certificate,
-            client_certificate=resource.client_certificate,
-            client_key=resource.client_key,
-            ssl_cipher=resource.ssl_cipher,
-            verify_server_certificate=resource.verify_server_certificate,
-            kind=resource.kind,
+            dump_file_path=Primitive.from_proto(resource.dump_file_path),
+            username=Primitive.from_proto(resource.username),
+            password=Primitive.from_proto(resource.password),
+            connect_retry_interval=Primitive.from_proto(
+                resource.connect_retry_interval
+            ),
+            master_heartbeat_period=InstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriod.from_proto(
+                resource.master_heartbeat_period
+            ),
+            ca_certificate=Primitive.from_proto(resource.ca_certificate),
+            client_certificate=Primitive.from_proto(resource.client_certificate),
+            client_key=Primitive.from_proto(resource.client_key),
+            ssl_cipher=Primitive.from_proto(resource.ssl_cipher),
+            verify_server_certificate=Primitive.from_proto(
+                resource.verify_server_certificate
+            ),
+            kind=Primitive.from_proto(resource.kind),
         )
 
 
@@ -1080,7 +1100,7 @@ class InstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriod
             return None
 
         return InstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriod(
-            value=resource.value,
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -1163,11 +1183,15 @@ class InstanceReplicaConfigurationReplicaPoolConfiguration(object):
             return None
 
         return InstanceReplicaConfigurationReplicaPoolConfiguration(
-            kind=resource.kind,
-            static_pool_configuration=resource.static_pool_configuration,
-            autoscaling_pool_configuration=resource.autoscaling_pool_configuration,
-            replica_count=resource.replica_count,
-            expose_replica_ip=resource.expose_replica_ip,
+            kind=Primitive.from_proto(resource.kind),
+            static_pool_configuration=InstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration.from_proto(
+                resource.static_pool_configuration
+            ),
+            autoscaling_pool_configuration=InstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration.from_proto(
+                resource.autoscaling_pool_configuration
+            ),
+            replica_count=Primitive.from_proto(resource.replica_count),
+            expose_replica_ip=Primitive.from_proto(resource.expose_replica_ip),
         )
 
 
@@ -1224,9 +1248,9 @@ class InstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguratio
             return None
 
         return InstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration(
-            kind=resource.kind,
-            replica_count=resource.replica_count,
-            expose_replica_ip=resource.expose_replica_ip,
+            kind=Primitive.from_proto(resource.kind),
+            replica_count=Primitive.from_proto(resource.replica_count),
+            expose_replica_ip=Primitive.from_proto(resource.expose_replica_ip),
         )
 
 
@@ -1293,10 +1317,10 @@ class InstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfigu
             return None
 
         return InstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration(
-            kind=resource.kind,
-            min_replica_count=resource.min_replica_count,
-            max_replica_count=resource.max_replica_count,
-            target_cpu_util=resource.target_cpu_util,
+            kind=Primitive.from_proto(resource.kind),
+            min_replica_count=Primitive.from_proto(resource.min_replica_count),
+            max_replica_count=Primitive.from_proto(resource.max_replica_count),
+            target_cpu_util=Primitive.from_proto(resource.target_cpu_util),
         )
 
 
@@ -1359,9 +1383,11 @@ class InstanceScheduledMaintenance(object):
             return None
 
         return InstanceScheduledMaintenance(
-            start_time=resource.start_time,
-            can_defer=resource.can_defer,
-            can_reschedule=resource.can_reschedule,
+            start_time=InstanceScheduledMaintenanceStartTime.from_proto(
+                resource.start_time
+            ),
+            can_defer=Primitive.from_proto(resource.can_defer),
+            can_reschedule=Primitive.from_proto(resource.can_reschedule),
         )
 
 
@@ -1400,7 +1426,8 @@ class InstanceScheduledMaintenanceStartTime(object):
             return None
 
         return InstanceScheduledMaintenanceStartTime(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -1603,30 +1630,68 @@ class InstanceSettings(object):
             return None
 
         return InstanceSettings(
-            authorized_gae_applications=resource.authorized_gae_applications,
-            tier=resource.tier,
-            kind=resource.kind,
-            availability_type=resource.availability_type,
-            pricing_plan=resource.pricing_plan,
-            replication_type=resource.replication_type,
-            activation_policy=resource.activation_policy,
-            storage_auto_resize=resource.storage_auto_resize,
-            data_disk_type=resource.data_disk_type,
-            database_replication_enabled=resource.database_replication_enabled,
-            crash_safe_replication_enabled=resource.crash_safe_replication_enabled,
-            settings_version=resource.settings_version,
-            user_labels=resource.user_labels,
-            storage_auto_resize_limit=resource.storage_auto_resize_limit,
-            ip_configuration=resource.ip_configuration,
-            location_preference=resource.location_preference,
-            database_flags=resource.database_flags,
-            maintenance_window=resource.maintenance_window,
-            backup_configuration=resource.backup_configuration,
-            data_disk_size_gb=resource.data_disk_size_gb,
-            active_directory_config=resource.active_directory_config,
-            collation=resource.collation,
-            deny_maintenance_periods=resource.deny_maintenance_periods,
-            insights_config=resource.insights_config,
+            authorized_gae_applications=Primitive.from_proto(
+                resource.authorized_gae_applications
+            ),
+            tier=Primitive.from_proto(resource.tier),
+            kind=Primitive.from_proto(resource.kind),
+            availability_type=InstanceSettingsAvailabilityTypeEnum.from_proto(
+                resource.availability_type
+            ),
+            pricing_plan=InstanceSettingsPricingPlanEnum.from_proto(
+                resource.pricing_plan
+            ),
+            replication_type=InstanceSettingsReplicationTypeEnum.from_proto(
+                resource.replication_type
+            ),
+            activation_policy=InstanceSettingsActivationPolicyEnum.from_proto(
+                resource.activation_policy
+            ),
+            storage_auto_resize=Primitive.from_proto(resource.storage_auto_resize),
+            data_disk_type=InstanceSettingsDataDiskTypeEnum.from_proto(
+                resource.data_disk_type
+            ),
+            database_replication_enabled=Primitive.from_proto(
+                resource.database_replication_enabled
+            ),
+            crash_safe_replication_enabled=Primitive.from_proto(
+                resource.crash_safe_replication_enabled
+            ),
+            settings_version=InstanceSettingsSettingsVersion.from_proto(
+                resource.settings_version
+            ),
+            user_labels=Primitive.from_proto(resource.user_labels),
+            storage_auto_resize_limit=InstanceSettingsStorageAutoResizeLimit.from_proto(
+                resource.storage_auto_resize_limit
+            ),
+            ip_configuration=InstanceSettingsIPConfiguration.from_proto(
+                resource.ip_configuration
+            ),
+            location_preference=InstanceSettingsLocationPreference.from_proto(
+                resource.location_preference
+            ),
+            database_flags=InstanceSettingsDatabaseFlagsArray.from_proto(
+                resource.database_flags
+            ),
+            maintenance_window=InstanceSettingsMaintenanceWindow.from_proto(
+                resource.maintenance_window
+            ),
+            backup_configuration=InstanceSettingsBackupConfiguration.from_proto(
+                resource.backup_configuration
+            ),
+            data_disk_size_gb=InstanceSettingsDataDiskSizeGb.from_proto(
+                resource.data_disk_size_gb
+            ),
+            active_directory_config=InstanceSettingsActiveDirectoryConfig.from_proto(
+                resource.active_directory_config
+            ),
+            collation=Primitive.from_proto(resource.collation),
+            deny_maintenance_periods=InstanceSettingsDenyMaintenancePeriodsArray.from_proto(
+                resource.deny_maintenance_periods
+            ),
+            insights_config=InstanceSettingsInsightsConfig.from_proto(
+                resource.insights_config
+            ),
         )
 
 
@@ -1661,7 +1726,9 @@ class InstanceSettingsSettingsVersion(object):
         if not resource:
             return None
 
-        return InstanceSettingsSettingsVersion(value=resource.value,)
+        return InstanceSettingsSettingsVersion(
+            value=Primitive.from_proto(resource.value),
+        )
 
 
 class InstanceSettingsSettingsVersionArray(object):
@@ -1695,7 +1762,9 @@ class InstanceSettingsStorageAutoResizeLimit(object):
         if not resource:
             return None
 
-        return InstanceSettingsStorageAutoResizeLimit(value=resource.value,)
+        return InstanceSettingsStorageAutoResizeLimit(
+            value=Primitive.from_proto(resource.value),
+        )
 
 
 class InstanceSettingsStorageAutoResizeLimitArray(object):
@@ -1751,10 +1820,12 @@ class InstanceSettingsIPConfiguration(object):
             return None
 
         return InstanceSettingsIPConfiguration(
-            ipv4_enabled=resource.ipv4_enabled,
-            private_network=resource.private_network,
-            require_ssl=resource.require_ssl,
-            authorized_networks=resource.authorized_networks,
+            ipv4_enabled=Primitive.from_proto(resource.ipv4_enabled),
+            private_network=Primitive.from_proto(resource.private_network),
+            require_ssl=Primitive.from_proto(resource.require_ssl),
+            authorized_networks=InstanceSettingsIPConfigurationAuthorizedNetworksArray.from_proto(
+                resource.authorized_networks
+            ),
         )
 
 
@@ -1805,10 +1876,10 @@ class InstanceSettingsIPConfigurationAuthorizedNetworks(object):
             return None
 
         return InstanceSettingsIPConfigurationAuthorizedNetworks(
-            value=resource.value,
-            expiration_time=resource.expiration_time,
-            name=resource.name,
-            kind=resource.kind,
+            value=Primitive.from_proto(resource.value),
+            expiration_time=Primitive.from_proto(resource.expiration_time),
+            name=Primitive.from_proto(resource.name),
+            kind=Primitive.from_proto(resource.kind),
         )
 
 
@@ -1853,7 +1924,8 @@ class InstanceSettingsLocationPreference(object):
             return None
 
         return InstanceSettingsLocationPreference(
-            zone=resource.zone, kind=resource.kind,
+            zone=Primitive.from_proto(resource.zone),
+            kind=Primitive.from_proto(resource.kind),
         )
 
 
@@ -1891,7 +1963,10 @@ class InstanceSettingsDatabaseFlags(object):
         if not resource:
             return None
 
-        return InstanceSettingsDatabaseFlags(name=resource.name, value=resource.value,)
+        return InstanceSettingsDatabaseFlags(
+            name=Primitive.from_proto(resource.name),
+            value=Primitive.from_proto(resource.value),
+        )
 
 
 class InstanceSettingsDatabaseFlagsArray(object):
@@ -1945,10 +2020,12 @@ class InstanceSettingsMaintenanceWindow(object):
             return None
 
         return InstanceSettingsMaintenanceWindow(
-            hour=resource.hour,
-            day=resource.day,
-            update_track=resource.update_track,
-            kind=resource.kind,
+            hour=Primitive.from_proto(resource.hour),
+            day=Primitive.from_proto(resource.day),
+            update_track=InstanceSettingsMaintenanceWindowUpdateTrackEnum.from_proto(
+                resource.update_track
+            ),
+            kind=Primitive.from_proto(resource.kind),
         )
 
 
@@ -2021,13 +2098,17 @@ class InstanceSettingsBackupConfiguration(object):
             return None
 
         return InstanceSettingsBackupConfiguration(
-            start_time=resource.start_time,
-            enabled=resource.enabled,
-            kind=resource.kind,
-            binary_log_enabled=resource.binary_log_enabled,
-            location=resource.location,
-            backup_retention_settings=resource.backup_retention_settings,
-            transaction_log_retention_days=resource.transaction_log_retention_days,
+            start_time=Primitive.from_proto(resource.start_time),
+            enabled=Primitive.from_proto(resource.enabled),
+            kind=Primitive.from_proto(resource.kind),
+            binary_log_enabled=Primitive.from_proto(resource.binary_log_enabled),
+            location=Primitive.from_proto(resource.location),
+            backup_retention_settings=InstanceSettingsBackupConfigurationBackupRetentionSettings.from_proto(
+                resource.backup_retention_settings
+            ),
+            transaction_log_retention_days=Primitive.from_proto(
+                resource.transaction_log_retention_days
+            ),
         )
 
 
@@ -2072,8 +2153,10 @@ class InstanceSettingsBackupConfigurationBackupRetentionSettings(object):
             return None
 
         return InstanceSettingsBackupConfigurationBackupRetentionSettings(
-            retention_unit=resource.retention_unit,
-            retained_backups=resource.retained_backups,
+            retention_unit=InstanceSettingsBackupConfigurationBackupRetentionSettingsRetentionUnitEnum.from_proto(
+                resource.retention_unit
+            ),
+            retained_backups=Primitive.from_proto(resource.retained_backups),
         )
 
 
@@ -2114,7 +2197,9 @@ class InstanceSettingsDataDiskSizeGb(object):
         if not resource:
             return None
 
-        return InstanceSettingsDataDiskSizeGb(value=resource.value,)
+        return InstanceSettingsDataDiskSizeGb(
+            value=Primitive.from_proto(resource.value),
+        )
 
 
 class InstanceSettingsDataDiskSizeGbArray(object):
@@ -2152,7 +2237,8 @@ class InstanceSettingsActiveDirectoryConfig(object):
             return None
 
         return InstanceSettingsActiveDirectoryConfig(
-            kind=resource.kind, domain=resource.domain,
+            kind=Primitive.from_proto(resource.kind),
+            domain=Primitive.from_proto(resource.domain),
         )
 
 
@@ -2194,9 +2280,9 @@ class InstanceSettingsDenyMaintenancePeriods(object):
             return None
 
         return InstanceSettingsDenyMaintenancePeriods(
-            start_date=resource.start_date,
-            end_date=resource.end_date,
-            time=resource.time,
+            start_date=Primitive.from_proto(resource.start_date),
+            end_date=Primitive.from_proto(resource.end_date),
+            time=Primitive.from_proto(resource.time),
         )
 
 
@@ -2253,10 +2339,14 @@ class InstanceSettingsInsightsConfig(object):
             return None
 
         return InstanceSettingsInsightsConfig(
-            query_insights_enabled=resource.query_insights_enabled,
-            record_client_address=resource.record_client_address,
-            record_application_tags=resource.record_application_tags,
-            query_string_length=resource.query_string_length,
+            query_insights_enabled=Primitive.from_proto(
+                resource.query_insights_enabled
+            ),
+            record_client_address=Primitive.from_proto(resource.record_client_address),
+            record_application_tags=Primitive.from_proto(
+                resource.record_application_tags
+            ),
+            query_string_length=Primitive.from_proto(resource.query_string_length),
         )
 
 
@@ -2294,7 +2384,10 @@ class InstanceReplicaInstances(object):
         if not resource:
             return None
 
-        return InstanceReplicaInstances(name=resource.name, region=resource.region,)
+        return InstanceReplicaInstances(
+            name=Primitive.from_proto(resource.name),
+            region=Primitive.from_proto(resource.region),
+        )
 
 
 class InstanceReplicaInstancesArray(object):
@@ -2360,14 +2453,14 @@ class InstanceServerCaCert(object):
             return None
 
         return InstanceServerCaCert(
-            kind=resource.kind,
-            cert_serial_number=resource.cert_serial_number,
-            cert=resource.cert,
-            create_time=resource.create_time,
-            common_name=resource.common_name,
-            expiration_time=resource.expiration_time,
-            sha1_fingerprint=resource.sha1_fingerprint,
-            instance=resource.instance,
+            kind=Primitive.from_proto(resource.kind),
+            cert_serial_number=Primitive.from_proto(resource.cert_serial_number),
+            cert=Primitive.from_proto(resource.cert),
+            create_time=Primitive.from_proto(resource.create_time),
+            common_name=Primitive.from_proto(resource.common_name),
+            expiration_time=Primitive.from_proto(resource.expiration_time),
+            sha1_fingerprint=Primitive.from_proto(resource.sha1_fingerprint),
+            instance=Primitive.from_proto(resource.instance),
         )
 
 
@@ -2444,16 +2537,16 @@ class InstanceOnPremisesConfiguration(object):
             return None
 
         return InstanceOnPremisesConfiguration(
-            host_port=resource.host_port,
-            kind=resource.kind,
-            username=resource.username,
-            password=resource.password,
-            ca_certificate=resource.ca_certificate,
-            client_certificate=resource.client_certificate,
-            client_key=resource.client_key,
-            dump_file_path=resource.dump_file_path,
-            database=resource.database,
-            replicated_databases=resource.replicated_databases,
+            host_port=Primitive.from_proto(resource.host_port),
+            kind=Primitive.from_proto(resource.kind),
+            username=Primitive.from_proto(resource.username),
+            password=Primitive.from_proto(resource.password),
+            ca_certificate=Primitive.from_proto(resource.ca_certificate),
+            client_certificate=Primitive.from_proto(resource.client_certificate),
+            client_key=Primitive.from_proto(resource.client_key),
+            dump_file_path=Primitive.from_proto(resource.dump_file_path),
+            database=Primitive.from_proto(resource.database),
+            replicated_databases=Primitive.from_proto(resource.replicated_databases),
         )
 
 
@@ -2492,7 +2585,8 @@ class InstanceDiskEncryptionStatus(object):
             return None
 
         return InstanceDiskEncryptionStatus(
-            kms_key_version_name=resource.kms_key_version_name, kind=resource.kind,
+            kms_key_version_name=Primitive.from_proto(resource.kms_key_version_name),
+            kind=Primitive.from_proto(resource.kind),
         )
 
 

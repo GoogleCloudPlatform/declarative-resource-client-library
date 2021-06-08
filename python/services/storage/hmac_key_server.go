@@ -31,7 +31,7 @@ func ProtoToStorageHmacKeyStateEnum(e storagepb.StorageHmacKeyStateEnum) *storag
 		return nil
 	}
 	if n, ok := storagepb.StorageHmacKeyStateEnum_name[int32(e)]; ok {
-		e := storage.HmacKeyStateEnum(n[len("HmacKeyStateEnum"):])
+		e := storage.HmacKeyStateEnum(n[len("StorageHmacKeyStateEnum"):])
 		return &e
 	}
 	return nil

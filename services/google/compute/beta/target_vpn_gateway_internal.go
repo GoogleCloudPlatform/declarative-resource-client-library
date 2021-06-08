@@ -475,7 +475,7 @@ func diffTargetVpnGateway(c *Client, desired, actual *TargetVpnGateway, opts ...
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Tunnel, actual.Tunnel, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tunnel")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tunnel, actual.Tunnel, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tunnels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -496,7 +496,7 @@ func diffTargetVpnGateway(c *Client, desired, actual *TargetVpnGateway, opts ...
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ForwardingRule, actual.ForwardingRule, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ForwardingRule")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ForwardingRule, actual.ForwardingRule, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ForwardingRules")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

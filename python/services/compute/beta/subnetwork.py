@@ -245,7 +245,8 @@ class SubnetworkSecondaryIPRanges(object):
             return None
 
         return SubnetworkSecondaryIPRanges(
-            range_name=resource.range_name, ip_cidr_range=resource.ip_cidr_range,
+            range_name=Primitive.from_proto(resource.range_name),
+            ip_cidr_range=Primitive.from_proto(resource.ip_cidr_range),
         )
 
 
@@ -296,9 +297,11 @@ class SubnetworkLogConfig(object):
             return None
 
         return SubnetworkLogConfig(
-            aggregation_interval=resource.aggregation_interval,
-            flow_sampling=resource.flow_sampling,
-            metadata=resource.metadata,
+            aggregation_interval=SubnetworkLogConfigAggregationIntervalEnum.from_proto(
+                resource.aggregation_interval
+            ),
+            flow_sampling=Primitive.from_proto(resource.flow_sampling),
+            metadata=SubnetworkLogConfigMetadataEnum.from_proto(resource.metadata),
         )
 
 

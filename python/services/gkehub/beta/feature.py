@@ -167,7 +167,8 @@ class FeatureResourceState(object):
             return None
 
         return FeatureResourceState(
-            state=resource.state, has_resources=resource.has_resources,
+            state=FeatureResourceStateStateEnum.from_proto(resource.state),
+            has_resources=Primitive.from_proto(resource.has_resources),
         )
 
 
@@ -206,7 +207,11 @@ class FeatureSpec(object):
         if not resource:
             return None
 
-        return FeatureSpec(multiclusteringress=resource.multiclusteringress,)
+        return FeatureSpec(
+            multiclusteringress=FeatureSpecMulticlusteringress.from_proto(
+                resource.multiclusteringress
+            ),
+        )
 
 
 class FeatureSpecArray(object):
@@ -241,7 +246,7 @@ class FeatureSpecMulticlusteringress(object):
             return None
 
         return FeatureSpecMulticlusteringress(
-            config_membership=resource.config_membership,
+            config_membership=Primitive.from_proto(resource.config_membership),
         )
 
 
@@ -278,7 +283,7 @@ class FeatureState(object):
         if not resource:
             return None
 
-        return FeatureState(state=resource.state,)
+        return FeatureState(state=FeatureStateState.from_proto(resource.state),)
 
 
 class FeatureStateArray(object):
@@ -321,9 +326,9 @@ class FeatureStateState(object):
             return None
 
         return FeatureStateState(
-            code=resource.code,
-            description=resource.description,
-            update_time=resource.update_time,
+            code=FeatureStateStateCodeEnum.from_proto(resource.code),
+            description=Primitive.from_proto(resource.description),
+            update_time=Primitive.from_proto(resource.update_time),
         )
 
 

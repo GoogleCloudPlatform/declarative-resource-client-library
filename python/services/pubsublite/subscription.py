@@ -155,7 +155,9 @@ class SubscriptionDeliveryConfig(object):
             return None
 
         return SubscriptionDeliveryConfig(
-            delivery_requirement=resource.delivery_requirement,
+            delivery_requirement=SubscriptionDeliveryConfigDeliveryRequirementEnum.from_proto(
+                resource.delivery_requirement
+            ),
         )
 
 

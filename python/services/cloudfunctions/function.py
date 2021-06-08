@@ -385,7 +385,8 @@ class FunctionSourceRepository(object):
             return None
 
         return FunctionSourceRepository(
-            url=resource.url, deployed_url=resource.deployed_url,
+            url=Primitive.from_proto(resource.url),
+            deployed_url=Primitive.from_proto(resource.deployed_url),
         )
 
 
@@ -420,7 +421,7 @@ class FunctionHttpsTrigger(object):
         if not resource:
             return None
 
-        return FunctionHttpsTrigger(url=resource.url,)
+        return FunctionHttpsTrigger(url=Primitive.from_proto(resource.url),)
 
 
 class FunctionHttpsTriggerArray(object):
@@ -470,10 +471,10 @@ class FunctionEventTrigger(object):
             return None
 
         return FunctionEventTrigger(
-            event_type=resource.event_type,
-            resource=resource.resource,
-            service=resource.service,
-            failure_policy=resource.failure_policy,
+            event_type=Primitive.from_proto(resource.event_type),
+            resource=Primitive.from_proto(resource.resource),
+            service=Primitive.from_proto(resource.service),
+            failure_policy=Primitive.from_proto(resource.failure_policy),
         )
 
 

@@ -257,9 +257,9 @@ class JobPubsubTarget(object):
             return None
 
         return JobPubsubTarget(
-            topic_name=resource.topic_name,
-            data=resource.data,
-            attributes=resource.attributes,
+            topic_name=Primitive.from_proto(resource.topic_name),
+            data=Primitive.from_proto(resource.data),
+            attributes=Primitive.from_proto(resource.attributes),
         )
 
 
@@ -322,11 +322,15 @@ class JobAppEngineHttpTarget(object):
             return None
 
         return JobAppEngineHttpTarget(
-            http_method=resource.http_method,
-            app_engine_routing=resource.app_engine_routing,
-            relative_uri=resource.relative_uri,
-            headers=resource.headers,
-            body=resource.body,
+            http_method=JobAppEngineHttpTargetHttpMethodEnum.from_proto(
+                resource.http_method
+            ),
+            app_engine_routing=JobAppEngineHttpTargetAppEngineRouting.from_proto(
+                resource.app_engine_routing
+            ),
+            relative_uri=Primitive.from_proto(resource.relative_uri),
+            headers=Primitive.from_proto(resource.headers),
+            body=Primitive.from_proto(resource.body),
         )
 
 
@@ -377,10 +381,10 @@ class JobAppEngineHttpTargetAppEngineRouting(object):
             return None
 
         return JobAppEngineHttpTargetAppEngineRouting(
-            service=resource.service,
-            version=resource.version,
-            instance=resource.instance,
-            host=resource.host,
+            service=Primitive.from_proto(resource.service),
+            version=Primitive.from_proto(resource.version),
+            instance=Primitive.from_proto(resource.instance),
+            host=Primitive.from_proto(resource.host),
         )
 
 
@@ -447,12 +451,12 @@ class JobHttpTarget(object):
             return None
 
         return JobHttpTarget(
-            uri=resource.uri,
-            http_method=resource.http_method,
-            headers=resource.headers,
-            body=resource.body,
-            oauth_token=resource.oauth_token,
-            oidc_token=resource.oidc_token,
+            uri=Primitive.from_proto(resource.uri),
+            http_method=JobHttpTargetHttpMethodEnum.from_proto(resource.http_method),
+            headers=Primitive.from_proto(resource.headers),
+            body=Primitive.from_proto(resource.body),
+            oauth_token=JobHttpTargetOAuthToken.from_proto(resource.oauth_token),
+            oidc_token=JobHttpTargetOidcToken.from_proto(resource.oidc_token),
         )
 
 
@@ -493,7 +497,8 @@ class JobHttpTargetOAuthToken(object):
             return None
 
         return JobHttpTargetOAuthToken(
-            service_account_email=resource.service_account_email, scope=resource.scope,
+            service_account_email=Primitive.from_proto(resource.service_account_email),
+            scope=Primitive.from_proto(resource.scope),
         )
 
 
@@ -534,8 +539,8 @@ class JobHttpTargetOidcToken(object):
             return None
 
         return JobHttpTargetOidcToken(
-            service_account_email=resource.service_account_email,
-            audience=resource.audience,
+            service_account_email=Primitive.from_proto(resource.service_account_email),
+            audience=Primitive.from_proto(resource.audience),
         )
 
 
@@ -577,7 +582,9 @@ class JobStatus(object):
             return None
 
         return JobStatus(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=JobStatusDetailsArray.from_proto(resource.details),
         )
 
 
@@ -615,7 +622,10 @@ class JobStatusDetails(object):
         if not resource:
             return None
 
-        return JobStatusDetails(type_url=resource.type_url, value=resource.value,)
+        return JobStatusDetails(
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
+        )
 
 
 class JobStatusDetailsArray(object):
@@ -669,11 +679,11 @@ class JobRetryConfig(object):
             return None
 
         return JobRetryConfig(
-            retry_count=resource.retry_count,
-            max_retry_duration=resource.max_retry_duration,
-            min_backoff_duration=resource.min_backoff_duration,
-            max_backoff_duration=resource.max_backoff_duration,
-            max_doublings=resource.max_doublings,
+            retry_count=Primitive.from_proto(resource.retry_count),
+            max_retry_duration=Primitive.from_proto(resource.max_retry_duration),
+            min_backoff_duration=Primitive.from_proto(resource.min_backoff_duration),
+            max_backoff_duration=Primitive.from_proto(resource.max_backoff_duration),
+            max_doublings=Primitive.from_proto(resource.max_doublings),
         )
 
 

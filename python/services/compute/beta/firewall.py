@@ -282,7 +282,7 @@ class FirewallLogConfig(object):
         if not resource:
             return None
 
-        return FirewallLogConfig(enable=resource.enable,)
+        return FirewallLogConfig(enable=Primitive.from_proto(resource.enable),)
 
 
 class FirewallLogConfigArray(object):
@@ -325,9 +325,9 @@ class FirewallAllowed(object):
             return None
 
         return FirewallAllowed(
-            ip_protocol=resource.ip_protocol,
-            ports=resource.ports,
-            ip_protocol_alt=resource.ip_protocol_alt,
+            ip_protocol=Primitive.from_proto(resource.ip_protocol),
+            ports=Primitive.from_proto(resource.ports),
+            ip_protocol_alt=Primitive.from_proto(resource.ip_protocol_alt),
         )
 
 
@@ -371,9 +371,9 @@ class FirewallDenied(object):
             return None
 
         return FirewallDenied(
-            ip_protocol=resource.ip_protocol,
-            ports=resource.ports,
-            ip_protocol_alt=resource.ip_protocol_alt,
+            ip_protocol=Primitive.from_proto(resource.ip_protocol),
+            ports=Primitive.from_proto(resource.ports),
+            ip_protocol_alt=Primitive.from_proto(resource.ip_protocol_alt),
         )
 
 

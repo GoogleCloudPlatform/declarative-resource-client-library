@@ -31,7 +31,7 @@ func ProtoToApigeeOrganizationRuntimeTypeEnum(e apigeepb.ApigeeOrganizationRunti
 		return nil
 	}
 	if n, ok := apigeepb.ApigeeOrganizationRuntimeTypeEnum_name[int32(e)]; ok {
-		e := apigee.OrganizationRuntimeTypeEnum(n[len("OrganizationRuntimeTypeEnum"):])
+		e := apigee.OrganizationRuntimeTypeEnum(n[len("ApigeeOrganizationRuntimeTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToApigeeOrganizationSubscriptionTypeEnum(e apigeepb.ApigeeOrganization
 		return nil
 	}
 	if n, ok := apigeepb.ApigeeOrganizationSubscriptionTypeEnum_name[int32(e)]; ok {
-		e := apigee.OrganizationSubscriptionTypeEnum(n[len("OrganizationSubscriptionTypeEnum"):])
+		e := apigee.OrganizationSubscriptionTypeEnum(n[len("ApigeeOrganizationSubscriptionTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToApigeeOrganizationBillingTypeEnum(e apigeepb.ApigeeOrganizationBilli
 		return nil
 	}
 	if n, ok := apigeepb.ApigeeOrganizationBillingTypeEnum_name[int32(e)]; ok {
-		e := apigee.OrganizationBillingTypeEnum(n[len("OrganizationBillingTypeEnum"):])
+		e := apigee.OrganizationBillingTypeEnum(n[len("ApigeeOrganizationBillingTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToApigeeOrganizationStateEnum(e apigeepb.ApigeeOrganizationStateEnum) 
 		return nil
 	}
 	if n, ok := apigeepb.ApigeeOrganizationStateEnum_name[int32(e)]; ok {
-		e := apigee.OrganizationStateEnum(n[len("OrganizationStateEnum"):])
+		e := apigee.OrganizationStateEnum(n[len("ApigeeOrganizationStateEnum"):])
 		return &e
 	}
 	return nil

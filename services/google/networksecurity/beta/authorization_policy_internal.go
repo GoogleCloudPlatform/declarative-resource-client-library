@@ -1035,7 +1035,7 @@ func compareAuthorizationPolicyRulesSourcesNewStyle(d, a interface{}, fn dcl.Fie
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPBlocks, actual.IPBlocks, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAuthorizationPolicyUpdateAuthorizationPolicyOperation")}, fn.AddNest("IPBlocks")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPBlocks, actual.IPBlocks, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAuthorizationPolicyUpdateAuthorizationPolicyOperation")}, fn.AddNest("IpBlocks")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

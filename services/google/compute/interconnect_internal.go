@@ -937,14 +937,14 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PeerIPAddress, actual.PeerIPAddress, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PeerIPAddress")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PeerIPAddress, actual.PeerIPAddress, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PeerIpAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GoogleIPAddress, actual.GoogleIPAddress, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GoogleIPAddress")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GoogleIPAddress, actual.GoogleIPAddress, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GoogleIpAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

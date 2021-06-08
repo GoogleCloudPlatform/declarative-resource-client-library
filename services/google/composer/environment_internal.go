@@ -1747,7 +1747,7 @@ func compareEnvironmentConfigNodeConfigNewStyle(d, a interface{}, fn dcl.FieldNa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OAuthScopes, actual.OAuthScopes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OAuthScopes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OAuthScopes, actual.OAuthScopes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OauthScopes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1768,7 +1768,7 @@ func compareEnvironmentConfigNodeConfigNewStyle(d, a interface{}, fn dcl.FieldNa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPAllocationPolicy, actual.IPAllocationPolicy, dcl.Info{ObjectFunction: compareEnvironmentConfigNodeConfigIPAllocationPolicyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPAllocationPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPAllocationPolicy, actual.IPAllocationPolicy, dcl.Info{ObjectFunction: compareEnvironmentConfigNodeConfigIPAllocationPolicyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpAllocationPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1797,7 +1797,7 @@ func compareEnvironmentConfigNodeConfigIPAllocationPolicyNewStyle(d, a interface
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.UseIPAliases, actual.UseIPAliases, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UseIPAliases")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UseIPAliases, actual.UseIPAliases, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UseIpAliases")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1811,7 +1811,7 @@ func compareEnvironmentConfigNodeConfigIPAllocationPolicyNewStyle(d, a interface
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterIPv4CidrBlock, actual.ClusterIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterIPv4CidrBlock")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterIPv4CidrBlock, actual.ClusterIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterIpv4CidrBlock")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1825,7 +1825,7 @@ func compareEnvironmentConfigNodeConfigIPAllocationPolicyNewStyle(d, a interface
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServicesIPv4CidrBlock, actual.ServicesIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServicesIPv4CidrBlock")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServicesIPv4CidrBlock, actual.ServicesIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServicesIpv4CidrBlock")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1868,21 +1868,21 @@ func compareEnvironmentConfigPrivateEnvironmentConfigNewStyle(d, a interface{}, 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WebServerIPv4CidrBlock, actual.WebServerIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WebServerIPv4CidrBlock")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WebServerIPv4CidrBlock, actual.WebServerIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WebServerIpv4CidrBlock")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CloudSqlIPv4CidrBlock, actual.CloudSqlIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CloudSqlIPv4CidrBlock")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CloudSqlIPv4CidrBlock, actual.CloudSqlIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CloudSqlIpv4CidrBlock")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WebServerIPv4ReservedRange, actual.WebServerIPv4ReservedRange, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WebServerIPv4ReservedRange")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WebServerIPv4ReservedRange, actual.WebServerIPv4ReservedRange, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WebServerIpv4ReservedRange")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1918,14 +1918,14 @@ func compareEnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfigNewStyl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MasterIPv4CidrBlock, actual.MasterIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterIPv4CidrBlock")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MasterIPv4CidrBlock, actual.MasterIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterIpv4CidrBlock")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MasterIPv4ReservedRange, actual.MasterIPv4ReservedRange, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterIPv4ReservedRange")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MasterIPv4ReservedRange, actual.MasterIPv4ReservedRange, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterIpv4ReservedRange")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1954,7 +1954,7 @@ func compareEnvironmentConfigWebServerNetworkAccessControlNewStyle(d, a interfac
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AllowedIPRanges, actual.AllowedIPRanges, dcl.Info{ObjectFunction: compareEnvironmentConfigWebServerNetworkAccessControlAllowedIPRangesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowedIPRanges")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowedIPRanges, actual.AllowedIPRanges, dcl.Info{ObjectFunction: compareEnvironmentConfigWebServerNetworkAccessControlAllowedIPRangesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowedIpRanges")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

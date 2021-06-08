@@ -271,14 +271,16 @@ class InterconnectExpectedOutages(object):
             return None
 
         return InterconnectExpectedOutages(
-            name=resource.name,
-            description=resource.description,
-            source=resource.source,
-            state=resource.state,
-            issue_type=resource.issue_type,
-            affected_circuits=resource.affected_circuits,
-            start_time=resource.start_time,
-            end_time=resource.end_time,
+            name=Primitive.from_proto(resource.name),
+            description=Primitive.from_proto(resource.description),
+            source=InterconnectExpectedOutagesSourceEnum.from_proto(resource.source),
+            state=InterconnectExpectedOutagesStateEnum.from_proto(resource.state),
+            issue_type=InterconnectExpectedOutagesIssueTypeEnum.from_proto(
+                resource.issue_type
+            ),
+            affected_circuits=Primitive.from_proto(resource.affected_circuits),
+            start_time=Primitive.from_proto(resource.start_time),
+            end_time=Primitive.from_proto(resource.end_time),
         )
 
 
@@ -325,9 +327,9 @@ class InterconnectCircuitInfos(object):
             return None
 
         return InterconnectCircuitInfos(
-            google_circuit_id=resource.google_circuit_id,
-            google_demarc_id=resource.google_demarc_id,
-            customer_demarc_id=resource.customer_demarc_id,
+            google_circuit_id=Primitive.from_proto(resource.google_circuit_id),
+            google_demarc_id=Primitive.from_proto(resource.google_demarc_id),
+            customer_demarc_id=Primitive.from_proto(resource.customer_demarc_id),
         )
 
 

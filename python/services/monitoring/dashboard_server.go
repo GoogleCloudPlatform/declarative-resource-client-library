@@ -31,7 +31,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(n[len("DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum"):])
+		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(n[len("MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(n[len("DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum"):])
+		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(n[len("MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(n[len("DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum"):])
+		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(n[len("MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(n[len("DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum"):])
+		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(n[len("MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(n[len("DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum"):])
+		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(n[len("MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum"):])
 		return &e
 	}
 	return nil
@@ -91,7 +91,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(n[len("DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum"):])
+		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(n[len("MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum"):])
 		return &e
 	}
 	return nil
@@ -103,7 +103,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(n[len("DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum"):])
+		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(n[len("MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum"):])
 		return &e
 	}
 	return nil
@@ -115,7 +115,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(n[len("DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum"):])
+		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(n[len("MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum"):])
 		return &e
 	}
 	return nil
@@ -127,7 +127,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(n[len("DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum"):])
+		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(n[len("MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum"):])
 		return &e
 	}
 	return nil
@@ -139,7 +139,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(n[len("DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum"):])
+		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(n[len("MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum"):])
 		return &e
 	}
 	return nil
@@ -151,7 +151,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(n[len("DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum"):])
+		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(n[len("MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum"):])
 		return &e
 	}
 	return nil
@@ -163,7 +163,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(n[len("DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum"):])
+		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(n[len("MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum"):])
 		return &e
 	}
 	return nil
@@ -175,7 +175,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(n[len("DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum"):])
+		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(n[len("MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum"):])
 		return &e
 	}
 	return nil
@@ -187,7 +187,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFil
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(n[len("DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum"):])
+		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(n[len("MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum"):])
 		return &e
 	}
 	return nil
@@ -199,7 +199,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryApiSourceEnum
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryApiSourceEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryApiSourceEnum(n[len("DashboardWidgetXyChartDataSetsTimeSeriesQueryApiSourceEnum"):])
+		e := monitoring.DashboardWidgetXyChartDataSetsTimeSeriesQueryApiSourceEnum(n[len("MonitoringDashboardWidgetXyChartDataSetsTimeSeriesQueryApiSourceEnum"):])
 		return &e
 	}
 	return nil
@@ -211,7 +211,7 @@ func ProtoToMonitoringDashboardWidgetXyChartDataSetsPlotTypeEnum(e monitoringpb.
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartDataSetsPlotTypeEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartDataSetsPlotTypeEnum(n[len("DashboardWidgetXyChartDataSetsPlotTypeEnum"):])
+		e := monitoring.DashboardWidgetXyChartDataSetsPlotTypeEnum(n[len("MonitoringDashboardWidgetXyChartDataSetsPlotTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -223,7 +223,7 @@ func ProtoToMonitoringDashboardWidgetXyChartThresholdsColorEnum(e monitoringpb.M
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartThresholdsColorEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartThresholdsColorEnum(n[len("DashboardWidgetXyChartThresholdsColorEnum"):])
+		e := monitoring.DashboardWidgetXyChartThresholdsColorEnum(n[len("MonitoringDashboardWidgetXyChartThresholdsColorEnum"):])
 		return &e
 	}
 	return nil
@@ -235,7 +235,7 @@ func ProtoToMonitoringDashboardWidgetXyChartThresholdsDirectionEnum(e monitoring
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartThresholdsDirectionEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartThresholdsDirectionEnum(n[len("DashboardWidgetXyChartThresholdsDirectionEnum"):])
+		e := monitoring.DashboardWidgetXyChartThresholdsDirectionEnum(n[len("MonitoringDashboardWidgetXyChartThresholdsDirectionEnum"):])
 		return &e
 	}
 	return nil
@@ -247,7 +247,7 @@ func ProtoToMonitoringDashboardWidgetXyChartXAxisScaleEnum(e monitoringpb.Monito
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartXAxisScaleEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartXAxisScaleEnum(n[len("DashboardWidgetXyChartXAxisScaleEnum"):])
+		e := monitoring.DashboardWidgetXyChartXAxisScaleEnum(n[len("MonitoringDashboardWidgetXyChartXAxisScaleEnum"):])
 		return &e
 	}
 	return nil
@@ -259,7 +259,7 @@ func ProtoToMonitoringDashboardWidgetXyChartYAxisScaleEnum(e monitoringpb.Monito
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartYAxisScaleEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartYAxisScaleEnum(n[len("DashboardWidgetXyChartYAxisScaleEnum"):])
+		e := monitoring.DashboardWidgetXyChartYAxisScaleEnum(n[len("MonitoringDashboardWidgetXyChartYAxisScaleEnum"):])
 		return &e
 	}
 	return nil
@@ -271,7 +271,7 @@ func ProtoToMonitoringDashboardWidgetXyChartChartOptionsModeEnum(e monitoringpb.
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetXyChartChartOptionsModeEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetXyChartChartOptionsModeEnum(n[len("DashboardWidgetXyChartChartOptionsModeEnum"):])
+		e := monitoring.DashboardWidgetXyChartChartOptionsModeEnum(n[len("MonitoringDashboardWidgetXyChartChartOptionsModeEnum"):])
 		return &e
 	}
 	return nil
@@ -283,7 +283,7 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAgg
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(n[len("DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum"):])
+		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(n[len("MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum"):])
 		return &e
 	}
 	return nil
@@ -295,7 +295,7 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAgg
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(n[len("DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum"):])
+		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(n[len("MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum"):])
 		return &e
 	}
 	return nil
@@ -307,7 +307,7 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSec
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(n[len("DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum"):])
+		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(n[len("MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum"):])
 		return &e
 	}
 	return nil
@@ -319,7 +319,7 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSec
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(n[len("DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum"):])
+		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(n[len("MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum"):])
 		return &e
 	}
 	return nil
@@ -331,7 +331,7 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPic
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(n[len("DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum"):])
+		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(n[len("MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum"):])
 		return &e
 	}
 	return nil
@@ -343,7 +343,7 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPic
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(n[len("DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum"):])
+		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(n[len("MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum"):])
 		return &e
 	}
 	return nil
@@ -355,7 +355,7 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRat
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(n[len("DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum"):])
+		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(n[len("MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum"):])
 		return &e
 	}
 	return nil
@@ -367,7 +367,7 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRat
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(n[len("DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum"):])
+		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(n[len("MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum"):])
 		return &e
 	}
 	return nil
@@ -379,7 +379,7 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRat
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(n[len("DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum"):])
+		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(n[len("MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum"):])
 		return &e
 	}
 	return nil
@@ -391,7 +391,7 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRat
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(n[len("DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum"):])
+		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(n[len("MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum"):])
 		return &e
 	}
 	return nil
@@ -403,7 +403,7 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRat
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(n[len("DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum"):])
+		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(n[len("MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum"):])
 		return &e
 	}
 	return nil
@@ -415,7 +415,7 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRat
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(n[len("DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum"):])
+		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(n[len("MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum"):])
 		return &e
 	}
 	return nil
@@ -427,7 +427,7 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRat
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(n[len("DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum"):])
+		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(n[len("MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum"):])
 		return &e
 	}
 	return nil
@@ -439,7 +439,7 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRat
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(n[len("DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum"):])
+		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(n[len("MonitoringDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum"):])
 		return &e
 	}
 	return nil
@@ -451,7 +451,7 @@ func ProtoToMonitoringDashboardWidgetScorecardTimeSeriesQueryApiSourceEnum(e mon
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetScorecardTimeSeriesQueryApiSourceEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryApiSourceEnum(n[len("DashboardWidgetScorecardTimeSeriesQueryApiSourceEnum"):])
+		e := monitoring.DashboardWidgetScorecardTimeSeriesQueryApiSourceEnum(n[len("MonitoringDashboardWidgetScorecardTimeSeriesQueryApiSourceEnum"):])
 		return &e
 	}
 	return nil
@@ -463,7 +463,7 @@ func ProtoToMonitoringDashboardWidgetScorecardSparkChartViewSparkChartTypeEnum(e
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetScorecardSparkChartViewSparkChartTypeEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum(n[len("DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum"):])
+		e := monitoring.DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum(n[len("MonitoringDashboardWidgetScorecardSparkChartViewSparkChartTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -475,7 +475,7 @@ func ProtoToMonitoringDashboardWidgetScorecardThresholdsColorEnum(e monitoringpb
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetScorecardThresholdsColorEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetScorecardThresholdsColorEnum(n[len("DashboardWidgetScorecardThresholdsColorEnum"):])
+		e := monitoring.DashboardWidgetScorecardThresholdsColorEnum(n[len("MonitoringDashboardWidgetScorecardThresholdsColorEnum"):])
 		return &e
 	}
 	return nil
@@ -487,7 +487,7 @@ func ProtoToMonitoringDashboardWidgetScorecardThresholdsDirectionEnum(e monitori
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetScorecardThresholdsDirectionEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetScorecardThresholdsDirectionEnum(n[len("DashboardWidgetScorecardThresholdsDirectionEnum"):])
+		e := monitoring.DashboardWidgetScorecardThresholdsDirectionEnum(n[len("MonitoringDashboardWidgetScorecardThresholdsDirectionEnum"):])
 		return &e
 	}
 	return nil
@@ -499,7 +499,7 @@ func ProtoToMonitoringDashboardWidgetTextFormatEnum(e monitoringpb.MonitoringDas
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringDashboardWidgetTextFormatEnum_name[int32(e)]; ok {
-		e := monitoring.DashboardWidgetTextFormatEnum(n[len("DashboardWidgetTextFormatEnum"):])
+		e := monitoring.DashboardWidgetTextFormatEnum(n[len("MonitoringDashboardWidgetTextFormatEnum"):])
 		return &e
 	}
 	return nil

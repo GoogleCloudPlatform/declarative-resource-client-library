@@ -185,10 +185,10 @@ class ConnectionCloudSql(object):
             return None
 
         return ConnectionCloudSql(
-            instance_id=resource.instance_id,
-            database=resource.database,
-            type=resource.type,
-            credential=resource.credential,
+            instance_id=Primitive.from_proto(resource.instance_id),
+            database=Primitive.from_proto(resource.database),
+            type=ConnectionCloudSqlTypeEnum.from_proto(resource.type),
+            credential=ConnectionCloudSqlCredential.from_proto(resource.credential),
         )
 
 
@@ -227,7 +227,8 @@ class ConnectionCloudSqlCredential(object):
             return None
 
         return ConnectionCloudSqlCredential(
-            username=resource.username, password=resource.password,
+            username=Primitive.from_proto(resource.username),
+            password=Primitive.from_proto(resource.password),
         )
 
 

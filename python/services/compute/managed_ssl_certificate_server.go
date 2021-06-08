@@ -31,7 +31,7 @@ func ProtoToComputeManagedSslCertificateManagedStatusEnum(e computepb.ComputeMan
 		return nil
 	}
 	if n, ok := computepb.ComputeManagedSslCertificateManagedStatusEnum_name[int32(e)]; ok {
-		e := compute.ManagedSslCertificateManagedStatusEnum(n[len("ManagedSslCertificateManagedStatusEnum"):])
+		e := compute.ManagedSslCertificateManagedStatusEnum(n[len("ComputeManagedSslCertificateManagedStatusEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeManagedSslCertificateTypeEnum(e computepb.ComputeManagedSslCe
 		return nil
 	}
 	if n, ok := computepb.ComputeManagedSslCertificateTypeEnum_name[int32(e)]; ok {
-		e := compute.ManagedSslCertificateTypeEnum(n[len("ManagedSslCertificateTypeEnum"):])
+		e := compute.ManagedSslCertificateTypeEnum(n[len("ComputeManagedSslCertificateTypeEnum"):])
 		return &e
 	}
 	return nil

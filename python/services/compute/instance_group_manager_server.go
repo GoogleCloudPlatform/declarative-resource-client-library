@@ -31,7 +31,7 @@ func ProtoToComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnu
 		return nil
 	}
 	if n, ok := computepb.ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum_name[int32(e)]; ok {
-		e := compute.InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum(n[len("InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum"):])
+		e := compute.InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum(n[len("ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeInstanceGroupManagerUpdatePolicyMinimalActionEnum(e computepb
 		return nil
 	}
 	if n, ok := computepb.ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnum_name[int32(e)]; ok {
-		e := compute.InstanceGroupManagerUpdatePolicyMinimalActionEnum(n[len("InstanceGroupManagerUpdatePolicyMinimalActionEnum"):])
+		e := compute.InstanceGroupManagerUpdatePolicyMinimalActionEnum(n[len("ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnum"):])
 		return &e
 	}
 	return nil

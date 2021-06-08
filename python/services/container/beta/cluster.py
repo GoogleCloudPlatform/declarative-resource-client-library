@@ -1038,12 +1038,16 @@ class ClusterMasterAuth(object):
             return None
 
         return ClusterMasterAuth(
-            username=resource.username,
-            password=resource.password,
-            client_certificate_config=resource.client_certificate_config,
-            cluster_ca_certificate=resource.cluster_ca_certificate,
-            client_certificate=resource.client_certificate,
-            client_key=resource.client_key,
+            username=Primitive.from_proto(resource.username),
+            password=Primitive.from_proto(resource.password),
+            client_certificate_config=ClusterMasterAuthClientCertificateConfig.from_proto(
+                resource.client_certificate_config
+            ),
+            cluster_ca_certificate=Primitive.from_proto(
+                resource.cluster_ca_certificate
+            ),
+            client_certificate=Primitive.from_proto(resource.client_certificate),
+            client_key=Primitive.from_proto(resource.client_key),
         )
 
 
@@ -1081,7 +1085,9 @@ class ClusterMasterAuthClientCertificateConfig(object):
             return None
 
         return ClusterMasterAuthClientCertificateConfig(
-            issue_client_certificate=resource.issue_client_certificate,
+            issue_client_certificate=Primitive.from_proto(
+                resource.issue_client_certificate
+            ),
         )
 
 
@@ -1222,16 +1228,34 @@ class ClusterAddonsConfig(object):
             return None
 
         return ClusterAddonsConfig(
-            http_load_balancing=resource.http_load_balancing,
-            horizontal_pod_autoscaling=resource.horizontal_pod_autoscaling,
-            kubernetes_dashboard=resource.kubernetes_dashboard,
-            network_policy_config=resource.network_policy_config,
-            cloud_run_config=resource.cloud_run_config,
-            dns_cache_config=resource.dns_cache_config,
-            config_connector_config=resource.config_connector_config,
-            gce_persistent_disk_csi_driver_config=resource.gce_persistent_disk_csi_driver_config,
-            istio_config=resource.istio_config,
-            kalm_config=resource.kalm_config,
+            http_load_balancing=ClusterAddonsConfigHttpLoadBalancing.from_proto(
+                resource.http_load_balancing
+            ),
+            horizontal_pod_autoscaling=ClusterAddonsConfigHorizontalPodAutoscaling.from_proto(
+                resource.horizontal_pod_autoscaling
+            ),
+            kubernetes_dashboard=ClusterAddonsConfigKubernetesDashboard.from_proto(
+                resource.kubernetes_dashboard
+            ),
+            network_policy_config=ClusterAddonsConfigNetworkPolicyConfig.from_proto(
+                resource.network_policy_config
+            ),
+            cloud_run_config=ClusterAddonsConfigCloudRunConfig.from_proto(
+                resource.cloud_run_config
+            ),
+            dns_cache_config=ClusterAddonsConfigDnsCacheConfig.from_proto(
+                resource.dns_cache_config
+            ),
+            config_connector_config=ClusterAddonsConfigConfigConnectorConfig.from_proto(
+                resource.config_connector_config
+            ),
+            gce_persistent_disk_csi_driver_config=ClusterAddonsConfigGcePersistentDiskCsiDriverConfig.from_proto(
+                resource.gce_persistent_disk_csi_driver_config
+            ),
+            istio_config=ClusterAddonsConfigIstioConfig.from_proto(
+                resource.istio_config
+            ),
+            kalm_config=ClusterAddonsConfigKalmConfig.from_proto(resource.kalm_config),
         )
 
 
@@ -1266,7 +1290,9 @@ class ClusterAddonsConfigHttpLoadBalancing(object):
         if not resource:
             return None
 
-        return ClusterAddonsConfigHttpLoadBalancing(disabled=resource.disabled,)
+        return ClusterAddonsConfigHttpLoadBalancing(
+            disabled=Primitive.from_proto(resource.disabled),
+        )
 
 
 class ClusterAddonsConfigHttpLoadBalancingArray(object):
@@ -1300,7 +1326,9 @@ class ClusterAddonsConfigHorizontalPodAutoscaling(object):
         if not resource:
             return None
 
-        return ClusterAddonsConfigHorizontalPodAutoscaling(disabled=resource.disabled,)
+        return ClusterAddonsConfigHorizontalPodAutoscaling(
+            disabled=Primitive.from_proto(resource.disabled),
+        )
 
 
 class ClusterAddonsConfigHorizontalPodAutoscalingArray(object):
@@ -1338,7 +1366,9 @@ class ClusterAddonsConfigKubernetesDashboard(object):
         if not resource:
             return None
 
-        return ClusterAddonsConfigKubernetesDashboard(disabled=resource.disabled,)
+        return ClusterAddonsConfigKubernetesDashboard(
+            disabled=Primitive.from_proto(resource.disabled),
+        )
 
 
 class ClusterAddonsConfigKubernetesDashboardArray(object):
@@ -1372,7 +1402,9 @@ class ClusterAddonsConfigNetworkPolicyConfig(object):
         if not resource:
             return None
 
-        return ClusterAddonsConfigNetworkPolicyConfig(disabled=resource.disabled,)
+        return ClusterAddonsConfigNetworkPolicyConfig(
+            disabled=Primitive.from_proto(resource.disabled),
+        )
 
 
 class ClusterAddonsConfigNetworkPolicyConfigArray(object):
@@ -1414,7 +1446,10 @@ class ClusterAddonsConfigCloudRunConfig(object):
             return None
 
         return ClusterAddonsConfigCloudRunConfig(
-            disabled=resource.disabled, load_balancer_type=resource.load_balancer_type,
+            disabled=Primitive.from_proto(resource.disabled),
+            load_balancer_type=ClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnum.from_proto(
+                resource.load_balancer_type
+            ),
         )
 
 
@@ -1449,7 +1484,9 @@ class ClusterAddonsConfigDnsCacheConfig(object):
         if not resource:
             return None
 
-        return ClusterAddonsConfigDnsCacheConfig(enabled=resource.enabled,)
+        return ClusterAddonsConfigDnsCacheConfig(
+            enabled=Primitive.from_proto(resource.enabled),
+        )
 
 
 class ClusterAddonsConfigDnsCacheConfigArray(object):
@@ -1483,7 +1520,9 @@ class ClusterAddonsConfigConfigConnectorConfig(object):
         if not resource:
             return None
 
-        return ClusterAddonsConfigConfigConnectorConfig(enabled=resource.enabled,)
+        return ClusterAddonsConfigConfigConnectorConfig(
+            enabled=Primitive.from_proto(resource.enabled),
+        )
 
 
 class ClusterAddonsConfigConfigConnectorConfigArray(object):
@@ -1522,7 +1561,7 @@ class ClusterAddonsConfigGcePersistentDiskCsiDriverConfig(object):
             return None
 
         return ClusterAddonsConfigGcePersistentDiskCsiDriverConfig(
-            enabled=resource.enabled,
+            enabled=Primitive.from_proto(resource.enabled),
         )
 
 
@@ -1567,7 +1606,8 @@ class ClusterAddonsConfigIstioConfig(object):
             return None
 
         return ClusterAddonsConfigIstioConfig(
-            disabled=resource.disabled, auth=resource.auth,
+            disabled=Primitive.from_proto(resource.disabled),
+            auth=ClusterAddonsConfigIstioConfigAuthEnum.from_proto(resource.auth),
         )
 
 
@@ -1602,7 +1642,9 @@ class ClusterAddonsConfigKalmConfig(object):
         if not resource:
             return None
 
-        return ClusterAddonsConfigKalmConfig(enabled=resource.enabled,)
+        return ClusterAddonsConfigKalmConfig(
+            enabled=Primitive.from_proto(resource.enabled),
+        )
 
 
 class ClusterAddonsConfigKalmConfigArray(object):
@@ -1726,22 +1768,28 @@ class ClusterNodePools(object):
             return None
 
         return ClusterNodePools(
-            name=resource.name,
-            config=resource.config,
-            initial_node_count=resource.initial_node_count,
-            locations=resource.locations,
-            self_link=resource.self_link,
-            version=resource.version,
-            instance_group_urls=resource.instance_group_urls,
-            status=resource.status,
-            status_message=resource.status_message,
-            autoscaling=resource.autoscaling,
-            management=resource.management,
-            max_pods_constraint=resource.max_pods_constraint,
-            conditions=resource.conditions,
-            pod_ipv4_cidr_size=resource.pod_ipv4_cidr_size,
-            upgrade_settings=resource.upgrade_settings,
-            network_config=resource.network_config,
+            name=Primitive.from_proto(resource.name),
+            config=ClusterNodePoolsConfig.from_proto(resource.config),
+            initial_node_count=Primitive.from_proto(resource.initial_node_count),
+            locations=Primitive.from_proto(resource.locations),
+            self_link=Primitive.from_proto(resource.self_link),
+            version=Primitive.from_proto(resource.version),
+            instance_group_urls=Primitive.from_proto(resource.instance_group_urls),
+            status=ClusterNodePoolsStatusEnum.from_proto(resource.status),
+            status_message=Primitive.from_proto(resource.status_message),
+            autoscaling=ClusterNodePoolsAutoscaling.from_proto(resource.autoscaling),
+            management=ClusterNodePoolsManagement.from_proto(resource.management),
+            max_pods_constraint=ClusterNodePoolsMaxPodsConstraint.from_proto(
+                resource.max_pods_constraint
+            ),
+            conditions=ClusterNodePoolsConditionsArray.from_proto(resource.conditions),
+            pod_ipv4_cidr_size=Primitive.from_proto(resource.pod_ipv4_cidr_size),
+            upgrade_settings=ClusterNodePoolsUpgradeSettings.from_proto(
+                resource.upgrade_settings
+            ),
+            network_config=ClusterNodePoolsNetworkConfig.from_proto(
+                resource.network_config
+            ),
         )
 
 
@@ -1918,29 +1966,45 @@ class ClusterNodePoolsConfig(object):
             return None
 
         return ClusterNodePoolsConfig(
-            machine_type=resource.machine_type,
-            disk_size_gb=resource.disk_size_gb,
-            oauth_scopes=resource.oauth_scopes,
-            service_account=resource.service_account,
-            metadata=resource.metadata,
-            image_type=resource.image_type,
-            labels=resource.labels,
-            local_ssd_count=resource.local_ssd_count,
-            tags=resource.tags,
-            preemptible=resource.preemptible,
-            accelerators=resource.accelerators,
-            disk_type=resource.disk_type,
-            min_cpu_platform=resource.min_cpu_platform,
-            workload_metadata_config=resource.workload_metadata_config,
-            taints=resource.taints,
-            sandbox_config=resource.sandbox_config,
-            node_group=resource.node_group,
-            reservation_affinity=resource.reservation_affinity,
-            shielded_instance_config=resource.shielded_instance_config,
-            linux_node_config=resource.linux_node_config,
-            kubelet_config=resource.kubelet_config,
-            boot_disk_kms_key=resource.boot_disk_kms_key,
-            ephemeral_storage_config=resource.ephemeral_storage_config,
+            machine_type=Primitive.from_proto(resource.machine_type),
+            disk_size_gb=Primitive.from_proto(resource.disk_size_gb),
+            oauth_scopes=Primitive.from_proto(resource.oauth_scopes),
+            service_account=Primitive.from_proto(resource.service_account),
+            metadata=Primitive.from_proto(resource.metadata),
+            image_type=Primitive.from_proto(resource.image_type),
+            labels=Primitive.from_proto(resource.labels),
+            local_ssd_count=Primitive.from_proto(resource.local_ssd_count),
+            tags=Primitive.from_proto(resource.tags),
+            preemptible=Primitive.from_proto(resource.preemptible),
+            accelerators=ClusterNodePoolsConfigAcceleratorsArray.from_proto(
+                resource.accelerators
+            ),
+            disk_type=Primitive.from_proto(resource.disk_type),
+            min_cpu_platform=Primitive.from_proto(resource.min_cpu_platform),
+            workload_metadata_config=ClusterNodePoolsConfigWorkloadMetadataConfig.from_proto(
+                resource.workload_metadata_config
+            ),
+            taints=ClusterNodePoolsConfigTaintsArray.from_proto(resource.taints),
+            sandbox_config=ClusterNodePoolsConfigSandboxConfig.from_proto(
+                resource.sandbox_config
+            ),
+            node_group=Primitive.from_proto(resource.node_group),
+            reservation_affinity=ClusterNodePoolsConfigReservationAffinity.from_proto(
+                resource.reservation_affinity
+            ),
+            shielded_instance_config=ClusterNodePoolsConfigShieldedInstanceConfig.from_proto(
+                resource.shielded_instance_config
+            ),
+            linux_node_config=ClusterNodePoolsConfigLinuxNodeConfig.from_proto(
+                resource.linux_node_config
+            ),
+            kubelet_config=ClusterNodePoolsConfigKubeletConfig.from_proto(
+                resource.kubelet_config
+            ),
+            boot_disk_kms_key=Primitive.from_proto(resource.boot_disk_kms_key),
+            ephemeral_storage_config=ClusterNodePoolsConfigEphemeralStorageConfig.from_proto(
+                resource.ephemeral_storage_config
+            ),
         )
 
 
@@ -1979,8 +2043,8 @@ class ClusterNodePoolsConfigAccelerators(object):
             return None
 
         return ClusterNodePoolsConfigAccelerators(
-            accelerator_count=resource.accelerator_count,
-            accelerator_type=resource.accelerator_type,
+            accelerator_count=Primitive.from_proto(resource.accelerator_count),
+            accelerator_type=Primitive.from_proto(resource.accelerator_type),
         )
 
 
@@ -2025,7 +2089,12 @@ class ClusterNodePoolsConfigWorkloadMetadataConfig(object):
             return None
 
         return ClusterNodePoolsConfigWorkloadMetadataConfig(
-            mode=resource.mode, node_metadata=resource.node_metadata,
+            mode=ClusterNodePoolsConfigWorkloadMetadataConfigModeEnum.from_proto(
+                resource.mode
+            ),
+            node_metadata=ClusterNodePoolsConfigWorkloadMetadataConfigNodeMetadataEnum.from_proto(
+                resource.node_metadata
+            ),
         )
 
 
@@ -2074,7 +2143,9 @@ class ClusterNodePoolsConfigTaints(object):
             return None
 
         return ClusterNodePoolsConfigTaints(
-            key=resource.key, value=resource.value, effect=resource.effect,
+            key=Primitive.from_proto(resource.key),
+            value=Primitive.from_proto(resource.value),
+            effect=ClusterNodePoolsConfigTaintsEffectEnum.from_proto(resource.effect),
         )
 
 
@@ -2115,7 +2186,8 @@ class ClusterNodePoolsConfigSandboxConfig(object):
             return None
 
         return ClusterNodePoolsConfigSandboxConfig(
-            type=resource.type, sandbox_type=resource.sandbox_type,
+            type=ClusterNodePoolsConfigSandboxConfigTypeEnum.from_proto(resource.type),
+            sandbox_type=Primitive.from_proto(resource.sandbox_type),
         )
 
 
@@ -2163,9 +2235,11 @@ class ClusterNodePoolsConfigReservationAffinity(object):
             return None
 
         return ClusterNodePoolsConfigReservationAffinity(
-            consume_reservation_type=resource.consume_reservation_type,
-            key=resource.key,
-            values=resource.values,
+            consume_reservation_type=ClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnum.from_proto(
+                resource.consume_reservation_type
+            ),
+            key=Primitive.from_proto(resource.key),
+            values=Primitive.from_proto(resource.values),
         )
 
 
@@ -2212,8 +2286,10 @@ class ClusterNodePoolsConfigShieldedInstanceConfig(object):
             return None
 
         return ClusterNodePoolsConfigShieldedInstanceConfig(
-            enable_secure_boot=resource.enable_secure_boot,
-            enable_integrity_monitoring=resource.enable_integrity_monitoring,
+            enable_secure_boot=Primitive.from_proto(resource.enable_secure_boot),
+            enable_integrity_monitoring=Primitive.from_proto(
+                resource.enable_integrity_monitoring
+            ),
         )
 
 
@@ -2253,7 +2329,9 @@ class ClusterNodePoolsConfigLinuxNodeConfig(object):
         if not resource:
             return None
 
-        return ClusterNodePoolsConfigLinuxNodeConfig(sysctls=resource.sysctls,)
+        return ClusterNodePoolsConfigLinuxNodeConfig(
+            sysctls=Primitive.from_proto(resource.sysctls),
+        )
 
 
 class ClusterNodePoolsConfigLinuxNodeConfigArray(object):
@@ -2299,9 +2377,9 @@ class ClusterNodePoolsConfigKubeletConfig(object):
             return None
 
         return ClusterNodePoolsConfigKubeletConfig(
-            cpu_manager_policy=resource.cpu_manager_policy,
-            cpu_cfs_quota=resource.cpu_cfs_quota,
-            cpu_cfs_quota_period=resource.cpu_cfs_quota_period,
+            cpu_manager_policy=Primitive.from_proto(resource.cpu_manager_policy),
+            cpu_cfs_quota=Primitive.from_proto(resource.cpu_cfs_quota),
+            cpu_cfs_quota_period=Primitive.from_proto(resource.cpu_cfs_quota_period),
         )
 
 
@@ -2337,7 +2415,7 @@ class ClusterNodePoolsConfigEphemeralStorageConfig(object):
             return None
 
         return ClusterNodePoolsConfigEphemeralStorageConfig(
-            local_ssd_count=resource.local_ssd_count,
+            local_ssd_count=Primitive.from_proto(resource.local_ssd_count),
         )
 
 
@@ -2393,10 +2471,10 @@ class ClusterNodePoolsAutoscaling(object):
             return None
 
         return ClusterNodePoolsAutoscaling(
-            enabled=resource.enabled,
-            min_node_count=resource.min_node_count,
-            max_node_count=resource.max_node_count,
-            autoprovisioned=resource.autoprovisioned,
+            enabled=Primitive.from_proto(resource.enabled),
+            min_node_count=Primitive.from_proto(resource.min_node_count),
+            max_node_count=Primitive.from_proto(resource.max_node_count),
+            autoprovisioned=Primitive.from_proto(resource.autoprovisioned),
         )
 
 
@@ -2449,9 +2527,11 @@ class ClusterNodePoolsManagement(object):
             return None
 
         return ClusterNodePoolsManagement(
-            auto_upgrade=resource.auto_upgrade,
-            auto_repair=resource.auto_repair,
-            upgrade_options=resource.upgrade_options,
+            auto_upgrade=Primitive.from_proto(resource.auto_upgrade),
+            auto_repair=Primitive.from_proto(resource.auto_repair),
+            upgrade_options=ClusterNodePoolsManagementUpgradeOptions.from_proto(
+                resource.upgrade_options
+            ),
         )
 
 
@@ -2492,8 +2572,10 @@ class ClusterNodePoolsManagementUpgradeOptions(object):
             return None
 
         return ClusterNodePoolsManagementUpgradeOptions(
-            auto_upgrade_start_time=resource.auto_upgrade_start_time,
-            description=resource.description,
+            auto_upgrade_start_time=Primitive.from_proto(
+                resource.auto_upgrade_start_time
+            ),
+            description=Primitive.from_proto(resource.description),
         )
 
 
@@ -2531,7 +2613,7 @@ class ClusterNodePoolsMaxPodsConstraint(object):
             return None
 
         return ClusterNodePoolsMaxPodsConstraint(
-            max_pods_per_node=resource.max_pods_per_node,
+            max_pods_per_node=Primitive.from_proto(resource.max_pods_per_node),
         )
 
 
@@ -2579,9 +2661,11 @@ class ClusterNodePoolsConditions(object):
             return None
 
         return ClusterNodePoolsConditions(
-            code=resource.code,
-            message=resource.message,
-            canonical_code=resource.canonical_code,
+            code=ClusterNodePoolsConditionsCodeEnum.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            canonical_code=ClusterNodePoolsConditionsCanonicalCodeEnum.from_proto(
+                resource.canonical_code
+            ),
         )
 
 
@@ -2620,7 +2704,8 @@ class ClusterNodePoolsUpgradeSettings(object):
             return None
 
         return ClusterNodePoolsUpgradeSettings(
-            max_surge=resource.max_surge, max_unavailable=resource.max_unavailable,
+            max_surge=Primitive.from_proto(resource.max_surge),
+            max_unavailable=Primitive.from_proto(resource.max_unavailable),
         )
 
 
@@ -2667,9 +2752,9 @@ class ClusterNodePoolsNetworkConfig(object):
             return None
 
         return ClusterNodePoolsNetworkConfig(
-            create_pod_range=resource.create_pod_range,
-            pod_range=resource.pod_range,
-            pod_ipv4_cidr_block=resource.pod_ipv4_cidr_block,
+            create_pod_range=Primitive.from_proto(resource.create_pod_range),
+            pod_range=Primitive.from_proto(resource.pod_range),
+            pod_ipv4_cidr_block=Primitive.from_proto(resource.pod_ipv4_cidr_block),
         )
 
 
@@ -2704,7 +2789,7 @@ class ClusterLegacyAbac(object):
         if not resource:
             return None
 
-        return ClusterLegacyAbac(enabled=resource.enabled,)
+        return ClusterLegacyAbac(enabled=Primitive.from_proto(resource.enabled),)
 
 
 class ClusterLegacyAbacArray(object):
@@ -2742,7 +2827,8 @@ class ClusterNetworkPolicy(object):
             return None
 
         return ClusterNetworkPolicy(
-            provider=resource.provider, enabled=resource.enabled,
+            provider=ClusterNetworkPolicyProviderEnum.from_proto(resource.provider),
+            enabled=Primitive.from_proto(resource.enabled),
         )
 
 
@@ -2841,20 +2927,28 @@ class ClusterIPAllocationPolicy(object):
             return None
 
         return ClusterIPAllocationPolicy(
-            use_ip_aliases=resource.use_ip_aliases,
-            create_subnetwork=resource.create_subnetwork,
-            subnetwork_name=resource.subnetwork_name,
-            cluster_secondary_range_name=resource.cluster_secondary_range_name,
-            services_secondary_range_name=resource.services_secondary_range_name,
-            cluster_ipv4_cidr_block=resource.cluster_ipv4_cidr_block,
-            node_ipv4_cidr_block=resource.node_ipv4_cidr_block,
-            services_ipv4_cidr_block=resource.services_ipv4_cidr_block,
-            tpu_ipv4_cidr_block=resource.tpu_ipv4_cidr_block,
-            cluster_ipv4_cidr=resource.cluster_ipv4_cidr,
-            node_ipv4_cidr=resource.node_ipv4_cidr,
-            services_ipv4_cidr=resource.services_ipv4_cidr,
-            use_routes=resource.use_routes,
-            allow_route_overlap=resource.allow_route_overlap,
+            use_ip_aliases=Primitive.from_proto(resource.use_ip_aliases),
+            create_subnetwork=Primitive.from_proto(resource.create_subnetwork),
+            subnetwork_name=Primitive.from_proto(resource.subnetwork_name),
+            cluster_secondary_range_name=Primitive.from_proto(
+                resource.cluster_secondary_range_name
+            ),
+            services_secondary_range_name=Primitive.from_proto(
+                resource.services_secondary_range_name
+            ),
+            cluster_ipv4_cidr_block=Primitive.from_proto(
+                resource.cluster_ipv4_cidr_block
+            ),
+            node_ipv4_cidr_block=Primitive.from_proto(resource.node_ipv4_cidr_block),
+            services_ipv4_cidr_block=Primitive.from_proto(
+                resource.services_ipv4_cidr_block
+            ),
+            tpu_ipv4_cidr_block=Primitive.from_proto(resource.tpu_ipv4_cidr_block),
+            cluster_ipv4_cidr=Primitive.from_proto(resource.cluster_ipv4_cidr),
+            node_ipv4_cidr=Primitive.from_proto(resource.node_ipv4_cidr),
+            services_ipv4_cidr=Primitive.from_proto(resource.services_ipv4_cidr),
+            use_routes=Primitive.from_proto(resource.use_routes),
+            allow_route_overlap=Primitive.from_proto(resource.allow_route_overlap),
         )
 
 
@@ -2899,7 +2993,10 @@ class ClusterMasterAuthorizedNetworksConfig(object):
             return None
 
         return ClusterMasterAuthorizedNetworksConfig(
-            enabled=resource.enabled, cidr_blocks=resource.cidr_blocks,
+            enabled=Primitive.from_proto(resource.enabled),
+            cidr_blocks=ClusterMasterAuthorizedNetworksConfigCidrBlocksArray.from_proto(
+                resource.cidr_blocks
+            ),
         )
 
 
@@ -2938,7 +3035,8 @@ class ClusterMasterAuthorizedNetworksConfigCidrBlocks(object):
             return None
 
         return ClusterMasterAuthorizedNetworksConfigCidrBlocks(
-            display_name=resource.display_name, cidr_block=resource.cidr_block,
+            display_name=Primitive.from_proto(resource.display_name),
+            cidr_block=Primitive.from_proto(resource.cidr_block),
         )
 
 
@@ -2979,7 +3077,9 @@ class ClusterBinaryAuthorization(object):
         if not resource:
             return None
 
-        return ClusterBinaryAuthorization(enabled=resource.enabled,)
+        return ClusterBinaryAuthorization(
+            enabled=Primitive.from_proto(resource.enabled),
+        )
 
 
 class ClusterBinaryAuthorizationArray(object):
@@ -3051,11 +3151,21 @@ class ClusterAutoscaling(object):
             return None
 
         return ClusterAutoscaling(
-            enable_node_autoprovisioning=resource.enable_node_autoprovisioning,
-            resource_limits=resource.resource_limits,
-            autoprovisioning_node_pool_defaults=resource.autoprovisioning_node_pool_defaults,
-            autoprovisioning_locations=resource.autoprovisioning_locations,
-            autoscaling_profile=resource.autoscaling_profile,
+            enable_node_autoprovisioning=Primitive.from_proto(
+                resource.enable_node_autoprovisioning
+            ),
+            resource_limits=ClusterAutoscalingResourceLimitsArray.from_proto(
+                resource.resource_limits
+            ),
+            autoprovisioning_node_pool_defaults=ClusterAutoscalingAutoprovisioningNodePoolDefaults.from_proto(
+                resource.autoprovisioning_node_pool_defaults
+            ),
+            autoprovisioning_locations=Primitive.from_proto(
+                resource.autoprovisioning_locations
+            ),
+            autoscaling_profile=ClusterAutoscalingAutoscalingProfileEnum.from_proto(
+                resource.autoscaling_profile
+            ),
         )
 
 
@@ -3099,9 +3209,9 @@ class ClusterAutoscalingResourceLimits(object):
             return None
 
         return ClusterAutoscalingResourceLimits(
-            resource_type=resource.resource_type,
-            minimum=resource.minimum,
-            maximum=resource.maximum,
+            resource_type=Primitive.from_proto(resource.resource_type),
+            minimum=Primitive.from_proto(resource.minimum),
+            maximum=Primitive.from_proto(resource.maximum),
         )
 
 
@@ -3198,15 +3308,21 @@ class ClusterAutoscalingAutoprovisioningNodePoolDefaults(object):
             return None
 
         return ClusterAutoscalingAutoprovisioningNodePoolDefaults(
-            oauth_scopes=resource.oauth_scopes,
-            service_account=resource.service_account,
-            upgrade_settings=resource.upgrade_settings,
-            management=resource.management,
-            min_cpu_platform=resource.min_cpu_platform,
-            disk_size_gb=resource.disk_size_gb,
-            disk_type=resource.disk_type,
-            shielded_instance_config=resource.shielded_instance_config,
-            boot_disk_kms_key=resource.boot_disk_kms_key,
+            oauth_scopes=Primitive.from_proto(resource.oauth_scopes),
+            service_account=Primitive.from_proto(resource.service_account),
+            upgrade_settings=ClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings.from_proto(
+                resource.upgrade_settings
+            ),
+            management=ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement.from_proto(
+                resource.management
+            ),
+            min_cpu_platform=Primitive.from_proto(resource.min_cpu_platform),
+            disk_size_gb=Primitive.from_proto(resource.disk_size_gb),
+            disk_type=Primitive.from_proto(resource.disk_type),
+            shielded_instance_config=ClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig.from_proto(
+                resource.shielded_instance_config
+            ),
+            boot_disk_kms_key=Primitive.from_proto(resource.boot_disk_kms_key),
         )
 
 
@@ -3253,7 +3369,8 @@ class ClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings(object):
             return None
 
         return ClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings(
-            max_surge=resource.max_surge, max_unavailable=resource.max_unavailable,
+            max_surge=Primitive.from_proto(resource.max_surge),
+            max_unavailable=Primitive.from_proto(resource.max_unavailable),
         )
 
 
@@ -3320,9 +3437,11 @@ class ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement(object):
             return None
 
         return ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement(
-            auto_upgrade=resource.auto_upgrade,
-            auto_repair=resource.auto_repair,
-            upgrade_options=resource.upgrade_options,
+            auto_upgrade=Primitive.from_proto(resource.auto_upgrade),
+            auto_repair=Primitive.from_proto(resource.auto_repair),
+            upgrade_options=ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions.from_proto(
+                resource.upgrade_options
+            ),
         )
 
 
@@ -3373,8 +3492,10 @@ class ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions
             return None
 
         return ClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions(
-            auto_upgrade_start_time=resource.auto_upgrade_start_time,
-            description=resource.description,
+            auto_upgrade_start_time=Primitive.from_proto(
+                resource.auto_upgrade_start_time
+            ),
+            description=Primitive.from_proto(resource.description),
         )
 
 
@@ -3431,8 +3552,10 @@ class ClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig(o
             return None
 
         return ClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig(
-            enable_secure_boot=resource.enable_secure_boot,
-            enable_integrity_monitoring=resource.enable_integrity_monitoring,
+            enable_secure_boot=Primitive.from_proto(resource.enable_secure_boot),
+            enable_integrity_monitoring=Primitive.from_proto(
+                resource.enable_integrity_monitoring
+            ),
         )
 
 
@@ -3519,12 +3642,20 @@ class ClusterNetworkConfig(object):
             return None
 
         return ClusterNetworkConfig(
-            network=resource.network,
-            subnetwork=resource.subnetwork,
-            enable_intra_node_visibility=resource.enable_intra_node_visibility,
-            default_snat_status=resource.default_snat_status,
-            private_ipv6_google_access=resource.private_ipv6_google_access,
-            datapath_provider=resource.datapath_provider,
+            network=Primitive.from_proto(resource.network),
+            subnetwork=Primitive.from_proto(resource.subnetwork),
+            enable_intra_node_visibility=Primitive.from_proto(
+                resource.enable_intra_node_visibility
+            ),
+            default_snat_status=ClusterNetworkConfigDefaultSnatStatus.from_proto(
+                resource.default_snat_status
+            ),
+            private_ipv6_google_access=ClusterNetworkConfigPrivateIPv6GoogleAccessEnum.from_proto(
+                resource.private_ipv6_google_access
+            ),
+            datapath_provider=ClusterNetworkConfigDatapathProviderEnum.from_proto(
+                resource.datapath_provider
+            ),
         )
 
 
@@ -3559,7 +3690,9 @@ class ClusterNetworkConfigDefaultSnatStatus(object):
         if not resource:
             return None
 
-        return ClusterNetworkConfigDefaultSnatStatus(disabled=resource.disabled,)
+        return ClusterNetworkConfigDefaultSnatStatus(
+            disabled=Primitive.from_proto(resource.disabled),
+        )
 
 
 class ClusterNetworkConfigDefaultSnatStatusArray(object):
@@ -3601,7 +3734,8 @@ class ClusterMaintenancePolicy(object):
             return None
 
         return ClusterMaintenancePolicy(
-            window=resource.window, resource_version=resource.resource_version,
+            window=ClusterMaintenancePolicyWindow.from_proto(resource.window),
+            resource_version=Primitive.from_proto(resource.resource_version),
         )
 
 
@@ -3666,9 +3800,15 @@ class ClusterMaintenancePolicyWindow(object):
             return None
 
         return ClusterMaintenancePolicyWindow(
-            daily_maintenance_window=resource.daily_maintenance_window,
-            recurring_window=resource.recurring_window,
-            maintenance_exclusions=resource.maintenance_exclusions,
+            daily_maintenance_window=ClusterMaintenancePolicyWindowDailyMaintenanceWindow.from_proto(
+                resource.daily_maintenance_window
+            ),
+            recurring_window=ClusterMaintenancePolicyWindowRecurringWindow.from_proto(
+                resource.recurring_window
+            ),
+            maintenance_exclusions=Primitive.from_proto(
+                resource.maintenance_exclusions
+            ),
         )
 
 
@@ -3709,7 +3849,8 @@ class ClusterMaintenancePolicyWindowDailyMaintenanceWindow(object):
             return None
 
         return ClusterMaintenancePolicyWindowDailyMaintenanceWindow(
-            start_time=resource.start_time, duration=resource.duration,
+            start_time=Primitive.from_proto(resource.start_time),
+            duration=Primitive.from_proto(resource.duration),
         )
 
 
@@ -3762,7 +3903,10 @@ class ClusterMaintenancePolicyWindowRecurringWindow(object):
             return None
 
         return ClusterMaintenancePolicyWindowRecurringWindow(
-            window=resource.window, recurrence=resource.recurrence,
+            window=ClusterMaintenancePolicyWindowRecurringWindowWindow.from_proto(
+                resource.window
+            ),
+            recurrence=Primitive.from_proto(resource.recurrence),
         )
 
 
@@ -3808,7 +3952,8 @@ class ClusterMaintenancePolicyWindowRecurringWindowWindow(object):
             return None
 
         return ClusterMaintenancePolicyWindowRecurringWindowWindow(
-            start_time=resource.start_time, end_time=resource.end_time,
+            start_time=Primitive.from_proto(resource.start_time),
+            end_time=Primitive.from_proto(resource.end_time),
         )
 
 
@@ -3850,7 +3995,7 @@ class ClusterDefaultMaxPodsConstraint(object):
             return None
 
         return ClusterDefaultMaxPodsConstraint(
-            max_pods_per_node=resource.max_pods_per_node,
+            max_pods_per_node=Primitive.from_proto(resource.max_pods_per_node),
         )
 
 
@@ -3921,10 +4066,18 @@ class ClusterResourceUsageExportConfig(object):
             return None
 
         return ClusterResourceUsageExportConfig(
-            bigquery_destination=resource.bigquery_destination,
-            enable_network_egress_monitoring=resource.enable_network_egress_monitoring,
-            consumption_metering_config=resource.consumption_metering_config,
-            enable_network_egress_metering=resource.enable_network_egress_metering,
+            bigquery_destination=ClusterResourceUsageExportConfigBigqueryDestination.from_proto(
+                resource.bigquery_destination
+            ),
+            enable_network_egress_monitoring=Primitive.from_proto(
+                resource.enable_network_egress_monitoring
+            ),
+            consumption_metering_config=ClusterResourceUsageExportConfigConsumptionMeteringConfig.from_proto(
+                resource.consumption_metering_config
+            ),
+            enable_network_egress_metering=Primitive.from_proto(
+                resource.enable_network_egress_metering
+            ),
         )
 
 
@@ -3962,7 +4115,7 @@ class ClusterResourceUsageExportConfigBigqueryDestination(object):
             return None
 
         return ClusterResourceUsageExportConfigBigqueryDestination(
-            dataset_id=resource.dataset_id,
+            dataset_id=Primitive.from_proto(resource.dataset_id),
         )
 
 
@@ -4006,7 +4159,7 @@ class ClusterResourceUsageExportConfigConsumptionMeteringConfig(object):
             return None
 
         return ClusterResourceUsageExportConfigConsumptionMeteringConfig(
-            enabled=resource.enabled,
+            enabled=Primitive.from_proto(resource.enabled),
         )
 
 
@@ -4051,7 +4204,8 @@ class ClusterAuthenticatorGroupsConfig(object):
             return None
 
         return ClusterAuthenticatorGroupsConfig(
-            enabled=resource.enabled, security_group=resource.security_group,
+            enabled=Primitive.from_proto(resource.enabled),
+            security_group=Primitive.from_proto(resource.security_group),
         )
 
 
@@ -4126,13 +4280,19 @@ class ClusterPrivateClusterConfig(object):
             return None
 
         return ClusterPrivateClusterConfig(
-            enable_private_nodes=resource.enable_private_nodes,
-            enable_private_endpoint=resource.enable_private_endpoint,
-            master_ipv4_cidr_block=resource.master_ipv4_cidr_block,
-            private_endpoint=resource.private_endpoint,
-            public_endpoint=resource.public_endpoint,
-            peering_name=resource.peering_name,
-            master_global_access_config=resource.master_global_access_config,
+            enable_private_nodes=Primitive.from_proto(resource.enable_private_nodes),
+            enable_private_endpoint=Primitive.from_proto(
+                resource.enable_private_endpoint
+            ),
+            master_ipv4_cidr_block=Primitive.from_proto(
+                resource.master_ipv4_cidr_block
+            ),
+            private_endpoint=Primitive.from_proto(resource.private_endpoint),
+            public_endpoint=Primitive.from_proto(resource.public_endpoint),
+            peering_name=Primitive.from_proto(resource.peering_name),
+            master_global_access_config=ClusterPrivateClusterConfigMasterGlobalAccessConfig.from_proto(
+                resource.master_global_access_config
+            ),
         )
 
 
@@ -4170,7 +4330,7 @@ class ClusterPrivateClusterConfigMasterGlobalAccessConfig(object):
             return None
 
         return ClusterPrivateClusterConfigMasterGlobalAccessConfig(
-            enabled=resource.enabled,
+            enabled=Primitive.from_proto(resource.enabled),
         )
 
 
@@ -4215,7 +4375,8 @@ class ClusterDatabaseEncryption(object):
             return None
 
         return ClusterDatabaseEncryption(
-            state=resource.state, key_name=resource.key_name,
+            state=ClusterDatabaseEncryptionStateEnum.from_proto(resource.state),
+            key_name=Primitive.from_proto(resource.key_name),
         )
 
 
@@ -4256,8 +4417,10 @@ class ClusterVerticalPodAutoscaling(object):
             return None
 
         return ClusterVerticalPodAutoscaling(
-            enabled=resource.enabled,
-            enable_experimental_features=resource.enable_experimental_features,
+            enabled=Primitive.from_proto(resource.enabled),
+            enable_experimental_features=Primitive.from_proto(
+                resource.enable_experimental_features
+            ),
         )
 
 
@@ -4292,7 +4455,7 @@ class ClusterShieldedNodes(object):
         if not resource:
             return None
 
-        return ClusterShieldedNodes(enabled=resource.enabled,)
+        return ClusterShieldedNodes(enabled=Primitive.from_proto(resource.enabled),)
 
 
 class ClusterShieldedNodesArray(object):
@@ -4337,9 +4500,11 @@ class ClusterConditions(object):
             return None
 
         return ClusterConditions(
-            code=resource.code,
-            message=resource.message,
-            canonical_code=resource.canonical_code,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            canonical_code=ClusterConditionsCanonicalCodeEnum.from_proto(
+                resource.canonical_code
+            ),
         )
 
 
@@ -4374,7 +4539,7 @@ class ClusterAutopilot(object):
         if not resource:
             return None
 
-        return ClusterAutopilot(enabled=resource.enabled,)
+        return ClusterAutopilot(enabled=Primitive.from_proto(resource.enabled),)
 
 
 class ClusterAutopilotArray(object):
@@ -4544,29 +4709,45 @@ class ClusterNodeConfig(object):
             return None
 
         return ClusterNodeConfig(
-            machine_type=resource.machine_type,
-            disk_size_gb=resource.disk_size_gb,
-            oauth_scopes=resource.oauth_scopes,
-            service_account=resource.service_account,
-            metadata=resource.metadata,
-            image_type=resource.image_type,
-            labels=resource.labels,
-            local_ssd_count=resource.local_ssd_count,
-            tags=resource.tags,
-            preemptible=resource.preemptible,
-            accelerators=resource.accelerators,
-            disk_type=resource.disk_type,
-            min_cpu_platform=resource.min_cpu_platform,
-            workload_metadata_config=resource.workload_metadata_config,
-            taints=resource.taints,
-            sandbox_config=resource.sandbox_config,
-            node_group=resource.node_group,
-            reservation_affinity=resource.reservation_affinity,
-            shielded_instance_config=resource.shielded_instance_config,
-            linux_node_config=resource.linux_node_config,
-            kubelet_config=resource.kubelet_config,
-            boot_disk_kms_key=resource.boot_disk_kms_key,
-            ephemeral_storage_config=resource.ephemeral_storage_config,
+            machine_type=Primitive.from_proto(resource.machine_type),
+            disk_size_gb=Primitive.from_proto(resource.disk_size_gb),
+            oauth_scopes=Primitive.from_proto(resource.oauth_scopes),
+            service_account=Primitive.from_proto(resource.service_account),
+            metadata=Primitive.from_proto(resource.metadata),
+            image_type=Primitive.from_proto(resource.image_type),
+            labels=Primitive.from_proto(resource.labels),
+            local_ssd_count=Primitive.from_proto(resource.local_ssd_count),
+            tags=Primitive.from_proto(resource.tags),
+            preemptible=Primitive.from_proto(resource.preemptible),
+            accelerators=ClusterNodeConfigAcceleratorsArray.from_proto(
+                resource.accelerators
+            ),
+            disk_type=Primitive.from_proto(resource.disk_type),
+            min_cpu_platform=Primitive.from_proto(resource.min_cpu_platform),
+            workload_metadata_config=ClusterNodeConfigWorkloadMetadataConfig.from_proto(
+                resource.workload_metadata_config
+            ),
+            taints=ClusterNodeConfigTaintsArray.from_proto(resource.taints),
+            sandbox_config=ClusterNodeConfigSandboxConfig.from_proto(
+                resource.sandbox_config
+            ),
+            node_group=Primitive.from_proto(resource.node_group),
+            reservation_affinity=ClusterNodeConfigReservationAffinity.from_proto(
+                resource.reservation_affinity
+            ),
+            shielded_instance_config=ClusterNodeConfigShieldedInstanceConfig.from_proto(
+                resource.shielded_instance_config
+            ),
+            linux_node_config=ClusterNodeConfigLinuxNodeConfig.from_proto(
+                resource.linux_node_config
+            ),
+            kubelet_config=ClusterNodeConfigKubeletConfig.from_proto(
+                resource.kubelet_config
+            ),
+            boot_disk_kms_key=Primitive.from_proto(resource.boot_disk_kms_key),
+            ephemeral_storage_config=ClusterNodeConfigEphemeralStorageConfig.from_proto(
+                resource.ephemeral_storage_config
+            ),
         )
 
 
@@ -4605,8 +4786,8 @@ class ClusterNodeConfigAccelerators(object):
             return None
 
         return ClusterNodeConfigAccelerators(
-            accelerator_count=resource.accelerator_count,
-            accelerator_type=resource.accelerator_type,
+            accelerator_count=Primitive.from_proto(resource.accelerator_count),
+            accelerator_type=Primitive.from_proto(resource.accelerator_type),
         )
 
 
@@ -4651,7 +4832,12 @@ class ClusterNodeConfigWorkloadMetadataConfig(object):
             return None
 
         return ClusterNodeConfigWorkloadMetadataConfig(
-            mode=resource.mode, node_metadata=resource.node_metadata,
+            mode=ClusterNodeConfigWorkloadMetadataConfigModeEnum.from_proto(
+                resource.mode
+            ),
+            node_metadata=ClusterNodeConfigWorkloadMetadataConfigNodeMetadataEnum.from_proto(
+                resource.node_metadata
+            ),
         )
 
 
@@ -4695,7 +4881,9 @@ class ClusterNodeConfigTaints(object):
             return None
 
         return ClusterNodeConfigTaints(
-            key=resource.key, value=resource.value, effect=resource.effect,
+            key=Primitive.from_proto(resource.key),
+            value=Primitive.from_proto(resource.value),
+            effect=ClusterNodeConfigTaintsEffectEnum.from_proto(resource.effect),
         )
 
 
@@ -4734,7 +4922,8 @@ class ClusterNodeConfigSandboxConfig(object):
             return None
 
         return ClusterNodeConfigSandboxConfig(
-            type=resource.type, sandbox_type=resource.sandbox_type,
+            type=ClusterNodeConfigSandboxConfigTypeEnum.from_proto(resource.type),
+            sandbox_type=Primitive.from_proto(resource.sandbox_type),
         )
 
 
@@ -4782,9 +4971,11 @@ class ClusterNodeConfigReservationAffinity(object):
             return None
 
         return ClusterNodeConfigReservationAffinity(
-            consume_reservation_type=resource.consume_reservation_type,
-            key=resource.key,
-            values=resource.values,
+            consume_reservation_type=ClusterNodeConfigReservationAffinityConsumeReservationTypeEnum.from_proto(
+                resource.consume_reservation_type
+            ),
+            key=Primitive.from_proto(resource.key),
+            values=Primitive.from_proto(resource.values),
         )
 
 
@@ -4827,8 +5018,10 @@ class ClusterNodeConfigShieldedInstanceConfig(object):
             return None
 
         return ClusterNodeConfigShieldedInstanceConfig(
-            enable_secure_boot=resource.enable_secure_boot,
-            enable_integrity_monitoring=resource.enable_integrity_monitoring,
+            enable_secure_boot=Primitive.from_proto(resource.enable_secure_boot),
+            enable_integrity_monitoring=Primitive.from_proto(
+                resource.enable_integrity_monitoring
+            ),
         )
 
 
@@ -4865,7 +5058,9 @@ class ClusterNodeConfigLinuxNodeConfig(object):
         if not resource:
             return None
 
-        return ClusterNodeConfigLinuxNodeConfig(sysctls=resource.sysctls,)
+        return ClusterNodeConfigLinuxNodeConfig(
+            sysctls=Primitive.from_proto(resource.sysctls),
+        )
 
 
 class ClusterNodeConfigLinuxNodeConfigArray(object):
@@ -4911,9 +5106,9 @@ class ClusterNodeConfigKubeletConfig(object):
             return None
 
         return ClusterNodeConfigKubeletConfig(
-            cpu_manager_policy=resource.cpu_manager_policy,
-            cpu_cfs_quota=resource.cpu_cfs_quota,
-            cpu_cfs_quota_period=resource.cpu_cfs_quota_period,
+            cpu_manager_policy=Primitive.from_proto(resource.cpu_manager_policy),
+            cpu_cfs_quota=Primitive.from_proto(resource.cpu_cfs_quota),
+            cpu_cfs_quota_period=Primitive.from_proto(resource.cpu_cfs_quota_period),
         )
 
 
@@ -4949,7 +5144,7 @@ class ClusterNodeConfigEphemeralStorageConfig(object):
             return None
 
         return ClusterNodeConfigEphemeralStorageConfig(
-            local_ssd_count=resource.local_ssd_count,
+            local_ssd_count=Primitive.from_proto(resource.local_ssd_count),
         )
 
 
@@ -4986,7 +5181,9 @@ class ClusterReleaseChannel(object):
         if not resource:
             return None
 
-        return ClusterReleaseChannel(channel=resource.channel,)
+        return ClusterReleaseChannel(
+            channel=ClusterReleaseChannelChannelEnum.from_proto(resource.channel),
+        )
 
 
 class ClusterReleaseChannelArray(object):
@@ -5032,9 +5229,9 @@ class ClusterWorkloadIdentityConfig(object):
             return None
 
         return ClusterWorkloadIdentityConfig(
-            workload_pool=resource.workload_pool,
-            identity_namespace=resource.identity_namespace,
-            identity_provider=resource.identity_provider,
+            workload_pool=Primitive.from_proto(resource.workload_pool),
+            identity_namespace=Primitive.from_proto(resource.identity_namespace),
+            identity_provider=Primitive.from_proto(resource.identity_provider),
         )
 
 
@@ -5073,7 +5270,9 @@ class ClusterNotificationConfig(object):
         if not resource:
             return None
 
-        return ClusterNotificationConfig(pubsub=resource.pubsub,)
+        return ClusterNotificationConfig(
+            pubsub=ClusterNotificationConfigPubsub.from_proto(resource.pubsub),
+        )
 
 
 class ClusterNotificationConfigArray(object):
@@ -5111,7 +5310,8 @@ class ClusterNotificationConfigPubsub(object):
             return None
 
         return ClusterNotificationConfigPubsub(
-            enabled=resource.enabled, topic=resource.topic,
+            enabled=Primitive.from_proto(resource.enabled),
+            topic=Primitive.from_proto(resource.topic),
         )
 
 
@@ -5146,7 +5346,7 @@ class ClusterConfidentialNodes(object):
         if not resource:
             return None
 
-        return ClusterConfidentialNodes(enabled=resource.enabled,)
+        return ClusterConfidentialNodes(enabled=Primitive.from_proto(resource.enabled),)
 
 
 class ClusterConfidentialNodesArray(object):
@@ -5180,7 +5380,9 @@ class ClusterPodSecurityPolicyConfig(object):
         if not resource:
             return None
 
-        return ClusterPodSecurityPolicyConfig(enabled=resource.enabled,)
+        return ClusterPodSecurityPolicyConfig(
+            enabled=Primitive.from_proto(resource.enabled),
+        )
 
 
 class ClusterPodSecurityPolicyConfigArray(object):
@@ -5214,7 +5416,9 @@ class ClusterClusterTelemetry(object):
         if not resource:
             return None
 
-        return ClusterClusterTelemetry(type=resource.type,)
+        return ClusterClusterTelemetry(
+            type=ClusterClusterTelemetryTypeEnum.from_proto(resource.type),
+        )
 
 
 class ClusterClusterTelemetryArray(object):
@@ -5262,9 +5466,11 @@ class ClusterTPUConfig(object):
             return None
 
         return ClusterTPUConfig(
-            enabled=resource.enabled,
-            use_service_networking=resource.use_service_networking,
-            ipv4_cidr_block=resource.ipv4_cidr_block,
+            enabled=Primitive.from_proto(resource.enabled),
+            use_service_networking=Primitive.from_proto(
+                resource.use_service_networking
+            ),
+            ipv4_cidr_block=Primitive.from_proto(resource.ipv4_cidr_block),
         )
 
 

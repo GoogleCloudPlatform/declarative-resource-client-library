@@ -424,7 +424,7 @@ func diffDatabase(c *Client, desired, actual *Database, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Ddl, actual.Ddl, dcl.Info{Ignore: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Ddl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Ddl, actual.Ddl, dcl.Info{Ignore: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExtraStatements")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -349,23 +349,31 @@ class NodePoolConfig(object):
             return None
 
         return NodePoolConfig(
-            machine_type=resource.machine_type,
-            disk_size_gb=resource.disk_size_gb,
-            oauth_scopes=resource.oauth_scopes,
-            service_account=resource.service_account,
-            metadata=resource.metadata,
-            image_type=resource.image_type,
-            labels=resource.labels,
-            local_ssd_count=resource.local_ssd_count,
-            tags=resource.tags,
-            preemptible=resource.preemptible,
-            accelerators=resource.accelerators,
-            disk_type=resource.disk_type,
-            min_cpu_platform=resource.min_cpu_platform,
-            taints=resource.taints,
-            sandbox_config=resource.sandbox_config,
-            reservation_affinity=resource.reservation_affinity,
-            shielded_instance_config=resource.shielded_instance_config,
+            machine_type=Primitive.from_proto(resource.machine_type),
+            disk_size_gb=Primitive.from_proto(resource.disk_size_gb),
+            oauth_scopes=Primitive.from_proto(resource.oauth_scopes),
+            service_account=Primitive.from_proto(resource.service_account),
+            metadata=Primitive.from_proto(resource.metadata),
+            image_type=Primitive.from_proto(resource.image_type),
+            labels=Primitive.from_proto(resource.labels),
+            local_ssd_count=Primitive.from_proto(resource.local_ssd_count),
+            tags=Primitive.from_proto(resource.tags),
+            preemptible=Primitive.from_proto(resource.preemptible),
+            accelerators=NodePoolConfigAcceleratorsArray.from_proto(
+                resource.accelerators
+            ),
+            disk_type=Primitive.from_proto(resource.disk_type),
+            min_cpu_platform=Primitive.from_proto(resource.min_cpu_platform),
+            taints=NodePoolConfigTaintsArray.from_proto(resource.taints),
+            sandbox_config=NodePoolConfigSandboxConfig.from_proto(
+                resource.sandbox_config
+            ),
+            reservation_affinity=NodePoolConfigReservationAffinity.from_proto(
+                resource.reservation_affinity
+            ),
+            shielded_instance_config=NodePoolConfigShieldedInstanceConfig.from_proto(
+                resource.shielded_instance_config
+            ),
         )
 
 
@@ -404,8 +412,8 @@ class NodePoolConfigAccelerators(object):
             return None
 
         return NodePoolConfigAccelerators(
-            accelerator_count=resource.accelerator_count,
-            accelerator_type=resource.accelerator_type,
+            accelerator_count=Primitive.from_proto(resource.accelerator_count),
+            accelerator_type=Primitive.from_proto(resource.accelerator_type),
         )
 
 
@@ -447,7 +455,9 @@ class NodePoolConfigTaints(object):
             return None
 
         return NodePoolConfigTaints(
-            key=resource.key, value=resource.value, effect=resource.effect,
+            key=Primitive.from_proto(resource.key),
+            value=Primitive.from_proto(resource.value),
+            effect=Primitive.from_proto(resource.effect),
         )
 
 
@@ -482,7 +492,9 @@ class NodePoolConfigSandboxConfig(object):
         if not resource:
             return None
 
-        return NodePoolConfigSandboxConfig(type=resource.type,)
+        return NodePoolConfigSandboxConfig(
+            type=NodePoolConfigSandboxConfigTypeEnum.from_proto(resource.type),
+        )
 
 
 class NodePoolConfigSandboxConfigArray(object):
@@ -529,9 +541,11 @@ class NodePoolConfigReservationAffinity(object):
             return None
 
         return NodePoolConfigReservationAffinity(
-            consume_reservation_type=resource.consume_reservation_type,
-            key=resource.key,
-            values=resource.values,
+            consume_reservation_type=NodePoolConfigReservationAffinityConsumeReservationTypeEnum.from_proto(
+                resource.consume_reservation_type
+            ),
+            key=Primitive.from_proto(resource.key),
+            values=Primitive.from_proto(resource.values),
         )
 
 
@@ -574,8 +588,10 @@ class NodePoolConfigShieldedInstanceConfig(object):
             return None
 
         return NodePoolConfigShieldedInstanceConfig(
-            enable_secure_boot=resource.enable_secure_boot,
-            enable_integrity_monitoring=resource.enable_integrity_monitoring,
+            enable_secure_boot=Primitive.from_proto(resource.enable_secure_boot),
+            enable_integrity_monitoring=Primitive.from_proto(
+                resource.enable_integrity_monitoring
+            ),
         )
 
 
@@ -626,10 +642,10 @@ class NodePoolAutoscaling(object):
             return None
 
         return NodePoolAutoscaling(
-            enabled=resource.enabled,
-            min_node_count=resource.min_node_count,
-            max_node_count=resource.max_node_count,
-            autoprovisioned=resource.autoprovisioned,
+            enabled=Primitive.from_proto(resource.enabled),
+            min_node_count=Primitive.from_proto(resource.min_node_count),
+            max_node_count=Primitive.from_proto(resource.max_node_count),
+            autoprovisioned=Primitive.from_proto(resource.autoprovisioned),
         )
 
 
@@ -680,9 +696,11 @@ class NodePoolManagement(object):
             return None
 
         return NodePoolManagement(
-            auto_upgrade=resource.auto_upgrade,
-            auto_repair=resource.auto_repair,
-            upgrade_options=resource.upgrade_options,
+            auto_upgrade=Primitive.from_proto(resource.auto_upgrade),
+            auto_repair=Primitive.from_proto(resource.auto_repair),
+            upgrade_options=NodePoolManagementUpgradeOptions.from_proto(
+                resource.upgrade_options
+            ),
         )
 
 
@@ -723,8 +741,10 @@ class NodePoolManagementUpgradeOptions(object):
             return None
 
         return NodePoolManagementUpgradeOptions(
-            auto_upgrade_start_time=resource.auto_upgrade_start_time,
-            description=resource.description,
+            auto_upgrade_start_time=Primitive.from_proto(
+                resource.auto_upgrade_start_time
+            ),
+            description=Primitive.from_proto(resource.description),
         )
 
 
@@ -759,7 +779,9 @@ class NodePoolMaxPodsConstraint(object):
         if not resource:
             return None
 
-        return NodePoolMaxPodsConstraint(max_pods_per_node=resource.max_pods_per_node,)
+        return NodePoolMaxPodsConstraint(
+            max_pods_per_node=Primitive.from_proto(resource.max_pods_per_node),
+        )
 
 
 class NodePoolMaxPodsConstraintArray(object):
@@ -796,7 +818,10 @@ class NodePoolConditions(object):
         if not resource:
             return None
 
-        return NodePoolConditions(code=resource.code, message=resource.message,)
+        return NodePoolConditions(
+            code=NodePoolConditionsCodeEnum.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+        )
 
 
 class NodePoolConditionsArray(object):
@@ -834,7 +859,8 @@ class NodePoolUpgradeSettings(object):
             return None
 
         return NodePoolUpgradeSettings(
-            max_surge=resource.max_surge, max_unavailable=resource.max_unavailable,
+            max_surge=Primitive.from_proto(resource.max_surge),
+            max_unavailable=Primitive.from_proto(resource.max_unavailable),
         )
 
 

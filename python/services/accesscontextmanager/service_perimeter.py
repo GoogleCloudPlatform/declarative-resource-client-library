@@ -235,10 +235,12 @@ class ServicePerimeterStatus(object):
             return None
 
         return ServicePerimeterStatus(
-            resources=resource.resources,
-            access_levels=resource.access_levels,
-            restricted_services=resource.restricted_services,
-            vpc_accessible_services=resource.vpc_accessible_services,
+            resources=Primitive.from_proto(resource.resources),
+            access_levels=Primitive.from_proto(resource.access_levels),
+            restricted_services=Primitive.from_proto(resource.restricted_services),
+            vpc_accessible_services=ServicePerimeterStatusVPCAccessibleServices.from_proto(
+                resource.vpc_accessible_services
+            ),
         )
 
 
@@ -279,8 +281,8 @@ class ServicePerimeterStatusVPCAccessibleServices(object):
             return None
 
         return ServicePerimeterStatusVPCAccessibleServices(
-            enable_restriction=resource.enable_restriction,
-            allowed_services=resource.allowed_services,
+            enable_restriction=Primitive.from_proto(resource.enable_restriction),
+            allowed_services=Primitive.from_proto(resource.allowed_services),
         )
 
 
@@ -345,10 +347,12 @@ class ServicePerimeterSpec(object):
             return None
 
         return ServicePerimeterSpec(
-            resources=resource.resources,
-            access_levels=resource.access_levels,
-            restricted_services=resource.restricted_services,
-            vpc_accessible_services=resource.vpc_accessible_services,
+            resources=Primitive.from_proto(resource.resources),
+            access_levels=Primitive.from_proto(resource.access_levels),
+            restricted_services=Primitive.from_proto(resource.restricted_services),
+            vpc_accessible_services=ServicePerimeterSpecVPCAccessibleServices.from_proto(
+                resource.vpc_accessible_services
+            ),
         )
 
 
@@ -389,8 +393,8 @@ class ServicePerimeterSpecVPCAccessibleServices(object):
             return None
 
         return ServicePerimeterSpecVPCAccessibleServices(
-            enable_restriction=resource.enable_restriction,
-            allowed_services=resource.allowed_services,
+            enable_restriction=Primitive.from_proto(resource.enable_restriction),
+            allowed_services=Primitive.from_proto(resource.allowed_services),
         )
 
 

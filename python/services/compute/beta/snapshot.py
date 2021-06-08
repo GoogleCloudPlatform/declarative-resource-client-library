@@ -205,7 +205,8 @@ class SnapshotSnapshotEncryptionKey(object):
             return None
 
         return SnapshotSnapshotEncryptionKey(
-            raw_key=resource.raw_key, sha256=resource.sha256,
+            raw_key=Primitive.from_proto(resource.raw_key),
+            sha256=Primitive.from_proto(resource.sha256),
         )
 
 
@@ -240,7 +241,9 @@ class SnapshotSourceDiskEncryptionKey(object):
         if not resource:
             return None
 
-        return SnapshotSourceDiskEncryptionKey(raw_key=resource.raw_key,)
+        return SnapshotSourceDiskEncryptionKey(
+            raw_key=Primitive.from_proto(resource.raw_key),
+        )
 
 
 class SnapshotSourceDiskEncryptionKeyArray(object):

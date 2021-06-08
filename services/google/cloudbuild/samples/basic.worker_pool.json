@@ -7,5 +7,7 @@
     "diskSizeGb": 100,
     "noExternalIP": true
   },
-  "networkConfig": {}
+  "networkConfig": {
+    "peeredNetwork": "projects/{{project}}/global/networks/{{ref:basic.compute.network.json:name}}"
+  }
 }

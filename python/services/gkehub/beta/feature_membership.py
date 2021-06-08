@@ -198,11 +198,19 @@ class FeatureMembershipConfigmanagement(object):
             return None
 
         return FeatureMembershipConfigmanagement(
-            config_sync=resource.config_sync,
-            policy_controller=resource.policy_controller,
-            binauthz=resource.binauthz,
-            hierarchy_controller=resource.hierarchy_controller,
-            version=resource.version,
+            config_sync=FeatureMembershipConfigmanagementConfigSync.from_proto(
+                resource.config_sync
+            ),
+            policy_controller=FeatureMembershipConfigmanagementPolicyController.from_proto(
+                resource.policy_controller
+            ),
+            binauthz=FeatureMembershipConfigmanagementBinauthz.from_proto(
+                resource.binauthz
+            ),
+            hierarchy_controller=FeatureMembershipConfigmanagementHierarchyController.from_proto(
+                resource.hierarchy_controller
+            ),
+            version=Primitive.from_proto(resource.version),
         )
 
 
@@ -247,7 +255,8 @@ class FeatureMembershipConfigmanagementConfigSync(object):
             return None
 
         return FeatureMembershipConfigmanagementConfigSync(
-            git=resource.git, source_format=resource.source_format,
+            git=FeatureMembershipConfigmanagementConfigSyncGit.from_proto(resource.git),
+            source_format=Primitive.from_proto(resource.source_format),
         )
 
 
@@ -316,13 +325,13 @@ class FeatureMembershipConfigmanagementConfigSyncGit(object):
             return None
 
         return FeatureMembershipConfigmanagementConfigSyncGit(
-            sync_repo=resource.sync_repo,
-            sync_branch=resource.sync_branch,
-            policy_dir=resource.policy_dir,
-            sync_wait_secs=resource.sync_wait_secs,
-            sync_rev=resource.sync_rev,
-            secret_type=resource.secret_type,
-            https_proxy=resource.https_proxy,
+            sync_repo=Primitive.from_proto(resource.sync_repo),
+            sync_branch=Primitive.from_proto(resource.sync_branch),
+            policy_dir=Primitive.from_proto(resource.policy_dir),
+            sync_wait_secs=Primitive.from_proto(resource.sync_wait_secs),
+            sync_rev=Primitive.from_proto(resource.sync_rev),
+            secret_type=Primitive.from_proto(resource.secret_type),
+            https_proxy=Primitive.from_proto(resource.https_proxy),
         )
 
 
@@ -397,12 +406,18 @@ class FeatureMembershipConfigmanagementPolicyController(object):
             return None
 
         return FeatureMembershipConfigmanagementPolicyController(
-            enabled=resource.enabled,
-            exemptable_namespaces=resource.exemptable_namespaces,
-            referential_rules_enabled=resource.referential_rules_enabled,
-            log_denies_enabled=resource.log_denies_enabled,
-            template_library_installed=resource.template_library_installed,
-            audit_interval_seconds=resource.audit_interval_seconds,
+            enabled=Primitive.from_proto(resource.enabled),
+            exemptable_namespaces=Primitive.from_proto(resource.exemptable_namespaces),
+            referential_rules_enabled=Primitive.from_proto(
+                resource.referential_rules_enabled
+            ),
+            log_denies_enabled=Primitive.from_proto(resource.log_denies_enabled),
+            template_library_installed=Primitive.from_proto(
+                resource.template_library_installed
+            ),
+            audit_interval_seconds=Primitive.from_proto(
+                resource.audit_interval_seconds
+            ),
         )
 
 
@@ -445,7 +460,9 @@ class FeatureMembershipConfigmanagementBinauthz(object):
         if not resource:
             return None
 
-        return FeatureMembershipConfigmanagementBinauthz(enabled=resource.enabled,)
+        return FeatureMembershipConfigmanagementBinauthz(
+            enabled=Primitive.from_proto(resource.enabled),
+        )
 
 
 class FeatureMembershipConfigmanagementBinauthzArray(object):
@@ -501,9 +518,13 @@ class FeatureMembershipConfigmanagementHierarchyController(object):
             return None
 
         return FeatureMembershipConfigmanagementHierarchyController(
-            enabled=resource.enabled,
-            enable_pod_tree_labels=resource.enable_pod_tree_labels,
-            enable_hierarchical_resource_quota=resource.enable_hierarchical_resource_quota,
+            enabled=Primitive.from_proto(resource.enabled),
+            enable_pod_tree_labels=Primitive.from_proto(
+                resource.enable_pod_tree_labels
+            ),
+            enable_hierarchical_resource_quota=Primitive.from_proto(
+                resource.enable_hierarchical_resource_quota
+            ),
         )
 
 

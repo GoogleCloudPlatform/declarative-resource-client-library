@@ -318,7 +318,8 @@ class AlertPolicyDocumentation(object):
             return None
 
         return AlertPolicyDocumentation(
-            content=resource.content, mime_type=resource.mime_type,
+            content=Primitive.from_proto(resource.content),
+            mime_type=Primitive.from_proto(resource.mime_type),
         )
 
 
@@ -465,18 +466,38 @@ class AlertPolicyConditions(object):
             return None
 
         return AlertPolicyConditions(
-            name=resource.name,
-            display_name=resource.display_name,
-            resource_state_filter=resource.resource_state_filter,
-            condition_threshold=resource.condition_threshold,
-            condition_absent=resource.condition_absent,
-            condition_matched_log=resource.condition_matched_log,
-            condition_cluster_outlier=resource.condition_cluster_outlier,
-            condition_rate=resource.condition_rate,
-            condition_up_mon=resource.condition_up_mon,
-            condition_process_count=resource.condition_process_count,
-            condition_time_series_query_language=resource.condition_time_series_query_language,
-            condition_monitoring_query_language=resource.condition_monitoring_query_language,
+            name=Primitive.from_proto(resource.name),
+            display_name=Primitive.from_proto(resource.display_name),
+            resource_state_filter=AlertPolicyConditionsResourceStateFilterEnum.from_proto(
+                resource.resource_state_filter
+            ),
+            condition_threshold=AlertPolicyConditionsConditionThreshold.from_proto(
+                resource.condition_threshold
+            ),
+            condition_absent=AlertPolicyConditionsConditionAbsent.from_proto(
+                resource.condition_absent
+            ),
+            condition_matched_log=AlertPolicyConditionsConditionMatchedLog.from_proto(
+                resource.condition_matched_log
+            ),
+            condition_cluster_outlier=AlertPolicyConditionsConditionClusterOutlier.from_proto(
+                resource.condition_cluster_outlier
+            ),
+            condition_rate=AlertPolicyConditionsConditionRate.from_proto(
+                resource.condition_rate
+            ),
+            condition_up_mon=AlertPolicyConditionsConditionUpMon.from_proto(
+                resource.condition_up_mon
+            ),
+            condition_process_count=AlertPolicyConditionsConditionProcessCount.from_proto(
+                resource.condition_process_count
+            ),
+            condition_time_series_query_language=AlertPolicyConditionsConditionTimeSeriesQueryLanguage.from_proto(
+                resource.condition_time_series_query_language
+            ),
+            condition_monitoring_query_language=AlertPolicyConditionsConditionMonitoringQueryLanguage.from_proto(
+                resource.condition_monitoring_query_language
+            ),
         )
 
 
@@ -565,14 +586,22 @@ class AlertPolicyConditionsConditionThreshold(object):
             return None
 
         return AlertPolicyConditionsConditionThreshold(
-            filter=resource.filter,
-            aggregations=resource.aggregations,
-            denominator_filter=resource.denominator_filter,
-            denominator_aggregations=resource.denominator_aggregations,
-            comparison=resource.comparison,
-            threshold_value=resource.threshold_value,
-            duration=resource.duration,
-            trigger=resource.trigger,
+            filter=Primitive.from_proto(resource.filter),
+            aggregations=AlertPolicyConditionsConditionThresholdAggregationsArray.from_proto(
+                resource.aggregations
+            ),
+            denominator_filter=Primitive.from_proto(resource.denominator_filter),
+            denominator_aggregations=AlertPolicyConditionsConditionThresholdDenominatorAggregationsArray.from_proto(
+                resource.denominator_aggregations
+            ),
+            comparison=AlertPolicyConditionsConditionThresholdComparisonEnum.from_proto(
+                resource.comparison
+            ),
+            threshold_value=Primitive.from_proto(resource.threshold_value),
+            duration=Primitive.from_proto(resource.duration),
+            trigger=AlertPolicyConditionsConditionThresholdTrigger.from_proto(
+                resource.trigger
+            ),
         )
 
 
@@ -659,12 +688,20 @@ class AlertPolicyConditionsConditionThresholdAggregations(object):
             return None
 
         return AlertPolicyConditionsConditionThresholdAggregations(
-            alignment_period=resource.alignment_period,
-            per_series_aligner=resource.per_series_aligner,
-            cross_series_reducer=resource.cross_series_reducer,
-            group_by_fields=resource.group_by_fields,
-            reduce_fraction_less_than_params=resource.reduce_fraction_less_than_params,
-            reduce_make_distribution_params=resource.reduce_make_distribution_params,
+            alignment_period=Primitive.from_proto(resource.alignment_period),
+            per_series_aligner=AlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum.from_proto(
+                resource.per_series_aligner
+            ),
+            cross_series_reducer=AlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum.from_proto(
+                resource.cross_series_reducer
+            ),
+            group_by_fields=Primitive.from_proto(resource.group_by_fields),
+            reduce_fraction_less_than_params=AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams.from_proto(
+                resource.reduce_fraction_less_than_params
+            ),
+            reduce_make_distribution_params=AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams.from_proto(
+                resource.reduce_make_distribution_params
+            ),
         )
 
 
@@ -710,7 +747,7 @@ class AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanP
             return None
 
         return AlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams(
-            threshold=resource.threshold,
+            threshold=Primitive.from_proto(resource.threshold),
         )
 
 
@@ -781,8 +818,12 @@ class AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionP
             return None
 
         return AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams(
-            bucket_options=resource.bucket_options,
-            exemplar_sampling=resource.exemplar_sampling,
+            bucket_options=AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions.from_proto(
+                resource.bucket_options
+            ),
+            exemplar_sampling=AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling.from_proto(
+                resource.exemplar_sampling
+            ),
         )
 
 
@@ -869,9 +910,15 @@ class AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionP
             return None
 
         return AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions(
-            linear_buckets=resource.linear_buckets,
-            exponential_buckets=resource.exponential_buckets,
-            explicit_buckets=resource.explicit_buckets,
+            linear_buckets=AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets.from_proto(
+                resource.linear_buckets
+            ),
+            exponential_buckets=AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets.from_proto(
+                resource.exponential_buckets
+            ),
+            explicit_buckets=AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets.from_proto(
+                resource.explicit_buckets
+            ),
         )
 
 
@@ -931,9 +978,9 @@ class AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionP
             return None
 
         return AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            width=resource.width,
-            offset=resource.offset,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            width=Primitive.from_proto(resource.width),
+            offset=Primitive.from_proto(resource.offset),
         )
 
 
@@ -996,9 +1043,9 @@ class AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionP
             return None
 
         return AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            growth_factor=resource.growth_factor,
-            scale=resource.scale,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            growth_factor=Primitive.from_proto(resource.growth_factor),
+            scale=Primitive.from_proto(resource.scale),
         )
 
 
@@ -1050,7 +1097,7 @@ class AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionP
             return None
 
         return AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(
-            bounds=resource.bounds,
+            bounds=float64Array.from_proto(resource.bounds),
         )
 
 
@@ -1102,7 +1149,7 @@ class AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionP
             return None
 
         return AlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling(
-            minimum_value=resource.minimum_value,
+            minimum_value=Primitive.from_proto(resource.minimum_value),
         )
 
 
@@ -1199,12 +1246,20 @@ class AlertPolicyConditionsConditionThresholdDenominatorAggregations(object):
             return None
 
         return AlertPolicyConditionsConditionThresholdDenominatorAggregations(
-            alignment_period=resource.alignment_period,
-            per_series_aligner=resource.per_series_aligner,
-            cross_series_reducer=resource.cross_series_reducer,
-            group_by_fields=resource.group_by_fields,
-            reduce_fraction_less_than_params=resource.reduce_fraction_less_than_params,
-            reduce_make_distribution_params=resource.reduce_make_distribution_params,
+            alignment_period=Primitive.from_proto(resource.alignment_period),
+            per_series_aligner=AlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum.from_proto(
+                resource.per_series_aligner
+            ),
+            cross_series_reducer=AlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum.from_proto(
+                resource.cross_series_reducer
+            ),
+            group_by_fields=Primitive.from_proto(resource.group_by_fields),
+            reduce_fraction_less_than_params=AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams.from_proto(
+                resource.reduce_fraction_less_than_params
+            ),
+            reduce_make_distribution_params=AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams.from_proto(
+                resource.reduce_make_distribution_params
+            ),
         )
 
 
@@ -1250,7 +1305,7 @@ class AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFracti
             return None
 
         return AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams(
-            threshold=resource.threshold,
+            threshold=Primitive.from_proto(resource.threshold),
         )
 
 
@@ -1321,8 +1376,12 @@ class AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDi
             return None
 
         return AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams(
-            bucket_options=resource.bucket_options,
-            exemplar_sampling=resource.exemplar_sampling,
+            bucket_options=AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions.from_proto(
+                resource.bucket_options
+            ),
+            exemplar_sampling=AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling.from_proto(
+                resource.exemplar_sampling
+            ),
         )
 
 
@@ -1409,9 +1468,15 @@ class AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDi
             return None
 
         return AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions(
-            linear_buckets=resource.linear_buckets,
-            exponential_buckets=resource.exponential_buckets,
-            explicit_buckets=resource.explicit_buckets,
+            linear_buckets=AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets.from_proto(
+                resource.linear_buckets
+            ),
+            exponential_buckets=AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets.from_proto(
+                resource.exponential_buckets
+            ),
+            explicit_buckets=AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets.from_proto(
+                resource.explicit_buckets
+            ),
         )
 
 
@@ -1471,9 +1536,9 @@ class AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDi
             return None
 
         return AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            width=resource.width,
-            offset=resource.offset,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            width=Primitive.from_proto(resource.width),
+            offset=Primitive.from_proto(resource.offset),
         )
 
 
@@ -1536,9 +1601,9 @@ class AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDi
             return None
 
         return AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            growth_factor=resource.growth_factor,
-            scale=resource.scale,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            growth_factor=Primitive.from_proto(resource.growth_factor),
+            scale=Primitive.from_proto(resource.scale),
         )
 
 
@@ -1590,7 +1655,7 @@ class AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDi
             return None
 
         return AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(
-            bounds=resource.bounds,
+            bounds=float64Array.from_proto(resource.bounds),
         )
 
 
@@ -1642,7 +1707,7 @@ class AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDi
             return None
 
         return AlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling(
-            minimum_value=resource.minimum_value,
+            minimum_value=Primitive.from_proto(resource.minimum_value),
         )
 
 
@@ -1695,7 +1760,8 @@ class AlertPolicyConditionsConditionThresholdTrigger(object):
             return None
 
         return AlertPolicyConditionsConditionThresholdTrigger(
-            count=resource.count, percent=resource.percent,
+            count=Primitive.from_proto(resource.count),
+            percent=Primitive.from_proto(resource.percent),
         )
 
 
@@ -1766,10 +1832,16 @@ class AlertPolicyConditionsConditionAbsent(object):
             return None
 
         return AlertPolicyConditionsConditionAbsent(
-            filter=resource.filter,
-            aggregations=resource.aggregations,
-            duration=resource.duration,
-            trigger=resource.trigger,
+            filter=Primitive.from_proto(resource.filter),
+            aggregations=AlertPolicyConditionsConditionAbsentAggregationsArray.from_proto(
+                resource.aggregations
+            ),
+            duration=AlertPolicyConditionsConditionAbsentDuration.from_proto(
+                resource.duration
+            ),
+            trigger=AlertPolicyConditionsConditionAbsentTrigger.from_proto(
+                resource.trigger
+            ),
         )
 
 
@@ -1854,12 +1926,20 @@ class AlertPolicyConditionsConditionAbsentAggregations(object):
             return None
 
         return AlertPolicyConditionsConditionAbsentAggregations(
-            alignment_period=resource.alignment_period,
-            per_series_aligner=resource.per_series_aligner,
-            cross_series_reducer=resource.cross_series_reducer,
-            group_by_fields=resource.group_by_fields,
-            reduce_fraction_less_than_params=resource.reduce_fraction_less_than_params,
-            reduce_make_distribution_params=resource.reduce_make_distribution_params,
+            alignment_period=Primitive.from_proto(resource.alignment_period),
+            per_series_aligner=AlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum.from_proto(
+                resource.per_series_aligner
+            ),
+            cross_series_reducer=AlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum.from_proto(
+                resource.cross_series_reducer
+            ),
+            group_by_fields=Primitive.from_proto(resource.group_by_fields),
+            reduce_fraction_less_than_params=AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams.from_proto(
+                resource.reduce_fraction_less_than_params
+            ),
+            reduce_make_distribution_params=AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams.from_proto(
+                resource.reduce_make_distribution_params
+            ),
         )
 
 
@@ -1905,7 +1985,7 @@ class AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanPara
             return None
 
         return AlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams(
-            threshold=resource.threshold,
+            threshold=Primitive.from_proto(resource.threshold),
         )
 
 
@@ -1976,8 +2056,12 @@ class AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionPara
             return None
 
         return AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams(
-            bucket_options=resource.bucket_options,
-            exemplar_sampling=resource.exemplar_sampling,
+            bucket_options=AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions.from_proto(
+                resource.bucket_options
+            ),
+            exemplar_sampling=AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling.from_proto(
+                resource.exemplar_sampling
+            ),
         )
 
 
@@ -2064,9 +2148,15 @@ class AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionPara
             return None
 
         return AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions(
-            linear_buckets=resource.linear_buckets,
-            exponential_buckets=resource.exponential_buckets,
-            explicit_buckets=resource.explicit_buckets,
+            linear_buckets=AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets.from_proto(
+                resource.linear_buckets
+            ),
+            exponential_buckets=AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets.from_proto(
+                resource.exponential_buckets
+            ),
+            explicit_buckets=AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets.from_proto(
+                resource.explicit_buckets
+            ),
         )
 
 
@@ -2126,9 +2216,9 @@ class AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionPara
             return None
 
         return AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            width=resource.width,
-            offset=resource.offset,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            width=Primitive.from_proto(resource.width),
+            offset=Primitive.from_proto(resource.offset),
         )
 
 
@@ -2191,9 +2281,9 @@ class AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionPara
             return None
 
         return AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            growth_factor=resource.growth_factor,
-            scale=resource.scale,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            growth_factor=Primitive.from_proto(resource.growth_factor),
+            scale=Primitive.from_proto(resource.scale),
         )
 
 
@@ -2245,7 +2335,7 @@ class AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionPara
             return None
 
         return AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(
-            bounds=resource.bounds,
+            bounds=float64Array.from_proto(resource.bounds),
         )
 
 
@@ -2297,7 +2387,7 @@ class AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionPara
             return None
 
         return AlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling(
-            minimum_value=resource.minimum_value,
+            minimum_value=Primitive.from_proto(resource.minimum_value),
         )
 
 
@@ -2348,7 +2438,8 @@ class AlertPolicyConditionsConditionAbsentDuration(object):
             return None
 
         return AlertPolicyConditionsConditionAbsentDuration(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -2392,7 +2483,8 @@ class AlertPolicyConditionsConditionAbsentTrigger(object):
             return None
 
         return AlertPolicyConditionsConditionAbsentTrigger(
-            count=resource.count, percent=resource.percent,
+            count=Primitive.from_proto(resource.count),
+            percent=Primitive.from_proto(resource.percent),
         )
 
 
@@ -2435,7 +2527,8 @@ class AlertPolicyConditionsConditionMatchedLog(object):
             return None
 
         return AlertPolicyConditionsConditionMatchedLog(
-            filter=resource.filter, label_extractors=resource.label_extractors,
+            filter=Primitive.from_proto(resource.filter),
+            label_extractors=Primitive.from_proto(resource.label_extractors),
         )
 
 
@@ -2472,7 +2565,9 @@ class AlertPolicyConditionsConditionClusterOutlier(object):
         if not resource:
             return None
 
-        return AlertPolicyConditionsConditionClusterOutlier(filter=resource.filter,)
+        return AlertPolicyConditionsConditionClusterOutlier(
+            filter=Primitive.from_proto(resource.filter),
+        )
 
 
 class AlertPolicyConditionsConditionClusterOutlierArray(object):
@@ -2555,12 +2650,20 @@ class AlertPolicyConditionsConditionRate(object):
             return None
 
         return AlertPolicyConditionsConditionRate(
-            filter=resource.filter,
-            aggregations=resource.aggregations,
-            comparison=resource.comparison,
-            threshold_value=resource.threshold_value,
-            time_window=resource.time_window,
-            trigger=resource.trigger,
+            filter=Primitive.from_proto(resource.filter),
+            aggregations=AlertPolicyConditionsConditionRateAggregationsArray.from_proto(
+                resource.aggregations
+            ),
+            comparison=AlertPolicyConditionsConditionRateComparisonEnum.from_proto(
+                resource.comparison
+            ),
+            threshold_value=Primitive.from_proto(resource.threshold_value),
+            time_window=AlertPolicyConditionsConditionRateTimeWindow.from_proto(
+                resource.time_window
+            ),
+            trigger=AlertPolicyConditionsConditionRateTrigger.from_proto(
+                resource.trigger
+            ),
         )
 
 
@@ -2645,12 +2748,20 @@ class AlertPolicyConditionsConditionRateAggregations(object):
             return None
 
         return AlertPolicyConditionsConditionRateAggregations(
-            alignment_period=resource.alignment_period,
-            per_series_aligner=resource.per_series_aligner,
-            cross_series_reducer=resource.cross_series_reducer,
-            group_by_fields=resource.group_by_fields,
-            reduce_fraction_less_than_params=resource.reduce_fraction_less_than_params,
-            reduce_make_distribution_params=resource.reduce_make_distribution_params,
+            alignment_period=Primitive.from_proto(resource.alignment_period),
+            per_series_aligner=AlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum.from_proto(
+                resource.per_series_aligner
+            ),
+            cross_series_reducer=AlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum.from_proto(
+                resource.cross_series_reducer
+            ),
+            group_by_fields=Primitive.from_proto(resource.group_by_fields),
+            reduce_fraction_less_than_params=AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams.from_proto(
+                resource.reduce_fraction_less_than_params
+            ),
+            reduce_make_distribution_params=AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams.from_proto(
+                resource.reduce_make_distribution_params
+            ),
         )
 
 
@@ -2696,7 +2807,7 @@ class AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams
             return None
 
         return AlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams(
-            threshold=resource.threshold,
+            threshold=Primitive.from_proto(resource.threshold),
         )
 
 
@@ -2767,8 +2878,12 @@ class AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams
             return None
 
         return AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams(
-            bucket_options=resource.bucket_options,
-            exemplar_sampling=resource.exemplar_sampling,
+            bucket_options=AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions.from_proto(
+                resource.bucket_options
+            ),
+            exemplar_sampling=AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling.from_proto(
+                resource.exemplar_sampling
+            ),
         )
 
 
@@ -2855,9 +2970,15 @@ class AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams
             return None
 
         return AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions(
-            linear_buckets=resource.linear_buckets,
-            exponential_buckets=resource.exponential_buckets,
-            explicit_buckets=resource.explicit_buckets,
+            linear_buckets=AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets.from_proto(
+                resource.linear_buckets
+            ),
+            exponential_buckets=AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets.from_proto(
+                resource.exponential_buckets
+            ),
+            explicit_buckets=AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets.from_proto(
+                resource.explicit_buckets
+            ),
         )
 
 
@@ -2917,9 +3038,9 @@ class AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams
             return None
 
         return AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            width=resource.width,
-            offset=resource.offset,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            width=Primitive.from_proto(resource.width),
+            offset=Primitive.from_proto(resource.offset),
         )
 
 
@@ -2982,9 +3103,9 @@ class AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams
             return None
 
         return AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            growth_factor=resource.growth_factor,
-            scale=resource.scale,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            growth_factor=Primitive.from_proto(resource.growth_factor),
+            scale=Primitive.from_proto(resource.scale),
         )
 
 
@@ -3036,7 +3157,7 @@ class AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams
             return None
 
         return AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets(
-            bounds=resource.bounds,
+            bounds=float64Array.from_proto(resource.bounds),
         )
 
 
@@ -3088,7 +3209,7 @@ class AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams
             return None
 
         return AlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling(
-            minimum_value=resource.minimum_value,
+            minimum_value=Primitive.from_proto(resource.minimum_value),
         )
 
 
@@ -3139,7 +3260,8 @@ class AlertPolicyConditionsConditionRateTimeWindow(object):
             return None
 
         return AlertPolicyConditionsConditionRateTimeWindow(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -3183,7 +3305,8 @@ class AlertPolicyConditionsConditionRateTrigger(object):
             return None
 
         return AlertPolicyConditionsConditionRateTrigger(
-            count=resource.count, percent=resource.percent,
+            count=Primitive.from_proto(resource.count),
+            percent=Primitive.from_proto(resource.percent),
         )
 
 
@@ -3250,11 +3373,15 @@ class AlertPolicyConditionsConditionUpMon(object):
             return None
 
         return AlertPolicyConditionsConditionUpMon(
-            filter=resource.filter,
-            endpoint_id=resource.endpoint_id,
-            check_id=resource.check_id,
-            duration=resource.duration,
-            trigger=resource.trigger,
+            filter=Primitive.from_proto(resource.filter),
+            endpoint_id=Primitive.from_proto(resource.endpoint_id),
+            check_id=Primitive.from_proto(resource.check_id),
+            duration=AlertPolicyConditionsConditionUpMonDuration.from_proto(
+                resource.duration
+            ),
+            trigger=AlertPolicyConditionsConditionUpMonTrigger.from_proto(
+                resource.trigger
+            ),
         )
 
 
@@ -3293,7 +3420,8 @@ class AlertPolicyConditionsConditionUpMonDuration(object):
             return None
 
         return AlertPolicyConditionsConditionUpMonDuration(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -3336,7 +3464,8 @@ class AlertPolicyConditionsConditionUpMonTrigger(object):
             return None
 
         return AlertPolicyConditionsConditionUpMonTrigger(
-            count=resource.count, percent=resource.percent,
+            count=Primitive.from_proto(resource.count),
+            percent=Primitive.from_proto(resource.percent),
         )
 
 
@@ -3423,13 +3552,21 @@ class AlertPolicyConditionsConditionProcessCount(object):
             return None
 
         return AlertPolicyConditionsConditionProcessCount(
-            process=resource.process,
-            user=resource.user,
-            filter=resource.filter,
-            comparison=resource.comparison,
-            process_count_threshold=resource.process_count_threshold,
-            trigger=resource.trigger,
-            duration=resource.duration,
+            process=Primitive.from_proto(resource.process),
+            user=Primitive.from_proto(resource.user),
+            filter=Primitive.from_proto(resource.filter),
+            comparison=AlertPolicyConditionsConditionProcessCountComparisonEnum.from_proto(
+                resource.comparison
+            ),
+            process_count_threshold=Primitive.from_proto(
+                resource.process_count_threshold
+            ),
+            trigger=AlertPolicyConditionsConditionProcessCountTrigger.from_proto(
+                resource.trigger
+            ),
+            duration=AlertPolicyConditionsConditionProcessCountDuration.from_proto(
+                resource.duration
+            ),
         )
 
 
@@ -3474,7 +3611,8 @@ class AlertPolicyConditionsConditionProcessCountTrigger(object):
             return None
 
         return AlertPolicyConditionsConditionProcessCountTrigger(
-            count=resource.count, percent=resource.percent,
+            count=Primitive.from_proto(resource.count),
+            percent=Primitive.from_proto(resource.percent),
         )
 
 
@@ -3521,7 +3659,8 @@ class AlertPolicyConditionsConditionProcessCountDuration(object):
             return None
 
         return AlertPolicyConditionsConditionProcessCountDuration(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -3568,7 +3707,8 @@ class AlertPolicyConditionsConditionTimeSeriesQueryLanguage(object):
             return None
 
         return AlertPolicyConditionsConditionTimeSeriesQueryLanguage(
-            query=resource.query, summary=resource.summary,
+            query=Primitive.from_proto(resource.query),
+            summary=Primitive.from_proto(resource.summary),
         )
 
 
@@ -3634,7 +3774,13 @@ class AlertPolicyConditionsConditionMonitoringQueryLanguage(object):
             return None
 
         return AlertPolicyConditionsConditionMonitoringQueryLanguage(
-            query=resource.query, duration=resource.duration, trigger=resource.trigger,
+            query=Primitive.from_proto(resource.query),
+            duration=AlertPolicyConditionsConditionMonitoringQueryLanguageDuration.from_proto(
+                resource.duration
+            ),
+            trigger=AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger.from_proto(
+                resource.trigger
+            ),
         )
 
 
@@ -3681,7 +3827,8 @@ class AlertPolicyConditionsConditionMonitoringQueryLanguageDuration(object):
             return None
 
         return AlertPolicyConditionsConditionMonitoringQueryLanguageDuration(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -3728,7 +3875,8 @@ class AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger(object):
             return None
 
         return AlertPolicyConditionsConditionMonitoringQueryLanguageTrigger(
-            count=resource.count, percent=resource.percent,
+            count=Primitive.from_proto(resource.count),
+            percent=Primitive.from_proto(resource.percent),
         )
 
 
@@ -3769,7 +3917,7 @@ class AlertPolicyEnabled(object):
         if not resource:
             return None
 
-        return AlertPolicyEnabled(value=resource.value,)
+        return AlertPolicyEnabled(value=Primitive.from_proto(resource.value),)
 
 
 class AlertPolicyEnabledArray(object):
@@ -3812,7 +3960,9 @@ class AlertPolicyValidity(object):
             return None
 
         return AlertPolicyValidity(
-            code=resource.code, message=resource.message, details=resource.details,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            details=AlertPolicyValidityDetailsArray.from_proto(resource.details),
         )
 
 
@@ -3851,7 +4001,8 @@ class AlertPolicyValidityDetails(object):
             return None
 
         return AlertPolicyValidityDetails(
-            type_url=resource.type_url, value=resource.value,
+            type_url=Primitive.from_proto(resource.type_url),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -3894,7 +4045,10 @@ class AlertPolicyCreationRecord(object):
             return None
 
         return AlertPolicyCreationRecord(
-            mutate_time=resource.mutate_time, mutated_by=resource.mutated_by,
+            mutate_time=AlertPolicyCreationRecordMutateTime.from_proto(
+                resource.mutate_time
+            ),
+            mutated_by=Primitive.from_proto(resource.mutated_by),
         )
 
 
@@ -3933,7 +4087,8 @@ class AlertPolicyCreationRecordMutateTime(object):
             return None
 
         return AlertPolicyCreationRecordMutateTime(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -3976,7 +4131,10 @@ class AlertPolicyMutationRecord(object):
             return None
 
         return AlertPolicyMutationRecord(
-            mutate_time=resource.mutate_time, mutated_by=resource.mutated_by,
+            mutate_time=AlertPolicyMutationRecordMutateTime.from_proto(
+                resource.mutate_time
+            ),
+            mutated_by=Primitive.from_proto(resource.mutated_by),
         )
 
 
@@ -4015,7 +4173,8 @@ class AlertPolicyMutationRecordMutateTime(object):
             return None
 
         return AlertPolicyMutationRecordMutateTime(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -4050,7 +4209,9 @@ class AlertPolicyIncidentStrategy(object):
         if not resource:
             return None
 
-        return AlertPolicyIncidentStrategy(type=resource.type,)
+        return AlertPolicyIncidentStrategy(
+            type=AlertPolicyIncidentStrategyTypeEnum.from_proto(resource.type),
+        )
 
 
 class AlertPolicyIncidentStrategyArray(object):
@@ -4084,7 +4245,7 @@ class AlertPolicyMetadata(object):
         if not resource:
             return None
 
-        return AlertPolicyMetadata(slo_names=resource.slo_names,)
+        return AlertPolicyMetadata(slo_names=Primitive.from_proto(resource.slo_names),)
 
 
 class AlertPolicyMetadataArray(object):

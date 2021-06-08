@@ -164,7 +164,9 @@ class SslPolicyWarning(object):
             return None
 
         return SslPolicyWarning(
-            code=resource.code, message=resource.message, data=resource.data,
+            code=Primitive.from_proto(resource.code),
+            message=Primitive.from_proto(resource.message),
+            data=SslPolicyWarningDataArray.from_proto(resource.data),
         )
 
 
@@ -202,7 +204,10 @@ class SslPolicyWarningData(object):
         if not resource:
             return None
 
-        return SslPolicyWarningData(key=resource.key, value=resource.value,)
+        return SslPolicyWarningData(
+            key=Primitive.from_proto(resource.key),
+            value=Primitive.from_proto(resource.value),
+        )
 
 
 class SslPolicyWarningDataArray(object):

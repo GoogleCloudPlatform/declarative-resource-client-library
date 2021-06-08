@@ -31,7 +31,7 @@ func ProtoToMonitoringMetricDescriptorDescriptorLabelsValueTypeEnum(e monitoring
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringMetricDescriptorDescriptorLabelsValueTypeEnum_name[int32(e)]; ok {
-		e := monitoring.MetricDescriptorDescriptorLabelsValueTypeEnum(n[len("MetricDescriptorDescriptorLabelsValueTypeEnum"):])
+		e := monitoring.MetricDescriptorDescriptorLabelsValueTypeEnum(n[len("MonitoringMetricDescriptorDescriptorLabelsValueTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToMonitoringMetricDescriptorMetricKindEnum(e monitoringpb.MonitoringMe
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringMetricDescriptorMetricKindEnum_name[int32(e)]; ok {
-		e := monitoring.MetricDescriptorMetricKindEnum(n[len("MetricDescriptorMetricKindEnum"):])
+		e := monitoring.MetricDescriptorMetricKindEnum(n[len("MonitoringMetricDescriptorMetricKindEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToMonitoringMetricDescriptorValueTypeEnum(e monitoringpb.MonitoringMet
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringMetricDescriptorValueTypeEnum_name[int32(e)]; ok {
-		e := monitoring.MetricDescriptorValueTypeEnum(n[len("MetricDescriptorValueTypeEnum"):])
+		e := monitoring.MetricDescriptorValueTypeEnum(n[len("MonitoringMetricDescriptorValueTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToMonitoringMetricDescriptorMetadataLaunchStageEnum(e monitoringpb.Mon
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringMetricDescriptorMetadataLaunchStageEnum_name[int32(e)]; ok {
-		e := monitoring.MetricDescriptorMetadataLaunchStageEnum(n[len("MetricDescriptorMetadataLaunchStageEnum"):])
+		e := monitoring.MetricDescriptorMetadataLaunchStageEnum(n[len("MonitoringMetricDescriptorMetadataLaunchStageEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToMonitoringMetricDescriptorLaunchStageEnum(e monitoringpb.MonitoringM
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringMetricDescriptorLaunchStageEnum_name[int32(e)]; ok {
-		e := monitoring.MetricDescriptorLaunchStageEnum(n[len("MetricDescriptorLaunchStageEnum"):])
+		e := monitoring.MetricDescriptorLaunchStageEnum(n[len("MonitoringMetricDescriptorLaunchStageEnum"):])
 		return &e
 	}
 	return nil

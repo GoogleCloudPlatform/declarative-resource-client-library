@@ -31,7 +31,7 @@ func ProtoToComputeBackendServiceBackendsBalancingModeEnum(e computepb.ComputeBa
 		return nil
 	}
 	if n, ok := computepb.ComputeBackendServiceBackendsBalancingModeEnum_name[int32(e)]; ok {
-		e := compute.BackendServiceBackendsBalancingModeEnum(n[len("BackendServiceBackendsBalancingModeEnum"):])
+		e := compute.BackendServiceBackendsBalancingModeEnum(n[len("ComputeBackendServiceBackendsBalancingModeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeBackendServiceProtocolEnum(e computepb.ComputeBackendServiceP
 		return nil
 	}
 	if n, ok := computepb.ComputeBackendServiceProtocolEnum_name[int32(e)]; ok {
-		e := compute.BackendServiceProtocolEnum(n[len("BackendServiceProtocolEnum"):])
+		e := compute.BackendServiceProtocolEnum(n[len("ComputeBackendServiceProtocolEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeBackendServiceSessionAffinityEnum(e computepb.ComputeBackendS
 		return nil
 	}
 	if n, ok := computepb.ComputeBackendServiceSessionAffinityEnum_name[int32(e)]; ok {
-		e := compute.BackendServiceSessionAffinityEnum(n[len("BackendServiceSessionAffinityEnum"):])
+		e := compute.BackendServiceSessionAffinityEnum(n[len("ComputeBackendServiceSessionAffinityEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeBackendServiceLoadBalancingSchemeEnum(e computepb.ComputeBack
 		return nil
 	}
 	if n, ok := computepb.ComputeBackendServiceLoadBalancingSchemeEnum_name[int32(e)]; ok {
-		e := compute.BackendServiceLoadBalancingSchemeEnum(n[len("BackendServiceLoadBalancingSchemeEnum"):])
+		e := compute.BackendServiceLoadBalancingSchemeEnum(n[len("ComputeBackendServiceLoadBalancingSchemeEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToComputeBackendServiceCdnPolicyCacheModeEnum(e computepb.ComputeBacke
 		return nil
 	}
 	if n, ok := computepb.ComputeBackendServiceCdnPolicyCacheModeEnum_name[int32(e)]; ok {
-		e := compute.BackendServiceCdnPolicyCacheModeEnum(n[len("BackendServiceCdnPolicyCacheModeEnum"):])
+		e := compute.BackendServiceCdnPolicyCacheModeEnum(n[len("ComputeBackendServiceCdnPolicyCacheModeEnum"):])
 		return &e
 	}
 	return nil
@@ -91,7 +91,7 @@ func ProtoToComputeBackendServiceLocalityLbPolicyEnum(e computepb.ComputeBackend
 		return nil
 	}
 	if n, ok := computepb.ComputeBackendServiceLocalityLbPolicyEnum_name[int32(e)]; ok {
-		e := compute.BackendServiceLocalityLbPolicyEnum(n[len("BackendServiceLocalityLbPolicyEnum"):])
+		e := compute.BackendServiceLocalityLbPolicyEnum(n[len("ComputeBackendServiceLocalityLbPolicyEnum"):])
 		return &e
 	}
 	return nil

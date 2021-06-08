@@ -31,7 +31,7 @@ func ProtoToBigqueryconnectionConnectionCloudSqlTypeEnum(e bigqueryconnectionpb.
 		return nil
 	}
 	if n, ok := bigqueryconnectionpb.BigqueryconnectionConnectionCloudSqlTypeEnum_name[int32(e)]; ok {
-		e := bigqueryconnection.ConnectionCloudSqlTypeEnum(n[len("ConnectionCloudSqlTypeEnum"):])
+		e := bigqueryconnection.ConnectionCloudSqlTypeEnum(n[len("BigqueryconnectionConnectionCloudSqlTypeEnum"):])
 		return &e
 	}
 	return nil

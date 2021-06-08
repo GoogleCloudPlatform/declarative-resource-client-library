@@ -31,7 +31,7 @@ func ProtoToComputeBetaForwardingRuleIPProtocolEnum(e betapb.ComputeBetaForwardi
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaForwardingRuleIPProtocolEnum_name[int32(e)]; ok {
-		e := beta.ForwardingRuleIPProtocolEnum(n[len("ForwardingRuleIPProtocolEnum"):])
+		e := beta.ForwardingRuleIPProtocolEnum(n[len("ComputeBetaForwardingRuleIPProtocolEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeBetaForwardingRuleIPVersionEnum(e betapb.ComputeBetaForwardin
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaForwardingRuleIPVersionEnum_name[int32(e)]; ok {
-		e := beta.ForwardingRuleIPVersionEnum(n[len("ForwardingRuleIPVersionEnum"):])
+		e := beta.ForwardingRuleIPVersionEnum(n[len("ComputeBetaForwardingRuleIPVersionEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeBetaForwardingRuleLoadBalancingSchemeEnum(e betapb.ComputeBet
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaForwardingRuleLoadBalancingSchemeEnum_name[int32(e)]; ok {
-		e := beta.ForwardingRuleLoadBalancingSchemeEnum(n[len("ForwardingRuleLoadBalancingSchemeEnum"):])
+		e := beta.ForwardingRuleLoadBalancingSchemeEnum(n[len("ComputeBetaForwardingRuleLoadBalancingSchemeEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeBetaForwardingRuleMetadataFilterFilterMatchCriteriaEnum(e bet
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaForwardingRuleMetadataFilterFilterMatchCriteriaEnum_name[int32(e)]; ok {
-		e := beta.ForwardingRuleMetadataFilterFilterMatchCriteriaEnum(n[len("ForwardingRuleMetadataFilterFilterMatchCriteriaEnum"):])
+		e := beta.ForwardingRuleMetadataFilterFilterMatchCriteriaEnum(n[len("ComputeBetaForwardingRuleMetadataFilterFilterMatchCriteriaEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToComputeBetaForwardingRuleNetworkTierEnum(e betapb.ComputeBetaForward
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaForwardingRuleNetworkTierEnum_name[int32(e)]; ok {
-		e := beta.ForwardingRuleNetworkTierEnum(n[len("ForwardingRuleNetworkTierEnum"):])
+		e := beta.ForwardingRuleNetworkTierEnum(n[len("ComputeBetaForwardingRuleNetworkTierEnum"):])
 		return &e
 	}
 	return nil

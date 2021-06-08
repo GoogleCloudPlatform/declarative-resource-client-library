@@ -31,7 +31,7 @@ func ProtoToComputeBetaInstanceTemplatePropertiesDisksInterfaceEnum(e betapb.Com
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaInstanceTemplatePropertiesDisksInterfaceEnum_name[int32(e)]; ok {
-		e := beta.InstanceTemplatePropertiesDisksInterfaceEnum(n[len("InstanceTemplatePropertiesDisksInterfaceEnum"):])
+		e := beta.InstanceTemplatePropertiesDisksInterfaceEnum(n[len("ComputeBetaInstanceTemplatePropertiesDisksInterfaceEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeBetaInstanceTemplatePropertiesDisksModeEnum(e betapb.ComputeB
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaInstanceTemplatePropertiesDisksModeEnum_name[int32(e)]; ok {
-		e := beta.InstanceTemplatePropertiesDisksModeEnum(n[len("InstanceTemplatePropertiesDisksModeEnum"):])
+		e := beta.InstanceTemplatePropertiesDisksModeEnum(n[len("ComputeBetaInstanceTemplatePropertiesDisksModeEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeBetaInstanceTemplatePropertiesDisksTypeEnum(e betapb.ComputeB
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaInstanceTemplatePropertiesDisksTypeEnum_name[int32(e)]; ok {
-		e := beta.InstanceTemplatePropertiesDisksTypeEnum(n[len("InstanceTemplatePropertiesDisksTypeEnum"):])
+		e := beta.InstanceTemplatePropertiesDisksTypeEnum(n[len("ComputeBetaInstanceTemplatePropertiesDisksTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeBetaInstanceTemplatePropertiesNetworkInterfacesAccessConfigsT
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaInstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum_name[int32(e)]; ok {
-		e := beta.InstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum(n[len("InstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum"):])
+		e := beta.InstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum(n[len("ComputeBetaInstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToComputeBetaInstanceTemplatePropertiesNetworkInterfacesAccessConfigsN
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaInstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum_name[int32(e)]; ok {
-		e := beta.InstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum(n[len("InstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum"):])
+		e := beta.InstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum(n[len("ComputeBetaInstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum"):])
 		return &e
 	}
 	return nil
@@ -91,7 +91,7 @@ func ProtoToComputeBetaInstanceTemplatePropertiesSchedulingNodeAffinitiesOperato
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaInstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum_name[int32(e)]; ok {
-		e := beta.InstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum(n[len("InstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum"):])
+		e := beta.InstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum(n[len("ComputeBetaInstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum"):])
 		return &e
 	}
 	return nil

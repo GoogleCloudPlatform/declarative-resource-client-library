@@ -31,7 +31,7 @@ func ProtoToComputeBetaInstanceGroupManagerUpdatePolicyInstanceRedistributionTyp
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum_name[int32(e)]; ok {
-		e := beta.InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum(n[len("InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum"):])
+		e := beta.InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum(n[len("ComputeBetaInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeBetaInstanceGroupManagerUpdatePolicyMinimalActionEnum(e betap
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaInstanceGroupManagerUpdatePolicyMinimalActionEnum_name[int32(e)]; ok {
-		e := beta.InstanceGroupManagerUpdatePolicyMinimalActionEnum(n[len("InstanceGroupManagerUpdatePolicyMinimalActionEnum"):])
+		e := beta.InstanceGroupManagerUpdatePolicyMinimalActionEnum(n[len("ComputeBetaInstanceGroupManagerUpdatePolicyMinimalActionEnum"):])
 		return &e
 	}
 	return nil

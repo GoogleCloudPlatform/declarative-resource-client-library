@@ -31,7 +31,7 @@ func ProtoToLoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum(e logg
 		return nil
 	}
 	if n, ok := loggingpb.LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum_name[int32(e)]; ok {
-		e := logging.LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum(n[len("LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum"):])
+		e := logging.LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum(n[len("LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToLoggingLogMetricMetricDescriptorMetricKindEnum(e loggingpb.LoggingLo
 		return nil
 	}
 	if n, ok := loggingpb.LoggingLogMetricMetricDescriptorMetricKindEnum_name[int32(e)]; ok {
-		e := logging.LogMetricMetricDescriptorMetricKindEnum(n[len("LogMetricMetricDescriptorMetricKindEnum"):])
+		e := logging.LogMetricMetricDescriptorMetricKindEnum(n[len("LoggingLogMetricMetricDescriptorMetricKindEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToLoggingLogMetricMetricDescriptorValueTypeEnum(e loggingpb.LoggingLog
 		return nil
 	}
 	if n, ok := loggingpb.LoggingLogMetricMetricDescriptorValueTypeEnum_name[int32(e)]; ok {
-		e := logging.LogMetricMetricDescriptorValueTypeEnum(n[len("LogMetricMetricDescriptorValueTypeEnum"):])
+		e := logging.LogMetricMetricDescriptorValueTypeEnum(n[len("LoggingLogMetricMetricDescriptorValueTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToLoggingLogMetricMetricDescriptorMetadataLaunchStageEnum(e loggingpb.
 		return nil
 	}
 	if n, ok := loggingpb.LoggingLogMetricMetricDescriptorMetadataLaunchStageEnum_name[int32(e)]; ok {
-		e := logging.LogMetricMetricDescriptorMetadataLaunchStageEnum(n[len("LogMetricMetricDescriptorMetadataLaunchStageEnum"):])
+		e := logging.LogMetricMetricDescriptorMetadataLaunchStageEnum(n[len("LoggingLogMetricMetricDescriptorMetadataLaunchStageEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToLoggingLogMetricMetricDescriptorLaunchStageEnum(e loggingpb.LoggingL
 		return nil
 	}
 	if n, ok := loggingpb.LoggingLogMetricMetricDescriptorLaunchStageEnum_name[int32(e)]; ok {
-		e := logging.LogMetricMetricDescriptorLaunchStageEnum(n[len("LogMetricMetricDescriptorLaunchStageEnum"):])
+		e := logging.LogMetricMetricDescriptorLaunchStageEnum(n[len("LoggingLogMetricMetricDescriptorLaunchStageEnum"):])
 		return &e
 	}
 	return nil

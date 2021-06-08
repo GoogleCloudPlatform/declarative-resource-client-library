@@ -207,7 +207,10 @@ class ConnectorSubnet(object):
         if not resource:
             return None
 
-        return ConnectorSubnet(name=resource.name, project_id=resource.project_id,)
+        return ConnectorSubnet(
+            name=Primitive.from_proto(resource.name),
+            project_id=Primitive.from_proto(resource.project_id),
+        )
 
 
 class ConnectorSubnetArray(object):

@@ -31,7 +31,7 @@ func ProtoToComputeInterconnectLinkTypeEnum(e computepb.ComputeInterconnectLinkT
 		return nil
 	}
 	if n, ok := computepb.ComputeInterconnectLinkTypeEnum_name[int32(e)]; ok {
-		e := compute.InterconnectLinkTypeEnum(n[len("InterconnectLinkTypeEnum"):])
+		e := compute.InterconnectLinkTypeEnum(n[len("ComputeInterconnectLinkTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeInterconnectInterconnectTypeEnum(e computepb.ComputeInterconn
 		return nil
 	}
 	if n, ok := computepb.ComputeInterconnectInterconnectTypeEnum_name[int32(e)]; ok {
-		e := compute.InterconnectInterconnectTypeEnum(n[len("InterconnectInterconnectTypeEnum"):])
+		e := compute.InterconnectInterconnectTypeEnum(n[len("ComputeInterconnectInterconnectTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeInterconnectOperationalStatusEnum(e computepb.ComputeIntercon
 		return nil
 	}
 	if n, ok := computepb.ComputeInterconnectOperationalStatusEnum_name[int32(e)]; ok {
-		e := compute.InterconnectOperationalStatusEnum(n[len("InterconnectOperationalStatusEnum"):])
+		e := compute.InterconnectOperationalStatusEnum(n[len("ComputeInterconnectOperationalStatusEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeInterconnectExpectedOutagesSourceEnum(e computepb.ComputeInte
 		return nil
 	}
 	if n, ok := computepb.ComputeInterconnectExpectedOutagesSourceEnum_name[int32(e)]; ok {
-		e := compute.InterconnectExpectedOutagesSourceEnum(n[len("InterconnectExpectedOutagesSourceEnum"):])
+		e := compute.InterconnectExpectedOutagesSourceEnum(n[len("ComputeInterconnectExpectedOutagesSourceEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToComputeInterconnectExpectedOutagesStateEnum(e computepb.ComputeInter
 		return nil
 	}
 	if n, ok := computepb.ComputeInterconnectExpectedOutagesStateEnum_name[int32(e)]; ok {
-		e := compute.InterconnectExpectedOutagesStateEnum(n[len("InterconnectExpectedOutagesStateEnum"):])
+		e := compute.InterconnectExpectedOutagesStateEnum(n[len("ComputeInterconnectExpectedOutagesStateEnum"):])
 		return &e
 	}
 	return nil
@@ -91,7 +91,7 @@ func ProtoToComputeInterconnectExpectedOutagesIssueTypeEnum(e computepb.ComputeI
 		return nil
 	}
 	if n, ok := computepb.ComputeInterconnectExpectedOutagesIssueTypeEnum_name[int32(e)]; ok {
-		e := compute.InterconnectExpectedOutagesIssueTypeEnum(n[len("InterconnectExpectedOutagesIssueTypeEnum"):])
+		e := compute.InterconnectExpectedOutagesIssueTypeEnum(n[len("ComputeInterconnectExpectedOutagesIssueTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -103,7 +103,7 @@ func ProtoToComputeInterconnectStateEnum(e computepb.ComputeInterconnectStateEnu
 		return nil
 	}
 	if n, ok := computepb.ComputeInterconnectStateEnum_name[int32(e)]; ok {
-		e := compute.InterconnectStateEnum(n[len("InterconnectStateEnum"):])
+		e := compute.InterconnectStateEnum(n[len("ComputeInterconnectStateEnum"):])
 		return &e
 	}
 	return nil

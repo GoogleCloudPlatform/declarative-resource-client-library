@@ -1301,7 +1301,7 @@ func compareLogMetricMetricDescriptorNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DescriptorLabels, actual.DescriptorLabels, dcl.Info{Type: "Set", ObjectFunction: compareLogMetricMetricDescriptorDescriptorLabelsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DescriptorLabels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DescriptorLabels, actual.DescriptorLabels, dcl.Info{Type: "Set", ObjectFunction: compareLogMetricMetricDescriptorDescriptorLabelsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

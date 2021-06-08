@@ -31,7 +31,7 @@ func ProtoToContainerClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnum(e con
 		return nil
 	}
 	if n, ok := containerpb.ContainerClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnum_name[int32(e)]; ok {
-		e := container.ClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnum(n[len("ClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnum"):])
+		e := container.ClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnum(n[len("ContainerClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToContainerClusterNodePoolsConfigWorkloadMetadataConfigModeEnum(e cont
 		return nil
 	}
 	if n, ok := containerpb.ContainerClusterNodePoolsConfigWorkloadMetadataConfigModeEnum_name[int32(e)]; ok {
-		e := container.ClusterNodePoolsConfigWorkloadMetadataConfigModeEnum(n[len("ClusterNodePoolsConfigWorkloadMetadataConfigModeEnum"):])
+		e := container.ClusterNodePoolsConfigWorkloadMetadataConfigModeEnum(n[len("ContainerClusterNodePoolsConfigWorkloadMetadataConfigModeEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToContainerClusterNodePoolsConfigTaintsEffectEnum(e containerpb.Contai
 		return nil
 	}
 	if n, ok := containerpb.ContainerClusterNodePoolsConfigTaintsEffectEnum_name[int32(e)]; ok {
-		e := container.ClusterNodePoolsConfigTaintsEffectEnum(n[len("ClusterNodePoolsConfigTaintsEffectEnum"):])
+		e := container.ClusterNodePoolsConfigTaintsEffectEnum(n[len("ContainerClusterNodePoolsConfigTaintsEffectEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToContainerClusterNodePoolsConfigSandboxConfigTypeEnum(e containerpb.C
 		return nil
 	}
 	if n, ok := containerpb.ContainerClusterNodePoolsConfigSandboxConfigTypeEnum_name[int32(e)]; ok {
-		e := container.ClusterNodePoolsConfigSandboxConfigTypeEnum(n[len("ClusterNodePoolsConfigSandboxConfigTypeEnum"):])
+		e := container.ClusterNodePoolsConfigSandboxConfigTypeEnum(n[len("ContainerClusterNodePoolsConfigSandboxConfigTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToContainerClusterNodePoolsConfigReservationAffinityConsumeReservation
 		return nil
 	}
 	if n, ok := containerpb.ContainerClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnum_name[int32(e)]; ok {
-		e := container.ClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnum(n[len("ClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnum"):])
+		e := container.ClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnum(n[len("ContainerClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -91,7 +91,7 @@ func ProtoToContainerClusterNodePoolsStatusEnum(e containerpb.ContainerClusterNo
 		return nil
 	}
 	if n, ok := containerpb.ContainerClusterNodePoolsStatusEnum_name[int32(e)]; ok {
-		e := container.ClusterNodePoolsStatusEnum(n[len("ClusterNodePoolsStatusEnum"):])
+		e := container.ClusterNodePoolsStatusEnum(n[len("ContainerClusterNodePoolsStatusEnum"):])
 		return &e
 	}
 	return nil
@@ -103,7 +103,7 @@ func ProtoToContainerClusterNodePoolsConditionsCodeEnum(e containerpb.ContainerC
 		return nil
 	}
 	if n, ok := containerpb.ContainerClusterNodePoolsConditionsCodeEnum_name[int32(e)]; ok {
-		e := container.ClusterNodePoolsConditionsCodeEnum(n[len("ClusterNodePoolsConditionsCodeEnum"):])
+		e := container.ClusterNodePoolsConditionsCodeEnum(n[len("ContainerClusterNodePoolsConditionsCodeEnum"):])
 		return &e
 	}
 	return nil
@@ -115,7 +115,7 @@ func ProtoToContainerClusterNodePoolsConditionsCanonicalCodeEnum(e containerpb.C
 		return nil
 	}
 	if n, ok := containerpb.ContainerClusterNodePoolsConditionsCanonicalCodeEnum_name[int32(e)]; ok {
-		e := container.ClusterNodePoolsConditionsCanonicalCodeEnum(n[len("ClusterNodePoolsConditionsCanonicalCodeEnum"):])
+		e := container.ClusterNodePoolsConditionsCanonicalCodeEnum(n[len("ContainerClusterNodePoolsConditionsCanonicalCodeEnum"):])
 		return &e
 	}
 	return nil
@@ -127,7 +127,7 @@ func ProtoToContainerClusterNetworkPolicyProviderEnum(e containerpb.ContainerClu
 		return nil
 	}
 	if n, ok := containerpb.ContainerClusterNetworkPolicyProviderEnum_name[int32(e)]; ok {
-		e := container.ClusterNetworkPolicyProviderEnum(n[len("ClusterNetworkPolicyProviderEnum"):])
+		e := container.ClusterNetworkPolicyProviderEnum(n[len("ContainerClusterNetworkPolicyProviderEnum"):])
 		return &e
 	}
 	return nil
@@ -139,7 +139,7 @@ func ProtoToContainerClusterNetworkConfigPrivateIPv6GoogleAccessEnum(e container
 		return nil
 	}
 	if n, ok := containerpb.ContainerClusterNetworkConfigPrivateIPv6GoogleAccessEnum_name[int32(e)]; ok {
-		e := container.ClusterNetworkConfigPrivateIPv6GoogleAccessEnum(n[len("ClusterNetworkConfigPrivateIPv6GoogleAccessEnum"):])
+		e := container.ClusterNetworkConfigPrivateIPv6GoogleAccessEnum(n[len("ContainerClusterNetworkConfigPrivateIPv6GoogleAccessEnum"):])
 		return &e
 	}
 	return nil
@@ -151,7 +151,7 @@ func ProtoToContainerClusterDatabaseEncryptionStateEnum(e containerpb.ContainerC
 		return nil
 	}
 	if n, ok := containerpb.ContainerClusterDatabaseEncryptionStateEnum_name[int32(e)]; ok {
-		e := container.ClusterDatabaseEncryptionStateEnum(n[len("ClusterDatabaseEncryptionStateEnum"):])
+		e := container.ClusterDatabaseEncryptionStateEnum(n[len("ContainerClusterDatabaseEncryptionStateEnum"):])
 		return &e
 	}
 	return nil
@@ -163,7 +163,7 @@ func ProtoToContainerClusterConditionsCanonicalCodeEnum(e containerpb.ContainerC
 		return nil
 	}
 	if n, ok := containerpb.ContainerClusterConditionsCanonicalCodeEnum_name[int32(e)]; ok {
-		e := container.ClusterConditionsCanonicalCodeEnum(n[len("ClusterConditionsCanonicalCodeEnum"):])
+		e := container.ClusterConditionsCanonicalCodeEnum(n[len("ContainerClusterConditionsCanonicalCodeEnum"):])
 		return &e
 	}
 	return nil
@@ -175,7 +175,7 @@ func ProtoToContainerClusterNodeConfigWorkloadMetadataConfigModeEnum(e container
 		return nil
 	}
 	if n, ok := containerpb.ContainerClusterNodeConfigWorkloadMetadataConfigModeEnum_name[int32(e)]; ok {
-		e := container.ClusterNodeConfigWorkloadMetadataConfigModeEnum(n[len("ClusterNodeConfigWorkloadMetadataConfigModeEnum"):])
+		e := container.ClusterNodeConfigWorkloadMetadataConfigModeEnum(n[len("ContainerClusterNodeConfigWorkloadMetadataConfigModeEnum"):])
 		return &e
 	}
 	return nil
@@ -187,7 +187,7 @@ func ProtoToContainerClusterNodeConfigTaintsEffectEnum(e containerpb.ContainerCl
 		return nil
 	}
 	if n, ok := containerpb.ContainerClusterNodeConfigTaintsEffectEnum_name[int32(e)]; ok {
-		e := container.ClusterNodeConfigTaintsEffectEnum(n[len("ClusterNodeConfigTaintsEffectEnum"):])
+		e := container.ClusterNodeConfigTaintsEffectEnum(n[len("ContainerClusterNodeConfigTaintsEffectEnum"):])
 		return &e
 	}
 	return nil
@@ -199,7 +199,7 @@ func ProtoToContainerClusterNodeConfigSandboxConfigTypeEnum(e containerpb.Contai
 		return nil
 	}
 	if n, ok := containerpb.ContainerClusterNodeConfigSandboxConfigTypeEnum_name[int32(e)]; ok {
-		e := container.ClusterNodeConfigSandboxConfigTypeEnum(n[len("ClusterNodeConfigSandboxConfigTypeEnum"):])
+		e := container.ClusterNodeConfigSandboxConfigTypeEnum(n[len("ContainerClusterNodeConfigSandboxConfigTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -211,7 +211,7 @@ func ProtoToContainerClusterNodeConfigReservationAffinityConsumeReservationTypeE
 		return nil
 	}
 	if n, ok := containerpb.ContainerClusterNodeConfigReservationAffinityConsumeReservationTypeEnum_name[int32(e)]; ok {
-		e := container.ClusterNodeConfigReservationAffinityConsumeReservationTypeEnum(n[len("ClusterNodeConfigReservationAffinityConsumeReservationTypeEnum"):])
+		e := container.ClusterNodeConfigReservationAffinityConsumeReservationTypeEnum(n[len("ContainerClusterNodeConfigReservationAffinityConsumeReservationTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -223,7 +223,7 @@ func ProtoToContainerClusterReleaseChannelChannelEnum(e containerpb.ContainerClu
 		return nil
 	}
 	if n, ok := containerpb.ContainerClusterReleaseChannelChannelEnum_name[int32(e)]; ok {
-		e := container.ClusterReleaseChannelChannelEnum(n[len("ClusterReleaseChannelChannelEnum"):])
+		e := container.ClusterReleaseChannelChannelEnum(n[len("ContainerClusterReleaseChannelChannelEnum"):])
 		return &e
 	}
 	return nil

@@ -359,7 +359,7 @@ func canonicalizeRouteDesiredState(rawDesired, rawInitial *Route, opts ...dcl.Ap
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.PartialSelfLinkToSelfLink(rawDesired.Network, rawInitial.Network) {
+	if dcl.StringCanonicalize(rawDesired.Network, rawInitial.Network) {
 		rawDesired.Network = rawInitial.Network
 	}
 	if dcl.IsZeroValue(rawDesired.Tag) {
@@ -422,7 +422,7 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	if dcl.IsEmptyValueIndirect(rawNew.Network) && dcl.IsEmptyValueIndirect(rawDesired.Network) {
 		rawNew.Network = rawDesired.Network
 	} else {
-		if dcl.PartialSelfLinkToSelfLink(rawDesired.Network, rawNew.Network) {
+		if dcl.StringCanonicalize(rawDesired.Network, rawNew.Network) {
 			rawNew.Network = rawDesired.Network
 		}
 	}
@@ -639,7 +639,7 @@ func diffRoute(c *Client, desired, actual *Route, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tags")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -667,7 +667,7 @@ func diffRoute(c *Client, desired, actual *Route, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NextHopIP, actual.NextHopIP, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NextHopIP")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NextHopIP, actual.NextHopIP, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NextHopIp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -702,7 +702,7 @@ func diffRoute(c *Client, desired, actual *Route, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Warning, actual.Warning, dcl.Info{OutputOnly: true, ObjectFunction: compareRouteWarningNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Warning")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Warning, actual.Warning, dcl.Info{OutputOnly: true, ObjectFunction: compareRouteWarningNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Warnings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -862,9 +862,7 @@ func expandRoute(c *Client, f *Route) (map[string]interface{}, error) {
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
 	}
-	if v, err := dcl.DeriveField("projects/%s/global/networks/%s", f.Network, f.Project, f.Network); err != nil {
-		return nil, fmt.Errorf("error expanding Network into network: %w", err)
-	} else if v != nil {
+	if v := f.Network; !dcl.IsEmptyValueIndirect(v) {
 		m["network"] = v
 	}
 	if v := f.Tag; !dcl.IsEmptyValueIndirect(v) {

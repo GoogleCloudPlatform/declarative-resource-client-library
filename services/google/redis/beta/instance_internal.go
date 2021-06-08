@@ -1184,7 +1184,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReservedIPRange, actual.ReservedIPRange, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReservedIPRange")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReservedIPRange, actual.ReservedIPRange, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReservedIpRange")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

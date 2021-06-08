@@ -1728,7 +1728,7 @@ func compareMembershipEndpointKubernetesResourceResourceOptionsNewStyle(d, a int
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.V1Beta1Crd, actual.V1Beta1Crd, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("V1Beta1Crd")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.V1Beta1Crd, actual.V1Beta1Crd, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("V1beta1Crd")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

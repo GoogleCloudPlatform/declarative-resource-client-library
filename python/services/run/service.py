@@ -234,21 +234,25 @@ class ServiceMetadata(object):
             return None
 
         return ServiceMetadata(
-            name=resource.name,
-            generate_name=resource.generate_name,
-            namespace=resource.namespace,
-            self_link=resource.self_link,
-            uid=resource.uid,
-            resource_version=resource.resource_version,
-            generation=resource.generation,
-            create_time=resource.create_time,
-            labels=resource.labels,
-            annotations=resource.annotations,
-            owner_references=resource.owner_references,
-            delete_time=resource.delete_time,
-            deletion_grace_period_seconds=resource.deletion_grace_period_seconds,
-            finalizers=resource.finalizers,
-            cluster_name=resource.cluster_name,
+            name=Primitive.from_proto(resource.name),
+            generate_name=Primitive.from_proto(resource.generate_name),
+            namespace=Primitive.from_proto(resource.namespace),
+            self_link=Primitive.from_proto(resource.self_link),
+            uid=Primitive.from_proto(resource.uid),
+            resource_version=Primitive.from_proto(resource.resource_version),
+            generation=Primitive.from_proto(resource.generation),
+            create_time=ServiceMetadataCreateTime.from_proto(resource.create_time),
+            labels=Primitive.from_proto(resource.labels),
+            annotations=Primitive.from_proto(resource.annotations),
+            owner_references=ServiceMetadataOwnerReferencesArray.from_proto(
+                resource.owner_references
+            ),
+            delete_time=ServiceMetadataDeleteTime.from_proto(resource.delete_time),
+            deletion_grace_period_seconds=Primitive.from_proto(
+                resource.deletion_grace_period_seconds
+            ),
+            finalizers=Primitive.from_proto(resource.finalizers),
+            cluster_name=Primitive.from_proto(resource.cluster_name),
         )
 
 
@@ -287,7 +291,8 @@ class ServiceMetadataCreateTime(object):
             return None
 
         return ServiceMetadataCreateTime(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -346,12 +351,12 @@ class ServiceMetadataOwnerReferences(object):
             return None
 
         return ServiceMetadataOwnerReferences(
-            api_version=resource.api_version,
-            kind=resource.kind,
-            name=resource.name,
-            uid=resource.uid,
-            controller=resource.controller,
-            block_owner_deletion=resource.block_owner_deletion,
+            api_version=Primitive.from_proto(resource.api_version),
+            kind=Primitive.from_proto(resource.kind),
+            name=Primitive.from_proto(resource.name),
+            uid=Primitive.from_proto(resource.uid),
+            controller=Primitive.from_proto(resource.controller),
+            block_owner_deletion=Primitive.from_proto(resource.block_owner_deletion),
         )
 
 
@@ -390,7 +395,8 @@ class ServiceMetadataDeleteTime(object):
             return None
 
         return ServiceMetadataDeleteTime(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -430,7 +436,10 @@ class ServiceSpec(object):
         if not resource:
             return None
 
-        return ServiceSpec(template=resource.template, traffic=resource.traffic,)
+        return ServiceSpec(
+            template=ServiceSpecTemplate.from_proto(resource.template),
+            traffic=ServiceSpecTrafficArray.from_proto(resource.traffic),
+        )
 
 
 class ServiceSpecArray(object):
@@ -473,7 +482,10 @@ class ServiceSpecTemplate(object):
         if not resource:
             return None
 
-        return ServiceSpecTemplate(metadata=resource.metadata, spec=resource.spec,)
+        return ServiceSpecTemplate(
+            metadata=ServiceSpecTemplateMetadata.from_proto(resource.metadata),
+            spec=ServiceSpecTemplateSpec.from_proto(resource.spec),
+        )
 
 
 class ServiceSpecTemplateArray(object):
@@ -583,21 +595,29 @@ class ServiceSpecTemplateMetadata(object):
             return None
 
         return ServiceSpecTemplateMetadata(
-            name=resource.name,
-            generate_name=resource.generate_name,
-            namespace=resource.namespace,
-            self_link=resource.self_link,
-            uid=resource.uid,
-            resource_version=resource.resource_version,
-            generation=resource.generation,
-            create_time=resource.create_time,
-            labels=resource.labels,
-            annotations=resource.annotations,
-            owner_references=resource.owner_references,
-            delete_time=resource.delete_time,
-            deletion_grace_period_seconds=resource.deletion_grace_period_seconds,
-            finalizers=resource.finalizers,
-            cluster_name=resource.cluster_name,
+            name=Primitive.from_proto(resource.name),
+            generate_name=Primitive.from_proto(resource.generate_name),
+            namespace=Primitive.from_proto(resource.namespace),
+            self_link=Primitive.from_proto(resource.self_link),
+            uid=Primitive.from_proto(resource.uid),
+            resource_version=Primitive.from_proto(resource.resource_version),
+            generation=Primitive.from_proto(resource.generation),
+            create_time=ServiceSpecTemplateMetadataCreateTime.from_proto(
+                resource.create_time
+            ),
+            labels=Primitive.from_proto(resource.labels),
+            annotations=Primitive.from_proto(resource.annotations),
+            owner_references=ServiceSpecTemplateMetadataOwnerReferencesArray.from_proto(
+                resource.owner_references
+            ),
+            delete_time=ServiceSpecTemplateMetadataDeleteTime.from_proto(
+                resource.delete_time
+            ),
+            deletion_grace_period_seconds=Primitive.from_proto(
+                resource.deletion_grace_period_seconds
+            ),
+            finalizers=Primitive.from_proto(resource.finalizers),
+            cluster_name=Primitive.from_proto(resource.cluster_name),
         )
 
 
@@ -636,7 +656,8 @@ class ServiceSpecTemplateMetadataCreateTime(object):
             return None
 
         return ServiceSpecTemplateMetadataCreateTime(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -695,12 +716,12 @@ class ServiceSpecTemplateMetadataOwnerReferences(object):
             return None
 
         return ServiceSpecTemplateMetadataOwnerReferences(
-            api_version=resource.api_version,
-            kind=resource.kind,
-            name=resource.name,
-            uid=resource.uid,
-            controller=resource.controller,
-            block_owner_deletion=resource.block_owner_deletion,
+            api_version=Primitive.from_proto(resource.api_version),
+            kind=Primitive.from_proto(resource.kind),
+            name=Primitive.from_proto(resource.name),
+            uid=Primitive.from_proto(resource.uid),
+            controller=Primitive.from_proto(resource.controller),
+            block_owner_deletion=Primitive.from_proto(resource.block_owner_deletion),
         )
 
 
@@ -743,7 +764,8 @@ class ServiceSpecTemplateMetadataDeleteTime(object):
             return None
 
         return ServiceSpecTemplateMetadataDeleteTime(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -804,11 +826,13 @@ class ServiceSpecTemplateSpec(object):
             return None
 
         return ServiceSpecTemplateSpec(
-            container_concurrency=resource.container_concurrency,
-            timeout_seconds=resource.timeout_seconds,
-            service_account_name=resource.service_account_name,
-            containers=resource.containers,
-            volumes=resource.volumes,
+            container_concurrency=Primitive.from_proto(resource.container_concurrency),
+            timeout_seconds=Primitive.from_proto(resource.timeout_seconds),
+            service_account_name=Primitive.from_proto(resource.service_account_name),
+            containers=ServiceSpecTemplateSpecContainersArray.from_proto(
+                resource.containers
+            ),
+            volumes=ServiceSpecTemplateSpecVolumesArray.from_proto(resource.volumes),
         )
 
 
@@ -953,22 +977,40 @@ class ServiceSpecTemplateSpecContainers(object):
             return None
 
         return ServiceSpecTemplateSpecContainers(
-            name=resource.name,
-            image=resource.image,
-            command=resource.command,
-            args=resource.args,
-            env=resource.env,
-            resources=resource.resources,
-            working_dir=resource.working_dir,
-            ports=resource.ports,
-            env_from=resource.env_from,
-            volume_mounts=resource.volume_mounts,
-            liveness_probe=resource.liveness_probe,
-            readiness_probe=resource.readiness_probe,
-            termination_message_path=resource.termination_message_path,
-            termination_message_policy=resource.termination_message_policy,
-            image_pull_policy=resource.image_pull_policy,
-            security_context=resource.security_context,
+            name=Primitive.from_proto(resource.name),
+            image=Primitive.from_proto(resource.image),
+            command=Primitive.from_proto(resource.command),
+            args=Primitive.from_proto(resource.args),
+            env=ServiceSpecTemplateSpecContainersEnvArray.from_proto(resource.env),
+            resources=ServiceSpecTemplateSpecContainersResources.from_proto(
+                resource.resources
+            ),
+            working_dir=Primitive.from_proto(resource.working_dir),
+            ports=ServiceSpecTemplateSpecContainersPortsArray.from_proto(
+                resource.ports
+            ),
+            env_from=ServiceSpecTemplateSpecContainersEnvFromArray.from_proto(
+                resource.env_from
+            ),
+            volume_mounts=ServiceSpecTemplateSpecContainersVolumeMountsArray.from_proto(
+                resource.volume_mounts
+            ),
+            liveness_probe=ServiceSpecTemplateSpecContainersLivenessProbe.from_proto(
+                resource.liveness_probe
+            ),
+            readiness_probe=ServiceSpecTemplateSpecContainersReadinessProbe.from_proto(
+                resource.readiness_probe
+            ),
+            termination_message_path=Primitive.from_proto(
+                resource.termination_message_path
+            ),
+            termination_message_policy=Primitive.from_proto(
+                resource.termination_message_policy
+            ),
+            image_pull_policy=Primitive.from_proto(resource.image_pull_policy),
+            security_context=ServiceSpecTemplateSpecContainersSecurityContext.from_proto(
+                resource.security_context
+            ),
         )
 
 
@@ -1016,7 +1058,11 @@ class ServiceSpecTemplateSpecContainersEnv(object):
             return None
 
         return ServiceSpecTemplateSpecContainersEnv(
-            name=resource.name, value=resource.value, value_from=resource.value_from,
+            name=Primitive.from_proto(resource.name),
+            value=Primitive.from_proto(resource.value),
+            value_from=ServiceSpecTemplateSpecContainersEnvValueFrom.from_proto(
+                resource.value_from
+            ),
         )
 
 
@@ -1071,8 +1117,12 @@ class ServiceSpecTemplateSpecContainersEnvValueFrom(object):
             return None
 
         return ServiceSpecTemplateSpecContainersEnvValueFrom(
-            config_map_key_ref=resource.config_map_key_ref,
-            secret_key_ref=resource.secret_key_ref,
+            config_map_key_ref=ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef.from_proto(
+                resource.config_map_key_ref
+            ),
+            secret_key_ref=ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef.from_proto(
+                resource.secret_key_ref
+            ),
         )
 
 
@@ -1138,10 +1188,12 @@ class ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(object):
             return None
 
         return ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef(
-            local_object_reference=resource.local_object_reference,
-            key=resource.key,
-            optional=resource.optional,
-            name=resource.name,
+            local_object_reference=ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference.from_proto(
+                resource.local_object_reference
+            ),
+            key=Primitive.from_proto(resource.key),
+            optional=Primitive.from_proto(resource.optional),
+            name=Primitive.from_proto(resource.name),
         )
 
 
@@ -1187,7 +1239,7 @@ class ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectRef
             return None
 
         return ServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference(
-            name=resource.name,
+            name=Primitive.from_proto(resource.name),
         )
 
 
@@ -1258,10 +1310,12 @@ class ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(object):
             return None
 
         return ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef(
-            local_object_reference=resource.local_object_reference,
-            key=resource.key,
-            optional=resource.optional,
-            name=resource.name,
+            local_object_reference=ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference.from_proto(
+                resource.local_object_reference
+            ),
+            key=Primitive.from_proto(resource.key),
+            optional=Primitive.from_proto(resource.optional),
+            name=Primitive.from_proto(resource.name),
         )
 
 
@@ -1307,7 +1361,7 @@ class ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectRefere
             return None
 
         return ServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference(
-            name=resource.name,
+            name=Primitive.from_proto(resource.name),
         )
 
 
@@ -1358,7 +1412,8 @@ class ServiceSpecTemplateSpecContainersResources(object):
             return None
 
         return ServiceSpecTemplateSpecContainersResources(
-            limits=resource.limits, requests=resource.requests,
+            limits=Primitive.from_proto(resource.limits),
+            requests=Primitive.from_proto(resource.requests),
         )
 
 
@@ -1406,9 +1461,9 @@ class ServiceSpecTemplateSpecContainersPorts(object):
             return None
 
         return ServiceSpecTemplateSpecContainersPorts(
-            name=resource.name,
-            container_port=resource.container_port,
-            protocol=resource.protocol,
+            name=Primitive.from_proto(resource.name),
+            container_port=Primitive.from_proto(resource.container_port),
+            protocol=Primitive.from_proto(resource.protocol),
         )
 
 
@@ -1468,9 +1523,13 @@ class ServiceSpecTemplateSpecContainersEnvFrom(object):
             return None
 
         return ServiceSpecTemplateSpecContainersEnvFrom(
-            prefix=resource.prefix,
-            config_map_ref=resource.config_map_ref,
-            secret_ref=resource.secret_ref,
+            prefix=Primitive.from_proto(resource.prefix),
+            config_map_ref=ServiceSpecTemplateSpecContainersEnvFromConfigMapRef.from_proto(
+                resource.config_map_ref
+            ),
+            secret_ref=ServiceSpecTemplateSpecContainersEnvFromSecretRef.from_proto(
+                resource.secret_ref
+            ),
         )
 
 
@@ -1527,9 +1586,11 @@ class ServiceSpecTemplateSpecContainersEnvFromConfigMapRef(object):
             return None
 
         return ServiceSpecTemplateSpecContainersEnvFromConfigMapRef(
-            local_object_reference=resource.local_object_reference,
-            optional=resource.optional,
-            name=resource.name,
+            local_object_reference=ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference.from_proto(
+                resource.local_object_reference
+            ),
+            optional=Primitive.from_proto(resource.optional),
+            name=Primitive.from_proto(resource.name),
         )
 
 
@@ -1573,7 +1634,7 @@ class ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(o
             return None
 
         return ServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference(
-            name=resource.name,
+            name=Primitive.from_proto(resource.name),
         )
 
 
@@ -1640,9 +1701,11 @@ class ServiceSpecTemplateSpecContainersEnvFromSecretRef(object):
             return None
 
         return ServiceSpecTemplateSpecContainersEnvFromSecretRef(
-            local_object_reference=resource.local_object_reference,
-            optional=resource.optional,
-            name=resource.name,
+            local_object_reference=ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference.from_proto(
+                resource.local_object_reference
+            ),
+            optional=Primitive.from_proto(resource.optional),
+            name=Primitive.from_proto(resource.name),
         )
 
 
@@ -1686,7 +1749,7 @@ class ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(obje
             return None
 
         return ServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference(
-            name=resource.name,
+            name=Primitive.from_proto(resource.name),
         )
 
 
@@ -1749,10 +1812,10 @@ class ServiceSpecTemplateSpecContainersVolumeMounts(object):
             return None
 
         return ServiceSpecTemplateSpecContainersVolumeMounts(
-            name=resource.name,
-            read_only=resource.read_only,
-            mount_path=resource.mount_path,
-            sub_path=resource.sub_path,
+            name=Primitive.from_proto(resource.name),
+            read_only=Primitive.from_proto(resource.read_only),
+            mount_path=Primitive.from_proto(resource.mount_path),
+            sub_path=Primitive.from_proto(resource.sub_path),
         )
 
 
@@ -1848,14 +1911,20 @@ class ServiceSpecTemplateSpecContainersLivenessProbe(object):
             return None
 
         return ServiceSpecTemplateSpecContainersLivenessProbe(
-            initial_delay_seconds=resource.initial_delay_seconds,
-            timeout_seconds=resource.timeout_seconds,
-            period_seconds=resource.period_seconds,
-            success_threshold=resource.success_threshold,
-            failure_threshold=resource.failure_threshold,
-            exec=resource.exec,
-            http_get=resource.http_get,
-            tcp_socket=resource.tcp_socket,
+            initial_delay_seconds=Primitive.from_proto(resource.initial_delay_seconds),
+            timeout_seconds=Primitive.from_proto(resource.timeout_seconds),
+            period_seconds=Primitive.from_proto(resource.period_seconds),
+            success_threshold=Primitive.from_proto(resource.success_threshold),
+            failure_threshold=Primitive.from_proto(resource.failure_threshold),
+            exec=ServiceSpecTemplateSpecContainersLivenessProbeExec.from_proto(
+                resource.exec
+            ),
+            http_get=ServiceSpecTemplateSpecContainersLivenessProbeHttpGet.from_proto(
+                resource.http_get
+            ),
+            tcp_socket=ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket.from_proto(
+                resource.tcp_socket
+            ),
         )
 
 
@@ -1897,7 +1966,7 @@ class ServiceSpecTemplateSpecContainersLivenessProbeExec(object):
             return None
 
         return ServiceSpecTemplateSpecContainersLivenessProbeExec(
-            command=resource.command,
+            command=Primitive.from_proto(resource.command),
         )
 
 
@@ -1960,10 +2029,12 @@ class ServiceSpecTemplateSpecContainersLivenessProbeHttpGet(object):
             return None
 
         return ServiceSpecTemplateSpecContainersLivenessProbeHttpGet(
-            path=resource.path,
-            host=resource.host,
-            scheme=resource.scheme,
-            http_headers=resource.http_headers,
+            path=Primitive.from_proto(resource.path),
+            host=Primitive.from_proto(resource.host),
+            scheme=Primitive.from_proto(resource.scheme),
+            http_headers=ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersArray.from_proto(
+                resource.http_headers
+            ),
         )
 
 
@@ -2010,7 +2081,8 @@ class ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(object):
             return None
 
         return ServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders(
-            name=resource.name, value=resource.value,
+            name=Primitive.from_proto(resource.name),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -2057,7 +2129,8 @@ class ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(object):
             return None
 
         return ServiceSpecTemplateSpecContainersLivenessProbeTcpSocket(
-            port=resource.port, host=resource.host,
+            port=Primitive.from_proto(resource.port),
+            host=Primitive.from_proto(resource.host),
         )
 
 
@@ -2154,14 +2227,20 @@ class ServiceSpecTemplateSpecContainersReadinessProbe(object):
             return None
 
         return ServiceSpecTemplateSpecContainersReadinessProbe(
-            initial_delay_seconds=resource.initial_delay_seconds,
-            timeout_seconds=resource.timeout_seconds,
-            period_seconds=resource.period_seconds,
-            success_threshold=resource.success_threshold,
-            failure_threshold=resource.failure_threshold,
-            exec=resource.exec,
-            http_get=resource.http_get,
-            tcp_socket=resource.tcp_socket,
+            initial_delay_seconds=Primitive.from_proto(resource.initial_delay_seconds),
+            timeout_seconds=Primitive.from_proto(resource.timeout_seconds),
+            period_seconds=Primitive.from_proto(resource.period_seconds),
+            success_threshold=Primitive.from_proto(resource.success_threshold),
+            failure_threshold=Primitive.from_proto(resource.failure_threshold),
+            exec=ServiceSpecTemplateSpecContainersReadinessProbeExec.from_proto(
+                resource.exec
+            ),
+            http_get=ServiceSpecTemplateSpecContainersReadinessProbeHttpGet.from_proto(
+                resource.http_get
+            ),
+            tcp_socket=ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket.from_proto(
+                resource.tcp_socket
+            ),
         )
 
 
@@ -2203,7 +2282,7 @@ class ServiceSpecTemplateSpecContainersReadinessProbeExec(object):
             return None
 
         return ServiceSpecTemplateSpecContainersReadinessProbeExec(
-            command=resource.command,
+            command=Primitive.from_proto(resource.command),
         )
 
 
@@ -2266,10 +2345,12 @@ class ServiceSpecTemplateSpecContainersReadinessProbeHttpGet(object):
             return None
 
         return ServiceSpecTemplateSpecContainersReadinessProbeHttpGet(
-            path=resource.path,
-            host=resource.host,
-            scheme=resource.scheme,
-            http_headers=resource.http_headers,
+            path=Primitive.from_proto(resource.path),
+            host=Primitive.from_proto(resource.host),
+            scheme=Primitive.from_proto(resource.scheme),
+            http_headers=ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersArray.from_proto(
+                resource.http_headers
+            ),
         )
 
 
@@ -2316,7 +2397,8 @@ class ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(object):
             return None
 
         return ServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders(
-            name=resource.name, value=resource.value,
+            name=Primitive.from_proto(resource.name),
+            value=Primitive.from_proto(resource.value),
         )
 
 
@@ -2365,7 +2447,8 @@ class ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(object):
             return None
 
         return ServiceSpecTemplateSpecContainersReadinessProbeTcpSocket(
-            port=resource.port, host=resource.host,
+            port=Primitive.from_proto(resource.port),
+            host=Primitive.from_proto(resource.host),
         )
 
 
@@ -2407,7 +2490,7 @@ class ServiceSpecTemplateSpecContainersSecurityContext(object):
             return None
 
         return ServiceSpecTemplateSpecContainersSecurityContext(
-            run_as_user=resource.run_as_user,
+            run_as_user=Primitive.from_proto(resource.run_as_user),
         )
 
 
@@ -2463,7 +2546,11 @@ class ServiceSpecTemplateSpecVolumes(object):
             return None
 
         return ServiceSpecTemplateSpecVolumes(
-            name=resource.name, secret=resource.secret, config_map=resource.config_map,
+            name=Primitive.from_proto(resource.name),
+            secret=ServiceSpecTemplateSpecVolumesSecret.from_proto(resource.secret),
+            config_map=ServiceSpecTemplateSpecVolumesConfigMap.from_proto(
+                resource.config_map
+            ),
         )
 
 
@@ -2516,10 +2603,12 @@ class ServiceSpecTemplateSpecVolumesSecret(object):
             return None
 
         return ServiceSpecTemplateSpecVolumesSecret(
-            secret_name=resource.secret_name,
-            items=resource.items,
-            default_mode=resource.default_mode,
-            optional=resource.optional,
+            secret_name=Primitive.from_proto(resource.secret_name),
+            items=ServiceSpecTemplateSpecVolumesSecretItemsArray.from_proto(
+                resource.items
+            ),
+            default_mode=Primitive.from_proto(resource.default_mode),
+            optional=Primitive.from_proto(resource.optional),
         )
 
 
@@ -2561,7 +2650,9 @@ class ServiceSpecTemplateSpecVolumesSecretItems(object):
             return None
 
         return ServiceSpecTemplateSpecVolumesSecretItems(
-            key=resource.key, path=resource.path, mode=resource.mode,
+            key=Primitive.from_proto(resource.key),
+            path=Primitive.from_proto(resource.path),
+            mode=Primitive.from_proto(resource.mode),
         )
 
 
@@ -2620,10 +2711,12 @@ class ServiceSpecTemplateSpecVolumesConfigMap(object):
             return None
 
         return ServiceSpecTemplateSpecVolumesConfigMap(
-            name=resource.name,
-            items=resource.items,
-            default_mode=resource.default_mode,
-            optional=resource.optional,
+            name=Primitive.from_proto(resource.name),
+            items=ServiceSpecTemplateSpecVolumesConfigMapItemsArray.from_proto(
+                resource.items
+            ),
+            default_mode=Primitive.from_proto(resource.default_mode),
+            optional=Primitive.from_proto(resource.optional),
         )
 
 
@@ -2667,7 +2760,9 @@ class ServiceSpecTemplateSpecVolumesConfigMapItems(object):
             return None
 
         return ServiceSpecTemplateSpecVolumesConfigMapItems(
-            key=resource.key, path=resource.path, mode=resource.mode,
+            key=Primitive.from_proto(resource.key),
+            path=Primitive.from_proto(resource.path),
+            mode=Primitive.from_proto(resource.mode),
         )
 
 
@@ -2731,12 +2826,12 @@ class ServiceSpecTraffic(object):
             return None
 
         return ServiceSpecTraffic(
-            configuration_name=resource.configuration_name,
-            revision_name=resource.revision_name,
-            percent=resource.percent,
-            tag=resource.tag,
-            latest_revision=resource.latest_revision,
-            url=resource.url,
+            configuration_name=Primitive.from_proto(resource.configuration_name),
+            revision_name=Primitive.from_proto(resource.revision_name),
+            percent=Primitive.from_proto(resource.percent),
+            tag=Primitive.from_proto(resource.tag),
+            latest_revision=Primitive.from_proto(resource.latest_revision),
+            url=Primitive.from_proto(resource.url),
         )
 
 
@@ -2807,13 +2902,17 @@ class ServiceStatus(object):
             return None
 
         return ServiceStatus(
-            observed_generation=resource.observed_generation,
-            conditions=resource.conditions,
-            latest_ready_revision_name=resource.latest_ready_revision_name,
-            latest_created_revision_name=resource.latest_created_revision_name,
-            traffic=resource.traffic,
-            url=resource.url,
-            address=resource.address,
+            observed_generation=Primitive.from_proto(resource.observed_generation),
+            conditions=ServiceStatusConditionsArray.from_proto(resource.conditions),
+            latest_ready_revision_name=Primitive.from_proto(
+                resource.latest_ready_revision_name
+            ),
+            latest_created_revision_name=Primitive.from_proto(
+                resource.latest_created_revision_name
+            ),
+            traffic=ServiceStatusTrafficArray.from_proto(resource.traffic),
+            url=Primitive.from_proto(resource.url),
+            address=ServiceStatusAddress.from_proto(resource.address),
         )
 
 
@@ -2880,12 +2979,14 @@ class ServiceStatusConditions(object):
             return None
 
         return ServiceStatusConditions(
-            type=resource.type,
-            status=resource.status,
-            reason=resource.reason,
-            message=resource.message,
-            last_transition_time=resource.last_transition_time,
-            severity=resource.severity,
+            type=Primitive.from_proto(resource.type),
+            status=Primitive.from_proto(resource.status),
+            reason=Primitive.from_proto(resource.reason),
+            message=Primitive.from_proto(resource.message),
+            last_transition_time=ServiceStatusConditionsLastTransitionTime.from_proto(
+                resource.last_transition_time
+            ),
+            severity=Primitive.from_proto(resource.severity),
         )
 
 
@@ -2924,7 +3025,8 @@ class ServiceStatusConditionsLastTransitionTime(object):
             return None
 
         return ServiceStatusConditionsLastTransitionTime(
-            seconds=resource.seconds, nanos=resource.nanos,
+            seconds=Primitive.from_proto(resource.seconds),
+            nanos=Primitive.from_proto(resource.nanos),
         )
 
 
@@ -2987,12 +3089,12 @@ class ServiceStatusTraffic(object):
             return None
 
         return ServiceStatusTraffic(
-            configuration_name=resource.configuration_name,
-            revision_name=resource.revision_name,
-            percent=resource.percent,
-            tag=resource.tag,
-            latest_revision=resource.latest_revision,
-            url=resource.url,
+            configuration_name=Primitive.from_proto(resource.configuration_name),
+            revision_name=Primitive.from_proto(resource.revision_name),
+            percent=Primitive.from_proto(resource.percent),
+            tag=Primitive.from_proto(resource.tag),
+            latest_revision=Primitive.from_proto(resource.latest_revision),
+            url=Primitive.from_proto(resource.url),
         )
 
 
@@ -3027,7 +3129,7 @@ class ServiceStatusAddress(object):
         if not resource:
             return None
 
-        return ServiceStatusAddress(url=resource.url,)
+        return ServiceStatusAddress(url=Primitive.from_proto(resource.url),)
 
 
 class ServiceStatusAddressArray(object):

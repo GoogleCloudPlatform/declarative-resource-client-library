@@ -31,7 +31,7 @@ func ProtoToCloudbuildBetaWorkerPoolStateEnum(e betapb.CloudbuildBetaWorkerPoolS
 		return nil
 	}
 	if n, ok := betapb.CloudbuildBetaWorkerPoolStateEnum_name[int32(e)]; ok {
-		e := beta.WorkerPoolStateEnum(n[len("WorkerPoolStateEnum"):])
+		e := beta.WorkerPoolStateEnum(n[len("CloudbuildBetaWorkerPoolStateEnum"):])
 		return &e
 	}
 	return nil

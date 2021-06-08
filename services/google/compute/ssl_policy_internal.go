@@ -755,21 +755,21 @@ func diffSslPolicy(c *Client, desired, actual *SslPolicy, opts ...dcl.ApplyOptio
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EnabledFeature, actual.EnabledFeature, dcl.Info{OutputOnly: true, Type: "Set", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnabledFeature")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnabledFeature, actual.EnabledFeature, dcl.Info{OutputOnly: true, Type: "Set", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnabledFeatures")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CustomFeature, actual.CustomFeature, dcl.Info{Type: "Set", OperationSelector: dcl.TriggersOperation("updateSslPolicyPatchOperation")}, fn.AddNest("CustomFeature")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CustomFeature, actual.CustomFeature, dcl.Info{Type: "Set", OperationSelector: dcl.TriggersOperation("updateSslPolicyPatchOperation")}, fn.AddNest("CustomFeatures")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Warning, actual.Warning, dcl.Info{OutputOnly: true, ObjectFunction: compareSslPolicyWarningNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Warning")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Warning, actual.Warning, dcl.Info{OutputOnly: true, ObjectFunction: compareSslPolicyWarningNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Warnings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -152,7 +152,10 @@ class VpnGatewayVpnInterface(object):
         if not resource:
             return None
 
-        return VpnGatewayVpnInterface(id=resource.id, ip_address=resource.ip_address,)
+        return VpnGatewayVpnInterface(
+            id=Primitive.from_proto(resource.id),
+            ip_address=Primitive.from_proto(resource.ip_address),
+        )
 
 
 class VpnGatewayVpnInterfaceArray(object):

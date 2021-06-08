@@ -31,7 +31,7 @@ func ProtoToComputeNetworkEndpointGroupNetworkEndpointTypeEnum(e computepb.Compu
 		return nil
 	}
 	if n, ok := computepb.ComputeNetworkEndpointGroupNetworkEndpointTypeEnum_name[int32(e)]; ok {
-		e := compute.NetworkEndpointGroupNetworkEndpointTypeEnum(n[len("NetworkEndpointGroupNetworkEndpointTypeEnum"):])
+		e := compute.NetworkEndpointGroupNetworkEndpointTypeEnum(n[len("ComputeNetworkEndpointGroupNetworkEndpointTypeEnum"):])
 		return &e
 	}
 	return nil

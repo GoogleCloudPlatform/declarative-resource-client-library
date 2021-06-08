@@ -606,7 +606,7 @@ func diffNetwork(c *Client, desired, actual *Network, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPv4Range, actual.IPv4Range, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPv4Range")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPv4Range, actual.IPv4Range, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Ipv4Range")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

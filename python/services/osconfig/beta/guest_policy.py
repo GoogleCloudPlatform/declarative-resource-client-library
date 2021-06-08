@@ -217,11 +217,15 @@ class GuestPolicyAssignment(object):
             return None
 
         return GuestPolicyAssignment(
-            group_labels=resource.group_labels,
-            zones=resource.zones,
-            instances=resource.instances,
-            instance_name_prefixes=resource.instance_name_prefixes,
-            os_types=resource.os_types,
+            group_labels=GuestPolicyAssignmentGroupLabelsArray.from_proto(
+                resource.group_labels
+            ),
+            zones=Primitive.from_proto(resource.zones),
+            instances=Primitive.from_proto(resource.instances),
+            instance_name_prefixes=Primitive.from_proto(
+                resource.instance_name_prefixes
+            ),
+            os_types=GuestPolicyAssignmentOsTypesArray.from_proto(resource.os_types),
         )
 
 
@@ -256,7 +260,9 @@ class GuestPolicyAssignmentGroupLabels(object):
         if not resource:
             return None
 
-        return GuestPolicyAssignmentGroupLabels(labels=resource.labels,)
+        return GuestPolicyAssignmentGroupLabels(
+            labels=Primitive.from_proto(resource.labels),
+        )
 
 
 class GuestPolicyAssignmentGroupLabelsArray(object):
@@ -302,9 +308,9 @@ class GuestPolicyAssignmentOsTypes(object):
             return None
 
         return GuestPolicyAssignmentOsTypes(
-            os_short_name=resource.os_short_name,
-            os_version=resource.os_version,
-            os_architecture=resource.os_architecture,
+            os_short_name=Primitive.from_proto(resource.os_short_name),
+            os_version=Primitive.from_proto(resource.os_version),
+            os_architecture=Primitive.from_proto(resource.os_architecture),
         )
 
 
@@ -350,9 +356,11 @@ class GuestPolicyPackages(object):
             return None
 
         return GuestPolicyPackages(
-            name=resource.name,
-            desired_state=resource.desired_state,
-            manager=resource.manager,
+            name=Primitive.from_proto(resource.name),
+            desired_state=GuestPolicyPackagesDesiredStateEnum.from_proto(
+                resource.desired_state
+            ),
+            manager=GuestPolicyPackagesManagerEnum.from_proto(resource.manager),
         )
 
 
@@ -409,10 +417,10 @@ class GuestPolicyPackageRepositories(object):
             return None
 
         return GuestPolicyPackageRepositories(
-            apt=resource.apt,
-            yum=resource.yum,
-            zypper=resource.zypper,
-            goo=resource.goo,
+            apt=GuestPolicyPackageRepositoriesApt.from_proto(resource.apt),
+            yum=GuestPolicyPackageRepositoriesYum.from_proto(resource.yum),
+            zypper=GuestPolicyPackageRepositoriesZypper.from_proto(resource.zypper),
+            goo=GuestPolicyPackageRepositoriesGoo.from_proto(resource.goo),
         )
 
 
@@ -471,11 +479,13 @@ class GuestPolicyPackageRepositoriesApt(object):
             return None
 
         return GuestPolicyPackageRepositoriesApt(
-            archive_type=resource.archive_type,
-            uri=resource.uri,
-            distribution=resource.distribution,
-            components=resource.components,
-            gpg_key=resource.gpg_key,
+            archive_type=GuestPolicyPackageRepositoriesAptArchiveTypeEnum.from_proto(
+                resource.archive_type
+            ),
+            uri=Primitive.from_proto(resource.uri),
+            distribution=Primitive.from_proto(resource.distribution),
+            components=Primitive.from_proto(resource.components),
+            gpg_key=Primitive.from_proto(resource.gpg_key),
         )
 
 
@@ -526,10 +536,10 @@ class GuestPolicyPackageRepositoriesYum(object):
             return None
 
         return GuestPolicyPackageRepositoriesYum(
-            id=resource.id,
-            display_name=resource.display_name,
-            base_url=resource.base_url,
-            gpg_keys=resource.gpg_keys,
+            id=Primitive.from_proto(resource.id),
+            display_name=Primitive.from_proto(resource.display_name),
+            base_url=Primitive.from_proto(resource.base_url),
+            gpg_keys=Primitive.from_proto(resource.gpg_keys),
         )
 
 
@@ -580,10 +590,10 @@ class GuestPolicyPackageRepositoriesZypper(object):
             return None
 
         return GuestPolicyPackageRepositoriesZypper(
-            id=resource.id,
-            display_name=resource.display_name,
-            base_url=resource.base_url,
-            gpg_keys=resource.gpg_keys,
+            id=Primitive.from_proto(resource.id),
+            display_name=Primitive.from_proto(resource.display_name),
+            base_url=Primitive.from_proto(resource.base_url),
+            gpg_keys=Primitive.from_proto(resource.gpg_keys),
         )
 
 
@@ -621,7 +631,10 @@ class GuestPolicyPackageRepositoriesGoo(object):
         if not resource:
             return None
 
-        return GuestPolicyPackageRepositoriesGoo(name=resource.name, url=resource.url,)
+        return GuestPolicyPackageRepositoriesGoo(
+            name=Primitive.from_proto(resource.name),
+            url=Primitive.from_proto(resource.url),
+        )
 
 
 class GuestPolicyPackageRepositoriesGooArray(object):
@@ -687,12 +700,18 @@ class GuestPolicyRecipes(object):
             return None
 
         return GuestPolicyRecipes(
-            name=resource.name,
-            version=resource.version,
-            artifacts=resource.artifacts,
-            install_steps=resource.install_steps,
-            update_steps=resource.update_steps,
-            desired_state=resource.desired_state,
+            name=Primitive.from_proto(resource.name),
+            version=Primitive.from_proto(resource.version),
+            artifacts=GuestPolicyRecipesArtifactsArray.from_proto(resource.artifacts),
+            install_steps=GuestPolicyRecipesInstallStepsArray.from_proto(
+                resource.install_steps
+            ),
+            update_steps=GuestPolicyRecipesUpdateStepsArray.from_proto(
+                resource.update_steps
+            ),
+            desired_state=GuestPolicyRecipesDesiredStateEnum.from_proto(
+                resource.desired_state
+            ),
         )
 
 
@@ -749,10 +768,10 @@ class GuestPolicyRecipesArtifacts(object):
             return None
 
         return GuestPolicyRecipesArtifacts(
-            id=resource.id,
-            remote=resource.remote,
-            gcs=resource.gcs,
-            allow_insecure=resource.allow_insecure,
+            id=Primitive.from_proto(resource.id),
+            remote=GuestPolicyRecipesArtifactsRemote.from_proto(resource.remote),
+            gcs=GuestPolicyRecipesArtifactsGcs.from_proto(resource.gcs),
+            allow_insecure=Primitive.from_proto(resource.allow_insecure),
         )
 
 
@@ -791,7 +810,8 @@ class GuestPolicyRecipesArtifactsRemote(object):
             return None
 
         return GuestPolicyRecipesArtifactsRemote(
-            uri=resource.uri, checksum=resource.checksum,
+            uri=Primitive.from_proto(resource.uri),
+            checksum=Primitive.from_proto(resource.checksum),
         )
 
 
@@ -833,9 +853,9 @@ class GuestPolicyRecipesArtifactsGcs(object):
             return None
 
         return GuestPolicyRecipesArtifactsGcs(
-            bucket=resource.bucket,
-            object=resource.object,
-            generation=resource.generation,
+            bucket=Primitive.from_proto(resource.bucket),
+            object=Primitive.from_proto(resource.object),
+            generation=Primitive.from_proto(resource.generation),
         )
 
 
@@ -942,13 +962,27 @@ class GuestPolicyRecipesInstallSteps(object):
             return None
 
         return GuestPolicyRecipesInstallSteps(
-            file_copy=resource.file_copy,
-            archive_extraction=resource.archive_extraction,
-            msi_installation=resource.msi_installation,
-            dpkg_installation=resource.dpkg_installation,
-            rpm_installation=resource.rpm_installation,
-            file_exec=resource.file_exec,
-            script_run=resource.script_run,
+            file_copy=GuestPolicyRecipesInstallStepsFileCopy.from_proto(
+                resource.file_copy
+            ),
+            archive_extraction=GuestPolicyRecipesInstallStepsArchiveExtraction.from_proto(
+                resource.archive_extraction
+            ),
+            msi_installation=GuestPolicyRecipesInstallStepsMsiInstallation.from_proto(
+                resource.msi_installation
+            ),
+            dpkg_installation=GuestPolicyRecipesInstallStepsDpkgInstallation.from_proto(
+                resource.dpkg_installation
+            ),
+            rpm_installation=GuestPolicyRecipesInstallStepsRpmInstallation.from_proto(
+                resource.rpm_installation
+            ),
+            file_exec=GuestPolicyRecipesInstallStepsFileExec.from_proto(
+                resource.file_exec
+            ),
+            script_run=GuestPolicyRecipesInstallStepsScriptRun.from_proto(
+                resource.script_run
+            ),
         )
 
 
@@ -999,10 +1033,10 @@ class GuestPolicyRecipesInstallStepsFileCopy(object):
             return None
 
         return GuestPolicyRecipesInstallStepsFileCopy(
-            artifact_id=resource.artifact_id,
-            destination=resource.destination,
-            overwrite=resource.overwrite,
-            permissions=resource.permissions,
+            artifact_id=Primitive.from_proto(resource.artifact_id),
+            destination=Primitive.from_proto(resource.destination),
+            overwrite=Primitive.from_proto(resource.overwrite),
+            permissions=Primitive.from_proto(resource.permissions),
         )
 
 
@@ -1052,9 +1086,11 @@ class GuestPolicyRecipesInstallStepsArchiveExtraction(object):
             return None
 
         return GuestPolicyRecipesInstallStepsArchiveExtraction(
-            artifact_id=resource.artifact_id,
-            destination=resource.destination,
-            type=resource.type,
+            artifact_id=Primitive.from_proto(resource.artifact_id),
+            destination=Primitive.from_proto(resource.destination),
+            type=GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum.from_proto(
+                resource.type
+            ),
         )
 
 
@@ -1111,9 +1147,9 @@ class GuestPolicyRecipesInstallStepsMsiInstallation(object):
             return None
 
         return GuestPolicyRecipesInstallStepsMsiInstallation(
-            artifact_id=resource.artifact_id,
-            flags=resource.flags,
-            allowed_exit_codes=resource.allowed_exit_codes,
+            artifact_id=Primitive.from_proto(resource.artifact_id),
+            flags=Primitive.from_proto(resource.flags),
+            allowed_exit_codes=int64Array.from_proto(resource.allowed_exit_codes),
         )
 
 
@@ -1156,7 +1192,7 @@ class GuestPolicyRecipesInstallStepsDpkgInstallation(object):
             return None
 
         return GuestPolicyRecipesInstallStepsDpkgInstallation(
-            artifact_id=resource.artifact_id,
+            artifact_id=Primitive.from_proto(resource.artifact_id),
         )
 
 
@@ -1200,7 +1236,7 @@ class GuestPolicyRecipesInstallStepsRpmInstallation(object):
             return None
 
         return GuestPolicyRecipesInstallStepsRpmInstallation(
-            artifact_id=resource.artifact_id,
+            artifact_id=Primitive.from_proto(resource.artifact_id),
         )
 
 
@@ -1258,10 +1294,10 @@ class GuestPolicyRecipesInstallStepsFileExec(object):
             return None
 
         return GuestPolicyRecipesInstallStepsFileExec(
-            artifact_id=resource.artifact_id,
-            local_path=resource.local_path,
-            args=resource.args,
-            allowed_exit_codes=resource.allowed_exit_codes,
+            artifact_id=Primitive.from_proto(resource.artifact_id),
+            local_path=Primitive.from_proto(resource.local_path),
+            args=Primitive.from_proto(resource.args),
+            allowed_exit_codes=int64Array.from_proto(resource.allowed_exit_codes),
         )
 
 
@@ -1314,9 +1350,11 @@ class GuestPolicyRecipesInstallStepsScriptRun(object):
             return None
 
         return GuestPolicyRecipesInstallStepsScriptRun(
-            script=resource.script,
-            allowed_exit_codes=resource.allowed_exit_codes,
-            interpreter=resource.interpreter,
+            script=Primitive.from_proto(resource.script),
+            allowed_exit_codes=int64Array.from_proto(resource.allowed_exit_codes),
+            interpreter=GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum.from_proto(
+                resource.interpreter
+            ),
         )
 
 
@@ -1425,13 +1463,27 @@ class GuestPolicyRecipesUpdateSteps(object):
             return None
 
         return GuestPolicyRecipesUpdateSteps(
-            file_copy=resource.file_copy,
-            archive_extraction=resource.archive_extraction,
-            msi_installation=resource.msi_installation,
-            dpkg_installation=resource.dpkg_installation,
-            rpm_installation=resource.rpm_installation,
-            file_exec=resource.file_exec,
-            script_run=resource.script_run,
+            file_copy=GuestPolicyRecipesUpdateStepsFileCopy.from_proto(
+                resource.file_copy
+            ),
+            archive_extraction=GuestPolicyRecipesUpdateStepsArchiveExtraction.from_proto(
+                resource.archive_extraction
+            ),
+            msi_installation=GuestPolicyRecipesUpdateStepsMsiInstallation.from_proto(
+                resource.msi_installation
+            ),
+            dpkg_installation=GuestPolicyRecipesUpdateStepsDpkgInstallation.from_proto(
+                resource.dpkg_installation
+            ),
+            rpm_installation=GuestPolicyRecipesUpdateStepsRpmInstallation.from_proto(
+                resource.rpm_installation
+            ),
+            file_exec=GuestPolicyRecipesUpdateStepsFileExec.from_proto(
+                resource.file_exec
+            ),
+            script_run=GuestPolicyRecipesUpdateStepsScriptRun.from_proto(
+                resource.script_run
+            ),
         )
 
 
@@ -1482,10 +1534,10 @@ class GuestPolicyRecipesUpdateStepsFileCopy(object):
             return None
 
         return GuestPolicyRecipesUpdateStepsFileCopy(
-            artifact_id=resource.artifact_id,
-            destination=resource.destination,
-            overwrite=resource.overwrite,
-            permissions=resource.permissions,
+            artifact_id=Primitive.from_proto(resource.artifact_id),
+            destination=Primitive.from_proto(resource.destination),
+            overwrite=Primitive.from_proto(resource.overwrite),
+            permissions=Primitive.from_proto(resource.permissions),
         )
 
 
@@ -1535,9 +1587,11 @@ class GuestPolicyRecipesUpdateStepsArchiveExtraction(object):
             return None
 
         return GuestPolicyRecipesUpdateStepsArchiveExtraction(
-            artifact_id=resource.artifact_id,
-            destination=resource.destination,
-            type=resource.type,
+            artifact_id=Primitive.from_proto(resource.artifact_id),
+            destination=Primitive.from_proto(resource.destination),
+            type=GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum.from_proto(
+                resource.type
+            ),
         )
 
 
@@ -1594,9 +1648,9 @@ class GuestPolicyRecipesUpdateStepsMsiInstallation(object):
             return None
 
         return GuestPolicyRecipesUpdateStepsMsiInstallation(
-            artifact_id=resource.artifact_id,
-            flags=resource.flags,
-            allowed_exit_codes=resource.allowed_exit_codes,
+            artifact_id=Primitive.from_proto(resource.artifact_id),
+            flags=Primitive.from_proto(resource.flags),
+            allowed_exit_codes=int64Array.from_proto(resource.allowed_exit_codes),
         )
 
 
@@ -1639,7 +1693,7 @@ class GuestPolicyRecipesUpdateStepsDpkgInstallation(object):
             return None
 
         return GuestPolicyRecipesUpdateStepsDpkgInstallation(
-            artifact_id=resource.artifact_id,
+            artifact_id=Primitive.from_proto(resource.artifact_id),
         )
 
 
@@ -1682,7 +1736,7 @@ class GuestPolicyRecipesUpdateStepsRpmInstallation(object):
             return None
 
         return GuestPolicyRecipesUpdateStepsRpmInstallation(
-            artifact_id=resource.artifact_id,
+            artifact_id=Primitive.from_proto(resource.artifact_id),
         )
 
 
@@ -1740,10 +1794,10 @@ class GuestPolicyRecipesUpdateStepsFileExec(object):
             return None
 
         return GuestPolicyRecipesUpdateStepsFileExec(
-            artifact_id=resource.artifact_id,
-            local_path=resource.local_path,
-            args=resource.args,
-            allowed_exit_codes=resource.allowed_exit_codes,
+            artifact_id=Primitive.from_proto(resource.artifact_id),
+            local_path=Primitive.from_proto(resource.local_path),
+            args=Primitive.from_proto(resource.args),
+            allowed_exit_codes=int64Array.from_proto(resource.allowed_exit_codes),
         )
 
 
@@ -1796,9 +1850,11 @@ class GuestPolicyRecipesUpdateStepsScriptRun(object):
             return None
 
         return GuestPolicyRecipesUpdateStepsScriptRun(
-            script=resource.script,
-            allowed_exit_codes=resource.allowed_exit_codes,
-            interpreter=resource.interpreter,
+            script=Primitive.from_proto(resource.script),
+            allowed_exit_codes=int64Array.from_proto(resource.allowed_exit_codes),
+            interpreter=GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum.from_proto(
+                resource.interpreter
+            ),
         )
 
 

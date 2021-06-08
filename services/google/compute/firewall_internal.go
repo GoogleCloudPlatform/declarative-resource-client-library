@@ -1101,7 +1101,7 @@ func compareFirewallAllowedNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPProtocolAlt, actual.IPProtocolAlt, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPProtocolAlt")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPProtocolAlt, actual.IPProtocolAlt, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpProtocolAlt")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1144,7 +1144,7 @@ func compareFirewallDeniedNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPProtocolAlt, actual.IPProtocolAlt, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPProtocolAlt")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPProtocolAlt, actual.IPProtocolAlt, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpProtocolAlt")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -31,7 +31,7 @@ func ProtoToComputeBetaRouterNatsLogConfigFilterEnum(e betapb.ComputeBetaRouterN
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaRouterNatsLogConfigFilterEnum_name[int32(e)]; ok {
-		e := beta.RouterNatsLogConfigFilterEnum(n[len("RouterNatsLogConfigFilterEnum"):])
+		e := beta.RouterNatsLogConfigFilterEnum(n[len("ComputeBetaRouterNatsLogConfigFilterEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeBetaRouterNatsSourceSubnetworkIPRangesToNatEnum(e betapb.Comp
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaRouterNatsSourceSubnetworkIPRangesToNatEnum_name[int32(e)]; ok {
-		e := beta.RouterNatsSourceSubnetworkIPRangesToNatEnum(n[len("RouterNatsSourceSubnetworkIPRangesToNatEnum"):])
+		e := beta.RouterNatsSourceSubnetworkIPRangesToNatEnum(n[len("ComputeBetaRouterNatsSourceSubnetworkIPRangesToNatEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeBetaRouterNatsNatIPAllocateOptionEnum(e betapb.ComputeBetaRou
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaRouterNatsNatIPAllocateOptionEnum_name[int32(e)]; ok {
-		e := beta.RouterNatsNatIPAllocateOptionEnum(n[len("RouterNatsNatIPAllocateOptionEnum"):])
+		e := beta.RouterNatsNatIPAllocateOptionEnum(n[len("ComputeBetaRouterNatsNatIPAllocateOptionEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeBetaRouterInterfacesManagementTypeEnum(e betapb.ComputeBetaRo
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaRouterInterfacesManagementTypeEnum_name[int32(e)]; ok {
-		e := beta.RouterInterfacesManagementTypeEnum(n[len("RouterInterfacesManagementTypeEnum"):])
+		e := beta.RouterInterfacesManagementTypeEnum(n[len("ComputeBetaRouterInterfacesManagementTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToComputeBetaRouterBgpPeersAdvertisedGroupsEnum(e betapb.ComputeBetaRo
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaRouterBgpPeersAdvertisedGroupsEnum_name[int32(e)]; ok {
-		e := beta.RouterBgpPeersAdvertisedGroupsEnum(n[len("RouterBgpPeersAdvertisedGroupsEnum"):])
+		e := beta.RouterBgpPeersAdvertisedGroupsEnum(n[len("ComputeBetaRouterBgpPeersAdvertisedGroupsEnum"):])
 		return &e
 	}
 	return nil
@@ -91,7 +91,7 @@ func ProtoToComputeBetaRouterBgpAdvertiseModeEnum(e betapb.ComputeBetaRouterBgpA
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaRouterBgpAdvertiseModeEnum_name[int32(e)]; ok {
-		e := beta.RouterBgpAdvertiseModeEnum(n[len("RouterBgpAdvertiseModeEnum"):])
+		e := beta.RouterBgpAdvertiseModeEnum(n[len("ComputeBetaRouterBgpAdvertiseModeEnum"):])
 		return &e
 	}
 	return nil

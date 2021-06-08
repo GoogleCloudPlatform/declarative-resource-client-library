@@ -31,7 +31,7 @@ func ProtoToCloudschedulerJobAppEngineHttpTargetHttpMethodEnum(e cloudschedulerp
 		return nil
 	}
 	if n, ok := cloudschedulerpb.CloudschedulerJobAppEngineHttpTargetHttpMethodEnum_name[int32(e)]; ok {
-		e := cloudscheduler.JobAppEngineHttpTargetHttpMethodEnum(n[len("JobAppEngineHttpTargetHttpMethodEnum"):])
+		e := cloudscheduler.JobAppEngineHttpTargetHttpMethodEnum(n[len("CloudschedulerJobAppEngineHttpTargetHttpMethodEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToCloudschedulerJobHttpTargetHttpMethodEnum(e cloudschedulerpb.Cloudsc
 		return nil
 	}
 	if n, ok := cloudschedulerpb.CloudschedulerJobHttpTargetHttpMethodEnum_name[int32(e)]; ok {
-		e := cloudscheduler.JobHttpTargetHttpMethodEnum(n[len("JobHttpTargetHttpMethodEnum"):])
+		e := cloudscheduler.JobHttpTargetHttpMethodEnum(n[len("CloudschedulerJobHttpTargetHttpMethodEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToCloudschedulerJobStateEnum(e cloudschedulerpb.CloudschedulerJobState
 		return nil
 	}
 	if n, ok := cloudschedulerpb.CloudschedulerJobStateEnum_name[int32(e)]; ok {
-		e := cloudscheduler.JobStateEnum(n[len("JobStateEnum"):])
+		e := cloudscheduler.JobStateEnum(n[len("CloudschedulerJobStateEnum"):])
 		return &e
 	}
 	return nil

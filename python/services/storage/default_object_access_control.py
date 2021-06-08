@@ -157,7 +157,10 @@ class DefaultObjectAccessControlProjectTeam(object):
             return None
 
         return DefaultObjectAccessControlProjectTeam(
-            project_number=resource.project_number, team=resource.team,
+            project_number=Primitive.from_proto(resource.project_number),
+            team=DefaultObjectAccessControlProjectTeamTeamEnum.from_proto(
+                resource.team
+            ),
         )
 
 

@@ -90,7 +90,7 @@ import (
 
 	run_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/run/connector"
 
-	runtimeconfig_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/runtimeconfig/connector"
+	runtimeconfig_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/runtimeconfig/beta_connector"
 
 	servicemanagement_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/servicemanagement/connector"
 
@@ -195,7 +195,7 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	run_connector.RegisterServers(grpcServer)
 
-	runtimeconfig_connector.RegisterServers(grpcServer)
+	runtimeconfig_beta_connector.RegisterServers(grpcServer)
 
 	servicemanagement_connector.RegisterServers(grpcServer)
 

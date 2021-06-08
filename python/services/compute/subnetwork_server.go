@@ -31,7 +31,7 @@ func ProtoToComputeSubnetworkPurposeEnum(e computepb.ComputeSubnetworkPurposeEnu
 		return nil
 	}
 	if n, ok := computepb.ComputeSubnetworkPurposeEnum_name[int32(e)]; ok {
-		e := compute.SubnetworkPurposeEnum(n[len("SubnetworkPurposeEnum"):])
+		e := compute.SubnetworkPurposeEnum(n[len("ComputeSubnetworkPurposeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeSubnetworkRoleEnum(e computepb.ComputeSubnetworkRoleEnum) *co
 		return nil
 	}
 	if n, ok := computepb.ComputeSubnetworkRoleEnum_name[int32(e)]; ok {
-		e := compute.SubnetworkRoleEnum(n[len("SubnetworkRoleEnum"):])
+		e := compute.SubnetworkRoleEnum(n[len("ComputeSubnetworkRoleEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeSubnetworkLogConfigAggregationIntervalEnum(e computepb.Comput
 		return nil
 	}
 	if n, ok := computepb.ComputeSubnetworkLogConfigAggregationIntervalEnum_name[int32(e)]; ok {
-		e := compute.SubnetworkLogConfigAggregationIntervalEnum(n[len("SubnetworkLogConfigAggregationIntervalEnum"):])
+		e := compute.SubnetworkLogConfigAggregationIntervalEnum(n[len("ComputeSubnetworkLogConfigAggregationIntervalEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeSubnetworkLogConfigMetadataEnum(e computepb.ComputeSubnetwork
 		return nil
 	}
 	if n, ok := computepb.ComputeSubnetworkLogConfigMetadataEnum_name[int32(e)]; ok {
-		e := compute.SubnetworkLogConfigMetadataEnum(n[len("SubnetworkLogConfigMetadataEnum"):])
+		e := compute.SubnetworkLogConfigMetadataEnum(n[len("ComputeSubnetworkLogConfigMetadataEnum"):])
 		return &e
 	}
 	return nil

@@ -31,7 +31,7 @@ func ProtoToContainerNodePoolConfigSandboxConfigTypeEnum(e containerpb.Container
 		return nil
 	}
 	if n, ok := containerpb.ContainerNodePoolConfigSandboxConfigTypeEnum_name[int32(e)]; ok {
-		e := container.NodePoolConfigSandboxConfigTypeEnum(n[len("NodePoolConfigSandboxConfigTypeEnum"):])
+		e := container.NodePoolConfigSandboxConfigTypeEnum(n[len("ContainerNodePoolConfigSandboxConfigTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToContainerNodePoolConfigReservationAffinityConsumeReservationTypeEnum
 		return nil
 	}
 	if n, ok := containerpb.ContainerNodePoolConfigReservationAffinityConsumeReservationTypeEnum_name[int32(e)]; ok {
-		e := container.NodePoolConfigReservationAffinityConsumeReservationTypeEnum(n[len("NodePoolConfigReservationAffinityConsumeReservationTypeEnum"):])
+		e := container.NodePoolConfigReservationAffinityConsumeReservationTypeEnum(n[len("ContainerNodePoolConfigReservationAffinityConsumeReservationTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToContainerNodePoolConditionsCodeEnum(e containerpb.ContainerNodePoolC
 		return nil
 	}
 	if n, ok := containerpb.ContainerNodePoolConditionsCodeEnum_name[int32(e)]; ok {
-		e := container.NodePoolConditionsCodeEnum(n[len("NodePoolConditionsCodeEnum"):])
+		e := container.NodePoolConditionsCodeEnum(n[len("ContainerNodePoolConditionsCodeEnum"):])
 		return &e
 	}
 	return nil

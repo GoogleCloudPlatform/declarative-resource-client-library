@@ -31,7 +31,7 @@ func ProtoToComputeBetaNetworkEndpointGroupNetworkEndpointTypeEnum(e betapb.Comp
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaNetworkEndpointGroupNetworkEndpointTypeEnum_name[int32(e)]; ok {
-		e := beta.NetworkEndpointGroupNetworkEndpointTypeEnum(n[len("NetworkEndpointGroupNetworkEndpointTypeEnum"):])
+		e := beta.NetworkEndpointGroupNetworkEndpointTypeEnum(n[len("ComputeBetaNetworkEndpointGroupNetworkEndpointTypeEnum"):])
 		return &e
 	}
 	return nil

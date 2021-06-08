@@ -264,17 +264,27 @@ class LogMetricMetricDescriptor(object):
             return None
 
         return LogMetricMetricDescriptor(
-            name=resource.name,
-            type=resource.type,
-            descriptor_labels=resource.descriptor_labels,
-            metric_kind=resource.metric_kind,
-            value_type=resource.value_type,
-            unit=resource.unit,
-            description=resource.description,
-            display_name=resource.display_name,
-            metadata=resource.metadata,
-            launch_stage=resource.launch_stage,
-            monitored_resource_types=resource.monitored_resource_types,
+            name=Primitive.from_proto(resource.name),
+            type=Primitive.from_proto(resource.type),
+            descriptor_labels=LogMetricMetricDescriptorDescriptorLabelsArray.from_proto(
+                resource.descriptor_labels
+            ),
+            metric_kind=LogMetricMetricDescriptorMetricKindEnum.from_proto(
+                resource.metric_kind
+            ),
+            value_type=LogMetricMetricDescriptorValueTypeEnum.from_proto(
+                resource.value_type
+            ),
+            unit=Primitive.from_proto(resource.unit),
+            description=Primitive.from_proto(resource.description),
+            display_name=Primitive.from_proto(resource.display_name),
+            metadata=LogMetricMetricDescriptorMetadata.from_proto(resource.metadata),
+            launch_stage=LogMetricMetricDescriptorLaunchStageEnum.from_proto(
+                resource.launch_stage
+            ),
+            monitored_resource_types=Primitive.from_proto(
+                resource.monitored_resource_types
+            ),
         )
 
 
@@ -322,9 +332,11 @@ class LogMetricMetricDescriptorDescriptorLabels(object):
             return None
 
         return LogMetricMetricDescriptorDescriptorLabels(
-            key=resource.key,
-            value_type=resource.value_type,
-            description=resource.description,
+            key=Primitive.from_proto(resource.key),
+            value_type=LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum.from_proto(
+                resource.value_type
+            ),
+            description=Primitive.from_proto(resource.description),
         )
 
 
@@ -379,9 +391,11 @@ class LogMetricMetricDescriptorMetadata(object):
             return None
 
         return LogMetricMetricDescriptorMetadata(
-            launch_stage=resource.launch_stage,
-            sample_period=resource.sample_period,
-            ingest_delay=resource.ingest_delay,
+            launch_stage=LogMetricMetricDescriptorMetadataLaunchStageEnum.from_proto(
+                resource.launch_stage
+            ),
+            sample_period=Primitive.from_proto(resource.sample_period),
+            ingest_delay=Primitive.from_proto(resource.ingest_delay),
         )
 
 
@@ -446,9 +460,15 @@ class LogMetricBucketOptions(object):
             return None
 
         return LogMetricBucketOptions(
-            linear_buckets=resource.linear_buckets,
-            exponential_buckets=resource.exponential_buckets,
-            explicit_buckets=resource.explicit_buckets,
+            linear_buckets=LogMetricBucketOptionsLinearBuckets.from_proto(
+                resource.linear_buckets
+            ),
+            exponential_buckets=LogMetricBucketOptionsExponentialBuckets.from_proto(
+                resource.exponential_buckets
+            ),
+            explicit_buckets=LogMetricBucketOptionsExplicitBuckets.from_proto(
+                resource.explicit_buckets
+            ),
         )
 
 
@@ -492,9 +512,9 @@ class LogMetricBucketOptionsLinearBuckets(object):
             return None
 
         return LogMetricBucketOptionsLinearBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            width=resource.width,
-            offset=resource.offset,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            width=Primitive.from_proto(resource.width),
+            offset=Primitive.from_proto(resource.offset),
         )
 
 
@@ -541,9 +561,9 @@ class LogMetricBucketOptionsExponentialBuckets(object):
             return None
 
         return LogMetricBucketOptionsExponentialBuckets(
-            num_finite_buckets=resource.num_finite_buckets,
-            growth_factor=resource.growth_factor,
-            scale=resource.scale,
+            num_finite_buckets=Primitive.from_proto(resource.num_finite_buckets),
+            growth_factor=Primitive.from_proto(resource.growth_factor),
+            scale=Primitive.from_proto(resource.scale),
         )
 
 
@@ -580,7 +600,9 @@ class LogMetricBucketOptionsExplicitBuckets(object):
         if not resource:
             return None
 
-        return LogMetricBucketOptionsExplicitBuckets(bounds=resource.bounds,)
+        return LogMetricBucketOptionsExplicitBuckets(
+            bounds=float64Array.from_proto(resource.bounds),
+        )
 
 
 class LogMetricBucketOptionsExplicitBucketsArray(object):

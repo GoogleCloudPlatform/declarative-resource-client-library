@@ -31,7 +31,7 @@ func ProtoToComputeBetaSslCertificateTypeEnum(e betapb.ComputeBetaSslCertificate
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaSslCertificateTypeEnum_name[int32(e)]; ok {
-		e := beta.SslCertificateTypeEnum(n[len("SslCertificateTypeEnum"):])
+		e := beta.SslCertificateTypeEnum(n[len("ComputeBetaSslCertificateTypeEnum"):])
 		return &e
 	}
 	return nil

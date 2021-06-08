@@ -312,7 +312,11 @@ class InstanceGroupManagerDistributionPolicy(object):
         if not resource:
             return None
 
-        return InstanceGroupManagerDistributionPolicy(zones=resource.zones,)
+        return InstanceGroupManagerDistributionPolicy(
+            zones=InstanceGroupManagerDistributionPolicyZonesArray.from_proto(
+                resource.zones
+            ),
+        )
 
 
 class InstanceGroupManagerDistributionPolicyArray(object):
@@ -348,7 +352,9 @@ class InstanceGroupManagerDistributionPolicyZones(object):
         if not resource:
             return None
 
-        return InstanceGroupManagerDistributionPolicyZones(zone=resource.zone,)
+        return InstanceGroupManagerDistributionPolicyZones(
+            zone=Primitive.from_proto(resource.zone),
+        )
 
 
 class InstanceGroupManagerDistributionPolicyZonesArray(object):
@@ -420,14 +426,16 @@ class InstanceGroupManagerCurrentActions(object):
             return None
 
         return InstanceGroupManagerCurrentActions(
-            abandoning=resource.abandoning,
-            creating=resource.creating,
-            creating_without_retries=resource.creating_without_retries,
-            deleting=resource.deleting,
-            none=resource.none,
-            recreating=resource.recreating,
-            refreshing=resource.refreshing,
-            restarting=resource.restarting,
+            abandoning=Primitive.from_proto(resource.abandoning),
+            creating=Primitive.from_proto(resource.creating),
+            creating_without_retries=Primitive.from_proto(
+                resource.creating_without_retries
+            ),
+            deleting=Primitive.from_proto(resource.deleting),
+            none=Primitive.from_proto(resource.none),
+            recreating=Primitive.from_proto(resource.recreating),
+            refreshing=Primitive.from_proto(resource.refreshing),
+            restarting=Primitive.from_proto(resource.restarting),
         )
 
 
@@ -475,9 +483,11 @@ class InstanceGroupManagerVersions(object):
             return None
 
         return InstanceGroupManagerVersions(
-            name=resource.name,
-            instance_template=resource.instance_template,
-            target_size=resource.target_size,
+            name=Primitive.from_proto(resource.name),
+            instance_template=Primitive.from_proto(resource.instance_template),
+            target_size=InstanceGroupManagerVersionsTargetSize.from_proto(
+                resource.target_size
+            ),
         )
 
 
@@ -519,9 +529,9 @@ class InstanceGroupManagerVersionsTargetSize(object):
             return None
 
         return InstanceGroupManagerVersionsTargetSize(
-            fixed=resource.fixed,
-            percent=resource.percent,
-            calculated=resource.calculated,
+            fixed=Primitive.from_proto(resource.fixed),
+            percent=Primitive.from_proto(resource.percent),
+            calculated=Primitive.from_proto(resource.calculated),
         )
 
 
@@ -559,7 +569,10 @@ class InstanceGroupManagerNamedPorts(object):
         if not resource:
             return None
 
-        return InstanceGroupManagerNamedPorts(name=resource.name, port=resource.port,)
+        return InstanceGroupManagerNamedPorts(
+            name=Primitive.from_proto(resource.name),
+            port=Primitive.from_proto(resource.port),
+        )
 
 
 class InstanceGroupManagerNamedPortsArray(object):
@@ -611,9 +624,11 @@ class InstanceGroupManagerStatus(object):
             return None
 
         return InstanceGroupManagerStatus(
-            is_stable=resource.is_stable,
-            version_target=resource.version_target,
-            autoscalar=resource.autoscalar,
+            is_stable=Primitive.from_proto(resource.is_stable),
+            version_target=InstanceGroupManagerStatusVersionTarget.from_proto(
+                resource.version_target
+            ),
+            autoscalar=Primitive.from_proto(resource.autoscalar),
         )
 
 
@@ -650,7 +665,9 @@ class InstanceGroupManagerStatusVersionTarget(object):
         if not resource:
             return None
 
-        return InstanceGroupManagerStatusVersionTarget(is_reached=resource.is_reached,)
+        return InstanceGroupManagerStatusVersionTarget(
+            is_reached=Primitive.from_proto(resource.is_reached),
+        )
 
 
 class InstanceGroupManagerStatusVersionTargetArray(object):
@@ -692,8 +709,8 @@ class InstanceGroupManagerAutoHealingPolicies(object):
             return None
 
         return InstanceGroupManagerAutoHealingPolicies(
-            health_check=resource.health_check,
-            initial_delay_sec=resource.initial_delay_sec,
+            health_check=Primitive.from_proto(resource.health_check),
+            initial_delay_sec=Primitive.from_proto(resource.initial_delay_sec),
         )
 
 
@@ -754,9 +771,15 @@ class InstanceGroupManagerUpdatePolicy(object):
             return None
 
         return InstanceGroupManagerUpdatePolicy(
-            instance_redistribution_type=resource.instance_redistribution_type,
-            minimal_action=resource.minimal_action,
-            max_surge=resource.max_surge,
+            instance_redistribution_type=InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum.from_proto(
+                resource.instance_redistribution_type
+            ),
+            minimal_action=InstanceGroupManagerUpdatePolicyMinimalActionEnum.from_proto(
+                resource.minimal_action
+            ),
+            max_surge=InstanceGroupManagerUpdatePolicyMaxSurge.from_proto(
+                resource.max_surge
+            ),
         )
 
 
@@ -817,10 +840,12 @@ class InstanceGroupManagerUpdatePolicyMaxSurge(object):
             return None
 
         return InstanceGroupManagerUpdatePolicyMaxSurge(
-            fixed=resource.fixed,
-            percent=resource.percent,
-            calculated=resource.calculated,
-            max_unavailable=resource.max_unavailable,
+            fixed=Primitive.from_proto(resource.fixed),
+            percent=Primitive.from_proto(resource.percent),
+            calculated=Primitive.from_proto(resource.calculated),
+            max_unavailable=InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable.from_proto(
+                resource.max_unavailable
+            ),
         )
 
 
@@ -866,9 +891,9 @@ class InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(object):
             return None
 
         return InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(
-            fixed=resource.fixed,
-            percent=resource.percent,
-            calculated=resource.calculated,
+            fixed=Primitive.from_proto(resource.fixed),
+            percent=Primitive.from_proto(resource.percent),
+            calculated=Primitive.from_proto(resource.calculated),
         )
 
 

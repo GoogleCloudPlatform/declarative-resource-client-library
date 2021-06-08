@@ -31,7 +31,7 @@ func ProtoToSqlBetaInstanceBackendTypeEnum(e betapb.SqlBetaInstanceBackendTypeEn
 		return nil
 	}
 	if n, ok := betapb.SqlBetaInstanceBackendTypeEnum_name[int32(e)]; ok {
-		e := beta.InstanceBackendTypeEnum(n[len("InstanceBackendTypeEnum"):])
+		e := beta.InstanceBackendTypeEnum(n[len("SqlBetaInstanceBackendTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToSqlBetaInstanceDatabaseVersionEnum(e betapb.SqlBetaInstanceDatabaseV
 		return nil
 	}
 	if n, ok := betapb.SqlBetaInstanceDatabaseVersionEnum_name[int32(e)]; ok {
-		e := beta.InstanceDatabaseVersionEnum(n[len("InstanceDatabaseVersionEnum"):])
+		e := beta.InstanceDatabaseVersionEnum(n[len("SqlBetaInstanceDatabaseVersionEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToSqlBetaInstanceInstanceTypeEnum(e betapb.SqlBetaInstanceInstanceType
 		return nil
 	}
 	if n, ok := betapb.SqlBetaInstanceInstanceTypeEnum_name[int32(e)]; ok {
-		e := beta.InstanceInstanceTypeEnum(n[len("InstanceInstanceTypeEnum"):])
+		e := beta.InstanceInstanceTypeEnum(n[len("SqlBetaInstanceInstanceTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToSqlBetaInstanceIPAddressesTypeEnum(e betapb.SqlBetaInstanceIPAddress
 		return nil
 	}
 	if n, ok := betapb.SqlBetaInstanceIPAddressesTypeEnum_name[int32(e)]; ok {
-		e := beta.InstanceIPAddressesTypeEnum(n[len("InstanceIPAddressesTypeEnum"):])
+		e := beta.InstanceIPAddressesTypeEnum(n[len("SqlBetaInstanceIPAddressesTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToSqlBetaInstanceSettingsAvailabilityTypeEnum(e betapb.SqlBetaInstance
 		return nil
 	}
 	if n, ok := betapb.SqlBetaInstanceSettingsAvailabilityTypeEnum_name[int32(e)]; ok {
-		e := beta.InstanceSettingsAvailabilityTypeEnum(n[len("InstanceSettingsAvailabilityTypeEnum"):])
+		e := beta.InstanceSettingsAvailabilityTypeEnum(n[len("SqlBetaInstanceSettingsAvailabilityTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -91,7 +91,7 @@ func ProtoToSqlBetaInstanceSettingsPricingPlanEnum(e betapb.SqlBetaInstanceSetti
 		return nil
 	}
 	if n, ok := betapb.SqlBetaInstanceSettingsPricingPlanEnum_name[int32(e)]; ok {
-		e := beta.InstanceSettingsPricingPlanEnum(n[len("InstanceSettingsPricingPlanEnum"):])
+		e := beta.InstanceSettingsPricingPlanEnum(n[len("SqlBetaInstanceSettingsPricingPlanEnum"):])
 		return &e
 	}
 	return nil
@@ -103,7 +103,7 @@ func ProtoToSqlBetaInstanceSettingsReplicationTypeEnum(e betapb.SqlBetaInstanceS
 		return nil
 	}
 	if n, ok := betapb.SqlBetaInstanceSettingsReplicationTypeEnum_name[int32(e)]; ok {
-		e := beta.InstanceSettingsReplicationTypeEnum(n[len("InstanceSettingsReplicationTypeEnum"):])
+		e := beta.InstanceSettingsReplicationTypeEnum(n[len("SqlBetaInstanceSettingsReplicationTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -115,7 +115,7 @@ func ProtoToSqlBetaInstanceSettingsActivationPolicyEnum(e betapb.SqlBetaInstance
 		return nil
 	}
 	if n, ok := betapb.SqlBetaInstanceSettingsActivationPolicyEnum_name[int32(e)]; ok {
-		e := beta.InstanceSettingsActivationPolicyEnum(n[len("InstanceSettingsActivationPolicyEnum"):])
+		e := beta.InstanceSettingsActivationPolicyEnum(n[len("SqlBetaInstanceSettingsActivationPolicyEnum"):])
 		return &e
 	}
 	return nil
@@ -127,7 +127,7 @@ func ProtoToSqlBetaInstanceSettingsDataDiskTypeEnum(e betapb.SqlBetaInstanceSett
 		return nil
 	}
 	if n, ok := betapb.SqlBetaInstanceSettingsDataDiskTypeEnum_name[int32(e)]; ok {
-		e := beta.InstanceSettingsDataDiskTypeEnum(n[len("InstanceSettingsDataDiskTypeEnum"):])
+		e := beta.InstanceSettingsDataDiskTypeEnum(n[len("SqlBetaInstanceSettingsDataDiskTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -139,7 +139,7 @@ func ProtoToSqlBetaInstanceSettingsMaintenanceWindowUpdateTrackEnum(e betapb.Sql
 		return nil
 	}
 	if n, ok := betapb.SqlBetaInstanceSettingsMaintenanceWindowUpdateTrackEnum_name[int32(e)]; ok {
-		e := beta.InstanceSettingsMaintenanceWindowUpdateTrackEnum(n[len("InstanceSettingsMaintenanceWindowUpdateTrackEnum"):])
+		e := beta.InstanceSettingsMaintenanceWindowUpdateTrackEnum(n[len("SqlBetaInstanceSettingsMaintenanceWindowUpdateTrackEnum"):])
 		return &e
 	}
 	return nil
@@ -151,7 +151,7 @@ func ProtoToSqlBetaInstanceSettingsBackupConfigurationBackupRetentionSettingsRet
 		return nil
 	}
 	if n, ok := betapb.SqlBetaInstanceSettingsBackupConfigurationBackupRetentionSettingsRetentionUnitEnum_name[int32(e)]; ok {
-		e := beta.InstanceSettingsBackupConfigurationBackupRetentionSettingsRetentionUnitEnum(n[len("InstanceSettingsBackupConfigurationBackupRetentionSettingsRetentionUnitEnum"):])
+		e := beta.InstanceSettingsBackupConfigurationBackupRetentionSettingsRetentionUnitEnum(n[len("SqlBetaInstanceSettingsBackupConfigurationBackupRetentionSettingsRetentionUnitEnum"):])
 		return &e
 	}
 	return nil

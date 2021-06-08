@@ -293,7 +293,9 @@ class EndpointConfigSelectorHttpFilters(object):
         if not resource:
             return None
 
-        return EndpointConfigSelectorHttpFilters(http_filters=resource.http_filters,)
+        return EndpointConfigSelectorHttpFilters(
+            http_filters=Primitive.from_proto(resource.http_filters),
+        )
 
 
 class EndpointConfigSelectorHttpFiltersArray(object):
@@ -338,7 +340,9 @@ class EndpointConfigSelectorEndpointMatcher(object):
             return None
 
         return EndpointConfigSelectorEndpointMatcher(
-            metadata_label_matcher=resource.metadata_label_matcher,
+            metadata_label_matcher=EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher.from_proto(
+                resource.metadata_label_matcher
+            ),
         )
 
 
@@ -391,8 +395,12 @@ class EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher(object):
             return None
 
         return EndpointConfigSelectorEndpointMatcherMetadataLabelMatcher(
-            metadata_label_match_criteria=resource.metadata_label_match_criteria,
-            metadata_labels=resource.metadata_labels,
+            metadata_label_match_criteria=EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum.from_proto(
+                resource.metadata_label_match_criteria
+            ),
+            metadata_labels=EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelsArray.from_proto(
+                resource.metadata_labels
+            ),
         )
 
 
@@ -439,7 +447,8 @@ class EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels(ob
             return None
 
         return EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels(
-            label_name=resource.label_name, label_value=resource.label_value,
+            label_name=Primitive.from_proto(resource.label_name),
+            label_value=Primitive.from_proto(resource.label_value),
         )
 
 
@@ -488,7 +497,9 @@ class EndpointConfigSelectorTrafficPortSelector(object):
         if not resource:
             return None
 
-        return EndpointConfigSelectorTrafficPortSelector(ports=resource.ports,)
+        return EndpointConfigSelectorTrafficPortSelector(
+            ports=Primitive.from_proto(resource.ports),
+        )
 
 
 class EndpointConfigSelectorTrafficPortSelectorArray(object):

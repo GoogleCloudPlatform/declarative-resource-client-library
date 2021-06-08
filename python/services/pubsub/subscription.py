@@ -239,7 +239,7 @@ class SubscriptionExpirationPolicy(object):
         if not resource:
             return None
 
-        return SubscriptionExpirationPolicy(ttl=resource.ttl,)
+        return SubscriptionExpirationPolicy(ttl=Primitive.from_proto(resource.ttl),)
 
 
 class SubscriptionExpirationPolicyArray(object):
@@ -281,8 +281,8 @@ class SubscriptionDeadLetterPolicy(object):
             return None
 
         return SubscriptionDeadLetterPolicy(
-            dead_letter_topic=resource.dead_letter_topic,
-            max_delivery_attempts=resource.max_delivery_attempts,
+            dead_letter_topic=Primitive.from_proto(resource.dead_letter_topic),
+            max_delivery_attempts=Primitive.from_proto(resource.max_delivery_attempts),
         )
 
 
@@ -333,9 +333,9 @@ class SubscriptionPushConfig(object):
             return None
 
         return SubscriptionPushConfig(
-            push_endpoint=resource.push_endpoint,
-            attributes=resource.attributes,
-            oidc_token=resource.oidc_token,
+            push_endpoint=Primitive.from_proto(resource.push_endpoint),
+            attributes=Primitive.from_proto(resource.attributes),
+            oidc_token=SubscriptionPushConfigOidcToken.from_proto(resource.oidc_token),
         )
 
 
@@ -376,8 +376,8 @@ class SubscriptionPushConfigOidcToken(object):
             return None
 
         return SubscriptionPushConfigOidcToken(
-            service_account_email=resource.service_account_email,
-            audience=resource.audience,
+            service_account_email=Primitive.from_proto(resource.service_account_email),
+            audience=Primitive.from_proto(resource.audience),
         )
 
 

@@ -31,7 +31,7 @@ func ProtoToServiceusageServiceStateEnum(e serviceusagepb.ServiceusageServiceSta
 		return nil
 	}
 	if n, ok := serviceusagepb.ServiceusageServiceStateEnum_name[int32(e)]; ok {
-		e := serviceusage.ServiceStateEnum(n[len("ServiceStateEnum"):])
+		e := serviceusage.ServiceStateEnum(n[len("ServiceusageServiceStateEnum"):])
 		return &e
 	}
 	return nil

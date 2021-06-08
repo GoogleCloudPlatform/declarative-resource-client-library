@@ -31,7 +31,7 @@ func ProtoToSpannerDatabaseStateEnum(e spannerpb.SpannerDatabaseStateEnum) *span
 		return nil
 	}
 	if n, ok := spannerpb.SpannerDatabaseStateEnum_name[int32(e)]; ok {
-		e := spanner.DatabaseStateEnum(n[len("DatabaseStateEnum"):])
+		e := spanner.DatabaseStateEnum(n[len("SpannerDatabaseStateEnum"):])
 		return &e
 	}
 	return nil

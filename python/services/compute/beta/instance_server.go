@@ -31,7 +31,7 @@ func ProtoToComputeBetaInstanceDisksInterfaceEnum(e betapb.ComputeBetaInstanceDi
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaInstanceDisksInterfaceEnum_name[int32(e)]; ok {
-		e := beta.InstanceDisksInterfaceEnum(n[len("InstanceDisksInterfaceEnum"):])
+		e := beta.InstanceDisksInterfaceEnum(n[len("ComputeBetaInstanceDisksInterfaceEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeBetaInstanceDisksModeEnum(e betapb.ComputeBetaInstanceDisksMo
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaInstanceDisksModeEnum_name[int32(e)]; ok {
-		e := beta.InstanceDisksModeEnum(n[len("InstanceDisksModeEnum"):])
+		e := beta.InstanceDisksModeEnum(n[len("ComputeBetaInstanceDisksModeEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeBetaInstanceDisksTypeEnum(e betapb.ComputeBetaInstanceDisksTy
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaInstanceDisksTypeEnum_name[int32(e)]; ok {
-		e := beta.InstanceDisksTypeEnum(n[len("InstanceDisksTypeEnum"):])
+		e := beta.InstanceDisksTypeEnum(n[len("ComputeBetaInstanceDisksTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnum(e betapb.C
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnum_name[int32(e)]; ok {
-		e := beta.InstanceNetworkInterfacesAccessConfigsTypeEnum(n[len("InstanceNetworkInterfacesAccessConfigsTypeEnum"):])
+		e := beta.InstanceNetworkInterfacesAccessConfigsTypeEnum(n[len("ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToComputeBetaInstanceStatusEnum(e betapb.ComputeBetaInstanceStatusEnum
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaInstanceStatusEnum_name[int32(e)]; ok {
-		e := beta.InstanceStatusEnum(n[len("InstanceStatusEnum"):])
+		e := beta.InstanceStatusEnum(n[len("ComputeBetaInstanceStatusEnum"):])
 		return &e
 	}
 	return nil

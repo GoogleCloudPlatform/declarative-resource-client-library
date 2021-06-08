@@ -31,7 +31,7 @@ func ProtoToComputeUrlMapDefaultUrlRedirectRedirectResponseCodeEnum(e computepb.
 		return nil
 	}
 	if n, ok := computepb.ComputeUrlMapDefaultUrlRedirectRedirectResponseCodeEnum_name[int32(e)]; ok {
-		e := compute.UrlMapDefaultUrlRedirectRedirectResponseCodeEnum(n[len("UrlMapDefaultUrlRedirectRedirectResponseCodeEnum"):])
+		e := compute.UrlMapDefaultUrlRedirectRedirectResponseCodeEnum(n[len("ComputeUrlMapDefaultUrlRedirectRedirectResponseCodeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeUrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum(e
 		return nil
 	}
 	if n, ok := computepb.ComputeUrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum_name[int32(e)]; ok {
-		e := compute.UrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum(n[len("UrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum"):])
+		e := compute.UrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum(n[len("ComputeUrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeUrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum(
 		return nil
 	}
 	if n, ok := computepb.ComputeUrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum_name[int32(e)]; ok {
-		e := compute.UrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum(n[len("UrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum"):])
+		e := compute.UrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum(n[len("ComputeUrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchC
 		return nil
 	}
 	if n, ok := computepb.ComputeUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum_name[int32(e)]; ok {
-		e := compute.UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum(n[len("UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum"):])
+		e := compute.UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum(n[len("ComputeUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToComputeUrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum
 		return nil
 	}
 	if n, ok := computepb.ComputeUrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum_name[int32(e)]; ok {
-		e := compute.UrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum(n[len("UrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum"):])
+		e := compute.UrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum(n[len("ComputeUrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum"):])
 		return &e
 	}
 	return nil

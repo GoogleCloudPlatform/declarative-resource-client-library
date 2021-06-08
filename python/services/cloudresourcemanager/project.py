@@ -139,7 +139,10 @@ class ProjectParent(object):
         if not resource:
             return None
 
-        return ProjectParent(type=resource.type, id=resource.id,)
+        return ProjectParent(
+            type=Primitive.from_proto(resource.type),
+            id=Primitive.from_proto(resource.id),
+        )
 
 
 class ProjectParentArray(object):

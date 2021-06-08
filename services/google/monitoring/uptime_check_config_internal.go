@@ -1338,7 +1338,7 @@ func compareUptimeCheckConfigMonitoredResourceNewStyle(d, a interface{}, fn dcl.
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FilterLabels, actual.FilterLabels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FilterLabels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FilterLabels, actual.FilterLabels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

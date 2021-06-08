@@ -31,7 +31,7 @@ func ProtoToComputeBetaAutoscalerAutoscalingPolicyCustomMetricUtilizationsUtiliz
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaAutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum_name[int32(e)]; ok {
-		e := beta.AutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum(n[len("AutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum"):])
+		e := beta.AutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum(n[len("ComputeBetaAutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeBetaAutoscalerAutoscalingPolicyModeEnum(e betapb.ComputeBetaA
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaAutoscalerAutoscalingPolicyModeEnum_name[int32(e)]; ok {
-		e := beta.AutoscalerAutoscalingPolicyModeEnum(n[len("AutoscalerAutoscalingPolicyModeEnum"):])
+		e := beta.AutoscalerAutoscalingPolicyModeEnum(n[len("ComputeBetaAutoscalerAutoscalingPolicyModeEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeBetaAutoscalerStatusEnum(e betapb.ComputeBetaAutoscalerStatus
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaAutoscalerStatusEnum_name[int32(e)]; ok {
-		e := beta.AutoscalerStatusEnum(n[len("AutoscalerStatusEnum"):])
+		e := beta.AutoscalerStatusEnum(n[len("ComputeBetaAutoscalerStatusEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeBetaAutoscalerStatusDetailsTypeEnum(e betapb.ComputeBetaAutos
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaAutoscalerStatusDetailsTypeEnum_name[int32(e)]; ok {
-		e := beta.AutoscalerStatusDetailsTypeEnum(n[len("AutoscalerStatusDetailsTypeEnum"):])
+		e := beta.AutoscalerStatusDetailsTypeEnum(n[len("ComputeBetaAutoscalerStatusDetailsTypeEnum"):])
 		return &e
 	}
 	return nil

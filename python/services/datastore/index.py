@@ -126,7 +126,10 @@ class IndexProperties(object):
         if not resource:
             return None
 
-        return IndexProperties(name=resource.name, direction=resource.direction,)
+        return IndexProperties(
+            name=Primitive.from_proto(resource.name),
+            direction=IndexPropertiesDirectionEnum.from_proto(resource.direction),
+        )
 
 
 class IndexPropertiesArray(object):

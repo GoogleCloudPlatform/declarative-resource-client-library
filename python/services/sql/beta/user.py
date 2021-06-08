@@ -179,7 +179,8 @@ class UserSqlserverUserDetails(object):
             return None
 
         return UserSqlserverUserDetails(
-            disabled=resource.disabled, server_roles=resource.server_roles,
+            disabled=Primitive.from_proto(resource.disabled),
+            server_roles=Primitive.from_proto(resource.server_roles),
         )
 
 

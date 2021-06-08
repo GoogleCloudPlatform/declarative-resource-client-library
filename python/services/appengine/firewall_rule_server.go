@@ -31,7 +31,7 @@ func ProtoToAppengineFirewallRuleActionEnum(e appenginepb.AppengineFirewallRuleA
 		return nil
 	}
 	if n, ok := appenginepb.AppengineFirewallRuleActionEnum_name[int32(e)]; ok {
-		e := appengine.FirewallRuleActionEnum(n[len("FirewallRuleActionEnum"):])
+		e := appengine.FirewallRuleActionEnum(n[len("AppengineFirewallRuleActionEnum"):])
 		return &e
 	}
 	return nil

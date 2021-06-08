@@ -31,7 +31,7 @@ func ProtoToComputeForwardingRuleIPProtocolEnum(e computepb.ComputeForwardingRul
 		return nil
 	}
 	if n, ok := computepb.ComputeForwardingRuleIPProtocolEnum_name[int32(e)]; ok {
-		e := compute.ForwardingRuleIPProtocolEnum(n[len("ForwardingRuleIPProtocolEnum"):])
+		e := compute.ForwardingRuleIPProtocolEnum(n[len("ComputeForwardingRuleIPProtocolEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeForwardingRuleIPVersionEnum(e computepb.ComputeForwardingRule
 		return nil
 	}
 	if n, ok := computepb.ComputeForwardingRuleIPVersionEnum_name[int32(e)]; ok {
-		e := compute.ForwardingRuleIPVersionEnum(n[len("ForwardingRuleIPVersionEnum"):])
+		e := compute.ForwardingRuleIPVersionEnum(n[len("ComputeForwardingRuleIPVersionEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeForwardingRuleLoadBalancingSchemeEnum(e computepb.ComputeForw
 		return nil
 	}
 	if n, ok := computepb.ComputeForwardingRuleLoadBalancingSchemeEnum_name[int32(e)]; ok {
-		e := compute.ForwardingRuleLoadBalancingSchemeEnum(n[len("ForwardingRuleLoadBalancingSchemeEnum"):])
+		e := compute.ForwardingRuleLoadBalancingSchemeEnum(n[len("ComputeForwardingRuleLoadBalancingSchemeEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeForwardingRuleMetadataFilterFilterMatchCriteriaEnum(e compute
 		return nil
 	}
 	if n, ok := computepb.ComputeForwardingRuleMetadataFilterFilterMatchCriteriaEnum_name[int32(e)]; ok {
-		e := compute.ForwardingRuleMetadataFilterFilterMatchCriteriaEnum(n[len("ForwardingRuleMetadataFilterFilterMatchCriteriaEnum"):])
+		e := compute.ForwardingRuleMetadataFilterFilterMatchCriteriaEnum(n[len("ComputeForwardingRuleMetadataFilterFilterMatchCriteriaEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToComputeForwardingRuleNetworkTierEnum(e computepb.ComputeForwardingRu
 		return nil
 	}
 	if n, ok := computepb.ComputeForwardingRuleNetworkTierEnum_name[int32(e)]; ok {
-		e := compute.ForwardingRuleNetworkTierEnum(n[len("ForwardingRuleNetworkTierEnum"):])
+		e := compute.ForwardingRuleNetworkTierEnum(n[len("ComputeForwardingRuleNetworkTierEnum"):])
 		return &e
 	}
 	return nil

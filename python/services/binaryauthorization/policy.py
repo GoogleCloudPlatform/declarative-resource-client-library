@@ -197,7 +197,9 @@ class PolicyAdmissionWhitelistPatterns(object):
         if not resource:
             return None
 
-        return PolicyAdmissionWhitelistPatterns(name_pattern=resource.name_pattern,)
+        return PolicyAdmissionWhitelistPatterns(
+            name_pattern=Primitive.from_proto(resource.name_pattern),
+        )
 
 
 class PolicyAdmissionWhitelistPatternsArray(object):
@@ -253,9 +255,15 @@ class PolicyClusterAdmissionRules(object):
             return None
 
         return PolicyClusterAdmissionRules(
-            evaluation_mode=resource.evaluation_mode,
-            require_attestations_by=resource.require_attestations_by,
-            enforcement_mode=resource.enforcement_mode,
+            evaluation_mode=PolicyClusterAdmissionRulesEvaluationModeEnum.from_proto(
+                resource.evaluation_mode
+            ),
+            require_attestations_by=Primitive.from_proto(
+                resource.require_attestations_by
+            ),
+            enforcement_mode=PolicyClusterAdmissionRulesEnforcementModeEnum.from_proto(
+                resource.enforcement_mode
+            ),
         )
 
 
@@ -312,9 +320,15 @@ class PolicyDefaultAdmissionRule(object):
             return None
 
         return PolicyDefaultAdmissionRule(
-            evaluation_mode=resource.evaluation_mode,
-            require_attestations_by=resource.require_attestations_by,
-            enforcement_mode=resource.enforcement_mode,
+            evaluation_mode=PolicyDefaultAdmissionRuleEvaluationModeEnum.from_proto(
+                resource.evaluation_mode
+            ),
+            require_attestations_by=Primitive.from_proto(
+                resource.require_attestations_by
+            ),
+            enforcement_mode=PolicyDefaultAdmissionRuleEnforcementModeEnum.from_proto(
+                resource.enforcement_mode
+            ),
         )
 
 

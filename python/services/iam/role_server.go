@@ -31,7 +31,7 @@ func ProtoToIamRoleStageEnum(e iampb.IamRoleStageEnum) *iam.RoleStageEnum {
 		return nil
 	}
 	if n, ok := iampb.IamRoleStageEnum_name[int32(e)]; ok {
-		e := iam.RoleStageEnum(n[len("RoleStageEnum"):])
+		e := iam.RoleStageEnum(n[len("IamRoleStageEnum"):])
 		return &e
 	}
 	return nil

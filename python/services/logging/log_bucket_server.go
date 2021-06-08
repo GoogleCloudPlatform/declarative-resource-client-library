@@ -31,7 +31,7 @@ func ProtoToLoggingLogBucketLifecycleStateEnum(e loggingpb.LoggingLogBucketLifec
 		return nil
 	}
 	if n, ok := loggingpb.LoggingLogBucketLifecycleStateEnum_name[int32(e)]; ok {
-		e := logging.LogBucketLifecycleStateEnum(n[len("LogBucketLifecycleStateEnum"):])
+		e := logging.LogBucketLifecycleStateEnum(n[len("LoggingLogBucketLifecycleStateEnum"):])
 		return &e
 	}
 	return nil

@@ -31,7 +31,7 @@ func ProtoToAppengineVersionInboundServicesEnum(e appenginepb.AppengineVersionIn
 		return nil
 	}
 	if n, ok := appenginepb.AppengineVersionInboundServicesEnum_name[int32(e)]; ok {
-		e := appengine.VersionInboundServicesEnum(n[len("VersionInboundServicesEnum"):])
+		e := appengine.VersionInboundServicesEnum(n[len("AppengineVersionInboundServicesEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToAppengineVersionServingStatusEnum(e appenginepb.AppengineVersionServ
 		return nil
 	}
 	if n, ok := appenginepb.AppengineVersionServingStatusEnum_name[int32(e)]; ok {
-		e := appengine.VersionServingStatusEnum(n[len("VersionServingStatusEnum"):])
+		e := appengine.VersionServingStatusEnum(n[len("AppengineVersionServingStatusEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToAppengineVersionHandlersSecurityLevelEnum(e appenginepb.AppengineVer
 		return nil
 	}
 	if n, ok := appenginepb.AppengineVersionHandlersSecurityLevelEnum_name[int32(e)]; ok {
-		e := appengine.VersionHandlersSecurityLevelEnum(n[len("VersionHandlersSecurityLevelEnum"):])
+		e := appengine.VersionHandlersSecurityLevelEnum(n[len("AppengineVersionHandlersSecurityLevelEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToAppengineVersionHandlersLoginEnum(e appenginepb.AppengineVersionHand
 		return nil
 	}
 	if n, ok := appenginepb.AppengineVersionHandlersLoginEnum_name[int32(e)]; ok {
-		e := appengine.VersionHandlersLoginEnum(n[len("VersionHandlersLoginEnum"):])
+		e := appengine.VersionHandlersLoginEnum(n[len("AppengineVersionHandlersLoginEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToAppengineVersionHandlersAuthFailActionEnum(e appenginepb.AppengineVe
 		return nil
 	}
 	if n, ok := appenginepb.AppengineVersionHandlersAuthFailActionEnum_name[int32(e)]; ok {
-		e := appengine.VersionHandlersAuthFailActionEnum(n[len("VersionHandlersAuthFailActionEnum"):])
+		e := appengine.VersionHandlersAuthFailActionEnum(n[len("AppengineVersionHandlersAuthFailActionEnum"):])
 		return &e
 	}
 	return nil
@@ -91,7 +91,7 @@ func ProtoToAppengineVersionHandlersRedirectHttpResponseCodeEnum(e appenginepb.A
 		return nil
 	}
 	if n, ok := appenginepb.AppengineVersionHandlersRedirectHttpResponseCodeEnum_name[int32(e)]; ok {
-		e := appengine.VersionHandlersRedirectHttpResponseCodeEnum(n[len("VersionHandlersRedirectHttpResponseCodeEnum"):])
+		e := appengine.VersionHandlersRedirectHttpResponseCodeEnum(n[len("AppengineVersionHandlersRedirectHttpResponseCodeEnum"):])
 		return &e
 	}
 	return nil
@@ -103,7 +103,7 @@ func ProtoToAppengineVersionErrorHandlersErrorCodeEnum(e appenginepb.AppengineVe
 		return nil
 	}
 	if n, ok := appenginepb.AppengineVersionErrorHandlersErrorCodeEnum_name[int32(e)]; ok {
-		e := appengine.VersionErrorHandlersErrorCodeEnum(n[len("VersionErrorHandlersErrorCodeEnum"):])
+		e := appengine.VersionErrorHandlersErrorCodeEnum(n[len("AppengineVersionErrorHandlersErrorCodeEnum"):])
 		return &e
 	}
 	return nil
@@ -115,7 +115,7 @@ func ProtoToAppengineVersionApiConfigAuthFailActionEnum(e appenginepb.AppengineV
 		return nil
 	}
 	if n, ok := appenginepb.AppengineVersionApiConfigAuthFailActionEnum_name[int32(e)]; ok {
-		e := appengine.VersionApiConfigAuthFailActionEnum(n[len("VersionApiConfigAuthFailActionEnum"):])
+		e := appengine.VersionApiConfigAuthFailActionEnum(n[len("AppengineVersionApiConfigAuthFailActionEnum"):])
 		return &e
 	}
 	return nil
@@ -127,7 +127,7 @@ func ProtoToAppengineVersionApiConfigLoginEnum(e appenginepb.AppengineVersionApi
 		return nil
 	}
 	if n, ok := appenginepb.AppengineVersionApiConfigLoginEnum_name[int32(e)]; ok {
-		e := appengine.VersionApiConfigLoginEnum(n[len("VersionApiConfigLoginEnum"):])
+		e := appengine.VersionApiConfigLoginEnum(n[len("AppengineVersionApiConfigLoginEnum"):])
 		return &e
 	}
 	return nil
@@ -139,7 +139,7 @@ func ProtoToAppengineVersionApiConfigSecurityLevelEnum(e appenginepb.AppengineVe
 		return nil
 	}
 	if n, ok := appenginepb.AppengineVersionApiConfigSecurityLevelEnum_name[int32(e)]; ok {
-		e := appengine.VersionApiConfigSecurityLevelEnum(n[len("VersionApiConfigSecurityLevelEnum"):])
+		e := appengine.VersionApiConfigSecurityLevelEnum(n[len("AppengineVersionApiConfigSecurityLevelEnum"):])
 		return &e
 	}
 	return nil

@@ -31,7 +31,7 @@ func ProtoToDataprocJobStatusStateEnum(e dataprocpb.DataprocJobStatusStateEnum) 
 		return nil
 	}
 	if n, ok := dataprocpb.DataprocJobStatusStateEnum_name[int32(e)]; ok {
-		e := dataproc.JobStatusStateEnum(n[len("JobStatusStateEnum"):])
+		e := dataproc.JobStatusStateEnum(n[len("DataprocJobStatusStateEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToDataprocJobStatusSubstateEnum(e dataprocpb.DataprocJobStatusSubstate
 		return nil
 	}
 	if n, ok := dataprocpb.DataprocJobStatusSubstateEnum_name[int32(e)]; ok {
-		e := dataproc.JobStatusSubstateEnum(n[len("JobStatusSubstateEnum"):])
+		e := dataproc.JobStatusSubstateEnum(n[len("DataprocJobStatusSubstateEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToDataprocJobStatusHistoryStateEnum(e dataprocpb.DataprocJobStatusHist
 		return nil
 	}
 	if n, ok := dataprocpb.DataprocJobStatusHistoryStateEnum_name[int32(e)]; ok {
-		e := dataproc.JobStatusHistoryStateEnum(n[len("JobStatusHistoryStateEnum"):])
+		e := dataproc.JobStatusHistoryStateEnum(n[len("DataprocJobStatusHistoryStateEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToDataprocJobStatusHistorySubstateEnum(e dataprocpb.DataprocJobStatusH
 		return nil
 	}
 	if n, ok := dataprocpb.DataprocJobStatusHistorySubstateEnum_name[int32(e)]; ok {
-		e := dataproc.JobStatusHistorySubstateEnum(n[len("JobStatusHistorySubstateEnum"):])
+		e := dataproc.JobStatusHistorySubstateEnum(n[len("DataprocJobStatusHistorySubstateEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToDataprocJobYarnApplicationsStateEnum(e dataprocpb.DataprocJobYarnApp
 		return nil
 	}
 	if n, ok := dataprocpb.DataprocJobYarnApplicationsStateEnum_name[int32(e)]; ok {
-		e := dataproc.JobYarnApplicationsStateEnum(n[len("JobYarnApplicationsStateEnum"):])
+		e := dataproc.JobYarnApplicationsStateEnum(n[len("DataprocJobYarnApplicationsStateEnum"):])
 		return &e
 	}
 	return nil

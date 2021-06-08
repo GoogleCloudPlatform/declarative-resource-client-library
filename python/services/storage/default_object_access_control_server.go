@@ -31,7 +31,7 @@ func ProtoToStorageDefaultObjectAccessControlProjectTeamTeamEnum(e storagepb.Sto
 		return nil
 	}
 	if n, ok := storagepb.StorageDefaultObjectAccessControlProjectTeamTeamEnum_name[int32(e)]; ok {
-		e := storage.DefaultObjectAccessControlProjectTeamTeamEnum(n[len("DefaultObjectAccessControlProjectTeamTeamEnum"):])
+		e := storage.DefaultObjectAccessControlProjectTeamTeamEnum(n[len("StorageDefaultObjectAccessControlProjectTeamTeamEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToStorageDefaultObjectAccessControlRoleEnum(e storagepb.StorageDefault
 		return nil
 	}
 	if n, ok := storagepb.StorageDefaultObjectAccessControlRoleEnum_name[int32(e)]; ok {
-		e := storage.DefaultObjectAccessControlRoleEnum(n[len("DefaultObjectAccessControlRoleEnum"):])
+		e := storage.DefaultObjectAccessControlRoleEnum(n[len("StorageDefaultObjectAccessControlRoleEnum"):])
 		return &e
 	}
 	return nil

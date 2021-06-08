@@ -450,7 +450,10 @@ class DiskGuestOsFeature(object):
         if not resource:
             return None
 
-        return DiskGuestOsFeature(type=resource.type, type_alt=resource.type_alt,)
+        return DiskGuestOsFeature(
+            type=DiskGuestOsFeatureTypeEnum.from_proto(resource.type),
+            type_alt=DiskGuestOsFeatureTypeAltEnumArray.from_proto(resource.type_alt),
+        )
 
 
 class DiskGuestOsFeatureArray(object):
@@ -502,10 +505,12 @@ class DiskEncryptionKey(object):
             return None
 
         return DiskEncryptionKey(
-            raw_key=resource.raw_key,
-            kms_key_name=resource.kms_key_name,
-            sha256=resource.sha256,
-            kms_key_service_account=resource.kms_key_service_account,
+            raw_key=Primitive.from_proto(resource.raw_key),
+            kms_key_name=Primitive.from_proto(resource.kms_key_name),
+            sha256=Primitive.from_proto(resource.sha256),
+            kms_key_service_account=Primitive.from_proto(
+                resource.kms_key_service_account
+            ),
         )
 
 
@@ -545,7 +550,12 @@ class DiskGuestOsFeatures(object):
         if not resource:
             return None
 
-        return DiskGuestOsFeatures(type=resource.type, type_alts=resource.type_alts,)
+        return DiskGuestOsFeatures(
+            type=DiskGuestOsFeaturesTypeEnum.from_proto(resource.type),
+            type_alts=DiskGuestOsFeaturesTypeAltsEnumArray.from_proto(
+                resource.type_alts
+            ),
+        )
 
 
 class DiskGuestOsFeaturesArray(object):

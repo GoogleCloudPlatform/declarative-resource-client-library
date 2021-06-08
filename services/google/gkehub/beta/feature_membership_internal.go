@@ -26,6 +26,12 @@ import (
 
 func (r *FeatureMembership) validate() error {
 
+	if err := dcl.RequiredParameter(r.Membership, "Membership"); err != nil {
+		return err
+	}
+	if err := dcl.RequiredParameter(r.Feature, "Feature"); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.Configmanagement) {
 		if err := r.Configmanagement.validate(); err != nil {
 			return err

@@ -699,19 +699,31 @@ class VersionAutomaticScaling(object):
             return None
 
         return VersionAutomaticScaling(
-            cool_down_period=resource.cool_down_period,
-            cpu_utilization=resource.cpu_utilization,
-            max_concurrent_requests=resource.max_concurrent_requests,
-            max_idle_instances=resource.max_idle_instances,
-            max_total_instances=resource.max_total_instances,
-            max_pending_latency=resource.max_pending_latency,
-            min_idle_instances=resource.min_idle_instances,
-            min_total_instances=resource.min_total_instances,
-            min_pending_latency=resource.min_pending_latency,
-            request_utilization=resource.request_utilization,
-            disk_utilization=resource.disk_utilization,
-            network_utilization=resource.network_utilization,
-            standard_scheduler_settings=resource.standard_scheduler_settings,
+            cool_down_period=Primitive.from_proto(resource.cool_down_period),
+            cpu_utilization=VersionAutomaticScalingCpuUtilization.from_proto(
+                resource.cpu_utilization
+            ),
+            max_concurrent_requests=Primitive.from_proto(
+                resource.max_concurrent_requests
+            ),
+            max_idle_instances=Primitive.from_proto(resource.max_idle_instances),
+            max_total_instances=Primitive.from_proto(resource.max_total_instances),
+            max_pending_latency=Primitive.from_proto(resource.max_pending_latency),
+            min_idle_instances=Primitive.from_proto(resource.min_idle_instances),
+            min_total_instances=Primitive.from_proto(resource.min_total_instances),
+            min_pending_latency=Primitive.from_proto(resource.min_pending_latency),
+            request_utilization=VersionAutomaticScalingRequestUtilization.from_proto(
+                resource.request_utilization
+            ),
+            disk_utilization=VersionAutomaticScalingDiskUtilization.from_proto(
+                resource.disk_utilization
+            ),
+            network_utilization=VersionAutomaticScalingNetworkUtilization.from_proto(
+                resource.network_utilization
+            ),
+            standard_scheduler_settings=VersionAutomaticScalingStandardSchedulerSettings.from_proto(
+                resource.standard_scheduler_settings
+            ),
         )
 
 
@@ -754,8 +766,10 @@ class VersionAutomaticScalingCpuUtilization(object):
             return None
 
         return VersionAutomaticScalingCpuUtilization(
-            aggregation_window_length=resource.aggregation_window_length,
-            target_utilization=resource.target_utilization,
+            aggregation_window_length=Primitive.from_proto(
+                resource.aggregation_window_length
+            ),
+            target_utilization=Primitive.from_proto(resource.target_utilization),
         )
 
 
@@ -802,8 +816,12 @@ class VersionAutomaticScalingRequestUtilization(object):
             return None
 
         return VersionAutomaticScalingRequestUtilization(
-            target_request_count_per_second=resource.target_request_count_per_second,
-            target_concurrent_requests=resource.target_concurrent_requests,
+            target_request_count_per_second=Primitive.from_proto(
+                resource.target_request_count_per_second
+            ),
+            target_concurrent_requests=Primitive.from_proto(
+                resource.target_concurrent_requests
+            ),
         )
 
 
@@ -866,10 +884,18 @@ class VersionAutomaticScalingDiskUtilization(object):
             return None
 
         return VersionAutomaticScalingDiskUtilization(
-            target_write_bytes_per_second=resource.target_write_bytes_per_second,
-            target_write_ops_per_second=resource.target_write_ops_per_second,
-            target_read_bytes_per_second=resource.target_read_bytes_per_second,
-            target_read_ops_per_second=resource.target_read_ops_per_second,
+            target_write_bytes_per_second=Primitive.from_proto(
+                resource.target_write_bytes_per_second
+            ),
+            target_write_ops_per_second=Primitive.from_proto(
+                resource.target_write_ops_per_second
+            ),
+            target_read_bytes_per_second=Primitive.from_proto(
+                resource.target_read_bytes_per_second
+            ),
+            target_read_ops_per_second=Primitive.from_proto(
+                resource.target_read_ops_per_second
+            ),
         )
 
 
@@ -928,10 +954,18 @@ class VersionAutomaticScalingNetworkUtilization(object):
             return None
 
         return VersionAutomaticScalingNetworkUtilization(
-            target_sent_bytes_per_second=resource.target_sent_bytes_per_second,
-            target_sent_packets_per_second=resource.target_sent_packets_per_second,
-            target_received_bytes_per_second=resource.target_received_bytes_per_second,
-            target_received_packets_per_second=resource.target_received_packets_per_second,
+            target_sent_bytes_per_second=Primitive.from_proto(
+                resource.target_sent_bytes_per_second
+            ),
+            target_sent_packets_per_second=Primitive.from_proto(
+                resource.target_sent_packets_per_second
+            ),
+            target_received_bytes_per_second=Primitive.from_proto(
+                resource.target_received_bytes_per_second
+            ),
+            target_received_packets_per_second=Primitive.from_proto(
+                resource.target_received_packets_per_second
+            ),
         )
 
 
@@ -990,10 +1024,14 @@ class VersionAutomaticScalingStandardSchedulerSettings(object):
             return None
 
         return VersionAutomaticScalingStandardSchedulerSettings(
-            target_cpu_utilization=resource.target_cpu_utilization,
-            target_throughput_utilization=resource.target_throughput_utilization,
-            min_instances=resource.min_instances,
-            max_instances=resource.max_instances,
+            target_cpu_utilization=Primitive.from_proto(
+                resource.target_cpu_utilization
+            ),
+            target_throughput_utilization=Primitive.from_proto(
+                resource.target_throughput_utilization
+            ),
+            min_instances=Primitive.from_proto(resource.min_instances),
+            max_instances=Primitive.from_proto(resource.max_instances),
         )
 
 
@@ -1038,7 +1076,8 @@ class VersionBasicScaling(object):
             return None
 
         return VersionBasicScaling(
-            idle_timeout=resource.idle_timeout, max_instances=resource.max_instances,
+            idle_timeout=Primitive.from_proto(resource.idle_timeout),
+            max_instances=Primitive.from_proto(resource.max_instances),
         )
 
 
@@ -1073,7 +1112,7 @@ class VersionManualScaling(object):
         if not resource:
             return None
 
-        return VersionManualScaling(instances=resource.instances,)
+        return VersionManualScaling(instances=Primitive.from_proto(resource.instances),)
 
 
 class VersionManualScalingArray(object):
@@ -1127,11 +1166,11 @@ class VersionNetwork(object):
             return None
 
         return VersionNetwork(
-            forwarded_ports=resource.forwarded_ports,
-            instance_tag=resource.instance_tag,
-            name=resource.name,
-            subnetwork_name=resource.subnetwork_name,
-            session_affinity=resource.session_affinity,
+            forwarded_ports=Primitive.from_proto(resource.forwarded_ports),
+            instance_tag=Primitive.from_proto(resource.instance_tag),
+            name=Primitive.from_proto(resource.name),
+            subnetwork_name=Primitive.from_proto(resource.subnetwork_name),
+            session_affinity=Primitive.from_proto(resource.session_affinity),
         )
 
 
@@ -1182,10 +1221,10 @@ class VersionResources(object):
             return None
 
         return VersionResources(
-            cpu=resource.cpu,
-            disk_gb=resource.disk_gb,
-            memory_gb=resource.memory_gb,
-            volumes=resource.volumes,
+            cpu=Primitive.from_proto(resource.cpu),
+            disk_gb=Primitive.from_proto(resource.disk_gb),
+            memory_gb=Primitive.from_proto(resource.memory_gb),
+            volumes=VersionResourcesVolumesArray.from_proto(resource.volumes),
         )
 
 
@@ -1229,9 +1268,9 @@ class VersionResourcesVolumes(object):
             return None
 
         return VersionResourcesVolumes(
-            name=resource.name,
-            volume_type=resource.volume_type,
-            size_gb=resource.size_gb,
+            name=Primitive.from_proto(resource.name),
+            volume_type=Primitive.from_proto(resource.volume_type),
+            size_gb=Primitive.from_proto(resource.size_gb),
         )
 
 
@@ -1316,14 +1355,20 @@ class VersionHandlers(object):
             return None
 
         return VersionHandlers(
-            url_regex=resource.url_regex,
-            static_files=resource.static_files,
-            script=resource.script,
-            api_endpoint=resource.api_endpoint,
-            security_level=resource.security_level,
-            login=resource.login,
-            auth_fail_action=resource.auth_fail_action,
-            redirect_http_response_code=resource.redirect_http_response_code,
+            url_regex=Primitive.from_proto(resource.url_regex),
+            static_files=VersionHandlersStaticFiles.from_proto(resource.static_files),
+            script=VersionHandlersScript.from_proto(resource.script),
+            api_endpoint=VersionHandlersApiEndpoint.from_proto(resource.api_endpoint),
+            security_level=VersionHandlersSecurityLevelEnum.from_proto(
+                resource.security_level
+            ),
+            login=VersionHandlersLoginEnum.from_proto(resource.login),
+            auth_fail_action=VersionHandlersAuthFailActionEnum.from_proto(
+                resource.auth_fail_action
+            ),
+            redirect_http_response_code=VersionHandlersRedirectHttpResponseCodeEnum.from_proto(
+                resource.redirect_http_response_code
+            ),
         )
 
 
@@ -1388,13 +1433,13 @@ class VersionHandlersStaticFiles(object):
             return None
 
         return VersionHandlersStaticFiles(
-            path=resource.path,
-            upload_path_regex=resource.upload_path_regex,
-            http_headers=resource.http_headers,
-            mime_type=resource.mime_type,
-            expiration=resource.expiration,
-            require_matching_file=resource.require_matching_file,
-            application_readable=resource.application_readable,
+            path=Primitive.from_proto(resource.path),
+            upload_path_regex=Primitive.from_proto(resource.upload_path_regex),
+            http_headers=Primitive.from_proto(resource.http_headers),
+            mime_type=Primitive.from_proto(resource.mime_type),
+            expiration=Primitive.from_proto(resource.expiration),
+            require_matching_file=Primitive.from_proto(resource.require_matching_file),
+            application_readable=Primitive.from_proto(resource.application_readable),
         )
 
 
@@ -1429,7 +1474,9 @@ class VersionHandlersScript(object):
         if not resource:
             return None
 
-        return VersionHandlersScript(script_path=resource.script_path,)
+        return VersionHandlersScript(
+            script_path=Primitive.from_proto(resource.script_path),
+        )
 
 
 class VersionHandlersScriptArray(object):
@@ -1463,7 +1510,9 @@ class VersionHandlersApiEndpoint(object):
         if not resource:
             return None
 
-        return VersionHandlersApiEndpoint(script_path=resource.script_path,)
+        return VersionHandlersApiEndpoint(
+            script_path=Primitive.from_proto(resource.script_path),
+        )
 
 
 class VersionHandlersApiEndpointArray(object):
@@ -1508,9 +1557,11 @@ class VersionErrorHandlers(object):
             return None
 
         return VersionErrorHandlers(
-            error_code=resource.error_code,
-            static_file=resource.static_file,
-            mime_type=resource.mime_type,
+            error_code=VersionErrorHandlersErrorCodeEnum.from_proto(
+                resource.error_code
+            ),
+            static_file=Primitive.from_proto(resource.static_file),
+            mime_type=Primitive.from_proto(resource.mime_type),
         )
 
 
@@ -1548,7 +1599,10 @@ class VersionLibraries(object):
         if not resource:
             return None
 
-        return VersionLibraries(name=resource.name, version=resource.version,)
+        return VersionLibraries(
+            name=Primitive.from_proto(resource.name),
+            version=Primitive.from_proto(resource.version),
+        )
 
 
 class VersionLibrariesArray(object):
@@ -1606,11 +1660,15 @@ class VersionApiConfig(object):
             return None
 
         return VersionApiConfig(
-            auth_fail_action=resource.auth_fail_action,
-            login=resource.login,
-            script=resource.script,
-            security_level=resource.security_level,
-            url=resource.url,
+            auth_fail_action=VersionApiConfigAuthFailActionEnum.from_proto(
+                resource.auth_fail_action
+            ),
+            login=VersionApiConfigLoginEnum.from_proto(resource.login),
+            script=Primitive.from_proto(resource.script),
+            security_level=VersionApiConfigSecurityLevelEnum.from_proto(
+                resource.security_level
+            ),
+            url=Primitive.from_proto(resource.url),
         )
 
 
@@ -1673,10 +1731,12 @@ class VersionDeployment(object):
             return None
 
         return VersionDeployment(
-            files=resource.files,
-            container=resource.container,
-            zip=resource.zip,
-            cloud_build_options=resource.cloud_build_options,
+            files=Primitive.from_proto(resource.files),
+            container=VersionDeploymentContainer.from_proto(resource.container),
+            zip=VersionDeploymentZip.from_proto(resource.zip),
+            cloud_build_options=VersionDeploymentCloudBuildOptions.from_proto(
+                resource.cloud_build_options
+            ),
         )
 
 
@@ -1720,9 +1780,9 @@ class VersionDeploymentFiles(object):
             return None
 
         return VersionDeploymentFiles(
-            source_url=resource.source_url,
-            sha1_sum=resource.sha1_sum,
-            mime_type=resource.mime_type,
+            source_url=Primitive.from_proto(resource.source_url),
+            sha1_sum=Primitive.from_proto(resource.sha1_sum),
+            mime_type=Primitive.from_proto(resource.mime_type),
         )
 
 
@@ -1757,7 +1817,7 @@ class VersionDeploymentContainer(object):
         if not resource:
             return None
 
-        return VersionDeploymentContainer(image=resource.image,)
+        return VersionDeploymentContainer(image=Primitive.from_proto(resource.image),)
 
 
 class VersionDeploymentContainerArray(object):
@@ -1795,7 +1855,8 @@ class VersionDeploymentZip(object):
             return None
 
         return VersionDeploymentZip(
-            source_url=resource.source_url, files_count=resource.files_count,
+            source_url=Primitive.from_proto(resource.source_url),
+            files_count=Primitive.from_proto(resource.files_count),
         )
 
 
@@ -1834,8 +1895,8 @@ class VersionDeploymentCloudBuildOptions(object):
             return None
 
         return VersionDeploymentCloudBuildOptions(
-            app_yaml_path=resource.app_yaml_path,
-            cloud_build_timeout=resource.cloud_build_timeout,
+            app_yaml_path=Primitive.from_proto(resource.app_yaml_path),
+            cloud_build_timeout=Primitive.from_proto(resource.cloud_build_timeout),
         )
 
 
@@ -1898,13 +1959,13 @@ class VersionHealthCheck(object):
             return None
 
         return VersionHealthCheck(
-            disable_health_check=resource.disable_health_check,
-            host=resource.host,
-            healthy_threshold=resource.healthy_threshold,
-            unhealthy_threshold=resource.unhealthy_threshold,
-            restart_threshold=resource.restart_threshold,
-            check_interval=resource.check_interval,
-            timeout=resource.timeout,
+            disable_health_check=Primitive.from_proto(resource.disable_health_check),
+            host=Primitive.from_proto(resource.host),
+            healthy_threshold=Primitive.from_proto(resource.healthy_threshold),
+            unhealthy_threshold=Primitive.from_proto(resource.unhealthy_threshold),
+            restart_threshold=Primitive.from_proto(resource.restart_threshold),
+            check_interval=Primitive.from_proto(resource.check_interval),
+            timeout=Primitive.from_proto(resource.timeout),
         )
 
 
@@ -1967,13 +2028,13 @@ class VersionReadinessCheck(object):
             return None
 
         return VersionReadinessCheck(
-            path=resource.path,
-            host=resource.host,
-            failure_threshold=resource.failure_threshold,
-            success_threshold=resource.success_threshold,
-            check_interval=resource.check_interval,
-            timeout=resource.timeout,
-            app_start_timeout=resource.app_start_timeout,
+            path=Primitive.from_proto(resource.path),
+            host=Primitive.from_proto(resource.host),
+            failure_threshold=Primitive.from_proto(resource.failure_threshold),
+            success_threshold=Primitive.from_proto(resource.success_threshold),
+            check_interval=Primitive.from_proto(resource.check_interval),
+            timeout=Primitive.from_proto(resource.timeout),
+            app_start_timeout=Primitive.from_proto(resource.app_start_timeout),
         )
 
 
@@ -2036,13 +2097,13 @@ class VersionLivenessCheck(object):
             return None
 
         return VersionLivenessCheck(
-            path=resource.path,
-            host=resource.host,
-            failure_threshold=resource.failure_threshold,
-            success_threshold=resource.success_threshold,
-            check_interval=resource.check_interval,
-            timeout=resource.timeout,
-            initial_delay=resource.initial_delay,
+            path=Primitive.from_proto(resource.path),
+            host=Primitive.from_proto(resource.host),
+            failure_threshold=Primitive.from_proto(resource.failure_threshold),
+            success_threshold=Primitive.from_proto(resource.success_threshold),
+            check_interval=Primitive.from_proto(resource.check_interval),
+            timeout=Primitive.from_proto(resource.timeout),
+            initial_delay=Primitive.from_proto(resource.initial_delay),
         )
 
 
@@ -2077,7 +2138,7 @@ class VersionEntrypoint(object):
         if not resource:
             return None
 
-        return VersionEntrypoint(shell=resource.shell,)
+        return VersionEntrypoint(shell=Primitive.from_proto(resource.shell),)
 
 
 class VersionEntrypointArray(object):
@@ -2111,7 +2172,7 @@ class VersionVPCAccessConnector(object):
         if not resource:
             return None
 
-        return VersionVPCAccessConnector(name=resource.name,)
+        return VersionVPCAccessConnector(name=Primitive.from_proto(resource.name),)
 
 
 class VersionVPCAccessConnectorArray(object):

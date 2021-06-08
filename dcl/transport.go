@@ -50,7 +50,7 @@ func SendRequest(ctx context.Context, c *Config, verb, url string, body *bytes.B
 		return nil, err
 	}
 
-	mtls, err := mTLSEndpoint(u)
+	mtls, err := GetMTLSEndpoint(u)
 	if err != nil {
 		return nil, err
 	}
@@ -230,8 +230,8 @@ func ResponseBodyAsJSON(retry *RetryDetails) (map[string]interface{}, error) {
 	return m, nil
 }
 
-// mTLSEndpoint returns the API endpoint used for mTLS authentication.
-func mTLSEndpoint(baseEndpoint string) (string, error) {
+// GetMTLSEndpoint returns the API endpoint used for mTLS authentication.
+func GetMTLSEndpoint(baseEndpoint string) (string, error) {
 	u, err := url.Parse(baseEndpoint)
 	if err != nil {
 		return "", err

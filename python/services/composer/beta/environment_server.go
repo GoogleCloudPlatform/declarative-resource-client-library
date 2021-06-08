@@ -31,7 +31,7 @@ func ProtoToComposerBetaEnvironmentStateEnum(e betapb.ComposerBetaEnvironmentSta
 		return nil
 	}
 	if n, ok := betapb.ComposerBetaEnvironmentStateEnum_name[int32(e)]; ok {
-		e := beta.EnvironmentStateEnum(n[len("EnvironmentStateEnum"):])
+		e := beta.EnvironmentStateEnum(n[len("ComposerBetaEnvironmentStateEnum"):])
 		return &e
 	}
 	return nil

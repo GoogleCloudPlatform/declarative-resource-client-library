@@ -31,7 +31,7 @@ func ProtoToComputeBetaBackendServiceBackendsBalancingModeEnum(e betapb.ComputeB
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaBackendServiceBackendsBalancingModeEnum_name[int32(e)]; ok {
-		e := beta.BackendServiceBackendsBalancingModeEnum(n[len("BackendServiceBackendsBalancingModeEnum"):])
+		e := beta.BackendServiceBackendsBalancingModeEnum(n[len("ComputeBetaBackendServiceBackendsBalancingModeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeBetaBackendServiceProtocolEnum(e betapb.ComputeBetaBackendSer
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaBackendServiceProtocolEnum_name[int32(e)]; ok {
-		e := beta.BackendServiceProtocolEnum(n[len("BackendServiceProtocolEnum"):])
+		e := beta.BackendServiceProtocolEnum(n[len("ComputeBetaBackendServiceProtocolEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeBetaBackendServiceSessionAffinityEnum(e betapb.ComputeBetaBac
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaBackendServiceSessionAffinityEnum_name[int32(e)]; ok {
-		e := beta.BackendServiceSessionAffinityEnum(n[len("BackendServiceSessionAffinityEnum"):])
+		e := beta.BackendServiceSessionAffinityEnum(n[len("ComputeBetaBackendServiceSessionAffinityEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeBetaBackendServiceLoadBalancingSchemeEnum(e betapb.ComputeBet
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaBackendServiceLoadBalancingSchemeEnum_name[int32(e)]; ok {
-		e := beta.BackendServiceLoadBalancingSchemeEnum(n[len("BackendServiceLoadBalancingSchemeEnum"):])
+		e := beta.BackendServiceLoadBalancingSchemeEnum(n[len("ComputeBetaBackendServiceLoadBalancingSchemeEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToComputeBetaBackendServiceCdnPolicyCacheModeEnum(e betapb.ComputeBeta
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaBackendServiceCdnPolicyCacheModeEnum_name[int32(e)]; ok {
-		e := beta.BackendServiceCdnPolicyCacheModeEnum(n[len("BackendServiceCdnPolicyCacheModeEnum"):])
+		e := beta.BackendServiceCdnPolicyCacheModeEnum(n[len("ComputeBetaBackendServiceCdnPolicyCacheModeEnum"):])
 		return &e
 	}
 	return nil
@@ -91,7 +91,7 @@ func ProtoToComputeBetaBackendServiceLocalityLbPolicyEnum(e betapb.ComputeBetaBa
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaBackendServiceLocalityLbPolicyEnum_name[int32(e)]; ok {
-		e := beta.BackendServiceLocalityLbPolicyEnum(n[len("BackendServiceLocalityLbPolicyEnum"):])
+		e := beta.BackendServiceLocalityLbPolicyEnum(n[len("ComputeBetaBackendServiceLocalityLbPolicyEnum"):])
 		return &e
 	}
 	return nil
@@ -103,7 +103,7 @@ func ProtoToComputeBetaBackendServiceSubsettingPolicyEnum(e betapb.ComputeBetaBa
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaBackendServiceSubsettingPolicyEnum_name[int32(e)]; ok {
-		e := beta.BackendServiceSubsettingPolicyEnum(n[len("BackendServiceSubsettingPolicyEnum"):])
+		e := beta.BackendServiceSubsettingPolicyEnum(n[len("ComputeBetaBackendServiceSubsettingPolicyEnum"):])
 		return &e
 	}
 	return nil
@@ -115,7 +115,7 @@ func ProtoToComputeBetaBackendServiceConnectionTrackingPolicyTrackingModeEnum(e 
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaBackendServiceConnectionTrackingPolicyTrackingModeEnum_name[int32(e)]; ok {
-		e := beta.BackendServiceConnectionTrackingPolicyTrackingModeEnum(n[len("BackendServiceConnectionTrackingPolicyTrackingModeEnum"):])
+		e := beta.BackendServiceConnectionTrackingPolicyTrackingModeEnum(n[len("ComputeBetaBackendServiceConnectionTrackingPolicyTrackingModeEnum"):])
 		return &e
 	}
 	return nil
@@ -127,7 +127,7 @@ func ProtoToComputeBetaBackendServiceConnectionTrackingPolicyConnectionPersisten
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaBackendServiceConnectionTrackingPolicyConnectionPersistenceOnUnhealthyBackendsEnum_name[int32(e)]; ok {
-		e := beta.BackendServiceConnectionTrackingPolicyConnectionPersistenceOnUnhealthyBackendsEnum(n[len("BackendServiceConnectionTrackingPolicyConnectionPersistenceOnUnhealthyBackendsEnum"):])
+		e := beta.BackendServiceConnectionTrackingPolicyConnectionPersistenceOnUnhealthyBackendsEnum(n[len("ComputeBetaBackendServiceConnectionTrackingPolicyConnectionPersistenceOnUnhealthyBackendsEnum"):])
 		return &e
 	}
 	return nil

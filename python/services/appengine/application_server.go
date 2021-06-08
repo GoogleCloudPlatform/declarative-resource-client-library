@@ -32,7 +32,7 @@ func ProtoToAppengineApplicationDatabaseTypeEnum(e appenginepb.AppengineApplicat
 		return nil
 	}
 	if n, ok := appenginepb.AppengineApplicationDatabaseTypeEnum_name[int32(e)]; ok {
-		e := appengine.ApplicationDatabaseTypeEnum(n[len("ApplicationDatabaseTypeEnum"):])
+		e := appengine.ApplicationDatabaseTypeEnum(n[len("AppengineApplicationDatabaseTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -44,7 +44,7 @@ func ProtoToAppengineApplicationServingStatusEnum(e appenginepb.AppengineApplica
 		return nil
 	}
 	if n, ok := appenginepb.AppengineApplicationServingStatusEnum_name[int32(e)]; ok {
-		e := appengine.ApplicationServingStatusEnum(n[len("ApplicationServingStatusEnum"):])
+		e := appengine.ApplicationServingStatusEnum(n[len("AppengineApplicationServingStatusEnum"):])
 		return &e
 	}
 	return nil

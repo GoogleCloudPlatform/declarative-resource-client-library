@@ -31,7 +31,7 @@ func ProtoToComputeBetaManagedSslCertificateManagedStatusEnum(e betapb.ComputeBe
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaManagedSslCertificateManagedStatusEnum_name[int32(e)]; ok {
-		e := beta.ManagedSslCertificateManagedStatusEnum(n[len("ManagedSslCertificateManagedStatusEnum"):])
+		e := beta.ManagedSslCertificateManagedStatusEnum(n[len("ComputeBetaManagedSslCertificateManagedStatusEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeBetaManagedSslCertificateTypeEnum(e betapb.ComputeBetaManaged
 		return nil
 	}
 	if n, ok := betapb.ComputeBetaManagedSslCertificateTypeEnum_name[int32(e)]; ok {
-		e := beta.ManagedSslCertificateTypeEnum(n[len("ManagedSslCertificateTypeEnum"):])
+		e := beta.ManagedSslCertificateTypeEnum(n[len("ComputeBetaManagedSslCertificateTypeEnum"):])
 		return &e
 	}
 	return nil

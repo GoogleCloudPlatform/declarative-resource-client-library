@@ -384,16 +384,20 @@ class InstanceDisks(object):
             return None
 
         return InstanceDisks(
-            auto_delete=resource.auto_delete,
-            boot=resource.boot,
-            device_name=resource.device_name,
-            disk_encryption_key=resource.disk_encryption_key,
-            index=resource.index,
-            initialize_params=resource.initialize_params,
-            interface=resource.interface,
-            mode=resource.mode,
-            source=resource.source,
-            type=resource.type,
+            auto_delete=Primitive.from_proto(resource.auto_delete),
+            boot=Primitive.from_proto(resource.boot),
+            device_name=Primitive.from_proto(resource.device_name),
+            disk_encryption_key=InstanceDisksDiskEncryptionKey.from_proto(
+                resource.disk_encryption_key
+            ),
+            index=Primitive.from_proto(resource.index),
+            initialize_params=InstanceDisksInitializeParams.from_proto(
+                resource.initialize_params
+            ),
+            interface=InstanceDisksInterfaceEnum.from_proto(resource.interface),
+            mode=InstanceDisksModeEnum.from_proto(resource.mode),
+            source=Primitive.from_proto(resource.source),
+            type=InstanceDisksTypeEnum.from_proto(resource.type),
         )
 
 
@@ -437,9 +441,9 @@ class InstanceDisksDiskEncryptionKey(object):
             return None
 
         return InstanceDisksDiskEncryptionKey(
-            raw_key=resource.raw_key,
-            rsa_encrypted_key=resource.rsa_encrypted_key,
-            sha256=resource.sha256,
+            raw_key=Primitive.from_proto(resource.raw_key),
+            rsa_encrypted_key=Primitive.from_proto(resource.rsa_encrypted_key),
+            sha256=Primitive.from_proto(resource.sha256),
         )
 
 
@@ -502,11 +506,13 @@ class InstanceDisksInitializeParams(object):
             return None
 
         return InstanceDisksInitializeParams(
-            disk_name=resource.disk_name,
-            disk_size_gb=resource.disk_size_gb,
-            disk_type=resource.disk_type,
-            source_image=resource.source_image,
-            source_image_encryption_key=resource.source_image_encryption_key,
+            disk_name=Primitive.from_proto(resource.disk_name),
+            disk_size_gb=Primitive.from_proto(resource.disk_size_gb),
+            disk_type=Primitive.from_proto(resource.disk_type),
+            source_image=Primitive.from_proto(resource.source_image),
+            source_image_encryption_key=InstanceDisksInitializeParamsSourceImageEncryptionKey.from_proto(
+                resource.source_image_encryption_key
+            ),
         )
 
 
@@ -547,7 +553,8 @@ class InstanceDisksInitializeParamsSourceImageEncryptionKey(object):
             return None
 
         return InstanceDisksInitializeParamsSourceImageEncryptionKey(
-            raw_key=resource.raw_key, sha256=resource.sha256,
+            raw_key=Primitive.from_proto(resource.raw_key),
+            sha256=Primitive.from_proto(resource.sha256),
         )
 
 
@@ -592,8 +599,8 @@ class InstanceGuestAccelerators(object):
             return None
 
         return InstanceGuestAccelerators(
-            accelerator_count=resource.accelerator_count,
-            accelerator_type=resource.accelerator_type,
+            accelerator_count=Primitive.from_proto(resource.accelerator_count),
+            accelerator_type=Primitive.from_proto(resource.accelerator_type),
         )
 
 
@@ -664,12 +671,16 @@ class InstanceNetworkInterfaces(object):
             return None
 
         return InstanceNetworkInterfaces(
-            access_configs=resource.access_configs,
-            alias_ip_ranges=resource.alias_ip_ranges,
-            name=resource.name,
-            network=resource.network,
-            network_ip=resource.network_ip,
-            subnetwork=resource.subnetwork,
+            access_configs=InstanceNetworkInterfacesAccessConfigsArray.from_proto(
+                resource.access_configs
+            ),
+            alias_ip_ranges=InstanceNetworkInterfacesAliasIPRangesArray.from_proto(
+                resource.alias_ip_ranges
+            ),
+            name=Primitive.from_proto(resource.name),
+            network=Primitive.from_proto(resource.network),
+            network_ip=Primitive.from_proto(resource.network_ip),
+            subnetwork=Primitive.from_proto(resource.subnetwork),
         )
 
 
@@ -713,7 +724,11 @@ class InstanceNetworkInterfacesAccessConfigs(object):
             return None
 
         return InstanceNetworkInterfacesAccessConfigs(
-            name=resource.name, nat_ip=resource.nat_ip, type=resource.type,
+            name=Primitive.from_proto(resource.name),
+            nat_ip=Primitive.from_proto(resource.nat_ip),
+            type=InstanceNetworkInterfacesAccessConfigsTypeEnum.from_proto(
+                resource.type
+            ),
         )
 
 
@@ -754,8 +769,8 @@ class InstanceNetworkInterfacesAliasIPRanges(object):
             return None
 
         return InstanceNetworkInterfacesAliasIPRanges(
-            ip_cidr_range=resource.ip_cidr_range,
-            subnetwork_range_name=resource.subnetwork_range_name,
+            ip_cidr_range=Primitive.from_proto(resource.ip_cidr_range),
+            subnetwork_range_name=Primitive.from_proto(resource.subnetwork_range_name),
         )
 
 
@@ -802,9 +817,9 @@ class InstanceScheduling(object):
             return None
 
         return InstanceScheduling(
-            automatic_restart=resource.automatic_restart,
-            on_host_maintenance=resource.on_host_maintenance,
-            preemptible=resource.preemptible,
+            automatic_restart=Primitive.from_proto(resource.automatic_restart),
+            on_host_maintenance=Primitive.from_proto(resource.on_host_maintenance),
+            preemptible=Primitive.from_proto(resource.preemptible),
         )
 
 
@@ -842,7 +857,10 @@ class InstanceServiceAccounts(object):
         if not resource:
             return None
 
-        return InstanceServiceAccounts(email=resource.email, scopes=resource.scopes,)
+        return InstanceServiceAccounts(
+            email=Primitive.from_proto(resource.email),
+            scopes=Primitive.from_proto(resource.scopes),
+        )
 
 
 class InstanceServiceAccountsArray(object):
@@ -890,9 +908,11 @@ class InstanceShieldedInstanceConfig(object):
             return None
 
         return InstanceShieldedInstanceConfig(
-            enable_secure_boot=resource.enable_secure_boot,
-            enable_vtpm=resource.enable_vtpm,
-            enable_integrity_monitoring=resource.enable_integrity_monitoring,
+            enable_secure_boot=Primitive.from_proto(resource.enable_secure_boot),
+            enable_vtpm=Primitive.from_proto(resource.enable_vtpm),
+            enable_integrity_monitoring=Primitive.from_proto(
+                resource.enable_integrity_monitoring
+            ),
         )
 
 

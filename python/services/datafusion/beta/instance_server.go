@@ -31,7 +31,7 @@ func ProtoToDatafusionBetaInstanceTypeEnum(e betapb.DatafusionBetaInstanceTypeEn
 		return nil
 	}
 	if n, ok := betapb.DatafusionBetaInstanceTypeEnum_name[int32(e)]; ok {
-		e := beta.InstanceTypeEnum(n[len("InstanceTypeEnum"):])
+		e := beta.InstanceTypeEnum(n[len("DatafusionBetaInstanceTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToDatafusionBetaInstanceStateEnum(e betapb.DatafusionBetaInstanceState
 		return nil
 	}
 	if n, ok := betapb.DatafusionBetaInstanceStateEnum_name[int32(e)]; ok {
-		e := beta.InstanceStateEnum(n[len("InstanceStateEnum"):])
+		e := beta.InstanceStateEnum(n[len("DatafusionBetaInstanceStateEnum"):])
 		return &e
 	}
 	return nil

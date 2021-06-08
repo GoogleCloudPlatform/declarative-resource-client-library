@@ -252,18 +252,26 @@ class RouterNats(object):
             return None
 
         return RouterNats(
-            name=resource.name,
-            log_config=resource.log_config,
-            source_subnetwork_ip_ranges_to_nat=resource.source_subnetwork_ip_ranges_to_nat,
-            nat_ips=resource.nat_ips,
-            drain_nat_ips=resource.drain_nat_ips,
-            nat_ip_allocate_option=resource.nat_ip_allocate_option,
-            min_ports_per_vm=resource.min_ports_per_vm,
-            udp_idle_timeout_sec=resource.udp_idle_timeout_sec,
-            icmp_idle_timeout_sec=resource.icmp_idle_timeout_sec,
-            tcp_established_idle_timeout_sec=resource.tcp_established_idle_timeout_sec,
-            tcp_transitory_idle_timeout_sec=resource.tcp_transitory_idle_timeout_sec,
-            subnetworks=resource.subnetworks,
+            name=Primitive.from_proto(resource.name),
+            log_config=RouterNatsLogConfig.from_proto(resource.log_config),
+            source_subnetwork_ip_ranges_to_nat=RouterNatsSourceSubnetworkIPRangesToNatEnum.from_proto(
+                resource.source_subnetwork_ip_ranges_to_nat
+            ),
+            nat_ips=Primitive.from_proto(resource.nat_ips),
+            drain_nat_ips=Primitive.from_proto(resource.drain_nat_ips),
+            nat_ip_allocate_option=RouterNatsNatIPAllocateOptionEnumArray.from_proto(
+                resource.nat_ip_allocate_option
+            ),
+            min_ports_per_vm=Primitive.from_proto(resource.min_ports_per_vm),
+            udp_idle_timeout_sec=Primitive.from_proto(resource.udp_idle_timeout_sec),
+            icmp_idle_timeout_sec=Primitive.from_proto(resource.icmp_idle_timeout_sec),
+            tcp_established_idle_timeout_sec=Primitive.from_proto(
+                resource.tcp_established_idle_timeout_sec
+            ),
+            tcp_transitory_idle_timeout_sec=Primitive.from_proto(
+                resource.tcp_transitory_idle_timeout_sec
+            ),
+            subnetworks=RouterNatsSubnetworksArray.from_proto(resource.subnetworks),
         )
 
 
@@ -301,7 +309,10 @@ class RouterNatsLogConfig(object):
         if not resource:
             return None
 
-        return RouterNatsLogConfig(enable=resource.enable, filter=resource.filter,)
+        return RouterNatsLogConfig(
+            enable=Primitive.from_proto(resource.enable),
+            filter=RouterNatsLogConfigFilterEnum.from_proto(resource.filter),
+        )
 
 
 class RouterNatsLogConfigArray(object):
@@ -351,9 +362,13 @@ class RouterNatsSubnetworks(object):
             return None
 
         return RouterNatsSubnetworks(
-            name=resource.name,
-            source_ip_ranges_to_nat=resource.source_ip_ranges_to_nat,
-            secondary_ip_range_names=resource.secondary_ip_range_names,
+            name=Primitive.from_proto(resource.name),
+            source_ip_ranges_to_nat=Primitive.from_proto(
+                resource.source_ip_ranges_to_nat
+            ),
+            secondary_ip_range_names=Primitive.from_proto(
+                resource.secondary_ip_range_names
+            ),
         )
 
 
@@ -406,10 +421,12 @@ class RouterInterfaces(object):
             return None
 
         return RouterInterfaces(
-            name=resource.name,
-            linked_vpn_tunnel=resource.linked_vpn_tunnel,
-            ip_range=resource.ip_range,
-            management_type=resource.management_type,
+            name=Primitive.from_proto(resource.name),
+            linked_vpn_tunnel=Primitive.from_proto(resource.linked_vpn_tunnel),
+            ip_range=Primitive.from_proto(resource.ip_range),
+            management_type=RouterInterfacesManagementTypeEnum.from_proto(
+                resource.management_type
+            ),
         )
 
 
@@ -496,16 +513,22 @@ class RouterBgpPeers(object):
             return None
 
         return RouterBgpPeers(
-            name=resource.name,
-            interface_name=resource.interface_name,
-            ip_address=resource.ip_address,
-            peer_ip_address=resource.peer_ip_address,
-            peer_asn=resource.peer_asn,
-            advertised_route_priority=resource.advertised_route_priority,
-            advertise_mode=resource.advertise_mode,
-            management_type=resource.management_type,
-            advertised_groups=resource.advertised_groups,
-            advertised_ip_ranges=resource.advertised_ip_ranges,
+            name=Primitive.from_proto(resource.name),
+            interface_name=Primitive.from_proto(resource.interface_name),
+            ip_address=Primitive.from_proto(resource.ip_address),
+            peer_ip_address=Primitive.from_proto(resource.peer_ip_address),
+            peer_asn=Primitive.from_proto(resource.peer_asn),
+            advertised_route_priority=Primitive.from_proto(
+                resource.advertised_route_priority
+            ),
+            advertise_mode=Primitive.from_proto(resource.advertise_mode),
+            management_type=Primitive.from_proto(resource.management_type),
+            advertised_groups=RouterBgpPeersAdvertisedGroupsEnumArray.from_proto(
+                resource.advertised_groups
+            ),
+            advertised_ip_ranges=RouterBgpPeersAdvertisedIPRangesArray.from_proto(
+                resource.advertised_ip_ranges
+            ),
         )
 
 
@@ -544,7 +567,8 @@ class RouterBgpPeersAdvertisedIPRanges(object):
             return None
 
         return RouterBgpPeersAdvertisedIPRanges(
-            range=resource.range, description=resource.description,
+            range=Primitive.from_proto(resource.range),
+            description=Primitive.from_proto(resource.description),
         )
 
 
@@ -599,10 +623,14 @@ class RouterBgp(object):
             return None
 
         return RouterBgp(
-            asn=resource.asn,
-            advertise_mode=resource.advertise_mode,
-            advertised_groups=resource.advertised_groups,
-            advertised_ip_ranges=resource.advertised_ip_ranges,
+            asn=Primitive.from_proto(resource.asn),
+            advertise_mode=RouterBgpAdvertiseModeEnum.from_proto(
+                resource.advertise_mode
+            ),
+            advertised_groups=Primitive.from_proto(resource.advertised_groups),
+            advertised_ip_ranges=RouterBgpAdvertisedIPRangesArray.from_proto(
+                resource.advertised_ip_ranges
+            ),
         )
 
 
@@ -641,7 +669,8 @@ class RouterBgpAdvertisedIPRanges(object):
             return None
 
         return RouterBgpAdvertisedIPRanges(
-            range=resource.range, description=resource.description,
+            range=Primitive.from_proto(resource.range),
+            description=Primitive.from_proto(resource.description),
         )
 
 

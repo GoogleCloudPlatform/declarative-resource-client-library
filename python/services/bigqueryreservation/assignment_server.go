@@ -31,7 +31,7 @@ func ProtoToBigqueryreservationAssignmentJobTypeEnum(e bigqueryreservationpb.Big
 		return nil
 	}
 	if n, ok := bigqueryreservationpb.BigqueryreservationAssignmentJobTypeEnum_name[int32(e)]; ok {
-		e := bigqueryreservation.AssignmentJobTypeEnum(n[len("AssignmentJobTypeEnum"):])
+		e := bigqueryreservation.AssignmentJobTypeEnum(n[len("BigqueryreservationAssignmentJobTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToBigqueryreservationAssignmentStateEnum(e bigqueryreservationpb.Bigqu
 		return nil
 	}
 	if n, ok := bigqueryreservationpb.BigqueryreservationAssignmentStateEnum_name[int32(e)]; ok {
-		e := bigqueryreservation.AssignmentStateEnum(n[len("AssignmentStateEnum"):])
+		e := bigqueryreservation.AssignmentStateEnum(n[len("BigqueryreservationAssignmentStateEnum"):])
 		return &e
 	}
 	return nil

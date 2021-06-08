@@ -745,7 +745,7 @@ func diffSnapshot(c *Client, desired, actual *Snapshot, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.License, actual.License, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("License")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.License, actual.License, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Licenses")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

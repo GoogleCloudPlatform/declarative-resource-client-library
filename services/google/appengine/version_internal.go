@@ -3606,7 +3606,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3844,7 +3844,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VPCAccessConnector, actual.VPCAccessConnector, dcl.Info{ObjectFunction: compareVersionVPCAccessConnectorNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("VPCAccessConnector")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VPCAccessConnector, actual.VPCAccessConnector, dcl.Info{ObjectFunction: compareVersionVPCAccessConnectorNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("VpcAccessConnector")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

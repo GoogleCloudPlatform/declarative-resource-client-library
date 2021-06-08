@@ -31,7 +31,7 @@ func ProtoToRedisBetaInstanceStateEnum(e betapb.RedisBetaInstanceStateEnum) *bet
 		return nil
 	}
 	if n, ok := betapb.RedisBetaInstanceStateEnum_name[int32(e)]; ok {
-		e := beta.InstanceStateEnum(n[len("InstanceStateEnum"):])
+		e := beta.InstanceStateEnum(n[len("RedisBetaInstanceStateEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToRedisBetaInstanceTierEnum(e betapb.RedisBetaInstanceTierEnum) *beta.
 		return nil
 	}
 	if n, ok := betapb.RedisBetaInstanceTierEnum_name[int32(e)]; ok {
-		e := beta.InstanceTierEnum(n[len("InstanceTierEnum"):])
+		e := beta.InstanceTierEnum(n[len("RedisBetaInstanceTierEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToRedisBetaInstanceConnectModeEnum(e betapb.RedisBetaInstanceConnectMo
 		return nil
 	}
 	if n, ok := betapb.RedisBetaInstanceConnectModeEnum_name[int32(e)]; ok {
-		e := beta.InstanceConnectModeEnum(n[len("InstanceConnectModeEnum"):])
+		e := beta.InstanceConnectModeEnum(n[len("RedisBetaInstanceConnectModeEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToRedisBetaInstanceTransitEncryptionModeEnum(e betapb.RedisBetaInstanc
 		return nil
 	}
 	if n, ok := betapb.RedisBetaInstanceTransitEncryptionModeEnum_name[int32(e)]; ok {
-		e := beta.InstanceTransitEncryptionModeEnum(n[len("InstanceTransitEncryptionModeEnum"):])
+		e := beta.InstanceTransitEncryptionModeEnum(n[len("RedisBetaInstanceTransitEncryptionModeEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToRedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum(e b
 		return nil
 	}
 	if n, ok := betapb.RedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum_name[int32(e)]; ok {
-		e := beta.InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum(n[len("InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum"):])
+		e := beta.InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum(n[len("RedisBetaInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum"):])
 		return &e
 	}
 	return nil

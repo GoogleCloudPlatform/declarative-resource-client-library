@@ -790,14 +790,14 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterPeerUpdateOperation")}, fn.AddNest("IPAddress")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterPeerUpdateOperation")}, fn.AddNest("IpAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PeerIPAddress, actual.PeerIPAddress, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterPeerUpdateOperation")}, fn.AddNest("PeerIPAddress")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PeerIPAddress, actual.PeerIPAddress, dcl.Info{OperationSelector: dcl.TriggersOperation("updateRouterPeerUpdateOperation")}, fn.AddNest("PeerIpAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -839,7 +839,7 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AdvertisedIPRanges, actual.AdvertisedIPRanges, dcl.Info{ObjectFunction: compareRouterPeerAdvertisedIPRangesNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterPeerUpdateOperation")}, fn.AddNest("AdvertisedIPRanges")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdvertisedIPRanges, actual.AdvertisedIPRanges, dcl.Info{ObjectFunction: compareRouterPeerAdvertisedIPRangesNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterPeerUpdateOperation")}, fn.AddNest("AdvertisedIpRanges")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

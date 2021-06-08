@@ -31,7 +31,7 @@ func ProtoToCloudfunctionsFunctionStatusEnum(e cloudfunctionspb.CloudfunctionsFu
 		return nil
 	}
 	if n, ok := cloudfunctionspb.CloudfunctionsFunctionStatusEnum_name[int32(e)]; ok {
-		e := cloudfunctions.FunctionStatusEnum(n[len("FunctionStatusEnum"):])
+		e := cloudfunctions.FunctionStatusEnum(n[len("CloudfunctionsFunctionStatusEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToCloudfunctionsFunctionVPCConnectorEgressSettingsEnum(e cloudfunction
 		return nil
 	}
 	if n, ok := cloudfunctionspb.CloudfunctionsFunctionVPCConnectorEgressSettingsEnum_name[int32(e)]; ok {
-		e := cloudfunctions.FunctionVPCConnectorEgressSettingsEnum(n[len("FunctionVPCConnectorEgressSettingsEnum"):])
+		e := cloudfunctions.FunctionVPCConnectorEgressSettingsEnum(n[len("CloudfunctionsFunctionVPCConnectorEgressSettingsEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToCloudfunctionsFunctionIngressSettingsEnum(e cloudfunctionspb.Cloudfu
 		return nil
 	}
 	if n, ok := cloudfunctionspb.CloudfunctionsFunctionIngressSettingsEnum_name[int32(e)]; ok {
-		e := cloudfunctions.FunctionIngressSettingsEnum(n[len("FunctionIngressSettingsEnum"):])
+		e := cloudfunctions.FunctionIngressSettingsEnum(n[len("CloudfunctionsFunctionIngressSettingsEnum"):])
 		return &e
 	}
 	return nil

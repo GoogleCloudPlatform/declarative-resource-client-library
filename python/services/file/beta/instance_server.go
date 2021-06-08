@@ -31,7 +31,7 @@ func ProtoToFileBetaInstanceStateEnum(e betapb.FileBetaInstanceStateEnum) *beta.
 		return nil
 	}
 	if n, ok := betapb.FileBetaInstanceStateEnum_name[int32(e)]; ok {
-		e := beta.InstanceStateEnum(n[len("InstanceStateEnum"):])
+		e := beta.InstanceStateEnum(n[len("FileBetaInstanceStateEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToFileBetaInstanceTierEnum(e betapb.FileBetaInstanceTierEnum) *beta.In
 		return nil
 	}
 	if n, ok := betapb.FileBetaInstanceTierEnum_name[int32(e)]; ok {
-		e := beta.InstanceTierEnum(n[len("InstanceTierEnum"):])
+		e := beta.InstanceTierEnum(n[len("FileBetaInstanceTierEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToFileBetaInstanceFileSharesNfsExportOptionsAccessModeEnum(e betapb.Fi
 		return nil
 	}
 	if n, ok := betapb.FileBetaInstanceFileSharesNfsExportOptionsAccessModeEnum_name[int32(e)]; ok {
-		e := beta.InstanceFileSharesNfsExportOptionsAccessModeEnum(n[len("InstanceFileSharesNfsExportOptionsAccessModeEnum"):])
+		e := beta.InstanceFileSharesNfsExportOptionsAccessModeEnum(n[len("FileBetaInstanceFileSharesNfsExportOptionsAccessModeEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToFileBetaInstanceFileSharesNfsExportOptionsSquashModeEnum(e betapb.Fi
 		return nil
 	}
 	if n, ok := betapb.FileBetaInstanceFileSharesNfsExportOptionsSquashModeEnum_name[int32(e)]; ok {
-		e := beta.InstanceFileSharesNfsExportOptionsSquashModeEnum(n[len("InstanceFileSharesNfsExportOptionsSquashModeEnum"):])
+		e := beta.InstanceFileSharesNfsExportOptionsSquashModeEnum(n[len("FileBetaInstanceFileSharesNfsExportOptionsSquashModeEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToFileBetaInstanceNetworksModesEnum(e betapb.FileBetaInstanceNetworksM
 		return nil
 	}
 	if n, ok := betapb.FileBetaInstanceNetworksModesEnum_name[int32(e)]; ok {
-		e := beta.InstanceNetworksModesEnum(n[len("InstanceNetworksModesEnum"):])
+		e := beta.InstanceNetworksModesEnum(n[len("FileBetaInstanceNetworksModesEnum"):])
 		return &e
 	}
 	return nil

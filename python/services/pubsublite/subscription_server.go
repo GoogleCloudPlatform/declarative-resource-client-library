@@ -31,7 +31,7 @@ func ProtoToPubsubliteSubscriptionDeliveryConfigDeliveryRequirementEnum(e pubsub
 		return nil
 	}
 	if n, ok := pubsublitepb.PubsubliteSubscriptionDeliveryConfigDeliveryRequirementEnum_name[int32(e)]; ok {
-		e := pubsublite.SubscriptionDeliveryConfigDeliveryRequirementEnum(n[len("SubscriptionDeliveryConfigDeliveryRequirementEnum"):])
+		e := pubsublite.SubscriptionDeliveryConfigDeliveryRequirementEnum(n[len("PubsubliteSubscriptionDeliveryConfigDeliveryRequirementEnum"):])
 		return &e
 	}
 	return nil

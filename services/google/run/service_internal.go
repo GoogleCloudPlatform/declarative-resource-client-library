@@ -5175,7 +5175,7 @@ func compareServiceMetadataNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{ObjectFunction: compareServiceMetadataCreateTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{ObjectFunction: compareServiceMetadataCreateTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5203,7 +5203,7 @@ func compareServiceMetadataNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{ObjectFunction: compareServiceMetadataDeleteTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{ObjectFunction: compareServiceMetadataDeleteTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeletionTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5510,7 +5510,7 @@ func compareServiceSpecTemplateMetadataNewStyle(d, a interface{}, fn dcl.FieldNa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{ObjectFunction: compareServiceSpecTemplateMetadataCreateTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{ObjectFunction: compareServiceSpecTemplateMetadataCreateTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5538,7 +5538,7 @@ func compareServiceSpecTemplateMetadataNewStyle(d, a interface{}, fn dcl.FieldNa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{ObjectFunction: compareServiceSpecTemplateMetadataDeleteTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{ObjectFunction: compareServiceSpecTemplateMetadataDeleteTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeletionTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

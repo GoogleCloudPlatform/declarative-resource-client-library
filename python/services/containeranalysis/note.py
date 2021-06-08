@@ -290,7 +290,10 @@ class NoteRelatedUrl(object):
         if not resource:
             return None
 
-        return NoteRelatedUrl(url=resource.url, label=resource.label,)
+        return NoteRelatedUrl(
+            url=Primitive.from_proto(resource.url),
+            label=Primitive.from_proto(resource.label),
+        )
 
 
 class NoteRelatedUrlArray(object):
@@ -352,12 +355,14 @@ class NoteVulnerability(object):
             return None
 
         return NoteVulnerability(
-            cvss_score=resource.cvss_score,
-            severity=resource.severity,
-            details=resource.details,
-            cvss_v3=resource.cvss_v3,
-            windows_details=resource.windows_details,
-            source_update_time=resource.source_update_time,
+            cvss_score=Primitive.from_proto(resource.cvss_score),
+            severity=NoteVulnerabilitySeverityEnum.from_proto(resource.severity),
+            details=NoteVulnerabilityDetailsArray.from_proto(resource.details),
+            cvss_v3=NoteVulnerabilityCvssV3.from_proto(resource.cvss_v3),
+            windows_details=NoteVulnerabilityWindowsDetailsArray.from_proto(
+                resource.windows_details
+            ),
+            source_update_time=Primitive.from_proto(resource.source_update_time),
         )
 
 
@@ -460,18 +465,24 @@ class NoteVulnerabilityDetails(object):
             return None
 
         return NoteVulnerabilityDetails(
-            severity_name=resource.severity_name,
-            description=resource.description,
-            package_type=resource.package_type,
-            affected_cpe_uri=resource.affected_cpe_uri,
-            affected_package=resource.affected_package,
-            affected_version_start=resource.affected_version_start,
-            affected_version_end=resource.affected_version_end,
-            fixed_cpe_uri=resource.fixed_cpe_uri,
-            fixed_package=resource.fixed_package,
-            fixed_version=resource.fixed_version,
-            is_obsolete=resource.is_obsolete,
-            source_update_time=resource.source_update_time,
+            severity_name=Primitive.from_proto(resource.severity_name),
+            description=Primitive.from_proto(resource.description),
+            package_type=Primitive.from_proto(resource.package_type),
+            affected_cpe_uri=Primitive.from_proto(resource.affected_cpe_uri),
+            affected_package=Primitive.from_proto(resource.affected_package),
+            affected_version_start=NoteVulnerabilityDetailsAffectedVersionStart.from_proto(
+                resource.affected_version_start
+            ),
+            affected_version_end=NoteVulnerabilityDetailsAffectedVersionEnd.from_proto(
+                resource.affected_version_end
+            ),
+            fixed_cpe_uri=Primitive.from_proto(resource.fixed_cpe_uri),
+            fixed_package=Primitive.from_proto(resource.fixed_package),
+            fixed_version=NoteVulnerabilityDetailsFixedVersion.from_proto(
+                resource.fixed_version
+            ),
+            is_obsolete=Primitive.from_proto(resource.is_obsolete),
+            source_update_time=Primitive.from_proto(resource.source_update_time),
         )
 
 
@@ -528,11 +539,13 @@ class NoteVulnerabilityDetailsAffectedVersionStart(object):
             return None
 
         return NoteVulnerabilityDetailsAffectedVersionStart(
-            epoch=resource.epoch,
-            name=resource.name,
-            revision=resource.revision,
-            kind=resource.kind,
-            full_name=resource.full_name,
+            epoch=Primitive.from_proto(resource.epoch),
+            name=Primitive.from_proto(resource.name),
+            revision=Primitive.from_proto(resource.revision),
+            kind=NoteVulnerabilityDetailsAffectedVersionStartKindEnum.from_proto(
+                resource.kind
+            ),
+            full_name=Primitive.from_proto(resource.full_name),
         )
 
 
@@ -594,11 +607,13 @@ class NoteVulnerabilityDetailsAffectedVersionEnd(object):
             return None
 
         return NoteVulnerabilityDetailsAffectedVersionEnd(
-            epoch=resource.epoch,
-            name=resource.name,
-            revision=resource.revision,
-            kind=resource.kind,
-            full_name=resource.full_name,
+            epoch=Primitive.from_proto(resource.epoch),
+            name=Primitive.from_proto(resource.name),
+            revision=Primitive.from_proto(resource.revision),
+            kind=NoteVulnerabilityDetailsAffectedVersionEndKindEnum.from_proto(
+                resource.kind
+            ),
+            full_name=Primitive.from_proto(resource.full_name),
         )
 
 
@@ -659,11 +674,11 @@ class NoteVulnerabilityDetailsFixedVersion(object):
             return None
 
         return NoteVulnerabilityDetailsFixedVersion(
-            epoch=resource.epoch,
-            name=resource.name,
-            revision=resource.revision,
-            kind=resource.kind,
-            full_name=resource.full_name,
+            epoch=Primitive.from_proto(resource.epoch),
+            name=Primitive.from_proto(resource.name),
+            revision=Primitive.from_proto(resource.revision),
+            kind=NoteVulnerabilityDetailsFixedVersionKindEnum.from_proto(resource.kind),
+            full_name=Primitive.from_proto(resource.full_name),
         )
 
 
@@ -768,17 +783,31 @@ class NoteVulnerabilityCvssV3(object):
             return None
 
         return NoteVulnerabilityCvssV3(
-            base_score=resource.base_score,
-            exploitability_score=resource.exploitability_score,
-            impact_score=resource.impact_score,
-            attack_vector=resource.attack_vector,
-            attack_complexity=resource.attack_complexity,
-            privileges_required=resource.privileges_required,
-            user_interaction=resource.user_interaction,
-            scope=resource.scope,
-            confidentiality_impact=resource.confidentiality_impact,
-            integrity_impact=resource.integrity_impact,
-            availability_impact=resource.availability_impact,
+            base_score=Primitive.from_proto(resource.base_score),
+            exploitability_score=Primitive.from_proto(resource.exploitability_score),
+            impact_score=Primitive.from_proto(resource.impact_score),
+            attack_vector=NoteVulnerabilityCvssV3AttackVectorEnum.from_proto(
+                resource.attack_vector
+            ),
+            attack_complexity=NoteVulnerabilityCvssV3AttackComplexityEnum.from_proto(
+                resource.attack_complexity
+            ),
+            privileges_required=NoteVulnerabilityCvssV3PrivilegesRequiredEnum.from_proto(
+                resource.privileges_required
+            ),
+            user_interaction=NoteVulnerabilityCvssV3UserInteractionEnum.from_proto(
+                resource.user_interaction
+            ),
+            scope=NoteVulnerabilityCvssV3ScopeEnum.from_proto(resource.scope),
+            confidentiality_impact=NoteVulnerabilityCvssV3ConfidentialityImpactEnum.from_proto(
+                resource.confidentiality_impact
+            ),
+            integrity_impact=NoteVulnerabilityCvssV3IntegrityImpactEnum.from_proto(
+                resource.integrity_impact
+            ),
+            availability_impact=NoteVulnerabilityCvssV3AvailabilityImpactEnum.from_proto(
+                resource.availability_impact
+            ),
         )
 
 
@@ -833,10 +862,12 @@ class NoteVulnerabilityWindowsDetails(object):
             return None
 
         return NoteVulnerabilityWindowsDetails(
-            cpe_uri=resource.cpe_uri,
-            name=resource.name,
-            description=resource.description,
-            fixing_kbs=resource.fixing_kbs,
+            cpe_uri=Primitive.from_proto(resource.cpe_uri),
+            name=Primitive.from_proto(resource.name),
+            description=Primitive.from_proto(resource.description),
+            fixing_kbs=NoteVulnerabilityWindowsDetailsFixingKbsArray.from_proto(
+                resource.fixing_kbs
+            ),
         )
 
 
@@ -875,7 +906,8 @@ class NoteVulnerabilityWindowsDetailsFixingKbs(object):
             return None
 
         return NoteVulnerabilityWindowsDetailsFixingKbs(
-            name=resource.name, url=resource.url,
+            name=Primitive.from_proto(resource.name),
+            url=Primitive.from_proto(resource.url),
         )
 
 
@@ -912,7 +944,9 @@ class NoteBuild(object):
         if not resource:
             return None
 
-        return NoteBuild(builder_version=resource.builder_version,)
+        return NoteBuild(
+            builder_version=Primitive.from_proto(resource.builder_version),
+        )
 
 
 class NoteBuildArray(object):
@@ -954,7 +988,8 @@ class NoteImage(object):
             return None
 
         return NoteImage(
-            resource_url=resource.resource_url, fingerprint=resource.fingerprint,
+            resource_url=Primitive.from_proto(resource.resource_url),
+            fingerprint=NoteImageFingerprint.from_proto(resource.fingerprint),
         )
 
 
@@ -996,9 +1031,9 @@ class NoteImageFingerprint(object):
             return None
 
         return NoteImageFingerprint(
-            v1_name=resource.v1_name,
-            v2_blob=resource.v2_blob,
-            v2_name=resource.v2_name,
+            v1_name=Primitive.from_proto(resource.v1_name),
+            v2_blob=Primitive.from_proto(resource.v2_blob),
+            v2_name=Primitive.from_proto(resource.v2_name),
         )
 
 
@@ -1038,7 +1073,10 @@ class NotePackage(object):
         if not resource:
             return None
 
-        return NotePackage(name=resource.name, distribution=resource.distribution,)
+        return NotePackage(
+            name=Primitive.from_proto(resource.name),
+            distribution=NotePackageDistributionArray.from_proto(resource.distribution),
+        )
 
 
 class NotePackageArray(object):
@@ -1102,12 +1140,16 @@ class NotePackageDistribution(object):
             return None
 
         return NotePackageDistribution(
-            cpe_uri=resource.cpe_uri,
-            architecture=resource.architecture,
-            latest_version=resource.latest_version,
-            maintainer=resource.maintainer,
-            url=resource.url,
-            description=resource.description,
+            cpe_uri=Primitive.from_proto(resource.cpe_uri),
+            architecture=NotePackageDistributionArchitectureEnum.from_proto(
+                resource.architecture
+            ),
+            latest_version=NotePackageDistributionLatestVersion.from_proto(
+                resource.latest_version
+            ),
+            maintainer=Primitive.from_proto(resource.maintainer),
+            url=Primitive.from_proto(resource.url),
+            description=Primitive.from_proto(resource.description),
         )
 
 
@@ -1164,11 +1206,11 @@ class NotePackageDistributionLatestVersion(object):
             return None
 
         return NotePackageDistributionLatestVersion(
-            epoch=resource.epoch,
-            name=resource.name,
-            revision=resource.revision,
-            kind=resource.kind,
-            full_name=resource.full_name,
+            epoch=Primitive.from_proto(resource.epoch),
+            name=Primitive.from_proto(resource.name),
+            revision=Primitive.from_proto(resource.revision),
+            kind=NotePackageDistributionLatestVersionKindEnum.from_proto(resource.kind),
+            full_name=Primitive.from_proto(resource.full_name),
         )
 
 
@@ -1205,7 +1247,11 @@ class NoteDiscovery(object):
         if not resource:
             return None
 
-        return NoteDiscovery(analysis_kind=resource.analysis_kind,)
+        return NoteDiscovery(
+            analysis_kind=NoteDiscoveryAnalysisKindEnum.from_proto(
+                resource.analysis_kind
+            ),
+        )
 
 
 class NoteDiscoveryArray(object):
@@ -1239,7 +1285,7 @@ class NoteDeployment(object):
         if not resource:
             return None
 
-        return NoteDeployment(resource_uri=resource.resource_uri,)
+        return NoteDeployment(resource_uri=Primitive.from_proto(resource.resource_uri),)
 
 
 class NoteDeploymentArray(object):
@@ -1275,7 +1321,7 @@ class NoteAttestation(object):
         if not resource:
             return None
 
-        return NoteAttestation(hint=resource.hint,)
+        return NoteAttestation(hint=NoteAttestationHint.from_proto(resource.hint),)
 
 
 class NoteAttestationArray(object):
@@ -1309,7 +1355,9 @@ class NoteAttestationHint(object):
         if not resource:
             return None
 
-        return NoteAttestationHint(human_readable_name=resource.human_readable_name,)
+        return NoteAttestationHint(
+            human_readable_name=Primitive.from_proto(resource.human_readable_name),
+        )
 
 
 class NoteAttestationHintArray(object):

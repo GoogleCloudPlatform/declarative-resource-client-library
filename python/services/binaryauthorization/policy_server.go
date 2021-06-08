@@ -32,7 +32,7 @@ func ProtoToBinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnum(e b
 		return nil
 	}
 	if n, ok := binaryauthorizationpb.BinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnum_name[int32(e)]; ok {
-		e := binaryauthorization.PolicyClusterAdmissionRulesEvaluationModeEnum(n[len("PolicyClusterAdmissionRulesEvaluationModeEnum"):])
+		e := binaryauthorization.PolicyClusterAdmissionRulesEvaluationModeEnum(n[len("BinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnum"):])
 		return &e
 	}
 	return nil
@@ -44,7 +44,7 @@ func ProtoToBinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnum(e 
 		return nil
 	}
 	if n, ok := binaryauthorizationpb.BinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnum_name[int32(e)]; ok {
-		e := binaryauthorization.PolicyClusterAdmissionRulesEnforcementModeEnum(n[len("PolicyClusterAdmissionRulesEnforcementModeEnum"):])
+		e := binaryauthorization.PolicyClusterAdmissionRulesEnforcementModeEnum(n[len("BinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnum"):])
 		return &e
 	}
 	return nil
@@ -56,7 +56,7 @@ func ProtoToBinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnum(e bi
 		return nil
 	}
 	if n, ok := binaryauthorizationpb.BinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnum_name[int32(e)]; ok {
-		e := binaryauthorization.PolicyDefaultAdmissionRuleEvaluationModeEnum(n[len("PolicyDefaultAdmissionRuleEvaluationModeEnum"):])
+		e := binaryauthorization.PolicyDefaultAdmissionRuleEvaluationModeEnum(n[len("BinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnum"):])
 		return &e
 	}
 	return nil
@@ -68,7 +68,7 @@ func ProtoToBinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnum(e b
 		return nil
 	}
 	if n, ok := binaryauthorizationpb.BinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnum_name[int32(e)]; ok {
-		e := binaryauthorization.PolicyDefaultAdmissionRuleEnforcementModeEnum(n[len("PolicyDefaultAdmissionRuleEnforcementModeEnum"):])
+		e := binaryauthorization.PolicyDefaultAdmissionRuleEnforcementModeEnum(n[len("BinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnum"):])
 		return &e
 	}
 	return nil
@@ -80,7 +80,7 @@ func ProtoToBinaryauthorizationPolicyGlobalPolicyEvaluationModeEnum(e binaryauth
 		return nil
 	}
 	if n, ok := binaryauthorizationpb.BinaryauthorizationPolicyGlobalPolicyEvaluationModeEnum_name[int32(e)]; ok {
-		e := binaryauthorization.PolicyGlobalPolicyEvaluationModeEnum(n[len("PolicyGlobalPolicyEvaluationModeEnum"):])
+		e := binaryauthorization.PolicyGlobalPolicyEvaluationModeEnum(n[len("BinaryauthorizationPolicyGlobalPolicyEvaluationModeEnum"):])
 		return &e
 	}
 	return nil

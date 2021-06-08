@@ -31,7 +31,7 @@ func ProtoToVpcaccessConnectorStateEnum(e vpcaccesspb.VpcaccessConnectorStateEnu
 		return nil
 	}
 	if n, ok := vpcaccesspb.VpcaccessConnectorStateEnum_name[int32(e)]; ok {
-		e := vpcaccess.ConnectorStateEnum(n[len("ConnectorStateEnum"):])
+		e := vpcaccess.ConnectorStateEnum(n[len("VpcaccessConnectorStateEnum"):])
 		return &e
 	}
 	return nil

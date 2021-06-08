@@ -147,6 +147,8 @@ components:
               x-dcl-go-name: Multiclusteringress
               x-dcl-go-type: FeatureSpecMulticlusteringress
               description: Multicluster Ingress-specific spec.
+              required:
+              - configMembership
               properties:
                 configMembership:
                   type: string

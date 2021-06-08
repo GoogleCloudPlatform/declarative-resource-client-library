@@ -787,7 +787,7 @@ func compareWorkerPoolWorkerConfigNewStyle(d, a interface{}, fn dcl.FieldName) (
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NoExternalIP, actual.NoExternalIP, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NoExternalIP")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NoExternalIP, actual.NoExternalIP, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NoExternalIp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

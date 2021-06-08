@@ -729,14 +729,14 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocationId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -858,21 +858,21 @@ func compareApplicationIapNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OAuth2ClientId, actual.OAuth2ClientId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OAuth2ClientId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OAuth2ClientId, actual.OAuth2ClientId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Oauth2ClientId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OAuth2ClientSecret, actual.OAuth2ClientSecret, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OAuth2ClientSecret")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OAuth2ClientSecret, actual.OAuth2ClientSecret, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Oauth2ClientSecret")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OAuth2ClientSecretSha256, actual.OAuth2ClientSecretSha256, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OAuth2ClientSecretSha256")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OAuth2ClientSecretSha256, actual.OAuth2ClientSecretSha256, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Oauth2ClientSecretSha256")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -31,7 +31,7 @@ func ProtoToMonitoringAlertPolicyConditionsResourceStateFilterEnum(e monitoringp
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringAlertPolicyConditionsResourceStateFilterEnum_name[int32(e)]; ok {
-		e := monitoring.AlertPolicyConditionsResourceStateFilterEnum(n[len("AlertPolicyConditionsResourceStateFilterEnum"):])
+		e := monitoring.AlertPolicyConditionsResourceStateFilterEnum(n[len("MonitoringAlertPolicyConditionsResourceStateFilterEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToMonitoringAlertPolicyConditionsConditionThresholdAggregationsPerSeri
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringAlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum_name[int32(e)]; ok {
-		e := monitoring.AlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum(n[len("AlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum"):])
+		e := monitoring.AlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum(n[len("MonitoringAlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToMonitoringAlertPolicyConditionsConditionThresholdAggregationsCrossSe
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringAlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum_name[int32(e)]; ok {
-		e := monitoring.AlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum(n[len("AlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum"):])
+		e := monitoring.AlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum(n[len("MonitoringAlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToMonitoringAlertPolicyConditionsConditionThresholdDenominatorAggregat
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringAlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum_name[int32(e)]; ok {
-		e := monitoring.AlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum(n[len("AlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum"):])
+		e := monitoring.AlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum(n[len("MonitoringAlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToMonitoringAlertPolicyConditionsConditionThresholdDenominatorAggregat
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringAlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum_name[int32(e)]; ok {
-		e := monitoring.AlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum(n[len("AlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum"):])
+		e := monitoring.AlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum(n[len("MonitoringAlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum"):])
 		return &e
 	}
 	return nil
@@ -91,7 +91,7 @@ func ProtoToMonitoringAlertPolicyConditionsConditionThresholdComparisonEnum(e mo
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringAlertPolicyConditionsConditionThresholdComparisonEnum_name[int32(e)]; ok {
-		e := monitoring.AlertPolicyConditionsConditionThresholdComparisonEnum(n[len("AlertPolicyConditionsConditionThresholdComparisonEnum"):])
+		e := monitoring.AlertPolicyConditionsConditionThresholdComparisonEnum(n[len("MonitoringAlertPolicyConditionsConditionThresholdComparisonEnum"):])
 		return &e
 	}
 	return nil
@@ -103,7 +103,7 @@ func ProtoToMonitoringAlertPolicyConditionsConditionAbsentAggregationsPerSeriesA
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringAlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum_name[int32(e)]; ok {
-		e := monitoring.AlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum(n[len("AlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum"):])
+		e := monitoring.AlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum(n[len("MonitoringAlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum"):])
 		return &e
 	}
 	return nil
@@ -115,7 +115,7 @@ func ProtoToMonitoringAlertPolicyConditionsConditionAbsentAggregationsCrossSerie
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringAlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum_name[int32(e)]; ok {
-		e := monitoring.AlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum(n[len("AlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum"):])
+		e := monitoring.AlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum(n[len("MonitoringAlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum"):])
 		return &e
 	}
 	return nil
@@ -127,7 +127,7 @@ func ProtoToMonitoringAlertPolicyConditionsConditionRateAggregationsPerSeriesAli
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringAlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum_name[int32(e)]; ok {
-		e := monitoring.AlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum(n[len("AlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum"):])
+		e := monitoring.AlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum(n[len("MonitoringAlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum"):])
 		return &e
 	}
 	return nil
@@ -139,7 +139,7 @@ func ProtoToMonitoringAlertPolicyConditionsConditionRateAggregationsCrossSeriesR
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringAlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum_name[int32(e)]; ok {
-		e := monitoring.AlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum(n[len("AlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum"):])
+		e := monitoring.AlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum(n[len("MonitoringAlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum"):])
 		return &e
 	}
 	return nil
@@ -151,7 +151,7 @@ func ProtoToMonitoringAlertPolicyConditionsConditionRateComparisonEnum(e monitor
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringAlertPolicyConditionsConditionRateComparisonEnum_name[int32(e)]; ok {
-		e := monitoring.AlertPolicyConditionsConditionRateComparisonEnum(n[len("AlertPolicyConditionsConditionRateComparisonEnum"):])
+		e := monitoring.AlertPolicyConditionsConditionRateComparisonEnum(n[len("MonitoringAlertPolicyConditionsConditionRateComparisonEnum"):])
 		return &e
 	}
 	return nil
@@ -163,7 +163,7 @@ func ProtoToMonitoringAlertPolicyConditionsConditionProcessCountComparisonEnum(e
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringAlertPolicyConditionsConditionProcessCountComparisonEnum_name[int32(e)]; ok {
-		e := monitoring.AlertPolicyConditionsConditionProcessCountComparisonEnum(n[len("AlertPolicyConditionsConditionProcessCountComparisonEnum"):])
+		e := monitoring.AlertPolicyConditionsConditionProcessCountComparisonEnum(n[len("MonitoringAlertPolicyConditionsConditionProcessCountComparisonEnum"):])
 		return &e
 	}
 	return nil
@@ -175,7 +175,7 @@ func ProtoToMonitoringAlertPolicyCombinerEnum(e monitoringpb.MonitoringAlertPoli
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringAlertPolicyCombinerEnum_name[int32(e)]; ok {
-		e := monitoring.AlertPolicyCombinerEnum(n[len("AlertPolicyCombinerEnum"):])
+		e := monitoring.AlertPolicyCombinerEnum(n[len("MonitoringAlertPolicyCombinerEnum"):])
 		return &e
 	}
 	return nil
@@ -187,7 +187,7 @@ func ProtoToMonitoringAlertPolicyIncidentStrategyTypeEnum(e monitoringpb.Monitor
 		return nil
 	}
 	if n, ok := monitoringpb.MonitoringAlertPolicyIncidentStrategyTypeEnum_name[int32(e)]; ok {
-		e := monitoring.AlertPolicyIncidentStrategyTypeEnum(n[len("AlertPolicyIncidentStrategyTypeEnum"):])
+		e := monitoring.AlertPolicyIncidentStrategyTypeEnum(n[len("MonitoringAlertPolicyIncidentStrategyTypeEnum"):])
 		return &e
 	}
 	return nil

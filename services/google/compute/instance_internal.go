@@ -2312,7 +2312,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.CanIPForward, actual.CanIPForward, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CanIPForward")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CanIPForward, actual.CanIPForward, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CanIpForward")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2873,7 +2873,7 @@ func compareInstanceNetworkInterfacesAliasIPRangesNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.IPCidrRange, actual.IPCidrRange, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPCidrRange")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPCidrRange, actual.IPCidrRange, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpCidrRange")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

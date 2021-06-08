@@ -8627,7 +8627,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterIPv4Cidr, actual.ClusterIPv4Cidr, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterIPv4Cidr")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterIPv4Cidr, actual.ClusterIPv4Cidr, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterIpv4Cidr")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8697,7 +8697,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPAllocationPolicy, actual.IPAllocationPolicy, dcl.Info{ObjectFunction: compareClusterIPAllocationPolicyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPAllocationPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPAllocationPolicy, actual.IPAllocationPolicy, dcl.Info{ObjectFunction: compareClusterIPAllocationPolicyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpAllocationPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8795,7 +8795,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MasterVersion, actual.MasterVersion, dcl.Info{CustomDiff: dcl.MatchingSemverInterface, OperationSelector: dcl.TriggersOperation("updateClusterUpdateMasterVersionOperation")}, fn.AddNest("MasterVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MasterVersion, actual.MasterVersion, dcl.Info{CustomDiff: dcl.MatchingSemverInterface, OperationSelector: dcl.TriggersOperation("updateClusterUpdateMasterVersionOperation")}, fn.AddNest("CurrentMasterVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8823,14 +8823,14 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NodeIPv4CidrSize, actual.NodeIPv4CidrSize, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeIPv4CidrSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NodeIPv4CidrSize, actual.NodeIPv4CidrSize, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeIpv4CidrSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServicesIPv4Cidr, actual.ServicesIPv4Cidr, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServicesIPv4Cidr")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServicesIPv4Cidr, actual.ServicesIPv4Cidr, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServicesIpv4Cidr")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8851,14 +8851,14 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EnableTPU, actual.EnableTPU, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnableTPU")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnableTPU, actual.EnableTPU, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnableTpu")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TPUIPv4CidrBlock, actual.TPUIPv4CidrBlock, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TPUIPv4CidrBlock")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TPUIPv4CidrBlock, actual.TPUIPv4CidrBlock, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TpuIpv4CidrBlock")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9500,7 +9500,7 @@ func compareClusterNodePoolsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PodIPv4CidrSize, actual.PodIPv4CidrSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PodIPv4CidrSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PodIPv4CidrSize, actual.PodIPv4CidrSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PodIpv4CidrSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9550,7 +9550,7 @@ func compareClusterNodePoolsConfigNewStyle(d, a interface{}, fn dcl.FieldName) (
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OAuthScopes, actual.OAuthScopes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OAuthScopes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OAuthScopes, actual.OAuthScopes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OauthScopes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10302,7 +10302,7 @@ func compareClusterIPAllocationPolicyNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.UseIPAliases, actual.UseIPAliases, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UseIPAliases")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UseIPAliases, actual.UseIPAliases, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UseIpAliases")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10337,49 +10337,49 @@ func compareClusterIPAllocationPolicyNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterIPv4CidrBlock, actual.ClusterIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterIPv4CidrBlock")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterIPv4CidrBlock, actual.ClusterIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterIpv4CidrBlock")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NodeIPv4CidrBlock, actual.NodeIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeIPv4CidrBlock")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NodeIPv4CidrBlock, actual.NodeIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeIpv4CidrBlock")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServicesIPv4CidrBlock, actual.ServicesIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServicesIPv4CidrBlock")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServicesIPv4CidrBlock, actual.ServicesIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServicesIpv4CidrBlock")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TPUIPv4CidrBlock, actual.TPUIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TPUIPv4CidrBlock")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TPUIPv4CidrBlock, actual.TPUIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TpuIpv4CidrBlock")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterIPv4Cidr, actual.ClusterIPv4Cidr, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterIPv4Cidr")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterIPv4Cidr, actual.ClusterIPv4Cidr, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterIpv4Cidr")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NodeIPv4Cidr, actual.NodeIPv4Cidr, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeIPv4Cidr")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NodeIPv4Cidr, actual.NodeIPv4Cidr, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeIpv4Cidr")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServicesIPv4Cidr, actual.ServicesIPv4Cidr, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServicesIPv4Cidr")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServicesIPv4Cidr, actual.ServicesIPv4Cidr, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServicesIpv4Cidr")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10609,7 +10609,7 @@ func compareClusterAutoscalingAutoprovisioningNodePoolDefaultsNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.OAuthScopes, actual.OAuthScopes, dcl.Info{OperationSelector: dcl.TriggersOperation("updateClusterUpdateAutoscalingOperation")}, fn.AddNest("OAuthScopes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OAuthScopes, actual.OAuthScopes, dcl.Info{OperationSelector: dcl.TriggersOperation("updateClusterUpdateAutoscalingOperation")}, fn.AddNest("OauthScopes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10873,7 +10873,7 @@ func compareClusterNetworkConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PrivateIPv6GoogleAccess, actual.PrivateIPv6GoogleAccess, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrivateIPv6GoogleAccess")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PrivateIPv6GoogleAccess, actual.PrivateIPv6GoogleAccess, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrivateIpv6GoogleAccess")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11305,7 +11305,7 @@ func compareClusterPrivateClusterConfigNewStyle(d, a interface{}, fn dcl.FieldNa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MasterIPv4CidrBlock, actual.MasterIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterIPv4CidrBlock")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MasterIPv4CidrBlock, actual.MasterIPv4CidrBlock, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterIpv4CidrBlock")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11571,7 +11571,7 @@ func compareClusterNodeConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OAuthScopes, actual.OAuthScopes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OAuthScopes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OAuthScopes, actual.OAuthScopes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OauthScopes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

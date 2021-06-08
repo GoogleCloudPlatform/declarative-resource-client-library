@@ -31,7 +31,7 @@ func ProtoToFileInstanceStateEnum(e filepb.FileInstanceStateEnum) *file.Instance
 		return nil
 	}
 	if n, ok := filepb.FileInstanceStateEnum_name[int32(e)]; ok {
-		e := file.InstanceStateEnum(n[len("InstanceStateEnum"):])
+		e := file.InstanceStateEnum(n[len("FileInstanceStateEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToFileInstanceTierEnum(e filepb.FileInstanceTierEnum) *file.InstanceTi
 		return nil
 	}
 	if n, ok := filepb.FileInstanceTierEnum_name[int32(e)]; ok {
-		e := file.InstanceTierEnum(n[len("InstanceTierEnum"):])
+		e := file.InstanceTierEnum(n[len("FileInstanceTierEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToFileInstanceFileSharesNfsExportOptionsAccessModeEnum(e filepb.FileIn
 		return nil
 	}
 	if n, ok := filepb.FileInstanceFileSharesNfsExportOptionsAccessModeEnum_name[int32(e)]; ok {
-		e := file.InstanceFileSharesNfsExportOptionsAccessModeEnum(n[len("InstanceFileSharesNfsExportOptionsAccessModeEnum"):])
+		e := file.InstanceFileSharesNfsExportOptionsAccessModeEnum(n[len("FileInstanceFileSharesNfsExportOptionsAccessModeEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToFileInstanceFileSharesNfsExportOptionsSquashModeEnum(e filepb.FileIn
 		return nil
 	}
 	if n, ok := filepb.FileInstanceFileSharesNfsExportOptionsSquashModeEnum_name[int32(e)]; ok {
-		e := file.InstanceFileSharesNfsExportOptionsSquashModeEnum(n[len("InstanceFileSharesNfsExportOptionsSquashModeEnum"):])
+		e := file.InstanceFileSharesNfsExportOptionsSquashModeEnum(n[len("FileInstanceFileSharesNfsExportOptionsSquashModeEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToFileInstanceNetworksModesEnum(e filepb.FileInstanceNetworksModesEnum
 		return nil
 	}
 	if n, ok := filepb.FileInstanceNetworksModesEnum_name[int32(e)]; ok {
-		e := file.InstanceNetworksModesEnum(n[len("InstanceNetworksModesEnum"):])
+		e := file.InstanceNetworksModesEnum(n[len("FileInstanceNetworksModesEnum"):])
 		return &e
 	}
 	return nil

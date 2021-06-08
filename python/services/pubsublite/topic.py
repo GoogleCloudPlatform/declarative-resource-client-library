@@ -161,7 +161,10 @@ class TopicPartitionConfig(object):
         if not resource:
             return None
 
-        return TopicPartitionConfig(count=resource.count, capacity=resource.capacity,)
+        return TopicPartitionConfig(
+            count=Primitive.from_proto(resource.count),
+            capacity=TopicPartitionConfigCapacity.from_proto(resource.capacity),
+        )
 
 
 class TopicPartitionConfigArray(object):
@@ -203,8 +206,8 @@ class TopicPartitionConfigCapacity(object):
             return None
 
         return TopicPartitionConfigCapacity(
-            publish_mib_per_sec=resource.publish_mib_per_sec,
-            subscribe_mib_per_sec=resource.subscribe_mib_per_sec,
+            publish_mib_per_sec=Primitive.from_proto(resource.publish_mib_per_sec),
+            subscribe_mib_per_sec=Primitive.from_proto(resource.subscribe_mib_per_sec),
         )
 
 
@@ -243,7 +246,8 @@ class TopicRetentionConfig(object):
             return None
 
         return TopicRetentionConfig(
-            per_partition_bytes=resource.per_partition_bytes, period=resource.period,
+            per_partition_bytes=Primitive.from_proto(resource.per_partition_bytes),
+            period=Primitive.from_proto(resource.period),
         )
 
 

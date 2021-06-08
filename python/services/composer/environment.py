@@ -222,17 +222,29 @@ class EnvironmentConfig(object):
             return None
 
         return EnvironmentConfig(
-            gke_cluster=resource.gke_cluster,
-            dag_gcs_prefix=resource.dag_gcs_prefix,
-            node_count=resource.node_count,
-            software_config=resource.software_config,
-            node_config=resource.node_config,
-            private_environment_config=resource.private_environment_config,
-            web_server_network_access_control=resource.web_server_network_access_control,
-            database_config=resource.database_config,
-            web_server_config=resource.web_server_config,
-            encryption_config=resource.encryption_config,
-            airflow_uri=resource.airflow_uri,
+            gke_cluster=Primitive.from_proto(resource.gke_cluster),
+            dag_gcs_prefix=Primitive.from_proto(resource.dag_gcs_prefix),
+            node_count=Primitive.from_proto(resource.node_count),
+            software_config=EnvironmentConfigSoftwareConfig.from_proto(
+                resource.software_config
+            ),
+            node_config=EnvironmentConfigNodeConfig.from_proto(resource.node_config),
+            private_environment_config=EnvironmentConfigPrivateEnvironmentConfig.from_proto(
+                resource.private_environment_config
+            ),
+            web_server_network_access_control=EnvironmentConfigWebServerNetworkAccessControl.from_proto(
+                resource.web_server_network_access_control
+            ),
+            database_config=EnvironmentConfigDatabaseConfig.from_proto(
+                resource.database_config
+            ),
+            web_server_config=EnvironmentConfigWebServerConfig.from_proto(
+                resource.web_server_config
+            ),
+            encryption_config=EnvironmentConfigEncryptionConfig.from_proto(
+                resource.encryption_config
+            ),
+            airflow_uri=Primitive.from_proto(resource.airflow_uri),
         )
 
 
@@ -289,11 +301,13 @@ class EnvironmentConfigSoftwareConfig(object):
             return None
 
         return EnvironmentConfigSoftwareConfig(
-            image_version=resource.image_version,
-            airflow_config_overrides=resource.airflow_config_overrides,
-            pypi_packages=resource.pypi_packages,
-            env_variables=resource.env_variables,
-            python_version=resource.python_version,
+            image_version=Primitive.from_proto(resource.image_version),
+            airflow_config_overrides=Primitive.from_proto(
+                resource.airflow_config_overrides
+            ),
+            pypi_packages=Primitive.from_proto(resource.pypi_packages),
+            env_variables=Primitive.from_proto(resource.env_variables),
+            python_version=Primitive.from_proto(resource.python_version),
         )
 
 
@@ -372,15 +386,17 @@ class EnvironmentConfigNodeConfig(object):
             return None
 
         return EnvironmentConfigNodeConfig(
-            location=resource.location,
-            machine_type=resource.machine_type,
-            network=resource.network,
-            subnetwork=resource.subnetwork,
-            disk_size_gb=resource.disk_size_gb,
-            oauth_scopes=resource.oauth_scopes,
-            service_account=resource.service_account,
-            tags=resource.tags,
-            ip_allocation_policy=resource.ip_allocation_policy,
+            location=Primitive.from_proto(resource.location),
+            machine_type=Primitive.from_proto(resource.machine_type),
+            network=Primitive.from_proto(resource.network),
+            subnetwork=Primitive.from_proto(resource.subnetwork),
+            disk_size_gb=Primitive.from_proto(resource.disk_size_gb),
+            oauth_scopes=Primitive.from_proto(resource.oauth_scopes),
+            service_account=Primitive.from_proto(resource.service_account),
+            tags=Primitive.from_proto(resource.tags),
+            ip_allocation_policy=EnvironmentConfigNodeConfigIPAllocationPolicy.from_proto(
+                resource.ip_allocation_policy
+            ),
         )
 
 
@@ -443,11 +459,19 @@ class EnvironmentConfigNodeConfigIPAllocationPolicy(object):
             return None
 
         return EnvironmentConfigNodeConfigIPAllocationPolicy(
-            use_ip_aliases=resource.use_ip_aliases,
-            cluster_secondary_range_name=resource.cluster_secondary_range_name,
-            cluster_ipv4_cidr_block=resource.cluster_ipv4_cidr_block,
-            services_secondary_range_name=resource.services_secondary_range_name,
-            services_ipv4_cidr_block=resource.services_ipv4_cidr_block,
+            use_ip_aliases=Primitive.from_proto(resource.use_ip_aliases),
+            cluster_secondary_range_name=Primitive.from_proto(
+                resource.cluster_secondary_range_name
+            ),
+            cluster_ipv4_cidr_block=Primitive.from_proto(
+                resource.cluster_ipv4_cidr_block
+            ),
+            services_secondary_range_name=Primitive.from_proto(
+                resource.services_secondary_range_name
+            ),
+            services_ipv4_cidr_block=Primitive.from_proto(
+                resource.services_ipv4_cidr_block
+            ),
         )
 
 
@@ -523,11 +547,21 @@ class EnvironmentConfigPrivateEnvironmentConfig(object):
             return None
 
         return EnvironmentConfigPrivateEnvironmentConfig(
-            enable_private_environment=resource.enable_private_environment,
-            private_cluster_config=resource.private_cluster_config,
-            web_server_ipv4_cidr_block=resource.web_server_ipv4_cidr_block,
-            cloud_sql_ipv4_cidr_block=resource.cloud_sql_ipv4_cidr_block,
-            web_server_ipv4_reserved_range=resource.web_server_ipv4_reserved_range,
+            enable_private_environment=Primitive.from_proto(
+                resource.enable_private_environment
+            ),
+            private_cluster_config=EnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig.from_proto(
+                resource.private_cluster_config
+            ),
+            web_server_ipv4_cidr_block=Primitive.from_proto(
+                resource.web_server_ipv4_cidr_block
+            ),
+            cloud_sql_ipv4_cidr_block=Primitive.from_proto(
+                resource.cloud_sql_ipv4_cidr_block
+            ),
+            web_server_ipv4_reserved_range=Primitive.from_proto(
+                resource.web_server_ipv4_reserved_range
+            ),
         )
 
 
@@ -586,9 +620,15 @@ class EnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig(object):
             return None
 
         return EnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig(
-            enable_private_endpoint=resource.enable_private_endpoint,
-            master_ipv4_cidr_block=resource.master_ipv4_cidr_block,
-            master_ipv4_reserved_range=resource.master_ipv4_reserved_range,
+            enable_private_endpoint=Primitive.from_proto(
+                resource.enable_private_endpoint
+            ),
+            master_ipv4_cidr_block=Primitive.from_proto(
+                resource.master_ipv4_cidr_block
+            ),
+            master_ipv4_reserved_range=Primitive.from_proto(
+                resource.master_ipv4_reserved_range
+            ),
         )
 
 
@@ -636,7 +676,9 @@ class EnvironmentConfigWebServerNetworkAccessControl(object):
             return None
 
         return EnvironmentConfigWebServerNetworkAccessControl(
-            allowed_ip_ranges=resource.allowed_ip_ranges,
+            allowed_ip_ranges=EnvironmentConfigWebServerNetworkAccessControlAllowedIPRangesArray.from_proto(
+                resource.allowed_ip_ranges
+            ),
         )
 
 
@@ -683,7 +725,8 @@ class EnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges(object):
             return None
 
         return EnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges(
-            value=resource.value, description=resource.description,
+            value=Primitive.from_proto(resource.value),
+            description=Primitive.from_proto(resource.description),
         )
 
 
@@ -724,7 +767,9 @@ class EnvironmentConfigDatabaseConfig(object):
         if not resource:
             return None
 
-        return EnvironmentConfigDatabaseConfig(machine_type=resource.machine_type,)
+        return EnvironmentConfigDatabaseConfig(
+            machine_type=Primitive.from_proto(resource.machine_type),
+        )
 
 
 class EnvironmentConfigDatabaseConfigArray(object):
@@ -758,7 +803,9 @@ class EnvironmentConfigWebServerConfig(object):
         if not resource:
             return None
 
-        return EnvironmentConfigWebServerConfig(machine_type=resource.machine_type,)
+        return EnvironmentConfigWebServerConfig(
+            machine_type=Primitive.from_proto(resource.machine_type),
+        )
 
 
 class EnvironmentConfigWebServerConfigArray(object):
@@ -792,7 +839,9 @@ class EnvironmentConfigEncryptionConfig(object):
         if not resource:
             return None
 
-        return EnvironmentConfigEncryptionConfig(kms_key_name=resource.kms_key_name,)
+        return EnvironmentConfigEncryptionConfig(
+            kms_key_name=Primitive.from_proto(resource.kms_key_name),
+        )
 
 
 class EnvironmentConfigEncryptionConfigArray(object):

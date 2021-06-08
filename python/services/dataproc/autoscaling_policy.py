@@ -205,7 +205,10 @@ class AutoscalingPolicyBasicAlgorithm(object):
             return None
 
         return AutoscalingPolicyBasicAlgorithm(
-            yarn_config=resource.yarn_config, cooldown_period=resource.cooldown_period,
+            yarn_config=AutoscalingPolicyBasicAlgorithmYarnConfig.from_proto(
+                resource.yarn_config
+            ),
+            cooldown_period=Primitive.from_proto(resource.cooldown_period),
         )
 
 
@@ -266,11 +269,17 @@ class AutoscalingPolicyBasicAlgorithmYarnConfig(object):
             return None
 
         return AutoscalingPolicyBasicAlgorithmYarnConfig(
-            graceful_decommission_timeout=resource.graceful_decommission_timeout,
-            scale_up_factor=resource.scale_up_factor,
-            scale_down_factor=resource.scale_down_factor,
-            scale_up_min_worker_fraction=resource.scale_up_min_worker_fraction,
-            scale_down_min_worker_fraction=resource.scale_down_min_worker_fraction,
+            graceful_decommission_timeout=Primitive.from_proto(
+                resource.graceful_decommission_timeout
+            ),
+            scale_up_factor=Primitive.from_proto(resource.scale_up_factor),
+            scale_down_factor=Primitive.from_proto(resource.scale_down_factor),
+            scale_up_min_worker_fraction=Primitive.from_proto(
+                resource.scale_up_min_worker_fraction
+            ),
+            scale_down_min_worker_fraction=Primitive.from_proto(
+                resource.scale_down_min_worker_fraction
+            ),
         )
 
 
@@ -318,9 +327,9 @@ class AutoscalingPolicyWorkerConfig(object):
             return None
 
         return AutoscalingPolicyWorkerConfig(
-            min_instances=resource.min_instances,
-            max_instances=resource.max_instances,
-            weight=resource.weight,
+            min_instances=Primitive.from_proto(resource.min_instances),
+            max_instances=Primitive.from_proto(resource.max_instances),
+            weight=Primitive.from_proto(resource.weight),
         )
 
 
@@ -364,9 +373,9 @@ class AutoscalingPolicySecondaryWorkerConfig(object):
             return None
 
         return AutoscalingPolicySecondaryWorkerConfig(
-            min_instances=resource.min_instances,
-            max_instances=resource.max_instances,
-            weight=resource.weight,
+            min_instances=Primitive.from_proto(resource.min_instances),
+            max_instances=Primitive.from_proto(resource.max_instances),
+            weight=Primitive.from_proto(resource.weight),
         )
 
 

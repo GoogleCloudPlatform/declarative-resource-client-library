@@ -31,7 +31,7 @@ func ProtoToComputeSslCertificateTypeEnum(e computepb.ComputeSslCertificateTypeE
 		return nil
 	}
 	if n, ok := computepb.ComputeSslCertificateTypeEnum_name[int32(e)]; ok {
-		e := compute.SslCertificateTypeEnum(n[len("SslCertificateTypeEnum"):])
+		e := compute.SslCertificateTypeEnum(n[len("ComputeSslCertificateTypeEnum"):])
 		return &e
 	}
 	return nil

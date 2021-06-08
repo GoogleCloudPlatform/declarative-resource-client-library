@@ -31,7 +31,7 @@ func ProtoToComputeInstanceTemplatePropertiesDisksInterfaceEnum(e computepb.Comp
 		return nil
 	}
 	if n, ok := computepb.ComputeInstanceTemplatePropertiesDisksInterfaceEnum_name[int32(e)]; ok {
-		e := compute.InstanceTemplatePropertiesDisksInterfaceEnum(n[len("InstanceTemplatePropertiesDisksInterfaceEnum"):])
+		e := compute.InstanceTemplatePropertiesDisksInterfaceEnum(n[len("ComputeInstanceTemplatePropertiesDisksInterfaceEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToComputeInstanceTemplatePropertiesDisksModeEnum(e computepb.ComputeIn
 		return nil
 	}
 	if n, ok := computepb.ComputeInstanceTemplatePropertiesDisksModeEnum_name[int32(e)]; ok {
-		e := compute.InstanceTemplatePropertiesDisksModeEnum(n[len("InstanceTemplatePropertiesDisksModeEnum"):])
+		e := compute.InstanceTemplatePropertiesDisksModeEnum(n[len("ComputeInstanceTemplatePropertiesDisksModeEnum"):])
 		return &e
 	}
 	return nil
@@ -55,7 +55,7 @@ func ProtoToComputeInstanceTemplatePropertiesDisksTypeEnum(e computepb.ComputeIn
 		return nil
 	}
 	if n, ok := computepb.ComputeInstanceTemplatePropertiesDisksTypeEnum_name[int32(e)]; ok {
-		e := compute.InstanceTemplatePropertiesDisksTypeEnum(n[len("InstanceTemplatePropertiesDisksTypeEnum"):])
+		e := compute.InstanceTemplatePropertiesDisksTypeEnum(n[len("ComputeInstanceTemplatePropertiesDisksTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -67,7 +67,7 @@ func ProtoToComputeInstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeE
 		return nil
 	}
 	if n, ok := computepb.ComputeInstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum_name[int32(e)]; ok {
-		e := compute.InstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum(n[len("InstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum"):])
+		e := compute.InstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum(n[len("ComputeInstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -79,7 +79,7 @@ func ProtoToComputeInstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetwo
 		return nil
 	}
 	if n, ok := computepb.ComputeInstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum_name[int32(e)]; ok {
-		e := compute.InstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum(n[len("InstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum"):])
+		e := compute.InstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum(n[len("ComputeInstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum"):])
 		return &e
 	}
 	return nil
@@ -91,7 +91,7 @@ func ProtoToComputeInstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnu
 		return nil
 	}
 	if n, ok := computepb.ComputeInstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum_name[int32(e)]; ok {
-		e := compute.InstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum(n[len("InstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum"):])
+		e := compute.InstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum(n[len("ComputeInstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum"):])
 		return &e
 	}
 	return nil

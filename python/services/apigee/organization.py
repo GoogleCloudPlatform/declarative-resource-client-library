@@ -229,7 +229,9 @@ class OrganizationProperties(object):
         if not resource:
             return None
 
-        return OrganizationProperties(property=resource.property,)
+        return OrganizationProperties(
+            property=OrganizationPropertiesPropertyArray.from_proto(resource.property),
+        )
 
 
 class OrganizationPropertiesArray(object):
@@ -266,7 +268,10 @@ class OrganizationPropertiesProperty(object):
         if not resource:
             return None
 
-        return OrganizationPropertiesProperty(name=resource.name, value=resource.value,)
+        return OrganizationPropertiesProperty(
+            name=Primitive.from_proto(resource.name),
+            value=Primitive.from_proto(resource.value),
+        )
 
 
 class OrganizationPropertiesPropertyArray(object):
