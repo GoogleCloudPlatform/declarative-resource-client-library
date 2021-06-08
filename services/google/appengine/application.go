@@ -25,49 +25,23 @@ import (
 )
 
 type Application struct {
-	AuthDomain      *string                       `json:"authDomain"`
-	CodeBucket      *string                       `json:"codeBucket"`
-	DatabaseType    *ApplicationDatabaseTypeEnum  `json:"databaseType"`
-	DefaultBucket   *string                       `json:"defaultBucket"`
-	DefaultHostname *string                       `json:"defaultHostname"`
-	DispatchRules   []ApplicationDispatchRules    `json:"dispatchRules"`
-	FeatureSettings *ApplicationFeatureSettings   `json:"featureSettings"`
-	GcrDomain       *string                       `json:"gcrDomain"`
-	Iap             *ApplicationIap               `json:"iap"`
-	Name            *string                       `json:"name"`
-	Location        *string                       `json:"location"`
-	ServingStatus   *ApplicationServingStatusEnum `json:"servingStatus"`
+	Name                    *string                       `json:"name"`
+	DispatchRules           []ApplicationDispatchRules    `json:"dispatchRules"`
+	AuthDomain              *string                       `json:"authDomain"`
+	Location                *string                       `json:"location"`
+	CodeBucket              *string                       `json:"codeBucket"`
+	DefaultCookieExpiration *string                       `json:"defaultCookieExpiration"`
+	ServingStatus           *ApplicationServingStatusEnum `json:"servingStatus"`
+	DefaultHostname         *string                       `json:"defaultHostname"`
+	DefaultBucket           *string                       `json:"defaultBucket"`
+	Iap                     *ApplicationIap               `json:"iap"`
+	GcrDomain               *string                       `json:"gcrDomain"`
+	DatabaseType            *ApplicationDatabaseTypeEnum  `json:"databaseType"`
+	FeatureSettings         *ApplicationFeatureSettings   `json:"featureSettings"`
 }
 
 func (r *Application) String() string {
 	return dcl.SprintResource(r)
-}
-
-// The enum ApplicationDatabaseTypeEnum.
-type ApplicationDatabaseTypeEnum string
-
-// ApplicationDatabaseTypeEnumRef returns a *ApplicationDatabaseTypeEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func ApplicationDatabaseTypeEnumRef(s string) *ApplicationDatabaseTypeEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := ApplicationDatabaseTypeEnum(s)
-	return &v
-}
-
-func (v ApplicationDatabaseTypeEnum) Validate() error {
-	for _, s := range []string{"DATABASE_TYPE_UNSPECIFIED", "CLOUD_DATASTORE", "CLOUD_FIRESTORE", "CLOUD_DATASTORE_COMPATIBILITY"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "ApplicationDatabaseTypeEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
 }
 
 // The enum ApplicationServingStatusEnum.
@@ -92,6 +66,33 @@ func (v ApplicationServingStatusEnum) Validate() error {
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "ApplicationServingStatusEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum ApplicationDatabaseTypeEnum.
+type ApplicationDatabaseTypeEnum string
+
+// ApplicationDatabaseTypeEnumRef returns a *ApplicationDatabaseTypeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func ApplicationDatabaseTypeEnumRef(s string) *ApplicationDatabaseTypeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := ApplicationDatabaseTypeEnum(s)
+	return &v
+}
+
+func (v ApplicationDatabaseTypeEnum) Validate() error {
+	for _, s := range []string{"DATABASE_TYPE_UNSPECIFIED", "CLOUD_DATASTORE", "CLOUD_FIRESTORE", "CLOUD_DATASTORE_COMPATIBILITY"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "ApplicationDatabaseTypeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -149,55 +150,6 @@ func (r *ApplicationDispatchRules) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type ApplicationFeatureSettings struct {
-	empty                   bool  `json:"-"`
-	SplitHealthChecks       *bool `json:"splitHealthChecks"`
-	UseContainerOptimizedOs *bool `json:"useContainerOptimizedOs"`
-}
-
-type jsonApplicationFeatureSettings ApplicationFeatureSettings
-
-func (r *ApplicationFeatureSettings) UnmarshalJSON(data []byte) error {
-	var res jsonApplicationFeatureSettings
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyApplicationFeatureSettings
-	} else {
-
-		r.SplitHealthChecks = res.SplitHealthChecks
-
-		r.UseContainerOptimizedOs = res.UseContainerOptimizedOs
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this ApplicationFeatureSettings is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyApplicationFeatureSettings *ApplicationFeatureSettings = &ApplicationFeatureSettings{empty: true}
-
-func (r *ApplicationFeatureSettings) Empty() bool {
-	return r.empty
-}
-
-func (r *ApplicationFeatureSettings) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *ApplicationFeatureSettings) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 type ApplicationIap struct {
 	empty                    bool    `json:"-"`
 	Enabled                  *bool   `json:"enabled"`
@@ -247,6 +199,55 @@ func (r *ApplicationIap) String() string {
 }
 
 func (r *ApplicationIap) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ApplicationFeatureSettings struct {
+	empty                   bool  `json:"-"`
+	SplitHealthChecks       *bool `json:"splitHealthChecks"`
+	UseContainerOptimizedOs *bool `json:"useContainerOptimizedOs"`
+}
+
+type jsonApplicationFeatureSettings ApplicationFeatureSettings
+
+func (r *ApplicationFeatureSettings) UnmarshalJSON(data []byte) error {
+	var res jsonApplicationFeatureSettings
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyApplicationFeatureSettings
+	} else {
+
+		r.SplitHealthChecks = res.SplitHealthChecks
+
+		r.UseContainerOptimizedOs = res.UseContainerOptimizedOs
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ApplicationFeatureSettings is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyApplicationFeatureSettings *ApplicationFeatureSettings = &ApplicationFeatureSettings{empty: true}
+
+func (r *ApplicationFeatureSettings) Empty() bool {
+	return r.empty
+}
+
+func (r *ApplicationFeatureSettings) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ApplicationFeatureSettings) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

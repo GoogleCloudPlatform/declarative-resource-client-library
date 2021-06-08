@@ -56,7 +56,6 @@ components:
           description: 'The type of the Cloud Firestore or Cloud Datastore database
             associated with this application. Possible values: DATABASE_TYPE_UNSPECIFIED,
             CLOUD_DATASTORE, CLOUD_FIRESTORE, CLOUD_DATASTORE_COMPATIBILITY'
-          x-kubernetes-immutable: true
           enum:
           - DATABASE_TYPE_UNSPECIFIED
           - CLOUD_DATASTORE
@@ -69,6 +68,12 @@ components:
           description: Google Cloud Storage bucket that can be used by this application
             to store content. @OutputOnly
           x-kubernetes-immutable: true
+        defaultCookieExpiration:
+          type: string
+          x-dcl-go-name: DefaultCookieExpiration
+          description: 'Cookie expiration policy for this application. A duration
+            in seconds with up to nine fractional digits, terminated by ''s''. Example:
+            "3.5s".'
         defaultHostname:
           type: string
           x-dcl-go-name: DefaultHostname
@@ -82,7 +87,6 @@ components:
           description: HTTP path dispatch rules for requests to the application that
             do not explicitly target a service or version. Rules are order-dependent.
             Up to 20 dispatch rules can be supported.
-          x-kubernetes-immutable: true
           x-dcl-list-type: list
           items:
             type: object
@@ -94,21 +98,18 @@ components:
                 description: 'Domain name to match against. The wildcard "`*`" is
                   supported if specified before a period: "`*.`". Defaults to matching
                   all domains: "`*`".'
-                x-kubernetes-immutable: true
               path:
                 type: string
                 x-dcl-go-name: Path
                 description: Pathname within the host. Must start with a "`/`". A
                   single "`*`" can be included at the end of the path. The sum of
                   the lengths of the domain and path may not exceed 100 characters.
-                x-kubernetes-immutable: true
               service:
                 type: string
                 x-dcl-go-name: Service
                 description: 'Resource ID of a service in this application that should
                   serve the matched request. The service must already exist. Example:
                   `default`.'
-                x-kubernetes-immutable: true
         featureSettings:
           type: object
           x-dcl-go-name: FeatureSettings
@@ -134,7 +135,6 @@ components:
           x-dcl-go-name: GcrDomain
           description: The Google Container Registry domain used for storing managed
             build docker images for this application.
-          x-kubernetes-immutable: true
         iap:
           type: object
           x-dcl-go-name: Iap

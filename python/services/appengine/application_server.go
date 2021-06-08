@@ -26,18 +26,6 @@ import (
 // Server implements the gRPC interface for Application.
 type ApplicationServer struct{}
 
-// ProtoToApplicationDatabaseTypeEnum converts a ApplicationDatabaseTypeEnum enum from its proto representation.
-func ProtoToAppengineApplicationDatabaseTypeEnum(e appenginepb.AppengineApplicationDatabaseTypeEnum) *appengine.ApplicationDatabaseTypeEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := appenginepb.AppengineApplicationDatabaseTypeEnum_name[int32(e)]; ok {
-		e := appengine.ApplicationDatabaseTypeEnum(n[len("AppengineApplicationDatabaseTypeEnum"):])
-		return &e
-	}
-	return nil
-}
-
 // ProtoToApplicationServingStatusEnum converts a ApplicationServingStatusEnum enum from its proto representation.
 func ProtoToAppengineApplicationServingStatusEnum(e appenginepb.AppengineApplicationServingStatusEnum) *appengine.ApplicationServingStatusEnum {
 	if e == 0 {
@@ -45,6 +33,18 @@ func ProtoToAppengineApplicationServingStatusEnum(e appenginepb.AppengineApplica
 	}
 	if n, ok := appenginepb.AppengineApplicationServingStatusEnum_name[int32(e)]; ok {
 		e := appengine.ApplicationServingStatusEnum(n[len("AppengineApplicationServingStatusEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToApplicationDatabaseTypeEnum converts a ApplicationDatabaseTypeEnum enum from its proto representation.
+func ProtoToAppengineApplicationDatabaseTypeEnum(e appenginepb.AppengineApplicationDatabaseTypeEnum) *appengine.ApplicationDatabaseTypeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := appenginepb.AppengineApplicationDatabaseTypeEnum_name[int32(e)]; ok {
+		e := appengine.ApplicationDatabaseTypeEnum(n[len("AppengineApplicationDatabaseTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -63,18 +63,6 @@ func ProtoToAppengineApplicationDispatchRules(p *appenginepb.AppengineApplicatio
 	return obj
 }
 
-// ProtoToApplicationFeatureSettings converts a ApplicationFeatureSettings resource from its proto representation.
-func ProtoToAppengineApplicationFeatureSettings(p *appenginepb.AppengineApplicationFeatureSettings) *appengine.ApplicationFeatureSettings {
-	if p == nil {
-		return nil
-	}
-	obj := &appengine.ApplicationFeatureSettings{
-		SplitHealthChecks:       dcl.Bool(p.SplitHealthChecks),
-		UseContainerOptimizedOs: dcl.Bool(p.UseContainerOptimizedOs),
-	}
-	return obj
-}
-
 // ProtoToApplicationIap converts a ApplicationIap resource from its proto representation.
 func ProtoToAppengineApplicationIap(p *appenginepb.AppengineApplicationIap) *appengine.ApplicationIap {
 	if p == nil {
@@ -89,36 +77,38 @@ func ProtoToAppengineApplicationIap(p *appenginepb.AppengineApplicationIap) *app
 	return obj
 }
 
+// ProtoToApplicationFeatureSettings converts a ApplicationFeatureSettings resource from its proto representation.
+func ProtoToAppengineApplicationFeatureSettings(p *appenginepb.AppengineApplicationFeatureSettings) *appengine.ApplicationFeatureSettings {
+	if p == nil {
+		return nil
+	}
+	obj := &appengine.ApplicationFeatureSettings{
+		SplitHealthChecks:       dcl.Bool(p.SplitHealthChecks),
+		UseContainerOptimizedOs: dcl.Bool(p.UseContainerOptimizedOs),
+	}
+	return obj
+}
+
 // ProtoToApplication converts a Application resource from its proto representation.
 func ProtoToApplication(p *appenginepb.AppengineApplication) *appengine.Application {
 	obj := &appengine.Application{
-		AuthDomain:      dcl.StringOrNil(p.AuthDomain),
-		CodeBucket:      dcl.StringOrNil(p.CodeBucket),
-		DatabaseType:    ProtoToAppengineApplicationDatabaseTypeEnum(p.GetDatabaseType()),
-		DefaultBucket:   dcl.StringOrNil(p.DefaultBucket),
-		DefaultHostname: dcl.StringOrNil(p.DefaultHostname),
-		FeatureSettings: ProtoToAppengineApplicationFeatureSettings(p.GetFeatureSettings()),
-		GcrDomain:       dcl.StringOrNil(p.GcrDomain),
-		Iap:             ProtoToAppengineApplicationIap(p.GetIap()),
-		Name:            dcl.StringOrNil(p.Name),
-		Location:        dcl.StringOrNil(p.Location),
-		ServingStatus:   ProtoToAppengineApplicationServingStatusEnum(p.GetServingStatus()),
+		Name:                    dcl.StringOrNil(p.Name),
+		AuthDomain:              dcl.StringOrNil(p.AuthDomain),
+		Location:                dcl.StringOrNil(p.Location),
+		CodeBucket:              dcl.StringOrNil(p.CodeBucket),
+		DefaultCookieExpiration: dcl.StringOrNil(p.DefaultCookieExpiration),
+		ServingStatus:           ProtoToAppengineApplicationServingStatusEnum(p.GetServingStatus()),
+		DefaultHostname:         dcl.StringOrNil(p.DefaultHostname),
+		DefaultBucket:           dcl.StringOrNil(p.DefaultBucket),
+		Iap:                     ProtoToAppengineApplicationIap(p.GetIap()),
+		GcrDomain:               dcl.StringOrNil(p.GcrDomain),
+		DatabaseType:            ProtoToAppengineApplicationDatabaseTypeEnum(p.GetDatabaseType()),
+		FeatureSettings:         ProtoToAppengineApplicationFeatureSettings(p.GetFeatureSettings()),
 	}
 	for _, r := range p.GetDispatchRules() {
 		obj.DispatchRules = append(obj.DispatchRules, *ProtoToAppengineApplicationDispatchRules(r))
 	}
 	return obj
-}
-
-// ApplicationDatabaseTypeEnumToProto converts a ApplicationDatabaseTypeEnum enum to its proto representation.
-func AppengineApplicationDatabaseTypeEnumToProto(e *appengine.ApplicationDatabaseTypeEnum) appenginepb.AppengineApplicationDatabaseTypeEnum {
-	if e == nil {
-		return appenginepb.AppengineApplicationDatabaseTypeEnum(0)
-	}
-	if v, ok := appenginepb.AppengineApplicationDatabaseTypeEnum_value["ApplicationDatabaseTypeEnum"+string(*e)]; ok {
-		return appenginepb.AppengineApplicationDatabaseTypeEnum(v)
-	}
-	return appenginepb.AppengineApplicationDatabaseTypeEnum(0)
 }
 
 // ApplicationServingStatusEnumToProto converts a ApplicationServingStatusEnum enum to its proto representation.
@@ -132,6 +122,17 @@ func AppengineApplicationServingStatusEnumToProto(e *appengine.ApplicationServin
 	return appenginepb.AppengineApplicationServingStatusEnum(0)
 }
 
+// ApplicationDatabaseTypeEnumToProto converts a ApplicationDatabaseTypeEnum enum to its proto representation.
+func AppengineApplicationDatabaseTypeEnumToProto(e *appengine.ApplicationDatabaseTypeEnum) appenginepb.AppengineApplicationDatabaseTypeEnum {
+	if e == nil {
+		return appenginepb.AppengineApplicationDatabaseTypeEnum(0)
+	}
+	if v, ok := appenginepb.AppengineApplicationDatabaseTypeEnum_value["ApplicationDatabaseTypeEnum"+string(*e)]; ok {
+		return appenginepb.AppengineApplicationDatabaseTypeEnum(v)
+	}
+	return appenginepb.AppengineApplicationDatabaseTypeEnum(0)
+}
+
 // ApplicationDispatchRulesToProto converts a ApplicationDispatchRules resource to its proto representation.
 func AppengineApplicationDispatchRulesToProto(o *appengine.ApplicationDispatchRules) *appenginepb.AppengineApplicationDispatchRules {
 	if o == nil {
@@ -141,18 +142,6 @@ func AppengineApplicationDispatchRulesToProto(o *appengine.ApplicationDispatchRu
 		Domain:  dcl.ValueOrEmptyString(o.Domain),
 		Path:    dcl.ValueOrEmptyString(o.Path),
 		Service: dcl.ValueOrEmptyString(o.Service),
-	}
-	return p
-}
-
-// ApplicationFeatureSettingsToProto converts a ApplicationFeatureSettings resource to its proto representation.
-func AppengineApplicationFeatureSettingsToProto(o *appengine.ApplicationFeatureSettings) *appenginepb.AppengineApplicationFeatureSettings {
-	if o == nil {
-		return nil
-	}
-	p := &appenginepb.AppengineApplicationFeatureSettings{
-		SplitHealthChecks:       dcl.ValueOrEmptyBool(o.SplitHealthChecks),
-		UseContainerOptimizedOs: dcl.ValueOrEmptyBool(o.UseContainerOptimizedOs),
 	}
 	return p
 }
@@ -171,20 +160,33 @@ func AppengineApplicationIapToProto(o *appengine.ApplicationIap) *appenginepb.Ap
 	return p
 }
 
+// ApplicationFeatureSettingsToProto converts a ApplicationFeatureSettings resource to its proto representation.
+func AppengineApplicationFeatureSettingsToProto(o *appengine.ApplicationFeatureSettings) *appenginepb.AppengineApplicationFeatureSettings {
+	if o == nil {
+		return nil
+	}
+	p := &appenginepb.AppengineApplicationFeatureSettings{
+		SplitHealthChecks:       dcl.ValueOrEmptyBool(o.SplitHealthChecks),
+		UseContainerOptimizedOs: dcl.ValueOrEmptyBool(o.UseContainerOptimizedOs),
+	}
+	return p
+}
+
 // ApplicationToProto converts a Application resource to its proto representation.
 func ApplicationToProto(resource *appengine.Application) *appenginepb.AppengineApplication {
 	p := &appenginepb.AppengineApplication{
-		AuthDomain:      dcl.ValueOrEmptyString(resource.AuthDomain),
-		CodeBucket:      dcl.ValueOrEmptyString(resource.CodeBucket),
-		DatabaseType:    AppengineApplicationDatabaseTypeEnumToProto(resource.DatabaseType),
-		DefaultBucket:   dcl.ValueOrEmptyString(resource.DefaultBucket),
-		DefaultHostname: dcl.ValueOrEmptyString(resource.DefaultHostname),
-		FeatureSettings: AppengineApplicationFeatureSettingsToProto(resource.FeatureSettings),
-		GcrDomain:       dcl.ValueOrEmptyString(resource.GcrDomain),
-		Iap:             AppengineApplicationIapToProto(resource.Iap),
-		Name:            dcl.ValueOrEmptyString(resource.Name),
-		Location:        dcl.ValueOrEmptyString(resource.Location),
-		ServingStatus:   AppengineApplicationServingStatusEnumToProto(resource.ServingStatus),
+		Name:                    dcl.ValueOrEmptyString(resource.Name),
+		AuthDomain:              dcl.ValueOrEmptyString(resource.AuthDomain),
+		Location:                dcl.ValueOrEmptyString(resource.Location),
+		CodeBucket:              dcl.ValueOrEmptyString(resource.CodeBucket),
+		DefaultCookieExpiration: dcl.ValueOrEmptyString(resource.DefaultCookieExpiration),
+		ServingStatus:           AppengineApplicationServingStatusEnumToProto(resource.ServingStatus),
+		DefaultHostname:         dcl.ValueOrEmptyString(resource.DefaultHostname),
+		DefaultBucket:           dcl.ValueOrEmptyString(resource.DefaultBucket),
+		Iap:                     AppengineApplicationIapToProto(resource.Iap),
+		GcrDomain:               dcl.ValueOrEmptyString(resource.GcrDomain),
+		DatabaseType:            AppengineApplicationDatabaseTypeEnumToProto(resource.DatabaseType),
+		FeatureSettings:         AppengineApplicationFeatureSettingsToProto(resource.FeatureSettings),
 	}
 	for _, r := range resource.DispatchRules {
 		p.DispatchRules = append(p.DispatchRules, AppengineApplicationDispatchRulesToProto(&r))

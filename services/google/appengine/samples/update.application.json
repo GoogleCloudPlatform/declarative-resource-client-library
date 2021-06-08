@@ -1,0 +1,18 @@
+{
+  "name" : "{{ref:basic.cloudresourcemanager.project.json:name}}",
+  "location" : "us-central",
+  "dispatchRules": [
+    {
+      "domain": "*.com",
+      "path": "/",
+      "service": "default"
+    }
+  ],
+  "defaultCookieExpiration": "86400s",
+  "servingStatus": "USER_DISABLED",
+  "databaseType": "CLOUD_FIRESTORE",
+  "featureSettings": {
+    "splitHealthChecks": true,
+    "useContainerOptimizedOs": true
+  }
+}

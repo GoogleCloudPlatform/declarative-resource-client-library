@@ -150,6 +150,7 @@ components:
           x-dcl-go-name: WorkerConfig
           x-dcl-go-type: WorkerPoolWorkerConfig
           description: Configuration to be used for a creating workers in the `WorkerPool`.
+          x-dcl-server-default: true
           properties:
             diskSizeGb:
               type: integer

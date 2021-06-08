@@ -18,14 +18,6 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
-enum AppengineApplicationDatabaseTypeEnum {
-  AppengineApplicationDatabaseTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  AppengineApplicationDatabaseTypeEnumDATABASE_TYPE_UNSPECIFIED = 1;
-  AppengineApplicationDatabaseTypeEnumCLOUD_DATASTORE = 2;
-  AppengineApplicationDatabaseTypeEnumCLOUD_FIRESTORE = 3;
-  AppengineApplicationDatabaseTypeEnumCLOUD_DATASTORE_COMPATIBILITY = 4;
-}
-
 enum AppengineApplicationServingStatusEnum {
   AppengineApplicationServingStatusEnumNO_VALUE_DO_NOT_USE = 0;
   AppengineApplicationServingStatusEnumUNSPECIFIED = 1;
@@ -34,19 +26,28 @@ enum AppengineApplicationServingStatusEnum {
   AppengineApplicationServingStatusEnumSYSTEM_DISABLED = 4;
 }
 
+enum AppengineApplicationDatabaseTypeEnum {
+  AppengineApplicationDatabaseTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  AppengineApplicationDatabaseTypeEnumDATABASE_TYPE_UNSPECIFIED = 1;
+  AppengineApplicationDatabaseTypeEnumCLOUD_DATASTORE = 2;
+  AppengineApplicationDatabaseTypeEnumCLOUD_FIRESTORE = 3;
+  AppengineApplicationDatabaseTypeEnumCLOUD_DATASTORE_COMPATIBILITY = 4;
+}
+
 message AppengineApplication {
-  string auth_domain = 1;
-  string code_bucket = 2;
-  AppengineApplicationDatabaseTypeEnum database_type = 3;
-  string default_bucket = 4;
-  string default_hostname = 5;
-  repeated AppengineApplicationDispatchRules dispatch_rules = 6;
-  AppengineApplicationFeatureSettings feature_settings = 7;
-  string gcr_domain = 8;
-  AppengineApplicationIap iap = 9;
-  string name = 10;
-  string location = 11;
-  AppengineApplicationServingStatusEnum serving_status = 12;
+  string name = 1;
+  repeated AppengineApplicationDispatchRules dispatch_rules = 2;
+  string auth_domain = 3;
+  string location = 4;
+  string code_bucket = 5;
+  string default_cookie_expiration = 6;
+  AppengineApplicationServingStatusEnum serving_status = 7;
+  string default_hostname = 8;
+  string default_bucket = 9;
+  AppengineApplicationIap iap = 10;
+  string gcr_domain = 11;
+  AppengineApplicationDatabaseTypeEnum database_type = 12;
+  AppengineApplicationFeatureSettings feature_settings = 13;
 }
 
 message AppengineApplicationDispatchRules {
@@ -55,16 +56,16 @@ message AppengineApplicationDispatchRules {
   string service = 3;
 }
 
-message AppengineApplicationFeatureSettings {
-  bool split_health_checks = 1;
-  bool use_container_optimized_os = 2;
-}
-
 message AppengineApplicationIap {
   bool enabled = 1;
   string oauth2_client_id = 2;
   string oauth2_client_secret = 3;
   string oauth2_client_secret_sha256 = 4;
+}
+
+message AppengineApplicationFeatureSettings {
+  bool split_health_checks = 1;
+  bool use_container_optimized_os = 2;
 }
 
 message ApplyAppengineApplicationRequest {

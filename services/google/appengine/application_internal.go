@@ -26,13 +26,13 @@ import (
 
 func (r *Application) validate() error {
 
-	if !dcl.IsEmptyValueIndirect(r.FeatureSettings) {
-		if err := r.FeatureSettings.validate(); err != nil {
+	if !dcl.IsEmptyValueIndirect(r.Iap) {
+		if err := r.Iap.validate(); err != nil {
 			return err
 		}
 	}
-	if !dcl.IsEmptyValueIndirect(r.Iap) {
-		if err := r.Iap.validate(); err != nil {
+	if !dcl.IsEmptyValueIndirect(r.FeatureSettings) {
+		if err := r.FeatureSettings.validate(); err != nil {
 			return err
 		}
 	}
@@ -41,10 +41,10 @@ func (r *Application) validate() error {
 func (r *ApplicationDispatchRules) validate() error {
 	return nil
 }
-func (r *ApplicationFeatureSettings) validate() error {
+func (r *ApplicationIap) validate() error {
 	return nil
 }
-func (r *ApplicationIap) validate() error {
+func (r *ApplicationFeatureSettings) validate() error {
 	return nil
 }
 
@@ -65,34 +65,48 @@ type applicationApiOperation interface {
 	do(context.Context, *Application, *Client) error
 }
 
-// newUpdateApplicationUpdateApplicationRequest creates a request for an
-// Application resource's UpdateApplication update type by filling in the update
+// newUpdateApplicationPatchApplicationRequest creates a request for an
+// Application resource's PatchApplication update type by filling in the update
 // fields based on the intended state of the resource.
-func newUpdateApplicationUpdateApplicationRequest(ctx context.Context, f *Application, c *Client) (map[string]interface{}, error) {
+func newUpdateApplicationPatchApplicationRequest(ctx context.Context, f *Application, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
+	if v, err := expandApplicationDispatchRulesSlice(c, f.DispatchRules); err != nil {
+		return nil, fmt.Errorf("error expanding DispatchRules into dispatchRules: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["dispatchRules"] = v
+	}
 	if v := f.AuthDomain; !dcl.IsEmptyValueIndirect(v) {
 		req["authDomain"] = v
+	}
+	if v := f.DefaultCookieExpiration; !dcl.IsEmptyValueIndirect(v) {
+		req["defaultCookieExpiration"] = v
+	}
+	if v := f.ServingStatus; !dcl.IsEmptyValueIndirect(v) {
+		req["servingStatus"] = v
+	}
+	if v := f.GcrDomain; !dcl.IsEmptyValueIndirect(v) {
+		req["gcrDomain"] = v
+	}
+	if v := f.DatabaseType; !dcl.IsEmptyValueIndirect(v) {
+		req["databaseType"] = v
 	}
 	if v, err := expandApplicationFeatureSettings(c, f.FeatureSettings); err != nil {
 		return nil, fmt.Errorf("error expanding FeatureSettings into featureSettings: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["featureSettings"] = v
 	}
-	if v := f.ServingStatus; !dcl.IsEmptyValueIndirect(v) {
-		req["servingStatus"] = v
-	}
 	return req, nil
 }
 
-// marshalUpdateApplicationUpdateApplicationRequest converts the update into
+// marshalUpdateApplicationPatchApplicationRequest converts the update into
 // the final JSON request body.
-func marshalUpdateApplicationUpdateApplicationRequest(c *Client, m map[string]interface{}) ([]byte, error) {
+func marshalUpdateApplicationPatchApplicationRequest(c *Client, m map[string]interface{}) ([]byte, error) {
 
 	return json.Marshal(m)
 }
 
-type updateApplicationUpdateApplicationOperation struct {
+type updateApplicationPatchApplicationOperation struct {
 	// If the update operation has the REQUIRES_APPLY_OPTIONS trait, this will be populated.
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
@@ -104,24 +118,29 @@ type updateApplicationUpdateApplicationOperation struct {
 // do will transcribe a subset of the resource into a request object and send a
 // PUT request to a single URL.
 
-func (op *updateApplicationUpdateApplicationOperation) do(ctx context.Context, r *Application, c *Client) error {
+func (op *updateApplicationPatchApplicationOperation) do(ctx context.Context, r *Application, c *Client) error {
 	_, err := c.GetApplication(ctx, r.urlNormalized())
 	if err != nil {
 		return err
 	}
 
-	u, err := r.updateURL(c.Config.BasePath, "UpdateApplication")
+	u, err := r.updateURL(c.Config.BasePath, "PatchApplication")
+	if err != nil {
+		return err
+	}
+	mask := dcl.UpdateMask(op.Diffs)
+	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
 	}
 
-	req, err := newUpdateApplicationUpdateApplicationRequest(ctx, r, c)
+	req, err := newUpdateApplicationPatchApplicationRequest(ctx, r, c)
 	if err != nil {
 		return err
 	}
 
 	c.Config.Logger.Infof("Created update: %#v", req)
-	body, err := marshalUpdateApplicationUpdateApplicationRequest(c, req)
+	body, err := marshalUpdateApplicationPatchApplicationRequest(c, req)
 	if err != nil {
 		return err
 	}
@@ -277,74 +296,48 @@ func canonicalizeApplicationDesiredState(rawDesired, rawInitial *Application, op
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
-		rawDesired.FeatureSettings = canonicalizeApplicationFeatureSettings(rawDesired.FeatureSettings, nil, opts...)
 		rawDesired.Iap = canonicalizeApplicationIap(rawDesired.Iap, nil, opts...)
+		rawDesired.FeatureSettings = canonicalizeApplicationFeatureSettings(rawDesired.FeatureSettings, nil, opts...)
 
 		return rawDesired, nil
 	}
-	if dcl.StringCanonicalize(rawDesired.AuthDomain, rawInitial.AuthDomain) {
-		rawDesired.AuthDomain = rawInitial.AuthDomain
-	}
-	if dcl.IsZeroValue(rawDesired.DatabaseType) {
-		rawDesired.DatabaseType = rawInitial.DatabaseType
+	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
+		rawDesired.Name = rawInitial.Name
 	}
 	if dcl.IsZeroValue(rawDesired.DispatchRules) {
 		rawDesired.DispatchRules = rawInitial.DispatchRules
 	}
-	rawDesired.FeatureSettings = canonicalizeApplicationFeatureSettings(rawDesired.FeatureSettings, rawInitial.FeatureSettings, opts...)
-	if dcl.StringCanonicalize(rawDesired.GcrDomain, rawInitial.GcrDomain) {
-		rawDesired.GcrDomain = rawInitial.GcrDomain
-	}
-	rawDesired.Iap = canonicalizeApplicationIap(rawDesired.Iap, rawInitial.Iap, opts...)
-	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
+	if dcl.StringCanonicalize(rawDesired.AuthDomain, rawInitial.AuthDomain) {
+		rawDesired.AuthDomain = rawInitial.AuthDomain
 	}
 	if dcl.StringCanonicalize(rawDesired.Location, rawInitial.Location) {
 		rawDesired.Location = rawInitial.Location
 	}
+	if dcl.StringCanonicalize(rawDesired.DefaultCookieExpiration, rawInitial.DefaultCookieExpiration) {
+		rawDesired.DefaultCookieExpiration = rawInitial.DefaultCookieExpiration
+	}
 	if dcl.IsZeroValue(rawDesired.ServingStatus) {
 		rawDesired.ServingStatus = rawInitial.ServingStatus
 	}
+	rawDesired.Iap = canonicalizeApplicationIap(rawDesired.Iap, rawInitial.Iap, opts...)
+	if dcl.StringCanonicalize(rawDesired.GcrDomain, rawInitial.GcrDomain) {
+		rawDesired.GcrDomain = rawInitial.GcrDomain
+	}
+	if dcl.IsZeroValue(rawDesired.DatabaseType) {
+		rawDesired.DatabaseType = rawInitial.DatabaseType
+	}
+	rawDesired.FeatureSettings = canonicalizeApplicationFeatureSettings(rawDesired.FeatureSettings, rawInitial.FeatureSettings, opts...)
 
 	return rawDesired, nil
 }
 
 func canonicalizeApplicationNewState(c *Client, rawNew, rawDesired *Application) (*Application, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.AuthDomain) && dcl.IsEmptyValueIndirect(rawDesired.AuthDomain) {
-		rawNew.AuthDomain = rawDesired.AuthDomain
+	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+		rawNew.Name = rawDesired.Name
 	} else {
-		if dcl.StringCanonicalize(rawDesired.AuthDomain, rawNew.AuthDomain) {
-			rawNew.AuthDomain = rawDesired.AuthDomain
-		}
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.CodeBucket) && dcl.IsEmptyValueIndirect(rawDesired.CodeBucket) {
-		rawNew.CodeBucket = rawDesired.CodeBucket
-	} else {
-		if dcl.StringCanonicalize(rawDesired.CodeBucket, rawNew.CodeBucket) {
-			rawNew.CodeBucket = rawDesired.CodeBucket
-		}
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.DatabaseType) && dcl.IsEmptyValueIndirect(rawDesired.DatabaseType) {
-		rawNew.DatabaseType = rawDesired.DatabaseType
-	} else {
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.DefaultBucket) && dcl.IsEmptyValueIndirect(rawDesired.DefaultBucket) {
-		rawNew.DefaultBucket = rawDesired.DefaultBucket
-	} else {
-		if dcl.StringCanonicalize(rawDesired.DefaultBucket, rawNew.DefaultBucket) {
-			rawNew.DefaultBucket = rawDesired.DefaultBucket
-		}
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.DefaultHostname) && dcl.IsEmptyValueIndirect(rawDesired.DefaultHostname) {
-		rawNew.DefaultHostname = rawDesired.DefaultHostname
-	} else {
-		if dcl.StringCanonicalize(rawDesired.DefaultHostname, rawNew.DefaultHostname) {
-			rawNew.DefaultHostname = rawDesired.DefaultHostname
+		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
 		}
 	}
 
@@ -354,31 +347,11 @@ func canonicalizeApplicationNewState(c *Client, rawNew, rawDesired *Application)
 		rawNew.DispatchRules = canonicalizeNewApplicationDispatchRulesSlice(c, rawDesired.DispatchRules, rawNew.DispatchRules)
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.FeatureSettings) && dcl.IsEmptyValueIndirect(rawDesired.FeatureSettings) {
-		rawNew.FeatureSettings = rawDesired.FeatureSettings
+	if dcl.IsEmptyValueIndirect(rawNew.AuthDomain) && dcl.IsEmptyValueIndirect(rawDesired.AuthDomain) {
+		rawNew.AuthDomain = rawDesired.AuthDomain
 	} else {
-		rawNew.FeatureSettings = canonicalizeNewApplicationFeatureSettings(c, rawDesired.FeatureSettings, rawNew.FeatureSettings)
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.GcrDomain) && dcl.IsEmptyValueIndirect(rawDesired.GcrDomain) {
-		rawNew.GcrDomain = rawDesired.GcrDomain
-	} else {
-		if dcl.StringCanonicalize(rawDesired.GcrDomain, rawNew.GcrDomain) {
-			rawNew.GcrDomain = rawDesired.GcrDomain
-		}
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.Iap) && dcl.IsEmptyValueIndirect(rawDesired.Iap) {
-		rawNew.Iap = rawDesired.Iap
-	} else {
-		rawNew.Iap = canonicalizeNewApplicationIap(c, rawDesired.Iap, rawNew.Iap)
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
-	} else {
-		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
-			rawNew.Name = rawDesired.Name
+		if dcl.StringCanonicalize(rawDesired.AuthDomain, rawNew.AuthDomain) {
+			rawNew.AuthDomain = rawDesired.AuthDomain
 		}
 	}
 
@@ -390,9 +363,66 @@ func canonicalizeApplicationNewState(c *Client, rawNew, rawDesired *Application)
 		}
 	}
 
+	if dcl.IsEmptyValueIndirect(rawNew.CodeBucket) && dcl.IsEmptyValueIndirect(rawDesired.CodeBucket) {
+		rawNew.CodeBucket = rawDesired.CodeBucket
+	} else {
+		if dcl.StringCanonicalize(rawDesired.CodeBucket, rawNew.CodeBucket) {
+			rawNew.CodeBucket = rawDesired.CodeBucket
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.DefaultCookieExpiration) && dcl.IsEmptyValueIndirect(rawDesired.DefaultCookieExpiration) {
+		rawNew.DefaultCookieExpiration = rawDesired.DefaultCookieExpiration
+	} else {
+		if dcl.StringCanonicalize(rawDesired.DefaultCookieExpiration, rawNew.DefaultCookieExpiration) {
+			rawNew.DefaultCookieExpiration = rawDesired.DefaultCookieExpiration
+		}
+	}
+
 	if dcl.IsEmptyValueIndirect(rawNew.ServingStatus) && dcl.IsEmptyValueIndirect(rawDesired.ServingStatus) {
 		rawNew.ServingStatus = rawDesired.ServingStatus
 	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.DefaultHostname) && dcl.IsEmptyValueIndirect(rawDesired.DefaultHostname) {
+		rawNew.DefaultHostname = rawDesired.DefaultHostname
+	} else {
+		if dcl.StringCanonicalize(rawDesired.DefaultHostname, rawNew.DefaultHostname) {
+			rawNew.DefaultHostname = rawDesired.DefaultHostname
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.DefaultBucket) && dcl.IsEmptyValueIndirect(rawDesired.DefaultBucket) {
+		rawNew.DefaultBucket = rawDesired.DefaultBucket
+	} else {
+		if dcl.StringCanonicalize(rawDesired.DefaultBucket, rawNew.DefaultBucket) {
+			rawNew.DefaultBucket = rawDesired.DefaultBucket
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Iap) && dcl.IsEmptyValueIndirect(rawDesired.Iap) {
+		rawNew.Iap = rawDesired.Iap
+	} else {
+		rawNew.Iap = canonicalizeNewApplicationIap(c, rawDesired.Iap, rawNew.Iap)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.GcrDomain) && dcl.IsEmptyValueIndirect(rawDesired.GcrDomain) {
+		rawNew.GcrDomain = rawDesired.GcrDomain
+	} else {
+		if dcl.StringCanonicalize(rawDesired.GcrDomain, rawNew.GcrDomain) {
+			rawNew.GcrDomain = rawDesired.GcrDomain
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.DatabaseType) && dcl.IsEmptyValueIndirect(rawDesired.DatabaseType) {
+		rawNew.DatabaseType = rawDesired.DatabaseType
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.FeatureSettings) && dcl.IsEmptyValueIndirect(rawDesired.FeatureSettings) {
+		rawNew.FeatureSettings = rawDesired.FeatureSettings
+	} else {
+		rawNew.FeatureSettings = canonicalizeNewApplicationFeatureSettings(c, rawDesired.FeatureSettings, rawNew.FeatureSettings)
 	}
 
 	return rawNew, nil
@@ -479,86 +509,6 @@ func canonicalizeNewApplicationDispatchRulesSlice(c *Client, des, nw []Applicati
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewApplicationDispatchRules(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeApplicationFeatureSettings(des, initial *ApplicationFeatureSettings, opts ...dcl.ApplyOption) *ApplicationFeatureSettings {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.BoolCanonicalize(des.SplitHealthChecks, initial.SplitHealthChecks) || dcl.IsZeroValue(des.SplitHealthChecks) {
-		des.SplitHealthChecks = initial.SplitHealthChecks
-	}
-	if dcl.BoolCanonicalize(des.UseContainerOptimizedOs, initial.UseContainerOptimizedOs) || dcl.IsZeroValue(des.UseContainerOptimizedOs) {
-		des.UseContainerOptimizedOs = initial.UseContainerOptimizedOs
-	}
-
-	return des
-}
-
-func canonicalizeNewApplicationFeatureSettings(c *Client, des, nw *ApplicationFeatureSettings) *ApplicationFeatureSettings {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.BoolCanonicalize(des.SplitHealthChecks, nw.SplitHealthChecks) {
-		nw.SplitHealthChecks = des.SplitHealthChecks
-	}
-	if dcl.BoolCanonicalize(des.UseContainerOptimizedOs, nw.UseContainerOptimizedOs) {
-		nw.UseContainerOptimizedOs = des.UseContainerOptimizedOs
-	}
-
-	return nw
-}
-
-func canonicalizeNewApplicationFeatureSettingsSet(c *Client, des, nw []ApplicationFeatureSettings) []ApplicationFeatureSettings {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []ApplicationFeatureSettings
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareApplicationFeatureSettingsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewApplicationFeatureSettingsSlice(c *Client, des, nw []ApplicationFeatureSettings) []ApplicationFeatureSettings {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []ApplicationFeatureSettings
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewApplicationFeatureSettings(c, &d, &n))
 	}
 
 	return items
@@ -651,6 +601,86 @@ func canonicalizeNewApplicationIapSlice(c *Client, des, nw []ApplicationIap) []A
 	return items
 }
 
+func canonicalizeApplicationFeatureSettings(des, initial *ApplicationFeatureSettings, opts ...dcl.ApplyOption) *ApplicationFeatureSettings {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	if dcl.BoolCanonicalize(des.SplitHealthChecks, initial.SplitHealthChecks) || dcl.IsZeroValue(des.SplitHealthChecks) {
+		des.SplitHealthChecks = initial.SplitHealthChecks
+	}
+	if dcl.BoolCanonicalize(des.UseContainerOptimizedOs, initial.UseContainerOptimizedOs) || dcl.IsZeroValue(des.UseContainerOptimizedOs) {
+		des.UseContainerOptimizedOs = initial.UseContainerOptimizedOs
+	}
+
+	return des
+}
+
+func canonicalizeNewApplicationFeatureSettings(c *Client, des, nw *ApplicationFeatureSettings) *ApplicationFeatureSettings {
+	if des == nil || nw == nil {
+		return nw
+	}
+
+	if dcl.BoolCanonicalize(des.SplitHealthChecks, nw.SplitHealthChecks) {
+		nw.SplitHealthChecks = des.SplitHealthChecks
+	}
+	if dcl.BoolCanonicalize(des.UseContainerOptimizedOs, nw.UseContainerOptimizedOs) {
+		nw.UseContainerOptimizedOs = des.UseContainerOptimizedOs
+	}
+
+	return nw
+}
+
+func canonicalizeNewApplicationFeatureSettingsSet(c *Client, des, nw []ApplicationFeatureSettings) []ApplicationFeatureSettings {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ApplicationFeatureSettings
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareApplicationFeatureSettingsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewApplicationFeatureSettingsSlice(c *Client, des, nw []ApplicationFeatureSettings) []ApplicationFeatureSettings {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ApplicationFeatureSettings
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewApplicationFeatureSettings(c, &d, &n))
+	}
+
+	return items
+}
+
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -666,70 +696,21 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.AuthDomain, actual.AuthDomain, dcl.Info{OperationSelector: dcl.TriggersOperation("updateApplicationUpdateApplicationOperation")}, fn.AddNest("AuthDomain")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.CodeBucket, actual.CodeBucket, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CodeBucket")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DatabaseType, actual.DatabaseType, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DatabaseType")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DefaultBucket, actual.DefaultBucket, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultBucket")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DefaultHostname, actual.DefaultHostname, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultHostname")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DispatchRules, actual.DispatchRules, dcl.Info{ObjectFunction: compareApplicationDispatchRulesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DispatchRules")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.FeatureSettings, actual.FeatureSettings, dcl.Info{ObjectFunction: compareApplicationFeatureSettingsNewStyle, OperationSelector: dcl.TriggersOperation("updateApplicationUpdateApplicationOperation")}, fn.AddNest("FeatureSettings")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.GcrDomain, actual.GcrDomain, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GcrDomain")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Iap, actual.Iap, dcl.Info{ObjectFunction: compareApplicationIapNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Iap")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DispatchRules, actual.DispatchRules, dcl.Info{ObjectFunction: compareApplicationDispatchRulesNewStyle, OperationSelector: dcl.TriggersOperation("updateApplicationPatchApplicationOperation")}, fn.AddNest("DispatchRules")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AuthDomain, actual.AuthDomain, dcl.Info{OperationSelector: dcl.TriggersOperation("updateApplicationPatchApplicationOperation")}, fn.AddNest("AuthDomain")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -743,7 +724,63 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServingStatus, actual.ServingStatus, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateApplicationUpdateApplicationOperation")}, fn.AddNest("ServingStatus")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CodeBucket, actual.CodeBucket, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CodeBucket")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DefaultCookieExpiration, actual.DefaultCookieExpiration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateApplicationPatchApplicationOperation")}, fn.AddNest("DefaultCookieExpiration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServingStatus, actual.ServingStatus, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateApplicationPatchApplicationOperation")}, fn.AddNest("ServingStatus")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DefaultHostname, actual.DefaultHostname, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultHostname")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DefaultBucket, actual.DefaultBucket, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultBucket")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Iap, actual.Iap, dcl.Info{ObjectFunction: compareApplicationIapNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Iap")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GcrDomain, actual.GcrDomain, dcl.Info{OperationSelector: dcl.TriggersOperation("updateApplicationPatchApplicationOperation")}, fn.AddNest("GcrDomain")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DatabaseType, actual.DatabaseType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateApplicationPatchApplicationOperation")}, fn.AddNest("DatabaseType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FeatureSettings, actual.FeatureSettings, dcl.Info{ObjectFunction: compareApplicationFeatureSettingsNewStyle, OperationSelector: dcl.TriggersOperation("updateApplicationPatchApplicationOperation")}, fn.AddNest("FeatureSettings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -787,42 +824,6 @@ func compareApplicationDispatchRulesNewStyle(d, a interface{}, fn dcl.FieldName)
 	}
 
 	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareApplicationFeatureSettingsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*ApplicationFeatureSettings)
-	if !ok {
-		desiredNotPointer, ok := d.(ApplicationFeatureSettings)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a ApplicationFeatureSettings or *ApplicationFeatureSettings", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*ApplicationFeatureSettings)
-	if !ok {
-		actualNotPointer, ok := a.(ApplicationFeatureSettings)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a ApplicationFeatureSettings", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.SplitHealthChecks, actual.SplitHealthChecks, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SplitHealthChecks")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.UseContainerOptimizedOs, actual.UseContainerOptimizedOs, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UseContainerOptimizedOs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -881,18 +882,55 @@ func compareApplicationIapNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 	return diffs, nil
 }
 
+func compareApplicationFeatureSettingsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ApplicationFeatureSettings)
+	if !ok {
+		desiredNotPointer, ok := d.(ApplicationFeatureSettings)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ApplicationFeatureSettings or *ApplicationFeatureSettings", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ApplicationFeatureSettings)
+	if !ok {
+		actualNotPointer, ok := a.(ApplicationFeatureSettings)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ApplicationFeatureSettings", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.SplitHealthChecks, actual.SplitHealthChecks, dcl.Info{OperationSelector: dcl.TriggersOperation("updateApplicationPatchApplicationOperation")}, fn.AddNest("SplitHealthChecks")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UseContainerOptimizedOs, actual.UseContainerOptimizedOs, dcl.Info{OperationSelector: dcl.TriggersOperation("updateApplicationPatchApplicationOperation")}, fn.AddNest("UseContainerOptimizedOs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
 func (r *Application) urlNormalized() *Application {
 	normalized := dcl.Copy(*r).(Application)
-	normalized.AuthDomain = dcl.SelfLinkToName(r.AuthDomain)
-	normalized.CodeBucket = dcl.SelfLinkToName(r.CodeBucket)
-	normalized.DefaultBucket = dcl.SelfLinkToName(r.DefaultBucket)
-	normalized.DefaultHostname = dcl.SelfLinkToName(r.DefaultHostname)
-	normalized.GcrDomain = dcl.SelfLinkToName(r.GcrDomain)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.AuthDomain = dcl.SelfLinkToName(r.AuthDomain)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.CodeBucket = dcl.SelfLinkToName(r.CodeBucket)
+	normalized.DefaultCookieExpiration = dcl.SelfLinkToName(r.DefaultCookieExpiration)
+	normalized.DefaultHostname = dcl.SelfLinkToName(r.DefaultHostname)
+	normalized.DefaultBucket = dcl.SelfLinkToName(r.DefaultBucket)
+	normalized.GcrDomain = dcl.SelfLinkToName(r.GcrDomain)
 	return &normalized
 }
 
@@ -907,7 +945,7 @@ func (r *Application) createFields() string {
 
 func (r *Application) updateURL(userBasePath, updateName string) (string, error) {
 	n := r.urlNormalized()
-	if updateName == "UpdateApplication" {
+	if updateName == "PatchApplication" {
 		fields := map[string]interface{}{
 			"name": dcl.ValueOrEmptyString(n.Name),
 		}
@@ -946,47 +984,50 @@ func unmarshalMapApplication(m map[string]interface{}, c *Client) (*Application,
 // expandApplication expands Application into a JSON request object.
 func expandApplication(c *Client, f *Application) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v := f.AuthDomain; !dcl.IsEmptyValueIndirect(v) {
-		m["authDomain"] = v
-	}
-	if v := f.CodeBucket; !dcl.IsEmptyValueIndirect(v) {
-		m["codeBucket"] = v
-	}
-	if v := f.DatabaseType; !dcl.IsEmptyValueIndirect(v) {
-		m["databaseType"] = v
-	}
-	if v := f.DefaultBucket; !dcl.IsEmptyValueIndirect(v) {
-		m["defaultBucket"] = v
-	}
-	if v := f.DefaultHostname; !dcl.IsEmptyValueIndirect(v) {
-		m["defaultHostname"] = v
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["id"] = v
 	}
 	if v, err := expandApplicationDispatchRulesSlice(c, f.DispatchRules); err != nil {
 		return nil, fmt.Errorf("error expanding DispatchRules into dispatchRules: %w", err)
 	} else if v != nil {
 		m["dispatchRules"] = v
 	}
-	if v, err := expandApplicationFeatureSettings(c, f.FeatureSettings); err != nil {
-		return nil, fmt.Errorf("error expanding FeatureSettings into featureSettings: %w", err)
-	} else if v != nil {
-		m["featureSettings"] = v
+	if v := f.AuthDomain; !dcl.IsEmptyValueIndirect(v) {
+		m["authDomain"] = v
 	}
-	if v := f.GcrDomain; !dcl.IsEmptyValueIndirect(v) {
-		m["gcrDomain"] = v
+	if v := f.Location; !dcl.IsEmptyValueIndirect(v) {
+		m["locationId"] = v
+	}
+	if v := f.CodeBucket; !dcl.IsEmptyValueIndirect(v) {
+		m["codeBucket"] = v
+	}
+	if v := f.DefaultCookieExpiration; !dcl.IsEmptyValueIndirect(v) {
+		m["defaultCookieExpiration"] = v
+	}
+	if v := f.ServingStatus; !dcl.IsEmptyValueIndirect(v) {
+		m["servingStatus"] = v
+	}
+	if v := f.DefaultHostname; !dcl.IsEmptyValueIndirect(v) {
+		m["defaultHostname"] = v
+	}
+	if v := f.DefaultBucket; !dcl.IsEmptyValueIndirect(v) {
+		m["defaultBucket"] = v
 	}
 	if v, err := expandApplicationIap(c, f.Iap); err != nil {
 		return nil, fmt.Errorf("error expanding Iap into iap: %w", err)
 	} else if v != nil {
 		m["iap"] = v
 	}
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
-		m["id"] = v
+	if v := f.GcrDomain; !dcl.IsEmptyValueIndirect(v) {
+		m["gcrDomain"] = v
 	}
-	if v := f.Location; !dcl.IsEmptyValueIndirect(v) {
-		m["locationId"] = v
+	if v := f.DatabaseType; !dcl.IsEmptyValueIndirect(v) {
+		m["databaseType"] = v
 	}
-	if v := f.ServingStatus; !dcl.IsEmptyValueIndirect(v) {
-		m["servingStatus"] = v
+	if v, err := expandApplicationFeatureSettings(c, f.FeatureSettings); err != nil {
+		return nil, fmt.Errorf("error expanding FeatureSettings into featureSettings: %w", err)
+	} else if v != nil {
+		m["featureSettings"] = v
 	}
 
 	return m, nil
@@ -1004,18 +1045,19 @@ func flattenApplication(c *Client, i interface{}) *Application {
 	}
 
 	res := &Application{}
-	res.AuthDomain = dcl.FlattenString(m["authDomain"])
-	res.CodeBucket = dcl.FlattenString(m["codeBucket"])
-	res.DatabaseType = flattenApplicationDatabaseTypeEnum(m["databaseType"])
-	res.DefaultBucket = dcl.FlattenString(m["defaultBucket"])
-	res.DefaultHostname = dcl.FlattenString(m["defaultHostname"])
-	res.DispatchRules = flattenApplicationDispatchRulesSlice(c, m["dispatchRules"])
-	res.FeatureSettings = flattenApplicationFeatureSettings(c, m["featureSettings"])
-	res.GcrDomain = dcl.FlattenString(m["gcrDomain"])
-	res.Iap = flattenApplicationIap(c, m["iap"])
 	res.Name = dcl.FlattenString(m["id"])
+	res.DispatchRules = flattenApplicationDispatchRulesSlice(c, m["dispatchRules"])
+	res.AuthDomain = dcl.FlattenString(m["authDomain"])
 	res.Location = dcl.FlattenString(m["locationId"])
+	res.CodeBucket = dcl.FlattenString(m["codeBucket"])
+	res.DefaultCookieExpiration = dcl.FlattenString(m["defaultCookieExpiration"])
 	res.ServingStatus = flattenApplicationServingStatusEnum(m["servingStatus"])
+	res.DefaultHostname = dcl.FlattenString(m["defaultHostname"])
+	res.DefaultBucket = dcl.FlattenString(m["defaultBucket"])
+	res.Iap = flattenApplicationIap(c, m["iap"])
+	res.GcrDomain = dcl.FlattenString(m["gcrDomain"])
+	res.DatabaseType = flattenApplicationDatabaseTypeEnum(m["databaseType"])
+	res.FeatureSettings = flattenApplicationFeatureSettings(c, m["featureSettings"])
 
 	return res
 }
@@ -1138,124 +1180,6 @@ func flattenApplicationDispatchRules(c *Client, i interface{}) *ApplicationDispa
 	r.Domain = dcl.FlattenString(m["domain"])
 	r.Path = dcl.FlattenString(m["path"])
 	r.Service = dcl.FlattenString(m["service"])
-
-	return r
-}
-
-// expandApplicationFeatureSettingsMap expands the contents of ApplicationFeatureSettings into a JSON
-// request object.
-func expandApplicationFeatureSettingsMap(c *Client, f map[string]ApplicationFeatureSettings) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandApplicationFeatureSettings(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandApplicationFeatureSettingsSlice expands the contents of ApplicationFeatureSettings into a JSON
-// request object.
-func expandApplicationFeatureSettingsSlice(c *Client, f []ApplicationFeatureSettings) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandApplicationFeatureSettings(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenApplicationFeatureSettingsMap flattens the contents of ApplicationFeatureSettings from a JSON
-// response object.
-func flattenApplicationFeatureSettingsMap(c *Client, i interface{}) map[string]ApplicationFeatureSettings {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]ApplicationFeatureSettings{}
-	}
-
-	if len(a) == 0 {
-		return map[string]ApplicationFeatureSettings{}
-	}
-
-	items := make(map[string]ApplicationFeatureSettings)
-	for k, item := range a {
-		items[k] = *flattenApplicationFeatureSettings(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenApplicationFeatureSettingsSlice flattens the contents of ApplicationFeatureSettings from a JSON
-// response object.
-func flattenApplicationFeatureSettingsSlice(c *Client, i interface{}) []ApplicationFeatureSettings {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []ApplicationFeatureSettings{}
-	}
-
-	if len(a) == 0 {
-		return []ApplicationFeatureSettings{}
-	}
-
-	items := make([]ApplicationFeatureSettings, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenApplicationFeatureSettings(c, item.(map[string]interface{})))
-	}
-
-	return items
-}
-
-// expandApplicationFeatureSettings expands an instance of ApplicationFeatureSettings into a JSON
-// request object.
-func expandApplicationFeatureSettings(c *Client, f *ApplicationFeatureSettings) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.SplitHealthChecks; !dcl.IsEmptyValueIndirect(v) {
-		m["splitHealthChecks"] = v
-	}
-	if v := f.UseContainerOptimizedOs; !dcl.IsEmptyValueIndirect(v) {
-		m["useContainerOptimizedOs"] = v
-	}
-
-	return m, nil
-}
-
-// flattenApplicationFeatureSettings flattens an instance of ApplicationFeatureSettings from a JSON
-// response object.
-func flattenApplicationFeatureSettings(c *Client, i interface{}) *ApplicationFeatureSettings {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &ApplicationFeatureSettings{}
-
-	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyApplicationFeatureSettings
-	}
-	r.SplitHealthChecks = dcl.FlattenBool(m["splitHealthChecks"])
-	r.UseContainerOptimizedOs = dcl.FlattenBool(m["useContainerOptimizedOs"])
 
 	return r
 }
@@ -1386,35 +1310,122 @@ func flattenApplicationIap(c *Client, i interface{}) *ApplicationIap {
 	return r
 }
 
-// flattenApplicationDatabaseTypeEnumSlice flattens the contents of ApplicationDatabaseTypeEnum from a JSON
+// expandApplicationFeatureSettingsMap expands the contents of ApplicationFeatureSettings into a JSON
+// request object.
+func expandApplicationFeatureSettingsMap(c *Client, f map[string]ApplicationFeatureSettings) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandApplicationFeatureSettings(c, &item)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandApplicationFeatureSettingsSlice expands the contents of ApplicationFeatureSettings into a JSON
+// request object.
+func expandApplicationFeatureSettingsSlice(c *Client, f []ApplicationFeatureSettings) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandApplicationFeatureSettings(c, &item)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenApplicationFeatureSettingsMap flattens the contents of ApplicationFeatureSettings from a JSON
 // response object.
-func flattenApplicationDatabaseTypeEnumSlice(c *Client, i interface{}) []ApplicationDatabaseTypeEnum {
-	a, ok := i.([]interface{})
+func flattenApplicationFeatureSettingsMap(c *Client, i interface{}) map[string]ApplicationFeatureSettings {
+	a, ok := i.(map[string]interface{})
 	if !ok {
-		return []ApplicationDatabaseTypeEnum{}
+		return map[string]ApplicationFeatureSettings{}
 	}
 
 	if len(a) == 0 {
-		return []ApplicationDatabaseTypeEnum{}
+		return map[string]ApplicationFeatureSettings{}
 	}
 
-	items := make([]ApplicationDatabaseTypeEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenApplicationDatabaseTypeEnum(item.(interface{})))
+	items := make(map[string]ApplicationFeatureSettings)
+	for k, item := range a {
+		items[k] = *flattenApplicationFeatureSettings(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenApplicationDatabaseTypeEnum asserts that an interface is a string, and returns a
-// pointer to a *ApplicationDatabaseTypeEnum with the same value as that string.
-func flattenApplicationDatabaseTypeEnum(i interface{}) *ApplicationDatabaseTypeEnum {
-	s, ok := i.(string)
+// flattenApplicationFeatureSettingsSlice flattens the contents of ApplicationFeatureSettings from a JSON
+// response object.
+func flattenApplicationFeatureSettingsSlice(c *Client, i interface{}) []ApplicationFeatureSettings {
+	a, ok := i.([]interface{})
 	if !ok {
-		return ApplicationDatabaseTypeEnumRef("")
+		return []ApplicationFeatureSettings{}
 	}
 
-	return ApplicationDatabaseTypeEnumRef(s)
+	if len(a) == 0 {
+		return []ApplicationFeatureSettings{}
+	}
+
+	items := make([]ApplicationFeatureSettings, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenApplicationFeatureSettings(c, item.(map[string]interface{})))
+	}
+
+	return items
+}
+
+// expandApplicationFeatureSettings expands an instance of ApplicationFeatureSettings into a JSON
+// request object.
+func expandApplicationFeatureSettings(c *Client, f *ApplicationFeatureSettings) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.SplitHealthChecks; !dcl.IsEmptyValueIndirect(v) {
+		m["splitHealthChecks"] = v
+	}
+	if v := f.UseContainerOptimizedOs; !dcl.IsEmptyValueIndirect(v) {
+		m["useContainerOptimizedOs"] = v
+	}
+
+	return m, nil
+}
+
+// flattenApplicationFeatureSettings flattens an instance of ApplicationFeatureSettings from a JSON
+// response object.
+func flattenApplicationFeatureSettings(c *Client, i interface{}) *ApplicationFeatureSettings {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ApplicationFeatureSettings{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyApplicationFeatureSettings
+	}
+	r.SplitHealthChecks = dcl.FlattenBool(m["splitHealthChecks"])
+	r.UseContainerOptimizedOs = dcl.FlattenBool(m["useContainerOptimizedOs"])
+
+	return r
 }
 
 // flattenApplicationServingStatusEnumSlice flattens the contents of ApplicationServingStatusEnum from a JSON
@@ -1446,6 +1457,37 @@ func flattenApplicationServingStatusEnum(i interface{}) *ApplicationServingStatu
 	}
 
 	return ApplicationServingStatusEnumRef(s)
+}
+
+// flattenApplicationDatabaseTypeEnumSlice flattens the contents of ApplicationDatabaseTypeEnum from a JSON
+// response object.
+func flattenApplicationDatabaseTypeEnumSlice(c *Client, i interface{}) []ApplicationDatabaseTypeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ApplicationDatabaseTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []ApplicationDatabaseTypeEnum{}
+	}
+
+	items := make([]ApplicationDatabaseTypeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenApplicationDatabaseTypeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenApplicationDatabaseTypeEnum asserts that an interface is a string, and returns a
+// pointer to a *ApplicationDatabaseTypeEnum with the same value as that string.
+func flattenApplicationDatabaseTypeEnum(i interface{}) *ApplicationDatabaseTypeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return ApplicationDatabaseTypeEnumRef("")
+	}
+
+	return ApplicationDatabaseTypeEnumRef(s)
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -1501,8 +1543,8 @@ func convertFieldDiffToApplicationOp(ops []string, fds []*dcl.FieldDiff, opts []
 func convertOpNameToapplicationApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (applicationApiOperation, error) {
 	switch op {
 
-	case "updateApplicationUpdateApplicationOperation":
-		return &updateApplicationUpdateApplicationOperation{Diffs: diffs}, nil
+	case "updateApplicationPatchApplicationOperation":
+		return &updateApplicationPatchApplicationOperation{Diffs: diffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", op)

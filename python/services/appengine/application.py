@@ -21,136 +21,151 @@ from typing import List
 class Application(object):
     def __init__(
         self,
-        auth_domain: str = None,
-        code_bucket: str = None,
-        database_type: str = None,
-        default_bucket: str = None,
-        default_hostname: str = None,
-        dispatch_rules: list = None,
-        feature_settings: dict = None,
-        gcr_domain: str = None,
-        iap: dict = None,
         name: str = None,
+        dispatch_rules: list = None,
+        auth_domain: str = None,
         location: str = None,
+        code_bucket: str = None,
+        default_cookie_expiration: str = None,
         serving_status: str = None,
+        default_hostname: str = None,
+        default_bucket: str = None,
+        iap: dict = None,
+        gcr_domain: str = None,
+        database_type: str = None,
+        feature_settings: dict = None,
         service_account_file: str = "",
     ):
 
         channel.initialize()
-        self.auth_domain = auth_domain
-        self.database_type = database_type
-        self.dispatch_rules = dispatch_rules
-        self.feature_settings = feature_settings
-        self.gcr_domain = gcr_domain
-        self.iap = iap
         self.name = name
+        self.dispatch_rules = dispatch_rules
+        self.auth_domain = auth_domain
         self.location = location
+        self.default_cookie_expiration = default_cookie_expiration
         self.serving_status = serving_status
+        self.iap = iap
+        self.gcr_domain = gcr_domain
+        self.database_type = database_type
+        self.feature_settings = feature_settings
         self.service_account_file = service_account_file
 
     def apply(self):
         stub = application_pb2_grpc.AppengineApplicationServiceStub(channel.Channel())
         request = application_pb2.ApplyAppengineApplicationRequest()
-        if Primitive.to_proto(self.auth_domain):
-            request.resource.auth_domain = Primitive.to_proto(self.auth_domain)
-
-        if ApplicationDatabaseTypeEnum.to_proto(self.database_type):
-            request.resource.database_type = ApplicationDatabaseTypeEnum.to_proto(
-                self.database_type
-            )
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
         if ApplicationDispatchRulesArray.to_proto(self.dispatch_rules):
             request.resource.dispatch_rules.extend(
                 ApplicationDispatchRulesArray.to_proto(self.dispatch_rules)
             )
-        if ApplicationFeatureSettings.to_proto(self.feature_settings):
-            request.resource.feature_settings.CopyFrom(
-                ApplicationFeatureSettings.to_proto(self.feature_settings)
-            )
-        else:
-            request.resource.ClearField("feature_settings")
-        if Primitive.to_proto(self.gcr_domain):
-            request.resource.gcr_domain = Primitive.to_proto(self.gcr_domain)
-
-        if ApplicationIap.to_proto(self.iap):
-            request.resource.iap.CopyFrom(ApplicationIap.to_proto(self.iap))
-        else:
-            request.resource.ClearField("iap")
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.auth_domain):
+            request.resource.auth_domain = Primitive.to_proto(self.auth_domain)
 
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
+
+        if Primitive.to_proto(self.default_cookie_expiration):
+            request.resource.default_cookie_expiration = Primitive.to_proto(
+                self.default_cookie_expiration
+            )
 
         if ApplicationServingStatusEnum.to_proto(self.serving_status):
             request.resource.serving_status = ApplicationServingStatusEnum.to_proto(
                 self.serving_status
             )
 
+        if ApplicationIap.to_proto(self.iap):
+            request.resource.iap.CopyFrom(ApplicationIap.to_proto(self.iap))
+        else:
+            request.resource.ClearField("iap")
+        if Primitive.to_proto(self.gcr_domain):
+            request.resource.gcr_domain = Primitive.to_proto(self.gcr_domain)
+
+        if ApplicationDatabaseTypeEnum.to_proto(self.database_type):
+            request.resource.database_type = ApplicationDatabaseTypeEnum.to_proto(
+                self.database_type
+            )
+
+        if ApplicationFeatureSettings.to_proto(self.feature_settings):
+            request.resource.feature_settings.CopyFrom(
+                ApplicationFeatureSettings.to_proto(self.feature_settings)
+            )
+        else:
+            request.resource.ClearField("feature_settings")
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyAppengineApplication(request)
-        self.auth_domain = Primitive.from_proto(response.auth_domain)
-        self.code_bucket = Primitive.from_proto(response.code_bucket)
-        self.database_type = ApplicationDatabaseTypeEnum.from_proto(
-            response.database_type
-        )
-        self.default_bucket = Primitive.from_proto(response.default_bucket)
-        self.default_hostname = Primitive.from_proto(response.default_hostname)
+        self.name = Primitive.from_proto(response.name)
         self.dispatch_rules = ApplicationDispatchRulesArray.from_proto(
             response.dispatch_rules
         )
-        self.feature_settings = ApplicationFeatureSettings.from_proto(
-            response.feature_settings
-        )
-        self.gcr_domain = Primitive.from_proto(response.gcr_domain)
-        self.iap = ApplicationIap.from_proto(response.iap)
-        self.name = Primitive.from_proto(response.name)
+        self.auth_domain = Primitive.from_proto(response.auth_domain)
         self.location = Primitive.from_proto(response.location)
+        self.code_bucket = Primitive.from_proto(response.code_bucket)
+        self.default_cookie_expiration = Primitive.from_proto(
+            response.default_cookie_expiration
+        )
         self.serving_status = ApplicationServingStatusEnum.from_proto(
             response.serving_status
+        )
+        self.default_hostname = Primitive.from_proto(response.default_hostname)
+        self.default_bucket = Primitive.from_proto(response.default_bucket)
+        self.iap = ApplicationIap.from_proto(response.iap)
+        self.gcr_domain = Primitive.from_proto(response.gcr_domain)
+        self.database_type = ApplicationDatabaseTypeEnum.from_proto(
+            response.database_type
+        )
+        self.feature_settings = ApplicationFeatureSettings.from_proto(
+            response.feature_settings
         )
 
     def delete(self):
         stub = application_pb2_grpc.AppengineApplicationServiceStub(channel.Channel())
         request = application_pb2.DeleteAppengineApplicationRequest()
         request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.auth_domain):
-            request.resource.auth_domain = Primitive.to_proto(self.auth_domain)
-
-        if ApplicationDatabaseTypeEnum.to_proto(self.database_type):
-            request.resource.database_type = ApplicationDatabaseTypeEnum.to_proto(
-                self.database_type
-            )
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
 
         if ApplicationDispatchRulesArray.to_proto(self.dispatch_rules):
             request.resource.dispatch_rules.extend(
                 ApplicationDispatchRulesArray.to_proto(self.dispatch_rules)
             )
-        if ApplicationFeatureSettings.to_proto(self.feature_settings):
-            request.resource.feature_settings.CopyFrom(
-                ApplicationFeatureSettings.to_proto(self.feature_settings)
-            )
-        else:
-            request.resource.ClearField("feature_settings")
-        if Primitive.to_proto(self.gcr_domain):
-            request.resource.gcr_domain = Primitive.to_proto(self.gcr_domain)
-
-        if ApplicationIap.to_proto(self.iap):
-            request.resource.iap.CopyFrom(ApplicationIap.to_proto(self.iap))
-        else:
-            request.resource.ClearField("iap")
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.auth_domain):
+            request.resource.auth_domain = Primitive.to_proto(self.auth_domain)
 
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
+
+        if Primitive.to_proto(self.default_cookie_expiration):
+            request.resource.default_cookie_expiration = Primitive.to_proto(
+                self.default_cookie_expiration
+            )
 
         if ApplicationServingStatusEnum.to_proto(self.serving_status):
             request.resource.serving_status = ApplicationServingStatusEnum.to_proto(
                 self.serving_status
             )
 
+        if ApplicationIap.to_proto(self.iap):
+            request.resource.iap.CopyFrom(ApplicationIap.to_proto(self.iap))
+        else:
+            request.resource.ClearField("iap")
+        if Primitive.to_proto(self.gcr_domain):
+            request.resource.gcr_domain = Primitive.to_proto(self.gcr_domain)
+
+        if ApplicationDatabaseTypeEnum.to_proto(self.database_type):
+            request.resource.database_type = ApplicationDatabaseTypeEnum.to_proto(
+                self.database_type
+            )
+
+        if ApplicationFeatureSettings.to_proto(self.feature_settings):
+            request.resource.feature_settings.CopyFrom(
+                ApplicationFeatureSettings.to_proto(self.feature_settings)
+            )
+        else:
+            request.resource.ClearField("feature_settings")
         response = stub.DeleteAppengineApplication(request)
 
     @classmethod
@@ -163,15 +178,33 @@ class Application(object):
 
     def to_proto(self):
         resource = application_pb2.AppengineApplication()
-        if Primitive.to_proto(self.auth_domain):
-            resource.auth_domain = Primitive.to_proto(self.auth_domain)
-        if ApplicationDatabaseTypeEnum.to_proto(self.database_type):
-            resource.database_type = ApplicationDatabaseTypeEnum.to_proto(
-                self.database_type
-            )
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
         if ApplicationDispatchRulesArray.to_proto(self.dispatch_rules):
             resource.dispatch_rules.extend(
                 ApplicationDispatchRulesArray.to_proto(self.dispatch_rules)
+            )
+        if Primitive.to_proto(self.auth_domain):
+            resource.auth_domain = Primitive.to_proto(self.auth_domain)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
+        if Primitive.to_proto(self.default_cookie_expiration):
+            resource.default_cookie_expiration = Primitive.to_proto(
+                self.default_cookie_expiration
+            )
+        if ApplicationServingStatusEnum.to_proto(self.serving_status):
+            resource.serving_status = ApplicationServingStatusEnum.to_proto(
+                self.serving_status
+            )
+        if ApplicationIap.to_proto(self.iap):
+            resource.iap.CopyFrom(ApplicationIap.to_proto(self.iap))
+        else:
+            resource.ClearField("iap")
+        if Primitive.to_proto(self.gcr_domain):
+            resource.gcr_domain = Primitive.to_proto(self.gcr_domain)
+        if ApplicationDatabaseTypeEnum.to_proto(self.database_type):
+            resource.database_type = ApplicationDatabaseTypeEnum.to_proto(
+                self.database_type
             )
         if ApplicationFeatureSettings.to_proto(self.feature_settings):
             resource.feature_settings.CopyFrom(
@@ -179,20 +212,6 @@ class Application(object):
             )
         else:
             resource.ClearField("feature_settings")
-        if Primitive.to_proto(self.gcr_domain):
-            resource.gcr_domain = Primitive.to_proto(self.gcr_domain)
-        if ApplicationIap.to_proto(self.iap):
-            resource.iap.CopyFrom(ApplicationIap.to_proto(self.iap))
-        else:
-            resource.ClearField("iap")
-        if Primitive.to_proto(self.name):
-            resource.name = Primitive.to_proto(self.name)
-        if Primitive.to_proto(self.location):
-            resource.location = Primitive.to_proto(self.location)
-        if ApplicationServingStatusEnum.to_proto(self.serving_status):
-            resource.serving_status = ApplicationServingStatusEnum.to_proto(
-                self.serving_status
-            )
         return resource
 
 
@@ -238,52 +257,6 @@ class ApplicationDispatchRulesArray(object):
     @classmethod
     def from_proto(self, resources):
         return [ApplicationDispatchRules.from_proto(i) for i in resources]
-
-
-class ApplicationFeatureSettings(object):
-    def __init__(
-        self, split_health_checks: bool = None, use_container_optimized_os: bool = None
-    ):
-        self.split_health_checks = split_health_checks
-        self.use_container_optimized_os = use_container_optimized_os
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = application_pb2.AppengineApplicationFeatureSettings()
-        if Primitive.to_proto(resource.split_health_checks):
-            res.split_health_checks = Primitive.to_proto(resource.split_health_checks)
-        if Primitive.to_proto(resource.use_container_optimized_os):
-            res.use_container_optimized_os = Primitive.to_proto(
-                resource.use_container_optimized_os
-            )
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return ApplicationFeatureSettings(
-            split_health_checks=Primitive.from_proto(resource.split_health_checks),
-            use_container_optimized_os=Primitive.from_proto(
-                resource.use_container_optimized_os
-            ),
-        )
-
-
-class ApplicationFeatureSettingsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [ApplicationFeatureSettings.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [ApplicationFeatureSettings.from_proto(i) for i in resources]
 
 
 class ApplicationIap(object):
@@ -344,22 +317,50 @@ class ApplicationIapArray(object):
         return [ApplicationIap.from_proto(i) for i in resources]
 
 
-class ApplicationDatabaseTypeEnum(object):
+class ApplicationFeatureSettings(object):
+    def __init__(
+        self, split_health_checks: bool = None, use_container_optimized_os: bool = None
+    ):
+        self.split_health_checks = split_health_checks
+        self.use_container_optimized_os = use_container_optimized_os
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
-            return resource
-        return application_pb2.AppengineApplicationDatabaseTypeEnum.Value(
-            "AppengineApplicationDatabaseTypeEnum%s" % resource
-        )
+            return None
+
+        res = application_pb2.AppengineApplicationFeatureSettings()
+        if Primitive.to_proto(resource.split_health_checks):
+            res.split_health_checks = Primitive.to_proto(resource.split_health_checks)
+        if Primitive.to_proto(resource.use_container_optimized_os):
+            res.use_container_optimized_os = Primitive.to_proto(
+                resource.use_container_optimized_os
+            )
+        return res
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
-            return resource
-        return application_pb2.AppengineApplicationDatabaseTypeEnum.Name(resource)[
-            len("AppengineApplicationDatabaseTypeEnum") :
-        ]
+            return None
+
+        return ApplicationFeatureSettings(
+            split_health_checks=Primitive.from_proto(resource.split_health_checks),
+            use_container_optimized_os=Primitive.from_proto(
+                resource.use_container_optimized_os
+            ),
+        )
+
+
+class ApplicationFeatureSettingsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ApplicationFeatureSettings.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ApplicationFeatureSettings.from_proto(i) for i in resources]
 
 
 class ApplicationServingStatusEnum(object):
@@ -377,6 +378,24 @@ class ApplicationServingStatusEnum(object):
             return resource
         return application_pb2.AppengineApplicationServingStatusEnum.Name(resource)[
             len("AppengineApplicationServingStatusEnum") :
+        ]
+
+
+class ApplicationDatabaseTypeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return application_pb2.AppengineApplicationDatabaseTypeEnum.Value(
+            "AppengineApplicationDatabaseTypeEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return application_pb2.AppengineApplicationDatabaseTypeEnum.Name(resource)[
+            len("AppengineApplicationDatabaseTypeEnum") :
         ]
 
 
