@@ -14,7 +14,7 @@
 dependencies:
 - samples/basic.containeranalysis.note.json
 description: A basic example for a binary authorization attestor
-name: basic_attestor
+name: basic_attestor_beta
 resource: samples/basic.attestor.json
 updates:
 - resource: samples/update.attestor.json

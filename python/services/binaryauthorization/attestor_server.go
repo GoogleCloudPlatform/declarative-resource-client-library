@@ -25,55 +25,55 @@ import (
 // Server implements the gRPC interface for Attestor.
 type AttestorServer struct{}
 
-// ProtoToAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum converts a AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum enum from its proto representation.
-func ProtoToBinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(e binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum) *binaryauthorization.AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum {
+// ProtoToAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum converts a AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum enum from its proto representation.
+func ProtoToBinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(e binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum) *binaryauthorization.AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum_name[int32(e)]; ok {
-		e := binaryauthorization.AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(n[len("BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum"):])
+	if n, ok := binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum_name[int32(e)]; ok {
+		e := binaryauthorization.AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(n[len("BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum"):])
 		return &e
 	}
 	return nil
 }
 
-// ProtoToAttestorUserOwnedGrafeasNote converts a AttestorUserOwnedGrafeasNote resource from its proto representation.
-func ProtoToBinaryauthorizationAttestorUserOwnedGrafeasNote(p *binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedGrafeasNote) *binaryauthorization.AttestorUserOwnedGrafeasNote {
+// ProtoToAttestorUserOwnedDrydockNote converts a AttestorUserOwnedDrydockNote resource from its proto representation.
+func ProtoToBinaryauthorizationAttestorUserOwnedDrydockNote(p *binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedDrydockNote) *binaryauthorization.AttestorUserOwnedDrydockNote {
 	if p == nil {
 		return nil
 	}
-	obj := &binaryauthorization.AttestorUserOwnedGrafeasNote{
+	obj := &binaryauthorization.AttestorUserOwnedDrydockNote{
 		NoteReference:                 dcl.StringOrNil(p.NoteReference),
 		DelegationServiceAccountEmail: dcl.StringOrNil(p.DelegationServiceAccountEmail),
 	}
 	for _, r := range p.GetPublicKeys() {
-		obj.PublicKeys = append(obj.PublicKeys, *ProtoToBinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeys(r))
+		obj.PublicKeys = append(obj.PublicKeys, *ProtoToBinaryauthorizationAttestorUserOwnedDrydockNotePublicKeys(r))
 	}
 	return obj
 }
 
-// ProtoToAttestorUserOwnedGrafeasNotePublicKeys converts a AttestorUserOwnedGrafeasNotePublicKeys resource from its proto representation.
-func ProtoToBinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeys(p *binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeys) *binaryauthorization.AttestorUserOwnedGrafeasNotePublicKeys {
+// ProtoToAttestorUserOwnedDrydockNotePublicKeys converts a AttestorUserOwnedDrydockNotePublicKeys resource from its proto representation.
+func ProtoToBinaryauthorizationAttestorUserOwnedDrydockNotePublicKeys(p *binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeys) *binaryauthorization.AttestorUserOwnedDrydockNotePublicKeys {
 	if p == nil {
 		return nil
 	}
-	obj := &binaryauthorization.AttestorUserOwnedGrafeasNotePublicKeys{
+	obj := &binaryauthorization.AttestorUserOwnedDrydockNotePublicKeys{
 		Comment:                  dcl.StringOrNil(p.Comment),
 		Id:                       dcl.StringOrNil(p.Id),
 		AsciiArmoredPgpPublicKey: dcl.StringOrNil(p.AsciiArmoredPgpPublicKey),
-		PkixPublicKey:            ProtoToBinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(p.GetPkixPublicKey()),
+		PkixPublicKey:            ProtoToBinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(p.GetPkixPublicKey()),
 	}
 	return obj
 }
 
-// ProtoToAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey converts a AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey resource from its proto representation.
-func ProtoToBinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(p *binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) *binaryauthorization.AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey {
+// ProtoToAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey converts a AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey resource from its proto representation.
+func ProtoToBinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(p *binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) *binaryauthorization.AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
 	if p == nil {
 		return nil
 	}
-	obj := &binaryauthorization.AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey{
+	obj := &binaryauthorization.AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey{
 		PublicKeyPem:       dcl.StringOrNil(p.PublicKeyPem),
-		SignatureAlgorithm: ProtoToBinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(p.GetSignatureAlgorithm()),
+		SignatureAlgorithm: ProtoToBinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(p.GetSignatureAlgorithm()),
 	}
 	return obj
 }
@@ -83,61 +83,61 @@ func ProtoToAttestor(p *binaryauthorizationpb.BinaryauthorizationAttestor) *bina
 	obj := &binaryauthorization.Attestor{
 		Name:                 dcl.StringOrNil(p.Name),
 		Description:          dcl.StringOrNil(p.Description),
-		UserOwnedGrafeasNote: ProtoToBinaryauthorizationAttestorUserOwnedGrafeasNote(p.GetUserOwnedGrafeasNote()),
+		UserOwnedDrydockNote: ProtoToBinaryauthorizationAttestorUserOwnedDrydockNote(p.GetUserOwnedDrydockNote()),
 		UpdateTime:           dcl.StringOrNil(p.GetUpdateTime()),
 		Project:              dcl.StringOrNil(p.Project),
 	}
 	return obj
 }
 
-// AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnumToProto converts a AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum enum to its proto representation.
-func BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnumToProto(e *binaryauthorization.AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum) binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum {
+// AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumToProto converts a AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum enum to its proto representation.
+func BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumToProto(e *binaryauthorization.AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum) binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum {
 	if e == nil {
-		return binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(0)
+		return binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(0)
 	}
-	if v, ok := binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum_value["AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum"+string(*e)]; ok {
-		return binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(v)
+	if v, ok := binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum_value["AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum"+string(*e)]; ok {
+		return binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(v)
 	}
-	return binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(0)
+	return binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(0)
 }
 
-// AttestorUserOwnedGrafeasNoteToProto converts a AttestorUserOwnedGrafeasNote resource to its proto representation.
-func BinaryauthorizationAttestorUserOwnedGrafeasNoteToProto(o *binaryauthorization.AttestorUserOwnedGrafeasNote) *binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedGrafeasNote {
+// AttestorUserOwnedDrydockNoteToProto converts a AttestorUserOwnedDrydockNote resource to its proto representation.
+func BinaryauthorizationAttestorUserOwnedDrydockNoteToProto(o *binaryauthorization.AttestorUserOwnedDrydockNote) *binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedDrydockNote {
 	if o == nil {
 		return nil
 	}
-	p := &binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedGrafeasNote{
+	p := &binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedDrydockNote{
 		NoteReference:                 dcl.ValueOrEmptyString(o.NoteReference),
 		DelegationServiceAccountEmail: dcl.ValueOrEmptyString(o.DelegationServiceAccountEmail),
 	}
 	for _, r := range o.PublicKeys {
-		p.PublicKeys = append(p.PublicKeys, BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysToProto(&r))
+		p.PublicKeys = append(p.PublicKeys, BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysToProto(&r))
 	}
 	return p
 }
 
-// AttestorUserOwnedGrafeasNotePublicKeysToProto converts a AttestorUserOwnedGrafeasNotePublicKeys resource to its proto representation.
-func BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysToProto(o *binaryauthorization.AttestorUserOwnedGrafeasNotePublicKeys) *binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeys {
+// AttestorUserOwnedDrydockNotePublicKeysToProto converts a AttestorUserOwnedDrydockNotePublicKeys resource to its proto representation.
+func BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysToProto(o *binaryauthorization.AttestorUserOwnedDrydockNotePublicKeys) *binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeys {
 	if o == nil {
 		return nil
 	}
-	p := &binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeys{
+	p := &binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeys{
 		Comment:                  dcl.ValueOrEmptyString(o.Comment),
 		Id:                       dcl.ValueOrEmptyString(o.Id),
 		AsciiArmoredPgpPublicKey: dcl.ValueOrEmptyString(o.AsciiArmoredPgpPublicKey),
-		PkixPublicKey:            BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeyToProto(o.PkixPublicKey),
+		PkixPublicKey:            BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyToProto(o.PkixPublicKey),
 	}
 	return p
 }
 
-// AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeyToProto converts a AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey resource to its proto representation.
-func BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeyToProto(o *binaryauthorization.AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) *binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey {
+// AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyToProto converts a AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey resource to its proto representation.
+func BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyToProto(o *binaryauthorization.AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) *binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
 	if o == nil {
 		return nil
 	}
-	p := &binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey{
+	p := &binaryauthorizationpb.BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey{
 		PublicKeyPem:       dcl.ValueOrEmptyString(o.PublicKeyPem),
-		SignatureAlgorithm: BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnumToProto(o.SignatureAlgorithm),
+		SignatureAlgorithm: BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumToProto(o.SignatureAlgorithm),
 	}
 	return p
 }
@@ -147,7 +147,7 @@ func AttestorToProto(resource *binaryauthorization.Attestor) *binaryauthorizatio
 	p := &binaryauthorizationpb.BinaryauthorizationAttestor{
 		Name:                 dcl.ValueOrEmptyString(resource.Name),
 		Description:          dcl.ValueOrEmptyString(resource.Description),
-		UserOwnedGrafeasNote: BinaryauthorizationAttestorUserOwnedGrafeasNoteToProto(resource.UserOwnedGrafeasNote),
+		UserOwnedDrydockNote: BinaryauthorizationAttestorUserOwnedDrydockNoteToProto(resource.UserOwnedDrydockNote),
 		UpdateTime:           dcl.ValueOrEmptyString(resource.UpdateTime),
 		Project:              dcl.ValueOrEmptyString(resource.Project),
 	}

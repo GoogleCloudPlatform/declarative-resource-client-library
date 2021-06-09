@@ -27,7 +27,7 @@ class Attestor(object):
         self,
         name: str = None,
         description: str = None,
-        user_owned_grafeas_note: dict = None,
+        user_owned_drydock_note: dict = None,
         update_time: str = None,
         project: str = None,
         service_account_file: str = "",
@@ -36,7 +36,7 @@ class Attestor(object):
         channel.initialize()
         self.name = name
         self.description = description
-        self.user_owned_grafeas_note = user_owned_grafeas_note
+        self.user_owned_drydock_note = user_owned_drydock_note
         self.project = project
         self.service_account_file = service_account_file
 
@@ -51,12 +51,12 @@ class Attestor(object):
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
-        if AttestorUserOwnedGrafeasNote.to_proto(self.user_owned_grafeas_note):
-            request.resource.user_owned_grafeas_note.CopyFrom(
-                AttestorUserOwnedGrafeasNote.to_proto(self.user_owned_grafeas_note)
+        if AttestorUserOwnedDrydockNote.to_proto(self.user_owned_drydock_note):
+            request.resource.user_owned_drydock_note.CopyFrom(
+                AttestorUserOwnedDrydockNote.to_proto(self.user_owned_drydock_note)
             )
         else:
-            request.resource.ClearField("user_owned_grafeas_note")
+            request.resource.ClearField("user_owned_drydock_note")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -65,8 +65,8 @@ class Attestor(object):
         response = stub.ApplyBinaryauthorizationAttestor(request)
         self.name = Primitive.from_proto(response.name)
         self.description = Primitive.from_proto(response.description)
-        self.user_owned_grafeas_note = AttestorUserOwnedGrafeasNote.from_proto(
-            response.user_owned_grafeas_note
+        self.user_owned_drydock_note = AttestorUserOwnedDrydockNote.from_proto(
+            response.user_owned_drydock_note
         )
         self.update_time = Primitive.from_proto(response.update_time)
         self.project = Primitive.from_proto(response.project)
@@ -83,12 +83,12 @@ class Attestor(object):
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
-        if AttestorUserOwnedGrafeasNote.to_proto(self.user_owned_grafeas_note):
-            request.resource.user_owned_grafeas_note.CopyFrom(
-                AttestorUserOwnedGrafeasNote.to_proto(self.user_owned_grafeas_note)
+        if AttestorUserOwnedDrydockNote.to_proto(self.user_owned_drydock_note):
+            request.resource.user_owned_drydock_note.CopyFrom(
+                AttestorUserOwnedDrydockNote.to_proto(self.user_owned_drydock_note)
             )
         else:
-            request.resource.ClearField("user_owned_grafeas_note")
+            request.resource.ClearField("user_owned_drydock_note")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -111,18 +111,18 @@ class Attestor(object):
             resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.description):
             resource.description = Primitive.to_proto(self.description)
-        if AttestorUserOwnedGrafeasNote.to_proto(self.user_owned_grafeas_note):
-            resource.user_owned_grafeas_note.CopyFrom(
-                AttestorUserOwnedGrafeasNote.to_proto(self.user_owned_grafeas_note)
+        if AttestorUserOwnedDrydockNote.to_proto(self.user_owned_drydock_note):
+            resource.user_owned_drydock_note.CopyFrom(
+                AttestorUserOwnedDrydockNote.to_proto(self.user_owned_drydock_note)
             )
         else:
-            resource.ClearField("user_owned_grafeas_note")
+            resource.ClearField("user_owned_drydock_note")
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         return resource
 
 
-class AttestorUserOwnedGrafeasNote(object):
+class AttestorUserOwnedDrydockNote(object):
     def __init__(
         self,
         note_reference: str = None,
@@ -138,12 +138,12 @@ class AttestorUserOwnedGrafeasNote(object):
         if not resource:
             return None
 
-        res = attestor_pb2.BinaryauthorizationAttestorUserOwnedGrafeasNote()
+        res = attestor_pb2.BinaryauthorizationAttestorUserOwnedDrydockNote()
         if Primitive.to_proto(resource.note_reference):
             res.note_reference = Primitive.to_proto(resource.note_reference)
-        if AttestorUserOwnedGrafeasNotePublicKeysArray.to_proto(resource.public_keys):
+        if AttestorUserOwnedDrydockNotePublicKeysArray.to_proto(resource.public_keys):
             res.public_keys.extend(
-                AttestorUserOwnedGrafeasNotePublicKeysArray.to_proto(
+                AttestorUserOwnedDrydockNotePublicKeysArray.to_proto(
                     resource.public_keys
                 )
             )
@@ -158,9 +158,9 @@ class AttestorUserOwnedGrafeasNote(object):
         if not resource:
             return None
 
-        return AttestorUserOwnedGrafeasNote(
+        return AttestorUserOwnedDrydockNote(
             note_reference=Primitive.from_proto(resource.note_reference),
-            public_keys=AttestorUserOwnedGrafeasNotePublicKeysArray.from_proto(
+            public_keys=AttestorUserOwnedDrydockNotePublicKeysArray.from_proto(
                 resource.public_keys
             ),
             delegation_service_account_email=Primitive.from_proto(
@@ -169,19 +169,19 @@ class AttestorUserOwnedGrafeasNote(object):
         )
 
 
-class AttestorUserOwnedGrafeasNoteArray(object):
+class AttestorUserOwnedDrydockNoteArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [AttestorUserOwnedGrafeasNote.to_proto(i) for i in resources]
+        return [AttestorUserOwnedDrydockNote.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [AttestorUserOwnedGrafeasNote.from_proto(i) for i in resources]
+        return [AttestorUserOwnedDrydockNote.from_proto(i) for i in resources]
 
 
-class AttestorUserOwnedGrafeasNotePublicKeys(object):
+class AttestorUserOwnedDrydockNotePublicKeys(object):
     def __init__(
         self,
         comment: str = None,
@@ -199,7 +199,7 @@ class AttestorUserOwnedGrafeasNotePublicKeys(object):
         if not resource:
             return None
 
-        res = attestor_pb2.BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeys()
+        res = attestor_pb2.BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeys()
         if Primitive.to_proto(resource.comment):
             res.comment = Primitive.to_proto(resource.comment)
         if Primitive.to_proto(resource.id):
@@ -208,11 +208,11 @@ class AttestorUserOwnedGrafeasNotePublicKeys(object):
             res.ascii_armored_pgp_public_key = Primitive.to_proto(
                 resource.ascii_armored_pgp_public_key
             )
-        if AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey.to_proto(
+        if AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey.to_proto(
             resource.pkix_public_key
         ):
             res.pkix_public_key.CopyFrom(
-                AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey.to_proto(
+                AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey.to_proto(
                     resource.pkix_public_key
                 )
             )
@@ -225,31 +225,31 @@ class AttestorUserOwnedGrafeasNotePublicKeys(object):
         if not resource:
             return None
 
-        return AttestorUserOwnedGrafeasNotePublicKeys(
+        return AttestorUserOwnedDrydockNotePublicKeys(
             comment=Primitive.from_proto(resource.comment),
             id=Primitive.from_proto(resource.id),
             ascii_armored_pgp_public_key=Primitive.from_proto(
                 resource.ascii_armored_pgp_public_key
             ),
-            pkix_public_key=AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey.from_proto(
+            pkix_public_key=AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey.from_proto(
                 resource.pkix_public_key
             ),
         )
 
 
-class AttestorUserOwnedGrafeasNotePublicKeysArray(object):
+class AttestorUserOwnedDrydockNotePublicKeysArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [AttestorUserOwnedGrafeasNotePublicKeys.to_proto(i) for i in resources]
+        return [AttestorUserOwnedDrydockNotePublicKeys.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [AttestorUserOwnedGrafeasNotePublicKeys.from_proto(i) for i in resources]
+        return [AttestorUserOwnedDrydockNotePublicKeys.from_proto(i) for i in resources]
 
 
-class AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(object):
+class AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(object):
     def __init__(self, public_key_pem: str = None, signature_algorithm: str = None):
         self.public_key_pem = public_key_pem
         self.signature_algorithm = signature_algorithm
@@ -260,14 +260,14 @@ class AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(object):
             return None
 
         res = (
-            attestor_pb2.BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey()
+            attestor_pb2.BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey()
         )
         if Primitive.to_proto(resource.public_key_pem):
             res.public_key_pem = Primitive.to_proto(resource.public_key_pem)
-        if AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum.to_proto(
+        if AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum.to_proto(
             resource.signature_algorithm
         ):
-            res.signature_algorithm = AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum.to_proto(
+            res.signature_algorithm = AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum.to_proto(
                 resource.signature_algorithm
             )
         return res
@@ -277,39 +277,39 @@ class AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(object):
         if not resource:
             return None
 
-        return AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(
+        return AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(
             public_key_pem=Primitive.from_proto(resource.public_key_pem),
-            signature_algorithm=AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum.from_proto(
+            signature_algorithm=AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum.from_proto(
                 resource.signature_algorithm
             ),
         )
 
 
-class AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeyArray(object):
+class AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
         return [
-            AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey.to_proto(i)
+            AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey.to_proto(i)
             for i in resources
         ]
 
     @classmethod
     def from_proto(self, resources):
         return [
-            AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey.from_proto(i)
+            AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey.from_proto(i)
             for i in resources
         ]
 
 
-class AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(object):
+class AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(object):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return attestor_pb2.BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum.Value(
-            "BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum%s"
+        return attestor_pb2.BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum.Value(
+            "BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum%s"
             % resource
         )
 
@@ -317,11 +317,11 @@ class AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(
     def from_proto(self, resource):
         if not resource:
             return resource
-        return attestor_pb2.BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum.Name(
+        return attestor_pb2.BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum.Name(
             resource
         )[
             len(
-                "BinaryauthorizationAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum"
+                "BinaryauthorizationAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum"
             ) :
         ]
 

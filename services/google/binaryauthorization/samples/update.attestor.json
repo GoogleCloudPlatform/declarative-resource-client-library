@@ -1,0 +1,17 @@
+{
+  "name": "{{attestor}}",
+  "project": "{{project}}",
+  "description": "An updated binary authorization attestor",
+  "userOwnedDrydockNote": {
+    "noteReference": "projects/{{project}}/notes/{{ref:basic.containeranalysis.note.json:name}}",
+    "publicKeys": [
+      {
+        "comment": "A sample key",
+        "pkixPublicKey": {
+          "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE8qErzp1izKNonCWqj5KSqdz6g2Tf\nZWvtX3I6huRWGD0pIMieOOUdFD/hbMH6xYx0ml2vVkUqFJzeSmQt8pbtnw==\n-----END PUBLIC KEY-----\n",
+          "signatureAlgorithm": "ECDSA_P256_SHA256"
+        }
+      }
+    ]
+  }
+}

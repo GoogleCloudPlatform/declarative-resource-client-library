@@ -23,7 +23,6 @@ import (
 	"time"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Attestor) validate() error {
@@ -34,20 +33,20 @@ func (r *Attestor) validate() error {
 	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
 		return err
 	}
-	if !dcl.IsEmptyValueIndirect(r.UserOwnedGrafeasNote) {
-		if err := r.UserOwnedGrafeasNote.validate(); err != nil {
+	if !dcl.IsEmptyValueIndirect(r.UserOwnedDrydockNote) {
+		if err := r.UserOwnedDrydockNote.validate(); err != nil {
 			return err
 		}
 	}
 	return nil
 }
-func (r *AttestorUserOwnedGrafeasNote) validate() error {
+func (r *AttestorUserOwnedDrydockNote) validate() error {
 	if err := dcl.Required(r, "noteReference"); err != nil {
 		return err
 	}
 	return nil
 }
-func (r *AttestorUserOwnedGrafeasNotePublicKeys) validate() error {
+func (r *AttestorUserOwnedDrydockNotePublicKeys) validate() error {
 	if !dcl.IsEmptyValueIndirect(r.PkixPublicKey) {
 		if err := r.PkixPublicKey.validate(); err != nil {
 			return err
@@ -55,7 +54,7 @@ func (r *AttestorUserOwnedGrafeasNotePublicKeys) validate() error {
 	}
 	return nil
 }
-func (r *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) validate() error {
+func (r *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) validate() error {
 	return nil
 }
 
@@ -104,6 +103,14 @@ type attestorApiOperation interface {
 func newUpdateAttestorUpdateAttestorRequest(ctx context.Context, f *Attestor, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
+	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+		req["description"] = v
+	}
+	if v, err := expandAttestorUserOwnedDrydockNote(c, f.UserOwnedDrydockNote); err != nil {
+		return nil, fmt.Errorf("error expanding UserOwnedDrydockNote into userOwnedGrafeasNote: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["userOwnedGrafeasNote"] = v
+	}
 	return req, nil
 }
 
@@ -147,17 +154,7 @@ func (op *updateAttestorUpdateAttestorOperation) do(ctx context.Context, r *Atte
 	if err != nil {
 		return err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.RetryProvider)
-	if err != nil {
-		return err
-	}
-
-	var o operations.StandardGCPOperation
-	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
-		return err
-	}
-	err = o.Wait(ctx, c.Config, "https://binaryauthorization.googleapis.com/v1", "GET")
-
+	_, err = dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.RetryProvider)
 	if err != nil {
 		return err
 	}
@@ -410,7 +407,7 @@ func canonicalizeAttestorDesiredState(rawDesired, rawInitial *Attestor, opts ...
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
-		rawDesired.UserOwnedGrafeasNote = canonicalizeAttestorUserOwnedGrafeasNote(rawDesired.UserOwnedGrafeasNote, nil, opts...)
+		rawDesired.UserOwnedDrydockNote = canonicalizeAttestorUserOwnedDrydockNote(rawDesired.UserOwnedDrydockNote, nil, opts...)
 
 		return rawDesired, nil
 	}
@@ -420,7 +417,7 @@ func canonicalizeAttestorDesiredState(rawDesired, rawInitial *Attestor, opts ...
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	rawDesired.UserOwnedGrafeasNote = canonicalizeAttestorUserOwnedGrafeasNote(rawDesired.UserOwnedGrafeasNote, rawInitial.UserOwnedGrafeasNote, opts...)
+	rawDesired.UserOwnedDrydockNote = canonicalizeAttestorUserOwnedDrydockNote(rawDesired.UserOwnedDrydockNote, rawInitial.UserOwnedDrydockNote, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
@@ -446,10 +443,10 @@ func canonicalizeAttestorNewState(c *Client, rawNew, rawDesired *Attestor) (*Att
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.UserOwnedGrafeasNote) && dcl.IsEmptyValueIndirect(rawDesired.UserOwnedGrafeasNote) {
-		rawNew.UserOwnedGrafeasNote = rawDesired.UserOwnedGrafeasNote
+	if dcl.IsEmptyValueIndirect(rawNew.UserOwnedDrydockNote) && dcl.IsEmptyValueIndirect(rawDesired.UserOwnedDrydockNote) {
+		rawNew.UserOwnedDrydockNote = rawDesired.UserOwnedDrydockNote
 	} else {
-		rawNew.UserOwnedGrafeasNote = canonicalizeNewAttestorUserOwnedGrafeasNote(c, rawDesired.UserOwnedGrafeasNote, rawNew.UserOwnedGrafeasNote)
+		rawNew.UserOwnedDrydockNote = canonicalizeNewAttestorUserOwnedDrydockNote(c, rawDesired.UserOwnedDrydockNote, rawNew.UserOwnedDrydockNote)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
@@ -462,7 +459,7 @@ func canonicalizeAttestorNewState(c *Client, rawNew, rawDesired *Attestor) (*Att
 	return rawNew, nil
 }
 
-func canonicalizeAttestorUserOwnedGrafeasNote(des, initial *AttestorUserOwnedGrafeasNote, opts ...dcl.ApplyOption) *AttestorUserOwnedGrafeasNote {
+func canonicalizeAttestorUserOwnedDrydockNote(des, initial *AttestorUserOwnedDrydockNote, opts ...dcl.ApplyOption) *AttestorUserOwnedDrydockNote {
 	if des == nil {
 		return initial
 	}
@@ -484,7 +481,7 @@ func canonicalizeAttestorUserOwnedGrafeasNote(des, initial *AttestorUserOwnedGra
 	return des
 }
 
-func canonicalizeNewAttestorUserOwnedGrafeasNote(c *Client, des, nw *AttestorUserOwnedGrafeasNote) *AttestorUserOwnedGrafeasNote {
+func canonicalizeNewAttestorUserOwnedDrydockNote(c *Client, des, nw *AttestorUserOwnedDrydockNote) *AttestorUserOwnedDrydockNote {
 	if des == nil || nw == nil {
 		return nw
 	}
@@ -492,7 +489,7 @@ func canonicalizeNewAttestorUserOwnedGrafeasNote(c *Client, des, nw *AttestorUse
 	if dcl.NameToSelfLink(des.NoteReference, nw.NoteReference) {
 		nw.NoteReference = des.NoteReference
 	}
-	nw.PublicKeys = canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysSlice(c, des.PublicKeys, nw.PublicKeys)
+	nw.PublicKeys = canonicalizeNewAttestorUserOwnedDrydockNotePublicKeysSlice(c, des.PublicKeys, nw.PublicKeys)
 	if dcl.StringCanonicalize(des.DelegationServiceAccountEmail, nw.DelegationServiceAccountEmail) {
 		nw.DelegationServiceAccountEmail = des.DelegationServiceAccountEmail
 	}
@@ -500,15 +497,15 @@ func canonicalizeNewAttestorUserOwnedGrafeasNote(c *Client, des, nw *AttestorUse
 	return nw
 }
 
-func canonicalizeNewAttestorUserOwnedGrafeasNoteSet(c *Client, des, nw []AttestorUserOwnedGrafeasNote) []AttestorUserOwnedGrafeasNote {
+func canonicalizeNewAttestorUserOwnedDrydockNoteSet(c *Client, des, nw []AttestorUserOwnedDrydockNote) []AttestorUserOwnedDrydockNote {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []AttestorUserOwnedGrafeasNote
+	var reorderedNew []AttestorUserOwnedDrydockNote
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareAttestorUserOwnedGrafeasNoteNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareAttestorUserOwnedDrydockNoteNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -523,7 +520,7 @@ func canonicalizeNewAttestorUserOwnedGrafeasNoteSet(c *Client, des, nw []Attesto
 	return reorderedNew
 }
 
-func canonicalizeNewAttestorUserOwnedGrafeasNoteSlice(c *Client, des, nw []AttestorUserOwnedGrafeasNote) []AttestorUserOwnedGrafeasNote {
+func canonicalizeNewAttestorUserOwnedDrydockNoteSlice(c *Client, des, nw []AttestorUserOwnedDrydockNote) []AttestorUserOwnedDrydockNote {
 	if des == nil {
 		return nw
 	}
@@ -534,16 +531,16 @@ func canonicalizeNewAttestorUserOwnedGrafeasNoteSlice(c *Client, des, nw []Attes
 		return nw
 	}
 
-	var items []AttestorUserOwnedGrafeasNote
+	var items []AttestorUserOwnedDrydockNote
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewAttestorUserOwnedGrafeasNote(c, &d, &n))
+		items = append(items, *canonicalizeNewAttestorUserOwnedDrydockNote(c, &d, &n))
 	}
 
 	return items
 }
 
-func canonicalizeAttestorUserOwnedGrafeasNotePublicKeys(des, initial *AttestorUserOwnedGrafeasNotePublicKeys, opts ...dcl.ApplyOption) *AttestorUserOwnedGrafeasNotePublicKeys {
+func canonicalizeAttestorUserOwnedDrydockNotePublicKeys(des, initial *AttestorUserOwnedDrydockNotePublicKeys, opts ...dcl.ApplyOption) *AttestorUserOwnedDrydockNotePublicKeys {
 	if des == nil {
 		return initial
 	}
@@ -564,12 +561,12 @@ func canonicalizeAttestorUserOwnedGrafeasNotePublicKeys(des, initial *AttestorUs
 	if dcl.StringCanonicalize(des.AsciiArmoredPgpPublicKey, initial.AsciiArmoredPgpPublicKey) || dcl.IsZeroValue(des.AsciiArmoredPgpPublicKey) {
 		des.AsciiArmoredPgpPublicKey = initial.AsciiArmoredPgpPublicKey
 	}
-	des.PkixPublicKey = canonicalizeAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(des.PkixPublicKey, initial.PkixPublicKey, opts...)
+	des.PkixPublicKey = canonicalizeAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(des.PkixPublicKey, initial.PkixPublicKey, opts...)
 
 	return des
 }
 
-func canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeys(c *Client, des, nw *AttestorUserOwnedGrafeasNotePublicKeys) *AttestorUserOwnedGrafeasNotePublicKeys {
+func canonicalizeNewAttestorUserOwnedDrydockNotePublicKeys(c *Client, des, nw *AttestorUserOwnedDrydockNotePublicKeys) *AttestorUserOwnedDrydockNotePublicKeys {
 	if des == nil || nw == nil {
 		return nw
 	}
@@ -583,20 +580,20 @@ func canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeys(c *Client, des, nw *A
 	if dcl.StringCanonicalize(des.AsciiArmoredPgpPublicKey, nw.AsciiArmoredPgpPublicKey) {
 		nw.AsciiArmoredPgpPublicKey = des.AsciiArmoredPgpPublicKey
 	}
-	nw.PkixPublicKey = canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c, des.PkixPublicKey, nw.PkixPublicKey)
+	nw.PkixPublicKey = canonicalizeNewAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c, des.PkixPublicKey, nw.PkixPublicKey)
 
 	return nw
 }
 
-func canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysSet(c *Client, des, nw []AttestorUserOwnedGrafeasNotePublicKeys) []AttestorUserOwnedGrafeasNotePublicKeys {
+func canonicalizeNewAttestorUserOwnedDrydockNotePublicKeysSet(c *Client, des, nw []AttestorUserOwnedDrydockNotePublicKeys) []AttestorUserOwnedDrydockNotePublicKeys {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []AttestorUserOwnedGrafeasNotePublicKeys
+	var reorderedNew []AttestorUserOwnedDrydockNotePublicKeys
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareAttestorUserOwnedGrafeasNotePublicKeysNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareAttestorUserOwnedDrydockNotePublicKeysNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -611,7 +608,7 @@ func canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysSet(c *Client, des, nw
 	return reorderedNew
 }
 
-func canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysSlice(c *Client, des, nw []AttestorUserOwnedGrafeasNotePublicKeys) []AttestorUserOwnedGrafeasNotePublicKeys {
+func canonicalizeNewAttestorUserOwnedDrydockNotePublicKeysSlice(c *Client, des, nw []AttestorUserOwnedDrydockNotePublicKeys) []AttestorUserOwnedDrydockNotePublicKeys {
 	if des == nil {
 		return nw
 	}
@@ -622,16 +619,16 @@ func canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysSlice(c *Client, des, 
 		return nw
 	}
 
-	var items []AttestorUserOwnedGrafeasNotePublicKeys
+	var items []AttestorUserOwnedDrydockNotePublicKeys
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeys(c, &d, &n))
+		items = append(items, *canonicalizeNewAttestorUserOwnedDrydockNotePublicKeys(c, &d, &n))
 	}
 
 	return items
 }
 
-func canonicalizeAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(des, initial *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey, opts ...dcl.ApplyOption) *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey {
+func canonicalizeAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(des, initial *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey, opts ...dcl.ApplyOption) *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
 	if des == nil {
 		return initial
 	}
@@ -653,7 +650,7 @@ func canonicalizeAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(des, initia
 	return des
 }
 
-func canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c *Client, des, nw *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey {
+func canonicalizeNewAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c *Client, des, nw *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
 	if des == nil || nw == nil {
 		return nw
 	}
@@ -668,15 +665,15 @@ func canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c *Clien
 	return nw
 }
 
-func canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySet(c *Client, des, nw []AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) []AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey {
+func canonicalizeNewAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySet(c *Client, des, nw []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey
+	var reorderedNew []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeyNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -691,7 +688,7 @@ func canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySet(c *Cl
 	return reorderedNew
 }
 
-func canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySlice(c *Client, des, nw []AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) []AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey {
+func canonicalizeNewAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySlice(c *Client, des, nw []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
 	if des == nil {
 		return nw
 	}
@@ -702,10 +699,10 @@ func canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySlice(c *
 		return nw
 	}
 
-	var items []AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey
+	var items []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c, &d, &n))
+		items = append(items, *canonicalizeNewAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c, &d, &n))
 	}
 
 	return items
@@ -733,14 +730,14 @@ func diffAttestor(c *Client, desired, actual *Attestor, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAttestorUpdateAttestorOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UserOwnedGrafeasNote, actual.UserOwnedGrafeasNote, dcl.Info{ObjectFunction: compareAttestorUserOwnedGrafeasNoteNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UserOwnedGrafeasNote")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UserOwnedDrydockNote, actual.UserOwnedDrydockNote, dcl.Info{ObjectFunction: compareAttestorUserOwnedDrydockNoteNewStyle, OperationSelector: dcl.TriggersOperation("updateAttestorUpdateAttestorOperation")}, fn.AddNest("UserOwnedGrafeasNote")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -763,22 +760,22 @@ func diffAttestor(c *Client, desired, actual *Attestor, opts ...dcl.ApplyOption)
 
 	return newDiffs, nil
 }
-func compareAttestorUserOwnedGrafeasNoteNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareAttestorUserOwnedDrydockNoteNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*AttestorUserOwnedGrafeasNote)
+	desired, ok := d.(*AttestorUserOwnedDrydockNote)
 	if !ok {
-		desiredNotPointer, ok := d.(AttestorUserOwnedGrafeasNote)
+		desiredNotPointer, ok := d.(AttestorUserOwnedDrydockNote)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a AttestorUserOwnedGrafeasNote or *AttestorUserOwnedGrafeasNote", d)
+			return nil, fmt.Errorf("obj %v is not a AttestorUserOwnedDrydockNote or *AttestorUserOwnedDrydockNote", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*AttestorUserOwnedGrafeasNote)
+	actual, ok := a.(*AttestorUserOwnedDrydockNote)
 	if !ok {
-		actualNotPointer, ok := a.(AttestorUserOwnedGrafeasNote)
+		actualNotPointer, ok := a.(AttestorUserOwnedDrydockNote)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a AttestorUserOwnedGrafeasNote", a)
+			return nil, fmt.Errorf("obj %v is not a AttestorUserOwnedDrydockNote", a)
 		}
 		actual = &actualNotPointer
 	}
@@ -790,7 +787,7 @@ func compareAttestorUserOwnedGrafeasNoteNewStyle(d, a interface{}, fn dcl.FieldN
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicKeys, actual.PublicKeys, dcl.Info{ObjectFunction: compareAttestorUserOwnedGrafeasNotePublicKeysNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicKeys")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicKeys, actual.PublicKeys, dcl.Info{ObjectFunction: compareAttestorUserOwnedDrydockNotePublicKeysNewStyle, OperationSelector: dcl.TriggersOperation("updateAttestorUpdateAttestorOperation")}, fn.AddNest("PublicKeys")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -806,48 +803,48 @@ func compareAttestorUserOwnedGrafeasNoteNewStyle(d, a interface{}, fn dcl.FieldN
 	return diffs, nil
 }
 
-func compareAttestorUserOwnedGrafeasNotePublicKeysNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareAttestorUserOwnedDrydockNotePublicKeysNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*AttestorUserOwnedGrafeasNotePublicKeys)
+	desired, ok := d.(*AttestorUserOwnedDrydockNotePublicKeys)
 	if !ok {
-		desiredNotPointer, ok := d.(AttestorUserOwnedGrafeasNotePublicKeys)
+		desiredNotPointer, ok := d.(AttestorUserOwnedDrydockNotePublicKeys)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a AttestorUserOwnedGrafeasNotePublicKeys or *AttestorUserOwnedGrafeasNotePublicKeys", d)
+			return nil, fmt.Errorf("obj %v is not a AttestorUserOwnedDrydockNotePublicKeys or *AttestorUserOwnedDrydockNotePublicKeys", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*AttestorUserOwnedGrafeasNotePublicKeys)
+	actual, ok := a.(*AttestorUserOwnedDrydockNotePublicKeys)
 	if !ok {
-		actualNotPointer, ok := a.(AttestorUserOwnedGrafeasNotePublicKeys)
+		actualNotPointer, ok := a.(AttestorUserOwnedDrydockNotePublicKeys)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a AttestorUserOwnedGrafeasNotePublicKeys", a)
+			return nil, fmt.Errorf("obj %v is not a AttestorUserOwnedDrydockNotePublicKeys", a)
 		}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Comment, actual.Comment, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Comment")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Comment, actual.Comment, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAttestorUpdateAttestorOperation")}, fn.AddNest("Comment")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAttestorUpdateAttestorOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AsciiArmoredPgpPublicKey, actual.AsciiArmoredPgpPublicKey, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AsciiArmoredPgpPublicKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AsciiArmoredPgpPublicKey, actual.AsciiArmoredPgpPublicKey, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAttestorUpdateAttestorOperation")}, fn.AddNest("AsciiArmoredPgpPublicKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PkixPublicKey, actual.PkixPublicKey, dcl.Info{ObjectFunction: compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PkixPublicKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PkixPublicKey, actual.PkixPublicKey, dcl.Info{ObjectFunction: compareAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyNewStyle, OperationSelector: dcl.TriggersOperation("updateAttestorUpdateAttestorOperation")}, fn.AddNest("PkixPublicKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -856,34 +853,34 @@ func compareAttestorUserOwnedGrafeasNotePublicKeysNewStyle(d, a interface{}, fn 
 	return diffs, nil
 }
 
-func compareAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey)
+	desired, ok := d.(*AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey)
 	if !ok {
-		desiredNotPointer, ok := d.(AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey)
+		desiredNotPointer, ok := d.(AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey or *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey", d)
+			return nil, fmt.Errorf("obj %v is not a AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey or *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey)
+	actual, ok := a.(*AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey)
 	if !ok {
-		actualNotPointer, ok := a.(AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey)
+		actualNotPointer, ok := a.(AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey", a)
+			return nil, fmt.Errorf("obj %v is not a AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey", a)
 		}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PublicKeyPem, actual.PublicKeyPem, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicKeyPem")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicKeyPem, actual.PublicKeyPem, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAttestorUpdateAttestorOperation")}, fn.AddNest("PublicKeyPem")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SignatureAlgorithm, actual.SignatureAlgorithm, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SignatureAlgorithm")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SignatureAlgorithm, actual.SignatureAlgorithm, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateAttestorUpdateAttestorOperation")}, fn.AddNest("SignatureAlgorithm")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -968,8 +965,8 @@ func expandAttestor(c *Client, f *Attestor) (map[string]interface{}, error) {
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
 	}
-	if v, err := expandAttestorUserOwnedGrafeasNote(c, f.UserOwnedGrafeasNote); err != nil {
-		return nil, fmt.Errorf("error expanding UserOwnedGrafeasNote into userOwnedGrafeasNote: %w", err)
+	if v, err := expandAttestorUserOwnedDrydockNote(c, f.UserOwnedDrydockNote); err != nil {
+		return nil, fmt.Errorf("error expanding UserOwnedDrydockNote into userOwnedGrafeasNote: %w", err)
 	} else if v != nil {
 		m["userOwnedGrafeasNote"] = v
 	}
@@ -999,23 +996,23 @@ func flattenAttestor(c *Client, i interface{}) *Attestor {
 	res := &Attestor{}
 	res.Name = dcl.FlattenString(m["name"])
 	res.Description = dcl.FlattenString(m["description"])
-	res.UserOwnedGrafeasNote = flattenAttestorUserOwnedGrafeasNote(c, m["userOwnedGrafeasNote"])
+	res.UserOwnedDrydockNote = flattenAttestorUserOwnedDrydockNote(c, m["userOwnedGrafeasNote"])
 	res.UpdateTime = dcl.FlattenString(m["updateTime"])
 	res.Project = dcl.FlattenString(m["project"])
 
 	return res
 }
 
-// expandAttestorUserOwnedGrafeasNoteMap expands the contents of AttestorUserOwnedGrafeasNote into a JSON
+// expandAttestorUserOwnedDrydockNoteMap expands the contents of AttestorUserOwnedDrydockNote into a JSON
 // request object.
-func expandAttestorUserOwnedGrafeasNoteMap(c *Client, f map[string]AttestorUserOwnedGrafeasNote) (map[string]interface{}, error) {
+func expandAttestorUserOwnedDrydockNoteMap(c *Client, f map[string]AttestorUserOwnedDrydockNote) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandAttestorUserOwnedGrafeasNote(c, &item)
+		i, err := expandAttestorUserOwnedDrydockNote(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1027,16 +1024,16 @@ func expandAttestorUserOwnedGrafeasNoteMap(c *Client, f map[string]AttestorUserO
 	return items, nil
 }
 
-// expandAttestorUserOwnedGrafeasNoteSlice expands the contents of AttestorUserOwnedGrafeasNote into a JSON
+// expandAttestorUserOwnedDrydockNoteSlice expands the contents of AttestorUserOwnedDrydockNote into a JSON
 // request object.
-func expandAttestorUserOwnedGrafeasNoteSlice(c *Client, f []AttestorUserOwnedGrafeasNote) ([]map[string]interface{}, error) {
+func expandAttestorUserOwnedDrydockNoteSlice(c *Client, f []AttestorUserOwnedDrydockNote) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandAttestorUserOwnedGrafeasNote(c, &item)
+		i, err := expandAttestorUserOwnedDrydockNote(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1047,49 +1044,49 @@ func expandAttestorUserOwnedGrafeasNoteSlice(c *Client, f []AttestorUserOwnedGra
 	return items, nil
 }
 
-// flattenAttestorUserOwnedGrafeasNoteMap flattens the contents of AttestorUserOwnedGrafeasNote from a JSON
+// flattenAttestorUserOwnedDrydockNoteMap flattens the contents of AttestorUserOwnedDrydockNote from a JSON
 // response object.
-func flattenAttestorUserOwnedGrafeasNoteMap(c *Client, i interface{}) map[string]AttestorUserOwnedGrafeasNote {
+func flattenAttestorUserOwnedDrydockNoteMap(c *Client, i interface{}) map[string]AttestorUserOwnedDrydockNote {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]AttestorUserOwnedGrafeasNote{}
+		return map[string]AttestorUserOwnedDrydockNote{}
 	}
 
 	if len(a) == 0 {
-		return map[string]AttestorUserOwnedGrafeasNote{}
+		return map[string]AttestorUserOwnedDrydockNote{}
 	}
 
-	items := make(map[string]AttestorUserOwnedGrafeasNote)
+	items := make(map[string]AttestorUserOwnedDrydockNote)
 	for k, item := range a {
-		items[k] = *flattenAttestorUserOwnedGrafeasNote(c, item.(map[string]interface{}))
+		items[k] = *flattenAttestorUserOwnedDrydockNote(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenAttestorUserOwnedGrafeasNoteSlice flattens the contents of AttestorUserOwnedGrafeasNote from a JSON
+// flattenAttestorUserOwnedDrydockNoteSlice flattens the contents of AttestorUserOwnedDrydockNote from a JSON
 // response object.
-func flattenAttestorUserOwnedGrafeasNoteSlice(c *Client, i interface{}) []AttestorUserOwnedGrafeasNote {
+func flattenAttestorUserOwnedDrydockNoteSlice(c *Client, i interface{}) []AttestorUserOwnedDrydockNote {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []AttestorUserOwnedGrafeasNote{}
+		return []AttestorUserOwnedDrydockNote{}
 	}
 
 	if len(a) == 0 {
-		return []AttestorUserOwnedGrafeasNote{}
+		return []AttestorUserOwnedDrydockNote{}
 	}
 
-	items := make([]AttestorUserOwnedGrafeasNote, 0, len(a))
+	items := make([]AttestorUserOwnedDrydockNote, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAttestorUserOwnedGrafeasNote(c, item.(map[string]interface{})))
+		items = append(items, *flattenAttestorUserOwnedDrydockNote(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandAttestorUserOwnedGrafeasNote expands an instance of AttestorUserOwnedGrafeasNote into a JSON
+// expandAttestorUserOwnedDrydockNote expands an instance of AttestorUserOwnedDrydockNote into a JSON
 // request object.
-func expandAttestorUserOwnedGrafeasNote(c *Client, f *AttestorUserOwnedGrafeasNote) (map[string]interface{}, error) {
+func expandAttestorUserOwnedDrydockNote(c *Client, f *AttestorUserOwnedDrydockNote) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1098,7 +1095,7 @@ func expandAttestorUserOwnedGrafeasNote(c *Client, f *AttestorUserOwnedGrafeasNo
 	if v := f.NoteReference; !dcl.IsEmptyValueIndirect(v) {
 		m["noteReference"] = v
 	}
-	if v, err := expandAttestorUserOwnedGrafeasNotePublicKeysSlice(c, f.PublicKeys); err != nil {
+	if v, err := expandAttestorUserOwnedDrydockNotePublicKeysSlice(c, f.PublicKeys); err != nil {
 		return nil, fmt.Errorf("error expanding PublicKeys into publicKeys: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["publicKeys"] = v
@@ -1110,36 +1107,36 @@ func expandAttestorUserOwnedGrafeasNote(c *Client, f *AttestorUserOwnedGrafeasNo
 	return m, nil
 }
 
-// flattenAttestorUserOwnedGrafeasNote flattens an instance of AttestorUserOwnedGrafeasNote from a JSON
+// flattenAttestorUserOwnedDrydockNote flattens an instance of AttestorUserOwnedDrydockNote from a JSON
 // response object.
-func flattenAttestorUserOwnedGrafeasNote(c *Client, i interface{}) *AttestorUserOwnedGrafeasNote {
+func flattenAttestorUserOwnedDrydockNote(c *Client, i interface{}) *AttestorUserOwnedDrydockNote {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &AttestorUserOwnedGrafeasNote{}
+	r := &AttestorUserOwnedDrydockNote{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyAttestorUserOwnedGrafeasNote
+		return EmptyAttestorUserOwnedDrydockNote
 	}
 	r.NoteReference = dcl.FlattenString(m["noteReference"])
-	r.PublicKeys = flattenAttestorUserOwnedGrafeasNotePublicKeysSlice(c, m["publicKeys"])
+	r.PublicKeys = flattenAttestorUserOwnedDrydockNotePublicKeysSlice(c, m["publicKeys"])
 	r.DelegationServiceAccountEmail = dcl.FlattenString(m["delegationServiceAccountEmail"])
 
 	return r
 }
 
-// expandAttestorUserOwnedGrafeasNotePublicKeysMap expands the contents of AttestorUserOwnedGrafeasNotePublicKeys into a JSON
+// expandAttestorUserOwnedDrydockNotePublicKeysMap expands the contents of AttestorUserOwnedDrydockNotePublicKeys into a JSON
 // request object.
-func expandAttestorUserOwnedGrafeasNotePublicKeysMap(c *Client, f map[string]AttestorUserOwnedGrafeasNotePublicKeys) (map[string]interface{}, error) {
+func expandAttestorUserOwnedDrydockNotePublicKeysMap(c *Client, f map[string]AttestorUserOwnedDrydockNotePublicKeys) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandAttestorUserOwnedGrafeasNotePublicKeys(c, &item)
+		i, err := expandAttestorUserOwnedDrydockNotePublicKeys(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1151,16 +1148,16 @@ func expandAttestorUserOwnedGrafeasNotePublicKeysMap(c *Client, f map[string]Att
 	return items, nil
 }
 
-// expandAttestorUserOwnedGrafeasNotePublicKeysSlice expands the contents of AttestorUserOwnedGrafeasNotePublicKeys into a JSON
+// expandAttestorUserOwnedDrydockNotePublicKeysSlice expands the contents of AttestorUserOwnedDrydockNotePublicKeys into a JSON
 // request object.
-func expandAttestorUserOwnedGrafeasNotePublicKeysSlice(c *Client, f []AttestorUserOwnedGrafeasNotePublicKeys) ([]map[string]interface{}, error) {
+func expandAttestorUserOwnedDrydockNotePublicKeysSlice(c *Client, f []AttestorUserOwnedDrydockNotePublicKeys) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandAttestorUserOwnedGrafeasNotePublicKeys(c, &item)
+		i, err := expandAttestorUserOwnedDrydockNotePublicKeys(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1171,49 +1168,49 @@ func expandAttestorUserOwnedGrafeasNotePublicKeysSlice(c *Client, f []AttestorUs
 	return items, nil
 }
 
-// flattenAttestorUserOwnedGrafeasNotePublicKeysMap flattens the contents of AttestorUserOwnedGrafeasNotePublicKeys from a JSON
+// flattenAttestorUserOwnedDrydockNotePublicKeysMap flattens the contents of AttestorUserOwnedDrydockNotePublicKeys from a JSON
 // response object.
-func flattenAttestorUserOwnedGrafeasNotePublicKeysMap(c *Client, i interface{}) map[string]AttestorUserOwnedGrafeasNotePublicKeys {
+func flattenAttestorUserOwnedDrydockNotePublicKeysMap(c *Client, i interface{}) map[string]AttestorUserOwnedDrydockNotePublicKeys {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]AttestorUserOwnedGrafeasNotePublicKeys{}
+		return map[string]AttestorUserOwnedDrydockNotePublicKeys{}
 	}
 
 	if len(a) == 0 {
-		return map[string]AttestorUserOwnedGrafeasNotePublicKeys{}
+		return map[string]AttestorUserOwnedDrydockNotePublicKeys{}
 	}
 
-	items := make(map[string]AttestorUserOwnedGrafeasNotePublicKeys)
+	items := make(map[string]AttestorUserOwnedDrydockNotePublicKeys)
 	for k, item := range a {
-		items[k] = *flattenAttestorUserOwnedGrafeasNotePublicKeys(c, item.(map[string]interface{}))
+		items[k] = *flattenAttestorUserOwnedDrydockNotePublicKeys(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenAttestorUserOwnedGrafeasNotePublicKeysSlice flattens the contents of AttestorUserOwnedGrafeasNotePublicKeys from a JSON
+// flattenAttestorUserOwnedDrydockNotePublicKeysSlice flattens the contents of AttestorUserOwnedDrydockNotePublicKeys from a JSON
 // response object.
-func flattenAttestorUserOwnedGrafeasNotePublicKeysSlice(c *Client, i interface{}) []AttestorUserOwnedGrafeasNotePublicKeys {
+func flattenAttestorUserOwnedDrydockNotePublicKeysSlice(c *Client, i interface{}) []AttestorUserOwnedDrydockNotePublicKeys {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []AttestorUserOwnedGrafeasNotePublicKeys{}
+		return []AttestorUserOwnedDrydockNotePublicKeys{}
 	}
 
 	if len(a) == 0 {
-		return []AttestorUserOwnedGrafeasNotePublicKeys{}
+		return []AttestorUserOwnedDrydockNotePublicKeys{}
 	}
 
-	items := make([]AttestorUserOwnedGrafeasNotePublicKeys, 0, len(a))
+	items := make([]AttestorUserOwnedDrydockNotePublicKeys, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAttestorUserOwnedGrafeasNotePublicKeys(c, item.(map[string]interface{})))
+		items = append(items, *flattenAttestorUserOwnedDrydockNotePublicKeys(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandAttestorUserOwnedGrafeasNotePublicKeys expands an instance of AttestorUserOwnedGrafeasNotePublicKeys into a JSON
+// expandAttestorUserOwnedDrydockNotePublicKeys expands an instance of AttestorUserOwnedDrydockNotePublicKeys into a JSON
 // request object.
-func expandAttestorUserOwnedGrafeasNotePublicKeys(c *Client, f *AttestorUserOwnedGrafeasNotePublicKeys) (map[string]interface{}, error) {
+func expandAttestorUserOwnedDrydockNotePublicKeys(c *Client, f *AttestorUserOwnedDrydockNotePublicKeys) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1228,7 +1225,7 @@ func expandAttestorUserOwnedGrafeasNotePublicKeys(c *Client, f *AttestorUserOwne
 	if v := f.AsciiArmoredPgpPublicKey; !dcl.IsEmptyValueIndirect(v) {
 		m["asciiArmoredPgpPublicKey"] = v
 	}
-	if v, err := expandAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c, f.PkixPublicKey); err != nil {
+	if v, err := expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c, f.PkixPublicKey); err != nil {
 		return nil, fmt.Errorf("error expanding PkixPublicKey into pkixPublicKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["pkixPublicKey"] = v
@@ -1237,37 +1234,37 @@ func expandAttestorUserOwnedGrafeasNotePublicKeys(c *Client, f *AttestorUserOwne
 	return m, nil
 }
 
-// flattenAttestorUserOwnedGrafeasNotePublicKeys flattens an instance of AttestorUserOwnedGrafeasNotePublicKeys from a JSON
+// flattenAttestorUserOwnedDrydockNotePublicKeys flattens an instance of AttestorUserOwnedDrydockNotePublicKeys from a JSON
 // response object.
-func flattenAttestorUserOwnedGrafeasNotePublicKeys(c *Client, i interface{}) *AttestorUserOwnedGrafeasNotePublicKeys {
+func flattenAttestorUserOwnedDrydockNotePublicKeys(c *Client, i interface{}) *AttestorUserOwnedDrydockNotePublicKeys {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &AttestorUserOwnedGrafeasNotePublicKeys{}
+	r := &AttestorUserOwnedDrydockNotePublicKeys{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyAttestorUserOwnedGrafeasNotePublicKeys
+		return EmptyAttestorUserOwnedDrydockNotePublicKeys
 	}
 	r.Comment = dcl.FlattenString(m["comment"])
 	r.Id = dcl.FlattenString(m["id"])
 	r.AsciiArmoredPgpPublicKey = dcl.FlattenString(m["asciiArmoredPgpPublicKey"])
-	r.PkixPublicKey = flattenAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c, m["pkixPublicKey"])
+	r.PkixPublicKey = flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c, m["pkixPublicKey"])
 
 	return r
 }
 
-// expandAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeyMap expands the contents of AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey into a JSON
+// expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyMap expands the contents of AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey into a JSON
 // request object.
-func expandAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeyMap(c *Client, f map[string]AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) (map[string]interface{}, error) {
+func expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyMap(c *Client, f map[string]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c, &item)
+		i, err := expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1279,16 +1276,16 @@ func expandAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeyMap(c *Client, f m
 	return items, nil
 }
 
-// expandAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySlice expands the contents of AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey into a JSON
+// expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySlice expands the contents of AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey into a JSON
 // request object.
-func expandAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySlice(c *Client, f []AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) ([]map[string]interface{}, error) {
+func expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySlice(c *Client, f []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c, &item)
+		i, err := expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1299,49 +1296,49 @@ func expandAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySlice(c *Client, f
 	return items, nil
 }
 
-// flattenAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeyMap flattens the contents of AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey from a JSON
+// flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyMap flattens the contents of AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey from a JSON
 // response object.
-func flattenAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeyMap(c *Client, i interface{}) map[string]AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey {
+func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyMap(c *Client, i interface{}) map[string]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey{}
+		return map[string]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey{}
 	}
 
 	if len(a) == 0 {
-		return map[string]AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey{}
+		return map[string]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey{}
 	}
 
-	items := make(map[string]AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey)
+	items := make(map[string]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey)
 	for k, item := range a {
-		items[k] = *flattenAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c, item.(map[string]interface{}))
+		items[k] = *flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySlice flattens the contents of AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey from a JSON
+// flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySlice flattens the contents of AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey from a JSON
 // response object.
-func flattenAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySlice(c *Client, i interface{}) []AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey {
+func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySlice(c *Client, i interface{}) []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey{}
+		return []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey{}
 	}
 
 	if len(a) == 0 {
-		return []AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey{}
+		return []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey{}
 	}
 
-	items := make([]AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey, 0, len(a))
+	items := make([]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c, item.(map[string]interface{})))
+		items = append(items, *flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey expands an instance of AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey into a JSON
+// expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey expands an instance of AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey into a JSON
 // request object.
-func expandAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c *Client, f *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) (map[string]interface{}, error) {
+func expandAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c *Client, f *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1357,54 +1354,54 @@ func expandAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c *Client, f *Att
 	return m, nil
 }
 
-// flattenAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey flattens an instance of AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey from a JSON
+// flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey flattens an instance of AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey from a JSON
 // response object.
-func flattenAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey(c *Client, i interface{}) *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey {
+func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c *Client, i interface{}) *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey{}
+	r := &AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey
+		return EmptyAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey
 	}
 	r.PublicKeyPem = dcl.FlattenString(m["publicKeyPem"])
-	r.SignatureAlgorithm = flattenAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(m["signatureAlgorithm"])
+	r.SignatureAlgorithm = flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(m["signatureAlgorithm"])
 
 	return r
 }
 
-// flattenAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnumSlice flattens the contents of AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum from a JSON
+// flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumSlice flattens the contents of AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum from a JSON
 // response object.
-func flattenAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnumSlice(c *Client, i interface{}) []AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum {
+func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumSlice(c *Client, i interface{}) []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum{}
+		return []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum{}
 	}
 
 	if len(a) == 0 {
-		return []AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum{}
+		return []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum{}
 	}
 
-	items := make([]AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum, 0, len(a))
+	items := make([]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(item.(interface{})))
+		items = append(items, *flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// flattenAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum asserts that an interface is a string, and returns a
-// pointer to a *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum with the same value as that string.
-func flattenAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(i interface{}) *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum {
+// flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum asserts that an interface is a string, and returns a
+// pointer to a *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum with the same value as that string.
+func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(i interface{}) *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum {
 	s, ok := i.(string)
 	if !ok {
-		return AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnumRef("")
+		return AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumRef("")
 	}
 
-	return AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnumRef(s)
+	return AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumRef(s)
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource

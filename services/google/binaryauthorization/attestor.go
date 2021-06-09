@@ -27,7 +27,7 @@ import (
 type Attestor struct {
 	Name                 *string                       `json:"name"`
 	Description          *string                       `json:"description"`
-	UserOwnedGrafeasNote *AttestorUserOwnedGrafeasNote `json:"userOwnedGrafeasNote"`
+	UserOwnedDrydockNote *AttestorUserOwnedDrydockNote `json:"userOwnedDrydockNote"`
 	UpdateTime           *string                       `json:"updateTime"`
 	Project              *string                       `json:"project"`
 }
@@ -36,44 +36,44 @@ func (r *Attestor) String() string {
 	return dcl.SprintResource(r)
 }
 
-// The enum AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum.
-type AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum string
+// The enum AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum.
+type AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum string
 
-// AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnumRef returns a *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum with the value of string s
+// AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumRef returns a *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnumRef(s string) *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum {
+func AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumRef(s string) *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(s)
+	v := AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(s)
 	return &v
 }
 
-func (v AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum) Validate() error {
+func (v AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum) Validate() error {
 	for _, s := range []string{"SIGNATURE_ALGORITHM_UNSPECIFIED", "RSA_PSS_2048_SHA256", "RSA_PSS_3072_SHA256", "RSA_PSS_4096_SHA256", "RSA_PSS_4096_SHA512", "RSA_SIGN_PKCS1_2048_SHA256", "RSA_SIGN_PKCS1_3072_SHA256", "RSA_SIGN_PKCS1_4096_SHA256", "RSA_SIGN_PKCS1_4096_SHA512", "ECDSA_P256_SHA256", "EC_SIGN_P256_SHA256", "ECDSA_P384_SHA384", "EC_SIGN_P384_SHA384", "ECDSA_P521_SHA512", "EC_SIGN_P521_SHA512"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum",
+		Enum:  "AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-type AttestorUserOwnedGrafeasNote struct {
+type AttestorUserOwnedDrydockNote struct {
 	empty                         bool                                     `json:"-"`
 	NoteReference                 *string                                  `json:"noteReference"`
-	PublicKeys                    []AttestorUserOwnedGrafeasNotePublicKeys `json:"publicKeys"`
+	PublicKeys                    []AttestorUserOwnedDrydockNotePublicKeys `json:"publicKeys"`
 	DelegationServiceAccountEmail *string                                  `json:"delegationServiceAccountEmail"`
 }
 
-type jsonAttestorUserOwnedGrafeasNote AttestorUserOwnedGrafeasNote
+type jsonAttestorUserOwnedDrydockNote AttestorUserOwnedDrydockNote
 
-func (r *AttestorUserOwnedGrafeasNote) UnmarshalJSON(data []byte) error {
-	var res jsonAttestorUserOwnedGrafeasNote
+func (r *AttestorUserOwnedDrydockNote) UnmarshalJSON(data []byte) error {
+	var res jsonAttestorUserOwnedDrydockNote
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -82,7 +82,7 @@ func (r *AttestorUserOwnedGrafeasNote) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyAttestorUserOwnedGrafeasNote
+		*r = *EmptyAttestorUserOwnedDrydockNote
 	} else {
 
 		r.NoteReference = res.NoteReference
@@ -95,38 +95,38 @@ func (r *AttestorUserOwnedGrafeasNote) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this AttestorUserOwnedGrafeasNote is
+// This object is used to assert a desired state where this AttestorUserOwnedDrydockNote is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyAttestorUserOwnedGrafeasNote *AttestorUserOwnedGrafeasNote = &AttestorUserOwnedGrafeasNote{empty: true}
+var EmptyAttestorUserOwnedDrydockNote *AttestorUserOwnedDrydockNote = &AttestorUserOwnedDrydockNote{empty: true}
 
-func (r *AttestorUserOwnedGrafeasNote) Empty() bool {
+func (r *AttestorUserOwnedDrydockNote) Empty() bool {
 	return r.empty
 }
 
-func (r *AttestorUserOwnedGrafeasNote) String() string {
+func (r *AttestorUserOwnedDrydockNote) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *AttestorUserOwnedGrafeasNote) HashCode() string {
+func (r *AttestorUserOwnedDrydockNote) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type AttestorUserOwnedGrafeasNotePublicKeys struct {
+type AttestorUserOwnedDrydockNotePublicKeys struct {
 	empty                    bool                                                 `json:"-"`
 	Comment                  *string                                              `json:"comment"`
 	Id                       *string                                              `json:"id"`
 	AsciiArmoredPgpPublicKey *string                                              `json:"asciiArmoredPgpPublicKey"`
-	PkixPublicKey            *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey `json:"pkixPublicKey"`
+	PkixPublicKey            *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey `json:"pkixPublicKey"`
 }
 
-type jsonAttestorUserOwnedGrafeasNotePublicKeys AttestorUserOwnedGrafeasNotePublicKeys
+type jsonAttestorUserOwnedDrydockNotePublicKeys AttestorUserOwnedDrydockNotePublicKeys
 
-func (r *AttestorUserOwnedGrafeasNotePublicKeys) UnmarshalJSON(data []byte) error {
-	var res jsonAttestorUserOwnedGrafeasNotePublicKeys
+func (r *AttestorUserOwnedDrydockNotePublicKeys) UnmarshalJSON(data []byte) error {
+	var res jsonAttestorUserOwnedDrydockNotePublicKeys
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -135,7 +135,7 @@ func (r *AttestorUserOwnedGrafeasNotePublicKeys) UnmarshalJSON(data []byte) erro
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyAttestorUserOwnedGrafeasNotePublicKeys
+		*r = *EmptyAttestorUserOwnedDrydockNotePublicKeys
 	} else {
 
 		r.Comment = res.Comment
@@ -150,36 +150,36 @@ func (r *AttestorUserOwnedGrafeasNotePublicKeys) UnmarshalJSON(data []byte) erro
 	return nil
 }
 
-// This object is used to assert a desired state where this AttestorUserOwnedGrafeasNotePublicKeys is
+// This object is used to assert a desired state where this AttestorUserOwnedDrydockNotePublicKeys is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyAttestorUserOwnedGrafeasNotePublicKeys *AttestorUserOwnedGrafeasNotePublicKeys = &AttestorUserOwnedGrafeasNotePublicKeys{empty: true}
+var EmptyAttestorUserOwnedDrydockNotePublicKeys *AttestorUserOwnedDrydockNotePublicKeys = &AttestorUserOwnedDrydockNotePublicKeys{empty: true}
 
-func (r *AttestorUserOwnedGrafeasNotePublicKeys) Empty() bool {
+func (r *AttestorUserOwnedDrydockNotePublicKeys) Empty() bool {
 	return r.empty
 }
 
-func (r *AttestorUserOwnedGrafeasNotePublicKeys) String() string {
+func (r *AttestorUserOwnedDrydockNotePublicKeys) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *AttestorUserOwnedGrafeasNotePublicKeys) HashCode() string {
+func (r *AttestorUserOwnedDrydockNotePublicKeys) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey struct {
+type AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey struct {
 	empty              bool                                                                       `json:"-"`
 	PublicKeyPem       *string                                                                    `json:"publicKeyPem"`
-	SignatureAlgorithm *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKeySignatureAlgorithmEnum `json:"signatureAlgorithm"`
+	SignatureAlgorithm *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum `json:"signatureAlgorithm"`
 }
 
-type jsonAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey
+type jsonAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey
 
-func (r *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) UnmarshalJSON(data []byte) error {
-	var res jsonAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey
+func (r *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) UnmarshalJSON(data []byte) error {
+	var res jsonAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -188,7 +188,7 @@ func (r *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) UnmarshalJSON(data
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey
+		*r = *EmptyAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey
 	} else {
 
 		r.PublicKeyPem = res.PublicKeyPem
@@ -199,20 +199,20 @@ func (r *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) UnmarshalJSON(data
 	return nil
 }
 
-// This object is used to assert a desired state where this AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey is
+// This object is used to assert a desired state where this AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyAttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey = &AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey{empty: true}
+var EmptyAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey = &AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey{empty: true}
 
-func (r *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) Empty() bool {
+func (r *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) Empty() bool {
 	return r.empty
 }
 
-func (r *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) String() string {
+func (r *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *AttestorUserOwnedGrafeasNotePublicKeysPkixPublicKey) HashCode() string {
+func (r *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
