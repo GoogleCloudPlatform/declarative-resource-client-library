@@ -18,14 +18,14 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
-enum LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum {
-  LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnumSTRING = 1;
-  LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnumBOOL = 2;
-  LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnumINT64 = 3;
-  LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnumDOUBLE = 4;
-  LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnumDISTRIBUTION = 5;
-  LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnumMONEY = 6;
+enum LoggingLogMetricMetricDescriptorLabelsValueTypeEnum {
+  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumSTRING = 1;
+  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumBOOL = 2;
+  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumINT64 = 3;
+  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumDOUBLE = 4;
+  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumDISTRIBUTION = 5;
+  LoggingLogMetricMetricDescriptorLabelsValueTypeEnumMONEY = 6;
 }
 
 enum LoggingLogMetricMetricDescriptorMetricKindEnum {
@@ -87,7 +87,7 @@ message LoggingLogMetric {
 message LoggingLogMetricMetricDescriptor {
   string name = 1;
   string type = 2;
-  repeated LoggingLogMetricMetricDescriptorDescriptorLabels descriptor_labels = 3;
+  repeated LoggingLogMetricMetricDescriptorLabels labels = 3;
   LoggingLogMetricMetricDescriptorMetricKindEnum metric_kind = 4;
   LoggingLogMetricMetricDescriptorValueTypeEnum value_type = 5;
   string unit = 6;
@@ -98,9 +98,9 @@ message LoggingLogMetricMetricDescriptor {
   repeated string monitored_resource_types = 11;
 }
 
-message LoggingLogMetricMetricDescriptorDescriptorLabels {
+message LoggingLogMetricMetricDescriptorLabels {
   string key = 1;
-  LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum value_type = 2;
+  LoggingLogMetricMetricDescriptorLabelsValueTypeEnum value_type = 2;
   string description = 3;
 }
 

@@ -28,7 +28,7 @@ import (
 	glog "github.com/golang/glog"
 )
 
-var selfLinkIgnorableComponents = stringset.New("projects", "regions", "locations", "zones", "organizations", "compute", "v1", "v1beta1")
+var selfLinkIgnorableComponents = stringset.New("projects", "regions", "locations", "zones", "organizations", "compute", "v1", "v1beta1", "beta")
 
 // SelfLinkToSelfLink returns true if left and right are equivalent for selflinks.
 // That means that they are piecewise equal, comparing components, allowing for
@@ -802,9 +802,7 @@ func StringEqualsWithSelfLink(l, r *string) bool {
 	left := *l
 	right := *r
 
-	if IsSelfLink(left) || IsSelfLink(right) {
-		return SelfLinkToSelfLink(l, r)
-	} else if IsPartialSelfLink(left) || IsPartialSelfLink(right) {
+	if IsSelfLink(left) || IsSelfLink(right) || IsPartialSelfLink(left) || IsPartialSelfLink(right) {
 		lp := strings.Split(left, "/")
 		rp := strings.Split(right, "/")
 		return lp[len(lp)-1] == rp[len(rp)-1]

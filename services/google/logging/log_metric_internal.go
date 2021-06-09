@@ -56,7 +56,7 @@ func (r *LogMetricMetricDescriptor) validate() error {
 	}
 	return nil
 }
-func (r *LogMetricMetricDescriptorDescriptorLabels) validate() error {
+func (r *LogMetricMetricDescriptorLabels) validate() error {
 	return nil
 }
 func (r *LogMetricMetricDescriptorMetadata) validate() error {
@@ -576,8 +576,8 @@ func canonicalizeLogMetricMetricDescriptor(des, initial *LogMetricMetricDescript
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
 		des.Type = initial.Type
 	}
-	if dcl.IsZeroValue(des.DescriptorLabels) {
-		des.DescriptorLabels = initial.DescriptorLabels
+	if dcl.IsZeroValue(des.Labels) {
+		des.Labels = initial.Labels
 	}
 	if dcl.IsZeroValue(des.MetricKind) {
 		des.MetricKind = initial.MetricKind
@@ -613,7 +613,7 @@ func canonicalizeNewLogMetricMetricDescriptor(c *Client, des, nw *LogMetricMetri
 	if dcl.StringCanonicalize(des.Type, nw.Type) {
 		nw.Type = des.Type
 	}
-	nw.DescriptorLabels = canonicalizeNewLogMetricMetricDescriptorDescriptorLabelsSet(c, des.DescriptorLabels, nw.DescriptorLabels)
+	nw.Labels = canonicalizeNewLogMetricMetricDescriptorLabelsSet(c, des.Labels, nw.Labels)
 	if dcl.IsZeroValue(nw.MetricKind) {
 		nw.MetricKind = des.MetricKind
 	}
@@ -681,7 +681,7 @@ func canonicalizeNewLogMetricMetricDescriptorSlice(c *Client, des, nw []LogMetri
 	return items
 }
 
-func canonicalizeLogMetricMetricDescriptorDescriptorLabels(des, initial *LogMetricMetricDescriptorDescriptorLabels, opts ...dcl.ApplyOption) *LogMetricMetricDescriptorDescriptorLabels {
+func canonicalizeLogMetricMetricDescriptorLabels(des, initial *LogMetricMetricDescriptorLabels, opts ...dcl.ApplyOption) *LogMetricMetricDescriptorLabels {
 	if des == nil {
 		return initial
 	}
@@ -696,7 +696,7 @@ func canonicalizeLogMetricMetricDescriptorDescriptorLabels(des, initial *LogMetr
 	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
 		des.Key = initial.Key
 	}
-	if canonicalizeLogMetricMetricDescriptorDescriptorLabelsValueType(des.ValueType, initial.ValueType) || dcl.IsZeroValue(des.ValueType) {
+	if canonicalizeLogMetricMetricDescriptorLabelsValueType(des.ValueType, initial.ValueType) || dcl.IsZeroValue(des.ValueType) {
 		des.ValueType = initial.ValueType
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
@@ -706,7 +706,7 @@ func canonicalizeLogMetricMetricDescriptorDescriptorLabels(des, initial *LogMetr
 	return des
 }
 
-func canonicalizeNewLogMetricMetricDescriptorDescriptorLabels(c *Client, des, nw *LogMetricMetricDescriptorDescriptorLabels) *LogMetricMetricDescriptorDescriptorLabels {
+func canonicalizeNewLogMetricMetricDescriptorLabels(c *Client, des, nw *LogMetricMetricDescriptorLabels) *LogMetricMetricDescriptorLabels {
 	if des == nil || nw == nil {
 		return nw
 	}
@@ -714,7 +714,7 @@ func canonicalizeNewLogMetricMetricDescriptorDescriptorLabels(c *Client, des, nw
 	if dcl.StringCanonicalize(des.Key, nw.Key) {
 		nw.Key = des.Key
 	}
-	if canonicalizeLogMetricMetricDescriptorDescriptorLabelsValueType(des.ValueType, nw.ValueType) {
+	if canonicalizeLogMetricMetricDescriptorLabelsValueType(des.ValueType, nw.ValueType) {
 		nw.ValueType = des.ValueType
 	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
@@ -724,15 +724,15 @@ func canonicalizeNewLogMetricMetricDescriptorDescriptorLabels(c *Client, des, nw
 	return nw
 }
 
-func canonicalizeNewLogMetricMetricDescriptorDescriptorLabelsSet(c *Client, des, nw []LogMetricMetricDescriptorDescriptorLabels) []LogMetricMetricDescriptorDescriptorLabels {
+func canonicalizeNewLogMetricMetricDescriptorLabelsSet(c *Client, des, nw []LogMetricMetricDescriptorLabels) []LogMetricMetricDescriptorLabels {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []LogMetricMetricDescriptorDescriptorLabels
+	var reorderedNew []LogMetricMetricDescriptorLabels
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareLogMetricMetricDescriptorDescriptorLabelsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareLogMetricMetricDescriptorLabelsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -747,7 +747,7 @@ func canonicalizeNewLogMetricMetricDescriptorDescriptorLabelsSet(c *Client, des,
 	return reorderedNew
 }
 
-func canonicalizeNewLogMetricMetricDescriptorDescriptorLabelsSlice(c *Client, des, nw []LogMetricMetricDescriptorDescriptorLabels) []LogMetricMetricDescriptorDescriptorLabels {
+func canonicalizeNewLogMetricMetricDescriptorLabelsSlice(c *Client, des, nw []LogMetricMetricDescriptorLabels) []LogMetricMetricDescriptorLabels {
 	if des == nil {
 		return nw
 	}
@@ -758,10 +758,10 @@ func canonicalizeNewLogMetricMetricDescriptorDescriptorLabelsSlice(c *Client, de
 		return nw
 	}
 
-	var items []LogMetricMetricDescriptorDescriptorLabels
+	var items []LogMetricMetricDescriptorLabels
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewLogMetricMetricDescriptorDescriptorLabels(c, &d, &n))
+		items = append(items, *canonicalizeNewLogMetricMetricDescriptorLabels(c, &d, &n))
 	}
 
 	return items
@@ -1301,7 +1301,7 @@ func compareLogMetricMetricDescriptorNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DescriptorLabels, actual.DescriptorLabels, dcl.Info{Type: "Set", ObjectFunction: compareLogMetricMetricDescriptorDescriptorLabelsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Type: "Set", ObjectFunction: compareLogMetricMetricDescriptorLabelsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1366,22 +1366,22 @@ func compareLogMetricMetricDescriptorNewStyle(d, a interface{}, fn dcl.FieldName
 	return diffs, nil
 }
 
-func compareLogMetricMetricDescriptorDescriptorLabelsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareLogMetricMetricDescriptorLabelsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*LogMetricMetricDescriptorDescriptorLabels)
+	desired, ok := d.(*LogMetricMetricDescriptorLabels)
 	if !ok {
-		desiredNotPointer, ok := d.(LogMetricMetricDescriptorDescriptorLabels)
+		desiredNotPointer, ok := d.(LogMetricMetricDescriptorLabels)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a LogMetricMetricDescriptorDescriptorLabels or *LogMetricMetricDescriptorDescriptorLabels", d)
+			return nil, fmt.Errorf("obj %v is not a LogMetricMetricDescriptorLabels or *LogMetricMetricDescriptorLabels", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*LogMetricMetricDescriptorDescriptorLabels)
+	actual, ok := a.(*LogMetricMetricDescriptorLabels)
 	if !ok {
-		actualNotPointer, ok := a.(LogMetricMetricDescriptorDescriptorLabels)
+		actualNotPointer, ok := a.(LogMetricMetricDescriptorLabels)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a LogMetricMetricDescriptorDescriptorLabels", a)
+			return nil, fmt.Errorf("obj %v is not a LogMetricMetricDescriptorLabels", a)
 		}
 		actual = &actualNotPointer
 	}
@@ -1393,7 +1393,7 @@ func compareLogMetricMetricDescriptorDescriptorLabelsNewStyle(d, a interface{}, 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ValueType, actual.ValueType, dcl.Info{Type: "EnumType", CustomDiff: canonicalizeLogMetricMetricDescriptorDescriptorLabelsValueType, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ValueType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ValueType, actual.ValueType, dcl.Info{Type: "EnumType", CustomDiff: canonicalizeLogMetricMetricDescriptorLabelsValueType, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ValueType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1845,8 +1845,8 @@ func expandLogMetricMetricDescriptor(c *Client, f *LogMetricMetricDescriptor) (m
 	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
 		m["type"] = v
 	}
-	if v, err := expandLogMetricMetricDescriptorDescriptorLabelsSlice(c, f.DescriptorLabels); err != nil {
-		return nil, fmt.Errorf("error expanding DescriptorLabels into labels: %w", err)
+	if v, err := expandLogMetricMetricDescriptorLabelsSlice(c, f.Labels); err != nil {
+		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["labels"] = v
 	}
@@ -1895,7 +1895,7 @@ func flattenLogMetricMetricDescriptor(c *Client, i interface{}) *LogMetricMetric
 	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Type = dcl.FlattenString(m["type"])
-	r.DescriptorLabels = flattenLogMetricMetricDescriptorDescriptorLabelsSlice(c, m["labels"])
+	r.Labels = flattenLogMetricMetricDescriptorLabelsSlice(c, m["labels"])
 	r.MetricKind = flattenLogMetricMetricDescriptorMetricKindEnum(m["metricKind"])
 	r.ValueType = flattenLogMetricMetricDescriptorValueTypeEnum(m["valueType"])
 	r.Unit = dcl.FlattenString(m["unit"])
@@ -1908,16 +1908,16 @@ func flattenLogMetricMetricDescriptor(c *Client, i interface{}) *LogMetricMetric
 	return r
 }
 
-// expandLogMetricMetricDescriptorDescriptorLabelsMap expands the contents of LogMetricMetricDescriptorDescriptorLabels into a JSON
+// expandLogMetricMetricDescriptorLabelsMap expands the contents of LogMetricMetricDescriptorLabels into a JSON
 // request object.
-func expandLogMetricMetricDescriptorDescriptorLabelsMap(c *Client, f map[string]LogMetricMetricDescriptorDescriptorLabels) (map[string]interface{}, error) {
+func expandLogMetricMetricDescriptorLabelsMap(c *Client, f map[string]LogMetricMetricDescriptorLabels) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandLogMetricMetricDescriptorDescriptorLabels(c, &item)
+		i, err := expandLogMetricMetricDescriptorLabels(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1929,16 +1929,16 @@ func expandLogMetricMetricDescriptorDescriptorLabelsMap(c *Client, f map[string]
 	return items, nil
 }
 
-// expandLogMetricMetricDescriptorDescriptorLabelsSlice expands the contents of LogMetricMetricDescriptorDescriptorLabels into a JSON
+// expandLogMetricMetricDescriptorLabelsSlice expands the contents of LogMetricMetricDescriptorLabels into a JSON
 // request object.
-func expandLogMetricMetricDescriptorDescriptorLabelsSlice(c *Client, f []LogMetricMetricDescriptorDescriptorLabels) ([]map[string]interface{}, error) {
+func expandLogMetricMetricDescriptorLabelsSlice(c *Client, f []LogMetricMetricDescriptorLabels) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandLogMetricMetricDescriptorDescriptorLabels(c, &item)
+		i, err := expandLogMetricMetricDescriptorLabels(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1949,49 +1949,49 @@ func expandLogMetricMetricDescriptorDescriptorLabelsSlice(c *Client, f []LogMetr
 	return items, nil
 }
 
-// flattenLogMetricMetricDescriptorDescriptorLabelsMap flattens the contents of LogMetricMetricDescriptorDescriptorLabels from a JSON
+// flattenLogMetricMetricDescriptorLabelsMap flattens the contents of LogMetricMetricDescriptorLabels from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorDescriptorLabelsMap(c *Client, i interface{}) map[string]LogMetricMetricDescriptorDescriptorLabels {
+func flattenLogMetricMetricDescriptorLabelsMap(c *Client, i interface{}) map[string]LogMetricMetricDescriptorLabels {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]LogMetricMetricDescriptorDescriptorLabels{}
+		return map[string]LogMetricMetricDescriptorLabels{}
 	}
 
 	if len(a) == 0 {
-		return map[string]LogMetricMetricDescriptorDescriptorLabels{}
+		return map[string]LogMetricMetricDescriptorLabels{}
 	}
 
-	items := make(map[string]LogMetricMetricDescriptorDescriptorLabels)
+	items := make(map[string]LogMetricMetricDescriptorLabels)
 	for k, item := range a {
-		items[k] = *flattenLogMetricMetricDescriptorDescriptorLabels(c, item.(map[string]interface{}))
+		items[k] = *flattenLogMetricMetricDescriptorLabels(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenLogMetricMetricDescriptorDescriptorLabelsSlice flattens the contents of LogMetricMetricDescriptorDescriptorLabels from a JSON
+// flattenLogMetricMetricDescriptorLabelsSlice flattens the contents of LogMetricMetricDescriptorLabels from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorDescriptorLabelsSlice(c *Client, i interface{}) []LogMetricMetricDescriptorDescriptorLabels {
+func flattenLogMetricMetricDescriptorLabelsSlice(c *Client, i interface{}) []LogMetricMetricDescriptorLabels {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []LogMetricMetricDescriptorDescriptorLabels{}
+		return []LogMetricMetricDescriptorLabels{}
 	}
 
 	if len(a) == 0 {
-		return []LogMetricMetricDescriptorDescriptorLabels{}
+		return []LogMetricMetricDescriptorLabels{}
 	}
 
-	items := make([]LogMetricMetricDescriptorDescriptorLabels, 0, len(a))
+	items := make([]LogMetricMetricDescriptorLabels, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenLogMetricMetricDescriptorDescriptorLabels(c, item.(map[string]interface{})))
+		items = append(items, *flattenLogMetricMetricDescriptorLabels(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandLogMetricMetricDescriptorDescriptorLabels expands an instance of LogMetricMetricDescriptorDescriptorLabels into a JSON
+// expandLogMetricMetricDescriptorLabels expands an instance of LogMetricMetricDescriptorLabels into a JSON
 // request object.
-func expandLogMetricMetricDescriptorDescriptorLabels(c *Client, f *LogMetricMetricDescriptorDescriptorLabels) (map[string]interface{}, error) {
+func expandLogMetricMetricDescriptorLabels(c *Client, f *LogMetricMetricDescriptorLabels) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -2010,21 +2010,21 @@ func expandLogMetricMetricDescriptorDescriptorLabels(c *Client, f *LogMetricMetr
 	return m, nil
 }
 
-// flattenLogMetricMetricDescriptorDescriptorLabels flattens an instance of LogMetricMetricDescriptorDescriptorLabels from a JSON
+// flattenLogMetricMetricDescriptorLabels flattens an instance of LogMetricMetricDescriptorLabels from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorDescriptorLabels(c *Client, i interface{}) *LogMetricMetricDescriptorDescriptorLabels {
+func flattenLogMetricMetricDescriptorLabels(c *Client, i interface{}) *LogMetricMetricDescriptorLabels {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &LogMetricMetricDescriptorDescriptorLabels{}
+	r := &LogMetricMetricDescriptorLabels{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyLogMetricMetricDescriptorDescriptorLabels
+		return EmptyLogMetricMetricDescriptorLabels
 	}
 	r.Key = dcl.FlattenString(m["key"])
-	r.ValueType = flattenLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum(m["valueType"])
+	r.ValueType = flattenLogMetricMetricDescriptorLabelsValueTypeEnum(m["valueType"])
 	r.Description = dcl.FlattenString(m["description"])
 
 	return r
@@ -2638,35 +2638,35 @@ func flattenLogMetricBucketOptionsExplicitBuckets(c *Client, i interface{}) *Log
 	return r
 }
 
-// flattenLogMetricMetricDescriptorDescriptorLabelsValueTypeEnumSlice flattens the contents of LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum from a JSON
+// flattenLogMetricMetricDescriptorLabelsValueTypeEnumSlice flattens the contents of LogMetricMetricDescriptorLabelsValueTypeEnum from a JSON
 // response object.
-func flattenLogMetricMetricDescriptorDescriptorLabelsValueTypeEnumSlice(c *Client, i interface{}) []LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum {
+func flattenLogMetricMetricDescriptorLabelsValueTypeEnumSlice(c *Client, i interface{}) []LogMetricMetricDescriptorLabelsValueTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum{}
+		return []LogMetricMetricDescriptorLabelsValueTypeEnum{}
 	}
 
 	if len(a) == 0 {
-		return []LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum{}
+		return []LogMetricMetricDescriptorLabelsValueTypeEnum{}
 	}
 
-	items := make([]LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum, 0, len(a))
+	items := make([]LogMetricMetricDescriptorLabelsValueTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum(item.(interface{})))
+		items = append(items, *flattenLogMetricMetricDescriptorLabelsValueTypeEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// flattenLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum asserts that an interface is a string, and returns a
-// pointer to a *LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum with the same value as that string.
-func flattenLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum(i interface{}) *LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum {
+// flattenLogMetricMetricDescriptorLabelsValueTypeEnum asserts that an interface is a string, and returns a
+// pointer to a *LogMetricMetricDescriptorLabelsValueTypeEnum with the same value as that string.
+func flattenLogMetricMetricDescriptorLabelsValueTypeEnum(i interface{}) *LogMetricMetricDescriptorLabelsValueTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return LogMetricMetricDescriptorDescriptorLabelsValueTypeEnumRef("")
+		return LogMetricMetricDescriptorLabelsValueTypeEnumRef("")
 	}
 
-	return LogMetricMetricDescriptorDescriptorLabelsValueTypeEnumRef(s)
+	return LogMetricMetricDescriptorLabelsValueTypeEnumRef(s)
 }
 
 // flattenLogMetricMetricDescriptorMetricKindEnumSlice flattens the contents of LogMetricMetricDescriptorMetricKindEnum from a JSON

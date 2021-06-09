@@ -31,9 +31,6 @@ func (r *ClientTlsPolicy) validate() error {
 	if err := dcl.Required(r, "name"); err != nil {
 		return err
 	}
-	if err := dcl.Required(r, "serverValidationCa"); err != nil {
-		return err
-	}
 	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
 		return err
 	}

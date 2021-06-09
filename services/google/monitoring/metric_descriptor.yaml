@@ -54,6 +54,7 @@ components:
       title: MetricDescriptor
       x-dcl-id: v3/projects/{{project}}/metricDescriptors/{{type}}
       x-dcl-parent-container: project
+      x-dcl-labels: labels
       type: object
       required:
       - type
@@ -67,9 +68,17 @@ components:
           description: A detailed description of the metric, which can be used in
             documentation.
           x-kubernetes-immutable: true
-        descriptorLabels:
+        displayName:
+          type: string
+          x-dcl-go-name: DisplayName
+          description: A concise name for the metric, which can be displayed in user
+            interfaces. Use sentence case without an ending period, for example "Request
+            count". This field is optional but it is recommended to be set for any
+            metrics associated with user-visible concepts, such as Quota.
+          x-kubernetes-immutable: true
+        labels:
           type: array
-          x-dcl-go-name: DescriptorLabels
+          x-dcl-go-name: Labels
           description: The set of labels that can be used to describe a specific instance
             of this metric type. For example, the `appengine.googleapis.com/http/server/response_latencies`
             metric type has a label for the HTTP response code, `response_code`, so
@@ -78,7 +87,7 @@ components:
           x-dcl-list-type: set
           items:
             type: object
-            x-dcl-go-type: MetricDescriptorDescriptorLabels
+            x-dcl-go-type: MetricDescriptorLabels
             properties:
               description:
                 type: string
@@ -97,7 +106,7 @@ components:
               valueType:
                 type: string
                 x-dcl-go-name: ValueType
-                x-dcl-go-type: MetricDescriptorDescriptorLabelsValueTypeEnum
+                x-dcl-go-type: MetricDescriptorLabelsValueTypeEnum
                 description: 'The type of data that can be assigned to the label.
                   Possible values: STRING, BOOL, INT64'
                 x-kubernetes-immutable: true
@@ -105,14 +114,6 @@ components:
                 - STRING
                 - BOOL
                 - INT64
-        displayName:
-          type: string
-          x-dcl-go-name: DisplayName
-          description: A concise name for the metric, which can be displayed in user
-            interfaces. Use sentence case without an ending period, for example "Request
-            count". This field is optional but it is recommended to be set for any
-            metrics associated with user-visible concepts, such as Quota.
-          x-kubernetes-immutable: true
         launchStage:
           type: string
           x-dcl-go-name: LaunchStage
@@ -187,7 +188,6 @@ components:
         monitoredResourceTypes:
           type: array
           x-dcl-go-name: MonitoredResourceTypes
-          readOnly: true
           description: Read-only. If present, then a , that is associated with this
             metric type can only be associated with one of the monitored resource
             types listed here.

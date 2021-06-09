@@ -25,46 +25,46 @@ import (
 )
 
 type MetricDescriptor struct {
-	SelfLink               *string                            `json:"selfLink"`
-	Type                   *string                            `json:"type"`
-	DescriptorLabels       []MetricDescriptorDescriptorLabels `json:"descriptorLabels"`
-	MetricKind             *MetricDescriptorMetricKindEnum    `json:"metricKind"`
-	ValueType              *MetricDescriptorValueTypeEnum     `json:"valueType"`
-	Unit                   *string                            `json:"unit"`
-	Description            *string                            `json:"description"`
-	DisplayName            *string                            `json:"displayName"`
-	Metadata               *MetricDescriptorMetadata          `json:"metadata"`
-	LaunchStage            *MetricDescriptorLaunchStageEnum   `json:"launchStage"`
-	MonitoredResourceTypes []string                           `json:"monitoredResourceTypes"`
-	Project                *string                            `json:"project"`
+	SelfLink               *string                          `json:"selfLink"`
+	Type                   *string                          `json:"type"`
+	Labels                 []MetricDescriptorLabels         `json:"labels"`
+	MetricKind             *MetricDescriptorMetricKindEnum  `json:"metricKind"`
+	ValueType              *MetricDescriptorValueTypeEnum   `json:"valueType"`
+	Unit                   *string                          `json:"unit"`
+	Description            *string                          `json:"description"`
+	DisplayName            *string                          `json:"displayName"`
+	Metadata               *MetricDescriptorMetadata        `json:"metadata"`
+	LaunchStage            *MetricDescriptorLaunchStageEnum `json:"launchStage"`
+	MonitoredResourceTypes []string                         `json:"monitoredResourceTypes"`
+	Project                *string                          `json:"project"`
 }
 
 func (r *MetricDescriptor) String() string {
 	return dcl.SprintResource(r)
 }
 
-// The enum MetricDescriptorDescriptorLabelsValueTypeEnum.
-type MetricDescriptorDescriptorLabelsValueTypeEnum string
+// The enum MetricDescriptorLabelsValueTypeEnum.
+type MetricDescriptorLabelsValueTypeEnum string
 
-// MetricDescriptorDescriptorLabelsValueTypeEnumRef returns a *MetricDescriptorDescriptorLabelsValueTypeEnum with the value of string s
+// MetricDescriptorLabelsValueTypeEnumRef returns a *MetricDescriptorLabelsValueTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func MetricDescriptorDescriptorLabelsValueTypeEnumRef(s string) *MetricDescriptorDescriptorLabelsValueTypeEnum {
+func MetricDescriptorLabelsValueTypeEnumRef(s string) *MetricDescriptorLabelsValueTypeEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := MetricDescriptorDescriptorLabelsValueTypeEnum(s)
+	v := MetricDescriptorLabelsValueTypeEnum(s)
 	return &v
 }
 
-func (v MetricDescriptorDescriptorLabelsValueTypeEnum) Validate() error {
+func (v MetricDescriptorLabelsValueTypeEnum) Validate() error {
 	for _, s := range []string{"STRING", "BOOL", "INT64"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "MetricDescriptorDescriptorLabelsValueTypeEnum",
+		Enum:  "MetricDescriptorLabelsValueTypeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -178,17 +178,17 @@ func (v MetricDescriptorLaunchStageEnum) Validate() error {
 	}
 }
 
-type MetricDescriptorDescriptorLabels struct {
-	empty       bool                                           `json:"-"`
-	Key         *string                                        `json:"key"`
-	ValueType   *MetricDescriptorDescriptorLabelsValueTypeEnum `json:"valueType"`
-	Description *string                                        `json:"description"`
+type MetricDescriptorLabels struct {
+	empty       bool                                 `json:"-"`
+	Key         *string                              `json:"key"`
+	ValueType   *MetricDescriptorLabelsValueTypeEnum `json:"valueType"`
+	Description *string                              `json:"description"`
 }
 
-type jsonMetricDescriptorDescriptorLabels MetricDescriptorDescriptorLabels
+type jsonMetricDescriptorLabels MetricDescriptorLabels
 
-func (r *MetricDescriptorDescriptorLabels) UnmarshalJSON(data []byte) error {
-	var res jsonMetricDescriptorDescriptorLabels
+func (r *MetricDescriptorLabels) UnmarshalJSON(data []byte) error {
+	var res jsonMetricDescriptorLabels
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -197,7 +197,7 @@ func (r *MetricDescriptorDescriptorLabels) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyMetricDescriptorDescriptorLabels
+		*r = *EmptyMetricDescriptorLabels
 	} else {
 
 		r.Key = res.Key
@@ -210,20 +210,20 @@ func (r *MetricDescriptorDescriptorLabels) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this MetricDescriptorDescriptorLabels is
+// This object is used to assert a desired state where this MetricDescriptorLabels is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyMetricDescriptorDescriptorLabels *MetricDescriptorDescriptorLabels = &MetricDescriptorDescriptorLabels{empty: true}
+var EmptyMetricDescriptorLabels *MetricDescriptorLabels = &MetricDescriptorLabels{empty: true}
 
-func (r *MetricDescriptorDescriptorLabels) Empty() bool {
+func (r *MetricDescriptorLabels) Empty() bool {
 	return r.empty
 }
 
-func (r *MetricDescriptorDescriptorLabels) String() string {
+func (r *MetricDescriptorLabels) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *MetricDescriptorDescriptorLabels) HashCode() string {
+func (r *MetricDescriptorLabels) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

@@ -42,28 +42,28 @@ func (r *LogMetric) String() string {
 	return dcl.SprintResource(r)
 }
 
-// The enum LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum.
-type LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum string
+// The enum LogMetricMetricDescriptorLabelsValueTypeEnum.
+type LogMetricMetricDescriptorLabelsValueTypeEnum string
 
-// LogMetricMetricDescriptorDescriptorLabelsValueTypeEnumRef returns a *LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum with the value of string s
+// LogMetricMetricDescriptorLabelsValueTypeEnumRef returns a *LogMetricMetricDescriptorLabelsValueTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func LogMetricMetricDescriptorDescriptorLabelsValueTypeEnumRef(s string) *LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum {
+func LogMetricMetricDescriptorLabelsValueTypeEnumRef(s string) *LogMetricMetricDescriptorLabelsValueTypeEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum(s)
+	v := LogMetricMetricDescriptorLabelsValueTypeEnum(s)
 	return &v
 }
 
-func (v LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum) Validate() error {
+func (v LogMetricMetricDescriptorLabelsValueTypeEnum) Validate() error {
 	for _, s := range []string{"STRING", "BOOL", "INT64", "DOUBLE", "DISTRIBUTION", "MONEY"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum",
+		Enum:  "LogMetricMetricDescriptorLabelsValueTypeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -178,18 +178,18 @@ func (v LogMetricMetricDescriptorLaunchStageEnum) Validate() error {
 }
 
 type LogMetricMetricDescriptor struct {
-	empty                  bool                                        `json:"-"`
-	Name                   *string                                     `json:"name"`
-	Type                   *string                                     `json:"type"`
-	DescriptorLabels       []LogMetricMetricDescriptorDescriptorLabels `json:"descriptorLabels"`
-	MetricKind             *LogMetricMetricDescriptorMetricKindEnum    `json:"metricKind"`
-	ValueType              *LogMetricMetricDescriptorValueTypeEnum     `json:"valueType"`
-	Unit                   *string                                     `json:"unit"`
-	Description            *string                                     `json:"description"`
-	DisplayName            *string                                     `json:"displayName"`
-	Metadata               *LogMetricMetricDescriptorMetadata          `json:"metadata"`
-	LaunchStage            *LogMetricMetricDescriptorLaunchStageEnum   `json:"launchStage"`
-	MonitoredResourceTypes []string                                    `json:"monitoredResourceTypes"`
+	empty                  bool                                      `json:"-"`
+	Name                   *string                                   `json:"name"`
+	Type                   *string                                   `json:"type"`
+	Labels                 []LogMetricMetricDescriptorLabels         `json:"labels"`
+	MetricKind             *LogMetricMetricDescriptorMetricKindEnum  `json:"metricKind"`
+	ValueType              *LogMetricMetricDescriptorValueTypeEnum   `json:"valueType"`
+	Unit                   *string                                   `json:"unit"`
+	Description            *string                                   `json:"description"`
+	DisplayName            *string                                   `json:"displayName"`
+	Metadata               *LogMetricMetricDescriptorMetadata        `json:"metadata"`
+	LaunchStage            *LogMetricMetricDescriptorLaunchStageEnum `json:"launchStage"`
+	MonitoredResourceTypes []string                                  `json:"monitoredResourceTypes"`
 }
 
 type jsonLogMetricMetricDescriptor LogMetricMetricDescriptor
@@ -211,7 +211,7 @@ func (r *LogMetricMetricDescriptor) UnmarshalJSON(data []byte) error {
 
 		r.Type = res.Type
 
-		r.DescriptorLabels = res.DescriptorLabels
+		r.Labels = res.Labels
 
 		r.MetricKind = res.MetricKind
 
@@ -253,17 +253,17 @@ func (r *LogMetricMetricDescriptor) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type LogMetricMetricDescriptorDescriptorLabels struct {
-	empty       bool                                                    `json:"-"`
-	Key         *string                                                 `json:"key"`
-	ValueType   *LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum `json:"valueType"`
-	Description *string                                                 `json:"description"`
+type LogMetricMetricDescriptorLabels struct {
+	empty       bool                                          `json:"-"`
+	Key         *string                                       `json:"key"`
+	ValueType   *LogMetricMetricDescriptorLabelsValueTypeEnum `json:"valueType"`
+	Description *string                                       `json:"description"`
 }
 
-type jsonLogMetricMetricDescriptorDescriptorLabels LogMetricMetricDescriptorDescriptorLabels
+type jsonLogMetricMetricDescriptorLabels LogMetricMetricDescriptorLabels
 
-func (r *LogMetricMetricDescriptorDescriptorLabels) UnmarshalJSON(data []byte) error {
-	var res jsonLogMetricMetricDescriptorDescriptorLabels
+func (r *LogMetricMetricDescriptorLabels) UnmarshalJSON(data []byte) error {
+	var res jsonLogMetricMetricDescriptorLabels
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -272,7 +272,7 @@ func (r *LogMetricMetricDescriptorDescriptorLabels) UnmarshalJSON(data []byte) e
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyLogMetricMetricDescriptorDescriptorLabels
+		*r = *EmptyLogMetricMetricDescriptorLabels
 	} else {
 
 		r.Key = res.Key
@@ -285,20 +285,20 @@ func (r *LogMetricMetricDescriptorDescriptorLabels) UnmarshalJSON(data []byte) e
 	return nil
 }
 
-// This object is used to assert a desired state where this LogMetricMetricDescriptorDescriptorLabels is
+// This object is used to assert a desired state where this LogMetricMetricDescriptorLabels is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyLogMetricMetricDescriptorDescriptorLabels *LogMetricMetricDescriptorDescriptorLabels = &LogMetricMetricDescriptorDescriptorLabels{empty: true}
+var EmptyLogMetricMetricDescriptorLabels *LogMetricMetricDescriptorLabels = &LogMetricMetricDescriptorLabels{empty: true}
 
-func (r *LogMetricMetricDescriptorDescriptorLabels) Empty() bool {
+func (r *LogMetricMetricDescriptorLabels) Empty() bool {
 	return r.empty
 }
 
-func (r *LogMetricMetricDescriptorDescriptorLabels) String() string {
+func (r *LogMetricMetricDescriptorLabels) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *LogMetricMetricDescriptorDescriptorLabels) HashCode() string {
+func (r *LogMetricMetricDescriptorLabels) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

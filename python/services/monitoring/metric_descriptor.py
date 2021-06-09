@@ -25,7 +25,7 @@ class MetricDescriptor(object):
         self,
         self_link: str = None,
         type: str = None,
-        descriptor_labels: list = None,
+        labels: list = None,
         metric_kind: str = None,
         value_type: str = None,
         unit: str = None,
@@ -40,7 +40,7 @@ class MetricDescriptor(object):
 
         channel.initialize()
         self.type = type
-        self.descriptor_labels = descriptor_labels
+        self.labels = labels
         self.metric_kind = metric_kind
         self.value_type = value_type
         self.unit = unit
@@ -48,6 +48,7 @@ class MetricDescriptor(object):
         self.display_name = display_name
         self.metadata = metadata
         self.launch_stage = launch_stage
+        self.monitored_resource_types = monitored_resource_types
         self.project = project
         self.service_account_file = service_account_file
 
@@ -59,9 +60,9 @@ class MetricDescriptor(object):
         if Primitive.to_proto(self.type):
             request.resource.type = Primitive.to_proto(self.type)
 
-        if MetricDescriptorDescriptorLabelsArray.to_proto(self.descriptor_labels):
-            request.resource.descriptor_labels.extend(
-                MetricDescriptorDescriptorLabelsArray.to_proto(self.descriptor_labels)
+        if MetricDescriptorLabelsArray.to_proto(self.labels):
+            request.resource.labels.extend(
+                MetricDescriptorLabelsArray.to_proto(self.labels)
             )
         if MetricDescriptorMetricKindEnum.to_proto(self.metric_kind):
             request.resource.metric_kind = MetricDescriptorMetricKindEnum.to_proto(
@@ -93,6 +94,10 @@ class MetricDescriptor(object):
                 self.launch_stage
             )
 
+        if Primitive.to_proto(self.monitored_resource_types):
+            request.resource.monitored_resource_types.extend(
+                Primitive.to_proto(self.monitored_resource_types)
+            )
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -101,9 +106,7 @@ class MetricDescriptor(object):
         response = stub.ApplyMonitoringMetricDescriptor(request)
         self.self_link = Primitive.from_proto(response.self_link)
         self.type = Primitive.from_proto(response.type)
-        self.descriptor_labels = MetricDescriptorDescriptorLabelsArray.from_proto(
-            response.descriptor_labels
-        )
+        self.labels = MetricDescriptorLabelsArray.from_proto(response.labels)
         self.metric_kind = MetricDescriptorMetricKindEnum.from_proto(
             response.metric_kind
         )
@@ -129,9 +132,9 @@ class MetricDescriptor(object):
         if Primitive.to_proto(self.type):
             request.resource.type = Primitive.to_proto(self.type)
 
-        if MetricDescriptorDescriptorLabelsArray.to_proto(self.descriptor_labels):
-            request.resource.descriptor_labels.extend(
-                MetricDescriptorDescriptorLabelsArray.to_proto(self.descriptor_labels)
+        if MetricDescriptorLabelsArray.to_proto(self.labels):
+            request.resource.labels.extend(
+                MetricDescriptorLabelsArray.to_proto(self.labels)
             )
         if MetricDescriptorMetricKindEnum.to_proto(self.metric_kind):
             request.resource.metric_kind = MetricDescriptorMetricKindEnum.to_proto(
@@ -163,6 +166,10 @@ class MetricDescriptor(object):
                 self.launch_stage
             )
 
+        if Primitive.to_proto(self.monitored_resource_types):
+            request.resource.monitored_resource_types.extend(
+                Primitive.to_proto(self.monitored_resource_types)
+            )
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -183,10 +190,8 @@ class MetricDescriptor(object):
         resource = metric_descriptor_pb2.MonitoringMetricDescriptor()
         if Primitive.to_proto(self.type):
             resource.type = Primitive.to_proto(self.type)
-        if MetricDescriptorDescriptorLabelsArray.to_proto(self.descriptor_labels):
-            resource.descriptor_labels.extend(
-                MetricDescriptorDescriptorLabelsArray.to_proto(self.descriptor_labels)
-            )
+        if MetricDescriptorLabelsArray.to_proto(self.labels):
+            resource.labels.extend(MetricDescriptorLabelsArray.to_proto(self.labels))
         if MetricDescriptorMetricKindEnum.to_proto(self.metric_kind):
             resource.metric_kind = MetricDescriptorMetricKindEnum.to_proto(
                 self.metric_kind
@@ -209,12 +214,16 @@ class MetricDescriptor(object):
             resource.launch_stage = MetricDescriptorLaunchStageEnum.to_proto(
                 self.launch_stage
             )
+        if Primitive.to_proto(self.monitored_resource_types):
+            resource.monitored_resource_types.extend(
+                Primitive.to_proto(self.monitored_resource_types)
+            )
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         return resource
 
 
-class MetricDescriptorDescriptorLabels(object):
+class MetricDescriptorLabels(object):
     def __init__(
         self, key: str = None, value_type: str = None, description: str = None
     ):
@@ -227,11 +236,11 @@ class MetricDescriptorDescriptorLabels(object):
         if not resource:
             return None
 
-        res = metric_descriptor_pb2.MonitoringMetricDescriptorDescriptorLabels()
+        res = metric_descriptor_pb2.MonitoringMetricDescriptorLabels()
         if Primitive.to_proto(resource.key):
             res.key = Primitive.to_proto(resource.key)
-        if MetricDescriptorDescriptorLabelsValueTypeEnum.to_proto(resource.value_type):
-            res.value_type = MetricDescriptorDescriptorLabelsValueTypeEnum.to_proto(
+        if MetricDescriptorLabelsValueTypeEnum.to_proto(resource.value_type):
+            res.value_type = MetricDescriptorLabelsValueTypeEnum.to_proto(
                 resource.value_type
             )
         if Primitive.to_proto(resource.description):
@@ -243,25 +252,25 @@ class MetricDescriptorDescriptorLabels(object):
         if not resource:
             return None
 
-        return MetricDescriptorDescriptorLabels(
+        return MetricDescriptorLabels(
             key=Primitive.from_proto(resource.key),
-            value_type=MetricDescriptorDescriptorLabelsValueTypeEnum.from_proto(
+            value_type=MetricDescriptorLabelsValueTypeEnum.from_proto(
                 resource.value_type
             ),
             description=Primitive.from_proto(resource.description),
         )
 
 
-class MetricDescriptorDescriptorLabelsArray(object):
+class MetricDescriptorLabelsArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [MetricDescriptorDescriptorLabels.to_proto(i) for i in resources]
+        return [MetricDescriptorLabels.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [MetricDescriptorDescriptorLabels.from_proto(i) for i in resources]
+        return [MetricDescriptorLabels.from_proto(i) for i in resources]
 
 
 class MetricDescriptorMetadata(object):
@@ -317,24 +326,22 @@ class MetricDescriptorMetadataArray(object):
         return [MetricDescriptorMetadata.from_proto(i) for i in resources]
 
 
-class MetricDescriptorDescriptorLabelsValueTypeEnum(object):
+class MetricDescriptorLabelsValueTypeEnum(object):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return metric_descriptor_pb2.MonitoringMetricDescriptorDescriptorLabelsValueTypeEnum.Value(
-            "MonitoringMetricDescriptorDescriptorLabelsValueTypeEnum%s" % resource
+        return metric_descriptor_pb2.MonitoringMetricDescriptorLabelsValueTypeEnum.Value(
+            "MonitoringMetricDescriptorLabelsValueTypeEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return metric_descriptor_pb2.MonitoringMetricDescriptorDescriptorLabelsValueTypeEnum.Name(
+        return metric_descriptor_pb2.MonitoringMetricDescriptorLabelsValueTypeEnum.Name(
             resource
-        )[
-            len("MonitoringMetricDescriptorDescriptorLabelsValueTypeEnum") :
-        ]
+        )[len("MonitoringMetricDescriptorLabelsValueTypeEnum") :]
 
 
 class MetricDescriptorMetricKindEnum(object):

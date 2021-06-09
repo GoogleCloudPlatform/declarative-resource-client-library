@@ -25,13 +25,13 @@ import (
 // Server implements the gRPC interface for MetricDescriptor.
 type MetricDescriptorServer struct{}
 
-// ProtoToMetricDescriptorDescriptorLabelsValueTypeEnum converts a MetricDescriptorDescriptorLabelsValueTypeEnum enum from its proto representation.
-func ProtoToMonitoringMetricDescriptorDescriptorLabelsValueTypeEnum(e monitoringpb.MonitoringMetricDescriptorDescriptorLabelsValueTypeEnum) *monitoring.MetricDescriptorDescriptorLabelsValueTypeEnum {
+// ProtoToMetricDescriptorLabelsValueTypeEnum converts a MetricDescriptorLabelsValueTypeEnum enum from its proto representation.
+func ProtoToMonitoringMetricDescriptorLabelsValueTypeEnum(e monitoringpb.MonitoringMetricDescriptorLabelsValueTypeEnum) *monitoring.MetricDescriptorLabelsValueTypeEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := monitoringpb.MonitoringMetricDescriptorDescriptorLabelsValueTypeEnum_name[int32(e)]; ok {
-		e := monitoring.MetricDescriptorDescriptorLabelsValueTypeEnum(n[len("MonitoringMetricDescriptorDescriptorLabelsValueTypeEnum"):])
+	if n, ok := monitoringpb.MonitoringMetricDescriptorLabelsValueTypeEnum_name[int32(e)]; ok {
+		e := monitoring.MetricDescriptorLabelsValueTypeEnum(n[len("MonitoringMetricDescriptorLabelsValueTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -85,14 +85,14 @@ func ProtoToMonitoringMetricDescriptorLaunchStageEnum(e monitoringpb.MonitoringM
 	return nil
 }
 
-// ProtoToMetricDescriptorDescriptorLabels converts a MetricDescriptorDescriptorLabels resource from its proto representation.
-func ProtoToMonitoringMetricDescriptorDescriptorLabels(p *monitoringpb.MonitoringMetricDescriptorDescriptorLabels) *monitoring.MetricDescriptorDescriptorLabels {
+// ProtoToMetricDescriptorLabels converts a MetricDescriptorLabels resource from its proto representation.
+func ProtoToMonitoringMetricDescriptorLabels(p *monitoringpb.MonitoringMetricDescriptorLabels) *monitoring.MetricDescriptorLabels {
 	if p == nil {
 		return nil
 	}
-	obj := &monitoring.MetricDescriptorDescriptorLabels{
+	obj := &monitoring.MetricDescriptorLabels{
 		Key:         dcl.StringOrNil(p.Key),
-		ValueType:   ProtoToMonitoringMetricDescriptorDescriptorLabelsValueTypeEnum(p.GetValueType()),
+		ValueType:   ProtoToMonitoringMetricDescriptorLabelsValueTypeEnum(p.GetValueType()),
 		Description: dcl.StringOrNil(p.Description),
 	}
 	return obj
@@ -125,8 +125,8 @@ func ProtoToMetricDescriptor(p *monitoringpb.MonitoringMetricDescriptor) *monito
 		LaunchStage: ProtoToMonitoringMetricDescriptorLaunchStageEnum(p.GetLaunchStage()),
 		Project:     dcl.StringOrNil(p.Project),
 	}
-	for _, r := range p.GetDescriptorLabels() {
-		obj.DescriptorLabels = append(obj.DescriptorLabels, *ProtoToMonitoringMetricDescriptorDescriptorLabels(r))
+	for _, r := range p.GetLabels() {
+		obj.Labels = append(obj.Labels, *ProtoToMonitoringMetricDescriptorLabels(r))
 	}
 	for _, r := range p.GetMonitoredResourceTypes() {
 		obj.MonitoredResourceTypes = append(obj.MonitoredResourceTypes, r)
@@ -134,15 +134,15 @@ func ProtoToMetricDescriptor(p *monitoringpb.MonitoringMetricDescriptor) *monito
 	return obj
 }
 
-// MetricDescriptorDescriptorLabelsValueTypeEnumToProto converts a MetricDescriptorDescriptorLabelsValueTypeEnum enum to its proto representation.
-func MonitoringMetricDescriptorDescriptorLabelsValueTypeEnumToProto(e *monitoring.MetricDescriptorDescriptorLabelsValueTypeEnum) monitoringpb.MonitoringMetricDescriptorDescriptorLabelsValueTypeEnum {
+// MetricDescriptorLabelsValueTypeEnumToProto converts a MetricDescriptorLabelsValueTypeEnum enum to its proto representation.
+func MonitoringMetricDescriptorLabelsValueTypeEnumToProto(e *monitoring.MetricDescriptorLabelsValueTypeEnum) monitoringpb.MonitoringMetricDescriptorLabelsValueTypeEnum {
 	if e == nil {
-		return monitoringpb.MonitoringMetricDescriptorDescriptorLabelsValueTypeEnum(0)
+		return monitoringpb.MonitoringMetricDescriptorLabelsValueTypeEnum(0)
 	}
-	if v, ok := monitoringpb.MonitoringMetricDescriptorDescriptorLabelsValueTypeEnum_value["MetricDescriptorDescriptorLabelsValueTypeEnum"+string(*e)]; ok {
-		return monitoringpb.MonitoringMetricDescriptorDescriptorLabelsValueTypeEnum(v)
+	if v, ok := monitoringpb.MonitoringMetricDescriptorLabelsValueTypeEnum_value["MetricDescriptorLabelsValueTypeEnum"+string(*e)]; ok {
+		return monitoringpb.MonitoringMetricDescriptorLabelsValueTypeEnum(v)
 	}
-	return monitoringpb.MonitoringMetricDescriptorDescriptorLabelsValueTypeEnum(0)
+	return monitoringpb.MonitoringMetricDescriptorLabelsValueTypeEnum(0)
 }
 
 // MetricDescriptorMetricKindEnumToProto converts a MetricDescriptorMetricKindEnum enum to its proto representation.
@@ -189,14 +189,14 @@ func MonitoringMetricDescriptorLaunchStageEnumToProto(e *monitoring.MetricDescri
 	return monitoringpb.MonitoringMetricDescriptorLaunchStageEnum(0)
 }
 
-// MetricDescriptorDescriptorLabelsToProto converts a MetricDescriptorDescriptorLabels resource to its proto representation.
-func MonitoringMetricDescriptorDescriptorLabelsToProto(o *monitoring.MetricDescriptorDescriptorLabels) *monitoringpb.MonitoringMetricDescriptorDescriptorLabels {
+// MetricDescriptorLabelsToProto converts a MetricDescriptorLabels resource to its proto representation.
+func MonitoringMetricDescriptorLabelsToProto(o *monitoring.MetricDescriptorLabels) *monitoringpb.MonitoringMetricDescriptorLabels {
 	if o == nil {
 		return nil
 	}
-	p := &monitoringpb.MonitoringMetricDescriptorDescriptorLabels{
+	p := &monitoringpb.MonitoringMetricDescriptorLabels{
 		Key:         dcl.ValueOrEmptyString(o.Key),
-		ValueType:   MonitoringMetricDescriptorDescriptorLabelsValueTypeEnumToProto(o.ValueType),
+		ValueType:   MonitoringMetricDescriptorLabelsValueTypeEnumToProto(o.ValueType),
 		Description: dcl.ValueOrEmptyString(o.Description),
 	}
 	return p
@@ -229,8 +229,8 @@ func MetricDescriptorToProto(resource *monitoring.MetricDescriptor) *monitoringp
 		LaunchStage: MonitoringMetricDescriptorLaunchStageEnumToProto(resource.LaunchStage),
 		Project:     dcl.ValueOrEmptyString(resource.Project),
 	}
-	for _, r := range resource.DescriptorLabels {
-		p.DescriptorLabels = append(p.DescriptorLabels, MonitoringMetricDescriptorDescriptorLabelsToProto(&r))
+	for _, r := range resource.Labels {
+		p.Labels = append(p.Labels, MonitoringMetricDescriptorLabelsToProto(&r))
 	}
 	for _, r := range resource.MonitoredResourceTypes {
 		p.MonitoredResourceTypes = append(p.MonitoredResourceTypes, r)

@@ -27,11 +27,11 @@ func equalsMetricDescriptorValueType(m, n *MetricDescriptorValueTypeEnum) bool {
 	return *m == *n
 }
 
-func equalsMetricDescriptorDescriptorLabelsValueType(m, n *MetricDescriptorDescriptorLabelsValueTypeEnum) bool {
+func equalsMetricDescriptorLabelsValueType(m, n *MetricDescriptorLabelsValueTypeEnum) bool {
 	if m == nil && n == nil {
 		return true
 	}
-	v := *MetricDescriptorDescriptorLabelsValueTypeEnumRef("STRING")
+	v := *MetricDescriptorLabelsValueTypeEnumRef("STRING")
 	if m == nil {
 		return *n == v
 	} else if n == nil {
@@ -50,12 +50,12 @@ func canonicalizeMetricDescriptorValueType(m, n interface{}) bool {
 	return equalsMetricDescriptorValueType(mVal, nVal)
 }
 
-func canonicalizeMetricDescriptorDescriptorLabelsValueType(m, n interface{}) bool {
+func canonicalizeMetricDescriptorLabelsValueType(m, n interface{}) bool {
 	if m == nil && n == nil {
 		return true
 	}
 
-	mVal, _ := m.(*MetricDescriptorDescriptorLabelsValueTypeEnum)
-	nVal, _ := n.(*MetricDescriptorDescriptorLabelsValueTypeEnum)
-	return equalsMetricDescriptorDescriptorLabelsValueType(mVal, nVal)
+	mVal, _ := m.(*MetricDescriptorLabelsValueTypeEnum)
+	nVal, _ := n.(*MetricDescriptorLabelsValueTypeEnum)
+	return equalsMetricDescriptorLabelsValueType(mVal, nVal)
 }

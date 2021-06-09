@@ -55,6 +55,7 @@ components:
       x-dcl-id: projects/{{project}}/metrics/{{name}}
       x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
+      x-dcl-labels: metricdescriptor.labels
       type: object
       required:
       - name
@@ -192,9 +193,17 @@ components:
               readOnly: true
               description: A detailed description of the metric, which can be used
                 in documentation.
-            descriptorLabels:
+            displayName:
+              type: string
+              x-dcl-go-name: DisplayName
+              description: A concise name for the metric, which can be displayed in
+                user interfaces. Use sentence case without an ending period, for example
+                "Request count". This field is optional but it is recommended to be
+                set for any metrics associated with user-visible concepts, such as
+                Quota.
+            labels:
               type: array
-              x-dcl-go-name: DescriptorLabels
+              x-dcl-go-name: Labels
               description: The set of labels that can be used to describe a specific
                 instance of this metric type. For example, the `appengine.googleapis.com/http/server/response_latencies`
                 metric type has a label for the HTTP response code, `response_code`,
@@ -203,7 +212,7 @@ components:
               x-dcl-list-type: set
               items:
                 type: object
-                x-dcl-go-type: LogMetricMetricDescriptorDescriptorLabels
+                x-dcl-go-type: LogMetricMetricDescriptorLabels
                 properties:
                   description:
                     type: string
@@ -216,7 +225,7 @@ components:
                   valueType:
                     type: string
                     x-dcl-go-name: ValueType
-                    x-dcl-go-type: LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum
+                    x-dcl-go-type: LogMetricMetricDescriptorLabelsValueTypeEnum
                     description: 'The type of data that can be assigned to the label.
                       Possible values: STRING, BOOL, INT64, DOUBLE, DISTRIBUTION,
                       MONEY'
@@ -227,14 +236,6 @@ components:
                     - DOUBLE
                     - DISTRIBUTION
                     - MONEY
-            displayName:
-              type: string
-              x-dcl-go-name: DisplayName
-              description: A concise name for the metric, which can be displayed in
-                user interfaces. Use sentence case without an ending period, for example
-                "Request count". This field is optional but it is recommended to be
-                set for any metrics associated with user-visible concepts, such as
-                Quota.
             launchStage:
               type: string
               x-dcl-go-name: LaunchStage

@@ -46,7 +46,7 @@ func (r *MetricDescriptor) validate() error {
 	}
 	return nil
 }
-func (r *MetricDescriptorDescriptorLabels) validate() error {
+func (r *MetricDescriptorLabels) validate() error {
 	return nil
 }
 func (r *MetricDescriptorMetadata) validate() error {
@@ -363,8 +363,8 @@ func canonicalizeMetricDescriptorDesiredState(rawDesired, rawInitial *MetricDesc
 	if dcl.StringCanonicalize(rawDesired.Type, rawInitial.Type) {
 		rawDesired.Type = rawInitial.Type
 	}
-	if dcl.IsZeroValue(rawDesired.DescriptorLabels) {
-		rawDesired.DescriptorLabels = rawInitial.DescriptorLabels
+	if dcl.IsZeroValue(rawDesired.Labels) {
+		rawDesired.Labels = rawInitial.Labels
 	}
 	if dcl.IsZeroValue(rawDesired.MetricKind) {
 		rawDesired.MetricKind = rawInitial.MetricKind
@@ -384,6 +384,9 @@ func canonicalizeMetricDescriptorDesiredState(rawDesired, rawInitial *MetricDesc
 	rawDesired.Metadata = canonicalizeMetricDescriptorMetadata(rawDesired.Metadata, rawInitial.Metadata, opts...)
 	if dcl.IsZeroValue(rawDesired.LaunchStage) {
 		rawDesired.LaunchStage = rawInitial.LaunchStage
+	}
+	if dcl.IsZeroValue(rawDesired.MonitoredResourceTypes) {
+		rawDesired.MonitoredResourceTypes = rawInitial.MonitoredResourceTypes
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
@@ -410,10 +413,10 @@ func canonicalizeMetricDescriptorNewState(c *Client, rawNew, rawDesired *MetricD
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.DescriptorLabels) && dcl.IsEmptyValueIndirect(rawDesired.DescriptorLabels) {
-		rawNew.DescriptorLabels = rawDesired.DescriptorLabels
+	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
+		rawNew.Labels = rawDesired.Labels
 	} else {
-		rawNew.DescriptorLabels = canonicalizeNewMetricDescriptorDescriptorLabelsSet(c, rawDesired.DescriptorLabels, rawNew.DescriptorLabels)
+		rawNew.Labels = canonicalizeNewMetricDescriptorLabelsSet(c, rawDesired.Labels, rawNew.Labels)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.MetricKind) && dcl.IsEmptyValueIndirect(rawDesired.MetricKind) {
@@ -467,7 +470,7 @@ func canonicalizeMetricDescriptorNewState(c *Client, rawNew, rawDesired *MetricD
 	return rawNew, nil
 }
 
-func canonicalizeMetricDescriptorDescriptorLabels(des, initial *MetricDescriptorDescriptorLabels, opts ...dcl.ApplyOption) *MetricDescriptorDescriptorLabels {
+func canonicalizeMetricDescriptorLabels(des, initial *MetricDescriptorLabels, opts ...dcl.ApplyOption) *MetricDescriptorLabels {
 	if des == nil {
 		return initial
 	}
@@ -482,7 +485,7 @@ func canonicalizeMetricDescriptorDescriptorLabels(des, initial *MetricDescriptor
 	if dcl.StringCanonicalize(des.Key, initial.Key) || dcl.IsZeroValue(des.Key) {
 		des.Key = initial.Key
 	}
-	if canonicalizeMetricDescriptorDescriptorLabelsValueType(des.ValueType, initial.ValueType) || dcl.IsZeroValue(des.ValueType) {
+	if canonicalizeMetricDescriptorLabelsValueType(des.ValueType, initial.ValueType) || dcl.IsZeroValue(des.ValueType) {
 		des.ValueType = initial.ValueType
 	}
 	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
@@ -492,7 +495,7 @@ func canonicalizeMetricDescriptorDescriptorLabels(des, initial *MetricDescriptor
 	return des
 }
 
-func canonicalizeNewMetricDescriptorDescriptorLabels(c *Client, des, nw *MetricDescriptorDescriptorLabels) *MetricDescriptorDescriptorLabels {
+func canonicalizeNewMetricDescriptorLabels(c *Client, des, nw *MetricDescriptorLabels) *MetricDescriptorLabels {
 	if des == nil || nw == nil {
 		return nw
 	}
@@ -500,7 +503,7 @@ func canonicalizeNewMetricDescriptorDescriptorLabels(c *Client, des, nw *MetricD
 	if dcl.StringCanonicalize(des.Key, nw.Key) {
 		nw.Key = des.Key
 	}
-	if canonicalizeMetricDescriptorDescriptorLabelsValueType(des.ValueType, nw.ValueType) {
+	if canonicalizeMetricDescriptorLabelsValueType(des.ValueType, nw.ValueType) {
 		nw.ValueType = des.ValueType
 	}
 	if dcl.StringCanonicalize(des.Description, nw.Description) {
@@ -510,15 +513,15 @@ func canonicalizeNewMetricDescriptorDescriptorLabels(c *Client, des, nw *MetricD
 	return nw
 }
 
-func canonicalizeNewMetricDescriptorDescriptorLabelsSet(c *Client, des, nw []MetricDescriptorDescriptorLabels) []MetricDescriptorDescriptorLabels {
+func canonicalizeNewMetricDescriptorLabelsSet(c *Client, des, nw []MetricDescriptorLabels) []MetricDescriptorLabels {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []MetricDescriptorDescriptorLabels
+	var reorderedNew []MetricDescriptorLabels
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareMetricDescriptorDescriptorLabelsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareMetricDescriptorLabelsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -533,7 +536,7 @@ func canonicalizeNewMetricDescriptorDescriptorLabelsSet(c *Client, des, nw []Met
 	return reorderedNew
 }
 
-func canonicalizeNewMetricDescriptorDescriptorLabelsSlice(c *Client, des, nw []MetricDescriptorDescriptorLabels) []MetricDescriptorDescriptorLabels {
+func canonicalizeNewMetricDescriptorLabelsSlice(c *Client, des, nw []MetricDescriptorLabels) []MetricDescriptorLabels {
 	if des == nil {
 		return nw
 	}
@@ -544,10 +547,10 @@ func canonicalizeNewMetricDescriptorDescriptorLabelsSlice(c *Client, des, nw []M
 		return nw
 	}
 
-	var items []MetricDescriptorDescriptorLabels
+	var items []MetricDescriptorLabels
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewMetricDescriptorDescriptorLabels(c, &d, &n))
+		items = append(items, *canonicalizeNewMetricDescriptorLabels(c, &d, &n))
 	}
 
 	return items
@@ -668,7 +671,7 @@ func diffMetricDescriptor(c *Client, desired, actual *MetricDescriptor, opts ...
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DescriptorLabels, actual.DescriptorLabels, dcl.Info{Type: "Set", ObjectFunction: compareMetricDescriptorDescriptorLabelsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Type: "Set", ObjectFunction: compareMetricDescriptorLabelsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -724,7 +727,7 @@ func diffMetricDescriptor(c *Client, desired, actual *MetricDescriptor, opts ...
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MonitoredResourceTypes, actual.MonitoredResourceTypes, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MonitoredResourceTypes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MonitoredResourceTypes, actual.MonitoredResourceTypes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MonitoredResourceTypes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -740,22 +743,22 @@ func diffMetricDescriptor(c *Client, desired, actual *MetricDescriptor, opts ...
 
 	return newDiffs, nil
 }
-func compareMetricDescriptorDescriptorLabelsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareMetricDescriptorLabelsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*MetricDescriptorDescriptorLabels)
+	desired, ok := d.(*MetricDescriptorLabels)
 	if !ok {
-		desiredNotPointer, ok := d.(MetricDescriptorDescriptorLabels)
+		desiredNotPointer, ok := d.(MetricDescriptorLabels)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a MetricDescriptorDescriptorLabels or *MetricDescriptorDescriptorLabels", d)
+			return nil, fmt.Errorf("obj %v is not a MetricDescriptorLabels or *MetricDescriptorLabels", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*MetricDescriptorDescriptorLabels)
+	actual, ok := a.(*MetricDescriptorLabels)
 	if !ok {
-		actualNotPointer, ok := a.(MetricDescriptorDescriptorLabels)
+		actualNotPointer, ok := a.(MetricDescriptorLabels)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a MetricDescriptorDescriptorLabels", a)
+			return nil, fmt.Errorf("obj %v is not a MetricDescriptorLabels", a)
 		}
 		actual = &actualNotPointer
 	}
@@ -767,7 +770,7 @@ func compareMetricDescriptorDescriptorLabelsNewStyle(d, a interface{}, fn dcl.Fi
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ValueType, actual.ValueType, dcl.Info{Type: "EnumType", CustomDiff: canonicalizeMetricDescriptorDescriptorLabelsValueType, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ValueType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ValueType, actual.ValueType, dcl.Info{Type: "EnumType", CustomDiff: canonicalizeMetricDescriptorLabelsValueType, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ValueType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -894,8 +897,8 @@ func expandMetricDescriptor(c *Client, f *MetricDescriptor) (map[string]interfac
 	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
 		m["type"] = v
 	}
-	if v, err := expandMetricDescriptorDescriptorLabelsSlice(c, f.DescriptorLabels); err != nil {
-		return nil, fmt.Errorf("error expanding DescriptorLabels into labels: %w", err)
+	if v, err := expandMetricDescriptorLabelsSlice(c, f.Labels); err != nil {
+		return nil, fmt.Errorf("error expanding Labels into labels: %w", err)
 	} else if v != nil {
 		m["labels"] = v
 	}
@@ -948,7 +951,7 @@ func flattenMetricDescriptor(c *Client, i interface{}) *MetricDescriptor {
 	res := &MetricDescriptor{}
 	res.SelfLink = dcl.FlattenString(m["name"])
 	res.Type = dcl.FlattenString(m["type"])
-	res.DescriptorLabels = flattenMetricDescriptorDescriptorLabelsSlice(c, m["labels"])
+	res.Labels = flattenMetricDescriptorLabelsSlice(c, m["labels"])
 	res.MetricKind = flattenMetricDescriptorMetricKindEnum(m["metricKind"])
 	res.ValueType = flattenMetricDescriptorValueTypeEnum(m["valueType"])
 	res.Unit = dcl.FlattenString(m["unit"])
@@ -962,16 +965,16 @@ func flattenMetricDescriptor(c *Client, i interface{}) *MetricDescriptor {
 	return res
 }
 
-// expandMetricDescriptorDescriptorLabelsMap expands the contents of MetricDescriptorDescriptorLabels into a JSON
+// expandMetricDescriptorLabelsMap expands the contents of MetricDescriptorLabels into a JSON
 // request object.
-func expandMetricDescriptorDescriptorLabelsMap(c *Client, f map[string]MetricDescriptorDescriptorLabels) (map[string]interface{}, error) {
+func expandMetricDescriptorLabelsMap(c *Client, f map[string]MetricDescriptorLabels) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandMetricDescriptorDescriptorLabels(c, &item)
+		i, err := expandMetricDescriptorLabels(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -983,16 +986,16 @@ func expandMetricDescriptorDescriptorLabelsMap(c *Client, f map[string]MetricDes
 	return items, nil
 }
 
-// expandMetricDescriptorDescriptorLabelsSlice expands the contents of MetricDescriptorDescriptorLabels into a JSON
+// expandMetricDescriptorLabelsSlice expands the contents of MetricDescriptorLabels into a JSON
 // request object.
-func expandMetricDescriptorDescriptorLabelsSlice(c *Client, f []MetricDescriptorDescriptorLabels) ([]map[string]interface{}, error) {
+func expandMetricDescriptorLabelsSlice(c *Client, f []MetricDescriptorLabels) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandMetricDescriptorDescriptorLabels(c, &item)
+		i, err := expandMetricDescriptorLabels(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1003,49 +1006,49 @@ func expandMetricDescriptorDescriptorLabelsSlice(c *Client, f []MetricDescriptor
 	return items, nil
 }
 
-// flattenMetricDescriptorDescriptorLabelsMap flattens the contents of MetricDescriptorDescriptorLabels from a JSON
+// flattenMetricDescriptorLabelsMap flattens the contents of MetricDescriptorLabels from a JSON
 // response object.
-func flattenMetricDescriptorDescriptorLabelsMap(c *Client, i interface{}) map[string]MetricDescriptorDescriptorLabels {
+func flattenMetricDescriptorLabelsMap(c *Client, i interface{}) map[string]MetricDescriptorLabels {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]MetricDescriptorDescriptorLabels{}
+		return map[string]MetricDescriptorLabels{}
 	}
 
 	if len(a) == 0 {
-		return map[string]MetricDescriptorDescriptorLabels{}
+		return map[string]MetricDescriptorLabels{}
 	}
 
-	items := make(map[string]MetricDescriptorDescriptorLabels)
+	items := make(map[string]MetricDescriptorLabels)
 	for k, item := range a {
-		items[k] = *flattenMetricDescriptorDescriptorLabels(c, item.(map[string]interface{}))
+		items[k] = *flattenMetricDescriptorLabels(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenMetricDescriptorDescriptorLabelsSlice flattens the contents of MetricDescriptorDescriptorLabels from a JSON
+// flattenMetricDescriptorLabelsSlice flattens the contents of MetricDescriptorLabels from a JSON
 // response object.
-func flattenMetricDescriptorDescriptorLabelsSlice(c *Client, i interface{}) []MetricDescriptorDescriptorLabels {
+func flattenMetricDescriptorLabelsSlice(c *Client, i interface{}) []MetricDescriptorLabels {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []MetricDescriptorDescriptorLabels{}
+		return []MetricDescriptorLabels{}
 	}
 
 	if len(a) == 0 {
-		return []MetricDescriptorDescriptorLabels{}
+		return []MetricDescriptorLabels{}
 	}
 
-	items := make([]MetricDescriptorDescriptorLabels, 0, len(a))
+	items := make([]MetricDescriptorLabels, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenMetricDescriptorDescriptorLabels(c, item.(map[string]interface{})))
+		items = append(items, *flattenMetricDescriptorLabels(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandMetricDescriptorDescriptorLabels expands an instance of MetricDescriptorDescriptorLabels into a JSON
+// expandMetricDescriptorLabels expands an instance of MetricDescriptorLabels into a JSON
 // request object.
-func expandMetricDescriptorDescriptorLabels(c *Client, f *MetricDescriptorDescriptorLabels) (map[string]interface{}, error) {
+func expandMetricDescriptorLabels(c *Client, f *MetricDescriptorLabels) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1064,21 +1067,21 @@ func expandMetricDescriptorDescriptorLabels(c *Client, f *MetricDescriptorDescri
 	return m, nil
 }
 
-// flattenMetricDescriptorDescriptorLabels flattens an instance of MetricDescriptorDescriptorLabels from a JSON
+// flattenMetricDescriptorLabels flattens an instance of MetricDescriptorLabels from a JSON
 // response object.
-func flattenMetricDescriptorDescriptorLabels(c *Client, i interface{}) *MetricDescriptorDescriptorLabels {
+func flattenMetricDescriptorLabels(c *Client, i interface{}) *MetricDescriptorLabels {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &MetricDescriptorDescriptorLabels{}
+	r := &MetricDescriptorLabels{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyMetricDescriptorDescriptorLabels
+		return EmptyMetricDescriptorLabels
 	}
 	r.Key = dcl.FlattenString(m["key"])
-	r.ValueType = flattenMetricDescriptorDescriptorLabelsValueTypeEnum(m["valueType"])
+	r.ValueType = flattenMetricDescriptorLabelsValueTypeEnum(m["valueType"])
 	r.Description = dcl.FlattenString(m["description"])
 
 	return r
@@ -1206,35 +1209,35 @@ func flattenMetricDescriptorMetadata(c *Client, i interface{}) *MetricDescriptor
 	return r
 }
 
-// flattenMetricDescriptorDescriptorLabelsValueTypeEnumSlice flattens the contents of MetricDescriptorDescriptorLabelsValueTypeEnum from a JSON
+// flattenMetricDescriptorLabelsValueTypeEnumSlice flattens the contents of MetricDescriptorLabelsValueTypeEnum from a JSON
 // response object.
-func flattenMetricDescriptorDescriptorLabelsValueTypeEnumSlice(c *Client, i interface{}) []MetricDescriptorDescriptorLabelsValueTypeEnum {
+func flattenMetricDescriptorLabelsValueTypeEnumSlice(c *Client, i interface{}) []MetricDescriptorLabelsValueTypeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []MetricDescriptorDescriptorLabelsValueTypeEnum{}
+		return []MetricDescriptorLabelsValueTypeEnum{}
 	}
 
 	if len(a) == 0 {
-		return []MetricDescriptorDescriptorLabelsValueTypeEnum{}
+		return []MetricDescriptorLabelsValueTypeEnum{}
 	}
 
-	items := make([]MetricDescriptorDescriptorLabelsValueTypeEnum, 0, len(a))
+	items := make([]MetricDescriptorLabelsValueTypeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenMetricDescriptorDescriptorLabelsValueTypeEnum(item.(interface{})))
+		items = append(items, *flattenMetricDescriptorLabelsValueTypeEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// flattenMetricDescriptorDescriptorLabelsValueTypeEnum asserts that an interface is a string, and returns a
-// pointer to a *MetricDescriptorDescriptorLabelsValueTypeEnum with the same value as that string.
-func flattenMetricDescriptorDescriptorLabelsValueTypeEnum(i interface{}) *MetricDescriptorDescriptorLabelsValueTypeEnum {
+// flattenMetricDescriptorLabelsValueTypeEnum asserts that an interface is a string, and returns a
+// pointer to a *MetricDescriptorLabelsValueTypeEnum with the same value as that string.
+func flattenMetricDescriptorLabelsValueTypeEnum(i interface{}) *MetricDescriptorLabelsValueTypeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return MetricDescriptorDescriptorLabelsValueTypeEnumRef("")
+		return MetricDescriptorLabelsValueTypeEnumRef("")
 	}
 
-	return MetricDescriptorDescriptorLabelsValueTypeEnumRef(s)
+	return MetricDescriptorLabelsValueTypeEnumRef(s)
 }
 
 // flattenMetricDescriptorMetricKindEnumSlice flattens the contents of MetricDescriptorMetricKindEnum from a JSON

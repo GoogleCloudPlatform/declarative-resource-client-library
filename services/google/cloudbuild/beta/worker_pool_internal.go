@@ -113,11 +113,6 @@ func newUpdateWorkerPoolUpdateWorkerPoolRequest(ctx context.Context, f *WorkerPo
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["workerConfig"] = v
 	}
-	if v, err := expandWorkerPoolNetworkConfig(c, f.NetworkConfig); err != nil {
-		return nil, fmt.Errorf("error expanding NetworkConfig into networkConfig: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["networkConfig"] = v
-	}
 	return req, nil
 }
 
@@ -730,7 +725,7 @@ func diffWorkerPool(c *Client, desired, actual *WorkerPool, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NetworkConfig, actual.NetworkConfig, dcl.Info{ObjectFunction: compareWorkerPoolNetworkConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkerPoolUpdateWorkerPoolOperation")}, fn.AddNest("NetworkConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NetworkConfig, actual.NetworkConfig, dcl.Info{ObjectFunction: compareWorkerPoolNetworkConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -4,7 +4,7 @@
   "description": "An updated sample log metric",
   "filter": "resource.type=gae_app AND severity<=ERROR",
   "metricDescriptor": {
-    "descriptorLabels": [
+    "labels": [
       {
         "key": "mass",
         "valueType": "STRING",

@@ -25,13 +25,13 @@ import (
 // Server implements the gRPC interface for LogMetric.
 type LogMetricServer struct{}
 
-// ProtoToLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum converts a LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum enum from its proto representation.
-func ProtoToLoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum(e loggingpb.LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum) *logging.LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum {
+// ProtoToLogMetricMetricDescriptorLabelsValueTypeEnum converts a LogMetricMetricDescriptorLabelsValueTypeEnum enum from its proto representation.
+func ProtoToLoggingLogMetricMetricDescriptorLabelsValueTypeEnum(e loggingpb.LoggingLogMetricMetricDescriptorLabelsValueTypeEnum) *logging.LogMetricMetricDescriptorLabelsValueTypeEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := loggingpb.LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum_name[int32(e)]; ok {
-		e := logging.LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum(n[len("LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum"):])
+	if n, ok := loggingpb.LoggingLogMetricMetricDescriptorLabelsValueTypeEnum_name[int32(e)]; ok {
+		e := logging.LogMetricMetricDescriptorLabelsValueTypeEnum(n[len("LoggingLogMetricMetricDescriptorLabelsValueTypeEnum"):])
 		return &e
 	}
 	return nil
@@ -101,8 +101,8 @@ func ProtoToLoggingLogMetricMetricDescriptor(p *loggingpb.LoggingLogMetricMetric
 		Metadata:    ProtoToLoggingLogMetricMetricDescriptorMetadata(p.GetMetadata()),
 		LaunchStage: ProtoToLoggingLogMetricMetricDescriptorLaunchStageEnum(p.GetLaunchStage()),
 	}
-	for _, r := range p.GetDescriptorLabels() {
-		obj.DescriptorLabels = append(obj.DescriptorLabels, *ProtoToLoggingLogMetricMetricDescriptorDescriptorLabels(r))
+	for _, r := range p.GetLabels() {
+		obj.Labels = append(obj.Labels, *ProtoToLoggingLogMetricMetricDescriptorLabels(r))
 	}
 	for _, r := range p.GetMonitoredResourceTypes() {
 		obj.MonitoredResourceTypes = append(obj.MonitoredResourceTypes, r)
@@ -110,14 +110,14 @@ func ProtoToLoggingLogMetricMetricDescriptor(p *loggingpb.LoggingLogMetricMetric
 	return obj
 }
 
-// ProtoToLogMetricMetricDescriptorDescriptorLabels converts a LogMetricMetricDescriptorDescriptorLabels resource from its proto representation.
-func ProtoToLoggingLogMetricMetricDescriptorDescriptorLabels(p *loggingpb.LoggingLogMetricMetricDescriptorDescriptorLabels) *logging.LogMetricMetricDescriptorDescriptorLabels {
+// ProtoToLogMetricMetricDescriptorLabels converts a LogMetricMetricDescriptorLabels resource from its proto representation.
+func ProtoToLoggingLogMetricMetricDescriptorLabels(p *loggingpb.LoggingLogMetricMetricDescriptorLabels) *logging.LogMetricMetricDescriptorLabels {
 	if p == nil {
 		return nil
 	}
-	obj := &logging.LogMetricMetricDescriptorDescriptorLabels{
+	obj := &logging.LogMetricMetricDescriptorLabels{
 		Key:         dcl.StringOrNil(p.Key),
-		ValueType:   ProtoToLoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum(p.GetValueType()),
+		ValueType:   ProtoToLoggingLogMetricMetricDescriptorLabelsValueTypeEnum(p.GetValueType()),
 		Description: dcl.StringOrNil(p.Description),
 	}
 	return obj
@@ -204,15 +204,15 @@ func ProtoToLogMetric(p *loggingpb.LoggingLogMetric) *logging.LogMetric {
 	return obj
 }
 
-// LogMetricMetricDescriptorDescriptorLabelsValueTypeEnumToProto converts a LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum enum to its proto representation.
-func LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnumToProto(e *logging.LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum) loggingpb.LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum {
+// LogMetricMetricDescriptorLabelsValueTypeEnumToProto converts a LogMetricMetricDescriptorLabelsValueTypeEnum enum to its proto representation.
+func LoggingLogMetricMetricDescriptorLabelsValueTypeEnumToProto(e *logging.LogMetricMetricDescriptorLabelsValueTypeEnum) loggingpb.LoggingLogMetricMetricDescriptorLabelsValueTypeEnum {
 	if e == nil {
-		return loggingpb.LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum(0)
+		return loggingpb.LoggingLogMetricMetricDescriptorLabelsValueTypeEnum(0)
 	}
-	if v, ok := loggingpb.LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum_value["LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum"+string(*e)]; ok {
-		return loggingpb.LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum(v)
+	if v, ok := loggingpb.LoggingLogMetricMetricDescriptorLabelsValueTypeEnum_value["LogMetricMetricDescriptorLabelsValueTypeEnum"+string(*e)]; ok {
+		return loggingpb.LoggingLogMetricMetricDescriptorLabelsValueTypeEnum(v)
 	}
-	return loggingpb.LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnum(0)
+	return loggingpb.LoggingLogMetricMetricDescriptorLabelsValueTypeEnum(0)
 }
 
 // LogMetricMetricDescriptorMetricKindEnumToProto converts a LogMetricMetricDescriptorMetricKindEnum enum to its proto representation.
@@ -275,8 +275,8 @@ func LoggingLogMetricMetricDescriptorToProto(o *logging.LogMetricMetricDescripto
 		Metadata:    LoggingLogMetricMetricDescriptorMetadataToProto(o.Metadata),
 		LaunchStage: LoggingLogMetricMetricDescriptorLaunchStageEnumToProto(o.LaunchStage),
 	}
-	for _, r := range o.DescriptorLabels {
-		p.DescriptorLabels = append(p.DescriptorLabels, LoggingLogMetricMetricDescriptorDescriptorLabelsToProto(&r))
+	for _, r := range o.Labels {
+		p.Labels = append(p.Labels, LoggingLogMetricMetricDescriptorLabelsToProto(&r))
 	}
 	for _, r := range o.MonitoredResourceTypes {
 		p.MonitoredResourceTypes = append(p.MonitoredResourceTypes, r)
@@ -284,14 +284,14 @@ func LoggingLogMetricMetricDescriptorToProto(o *logging.LogMetricMetricDescripto
 	return p
 }
 
-// LogMetricMetricDescriptorDescriptorLabelsToProto converts a LogMetricMetricDescriptorDescriptorLabels resource to its proto representation.
-func LoggingLogMetricMetricDescriptorDescriptorLabelsToProto(o *logging.LogMetricMetricDescriptorDescriptorLabels) *loggingpb.LoggingLogMetricMetricDescriptorDescriptorLabels {
+// LogMetricMetricDescriptorLabelsToProto converts a LogMetricMetricDescriptorLabels resource to its proto representation.
+func LoggingLogMetricMetricDescriptorLabelsToProto(o *logging.LogMetricMetricDescriptorLabels) *loggingpb.LoggingLogMetricMetricDescriptorLabels {
 	if o == nil {
 		return nil
 	}
-	p := &loggingpb.LoggingLogMetricMetricDescriptorDescriptorLabels{
+	p := &loggingpb.LoggingLogMetricMetricDescriptorLabels{
 		Key:         dcl.ValueOrEmptyString(o.Key),
-		ValueType:   LoggingLogMetricMetricDescriptorDescriptorLabelsValueTypeEnumToProto(o.ValueType),
+		ValueType:   LoggingLogMetricMetricDescriptorLabelsValueTypeEnumToProto(o.ValueType),
 		Description: dcl.ValueOrEmptyString(o.Description),
 	}
 	return p

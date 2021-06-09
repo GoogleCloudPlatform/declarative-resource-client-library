@@ -1,7 +1,7 @@
 {
   "type": "custom.googleapis.com/{{suffix}}",
   "project": "{{project}}",
-  "descriptorLabels": [
+  "labels": [
     {
       "key": "mass",
       "valueType": "STRING",

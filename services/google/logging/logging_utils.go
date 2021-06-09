@@ -25,7 +25,7 @@ import (
 // do makes a request to create a new log bucket if the name of the desired bucket is not
 // "_Default" or "_Required"
 func (op *createLogBucketOperation) do(ctx context.Context, r *LogBucket, c *Client) error {
-	if *r.Name == "_Default" || *r.Name == "_Required" {
+	if r.Name != nil && (*r.Name == "_Default" || *r.Name == "_Required") {
 		return nil
 	}
 	c.Config.Logger.Infof("Attempting to create %v", r)
@@ -75,7 +75,7 @@ func (op *deleteLogBucketOperation) do(ctx context.Context, r *LogBucket, c *Cli
 		return err
 	}
 
-	if *r.Name == "_Default" || *r.Name == "_Required" {
+	if r.Name != nil && (*r.Name == "_Default" || *r.Name == "_Required") {
 		return nil
 	}
 
@@ -93,11 +93,11 @@ func (op *deleteLogBucketOperation) do(ctx context.Context, r *LogBucket, c *Cli
 	return nil
 }
 
-func equalsLogMetricMetricDescriptorDescriptorLabelsValueType(m, n *LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum) bool {
+func equalsLogMetricMetricDescriptorLabelsValueType(m, n *LogMetricMetricDescriptorLabelsValueTypeEnum) bool {
 	if m == nil && n == nil {
 		return true
 	}
-	v := *LogMetricMetricDescriptorDescriptorLabelsValueTypeEnumRef("STRING")
+	v := *LogMetricMetricDescriptorLabelsValueTypeEnumRef("STRING")
 	if m == nil {
 		return *n == v
 	} else if n == nil {
@@ -106,20 +106,20 @@ func equalsLogMetricMetricDescriptorDescriptorLabelsValueType(m, n *LogMetricMet
 	return *m == *n
 }
 
-func canonicalizeLogMetricMetricDescriptorDescriptorLabelsValueType(m, n interface{}) bool {
+func canonicalizeLogMetricMetricDescriptorLabelsValueType(m, n interface{}) bool {
 	if m == nil && n == nil {
 		return true
 	}
-	mVal, _ := m.(*LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum)
-	nVal, _ := n.(*LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum)
-	return equalsLogMetricMetricDescriptorDescriptorLabelsValueType(mVal, nVal)
+	mVal, _ := m.(*LogMetricMetricDescriptorLabelsValueTypeEnum)
+	nVal, _ := n.(*LogMetricMetricDescriptorLabelsValueTypeEnum)
+	return equalsLogMetricMetricDescriptorLabelsValueType(mVal, nVal)
 }
 
-func equalsLogMetricMetricDescriptorValueType(m, n *LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum) bool {
+func equalsLogMetricMetricDescriptorValueType(m, n *LogMetricMetricDescriptorLabelsValueTypeEnum) bool {
 	if m == nil && n == nil {
 		return true
 	}
-	v := *LogMetricMetricDescriptorDescriptorLabelsValueTypeEnumRef("STRING")
+	v := *LogMetricMetricDescriptorLabelsValueTypeEnumRef("STRING")
 	if m == nil {
 		return *n == v
 	} else if n == nil {
@@ -132,7 +132,7 @@ func canonicalizeLogMetricMetricDescriptorValueType(m, n interface{}) bool {
 	if m == nil && n == nil {
 		return true
 	}
-	mVal, _ := m.(*LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum)
-	nVal, _ := n.(*LogMetricMetricDescriptorDescriptorLabelsValueTypeEnum)
+	mVal, _ := m.(*LogMetricMetricDescriptorLabelsValueTypeEnum)
+	nVal, _ := n.(*LogMetricMetricDescriptorLabelsValueTypeEnum)
 	return equalsLogMetricMetricDescriptorValueType(mVal, nVal)
 }

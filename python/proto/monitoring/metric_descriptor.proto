@@ -18,11 +18,11 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
-enum MonitoringMetricDescriptorDescriptorLabelsValueTypeEnum {
-  MonitoringMetricDescriptorDescriptorLabelsValueTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  MonitoringMetricDescriptorDescriptorLabelsValueTypeEnumSTRING = 1;
-  MonitoringMetricDescriptorDescriptorLabelsValueTypeEnumBOOL = 2;
-  MonitoringMetricDescriptorDescriptorLabelsValueTypeEnumINT64 = 3;
+enum MonitoringMetricDescriptorLabelsValueTypeEnum {
+  MonitoringMetricDescriptorLabelsValueTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  MonitoringMetricDescriptorLabelsValueTypeEnumSTRING = 1;
+  MonitoringMetricDescriptorLabelsValueTypeEnumBOOL = 2;
+  MonitoringMetricDescriptorLabelsValueTypeEnumINT64 = 3;
 }
 
 enum MonitoringMetricDescriptorMetricKindEnum {
@@ -67,7 +67,7 @@ enum MonitoringMetricDescriptorLaunchStageEnum {
 message MonitoringMetricDescriptor {
   string self_link = 1;
   string type = 2;
-  repeated MonitoringMetricDescriptorDescriptorLabels descriptor_labels = 3;
+  repeated MonitoringMetricDescriptorLabels labels = 3;
   MonitoringMetricDescriptorMetricKindEnum metric_kind = 4;
   MonitoringMetricDescriptorValueTypeEnum value_type = 5;
   string unit = 6;
@@ -79,9 +79,9 @@ message MonitoringMetricDescriptor {
   string project = 12;
 }
 
-message MonitoringMetricDescriptorDescriptorLabels {
+message MonitoringMetricDescriptorLabels {
   string key = 1;
-  MonitoringMetricDescriptorDescriptorLabelsValueTypeEnum value_type = 2;
+  MonitoringMetricDescriptorLabelsValueTypeEnum value_type = 2;
   string description = 3;
 }
 
