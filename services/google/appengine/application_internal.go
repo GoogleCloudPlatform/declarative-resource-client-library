@@ -128,7 +128,7 @@ func (op *updateApplicationPatchApplicationOperation) do(ctx context.Context, r 
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.SnakeCaseUpdateMask(op.Diffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err

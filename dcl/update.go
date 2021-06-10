@@ -60,6 +60,7 @@ func convertUpdateMaskVal(s string) string {
 	return strings.Join(p, ".")
 }
 
+// TopLevelUpdateMask returns only the top-level fields.
 func TopLevelUpdateMask(ds []*FieldDiff) string {
 	var ss []string
 	for _, v := range ds {
@@ -67,6 +68,19 @@ func TopLevelUpdateMask(ds []*FieldDiff) string {
 		ss = append(ss, convertUpdateMaskVal(part))
 	}
 
+	dupesRemoved := stringset.New(ss...).Elements()
+
+	// Sorting the entries is optional, but makes it easier to read + test.
+	sort.Strings(dupesRemoved)
+	return strings.Join(dupesRemoved, ",")
+}
+
+// SnakeCaseUpdateMask returns the update mask, but all fields are snake case.
+func SnakeCaseUpdateMask(ds []*FieldDiff) string {
+	var ss []string
+	for _, v := range ds {
+		ss = append(ss, TitleToSnakeCase(convertUpdateMaskVal(v.FieldName)))
+	}
 	dupesRemoved := stringset.New(ss...).Elements()
 
 	// Sorting the entries is optional, but makes it easier to read + test.
