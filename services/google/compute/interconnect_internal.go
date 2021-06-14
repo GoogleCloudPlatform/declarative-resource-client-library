@@ -232,7 +232,10 @@ func (c *Client) listInterconnect(ctx context.Context, project, pageToken string
 
 	var l []*Interconnect
 	for _, v := range m.Items {
-		res := flattenInterconnect(c, v)
+		res, err := unmarshalMapInterconnect(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

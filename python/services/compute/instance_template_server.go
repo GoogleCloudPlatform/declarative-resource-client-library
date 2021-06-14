@@ -753,7 +753,7 @@ func (s *InstanceTemplateServer) DeleteComputeInstanceTemplate(ctx context.Conte
 
 }
 
-// ListInstanceTemplate handles the gRPC request by passing it to the underlying InstanceTemplateList() method.
+// ListComputeInstanceTemplate handles the gRPC request by passing it to the underlying InstanceTemplateList() method.
 func (s *InstanceTemplateServer) ListComputeInstanceTemplate(ctx context.Context, request *computepb.ListComputeInstanceTemplateRequest) (*computepb.ListComputeInstanceTemplateResponse, error) {
 	cl, err := createConfigInstanceTemplate(ctx, request.ServiceAccountFile)
 	if err != nil {

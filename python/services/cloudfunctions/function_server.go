@@ -256,7 +256,7 @@ func (s *FunctionServer) DeleteCloudfunctionsFunction(ctx context.Context, reque
 
 }
 
-// ListFunction handles the gRPC request by passing it to the underlying FunctionList() method.
+// ListCloudfunctionsFunction handles the gRPC request by passing it to the underlying FunctionList() method.
 func (s *FunctionServer) ListCloudfunctionsFunction(ctx context.Context, request *cloudfunctionspb.ListCloudfunctionsFunctionRequest) (*cloudfunctionspb.ListCloudfunctionsFunctionResponse, error) {
 	cl, err := createConfigFunction(ctx, request.ServiceAccountFile)
 	if err != nil {

@@ -23,11 +23,10 @@ import (
 )
 
 type Attachment struct {
-	Name         *string `json:"name"`
-	Environment  *string `json:"environment"`
-	CreatedAt    *int64  `json:"createdAt"`
-	Organization *string `json:"organization"`
-	Envgroup     *string `json:"envgroup"`
+	Name        *string `json:"name"`
+	Environment *string `json:"environment"`
+	CreatedAt   *int64  `json:"createdAt"`
+	Envgroup    *string `json:"envgroup"`
 }
 
 func (r *Attachment) String() string {
@@ -53,8 +52,6 @@ type AttachmentList struct {
 
 	pageSize int32
 
-	organization string
-
 	envgroup string
 }
 
@@ -69,7 +66,7 @@ func (l *AttachmentList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listAttachment(ctx, l.organization, l.envgroup, l.nextToken, l.pageSize)
+	items, token, err := c.listAttachment(ctx, l.envgroup, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -78,19 +75,19 @@ func (l *AttachmentList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListAttachment(ctx context.Context, organization, envgroup string) (*AttachmentList, error) {
+func (c *Client) ListAttachment(ctx context.Context, envgroup string) (*AttachmentList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListAttachmentWithMaxResults(ctx, organization, envgroup, AttachmentMaxPage)
+	return c.ListAttachmentWithMaxResults(ctx, envgroup, AttachmentMaxPage)
 
 }
 
-func (c *Client) ListAttachmentWithMaxResults(ctx context.Context, organization, envgroup string, pageSize int32) (*AttachmentList, error) {
+func (c *Client) ListAttachmentWithMaxResults(ctx context.Context, envgroup string, pageSize int32) (*AttachmentList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listAttachment(ctx, organization, envgroup, "", pageSize)
+	items, token, err := c.listAttachment(ctx, envgroup, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -98,8 +95,6 @@ func (c *Client) ListAttachmentWithMaxResults(ctx context.Context, organization,
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
-
-		organization: organization,
 
 		envgroup: envgroup,
 	}, nil
@@ -123,7 +118,6 @@ func (c *Client) GetAttachment(ctx context.Context, r *Attachment) (*Attachment,
 	if err != nil {
 		return nil, err
 	}
-	result.Organization = r.Organization
 	result.Envgroup = r.Envgroup
 	result.Name = r.Name
 
@@ -151,8 +145,8 @@ func (c *Client) DeleteAttachment(ctx context.Context, r *Attachment) error {
 }
 
 // DeleteAllAttachment deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllAttachment(ctx context.Context, organization, envgroup string, filter func(*Attachment) bool) error {
-	listObj, err := c.ListAttachment(ctx, organization, envgroup)
+func (c *Client) DeleteAllAttachment(ctx context.Context, envgroup string, filter func(*Attachment) bool) error {
+	listObj, err := c.ListAttachment(ctx, envgroup)
 	if err != nil {
 		return err
 	}

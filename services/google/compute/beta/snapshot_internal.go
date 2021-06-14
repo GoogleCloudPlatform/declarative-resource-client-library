@@ -231,7 +231,10 @@ func (c *Client) listSnapshot(ctx context.Context, project, pageToken string, pa
 
 	var l []*Snapshot
 	for _, v := range m.Items {
-		res := flattenSnapshot(c, v)
+		res, err := unmarshalMapSnapshot(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

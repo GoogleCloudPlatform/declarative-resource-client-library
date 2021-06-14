@@ -228,7 +228,7 @@ func (s *AddressServer) DeleteComputeAddress(ctx context.Context, request *compu
 
 }
 
-// ListAddress handles the gRPC request by passing it to the underlying AddressList() method.
+// ListComputeAddress handles the gRPC request by passing it to the underlying AddressList() method.
 func (s *AddressServer) ListComputeAddress(ctx context.Context, request *computepb.ListComputeAddressRequest) (*computepb.ListComputeAddressResponse, error) {
 	cl, err := createConfigAddress(ctx, request.ServiceAccountFile)
 	if err != nil {

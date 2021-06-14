@@ -469,7 +469,10 @@ func (c *Client) listInstance(ctx context.Context, project, pageToken string, pa
 
 	var l []*Instance
 	for _, v := range m.Instances {
-		res := flattenInstance(c, v)
+		res, err := unmarshalMapInstance(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

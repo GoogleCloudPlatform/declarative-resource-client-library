@@ -235,7 +235,10 @@ func (c *Client) listSubscription(ctx context.Context, project, pageToken string
 
 	var l []*Subscription
 	for _, v := range m.Subscriptions {
-		res := flattenSubscription(c, v)
+		res, err := unmarshalMapSubscription(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

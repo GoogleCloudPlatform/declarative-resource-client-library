@@ -148,7 +148,7 @@ func (s *ConnectorServer) DeleteVpcaccessConnector(ctx context.Context, request 
 
 }
 
-// ListConnector handles the gRPC request by passing it to the underlying ConnectorList() method.
+// ListVpcaccessConnector handles the gRPC request by passing it to the underlying ConnectorList() method.
 func (s *ConnectorServer) ListVpcaccessConnector(ctx context.Context, request *vpcaccesspb.ListVpcaccessConnectorRequest) (*vpcaccesspb.ListVpcaccessConnectorResponse, error) {
 	cl, err := createConfigConnector(ctx, request.ServiceAccountFile)
 	if err != nil {

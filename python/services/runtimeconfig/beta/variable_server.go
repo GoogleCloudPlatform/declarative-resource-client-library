@@ -83,7 +83,7 @@ func (s *VariableServer) DeleteRuntimeconfigBetaVariable(ctx context.Context, re
 
 }
 
-// ListVariable handles the gRPC request by passing it to the underlying VariableList() method.
+// ListRuntimeconfigBetaVariable handles the gRPC request by passing it to the underlying VariableList() method.
 func (s *VariableServer) ListRuntimeconfigBetaVariable(ctx context.Context, request *betapb.ListRuntimeconfigBetaVariableRequest) (*betapb.ListRuntimeconfigBetaVariableResponse, error) {
 	cl, err := createConfigVariable(ctx, request.ServiceAccountFile)
 	if err != nil {

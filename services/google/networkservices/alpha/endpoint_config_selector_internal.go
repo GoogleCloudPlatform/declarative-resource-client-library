@@ -278,7 +278,10 @@ func (c *Client) listEndpointConfigSelector(ctx context.Context, project, locati
 
 	var l []*EndpointConfigSelector
 	for _, v := range m.EndpointConfigSelectors {
-		res := flattenEndpointConfigSelector(c, v)
+		res, err := unmarshalMapEndpointConfigSelector(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

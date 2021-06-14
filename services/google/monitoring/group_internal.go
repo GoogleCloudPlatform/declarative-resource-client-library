@@ -193,7 +193,10 @@ func (c *Client) listGroup(ctx context.Context, project, pageToken string, pageS
 
 	var l []*Group
 	for _, v := range m.Group {
-		res := flattenGroup(c, v)
+		res, err := unmarshalMapGroup(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}
@@ -302,7 +305,7 @@ func (op *createGroupOperation) do(ctx context.Context, r *Group, c *Client) err
 	// Include Name in URL substitution for initial GET request.
 	name, ok := op.response["name"].(string)
 	if !ok {
-		return fmt.Errorf("expected name to be a string")
+		return fmt.Errorf("expected name to be a string, was %T", name)
 	}
 	r.Name = &name
 

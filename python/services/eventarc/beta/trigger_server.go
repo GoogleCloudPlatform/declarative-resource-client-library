@@ -213,7 +213,7 @@ func (s *TriggerServer) DeleteEventarcBetaTrigger(ctx context.Context, request *
 
 }
 
-// ListTrigger handles the gRPC request by passing it to the underlying TriggerList() method.
+// ListEventarcBetaTrigger handles the gRPC request by passing it to the underlying TriggerList() method.
 func (s *TriggerServer) ListEventarcBetaTrigger(ctx context.Context, request *betapb.ListEventarcBetaTriggerRequest) (*betapb.ListEventarcBetaTriggerResponse, error) {
 	cl, err := createConfigTrigger(ctx, request.ServiceAccountFile)
 	if err != nil {

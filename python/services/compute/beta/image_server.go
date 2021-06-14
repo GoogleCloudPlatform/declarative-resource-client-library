@@ -666,7 +666,7 @@ func (s *ImageServer) DeleteComputeBetaImage(ctx context.Context, request *betap
 
 }
 
-// ListImage handles the gRPC request by passing it to the underlying ImageList() method.
+// ListComputeBetaImage handles the gRPC request by passing it to the underlying ImageList() method.
 func (s *ImageServer) ListComputeBetaImage(ctx context.Context, request *betapb.ListComputeBetaImageRequest) (*betapb.ListComputeBetaImageResponse, error) {
 	cl, err := createConfigImage(ctx, request.ServiceAccountFile)
 	if err != nil {

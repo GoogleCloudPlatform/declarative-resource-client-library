@@ -277,7 +277,10 @@ func (c *Client) listUptimeCheckConfig(ctx context.Context, project, pageToken s
 
 	var l []*UptimeCheckConfig
 	for _, v := range m.UptimeCheckConfigs {
-		res := flattenUptimeCheckConfig(c, v)
+		res, err := unmarshalMapUptimeCheckConfig(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}
@@ -386,7 +389,7 @@ func (op *createUptimeCheckConfigOperation) do(ctx context.Context, r *UptimeChe
 	// Include Name in URL substitution for initial GET request.
 	name, ok := op.response["name"].(string)
 	if !ok {
-		return fmt.Errorf("expected name to be a string")
+		return fmt.Errorf("expected name to be a string, was %T", name)
 	}
 	r.Name = &name
 

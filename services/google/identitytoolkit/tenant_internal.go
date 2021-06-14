@@ -204,7 +204,10 @@ func (c *Client) listTenant(ctx context.Context, project, pageToken string, page
 
 	var l []*Tenant
 	for _, v := range m.Tenants {
-		res := flattenTenant(c, v)
+		res, err := unmarshalMapTenant(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}
@@ -313,7 +316,7 @@ func (op *createTenantOperation) do(ctx context.Context, r *Tenant, c *Client) e
 	// Include Name in URL substitution for initial GET request.
 	name, ok := op.response["name"].(string)
 	if !ok {
-		return fmt.Errorf("expected name to be a string")
+		return fmt.Errorf("expected name to be a string, was %T", name)
 	}
 	r.Name = &name
 

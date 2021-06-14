@@ -132,7 +132,10 @@ func (c *Client) listIndex(ctx context.Context, project, pageToken string, pageS
 
 	var l []*Index
 	for _, v := range m.Items {
-		res := flattenIndex(c, v)
+		res, err := unmarshalMapIndex(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}
@@ -255,7 +258,7 @@ func (op *createIndexOperation) do(ctx context.Context, r *Index, c *Client) err
 	// Include IndexId in URL substitution for initial GET request.
 	indexId, ok := op.response["indexId"].(string)
 	if !ok {
-		return fmt.Errorf("expected indexId to be a string")
+		return fmt.Errorf("expected indexId to be a string, was %T", indexId)
 	}
 	r.IndexId = &indexId
 

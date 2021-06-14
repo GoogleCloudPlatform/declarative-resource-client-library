@@ -37,10 +37,6 @@ paths:
   deleteAll:
     description: The function used to delete all Attachment
     parameters:
-    - name: organization
-      required: true
-      schema:
-        type: string
     - name: envgroup
       required: true
       schema:
@@ -48,10 +44,6 @@ paths:
   list:
     description: The function used to list information about many Attachment
     parameters:
-    - name: organization
-      required: true
-      schema:
-        type: string
     - name: envgroup
       required: true
       schema:
@@ -60,12 +52,10 @@ components:
   schemas:
     Attachment:
       title: Attachment
-      x-dcl-id: organizations/{{organization}}/envgroups/{{envgroup}}/attachments/{{name}}
-      x-dcl-parent-container: organization
+      x-dcl-id: '{{envgroup}}/attachments/{{name}}'
       type: object
       required:
       - environment
-      - organization
       - envgroup
       properties:
         createdAt:
@@ -97,12 +87,3 @@ components:
           description: ID of the environment group attachment.
           x-kubernetes-immutable: true
           x-dcl-server-generated-parameter: true
-        organization:
-          type: string
-          x-dcl-go-name: Organization
-          description: The organization for the resource
-          x-kubernetes-immutable: true
-          x-dcl-references:
-          - resource: Cloudresourcemanager/Organization
-            field: name
-            parent: true

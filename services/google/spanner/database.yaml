@@ -41,7 +41,7 @@ paths:
       required: true
       schema:
         type: string
-    - name: name
+    - name: instance
       required: true
       schema:
         type: string
@@ -52,7 +52,7 @@ paths:
       required: true
       schema:
         type: string
-    - name: name
+    - name: instance
       required: true
       schema:
         type: string

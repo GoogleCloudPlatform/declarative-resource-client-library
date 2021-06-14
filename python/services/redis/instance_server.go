@@ -382,7 +382,7 @@ func (s *InstanceServer) DeleteRedisInstance(ctx context.Context, request *redis
 
 }
 
-// ListInstance handles the gRPC request by passing it to the underlying InstanceList() method.
+// ListRedisInstance handles the gRPC request by passing it to the underlying InstanceList() method.
 func (s *InstanceServer) ListRedisInstance(ctx context.Context, request *redispb.ListRedisInstanceRequest) (*redispb.ListRedisInstanceResponse, error) {
 	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
 	if err != nil {

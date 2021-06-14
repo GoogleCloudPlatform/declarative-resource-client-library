@@ -77,13 +77,13 @@ class Database(object):
         response = stub.DeleteSpannerDatabase(request)
 
     @classmethod
-    def list(self, project, name, service_account_file=""):
+    def list(self, project, instance, service_account_file=""):
         stub = database_pb2_grpc.SpannerDatabaseServiceStub(channel.Channel())
         request = database_pb2.ListSpannerDatabaseRequest()
         request.service_account_file = service_account_file
         request.Project = project
 
-        request.Name = name
+        request.Instance = instance
 
         return stub.ListSpannerDatabase(request).items
 

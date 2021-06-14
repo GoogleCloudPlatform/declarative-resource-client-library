@@ -251,7 +251,7 @@ func (s *FeatureServer) DeleteGkehubBetaFeature(ctx context.Context, request *be
 
 }
 
-// ListFeature handles the gRPC request by passing it to the underlying FeatureList() method.
+// ListGkehubBetaFeature handles the gRPC request by passing it to the underlying FeatureList() method.
 func (s *FeatureServer) ListGkehubBetaFeature(ctx context.Context, request *betapb.ListGkehubBetaFeatureRequest) (*betapb.ListGkehubBetaFeatureResponse, error) {
 	cl, err := createConfigFeature(ctx, request.ServiceAccountFile)
 	if err != nil {

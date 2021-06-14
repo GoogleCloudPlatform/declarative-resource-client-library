@@ -113,7 +113,10 @@ func (c *Client) listService(ctx context.Context, project, pageToken string, pag
 
 	var l []*Service
 	for _, v := range m.Services {
-		res := flattenService(c, v)
+		res, err := unmarshalMapService(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

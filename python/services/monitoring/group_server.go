@@ -83,7 +83,7 @@ func (s *GroupServer) DeleteMonitoringGroup(ctx context.Context, request *monito
 
 }
 
-// ListGroup handles the gRPC request by passing it to the underlying GroupList() method.
+// ListMonitoringGroup handles the gRPC request by passing it to the underlying GroupList() method.
 func (s *GroupServer) ListMonitoringGroup(ctx context.Context, request *monitoringpb.ListMonitoringGroupRequest) (*monitoringpb.ListMonitoringGroupResponse, error) {
 	cl, err := createConfigGroup(ctx, request.ServiceAccountFile)
 	if err != nil {

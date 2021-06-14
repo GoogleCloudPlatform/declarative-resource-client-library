@@ -200,7 +200,10 @@ func (c *Client) listDomainMapping(ctx context.Context, app, pageToken string, p
 
 	var l []*DomainMapping
 	for _, v := range m.Items {
-		res := flattenDomainMapping(c, v)
+		res, err := unmarshalMapDomainMapping(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.App = &app
 		l = append(l, res)
 	}

@@ -186,7 +186,7 @@ func (s *AttestorServer) DeleteBinaryauthorizationAttestor(ctx context.Context, 
 
 }
 
-// ListAttestor handles the gRPC request by passing it to the underlying AttestorList() method.
+// ListBinaryauthorizationAttestor handles the gRPC request by passing it to the underlying AttestorList() method.
 func (s *AttestorServer) ListBinaryauthorizationAttestor(ctx context.Context, request *binaryauthorizationpb.ListBinaryauthorizationAttestorRequest) (*binaryauthorizationpb.ListBinaryauthorizationAttestorResponse, error) {
 	cl, err := createConfigAttestor(ctx, request.ServiceAccountFile)
 	if err != nil {

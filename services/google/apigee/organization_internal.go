@@ -121,58 +121,6 @@ type updateOrganizationUpdateOrganizationOperation struct {
 // do will transcribe a subset of the resource into a request object and send a
 // PUT request to a single URL.
 
-func (c *Client) listOrganizationRaw(ctx context.Context, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := organizationListURL(c.Config.BasePath)
-	if err != nil {
-		return nil, err
-	}
-
-	m := make(map[string]string)
-	if pageToken != "" {
-		m["pageToken"] = pageToken
-	}
-
-	if pageSize != OrganizationMaxPage {
-		m["pageSize"] = fmt.Sprintf("%v", pageSize)
-	}
-
-	u, err = dcl.AddQueryParams(u, m)
-	if err != nil {
-		return nil, err
-	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Response.Body.Close()
-	return ioutil.ReadAll(resp.Response.Body)
-}
-
-type listOrganizationOperation struct {
-	Organizations []map[string]interface{} `json:"organizations"`
-	Token         string                   `json:"nextPageToken"`
-}
-
-func (c *Client) listOrganization(ctx context.Context, pageToken string, pageSize int32) ([]*Organization, string, error) {
-	b, err := c.listOrganizationRaw(ctx, pageToken, pageSize)
-	if err != nil {
-		return nil, "", err
-	}
-
-	var m listOrganizationOperation
-	if err := json.Unmarshal(b, &m); err != nil {
-		return nil, "", err
-	}
-
-	var l []*Organization
-	for _, v := range m.Organizations {
-		res := flattenOrganization(c, v)
-		l = append(l, res)
-	}
-
-	return l, m.Token, nil
-}
-
 func (c *Client) deleteAllOrganization(ctx context.Context, f func(*Organization) bool, resources []*Organization) error {
 	var errors []string
 	for _, res := range resources {
@@ -288,7 +236,7 @@ func (op *createOrganizationOperation) do(ctx context.Context, r *Organization, 
 	// Include Name in URL substitution for initial GET request.
 	name, ok := op.response["name"].(string)
 	if !ok {
-		return fmt.Errorf("expected name to be a string")
+		return fmt.Errorf("expected name to be a string, was %T", name)
 	}
 	r.Name = &name
 

@@ -24,7 +24,6 @@ class Attachment(object):
         name: str = None,
         environment: str = None,
         created_at: int = None,
-        organization: str = None,
         envgroup: str = None,
         service_account_file: str = "",
     ):
@@ -32,7 +31,6 @@ class Attachment(object):
         channel.initialize()
         self.name = name
         self.environment = environment
-        self.organization = organization
         self.envgroup = envgroup
         self.service_account_file = service_account_file
 
@@ -45,9 +43,6 @@ class Attachment(object):
         if Primitive.to_proto(self.environment):
             request.resource.environment = Primitive.to_proto(self.environment)
 
-        if Primitive.to_proto(self.organization):
-            request.resource.organization = Primitive.to_proto(self.organization)
-
         if Primitive.to_proto(self.envgroup):
             request.resource.envgroup = Primitive.to_proto(self.envgroup)
 
@@ -57,7 +52,6 @@ class Attachment(object):
         self.name = Primitive.from_proto(response.name)
         self.environment = Primitive.from_proto(response.environment)
         self.created_at = Primitive.from_proto(response.created_at)
-        self.organization = Primitive.from_proto(response.organization)
         self.envgroup = Primitive.from_proto(response.envgroup)
 
     def delete(self):
@@ -70,21 +64,16 @@ class Attachment(object):
         if Primitive.to_proto(self.environment):
             request.resource.environment = Primitive.to_proto(self.environment)
 
-        if Primitive.to_proto(self.organization):
-            request.resource.organization = Primitive.to_proto(self.organization)
-
         if Primitive.to_proto(self.envgroup):
             request.resource.envgroup = Primitive.to_proto(self.envgroup)
 
         response = stub.DeleteApigeeAttachment(request)
 
     @classmethod
-    def list(self, organization, envgroup, service_account_file=""):
+    def list(self, envgroup, service_account_file=""):
         stub = attachment_pb2_grpc.ApigeeAttachmentServiceStub(channel.Channel())
         request = attachment_pb2.ListApigeeAttachmentRequest()
         request.service_account_file = service_account_file
-        request.Organization = organization
-
         request.Envgroup = envgroup
 
         return stub.ListApigeeAttachment(request).items
@@ -95,8 +84,6 @@ class Attachment(object):
             resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.environment):
             resource.environment = Primitive.to_proto(self.environment)
-        if Primitive.to_proto(self.organization):
-            resource.organization = Primitive.to_proto(self.organization)
         if Primitive.to_proto(self.envgroup):
             resource.envgroup = Primitive.to_proto(self.envgroup)
         return resource

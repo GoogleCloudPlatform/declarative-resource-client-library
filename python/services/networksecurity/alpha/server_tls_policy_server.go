@@ -277,7 +277,7 @@ func (s *ServerTlsPolicyServer) DeleteNetworksecurityAlphaServerTlsPolicy(ctx co
 
 }
 
-// ListServerTlsPolicy handles the gRPC request by passing it to the underlying ServerTlsPolicyList() method.
+// ListNetworksecurityAlphaServerTlsPolicy handles the gRPC request by passing it to the underlying ServerTlsPolicyList() method.
 func (s *ServerTlsPolicyServer) ListNetworksecurityAlphaServerTlsPolicy(ctx context.Context, request *alphapb.ListNetworksecurityAlphaServerTlsPolicyRequest) (*alphapb.ListNetworksecurityAlphaServerTlsPolicyResponse, error) {
 	cl, err := createConfigServerTlsPolicy(ctx, request.ServiceAccountFile)
 	if err != nil {

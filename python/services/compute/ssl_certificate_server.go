@@ -140,7 +140,7 @@ func (s *SslCertificateServer) DeleteComputeSslCertificate(ctx context.Context, 
 
 }
 
-// ListSslCertificate handles the gRPC request by passing it to the underlying SslCertificateList() method.
+// ListComputeSslCertificate handles the gRPC request by passing it to the underlying SslCertificateList() method.
 func (s *SslCertificateServer) ListComputeSslCertificate(ctx context.Context, request *computepb.ListComputeSslCertificateRequest) (*computepb.ListComputeSslCertificateResponse, error) {
 	cl, err := createConfigSslCertificate(ctx, request.ServiceAccountFile)
 	if err != nil {

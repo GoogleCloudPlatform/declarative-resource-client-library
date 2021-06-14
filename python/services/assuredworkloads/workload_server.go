@@ -189,7 +189,7 @@ func (s *WorkloadServer) DeleteAssuredworkloadsWorkload(ctx context.Context, req
 
 }
 
-// ListWorkload handles the gRPC request by passing it to the underlying WorkloadList() method.
+// ListAssuredworkloadsWorkload handles the gRPC request by passing it to the underlying WorkloadList() method.
 func (s *WorkloadServer) ListAssuredworkloadsWorkload(ctx context.Context, request *assuredworkloadspb.ListAssuredworkloadsWorkloadRequest) (*assuredworkloadspb.ListAssuredworkloadsWorkloadResponse, error) {
 	cl, err := createConfigWorkload(ctx, request.ServiceAccountFile)
 	if err != nil {

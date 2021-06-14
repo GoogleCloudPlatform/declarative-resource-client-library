@@ -243,7 +243,10 @@ func (c *Client) listKey(ctx context.Context, project, pageToken string, pageSiz
 
 	var l []*Key
 	for _, v := range m.Keys {
-		res := flattenKey(c, v)
+		res, err := unmarshalMapKey(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}
@@ -354,25 +357,6 @@ func (op *createKeyOperation) do(ctx context.Context, r *Key, c *Client) error {
 	}
 
 	return nil
-}
-
-func (c *Client) getKeyRaw(ctx context.Context, r *Key) ([]byte, error) {
-
-	u, err := keyGetURL(c.Config.BasePath, r.urlNormalized())
-	if err != nil {
-		return nil, err
-	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Response.Body.Close()
-	b, err := ioutil.ReadAll(resp.Response.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	return b, nil
 }
 
 func (c *Client) keyDiffsForRawDesired(ctx context.Context, rawDesired *Key, opts ...dcl.ApplyOption) (initial, desired *Key, diffs []*dcl.FieldDiff, err error) {

@@ -200,7 +200,10 @@ func (c *Client) listNetwork(ctx context.Context, project, pageToken string, pag
 
 	var l []*Network
 	for _, v := range m.Items {
-		res := flattenNetwork(c, v)
+		res, err := unmarshalMapNetwork(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

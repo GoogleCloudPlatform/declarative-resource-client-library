@@ -23,6 +23,9 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
+// number of times service must be present in enabled services list to be considered enabled
+const requiredFoundCount = 0
+
 // Do creates a create request and creates a service.
 func (op *createServiceOperation) do(ctx context.Context, r *Service, c *Client) error {
 	u, err := serviceCreateURL(c.Config.BasePath, *r.Project, *r.Name)
@@ -91,12 +94,17 @@ func (list *ServiceList) hasEnabled(name string, c *Client) bool {
 
 // waitForServiceEnabled waits for the service to appear in the list of enabled services.
 func (r *Service) waitForServiceEnabled(ctx context.Context, c *Client) error {
+	foundCount := 0
 	return dcl.Do(ctx, func(ctc context.Context) (*dcl.RetryDetails, error) {
 		list, err := c.ListService(ctx, *r.Project)
 		if err != nil {
 			return nil, err
 		}
 		if list.hasEnabled(*r.Name, c) {
+			if foundCount < requiredFoundCount {
+				foundCount++
+				return &dcl.RetryDetails{}, dcl.OperationNotDone{}
+			}
 			return nil, nil
 		}
 		for list.HasNext() {
@@ -105,6 +113,10 @@ func (r *Service) waitForServiceEnabled(ctx context.Context, c *Client) error {
 				return nil, err
 			}
 			if list.hasEnabled(*r.Name, c) {
+				if foundCount < requiredFoundCount {
+					foundCount++
+					return &dcl.RetryDetails{}, dcl.OperationNotDone{}
+				}
 				return nil, nil
 			}
 		}

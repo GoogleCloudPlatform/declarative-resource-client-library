@@ -104,7 +104,7 @@ func (s *FirewallRuleServer) DeleteAppengineFirewallRule(ctx context.Context, re
 
 }
 
-// ListFirewallRule handles the gRPC request by passing it to the underlying FirewallRuleList() method.
+// ListAppengineFirewallRule handles the gRPC request by passing it to the underlying FirewallRuleList() method.
 func (s *FirewallRuleServer) ListAppengineFirewallRule(ctx context.Context, request *appenginepb.ListAppengineFirewallRuleRequest) (*appenginepb.ListAppengineFirewallRuleResponse, error) {
 	cl, err := createConfigFirewallRule(ctx, request.ServiceAccountFile)
 	if err != nil {

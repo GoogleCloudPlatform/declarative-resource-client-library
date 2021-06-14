@@ -31,9 +31,6 @@ func (r *Attachment) validate() error {
 	if err := dcl.Required(r, "environment"); err != nil {
 		return err
 	}
-	if err := dcl.RequiredParameter(r.Organization, "Organization"); err != nil {
-		return err
-	}
 	if err := dcl.RequiredParameter(r.Envgroup, "Envgroup"); err != nil {
 		return err
 	}
@@ -42,38 +39,34 @@ func (r *Attachment) validate() error {
 
 func attachmentGetURL(userBasePath string, r *Attachment) (string, error) {
 	params := map[string]interface{}{
-		"organization": dcl.ValueOrEmptyString(r.Organization),
-		"envgroup":     dcl.ValueOrEmptyString(r.Envgroup),
-		"name":         dcl.ValueOrEmptyString(r.Name),
+		"envgroup": dcl.ValueOrEmptyString(r.Envgroup),
+		"name":     dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("organizations/{{organization}}/envgroups/{{envgroup}}/attachments/{{name}}", "https://apigee.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("{{envgroup}}/attachments/{{name}}", "https://apigee.googleapis.com/v1/", userBasePath, params), nil
 }
 
-func attachmentListURL(userBasePath, organization, envgroup string) (string, error) {
+func attachmentListURL(userBasePath, envgroup string) (string, error) {
 	params := map[string]interface{}{
-		"organization": organization,
-		"envgroup":     envgroup,
+		"envgroup": envgroup,
 	}
-	return dcl.URL("organizations/{{organization}}/envgroups/{{envgroup}}/attachments", "https://apigee.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("{{envgroup}}/attachments", "https://apigee.googleapis.com/v1/", userBasePath, params), nil
 
 }
 
-func attachmentCreateURL(userBasePath, organization, envgroup string) (string, error) {
+func attachmentCreateURL(userBasePath, envgroup string) (string, error) {
 	params := map[string]interface{}{
-		"organization": organization,
-		"envgroup":     envgroup,
+		"envgroup": envgroup,
 	}
-	return dcl.URL("organizations/{{organization}}/envgroups/{{envgroup}}/attachments", "https://apigee.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("{{envgroup}}/attachments", "https://apigee.googleapis.com/v1/", userBasePath, params), nil
 
 }
 
 func attachmentDeleteURL(userBasePath string, r *Attachment) (string, error) {
 	params := map[string]interface{}{
-		"organization": dcl.ValueOrEmptyString(r.Organization),
-		"envgroup":     dcl.ValueOrEmptyString(r.Envgroup),
-		"name":         dcl.ValueOrEmptyString(r.Name),
+		"envgroup": dcl.ValueOrEmptyString(r.Envgroup),
+		"name":     dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("organizations/{{organization}}/envgroups/{{envgroup}}/attachments/{{name}}", "https://apigee.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("{{envgroup}}/attachments/{{name}}", "https://apigee.googleapis.com/v1/", userBasePath, params), nil
 }
 
 // attachmentApiOperation represents a mutable operation in the underlying REST
@@ -82,8 +75,8 @@ type attachmentApiOperation interface {
 	do(context.Context, *Attachment, *Client) error
 }
 
-func (c *Client) listAttachmentRaw(ctx context.Context, organization, envgroup, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := attachmentListURL(c.Config.BasePath, organization, envgroup)
+func (c *Client) listAttachmentRaw(ctx context.Context, envgroup, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := attachmentListURL(c.Config.BasePath, envgroup)
 	if err != nil {
 		return nil, err
 	}
@@ -114,8 +107,8 @@ type listAttachmentOperation struct {
 	Token                       string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listAttachment(ctx context.Context, organization, envgroup, pageToken string, pageSize int32) ([]*Attachment, string, error) {
-	b, err := c.listAttachmentRaw(ctx, organization, envgroup, pageToken, pageSize)
+func (c *Client) listAttachment(ctx context.Context, envgroup, pageToken string, pageSize int32) ([]*Attachment, string, error) {
+	b, err := c.listAttachmentRaw(ctx, envgroup, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -127,8 +120,10 @@ func (c *Client) listAttachment(ctx context.Context, organization, envgroup, pag
 
 	var l []*Attachment
 	for _, v := range m.EnvironmentGroupAttachments {
-		res := flattenAttachment(c, v)
-		res.Organization = &organization
+		res, err := unmarshalMapAttachment(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Envgroup = &envgroup
 		l = append(l, res)
 	}
@@ -221,8 +216,8 @@ func (op *createAttachmentOperation) FirstResponse() (map[string]interface{}, bo
 func (op *createAttachmentOperation) do(ctx context.Context, r *Attachment, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
 
-	organization, envgroup := r.createFields()
-	u, err := attachmentCreateURL(c.Config.BasePath, organization, envgroup)
+	envgroup := r.createFields()
+	u, err := attachmentCreateURL(c.Config.BasePath, envgroup)
 
 	if err != nil {
 		return err
@@ -251,7 +246,7 @@ func (op *createAttachmentOperation) do(ctx context.Context, r *Attachment, c *C
 	// Include Name in URL substitution for initial GET request.
 	name, ok := op.response["name"].(string)
 	if !ok {
-		return fmt.Errorf("expected name to be a string")
+		return fmt.Errorf("expected name to be a string, was %T", name)
 	}
 	r.Name = &name
 
@@ -365,9 +360,6 @@ func canonicalizeAttachmentDesiredState(rawDesired, rawInitial *Attachment, opts
 	if dcl.NameToSelfLink(rawDesired.Environment, rawInitial.Environment) {
 		rawDesired.Environment = rawInitial.Environment
 	}
-	if dcl.NameToSelfLink(rawDesired.Organization, rawInitial.Organization) {
-		rawDesired.Organization = rawInitial.Organization
-	}
 	if dcl.NameToSelfLink(rawDesired.Envgroup, rawInitial.Envgroup) {
 		rawDesired.Envgroup = rawInitial.Envgroup
 	}
@@ -394,8 +386,6 @@ func canonicalizeAttachmentNewState(c *Client, rawNew, rawDesired *Attachment) (
 		rawNew.CreatedAt = rawDesired.CreatedAt
 	} else {
 	}
-
-	rawNew.Organization = rawDesired.Organization
 
 	rawNew.Envgroup = rawDesired.Envgroup
 
@@ -438,13 +428,6 @@ func diffAttachment(c *Client, desired, actual *Attachment, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Organization, actual.Organization, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Organization")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.Envgroup, actual.Envgroup, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Envgroup")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -462,24 +445,23 @@ func (r *Attachment) urlNormalized() *Attachment {
 	normalized := dcl.Copy(*r).(Attachment)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Environment = dcl.SelfLinkToName(r.Environment)
-	normalized.Organization = dcl.SelfLinkToName(r.Organization)
-	normalized.Envgroup = dcl.SelfLinkToName(r.Envgroup)
+	normalized.Envgroup = r.Envgroup
 	return &normalized
 }
 
-func (r *Attachment) getFields() (string, string, string) {
+func (r *Attachment) getFields() (string, string) {
 	n := r.urlNormalized()
-	return dcl.ValueOrEmptyString(n.Organization), dcl.ValueOrEmptyString(n.Envgroup), dcl.ValueOrEmptyString(n.Name)
+	return dcl.ValueOrEmptyString(n.Envgroup), dcl.ValueOrEmptyString(n.Name)
 }
 
-func (r *Attachment) createFields() (string, string) {
+func (r *Attachment) createFields() string {
 	n := r.urlNormalized()
-	return dcl.ValueOrEmptyString(n.Organization), dcl.ValueOrEmptyString(n.Envgroup)
+	return dcl.ValueOrEmptyString(n.Envgroup)
 }
 
-func (r *Attachment) deleteFields() (string, string, string) {
+func (r *Attachment) deleteFields() (string, string) {
 	n := r.urlNormalized()
-	return dcl.ValueOrEmptyString(n.Organization), dcl.ValueOrEmptyString(n.Envgroup), dcl.ValueOrEmptyString(n.Name)
+	return dcl.ValueOrEmptyString(n.Envgroup), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Attachment) updateURL(userBasePath, updateName string) (string, error) {
@@ -525,11 +507,6 @@ func expandAttachment(c *Client, f *Attachment) (map[string]interface{}, error) 
 		m["createdAt"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
-		return nil, fmt.Errorf("error expanding Organization into organization: %w", err)
-	} else if v != nil {
-		m["organization"] = v
-	}
-	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Envgroup into envgroup: %w", err)
 	} else if v != nil {
 		m["envgroup"] = v
@@ -553,7 +530,6 @@ func flattenAttachment(c *Client, i interface{}) *Attachment {
 	res.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
 	res.Environment = dcl.FlattenString(m["environment"])
 	res.CreatedAt = dcl.FlattenInteger(m["createdAt"])
-	res.Organization = dcl.FlattenString(m["organization"])
 	res.Envgroup = dcl.FlattenString(m["envgroup"])
 
 	return res
@@ -573,14 +549,6 @@ func (r *Attachment) matcher(c *Client) func([]byte) bool {
 		ncr := cr.urlNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
-		if nr.Organization == nil && ncr.Organization == nil {
-			c.Config.Logger.Info("Both Organization fields null - considering equal.")
-		} else if nr.Organization == nil || ncr.Organization == nil {
-			c.Config.Logger.Info("Only one Organization field is null - considering unequal.")
-			return false
-		} else if *nr.Organization != *ncr.Organization {
-			return false
-		}
 		if nr.Envgroup == nil && ncr.Envgroup == nil {
 			c.Config.Logger.Info("Both Envgroup fields null - considering equal.")
 		} else if nr.Envgroup == nil || ncr.Envgroup == nil {

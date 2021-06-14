@@ -185,7 +185,10 @@ func (c *Client) listLogBucket(ctx context.Context, location, parent, pageToken 
 
 	var l []*LogBucket
 	for _, v := range m.Buckets {
-		res := flattenLogBucket(c, v)
+		res, err := unmarshalMapLogBucket(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Location = &location
 		res.Parent = &parent
 		l = append(l, res)
@@ -314,6 +317,9 @@ func canonicalizeLogBucketDesiredState(rawDesired, rawInitial *LogBucket, opts .
 
 		return rawDesired, nil
 	}
+	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
+		rawDesired.Name = rawInitial.Name
+	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
@@ -329,20 +335,17 @@ func canonicalizeLogBucketDesiredState(rawDesired, rawInitial *LogBucket, opts .
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
 		rawDesired.Location = rawInitial.Location
 	}
-	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
-		rawDesired.Name = rawInitial.Name
-	}
 
 	return rawDesired, nil
 }
 
 func canonicalizeLogBucketNewState(c *Client, rawNew, rawDesired *LogBucket) (*LogBucket, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
-		rawNew.SelfLink = rawDesired.SelfLink
+	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
+		rawNew.Name = rawDesired.Name
 	} else {
-		if dcl.PartialSelfLinkToSelfLink(rawDesired.SelfLink, rawNew.SelfLink) {
-			rawNew.SelfLink = rawDesired.SelfLink
+		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
 		}
 	}
 
@@ -386,8 +389,6 @@ func canonicalizeLogBucketNewState(c *Client, rawNew, rawDesired *LogBucket) (*L
 
 	rawNew.Location = rawDesired.Location
 
-	rawNew.Name = rawDesired.Name
-
 	return rawNew, nil
 }
 
@@ -406,7 +407,7 @@ func diffLogBucket(c *Client, desired, actual *LogBucket, opts ...dcl.ApplyOptio
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -469,13 +470,6 @@ func diffLogBucket(c *Client, desired, actual *LogBucket, opts ...dcl.ApplyOptio
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BucketId")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
 	return newDiffs, nil
 }
 
@@ -484,11 +478,10 @@ func diffLogBucket(c *Client, desired, actual *LogBucket, opts ...dcl.ApplyOptio
 // short-form so they can be substituted in.
 func (r *LogBucket) urlNormalized() *LogBucket {
 	normalized := dcl.Copy(*r).(LogBucket)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Parent = r.Parent
 	normalized.Location = dcl.SelfLinkToName(r.Location)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
 	return &normalized
 }
 
@@ -550,8 +543,8 @@ func unmarshalMapLogBucket(m map[string]interface{}, c *Client) (*LogBucket, err
 // expandLogBucket expands LogBucket into a JSON request object.
 func expandLogBucket(c *Client, f *LogBucket) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
-	if v, err := dcl.DeriveField("%s/locations/%s/buckets/%s", f.SelfLink, f.Parent, f.Location, f.Name); err != nil {
-		return nil, fmt.Errorf("error expanding SelfLink into name: %w", err)
+	if v, err := dcl.DeriveField("%s/locations/%s/buckets/%s", f.Name, f.Parent, f.Location, f.Name); err != nil {
+		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v
 	}
@@ -583,11 +576,6 @@ func expandLogBucket(c *Client, f *LogBucket) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["location"] = v
 	}
-	if v, err := dcl.EmptyValue(); err != nil {
-		return nil, fmt.Errorf("error expanding Name into bucket_id: %w", err)
-	} else if v != nil {
-		m["bucket_id"] = v
-	}
 
 	return m, nil
 }
@@ -604,7 +592,7 @@ func flattenLogBucket(c *Client, i interface{}) *LogBucket {
 	}
 
 	res := &LogBucket{}
-	res.SelfLink = dcl.FlattenString(m["name"])
+	res.Name = dcl.FlattenString(m["name"])
 	res.Description = dcl.FlattenString(m["description"])
 	res.CreateTime = dcl.FlattenString(m["createTime"])
 	res.UpdateTime = dcl.FlattenString(m["updateTime"])
@@ -613,7 +601,6 @@ func flattenLogBucket(c *Client, i interface{}) *LogBucket {
 	res.LifecycleState = flattenLogBucketLifecycleStateEnum(m["lifecycleState"])
 	res.Parent = dcl.FlattenString(m["parent"])
 	res.Location = dcl.FlattenString(m["location"])
-	res.Name = dcl.FlattenString(m["bucket_id"])
 
 	return res
 }

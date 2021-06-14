@@ -268,7 +268,10 @@ func (c *Client) listAuthorizationPolicy(ctx context.Context, project, location,
 
 	var l []*AuthorizationPolicy
 	for _, v := range m.AuthorizationPolicies {
-		res := flattenAuthorizationPolicy(c, v)
+		res, err := unmarshalMapAuthorizationPolicy(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

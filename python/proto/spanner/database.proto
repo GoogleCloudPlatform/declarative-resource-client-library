@@ -46,7 +46,7 @@ message DeleteSpannerDatabaseRequest {
 message ListSpannerDatabaseRequest {
   string service_account_file = 1;
   string Project = 2;
-  string Name = 3;
+  string Instance = 3;
 }
 
 message ListSpannerDatabaseResponse {

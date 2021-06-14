@@ -83,7 +83,6 @@ func SnakeToTitleCasePath(s, sep string) string {
 // foo_bar_2 -> FooBar_2.
 func ProtoCamelCase(s string) string {
 	var result string
-	var wasUnderscore bool
 	for i := 0; i < len(s); i++ {
 		c := s[i]
 		if i == 0 {
@@ -91,20 +90,23 @@ func ProtoCamelCase(s string) string {
 			continue
 		}
 		if c == '_' {
-			wasUnderscore = true
+			// Current character is underscore.
 			continue
 		}
-		if wasUnderscore {
+		p := s[i-1]
+		if p == '_' {
+			// Previous character was underscore.
 			if '0' <= c && c <= '9' {
-				// Digit following an underscore
-				result += "_" + string(c)
-			} else {
-				result += strings.ToUpper(string(c))
+				// Current character is digit following an underscore.
+				result += "_"
 			}
+			result += strings.ToUpper(string(c))
+		} else if '0' <= p && p <= '9' {
+			// Previous character was digit.
+			result += strings.ToUpper(string(c))
 		} else {
 			result += string(c)
 		}
-		wasUnderscore = false
 	}
 	return result
 }

@@ -68,7 +68,6 @@ components:
         e.g. 'compute.googleapis.com/loadBalancingScheme' for passing the load balancing
         scheme in a forwarding rule to IAM. See tech.iam.SYSContext.api_attrs for
         more context.
-      x-kubernetes-immutable: true
     Instance:
       title: Instance
       x-dcl-id: projects/{{project}}/locations/{{location}}/instances/{{name}}

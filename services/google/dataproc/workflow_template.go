@@ -33,6 +33,7 @@ type WorkflowTemplate struct {
 	Placement  *WorkflowTemplatePlacement   `json:"placement"`
 	Jobs       []WorkflowTemplateJobs       `json:"jobs"`
 	Parameters []WorkflowTemplateParameters `json:"parameters"`
+	DagTimeout *string                      `json:"dagTimeout"`
 	Project    *string                      `json:"project"`
 	Location   *string                      `json:"location"`
 }

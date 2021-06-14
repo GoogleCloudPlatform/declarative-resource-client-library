@@ -188,6 +188,11 @@ func newUpdateInstanceTemplateUpdateRequest(ctx context.Context, f *InstanceTemp
 // the final JSON request body.
 func marshalUpdateInstanceTemplateUpdateRequest(c *Client, m map[string]interface{}) ([]byte, error) {
 
+	dcl.MoveMapEntry(
+		m,
+		[]string{"properties", "tags"},
+		[]string{"properties", "tags", "items"},
+	)
 	return json.Marshal(m)
 }
 
@@ -287,7 +292,10 @@ func (c *Client) listInstanceTemplate(ctx context.Context, project, pageToken st
 
 	var l []*InstanceTemplate
 	for _, v := range m.Items {
-		res := flattenInstanceTemplate(c, v)
+		res, err := unmarshalMapInstanceTemplate(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

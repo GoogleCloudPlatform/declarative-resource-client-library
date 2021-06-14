@@ -210,7 +210,10 @@ func (c *Client) listAddress(ctx context.Context, project, location, pageToken s
 
 	var l []*Address
 	for _, v := range m.Items {
-		res := flattenAddress(c, v)
+		res, err := unmarshalMapAddress(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

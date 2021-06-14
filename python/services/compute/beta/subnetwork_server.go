@@ -249,7 +249,7 @@ func (s *SubnetworkServer) DeleteComputeBetaSubnetwork(ctx context.Context, requ
 
 }
 
-// ListSubnetwork handles the gRPC request by passing it to the underlying SubnetworkList() method.
+// ListComputeBetaSubnetwork handles the gRPC request by passing it to the underlying SubnetworkList() method.
 func (s *SubnetworkServer) ListComputeBetaSubnetwork(ctx context.Context, request *betapb.ListComputeBetaSubnetworkRequest) (*betapb.ListComputeBetaSubnetworkResponse, error) {
 	cl, err := createConfigSubnetwork(ctx, request.ServiceAccountFile)
 	if err != nil {

@@ -167,7 +167,10 @@ func (c *Client) listFirewallPolicy(ctx context.Context, parent, pageToken strin
 
 	var l []*FirewallPolicy
 	for _, v := range m.Items {
-		res := flattenFirewallPolicy(c, v)
+		res, err := unmarshalMapFirewallPolicy(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Parent = &parent
 		l = append(l, res)
 	}

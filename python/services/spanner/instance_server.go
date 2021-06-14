@@ -106,7 +106,7 @@ func (s *InstanceServer) DeleteSpannerInstance(ctx context.Context, request *spa
 
 }
 
-// ListInstance handles the gRPC request by passing it to the underlying InstanceList() method.
+// ListSpannerInstance handles the gRPC request by passing it to the underlying InstanceList() method.
 func (s *InstanceServer) ListSpannerInstance(ctx context.Context, request *spannerpb.ListSpannerInstanceRequest) (*spannerpb.ListSpannerInstanceResponse, error) {
 	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
 	if err != nil {

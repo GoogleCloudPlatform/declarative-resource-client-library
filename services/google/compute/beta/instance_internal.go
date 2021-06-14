@@ -183,6 +183,11 @@ func newUpdateInstanceSetDeletionProtectionRequest(ctx context.Context, f *Insta
 // the final JSON request body.
 func marshalUpdateInstanceSetDeletionProtectionRequest(c *Client, m map[string]interface{}) ([]byte, error) {
 
+	dcl.MoveMapEntry(
+		m,
+		[]string{"tags"},
+		[]string{"tags", "items"},
+	)
 	return json.Marshal(m)
 }
 
@@ -270,6 +275,11 @@ func newUpdateInstanceSetLabelsRequest(ctx context.Context, f *Instance, c *Clie
 // the final JSON request body.
 func marshalUpdateInstanceSetLabelsRequest(c *Client, m map[string]interface{}) ([]byte, error) {
 
+	dcl.MoveMapEntry(
+		m,
+		[]string{"tags"},
+		[]string{"tags", "items"},
+	)
 	return json.Marshal(m)
 }
 
@@ -340,6 +350,11 @@ func newUpdateInstanceSetMachineTypeRequest(ctx context.Context, f *Instance, c 
 // the final JSON request body.
 func marshalUpdateInstanceSetMachineTypeRequest(c *Client, m map[string]interface{}) ([]byte, error) {
 
+	dcl.MoveMapEntry(
+		m,
+		[]string{"tags"},
+		[]string{"tags", "items"},
+	)
 	return json.Marshal(m)
 }
 
@@ -429,6 +444,11 @@ func newUpdateInstanceSetMetadataRequest(ctx context.Context, f *Instance, c *Cl
 // the final JSON request body.
 func marshalUpdateInstanceSetMetadataRequest(c *Client, m map[string]interface{}) ([]byte, error) {
 
+	dcl.MoveMapEntry(
+		m,
+		[]string{"tags"},
+		[]string{"tags", "items"},
+	)
 	return json.Marshal(m)
 }
 
@@ -516,6 +536,11 @@ func newUpdateInstanceSetTagsRequest(ctx context.Context, f *Instance, c *Client
 // the final JSON request body.
 func marshalUpdateInstanceSetTagsRequest(c *Client, m map[string]interface{}) ([]byte, error) {
 
+	dcl.MoveMapEntry(
+		m,
+		[]string{"tags"},
+		[]string{"tags", "items"},
+	)
 	return json.Marshal(m)
 }
 
@@ -583,6 +608,11 @@ func newUpdateInstanceStartRequest(ctx context.Context, f *Instance, c *Client) 
 // the final JSON request body.
 func marshalUpdateInstanceStartRequest(c *Client, m map[string]interface{}) ([]byte, error) {
 
+	dcl.MoveMapEntry(
+		m,
+		[]string{"tags"},
+		[]string{"tags", "items"},
+	)
 	return json.Marshal(m)
 }
 
@@ -650,6 +680,11 @@ func newUpdateInstanceStopRequest(ctx context.Context, f *Instance, c *Client) (
 // the final JSON request body.
 func marshalUpdateInstanceStopRequest(c *Client, m map[string]interface{}) ([]byte, error) {
 
+	dcl.MoveMapEntry(
+		m,
+		[]string{"tags"},
+		[]string{"tags", "items"},
+	)
 	return json.Marshal(m)
 }
 
@@ -717,6 +752,11 @@ func newUpdateInstanceUpdateRequest(ctx context.Context, f *Instance, c *Client)
 // the final JSON request body.
 func marshalUpdateInstanceUpdateRequest(c *Client, m map[string]interface{}) ([]byte, error) {
 
+	dcl.MoveMapEntry(
+		m,
+		[]string{"tags"},
+		[]string{"tags", "items"},
+	)
 	return json.Marshal(m)
 }
 
@@ -789,6 +829,11 @@ func newUpdateInstanceUpdateShieldedInstanceConfigRequest(ctx context.Context, f
 // the final JSON request body.
 func marshalUpdateInstanceUpdateShieldedInstanceConfigRequest(c *Client, m map[string]interface{}) ([]byte, error) {
 
+	dcl.MoveMapEntry(
+		m,
+		[]string{"tags"},
+		[]string{"tags", "items"},
+	)
 	return json.Marshal(m)
 }
 
@@ -888,7 +933,10 @@ func (c *Client) listInstance(ctx context.Context, project, zone, pageToken stri
 
 	var l []*Instance
 	for _, v := range m.Items {
-		res := flattenInstance(c, v)
+		res, err := unmarshalMapInstance(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Zone = &zone
 		l = append(l, res)

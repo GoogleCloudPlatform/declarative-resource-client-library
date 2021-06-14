@@ -211,7 +211,10 @@ func (c *Client) listHttpsHealthCheck(ctx context.Context, project, pageToken st
 
 	var l []*HttpsHealthCheck
 	for _, v := range m.Items {
-		res := flattenHttpsHealthCheck(c, v)
+		res, err := unmarshalMapHttpsHealthCheck(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

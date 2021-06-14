@@ -136,7 +136,10 @@ func (c *Client) listConnector(ctx context.Context, project, location, pageToken
 
 	var l []*Connector
 	for _, v := range m.Connectors {
-		res := flattenConnector(c, v)
+		res, err := unmarshalMapConnector(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

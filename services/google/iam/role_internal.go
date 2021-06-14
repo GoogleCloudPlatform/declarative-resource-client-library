@@ -194,7 +194,10 @@ func (c *Client) listRole(ctx context.Context, parent, pageToken string, pageSiz
 
 	var l []*Role
 	for _, v := range m.Roles {
-		res := flattenRole(c, v)
+		res, err := unmarshalMapRole(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Parent = &parent
 		l = append(l, res)
 	}

@@ -265,7 +265,7 @@ func (s *EndpointConfigSelectorServer) DeleteNetworkservicesAlphaEndpointConfigS
 
 }
 
-// ListEndpointConfigSelector handles the gRPC request by passing it to the underlying EndpointConfigSelectorList() method.
+// ListNetworkservicesAlphaEndpointConfigSelector handles the gRPC request by passing it to the underlying EndpointConfigSelectorList() method.
 func (s *EndpointConfigSelectorServer) ListNetworkservicesAlphaEndpointConfigSelector(ctx context.Context, request *alphapb.ListNetworkservicesAlphaEndpointConfigSelectorRequest) (*alphapb.ListNetworkservicesAlphaEndpointConfigSelectorResponse, error) {
 	cl, err := createConfigEndpointConfigSelector(ctx, request.ServiceAccountFile)
 	if err != nil {

@@ -115,7 +115,10 @@ func (c *Client) listFirewallPolicyAssociation(ctx context.Context, firewallPoli
 
 	var l []*FirewallPolicyAssociation
 	for _, v := range m.Associations {
-		res := flattenFirewallPolicyAssociation(c, v)
+		res, err := unmarshalMapFirewallPolicyAssociation(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.FirewallPolicy = &firewallPolicy
 		l = append(l, res)
 	}

@@ -249,7 +249,10 @@ func (c *Client) listFirewall(ctx context.Context, project, pageToken string, pa
 
 	var l []*Firewall
 	for _, v := range m.Items {
-		res := flattenFirewall(c, v)
+		res, err := unmarshalMapFirewall(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

@@ -426,7 +426,7 @@ func (s *JobServer) DeleteCloudschedulerJob(ctx context.Context, request *clouds
 
 }
 
-// ListJob handles the gRPC request by passing it to the underlying JobList() method.
+// ListCloudschedulerJob handles the gRPC request by passing it to the underlying JobList() method.
 func (s *JobServer) ListCloudschedulerJob(ctx context.Context, request *cloudschedulerpb.ListCloudschedulerJobRequest) (*cloudschedulerpb.ListCloudschedulerJobResponse, error) {
 	cl, err := createConfigJob(ctx, request.ServiceAccountFile)
 	if err != nil {

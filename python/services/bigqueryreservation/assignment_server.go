@@ -131,7 +131,7 @@ func (s *AssignmentServer) DeleteBigqueryreservationAssignment(ctx context.Conte
 
 }
 
-// ListAssignment handles the gRPC request by passing it to the underlying AssignmentList() method.
+// ListBigqueryreservationAssignment handles the gRPC request by passing it to the underlying AssignmentList() method.
 func (s *AssignmentServer) ListBigqueryreservationAssignment(ctx context.Context, request *bigqueryreservationpb.ListBigqueryreservationAssignmentRequest) (*bigqueryreservationpb.ListBigqueryreservationAssignmentResponse, error) {
 	cl, err := createConfigAssignment(ctx, request.ServiceAccountFile)
 	if err != nil {

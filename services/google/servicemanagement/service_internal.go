@@ -37,9 +37,11 @@ func serviceGetURL(userBasePath string, r *Service) (string, error) {
 	return dcl.URL("services/{{name}}", "https://servicemanagement.googleapis.com/v1/", userBasePath, params), nil
 }
 
-func serviceListURL(userBasePath string) (string, error) {
-	params := map[string]interface{}{}
-	return dcl.URL("services", "https://servicemanagement.googleapis.com/v1/", userBasePath, params), nil
+func serviceListURL(userBasePath, project string) (string, error) {
+	params := map[string]interface{}{
+		"project": project,
+	}
+	return dcl.URL("services?producerProjectId={{project}}", "https://servicemanagement.googleapis.com/v1/", userBasePath, params), nil
 
 }
 
@@ -60,8 +62,8 @@ type serviceApiOperation interface {
 	do(context.Context, *Service, *Client) error
 }
 
-func (c *Client) listServiceRaw(ctx context.Context, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := serviceListURL(c.Config.BasePath)
+func (c *Client) listServiceRaw(ctx context.Context, project, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := serviceListURL(c.Config.BasePath, project)
 	if err != nil {
 		return nil, err
 	}
@@ -88,12 +90,12 @@ func (c *Client) listServiceRaw(ctx context.Context, pageToken string, pageSize 
 }
 
 type listServiceOperation struct {
-	Items []map[string]interface{} `json:"items"`
-	Token string                   `json:"nextPageToken"`
+	Services []map[string]interface{} `json:"services"`
+	Token    string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listService(ctx context.Context, pageToken string, pageSize int32) ([]*Service, string, error) {
-	b, err := c.listServiceRaw(ctx, pageToken, pageSize)
+func (c *Client) listService(ctx context.Context, project, pageToken string, pageSize int32) ([]*Service, string, error) {
+	b, err := c.listServiceRaw(ctx, project, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -104,8 +106,12 @@ func (c *Client) listService(ctx context.Context, pageToken string, pageSize int
 	}
 
 	var l []*Service
-	for _, v := range m.Items {
-		res := flattenService(c, v)
+	for _, v := range m.Services {
+		res, err := unmarshalMapService(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
+		res.Project = &project
 		l = append(l, res)
 	}
 

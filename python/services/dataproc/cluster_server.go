@@ -859,7 +859,7 @@ func (s *ClusterServer) DeleteDataprocCluster(ctx context.Context, request *data
 
 }
 
-// ListCluster handles the gRPC request by passing it to the underlying ClusterList() method.
+// ListDataprocCluster handles the gRPC request by passing it to the underlying ClusterList() method.
 func (s *ClusterServer) ListDataprocCluster(ctx context.Context, request *dataprocpb.ListDataprocClusterRequest) (*dataprocpb.ListDataprocClusterResponse, error) {
 	cl, err := createConfigCluster(ctx, request.ServiceAccountFile)
 	if err != nil {

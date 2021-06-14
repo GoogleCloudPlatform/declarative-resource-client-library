@@ -40,7 +40,7 @@ func folderGetURL(userBasePath string, r *Folder) (string, error) {
 	params := map[string]interface{}{
 		"name": dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("{{name}}", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, params), nil
+	return dcl.URL("folders/{{name}}", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, params), nil
 }
 
 func folderListURL(userBasePath, parent string) (string, error) {
@@ -56,14 +56,14 @@ func (r *Folder) updateURL(userBasePath, updateName string) (string, error) {
 		fields := map[string]interface{}{
 			"name": dcl.ValueOrEmptyString(n.Name),
 		}
-		return dcl.URL("{{name}}:move", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, fields), nil
+		return dcl.URL("folders/{{name}}:move", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, fields), nil
 
 	}
 	if updateName == "UpdateFolder" {
 		fields := map[string]interface{}{
 			"name": dcl.ValueOrEmptyString(n.Name),
 		}
-		return dcl.URL("{{name}}?updateMask=displayName", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, fields), nil
+		return dcl.URL("folders/{{name}}?updateMask=displayName", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, fields), nil
 
 	}
 	return "", fmt.Errorf("unknown update name: %s", updateName)
@@ -73,7 +73,7 @@ func folderDeleteURL(userBasePath string, r *Folder) (string, error) {
 	params := map[string]interface{}{
 		"name": dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("{{name}}", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, params), nil
+	return dcl.URL("folders/{{name}}", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, params), nil
 }
 
 func (op *updateFolderMoveFolderOperation) do(ctx context.Context, r *Folder, c *Client) error {

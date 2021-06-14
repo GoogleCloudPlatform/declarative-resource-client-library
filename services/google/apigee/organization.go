@@ -272,49 +272,6 @@ type OrganizationList struct {
 	pageSize int32
 }
 
-func (l *OrganizationList) HasNext() bool {
-	return l.nextToken != ""
-}
-
-func (l *OrganizationList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
-
-	if !l.HasNext() {
-		return fmt.Errorf("no next page")
-	}
-	items, token, err := c.listOrganization(ctx, l.nextToken, l.pageSize)
-	if err != nil {
-		return err
-	}
-	l.Items = items
-	l.nextToken = token
-	return err
-}
-
-func (c *Client) ListOrganization(ctx context.Context) (*OrganizationList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
-
-	return c.ListOrganizationWithMaxResults(ctx, OrganizationMaxPage)
-
-}
-
-func (c *Client) ListOrganizationWithMaxResults(ctx context.Context, pageSize int32) (*OrganizationList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
-
-	items, token, err := c.listOrganization(ctx, "", pageSize)
-	if err != nil {
-		return nil, err
-	}
-	return &OrganizationList{
-		Items:     items,
-		nextToken: token,
-		pageSize:  pageSize,
-	}, nil
-}
-
 func (c *Client) GetOrganization(ctx context.Context, r *Organization) (*Organization, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

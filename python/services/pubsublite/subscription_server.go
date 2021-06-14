@@ -126,7 +126,7 @@ func (s *SubscriptionServer) DeletePubsubliteSubscription(ctx context.Context, r
 
 }
 
-// ListSubscription handles the gRPC request by passing it to the underlying SubscriptionList() method.
+// ListPubsubliteSubscription handles the gRPC request by passing it to the underlying SubscriptionList() method.
 func (s *SubscriptionServer) ListPubsubliteSubscription(ctx context.Context, request *pubsublitepb.ListPubsubliteSubscriptionRequest) (*pubsublitepb.ListPubsubliteSubscriptionResponse, error) {
 	cl, err := createConfigSubscription(ctx, request.ServiceAccountFile)
 	if err != nil {

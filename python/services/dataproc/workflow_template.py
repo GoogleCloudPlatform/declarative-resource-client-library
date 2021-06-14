@@ -31,6 +31,7 @@ class WorkflowTemplate(object):
         placement: dict = None,
         jobs: list = None,
         parameters: list = None,
+        dag_timeout: str = None,
         project: str = None,
         location: str = None,
         service_account_file: str = "",
@@ -43,6 +44,7 @@ class WorkflowTemplate(object):
         self.placement = placement
         self.jobs = jobs
         self.parameters = parameters
+        self.dag_timeout = dag_timeout
         self.project = project
         self.location = location
         self.service_account_file = service_account_file
@@ -73,6 +75,9 @@ class WorkflowTemplate(object):
             request.resource.parameters.extend(
                 WorkflowTemplateParametersArray.to_proto(self.parameters)
             )
+        if Primitive.to_proto(self.dag_timeout):
+            request.resource.dag_timeout = Primitive.to_proto(self.dag_timeout)
+
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -92,6 +97,7 @@ class WorkflowTemplate(object):
         self.parameters = WorkflowTemplateParametersArray.from_proto(
             response.parameters
         )
+        self.dag_timeout = Primitive.from_proto(response.dag_timeout)
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
 
@@ -122,6 +128,9 @@ class WorkflowTemplate(object):
             request.resource.parameters.extend(
                 WorkflowTemplateParametersArray.to_proto(self.parameters)
             )
+        if Primitive.to_proto(self.dag_timeout):
+            request.resource.dag_timeout = Primitive.to_proto(self.dag_timeout)
+
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -163,6 +172,8 @@ class WorkflowTemplate(object):
             resource.parameters.extend(
                 WorkflowTemplateParametersArray.to_proto(self.parameters)
             )
+        if Primitive.to_proto(self.dag_timeout):
+            resource.dag_timeout = Primitive.to_proto(self.dag_timeout)
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):

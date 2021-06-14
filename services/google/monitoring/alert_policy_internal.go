@@ -661,7 +661,10 @@ func (c *Client) listAlertPolicy(ctx context.Context, project, pageToken string,
 
 	var l []*AlertPolicy
 	for _, v := range m.AlertPolicies {
-		res := flattenAlertPolicy(c, v)
+		res, err := unmarshalMapAlertPolicy(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}
@@ -770,7 +773,7 @@ func (op *createAlertPolicyOperation) do(ctx context.Context, r *AlertPolicy, c 
 	// Include Name in URL substitution for initial GET request.
 	name, ok := op.response["name"].(string)
 	if !ok {
-		return fmt.Errorf("expected name to be a string")
+		return fmt.Errorf("expected name to be a string, was %T", name)
 	}
 	r.Name = &name
 

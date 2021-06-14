@@ -482,7 +482,10 @@ func (c *Client) listBackendService(ctx context.Context, project, location, page
 
 	var l []*BackendService
 	for _, v := range m.Items {
-		res := flattenBackendService(c, v)
+		res, err := unmarshalMapBackendService(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

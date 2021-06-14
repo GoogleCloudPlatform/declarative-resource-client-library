@@ -352,7 +352,7 @@ func (s *InterconnectServer) DeleteComputeInterconnect(ctx context.Context, requ
 
 }
 
-// ListInterconnect handles the gRPC request by passing it to the underlying InterconnectList() method.
+// ListComputeInterconnect handles the gRPC request by passing it to the underlying InterconnectList() method.
 func (s *InterconnectServer) ListComputeInterconnect(ctx context.Context, request *computepb.ListComputeInterconnectRequest) (*computepb.ListComputeInterconnectResponse, error) {
 	cl, err := createConfigInterconnect(ctx, request.ServiceAccountFile)
 	if err != nil {

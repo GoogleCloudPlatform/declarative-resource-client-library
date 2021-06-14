@@ -165,59 +165,6 @@ func (op *updateEnvironmentUpdateEnvironmentOperation) do(ctx context.Context, r
 	return nil
 }
 
-func (c *Client) listEnvironmentRaw(ctx context.Context, organization, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := environmentListURL(c.Config.BasePath, organization)
-	if err != nil {
-		return nil, err
-	}
-
-	m := make(map[string]string)
-	if pageToken != "" {
-		m["pageToken"] = pageToken
-	}
-
-	if pageSize != EnvironmentMaxPage {
-		m["pageSize"] = fmt.Sprintf("%v", pageSize)
-	}
-
-	u, err = dcl.AddQueryParams(u, m)
-	if err != nil {
-		return nil, err
-	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Response.Body.Close()
-	return ioutil.ReadAll(resp.Response.Body)
-}
-
-type listEnvironmentOperation struct {
-	Environments []map[string]interface{} `json:"environments"`
-	Token        string                   `json:"nextPageToken"`
-}
-
-func (c *Client) listEnvironment(ctx context.Context, organization, pageToken string, pageSize int32) ([]*Environment, string, error) {
-	b, err := c.listEnvironmentRaw(ctx, organization, pageToken, pageSize)
-	if err != nil {
-		return nil, "", err
-	}
-
-	var m listEnvironmentOperation
-	if err := json.Unmarshal(b, &m); err != nil {
-		return nil, "", err
-	}
-
-	var l []*Environment
-	for _, v := range m.Environments {
-		res := flattenEnvironment(c, v)
-		res.Organization = &organization
-		l = append(l, res)
-	}
-
-	return l, m.Token, nil
-}
-
 func (c *Client) deleteAllEnvironment(ctx context.Context, f func(*Environment) bool, resources []*Environment) error {
 	var errors []string
 	for _, res := range resources {

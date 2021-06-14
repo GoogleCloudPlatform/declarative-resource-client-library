@@ -196,7 +196,10 @@ func (c *Client) listRepo(ctx context.Context, project, pageToken string, pageSi
 
 	var l []*Repo
 	for _, v := range m.Repos {
-		res := flattenRepo(c, v)
+		res, err := unmarshalMapRepo(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}
@@ -632,7 +635,7 @@ func compareRepoPubsubConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 // short-form so they can be substituted in.
 func (r *Repo) urlNormalized() *Repo {
 	normalized := dcl.Copy(*r).(Repo)
-	normalized.Name = dcl.SelfLinkToNameWithPattern(r.Name, "projects/%s/repos/%s")
+	normalized.Name = r.Name
 	normalized.Url = dcl.SelfLinkToName(r.Url)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized

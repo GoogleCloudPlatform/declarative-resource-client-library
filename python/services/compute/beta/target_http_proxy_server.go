@@ -83,7 +83,7 @@ func (s *TargetHttpProxyServer) DeleteComputeBetaTargetHttpProxy(ctx context.Con
 
 }
 
-// ListTargetHttpProxy handles the gRPC request by passing it to the underlying TargetHttpProxyList() method.
+// ListComputeBetaTargetHttpProxy handles the gRPC request by passing it to the underlying TargetHttpProxyList() method.
 func (s *TargetHttpProxyServer) ListComputeBetaTargetHttpProxy(ctx context.Context, request *betapb.ListComputeBetaTargetHttpProxyRequest) (*betapb.ListComputeBetaTargetHttpProxyResponse, error) {
 	cl, err := createConfigTargetHttpProxy(ctx, request.ServiceAccountFile)
 	if err != nil {

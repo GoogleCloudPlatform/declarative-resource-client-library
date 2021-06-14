@@ -209,7 +209,10 @@ func (c *Client) listRealm(ctx context.Context, project, location, pageToken str
 
 	var l []*Realm
 	for _, v := range m.Items {
-		res := flattenRealm(c, v)
+		res, err := unmarshalMapRealm(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

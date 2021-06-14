@@ -14,11 +14,9 @@
 package beta
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"strings"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -189,25 +187,6 @@ type createFeatureMembershipOperation struct {
 
 func (op *createFeatureMembershipOperation) FirstResponse() (map[string]interface{}, bool) {
 	return op.response, len(op.response) > 0
-}
-
-func (c *Client) getFeatureMembershipRaw(ctx context.Context, r *FeatureMembership) ([]byte, error) {
-
-	u, err := featureMembershipGetURL(c.Config.BasePath, r.urlNormalized())
-	if err != nil {
-		return nil, err
-	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Response.Body.Close()
-	b, err := ioutil.ReadAll(resp.Response.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	return b, nil
 }
 
 func (c *Client) featureMembershipDiffsForRawDesired(ctx context.Context, rawDesired *FeatureMembership, opts ...dcl.ApplyOption) (initial, desired *FeatureMembership, diffs []*dcl.FieldDiff, err error) {

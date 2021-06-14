@@ -164,7 +164,7 @@ func (s *RouteServer) DeleteComputeRoute(ctx context.Context, request *computepb
 
 }
 
-// ListRoute handles the gRPC request by passing it to the underlying RouteList() method.
+// ListComputeRoute handles the gRPC request by passing it to the underlying RouteList() method.
 func (s *RouteServer) ListComputeRoute(ctx context.Context, request *computepb.ListComputeRouteRequest) (*computepb.ListComputeRouteResponse, error) {
 	cl, err := createConfigRoute(ctx, request.ServiceAccountFile)
 	if err != nil {

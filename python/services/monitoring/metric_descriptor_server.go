@@ -270,7 +270,7 @@ func (s *MetricDescriptorServer) DeleteMonitoringMetricDescriptor(ctx context.Co
 
 }
 
-// ListMetricDescriptor handles the gRPC request by passing it to the underlying MetricDescriptorList() method.
+// ListMonitoringMetricDescriptor handles the gRPC request by passing it to the underlying MetricDescriptorList() method.
 func (s *MetricDescriptorServer) ListMonitoringMetricDescriptor(ctx context.Context, request *monitoringpb.ListMonitoringMetricDescriptorRequest) (*monitoringpb.ListMonitoringMetricDescriptorResponse, error) {
 	cl, err := createConfigMetricDescriptor(ctx, request.ServiceAccountFile)
 	if err != nil {

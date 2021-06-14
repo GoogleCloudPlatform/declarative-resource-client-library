@@ -143,7 +143,10 @@ func (c *Client) listForwardingRule(ctx context.Context, project, location, page
 
 	var l []*ForwardingRule
 	for _, v := range m.Items {
-		res := flattenForwardingRule(c, v)
+		res, err := unmarshalMapForwardingRule(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

@@ -82,7 +82,7 @@ type DatabaseList struct {
 
 	project string
 
-	name string
+	instance string
 }
 
 func (l *DatabaseList) HasNext() bool {
@@ -96,7 +96,7 @@ func (l *DatabaseList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listDatabase(ctx, l.project, l.name, l.nextToken, l.pageSize)
+	items, token, err := c.listDatabase(ctx, l.project, l.instance, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -105,19 +105,19 @@ func (l *DatabaseList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListDatabase(ctx context.Context, project, name string) (*DatabaseList, error) {
+func (c *Client) ListDatabase(ctx context.Context, project, instance string) (*DatabaseList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListDatabaseWithMaxResults(ctx, project, name, DatabaseMaxPage)
+	return c.ListDatabaseWithMaxResults(ctx, project, instance, DatabaseMaxPage)
 
 }
 
-func (c *Client) ListDatabaseWithMaxResults(ctx context.Context, project, name string, pageSize int32) (*DatabaseList, error) {
+func (c *Client) ListDatabaseWithMaxResults(ctx context.Context, project, instance string, pageSize int32) (*DatabaseList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listDatabase(ctx, project, name, "", pageSize)
+	items, token, err := c.listDatabase(ctx, project, instance, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -128,7 +128,7 @@ func (c *Client) ListDatabaseWithMaxResults(ctx context.Context, project, name s
 
 		project: project,
 
-		name: name,
+		instance: instance,
 	}, nil
 }
 
@@ -178,8 +178,8 @@ func (c *Client) DeleteDatabase(ctx context.Context, r *Database) error {
 }
 
 // DeleteAllDatabase deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllDatabase(ctx context.Context, project, name string, filter func(*Database) bool) error {
-	listObj, err := c.ListDatabase(ctx, project, name)
+func (c *Client) DeleteAllDatabase(ctx context.Context, project, instance string, filter func(*Database) bool) error {
+	listObj, err := c.ListDatabase(ctx, project, instance)
 	if err != nil {
 		return err
 	}

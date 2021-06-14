@@ -205,7 +205,10 @@ func (c *Client) listConnection(ctx context.Context, project, network, service, 
 
 	var l []*Connection
 	for _, v := range m.Connections {
-		res := flattenConnection(c, v)
+		res, err := unmarshalMapConnection(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Network = &network
 		res.Service = &service
@@ -277,11 +280,11 @@ func (op *createConnectionOperation) do(ctx context.Context, r *Connection, c *C
 	op.response, _ = o.FirstResponse()
 
 	// Include Name in URL substitution for initial GET request.
-	name, ok := op.response["peering"].(string)
+	peering, ok := op.response["peering"].(string)
 	if !ok {
-		return fmt.Errorf("expected peering to be a string")
+		return fmt.Errorf("expected peering to be a string, was %T", peering)
 	}
-	r.Name = &name
+	r.Name = &peering
 
 	if _, err := c.GetConnection(ctx, r.urlNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)

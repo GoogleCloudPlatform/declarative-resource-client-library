@@ -203,7 +203,10 @@ func (c *Client) listProject(ctx context.Context, pageToken string, pageSize int
 
 	var l []*Project
 	for _, v := range m.Items {
-		res := flattenProject(c, v)
+		res, err := unmarshalMapProject(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		l = append(l, res)
 	}
 

@@ -157,7 +157,7 @@ func (s *DefaultObjectAccessControlServer) DeleteStorageDefaultObjectAccessContr
 
 }
 
-// ListDefaultObjectAccessControl handles the gRPC request by passing it to the underlying DefaultObjectAccessControlList() method.
+// ListStorageDefaultObjectAccessControl handles the gRPC request by passing it to the underlying DefaultObjectAccessControlList() method.
 func (s *DefaultObjectAccessControlServer) ListStorageDefaultObjectAccessControl(ctx context.Context, request *storagepb.ListStorageDefaultObjectAccessControlRequest) (*storagepb.ListStorageDefaultObjectAccessControlResponse, error) {
 	cl, err := createConfigDefaultObjectAccessControl(ctx, request.ServiceAccountFile)
 	if err != nil {

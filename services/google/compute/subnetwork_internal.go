@@ -370,7 +370,10 @@ func (c *Client) listSubnetwork(ctx context.Context, project, region, pageToken 
 
 	var l []*Subnetwork
 	for _, v := range m.Items {
-		res := flattenSubnetwork(c, v)
+		res, err := unmarshalMapSubnetwork(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Region = &region
 		l = append(l, res)

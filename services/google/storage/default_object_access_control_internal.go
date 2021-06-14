@@ -200,7 +200,10 @@ func (c *Client) listDefaultObjectAccessControl(ctx context.Context, project, bu
 
 	var l []*DefaultObjectAccessControl
 	for _, v := range m.Items {
-		res := flattenDefaultObjectAccessControl(c, v)
+		res, err := unmarshalMapDefaultObjectAccessControl(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Bucket = &bucket
 		l = append(l, res)

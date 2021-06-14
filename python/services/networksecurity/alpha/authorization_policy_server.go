@@ -244,7 +244,7 @@ func (s *AuthorizationPolicyServer) DeleteNetworksecurityAlphaAuthorizationPolic
 
 }
 
-// ListAuthorizationPolicy handles the gRPC request by passing it to the underlying AuthorizationPolicyList() method.
+// ListNetworksecurityAlphaAuthorizationPolicy handles the gRPC request by passing it to the underlying AuthorizationPolicyList() method.
 func (s *AuthorizationPolicyServer) ListNetworksecurityAlphaAuthorizationPolicy(ctx context.Context, request *alphapb.ListNetworksecurityAlphaAuthorizationPolicyRequest) (*alphapb.ListNetworksecurityAlphaAuthorizationPolicyResponse, error) {
 	cl, err := createConfigAuthorizationPolicy(ctx, request.ServiceAccountFile)
 	if err != nil {

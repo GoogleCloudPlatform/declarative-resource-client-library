@@ -21,7 +21,7 @@ from typing import List
 class LogBucket(object):
     def __init__(
         self,
-        self_link: str = None,
+        name: str = None,
         description: str = None,
         create_time: str = None,
         update_time: str = None,
@@ -30,22 +30,24 @@ class LogBucket(object):
         lifecycle_state: str = None,
         parent: str = None,
         location: str = None,
-        name: str = None,
         service_account_file: str = "",
     ):
 
         channel.initialize()
+        self.name = name
         self.description = description
         self.retention_days = retention_days
         self.locked = locked
         self.parent = parent
         self.location = location
-        self.name = name
         self.service_account_file = service_account_file
 
     def apply(self):
         stub = log_bucket_pb2_grpc.LoggingLogBucketServiceStub(channel.Channel())
         request = log_bucket_pb2.ApplyLoggingLogBucketRequest()
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
@@ -61,13 +63,10 @@ class LogBucket(object):
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyLoggingLogBucket(request)
-        self.self_link = Primitive.from_proto(response.self_link)
+        self.name = Primitive.from_proto(response.name)
         self.description = Primitive.from_proto(response.description)
         self.create_time = Primitive.from_proto(response.create_time)
         self.update_time = Primitive.from_proto(response.update_time)
@@ -78,12 +77,14 @@ class LogBucket(object):
         )
         self.parent = Primitive.from_proto(response.parent)
         self.location = Primitive.from_proto(response.location)
-        self.name = Primitive.from_proto(response.name)
 
     def delete(self):
         stub = log_bucket_pb2_grpc.LoggingLogBucketServiceStub(channel.Channel())
         request = log_bucket_pb2.DeleteLoggingLogBucketRequest()
         request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
@@ -98,9 +99,6 @@ class LogBucket(object):
 
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
-
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
 
         response = stub.DeleteLoggingLogBucket(request)
 
@@ -117,6 +115,8 @@ class LogBucket(object):
 
     def to_proto(self):
         resource = log_bucket_pb2.LoggingLogBucket()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.description):
             resource.description = Primitive.to_proto(self.description)
         if Primitive.to_proto(self.retention_days):
@@ -127,8 +127,6 @@ class LogBucket(object):
             resource.parent = Primitive.to_proto(self.parent)
         if Primitive.to_proto(self.location):
             resource.location = Primitive.to_proto(self.location)
-        if Primitive.to_proto(self.name):
-            resource.name = Primitive.to_proto(self.name)
         return resource
 
 

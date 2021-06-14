@@ -342,7 +342,10 @@ func (c *Client) listDisk(ctx context.Context, project, location, pageToken stri
 
 	var l []*Disk
 	for _, v := range m.Items {
-		res := flattenDisk(c, v)
+		res, err := unmarshalMapDisk(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

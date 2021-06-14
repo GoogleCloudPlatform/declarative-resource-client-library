@@ -245,7 +245,10 @@ func (c *Client) listConnection(ctx context.Context, project, location, pageToke
 
 	var l []*Connection
 	for _, v := range m.Connections {
-		res := flattenConnection(c, v)
+		res, err := unmarshalMapConnection(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

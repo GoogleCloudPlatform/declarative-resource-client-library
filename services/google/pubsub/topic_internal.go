@@ -202,7 +202,10 @@ func (c *Client) listTopic(ctx context.Context, project, pageToken string, pageS
 
 	var l []*Topic
 	for _, v := range m.Topics {
-		res := flattenTopic(c, v)
+		res, err := unmarshalMapTopic(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

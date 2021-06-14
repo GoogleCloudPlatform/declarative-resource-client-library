@@ -110,7 +110,7 @@ func (s *FolderServer) DeleteCloudresourcemanagerFolder(ctx context.Context, req
 
 }
 
-// ListFolder handles the gRPC request by passing it to the underlying FolderList() method.
+// ListCloudresourcemanagerFolder handles the gRPC request by passing it to the underlying FolderList() method.
 func (s *FolderServer) ListCloudresourcemanagerFolder(ctx context.Context, request *cloudresourcemanagerpb.ListCloudresourcemanagerFolderRequest) (*cloudresourcemanagerpb.ListCloudresourcemanagerFolderResponse, error) {
 	cl, err := createConfigFolder(ctx, request.ServiceAccountFile)
 	if err != nil {

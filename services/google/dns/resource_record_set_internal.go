@@ -176,7 +176,10 @@ func (c *Client) listResourceRecordSet(ctx context.Context, project, managedZone
 
 	var l []*ResourceRecordSet
 	for _, v := range m.Rrsets {
-		res := flattenResourceRecordSet(c, v)
+		res, err := unmarshalMapResourceRecordSet(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.ManagedZone = &managedZone
 		l = append(l, res)
@@ -214,25 +217,6 @@ type createResourceRecordSetOperation struct {
 
 func (op *createResourceRecordSetOperation) FirstResponse() (map[string]interface{}, bool) {
 	return op.response, len(op.response) > 0
-}
-
-func (c *Client) getResourceRecordSetRaw(ctx context.Context, r *ResourceRecordSet) ([]byte, error) {
-
-	u, err := resourceRecordSetGetURL(c.Config.BasePath, r.urlNormalized())
-	if err != nil {
-		return nil, err
-	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Response.Body.Close()
-	b, err := ioutil.ReadAll(resp.Response.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	return b, nil
 }
 
 func (c *Client) resourceRecordSetDiffsForRawDesired(ctx context.Context, rawDesired *ResourceRecordSet, opts ...dcl.ApplyOption) (initial, desired *ResourceRecordSet, diffs []*dcl.FieldDiff, err error) {

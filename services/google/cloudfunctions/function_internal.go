@@ -265,7 +265,10 @@ func (c *Client) listFunction(ctx context.Context, project, region, pageToken st
 
 	var l []*Function
 	for _, v := range m.Functions {
-		res := flattenFunction(c, v)
+		res, err := unmarshalMapFunction(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Region = &region
 		l = append(l, res)

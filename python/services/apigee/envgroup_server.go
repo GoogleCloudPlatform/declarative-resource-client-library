@@ -110,7 +110,7 @@ func (s *EnvgroupServer) DeleteApigeeEnvgroup(ctx context.Context, request *apig
 
 }
 
-// ListEnvgroup handles the gRPC request by passing it to the underlying EnvgroupList() method.
+// ListApigeeEnvgroup handles the gRPC request by passing it to the underlying EnvgroupList() method.
 func (s *EnvgroupServer) ListApigeeEnvgroup(ctx context.Context, request *apigeepb.ListApigeeEnvgroupRequest) (*apigeepb.ListApigeeEnvgroupResponse, error) {
 	cl, err := createConfigEnvgroup(ctx, request.ServiceAccountFile)
 	if err != nil {

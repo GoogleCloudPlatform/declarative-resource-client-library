@@ -1822,7 +1822,7 @@ func (s *UrlMapServer) DeleteComputeUrlMap(ctx context.Context, request *compute
 
 }
 
-// ListUrlMap handles the gRPC request by passing it to the underlying UrlMapList() method.
+// ListComputeUrlMap handles the gRPC request by passing it to the underlying UrlMapList() method.
 func (s *UrlMapServer) ListComputeUrlMap(ctx context.Context, request *computepb.ListComputeUrlMapRequest) (*computepb.ListComputeUrlMapResponse, error) {
 	cl, err := createConfigUrlMap(ctx, request.ServiceAccountFile)
 	if err != nil {

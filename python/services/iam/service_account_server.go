@@ -135,7 +135,7 @@ func (s *ServiceAccountServer) DeleteIamServiceAccount(ctx context.Context, requ
 
 }
 
-// ListServiceAccount handles the gRPC request by passing it to the underlying ServiceAccountList() method.
+// ListIamServiceAccount handles the gRPC request by passing it to the underlying ServiceAccountList() method.
 func (s *ServiceAccountServer) ListIamServiceAccount(ctx context.Context, request *iampb.ListIamServiceAccountRequest) (*iampb.ListIamServiceAccountResponse, error) {
 	cl, err := createConfigServiceAccount(ctx, request.ServiceAccountFile)
 	if err != nil {

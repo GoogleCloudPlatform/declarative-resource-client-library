@@ -564,7 +564,7 @@ func (s *InstanceServer) DeleteComputeInstance(ctx context.Context, request *com
 
 }
 
-// ListInstance handles the gRPC request by passing it to the underlying InstanceList() method.
+// ListComputeInstance handles the gRPC request by passing it to the underlying InstanceList() method.
 func (s *InstanceServer) ListComputeInstance(ctx context.Context, request *computepb.ListComputeInstanceRequest) (*computepb.ListComputeInstanceResponse, error) {
 	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
 	if err != nil {

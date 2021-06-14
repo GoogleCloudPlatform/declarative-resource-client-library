@@ -124,7 +124,10 @@ func (c *Client) listSslCert(ctx context.Context, project, instance, pageToken s
 
 	var l []*SslCert
 	for _, v := range m.Items {
-		res := flattenSslCert(c, v)
+		res, err := unmarshalMapSslCert(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Instance = &instance
 		l = append(l, res)
@@ -246,11 +249,11 @@ func (op *createSslCertOperation) do(ctx context.Context, r *SslCert, c *Client)
 	op.response, _ = o.FirstResponse()
 
 	// Include Name in URL substitution for initial GET request.
-	name, ok := op.response["sha1Fingerprint"].(string)
+	sha1Fingerprint, ok := op.response["sha1Fingerprint"].(string)
 	if !ok {
-		return fmt.Errorf("expected sha1Fingerprint to be a string")
+		return fmt.Errorf("expected sha1Fingerprint to be a string, was %T", sha1Fingerprint)
 	}
-	r.Name = &name
+	r.Name = &sha1Fingerprint
 
 	if _, err := c.GetSslCert(ctx, r.urlNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)

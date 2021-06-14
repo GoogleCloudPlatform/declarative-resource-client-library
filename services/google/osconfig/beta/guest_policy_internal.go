@@ -439,7 +439,10 @@ func (c *Client) listGuestPolicy(ctx context.Context, project, pageToken string,
 
 	var l []*GuestPolicy
 	for _, v := range m.GuestPolicies {
-		res := flattenGuestPolicy(c, v)
+		res, err := unmarshalMapGuestPolicy(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

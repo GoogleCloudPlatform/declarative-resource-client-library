@@ -171,7 +171,7 @@ func (s *ManagedSslCertificateServer) DeleteComputeBetaManagedSslCertificate(ctx
 
 }
 
-// ListManagedSslCertificate handles the gRPC request by passing it to the underlying ManagedSslCertificateList() method.
+// ListComputeBetaManagedSslCertificate handles the gRPC request by passing it to the underlying ManagedSslCertificateList() method.
 func (s *ManagedSslCertificateServer) ListComputeBetaManagedSslCertificate(ctx context.Context, request *betapb.ListComputeBetaManagedSslCertificateRequest) (*betapb.ListComputeBetaManagedSslCertificateResponse, error) {
 	cl, err := createConfigManagedSslCertificate(ctx, request.ServiceAccountFile)
 	if err != nil {

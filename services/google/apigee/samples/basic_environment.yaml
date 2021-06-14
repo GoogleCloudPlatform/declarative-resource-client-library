@@ -13,6 +13,8 @@
 # limitations under the License.
 dependencies:
 - samples/basic.organization.json
+- samples/apigee.serviceusage.service.json
+- samples/basic.cloudresourcemanager.project.json
 description: A basic example of an apigee environment
 name: basic_environment
 resource: samples/basic.environment.json

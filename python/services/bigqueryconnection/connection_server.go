@@ -164,7 +164,7 @@ func (s *ConnectionServer) DeleteBigqueryconnectionConnection(ctx context.Contex
 
 }
 
-// ListConnection handles the gRPC request by passing it to the underlying ConnectionList() method.
+// ListBigqueryconnectionConnection handles the gRPC request by passing it to the underlying ConnectionList() method.
 func (s *ConnectionServer) ListBigqueryconnectionConnection(ctx context.Context, request *bigqueryconnectionpb.ListBigqueryconnectionConnectionRequest) (*bigqueryconnectionpb.ListBigqueryconnectionConnectionResponse, error) {
 	cl, err := createConfigConnection(ctx, request.ServiceAccountFile)
 	if err != nil {

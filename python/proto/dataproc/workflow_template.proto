@@ -28,8 +28,9 @@ message DataprocWorkflowTemplate {
   DataprocWorkflowTemplatePlacement placement = 6;
   repeated DataprocWorkflowTemplateJobs jobs = 7;
   repeated DataprocWorkflowTemplateParameters parameters = 8;
-  string project = 9;
-  string location = 10;
+  string dag_timeout = 9;
+  string project = 10;
+  string location = 11;
 }
 
 message DataprocWorkflowTemplatePlacement {

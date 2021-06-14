@@ -124,7 +124,10 @@ func (c *Client) listVpnTunnel(ctx context.Context, project, region, pageToken s
 
 	var l []*VpnTunnel
 	for _, v := range m.Items {
-		res := flattenVpnTunnel(c, v)
+		res, err := unmarshalMapVpnTunnel(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Region = &region
 		l = append(l, res)

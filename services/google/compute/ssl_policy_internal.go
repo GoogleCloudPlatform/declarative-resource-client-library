@@ -219,7 +219,10 @@ func (c *Client) listSslPolicy(ctx context.Context, project, pageToken string, p
 
 	var l []*SslPolicy
 	for _, v := range m.Items {
-		res := flattenSslPolicy(c, v)
+		res, err := unmarshalMapSslPolicy(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

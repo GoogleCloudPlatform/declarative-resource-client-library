@@ -249,7 +249,7 @@ func (s *ServerTlsPolicyServer) DeleteNetworksecurityBetaServerTlsPolicy(ctx con
 
 }
 
-// ListServerTlsPolicy handles the gRPC request by passing it to the underlying ServerTlsPolicyList() method.
+// ListNetworksecurityBetaServerTlsPolicy handles the gRPC request by passing it to the underlying ServerTlsPolicyList() method.
 func (s *ServerTlsPolicyServer) ListNetworksecurityBetaServerTlsPolicy(ctx context.Context, request *betapb.ListNetworksecurityBetaServerTlsPolicyRequest) (*betapb.ListNetworksecurityBetaServerTlsPolicyResponse, error) {
 	cl, err := createConfigServerTlsPolicy(ctx, request.ServiceAccountFile)
 	if err != nil {

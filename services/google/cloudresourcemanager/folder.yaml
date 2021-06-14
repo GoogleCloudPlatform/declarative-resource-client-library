@@ -52,7 +52,7 @@ components:
   schemas:
     Folder:
       title: Folder
-      x-dcl-id: '{{name}}'
+      x-dcl-id: folders/{{name}}
       type: object
       required:
       - parent
@@ -97,7 +97,6 @@ components:
           description: Output only. The resource name of the Folder.
           x-kubernetes-immutable: true
           x-dcl-server-generated-parameter: true
-          x-dcl-forward-slash-allowed: true
         parent:
           type: string
           x-dcl-go-name: Parent

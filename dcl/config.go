@@ -44,6 +44,7 @@ type Config struct {
 	clientOptions []option.ClientOption
 	userAgent     string
 	contentType   string
+	queryParams   map[string]string
 	Logger        Logger
 	BasePath      string
 }
@@ -61,6 +62,7 @@ func (c *Config) UserAgent() string {
 func NewConfig(o ...ConfigOption) *Config {
 	c := &Config{
 		contentType:   "application/json",
+		queryParams:   map[string]string{"alt": "json"},
 		Logger:        DefaultLogger(),
 		RetryProvider: &BackoffRetryProvider{},
 	}
@@ -80,6 +82,7 @@ func (c *Config) Clone(o ...ConfigOption) *Config {
 		clientOptions: c.clientOptions,
 		userAgent:     c.userAgent,
 		contentType:   c.contentType,
+		queryParams:   c.queryParams,
 		Logger:        c.Logger,
 		BasePath:      c.BasePath,
 	}
@@ -242,6 +245,13 @@ func WithUserAgent(ua string) ConfigOption {
 func WithContentType(ct string) ConfigOption {
 	return func(c *Config) {
 		c.contentType = ct
+	}
+}
+
+// WithQueryParams allows a user to override the default query parameters.
+func WithQueryParams(ps map[string]string) ConfigOption {
+	return func(c *Config) {
+		c.queryParams = ps
 	}
 }
 

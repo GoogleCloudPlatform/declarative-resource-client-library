@@ -85,7 +85,7 @@ func (s *NetworkEndpointServer) DeleteComputeNetworkEndpoint(ctx context.Context
 
 }
 
-// ListNetworkEndpoint handles the gRPC request by passing it to the underlying NetworkEndpointList() method.
+// ListComputeNetworkEndpoint handles the gRPC request by passing it to the underlying NetworkEndpointList() method.
 func (s *NetworkEndpointServer) ListComputeNetworkEndpoint(ctx context.Context, request *computepb.ListComputeNetworkEndpointRequest) (*computepb.ListComputeNetworkEndpointResponse, error) {
 	cl, err := createConfigNetworkEndpoint(ctx, request.ServiceAccountFile)
 	if err != nil {

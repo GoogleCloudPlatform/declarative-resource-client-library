@@ -624,7 +624,10 @@ func (c *Client) listUrlMap(ctx context.Context, project, pageToken string, page
 
 	var l []*UrlMap
 	for _, v := range m.Items {
-		res := flattenUrlMap(c, v)
+		res, err := unmarshalMapUrlMap(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

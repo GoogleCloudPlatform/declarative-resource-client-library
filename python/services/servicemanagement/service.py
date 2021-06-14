@@ -58,10 +58,11 @@ class Service(object):
         response = stub.DeleteServicemanagementService(request)
 
     @classmethod
-    def list(self, service_account_file=""):
+    def list(self, project, service_account_file=""):
         stub = service_pb2_grpc.ServicemanagementServiceServiceStub(channel.Channel())
         request = service_pb2.ListServicemanagementServiceRequest()
         request.service_account_file = service_account_file
+        request.Project = project
 
         return stub.ListServicemanagementService(request).items
 

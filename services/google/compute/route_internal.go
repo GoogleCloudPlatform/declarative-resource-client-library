@@ -129,7 +129,10 @@ func (c *Client) listRoute(ctx context.Context, project, pageToken string, pageS
 
 	var l []*Route
 	for _, v := range m.Items {
-		res := flattenRoute(c, v)
+		res, err := unmarshalMapRoute(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

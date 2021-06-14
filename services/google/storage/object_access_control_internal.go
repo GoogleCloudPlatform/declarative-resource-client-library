@@ -213,7 +213,10 @@ func (c *Client) listObjectAccessControl(ctx context.Context, project, bucket, o
 
 	var l []*ObjectAccessControl
 	for _, v := range m.Items {
-		res := flattenObjectAccessControl(c, v)
+		res, err := unmarshalMapObjectAccessControl(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Bucket = &bucket
 		res.Object = &object

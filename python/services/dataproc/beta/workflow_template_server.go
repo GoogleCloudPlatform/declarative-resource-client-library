@@ -979,7 +979,7 @@ func (s *WorkflowTemplateServer) DeleteDataprocBetaWorkflowTemplate(ctx context.
 
 }
 
-// ListWorkflowTemplate handles the gRPC request by passing it to the underlying WorkflowTemplateList() method.
+// ListDataprocBetaWorkflowTemplate handles the gRPC request by passing it to the underlying WorkflowTemplateList() method.
 func (s *WorkflowTemplateServer) ListDataprocBetaWorkflowTemplate(ctx context.Context, request *betapb.ListDataprocBetaWorkflowTemplateRequest) (*betapb.ListDataprocBetaWorkflowTemplateResponse, error) {
 	cl, err := createConfigWorkflowTemplate(ctx, request.ServiceAccountFile)
 	if err != nil {

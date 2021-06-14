@@ -190,7 +190,10 @@ func (c *Client) listLogExclusion(ctx context.Context, parent, pageToken string,
 
 	var l []*LogExclusion
 	for _, v := range m.Exclusions {
-		res := flattenLogExclusion(c, v)
+		res, err := unmarshalMapLogExclusion(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Parent = &parent
 		l = append(l, res)
 	}

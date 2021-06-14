@@ -240,7 +240,10 @@ func (c *Client) listNode(ctx context.Context, project, location, pageToken stri
 
 	var l []*Node
 	for _, v := range m.Nodes {
-		res := flattenNode(c, v)
+		res, err := unmarshalMapNode(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

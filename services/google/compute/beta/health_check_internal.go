@@ -290,7 +290,10 @@ func (c *Client) listHealthCheck(ctx context.Context, project, location, pageTok
 
 	var l []*HealthCheck
 	for _, v := range m.Items {
-		res := flattenHealthCheck(c, v)
+		res, err := unmarshalMapHealthCheck(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

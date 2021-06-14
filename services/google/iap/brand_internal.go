@@ -103,7 +103,10 @@ func (c *Client) listBrand(ctx context.Context, project, pageToken string, pageS
 
 	var l []*Brand
 	for _, v := range m.Brands {
-		res := flattenBrand(c, v)
+		res, err := unmarshalMapBrand(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}
@@ -150,7 +153,7 @@ func (op *createBrandOperation) do(ctx context.Context, r *Brand, c *Client) err
 	// Include Name in URL substitution for initial GET request.
 	name, ok := op.response["name"].(string)
 	if !ok {
-		return fmt.Errorf("expected name to be a string")
+		return fmt.Errorf("expected name to be a string, was %T", name)
 	}
 	r.Name = &name
 

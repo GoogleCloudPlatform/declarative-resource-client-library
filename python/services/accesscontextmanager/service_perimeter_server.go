@@ -250,7 +250,7 @@ func (s *ServicePerimeterServer) DeleteAccesscontextmanagerServicePerimeter(ctx 
 
 }
 
-// ListServicePerimeter handles the gRPC request by passing it to the underlying ServicePerimeterList() method.
+// ListAccesscontextmanagerServicePerimeter handles the gRPC request by passing it to the underlying ServicePerimeterList() method.
 func (s *ServicePerimeterServer) ListAccesscontextmanagerServicePerimeter(ctx context.Context, request *accesscontextmanagerpb.ListAccesscontextmanagerServicePerimeterRequest) (*accesscontextmanagerpb.ListAccesscontextmanagerServicePerimeterResponse, error) {
 	cl, err := createConfigServicePerimeter(ctx, request.ServiceAccountFile)
 	if err != nil {

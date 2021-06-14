@@ -153,7 +153,10 @@ func (c *Client) listNetworkEndpoint(ctx context.Context, project, location, gro
 
 	var l []*NetworkEndpoint
 	for _, v := range m.Items {
-		res := flattenNetworkEndpoint(c, v)
+		res, err := unmarshalMapNetworkEndpoint(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		res.Group = &group
@@ -230,25 +233,6 @@ func (op *createNetworkEndpointOperation) do(ctx context.Context, r *NetworkEndp
 	}
 
 	return nil
-}
-
-func (c *Client) getNetworkEndpointRaw(ctx context.Context, r *NetworkEndpoint) ([]byte, error) {
-
-	u, err := networkEndpointGetURL(c.Config.BasePath, r.urlNormalized())
-	if err != nil {
-		return nil, err
-	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, &bytes.Buffer{}, c.Config.RetryProvider)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Response.Body.Close()
-	b, err := ioutil.ReadAll(resp.Response.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	return b, nil
 }
 
 func (c *Client) networkEndpointDiffsForRawDesired(ctx context.Context, rawDesired *NetworkEndpoint, opts ...dcl.ApplyOption) (initial, desired *NetworkEndpoint, diffs []*dcl.FieldDiff, err error) {

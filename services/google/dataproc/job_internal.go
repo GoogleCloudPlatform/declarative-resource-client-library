@@ -412,7 +412,10 @@ func (c *Client) listJob(ctx context.Context, project, region, pageToken string,
 
 	var l []*Job
 	for _, v := range m.Jobs {
-		res := flattenJob(c, v)
+		res, err := unmarshalMapJob(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Region = &region
 		l = append(l, res)
@@ -525,11 +528,11 @@ func (op *createJobOperation) do(ctx context.Context, r *Job, c *Client) error {
 	op.response, _ = o.FirstResponse()
 
 	// Include Name in URL substitution for initial GET request.
-	name, ok := op.response["jobUuid"].(string)
+	jobUuid, ok := op.response["jobUuid"].(string)
 	if !ok {
-		return fmt.Errorf("expected jobUuid to be a string")
+		return fmt.Errorf("expected jobUuid to be a string, was %T", jobUuid)
 	}
-	r.Name = &name
+	r.Name = &jobUuid
 
 	if _, err := c.GetJob(ctx, r.urlNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)

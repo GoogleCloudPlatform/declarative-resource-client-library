@@ -153,7 +153,7 @@ func (s *TopicServer) DeletePubsubliteTopic(ctx context.Context, request *pubsub
 
 }
 
-// ListTopic handles the gRPC request by passing it to the underlying TopicList() method.
+// ListPubsubliteTopic handles the gRPC request by passing it to the underlying TopicList() method.
 func (s *TopicServer) ListPubsubliteTopic(ctx context.Context, request *pubsublitepb.ListPubsubliteTopicRequest) (*pubsublitepb.ListPubsubliteTopicResponse, error) {
 	cl, err := createConfigTopic(ctx, request.ServiceAccountFile)
 	if err != nil {

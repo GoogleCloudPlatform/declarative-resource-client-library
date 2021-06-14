@@ -52,6 +52,25 @@ func (c *Client) getKeyStringRaw(ctx context.Context, r *Key) ([]byte, error) {
 	return b, nil
 }
 
+func (c *Client) getKeyRaw(ctx context.Context, r *Key) ([]byte, error) {
+
+	u, err := keyGetURL(c.Config.BasePath, r)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Response.Body.Close()
+	b, err := ioutil.ReadAll(resp.Response.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return b, nil
+}
+
 func (c *Client) GetKey(ctx context.Context, r *Key) (*Key, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(60*time.Second))
 	defer cancel()

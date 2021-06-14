@@ -113,7 +113,7 @@ func (s *BackendBucketServer) DeleteComputeBetaBackendBucket(ctx context.Context
 
 }
 
-// ListBackendBucket handles the gRPC request by passing it to the underlying BackendBucketList() method.
+// ListComputeBetaBackendBucket handles the gRPC request by passing it to the underlying BackendBucketList() method.
 func (s *BackendBucketServer) ListComputeBetaBackendBucket(ctx context.Context, request *betapb.ListComputeBetaBackendBucketRequest) (*betapb.ListComputeBetaBackendBucketResponse, error) {
 	cl, err := createConfigBackendBucket(ctx, request.ServiceAccountFile)
 	if err != nil {

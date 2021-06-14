@@ -10452,7 +10452,7 @@ func (s *InstanceServer) DeleteTier2AlphaInstance(ctx context.Context, request *
 
 }
 
-// ListInstance handles the gRPC request by passing it to the underlying InstanceList() method.
+// ListTier2AlphaInstance handles the gRPC request by passing it to the underlying InstanceList() method.
 func (s *InstanceServer) ListTier2AlphaInstance(ctx context.Context, request *alphapb.ListTier2AlphaInstanceRequest) (*alphapb.ListTier2AlphaInstanceResponse, error) {
 	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
 	if err != nil {

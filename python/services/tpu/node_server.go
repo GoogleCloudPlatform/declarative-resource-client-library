@@ -310,7 +310,7 @@ func (s *NodeServer) DeleteTPUNode(ctx context.Context, request *tpupb.DeleteTPU
 
 }
 
-// ListNode handles the gRPC request by passing it to the underlying NodeList() method.
+// ListTPUNode handles the gRPC request by passing it to the underlying NodeList() method.
 func (s *NodeServer) ListTPUNode(ctx context.Context, request *tpupb.ListTPUNodeRequest) (*tpupb.ListTPUNodeResponse, error) {
 	cl, err := createConfigNode(ctx, request.ServiceAccountFile)
 	if err != nil {

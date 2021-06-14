@@ -203,7 +203,7 @@ func (s *SslPolicyServer) DeleteComputeSslPolicy(ctx context.Context, request *c
 
 }
 
-// ListSslPolicy handles the gRPC request by passing it to the underlying SslPolicyList() method.
+// ListComputeSslPolicy handles the gRPC request by passing it to the underlying SslPolicyList() method.
 func (s *SslPolicyServer) ListComputeSslPolicy(ctx context.Context, request *computepb.ListComputeSslPolicyRequest) (*computepb.ListComputeSslPolicyResponse, error) {
 	cl, err := createConfigSslPolicy(ctx, request.ServiceAccountFile)
 	if err != nil {

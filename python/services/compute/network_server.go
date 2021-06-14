@@ -132,7 +132,7 @@ func (s *NetworkServer) DeleteComputeNetwork(ctx context.Context, request *compu
 
 }
 
-// ListNetwork handles the gRPC request by passing it to the underlying NetworkList() method.
+// ListComputeNetwork handles the gRPC request by passing it to the underlying NetworkList() method.
 func (s *NetworkServer) ListComputeNetwork(ctx context.Context, request *computepb.ListComputeNetworkRequest) (*computepb.ListComputeNetworkResponse, error) {
 	cl, err := createConfigNetwork(ctx, request.ServiceAccountFile)
 	if err != nil {

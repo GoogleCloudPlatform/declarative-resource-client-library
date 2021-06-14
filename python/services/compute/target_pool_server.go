@@ -122,7 +122,7 @@ func (s *TargetPoolServer) DeleteComputeTargetPool(ctx context.Context, request 
 
 }
 
-// ListTargetPool handles the gRPC request by passing it to the underlying TargetPoolList() method.
+// ListComputeTargetPool handles the gRPC request by passing it to the underlying TargetPoolList() method.
 func (s *TargetPoolServer) ListComputeTargetPool(ctx context.Context, request *computepb.ListComputeTargetPoolRequest) (*computepb.ListComputeTargetPoolResponse, error) {
 	cl, err := createConfigTargetPool(ctx, request.ServiceAccountFile)
 	if err != nil {

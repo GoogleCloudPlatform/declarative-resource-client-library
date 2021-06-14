@@ -85,7 +85,7 @@ func (s *ConnectionServer) DeleteServicenetworkingConnection(ctx context.Context
 
 }
 
-// ListConnection handles the gRPC request by passing it to the underlying ConnectionList() method.
+// ListServicenetworkingConnection handles the gRPC request by passing it to the underlying ConnectionList() method.
 func (s *ConnectionServer) ListServicenetworkingConnection(ctx context.Context, request *servicenetworkingpb.ListServicenetworkingConnectionRequest) (*servicenetworkingpb.ListServicenetworkingConnectionResponse, error) {
 	cl, err := createConfigConnection(ctx, request.ServiceAccountFile)
 	if err != nil {

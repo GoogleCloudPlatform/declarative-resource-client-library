@@ -217,7 +217,7 @@ func (s *TriggerServer) DeleteEventarcTrigger(ctx context.Context, request *even
 
 }
 
-// ListTrigger handles the gRPC request by passing it to the underlying TriggerList() method.
+// ListEventarcTrigger handles the gRPC request by passing it to the underlying TriggerList() method.
 func (s *TriggerServer) ListEventarcTrigger(ctx context.Context, request *eventarcpb.ListEventarcTriggerRequest) (*eventarcpb.ListEventarcTriggerResponse, error) {
 	cl, err := createConfigTrigger(ctx, request.ServiceAccountFile)
 	if err != nil {

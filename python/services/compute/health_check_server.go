@@ -522,7 +522,7 @@ func (s *HealthCheckServer) DeleteComputeHealthCheck(ctx context.Context, reques
 
 }
 
-// ListHealthCheck handles the gRPC request by passing it to the underlying HealthCheckList() method.
+// ListComputeHealthCheck handles the gRPC request by passing it to the underlying HealthCheckList() method.
 func (s *HealthCheckServer) ListComputeHealthCheck(ctx context.Context, request *computepb.ListComputeHealthCheckRequest) (*computepb.ListComputeHealthCheckResponse, error) {
 	cl, err := createConfigHealthCheck(ctx, request.ServiceAccountFile)
 	if err != nil {

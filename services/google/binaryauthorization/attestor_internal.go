@@ -207,7 +207,10 @@ func (c *Client) listAttestor(ctx context.Context, project, pageToken string, pa
 
 	var l []*Attestor
 	for _, v := range m.Attestors {
-		res := flattenAttestor(c, v)
+		res, err := unmarshalMapAttestor(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

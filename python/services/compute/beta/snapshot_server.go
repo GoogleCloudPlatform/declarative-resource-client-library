@@ -145,7 +145,7 @@ func (s *SnapshotServer) DeleteComputeBetaSnapshot(ctx context.Context, request 
 
 }
 
-// ListSnapshot handles the gRPC request by passing it to the underlying SnapshotList() method.
+// ListComputeBetaSnapshot handles the gRPC request by passing it to the underlying SnapshotList() method.
 func (s *SnapshotServer) ListComputeBetaSnapshot(ctx context.Context, request *betapb.ListComputeBetaSnapshotRequest) (*betapb.ListComputeBetaSnapshotResponse, error) {
 	cl, err := createConfigSnapshot(ctx, request.ServiceAccountFile)
 	if err != nil {

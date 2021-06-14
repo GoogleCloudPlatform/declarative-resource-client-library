@@ -229,7 +229,10 @@ func (c *Client) listHttpFilter(ctx context.Context, project, location, pageToke
 
 	var l []*HttpFilter
 	for _, v := range m.HttpFilters {
-		res := flattenHttpFilter(c, v)
+		res, err := unmarshalMapHttpFilter(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

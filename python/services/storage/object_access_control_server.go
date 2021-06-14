@@ -163,7 +163,7 @@ func (s *ObjectAccessControlServer) DeleteStorageObjectAccessControl(ctx context
 
 }
 
-// ListObjectAccessControl handles the gRPC request by passing it to the underlying ObjectAccessControlList() method.
+// ListStorageObjectAccessControl handles the gRPC request by passing it to the underlying ObjectAccessControlList() method.
 func (s *ObjectAccessControlServer) ListStorageObjectAccessControl(ctx context.Context, request *storagepb.ListStorageObjectAccessControlRequest) (*storagepb.ListStorageObjectAccessControlResponse, error) {
 	cl, err := createConfigObjectAccessControl(ctx, request.ServiceAccountFile)
 	if err != nil {

@@ -251,7 +251,7 @@ func (s *OrganizationServer) DeleteApigeeOrganization(ctx context.Context, reque
 
 }
 
-// ListOrganization handles the gRPC request by passing it to the underlying OrganizationList() method.
+// ListApigeeOrganization handles the gRPC request by passing it to the underlying OrganizationList() method.
 func (s *OrganizationServer) ListApigeeOrganization(ctx context.Context, request *apigeepb.ListApigeeOrganizationRequest) (*apigeepb.ListApigeeOrganizationResponse, error) {
 	cl, err := createConfigOrganization(ctx, request.ServiceAccountFile)
 	if err != nil {

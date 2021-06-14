@@ -1822,7 +1822,7 @@ func (s *UrlMapServer) DeleteComputeBetaUrlMap(ctx context.Context, request *bet
 
 }
 
-// ListUrlMap handles the gRPC request by passing it to the underlying UrlMapList() method.
+// ListComputeBetaUrlMap handles the gRPC request by passing it to the underlying UrlMapList() method.
 func (s *UrlMapServer) ListComputeBetaUrlMap(ctx context.Context, request *betapb.ListComputeBetaUrlMapRequest) (*betapb.ListComputeBetaUrlMapResponse, error) {
 	cl, err := createConfigUrlMap(ctx, request.ServiceAccountFile)
 	if err != nil {

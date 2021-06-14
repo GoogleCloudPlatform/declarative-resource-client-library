@@ -206,7 +206,10 @@ func (c *Client) listBackup(ctx context.Context, project, location, pageToken st
 
 	var l []*Backup
 	for _, v := range m.Backups {
-		res := flattenBackup(c, v)
+		res, err := unmarshalMapBackup(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

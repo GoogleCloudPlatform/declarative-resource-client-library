@@ -23,7 +23,7 @@ import (
 )
 
 type LogBucket struct {
-	SelfLink       *string                      `json:"selfLink"`
+	Name           *string                      `json:"name"`
 	Description    *string                      `json:"description"`
 	CreateTime     *string                      `json:"createTime"`
 	UpdateTime     *string                      `json:"updateTime"`
@@ -32,7 +32,6 @@ type LogBucket struct {
 	LifecycleState *LogBucketLifecycleStateEnum `json:"lifecycleState"`
 	Parent         *string                      `json:"parent"`
 	Location       *string                      `json:"location"`
-	Name           *string                      `json:"name"`
 }
 
 func (r *LogBucket) String() string {

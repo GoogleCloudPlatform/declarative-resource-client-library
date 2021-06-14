@@ -374,7 +374,7 @@ func (s *DiskServer) DeleteComputeDisk(ctx context.Context, request *computepb.D
 
 }
 
-// ListDisk handles the gRPC request by passing it to the underlying DiskList() method.
+// ListComputeDisk handles the gRPC request by passing it to the underlying DiskList() method.
 func (s *DiskServer) ListComputeDisk(ctx context.Context, request *computepb.ListComputeDiskRequest) (*computepb.ListComputeDiskResponse, error) {
 	cl, err := createConfigDisk(ctx, request.ServiceAccountFile)
 	if err != nil {

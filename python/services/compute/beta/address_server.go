@@ -228,7 +228,7 @@ func (s *AddressServer) DeleteComputeBetaAddress(ctx context.Context, request *b
 
 }
 
-// ListAddress handles the gRPC request by passing it to the underlying AddressList() method.
+// ListComputeBetaAddress handles the gRPC request by passing it to the underlying AddressList() method.
 func (s *AddressServer) ListComputeBetaAddress(ctx context.Context, request *betapb.ListComputeBetaAddressRequest) (*betapb.ListComputeBetaAddressResponse, error) {
 	cl, err := createConfigAddress(ctx, request.ServiceAccountFile)
 	if err != nil {

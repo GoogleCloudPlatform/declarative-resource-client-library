@@ -931,7 +931,7 @@ func (s *ClusterServer) DeleteDataprocBetaCluster(ctx context.Context, request *
 
 }
 
-// ListCluster handles the gRPC request by passing it to the underlying ClusterList() method.
+// ListDataprocBetaCluster handles the gRPC request by passing it to the underlying ClusterList() method.
 func (s *ClusterServer) ListDataprocBetaCluster(ctx context.Context, request *betapb.ListDataprocBetaClusterRequest) (*betapb.ListDataprocBetaClusterResponse, error) {
 	cl, err := createConfigCluster(ctx, request.ServiceAccountFile)
 	if err != nil {

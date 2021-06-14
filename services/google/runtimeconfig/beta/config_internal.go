@@ -182,7 +182,10 @@ func (c *Client) listConfig(ctx context.Context, project, name, pageToken string
 
 	var l []*Config
 	for _, v := range m.Instances {
-		res := flattenConfig(c, v)
+		res, err := unmarshalMapConfig(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Name = &name
 		l = append(l, res)

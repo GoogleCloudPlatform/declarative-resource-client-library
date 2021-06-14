@@ -38,7 +38,7 @@ func (r *Folder) SetPolicyURL(userBasePath string) string {
 	fields := map[string]interface{}{
 		"name": *n.Name,
 	}
-	return dcl.URL("v2/{{name}}:setIamPolicy", "https://cloudresourcemanager.googleapis.com/", userBasePath, fields)
+	return dcl.URL("v2/folders/{{name}}:setIamPolicy", "https://cloudresourcemanager.googleapis.com/", userBasePath, fields)
 }
 
 func (r *Folder) getPolicyURL(userBasePath string) string {
@@ -46,7 +46,7 @@ func (r *Folder) getPolicyURL(userBasePath string) string {
 	fields := map[string]interface{}{
 		"name": *n.Name,
 	}
-	return dcl.URL("v2/{{name}}:getIamPolicy", "https://cloudresourcemanager.googleapis.com/", userBasePath, fields)
+	return dcl.URL("v2/folders/{{name}}:getIamPolicy", "https://cloudresourcemanager.googleapis.com/", userBasePath, fields)
 }
 
 func (r *Folder) IAMPolicyVersion() int {
@@ -204,7 +204,10 @@ func (c *Client) listFolder(ctx context.Context, parent, pageToken string, pageS
 
 	var l []*Folder
 	for _, v := range m.Folders {
-		res := flattenFolder(c, v)
+		res, err := unmarshalMapFolder(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Parent = &parent
 		l = append(l, res)
 	}
@@ -303,7 +306,7 @@ func (op *createFolderOperation) do(ctx context.Context, r *Folder, c *Client) e
 	// Include Name in URL substitution for initial GET request.
 	name, ok := op.response["name"].(string)
 	if !ok {
-		return fmt.Errorf("expected name to be a string")
+		return fmt.Errorf("expected name to be a string, was %T", name)
 	}
 	r.Name = &name
 
@@ -554,7 +557,7 @@ func diffFolder(c *Client, desired, actual *Folder, opts ...dcl.ApplyOption) ([]
 // short-form so they can be substituted in.
 func (r *Folder) urlNormalized() *Folder {
 	normalized := dcl.Copy(*r).(Folder)
-	normalized.Name = r.Name
+	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Parent = r.Parent
 	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	normalized.Etag = dcl.SelfLinkToName(r.Etag)

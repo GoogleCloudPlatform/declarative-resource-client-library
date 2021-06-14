@@ -132,7 +132,7 @@ func (s *NetworkServer) DeleteComputeBetaNetwork(ctx context.Context, request *b
 
 }
 
-// ListNetwork handles the gRPC request by passing it to the underlying NetworkList() method.
+// ListComputeBetaNetwork handles the gRPC request by passing it to the underlying NetworkList() method.
 func (s *NetworkServer) ListComputeBetaNetwork(ctx context.Context, request *betapb.ListComputeBetaNetworkRequest) (*betapb.ListComputeBetaNetworkResponse, error) {
 	cl, err := createConfigNetwork(ctx, request.ServiceAccountFile)
 	if err != nil {

@@ -128,7 +128,10 @@ func (c *Client) listSslCertificate(ctx context.Context, project, pageToken stri
 
 	var l []*SslCertificate
 	for _, v := range m.Items {
-		res := flattenSslCertificate(c, v)
+		res, err := unmarshalMapSslCertificate(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

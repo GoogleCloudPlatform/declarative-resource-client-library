@@ -381,7 +381,7 @@ func (s *AutoscalerServer) DeleteComputeAutoscaler(ctx context.Context, request 
 
 }
 
-// ListAutoscaler handles the gRPC request by passing it to the underlying AutoscalerList() method.
+// ListComputeAutoscaler handles the gRPC request by passing it to the underlying AutoscalerList() method.
 func (s *AutoscalerServer) ListComputeAutoscaler(ctx context.Context, request *computepb.ListComputeAutoscalerRequest) (*computepb.ListComputeAutoscalerResponse, error) {
 	cl, err := createConfigAutoscaler(ctx, request.ServiceAccountFile)
 	if err != nil {

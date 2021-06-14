@@ -49,6 +49,8 @@ type ServiceList struct {
 	nextToken string
 
 	pageSize int32
+
+	project string
 }
 
 func (l *ServiceList) HasNext() bool {
@@ -62,7 +64,7 @@ func (l *ServiceList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listService(ctx, l.nextToken, l.pageSize)
+	items, token, err := c.listService(ctx, l.project, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -71,19 +73,19 @@ func (l *ServiceList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListService(ctx context.Context) (*ServiceList, error) {
+func (c *Client) ListService(ctx context.Context, project string) (*ServiceList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListServiceWithMaxResults(ctx, ServiceMaxPage)
+	return c.ListServiceWithMaxResults(ctx, project, ServiceMaxPage)
 
 }
 
-func (c *Client) ListServiceWithMaxResults(ctx context.Context, pageSize int32) (*ServiceList, error) {
+func (c *Client) ListServiceWithMaxResults(ctx context.Context, project string, pageSize int32) (*ServiceList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listService(ctx, "", pageSize)
+	items, token, err := c.listService(ctx, project, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -91,6 +93,8 @@ func (c *Client) ListServiceWithMaxResults(ctx context.Context, pageSize int32) 
 		Items:     items,
 		nextToken: token,
 		pageSize:  pageSize,
+
+		project: project,
 	}, nil
 }
 
@@ -138,8 +142,8 @@ func (c *Client) DeleteService(ctx context.Context, r *Service) error {
 }
 
 // DeleteAllService deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllService(ctx context.Context, filter func(*Service) bool) error {
-	listObj, err := c.ListService(ctx)
+func (c *Client) DeleteAllService(ctx context.Context, project string, filter func(*Service) bool) error {
+	listObj, err := c.ListService(ctx, project)
 	if err != nil {
 		return err
 	}

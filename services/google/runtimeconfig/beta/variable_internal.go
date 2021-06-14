@@ -194,7 +194,10 @@ func (c *Client) listVariable(ctx context.Context, project, runtimeConfig, pageT
 
 	var l []*Variable
 	for _, v := range m.Instances {
-		res := flattenVariable(c, v)
+		res, err := unmarshalMapVariable(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.RuntimeConfig = &runtimeConfig
 		l = append(l, res)
@@ -552,7 +555,7 @@ func diffVariable(c *Client, desired, actual *Variable, opts ...dcl.ApplyOption)
 // short-form so they can be substituted in.
 func (r *Variable) urlNormalized() *Variable {
 	normalized := dcl.Copy(*r).(Variable)
-	normalized.Name = dcl.SelfLinkToNameWithPattern(r.Name, "projects/%s/configs/%s/variables/%s")
+	normalized.Name = r.Name
 	normalized.RuntimeConfig = dcl.SelfLinkToName(r.RuntimeConfig)
 	normalized.Text = dcl.SelfLinkToName(r.Text)
 	normalized.Value = dcl.SelfLinkToName(r.Value)

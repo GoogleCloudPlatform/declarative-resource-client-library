@@ -136,7 +136,10 @@ func (c *Client) listMetricDescriptor(ctx context.Context, project, pageToken st
 
 	var l []*MetricDescriptor
 	for _, v := range m.MetricDescriptors {
-		res := flattenMetricDescriptor(c, v)
+		res, err := unmarshalMapMetricDescriptor(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

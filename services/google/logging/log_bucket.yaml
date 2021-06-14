@@ -103,7 +103,11 @@ components:
         name:
           type: string
           x-dcl-go-name: Name
-          description: The bucket id of the resource.
+          description: 'The resource name of the bucket. For example: "projects/my-project-id/locations/my-location/buckets/my-bucket-id"
+            The supported locations are: `global`, `us-central1`, `us-east1`, `us-west1`,
+            `asia-east1`, `europe-west1`. For the location of `global` it is unspecified
+            where logs are actually stored. Once a bucket has been created, the location
+            can not be changed.'
           x-kubernetes-immutable: true
         parent:
           type: string
@@ -131,17 +135,6 @@ components:
             which they will automatically be deleted. The minimum retention period
             is 1 day. If this value is set to zero at bucket creation time, the default
             time of 30 days will be used.
-        selfLink:
-          type: string
-          x-dcl-go-name: SelfLink
-          readOnly: true
-          description: 'Output only. The resource name of the bucket. For example:
-            "projects/my-project-id/locations/my-location/buckets/my-bucket-id" The
-            supported locations are: `global`, `us-central1`, `us-east1`, `us-west1`,
-            `asia-east1`, `europe-west1`. For the location of `global` it is unspecified
-            where logs are actually stored. Once a bucket has been created, the location
-            can not be changed.'
-          x-kubernetes-immutable: true
         updateTime:
           type: string
           format: date-time

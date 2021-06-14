@@ -1145,7 +1145,7 @@ func (s *GuestPolicyServer) DeleteOsconfigBetaGuestPolicy(ctx context.Context, r
 
 }
 
-// ListGuestPolicy handles the gRPC request by passing it to the underlying GuestPolicyList() method.
+// ListOsconfigBetaGuestPolicy handles the gRPC request by passing it to the underlying GuestPolicyList() method.
 func (s *GuestPolicyServer) ListOsconfigBetaGuestPolicy(ctx context.Context, request *betapb.ListOsconfigBetaGuestPolicyRequest) (*betapb.ListOsconfigBetaGuestPolicyResponse, error) {
 	cl, err := createConfigGuestPolicy(ctx, request.ServiceAccountFile)
 	if err != nil {

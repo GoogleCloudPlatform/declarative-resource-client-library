@@ -28,11 +28,10 @@ type AttachmentServer struct{}
 // ProtoToAttachment converts a Attachment resource from its proto representation.
 func ProtoToAttachment(p *apigeepb.ApigeeAttachment) *apigee.Attachment {
 	obj := &apigee.Attachment{
-		Name:         dcl.StringOrNil(p.Name),
-		Environment:  dcl.StringOrNil(p.Environment),
-		CreatedAt:    dcl.Int64OrNil(p.CreatedAt),
-		Organization: dcl.StringOrNil(p.Organization),
-		Envgroup:     dcl.StringOrNil(p.Envgroup),
+		Name:        dcl.StringOrNil(p.Name),
+		Environment: dcl.StringOrNil(p.Environment),
+		CreatedAt:   dcl.Int64OrNil(p.CreatedAt),
+		Envgroup:    dcl.StringOrNil(p.Envgroup),
 	}
 	return obj
 }
@@ -40,11 +39,10 @@ func ProtoToAttachment(p *apigeepb.ApigeeAttachment) *apigee.Attachment {
 // AttachmentToProto converts a Attachment resource to its proto representation.
 func AttachmentToProto(resource *apigee.Attachment) *apigeepb.ApigeeAttachment {
 	p := &apigeepb.ApigeeAttachment{
-		Name:         dcl.ValueOrEmptyString(resource.Name),
-		Environment:  dcl.ValueOrEmptyString(resource.Environment),
-		CreatedAt:    dcl.ValueOrEmptyInt64(resource.CreatedAt),
-		Organization: dcl.ValueOrEmptyString(resource.Organization),
-		Envgroup:     dcl.ValueOrEmptyString(resource.Envgroup),
+		Name:        dcl.ValueOrEmptyString(resource.Name),
+		Environment: dcl.ValueOrEmptyString(resource.Environment),
+		CreatedAt:   dcl.ValueOrEmptyInt64(resource.CreatedAt),
+		Envgroup:    dcl.ValueOrEmptyString(resource.Envgroup),
 	}
 
 	return p
@@ -81,14 +79,14 @@ func (s *AttachmentServer) DeleteApigeeAttachment(ctx context.Context, request *
 
 }
 
-// ListAttachment handles the gRPC request by passing it to the underlying AttachmentList() method.
+// ListApigeeAttachment handles the gRPC request by passing it to the underlying AttachmentList() method.
 func (s *AttachmentServer) ListApigeeAttachment(ctx context.Context, request *apigeepb.ListApigeeAttachmentRequest) (*apigeepb.ListApigeeAttachmentResponse, error) {
 	cl, err := createConfigAttachment(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListAttachment(ctx, request.Organization, request.Envgroup)
+	resources, err := cl.ListAttachment(ctx, request.Envgroup)
 	if err != nil {
 		return nil, err
 	}

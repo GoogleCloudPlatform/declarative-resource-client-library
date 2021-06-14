@@ -85,7 +85,7 @@ func (s *LogExclusionServer) DeleteLoggingLogExclusion(ctx context.Context, requ
 
 }
 
-// ListLogExclusion handles the gRPC request by passing it to the underlying LogExclusionList() method.
+// ListLoggingLogExclusion handles the gRPC request by passing it to the underlying LogExclusionList() method.
 func (s *LogExclusionServer) ListLoggingLogExclusion(ctx context.Context, request *loggingpb.ListLoggingLogExclusionRequest) (*loggingpb.ListLoggingLogExclusionResponse, error) {
 	cl, err := createConfigLogExclusion(ctx, request.ServiceAccountFile)
 	if err != nil {

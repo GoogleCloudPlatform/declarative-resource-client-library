@@ -2077,7 +2077,7 @@ func (s *AlertPolicyServer) DeleteMonitoringAlertPolicy(ctx context.Context, req
 
 }
 
-// ListAlertPolicy handles the gRPC request by passing it to the underlying AlertPolicyList() method.
+// ListMonitoringAlertPolicy handles the gRPC request by passing it to the underlying AlertPolicyList() method.
 func (s *AlertPolicyServer) ListMonitoringAlertPolicy(ctx context.Context, request *monitoringpb.ListMonitoringAlertPolicyRequest) (*monitoringpb.ListMonitoringAlertPolicyResponse, error) {
 	cl, err := createConfigAlertPolicy(ctx, request.ServiceAccountFile)
 	if err != nil {

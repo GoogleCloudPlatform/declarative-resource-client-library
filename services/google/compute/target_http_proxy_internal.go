@@ -195,7 +195,10 @@ func (c *Client) listTargetHttpProxy(ctx context.Context, project, pageToken str
 
 	var l []*TargetHttpProxy
 	for _, v := range m.Items {
-		res := flattenTargetHttpProxy(c, v)
+		res, err := unmarshalMapTargetHttpProxy(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

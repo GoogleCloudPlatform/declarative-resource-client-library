@@ -254,7 +254,7 @@ func (s *FirewallServer) DeleteComputeBetaFirewall(ctx context.Context, request 
 
 }
 
-// ListFirewall handles the gRPC request by passing it to the underlying FirewallList() method.
+// ListComputeBetaFirewall handles the gRPC request by passing it to the underlying FirewallList() method.
 func (s *FirewallServer) ListComputeBetaFirewall(ctx context.Context, request *betapb.ListComputeBetaFirewallRequest) (*betapb.ListComputeBetaFirewallResponse, error) {
 	cl, err := createConfigFirewall(ctx, request.ServiceAccountFile)
 	if err != nil {

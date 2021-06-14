@@ -197,7 +197,10 @@ func (c *Client) listDatabase(ctx context.Context, project, instance, pageToken 
 
 	var l []*Database
 	for _, v := range m.Items {
-		res := flattenDatabase(c, v)
+		res, err := unmarshalMapDatabase(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Instance = &instance
 		l = append(l, res)

@@ -123,7 +123,10 @@ func (c *Client) listIdentityAwareProxyClient(ctx context.Context, project, bran
 
 	var l []*IdentityAwareProxyClient
 	for _, v := range m.Items {
-		res := flattenIdentityAwareProxyClient(c, v)
+		res, err := unmarshalMapIdentityAwareProxyClient(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Brand = &brand
 		l = append(l, res)
@@ -233,7 +236,7 @@ func (op *createIdentityAwareProxyClientOperation) do(ctx context.Context, r *Id
 	// Include Name in URL substitution for initial GET request.
 	name, ok := op.response["name"].(string)
 	if !ok {
-		return fmt.Errorf("expected name to be a string")
+		return fmt.Errorf("expected name to be a string, was %T", name)
 	}
 	r.Name = &name
 

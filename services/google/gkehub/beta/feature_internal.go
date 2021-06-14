@@ -167,7 +167,10 @@ func (c *Client) listFeature(ctx context.Context, project, location, pageToken s
 
 	var l []*Feature
 	for _, v := range m.Resources {
-		res := flattenFeature(c, v)
+		res, err := unmarshalMapFeature(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

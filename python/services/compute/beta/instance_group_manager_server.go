@@ -483,7 +483,7 @@ func (s *InstanceGroupManagerServer) DeleteComputeBetaInstanceGroupManager(ctx c
 
 }
 
-// ListInstanceGroupManager handles the gRPC request by passing it to the underlying InstanceGroupManagerList() method.
+// ListComputeBetaInstanceGroupManager handles the gRPC request by passing it to the underlying InstanceGroupManagerList() method.
 func (s *InstanceGroupManagerServer) ListComputeBetaInstanceGroupManager(ctx context.Context, request *betapb.ListComputeBetaInstanceGroupManagerRequest) (*betapb.ListComputeBetaInstanceGroupManagerResponse, error) {
 	cl, err := createConfigInstanceGroupManager(ctx, request.ServiceAccountFile)
 	if err != nil {

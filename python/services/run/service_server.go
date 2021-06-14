@@ -31,7 +31,6 @@ func ProtoToRunServiceMetadata(p *runpb.RunServiceMetadata) *run.ServiceMetadata
 		return nil
 	}
 	obj := &run.ServiceMetadata{
-		Name:                       dcl.StringOrNil(p.Name),
 		GenerateName:               dcl.StringOrNil(p.GenerateName),
 		Namespace:                  dcl.StringOrNil(p.Namespace),
 		SelfLink:                   dcl.StringOrNil(p.SelfLink),
@@ -729,6 +728,7 @@ func ProtoToRunServiceStatusAddress(p *runpb.RunServiceStatusAddress) *run.Servi
 // ProtoToService converts a Service resource from its proto representation.
 func ProtoToService(p *runpb.RunService) *run.Service {
 	obj := &run.Service{
+		Name:       dcl.StringOrNil(p.Name),
 		ApiVersion: dcl.StringOrNil(p.ApiVersion),
 		Kind:       dcl.StringOrNil(p.Kind),
 		Metadata:   ProtoToRunServiceMetadata(p.GetMetadata()),
@@ -736,7 +736,6 @@ func ProtoToService(p *runpb.RunService) *run.Service {
 		Status:     ProtoToRunServiceStatus(p.GetStatus()),
 		Project:    dcl.StringOrNil(p.Project),
 		Location:   dcl.StringOrNil(p.Location),
-		Name:       dcl.StringOrNil(p.Name),
 	}
 	return obj
 }
@@ -747,7 +746,6 @@ func RunServiceMetadataToProto(o *run.ServiceMetadata) *runpb.RunServiceMetadata
 		return nil
 	}
 	p := &runpb.RunServiceMetadata{
-		Name:                       dcl.ValueOrEmptyString(o.Name),
 		GenerateName:               dcl.ValueOrEmptyString(o.GenerateName),
 		Namespace:                  dcl.ValueOrEmptyString(o.Namespace),
 		SelfLink:                   dcl.ValueOrEmptyString(o.SelfLink),
@@ -1469,6 +1467,7 @@ func RunServiceStatusAddressToProto(o *run.ServiceStatusAddress) *runpb.RunServi
 // ServiceToProto converts a Service resource to its proto representation.
 func ServiceToProto(resource *run.Service) *runpb.RunService {
 	p := &runpb.RunService{
+		Name:       dcl.ValueOrEmptyString(resource.Name),
 		ApiVersion: dcl.ValueOrEmptyString(resource.ApiVersion),
 		Kind:       dcl.ValueOrEmptyString(resource.Kind),
 		Metadata:   RunServiceMetadataToProto(resource.Metadata),
@@ -1476,7 +1475,6 @@ func ServiceToProto(resource *run.Service) *runpb.RunService {
 		Status:     RunServiceStatusToProto(resource.Status),
 		Project:    dcl.ValueOrEmptyString(resource.Project),
 		Location:   dcl.ValueOrEmptyString(resource.Location),
-		Name:       dcl.ValueOrEmptyString(resource.Name),
 	}
 
 	return p
@@ -1513,7 +1511,7 @@ func (s *ServiceServer) DeleteRunService(ctx context.Context, request *runpb.Del
 
 }
 
-// ListService handles the gRPC request by passing it to the underlying ServiceList() method.
+// ListRunService handles the gRPC request by passing it to the underlying ServiceList() method.
 func (s *ServiceServer) ListRunService(ctx context.Context, request *runpb.ListRunServiceRequest) (*runpb.ListRunServiceResponse, error) {
 	cl, err := createConfigService(ctx, request.ServiceAccountFile)
 	if err != nil {

@@ -87,7 +87,7 @@ func (s *SslCertServer) DeleteSqlBetaSslCert(ctx context.Context, request *betap
 
 }
 
-// ListSslCert handles the gRPC request by passing it to the underlying SslCertList() method.
+// ListSqlBetaSslCert handles the gRPC request by passing it to the underlying SslCertList() method.
 func (s *SslCertServer) ListSqlBetaSslCert(ctx context.Context, request *betapb.ListSqlBetaSslCertRequest) (*betapb.ListSqlBetaSslCertResponse, error) {
 	cl, err := createConfigSslCert(ctx, request.ServiceAccountFile)
 	if err != nil {

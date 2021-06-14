@@ -149,7 +149,10 @@ func (c *Client) listReservation(ctx context.Context, project, zone, pageToken s
 
 	var l []*Reservation
 	for _, v := range m.Items {
-		res := flattenReservation(c, v)
+		res, err := unmarshalMapReservation(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Zone = &zone
 		l = append(l, res)

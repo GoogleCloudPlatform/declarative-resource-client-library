@@ -179,7 +179,10 @@ func (c *Client) listHmacKey(ctx context.Context, project, pageToken string, pag
 
 	var l []*HmacKey
 	for _, v := range m.Items {
-		res := flattenHmacKey(c, v)
+		res, err := unmarshalMapHmacKey(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}
@@ -251,46 +254,6 @@ type createHmacKeyOperation struct {
 
 func (op *createHmacKeyOperation) FirstResponse() (map[string]interface{}, bool) {
 	return op.response, len(op.response) > 0
-}
-
-func (op *createHmacKeyOperation) do(ctx context.Context, r *HmacKey, c *Client) error {
-	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, serviceAccountEmail := r.createFields()
-	u, err := hmacKeyCreateURL(c.Config.BasePath, project, serviceAccountEmail)
-
-	if err != nil {
-		return err
-	}
-
-	req, err := r.marshal(c)
-	if err != nil {
-		return err
-	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
-	if err != nil {
-		return err
-	}
-
-	o, err := dcl.ResponseBodyAsJSON(resp)
-	if err != nil {
-		return fmt.Errorf("error decoding response body into JSON: %w", err)
-	}
-	op.response = o
-
-	// Include Name in URL substitution for initial GET request.
-	name, ok := op.response["accessId"].(string)
-	if !ok {
-		return fmt.Errorf("expected accessId to be a string")
-	}
-	r.Name = &name
-
-	if _, err := c.GetHmacKey(ctx, r.urlNormalized()); err != nil {
-		c.Config.Logger.Warningf("get returned error: %v", err)
-		return err
-	}
-
-	return nil
 }
 
 func (c *Client) getHmacKeyRaw(ctx context.Context, r *HmacKey) ([]byte, error) {

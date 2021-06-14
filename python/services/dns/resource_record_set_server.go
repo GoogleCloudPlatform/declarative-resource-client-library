@@ -87,7 +87,7 @@ func (s *ResourceRecordSetServer) DeleteDnsResourceRecordSet(ctx context.Context
 
 }
 
-// ListResourceRecordSet handles the gRPC request by passing it to the underlying ResourceRecordSetList() method.
+// ListDnsResourceRecordSet handles the gRPC request by passing it to the underlying ResourceRecordSetList() method.
 func (s *ResourceRecordSetServer) ListDnsResourceRecordSet(ctx context.Context, request *dnspb.ListDnsResourceRecordSetRequest) (*dnspb.ListDnsResourceRecordSetResponse, error) {
 	cl, err := createConfigResourceRecordSet(ctx, request.ServiceAccountFile)
 	if err != nil {

@@ -2224,7 +2224,10 @@ func (c *Client) listInstance(ctx context.Context, project, location, pageToken 
 
 	var l []*Instance
 	for _, v := range m.Instances {
-		res := flattenInstance(c, v)
+		res, err := unmarshalMapInstance(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)
@@ -30242,14 +30245,14 @@ func compareInstanceSkuNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tier, actual.Tier, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tier")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tier, actual.Tier, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tier")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Size, actual.Size, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Size")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Size, actual.Size, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Size")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30285,21 +30288,21 @@ func compareInstanceReferencesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SourceResource, actual.SourceResource, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceResource")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceResource, actual.SourceResource, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SourceResource")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceReferencesDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceReferencesDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30335,14 +30338,14 @@ func compareInstanceReferencesDetailsNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30371,56 +30374,56 @@ func compareInstancePreprocessCreateRecipeNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30449,119 +30452,119 @@ func compareInstancePreprocessCreateRecipeStepsNewStyle(d, a interface{}, fn dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30590,21 +30593,21 @@ func compareInstancePreprocessCreateRecipeStepsStatusNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30633,14 +30636,14 @@ func compareInstancePreprocessCreateRecipeStepsStatusDetailsNewStyle(d, a interf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30669,14 +30672,14 @@ func compareInstancePreprocessCreateRecipeStepsQuotaRequestDeltasNewStyle(d, a i
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30705,14 +30708,14 @@ func compareInstancePreprocessCreateRecipeStepsPreprocessUpdateNewStyle(d, a int
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30741,21 +30744,21 @@ func compareInstancePreprocessCreateRecipeStepsRequestedTenantProjectNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30784,28 +30787,28 @@ func compareInstancePreprocessCreateRecipeStepsPermissionsInfoNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30834,21 +30837,21 @@ func compareInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameNewStyle
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30877,7 +30880,7 @@ func compareInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissionsNewS
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30912,7 +30915,7 @@ func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30941,21 +30944,21 @@ func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotifica
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30984,21 +30987,21 @@ func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotifica
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31027,56 +31030,56 @@ func compareInstanceCreateRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31105,119 +31108,119 @@ func compareInstanceCreateRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31246,21 +31249,21 @@ func compareInstanceCreateRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31289,14 +31292,14 @@ func compareInstanceCreateRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31325,14 +31328,14 @@ func compareInstanceCreateRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31361,14 +31364,14 @@ func compareInstanceCreateRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31397,21 +31400,21 @@ func compareInstanceCreateRecipeStepsRequestedTenantProjectNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31440,28 +31443,28 @@ func compareInstanceCreateRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31490,21 +31493,21 @@ func compareInstanceCreateRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31533,7 +31536,7 @@ func compareInstanceCreateRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31562,7 +31565,7 @@ func compareInstanceCreateRecipeStepsKeyNotificationsUpdateNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31591,21 +31594,21 @@ func compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31634,21 +31637,21 @@ func compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31677,56 +31680,56 @@ func compareInstanceDeleteRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31755,119 +31758,119 @@ func compareInstanceDeleteRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31896,21 +31899,21 @@ func compareInstanceDeleteRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31939,14 +31942,14 @@ func compareInstanceDeleteRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31975,14 +31978,14 @@ func compareInstanceDeleteRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32011,14 +32014,14 @@ func compareInstanceDeleteRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32047,21 +32050,21 @@ func compareInstanceDeleteRecipeStepsRequestedTenantProjectNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32090,28 +32093,28 @@ func compareInstanceDeleteRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32140,21 +32143,21 @@ func compareInstanceDeleteRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32183,7 +32186,7 @@ func compareInstanceDeleteRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32212,7 +32215,7 @@ func compareInstanceDeleteRecipeStepsKeyNotificationsUpdateNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32241,21 +32244,21 @@ func compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32284,21 +32287,21 @@ func compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32327,56 +32330,56 @@ func compareInstanceUpdateRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32405,119 +32408,119 @@ func compareInstanceUpdateRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32546,21 +32549,21 @@ func compareInstanceUpdateRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32589,14 +32592,14 @@ func compareInstanceUpdateRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32625,14 +32628,14 @@ func compareInstanceUpdateRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32661,14 +32664,14 @@ func compareInstanceUpdateRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32697,21 +32700,21 @@ func compareInstanceUpdateRecipeStepsRequestedTenantProjectNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32740,28 +32743,28 @@ func compareInstanceUpdateRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32790,21 +32793,21 @@ func compareInstanceUpdateRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32833,7 +32836,7 @@ func compareInstanceUpdateRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32862,7 +32865,7 @@ func compareInstanceUpdateRecipeStepsKeyNotificationsUpdateNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32891,21 +32894,21 @@ func compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32934,21 +32937,21 @@ func compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32977,56 +32980,56 @@ func compareInstancePreprocessResetRecipeNewStyle(d, a interface{}, fn dcl.Field
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33055,119 +33058,119 @@ func compareInstancePreprocessResetRecipeStepsNewStyle(d, a interface{}, fn dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33196,21 +33199,21 @@ func compareInstancePreprocessResetRecipeStepsStatusNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33239,14 +33242,14 @@ func compareInstancePreprocessResetRecipeStepsStatusDetailsNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33275,14 +33278,14 @@ func compareInstancePreprocessResetRecipeStepsQuotaRequestDeltasNewStyle(d, a in
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33311,14 +33314,14 @@ func compareInstancePreprocessResetRecipeStepsPreprocessUpdateNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33347,21 +33350,21 @@ func compareInstancePreprocessResetRecipeStepsRequestedTenantProjectNewStyle(d, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33390,28 +33393,28 @@ func compareInstancePreprocessResetRecipeStepsPermissionsInfoNewStyle(d, a inter
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33440,21 +33443,21 @@ func compareInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameNewStyle(
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33483,7 +33486,7 @@ func compareInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissionsNewSt
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33512,7 +33515,7 @@ func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateNewStyle(d, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33541,21 +33544,21 @@ func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificat
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33584,21 +33587,21 @@ func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificat
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33627,56 +33630,56 @@ func compareInstanceResetRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33705,119 +33708,119 @@ func compareInstanceResetRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName)
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33846,21 +33849,21 @@ func compareInstanceResetRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33889,14 +33892,14 @@ func compareInstanceResetRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33925,14 +33928,14 @@ func compareInstanceResetRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{},
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33961,14 +33964,14 @@ func compareInstanceResetRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33997,21 +34000,21 @@ func compareInstanceResetRecipeStepsRequestedTenantProjectNewStyle(d, a interfac
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34040,28 +34043,28 @@ func compareInstanceResetRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34090,21 +34093,21 @@ func compareInstanceResetRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a inter
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34133,7 +34136,7 @@ func compareInstanceResetRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a i
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34162,7 +34165,7 @@ func compareInstanceResetRecipeStepsKeyNotificationsUpdateNewStyle(d, a interfac
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34191,21 +34194,21 @@ func compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34234,21 +34237,21 @@ func compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34277,56 +34280,56 @@ func compareInstancePreprocessRepairRecipeNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34355,119 +34358,119 @@ func compareInstancePreprocessRepairRecipeStepsNewStyle(d, a interface{}, fn dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34496,21 +34499,21 @@ func compareInstancePreprocessRepairRecipeStepsStatusNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34539,14 +34542,14 @@ func compareInstancePreprocessRepairRecipeStepsStatusDetailsNewStyle(d, a interf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34575,14 +34578,14 @@ func compareInstancePreprocessRepairRecipeStepsQuotaRequestDeltasNewStyle(d, a i
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34611,14 +34614,14 @@ func compareInstancePreprocessRepairRecipeStepsPreprocessUpdateNewStyle(d, a int
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34647,21 +34650,21 @@ func compareInstancePreprocessRepairRecipeStepsRequestedTenantProjectNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34690,28 +34693,28 @@ func compareInstancePreprocessRepairRecipeStepsPermissionsInfoNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34740,21 +34743,21 @@ func compareInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameNewStyle
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34783,7 +34786,7 @@ func compareInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissionsNewS
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34812,7 +34815,7 @@ func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34841,21 +34844,21 @@ func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotifica
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34884,21 +34887,21 @@ func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotifica
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34927,56 +34930,56 @@ func compareInstanceRepairRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35005,119 +35008,119 @@ func compareInstanceRepairRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35146,21 +35149,21 @@ func compareInstanceRepairRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35189,14 +35192,14 @@ func compareInstanceRepairRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35225,14 +35228,14 @@ func compareInstanceRepairRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35261,14 +35264,14 @@ func compareInstanceRepairRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35297,21 +35300,21 @@ func compareInstanceRepairRecipeStepsRequestedTenantProjectNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35340,28 +35343,28 @@ func compareInstanceRepairRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35390,21 +35393,21 @@ func compareInstanceRepairRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35433,7 +35436,7 @@ func compareInstanceRepairRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35462,7 +35465,7 @@ func compareInstanceRepairRecipeStepsKeyNotificationsUpdateNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35491,21 +35494,21 @@ func compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35534,21 +35537,21 @@ func compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35577,56 +35580,56 @@ func compareInstancePreprocessDeleteRecipeNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35655,119 +35658,119 @@ func compareInstancePreprocessDeleteRecipeStepsNewStyle(d, a interface{}, fn dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35796,21 +35799,21 @@ func compareInstancePreprocessDeleteRecipeStepsStatusNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35839,14 +35842,14 @@ func compareInstancePreprocessDeleteRecipeStepsStatusDetailsNewStyle(d, a interf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35875,14 +35878,14 @@ func compareInstancePreprocessDeleteRecipeStepsQuotaRequestDeltasNewStyle(d, a i
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35911,14 +35914,14 @@ func compareInstancePreprocessDeleteRecipeStepsPreprocessUpdateNewStyle(d, a int
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35947,21 +35950,21 @@ func compareInstancePreprocessDeleteRecipeStepsRequestedTenantProjectNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35990,28 +35993,28 @@ func compareInstancePreprocessDeleteRecipeStepsPermissionsInfoNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36040,21 +36043,21 @@ func compareInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameNewStyle
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36083,7 +36086,7 @@ func compareInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissionsNewS
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36112,7 +36115,7 @@ func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36141,21 +36144,21 @@ func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotifica
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36184,21 +36187,21 @@ func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotifica
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36227,56 +36230,56 @@ func compareInstancePreprocessUpdateRecipeNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36305,119 +36308,119 @@ func compareInstancePreprocessUpdateRecipeStepsNewStyle(d, a interface{}, fn dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36446,21 +36449,21 @@ func compareInstancePreprocessUpdateRecipeStepsStatusNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36489,14 +36492,14 @@ func compareInstancePreprocessUpdateRecipeStepsStatusDetailsNewStyle(d, a interf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36525,14 +36528,14 @@ func compareInstancePreprocessUpdateRecipeStepsQuotaRequestDeltasNewStyle(d, a i
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36561,14 +36564,14 @@ func compareInstancePreprocessUpdateRecipeStepsPreprocessUpdateNewStyle(d, a int
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36597,21 +36600,21 @@ func compareInstancePreprocessUpdateRecipeStepsRequestedTenantProjectNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36640,28 +36643,28 @@ func compareInstancePreprocessUpdateRecipeStepsPermissionsInfoNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36690,21 +36693,21 @@ func compareInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameNewStyle
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36733,7 +36736,7 @@ func compareInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissionsNewS
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36762,7 +36765,7 @@ func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36791,21 +36794,21 @@ func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotifica
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36834,21 +36837,21 @@ func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotifica
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36877,56 +36880,56 @@ func compareInstancePreprocessFreezeRecipeNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36955,119 +36958,119 @@ func compareInstancePreprocessFreezeRecipeStepsNewStyle(d, a interface{}, fn dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37096,21 +37099,21 @@ func compareInstancePreprocessFreezeRecipeStepsStatusNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37139,14 +37142,14 @@ func compareInstancePreprocessFreezeRecipeStepsStatusDetailsNewStyle(d, a interf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37175,14 +37178,14 @@ func compareInstancePreprocessFreezeRecipeStepsQuotaRequestDeltasNewStyle(d, a i
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37211,14 +37214,14 @@ func compareInstancePreprocessFreezeRecipeStepsPreprocessUpdateNewStyle(d, a int
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37247,21 +37250,21 @@ func compareInstancePreprocessFreezeRecipeStepsRequestedTenantProjectNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37290,28 +37293,28 @@ func compareInstancePreprocessFreezeRecipeStepsPermissionsInfoNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37340,21 +37343,21 @@ func compareInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameNewStyle
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37383,7 +37386,7 @@ func compareInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissionsNewS
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37412,7 +37415,7 @@ func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37441,21 +37444,21 @@ func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotifica
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37484,21 +37487,21 @@ func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotifica
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37527,56 +37530,56 @@ func compareInstanceFreezeRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37605,119 +37608,119 @@ func compareInstanceFreezeRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37746,21 +37749,21 @@ func compareInstanceFreezeRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37789,14 +37792,14 @@ func compareInstanceFreezeRecipeStepsStatusDetailsNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37825,14 +37828,14 @@ func compareInstanceFreezeRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37861,14 +37864,14 @@ func compareInstanceFreezeRecipeStepsPreprocessUpdateNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37897,21 +37900,21 @@ func compareInstanceFreezeRecipeStepsRequestedTenantProjectNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37940,28 +37943,28 @@ func compareInstanceFreezeRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37990,21 +37993,21 @@ func compareInstanceFreezeRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38033,7 +38036,7 @@ func compareInstanceFreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, a 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38062,7 +38065,7 @@ func compareInstanceFreezeRecipeStepsKeyNotificationsUpdateNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38091,21 +38094,21 @@ func compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38134,21 +38137,21 @@ func compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoK
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38177,56 +38180,56 @@ func compareInstancePreprocessUnfreezeRecipeNewStyle(d, a interface{}, fn dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38255,119 +38258,119 @@ func compareInstancePreprocessUnfreezeRecipeStepsNewStyle(d, a interface{}, fn d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38396,21 +38399,21 @@ func compareInstancePreprocessUnfreezeRecipeStepsStatusNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38439,14 +38442,14 @@ func compareInstancePreprocessUnfreezeRecipeStepsStatusDetailsNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38475,14 +38478,14 @@ func compareInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltasNewStyle(d, a
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38511,14 +38514,14 @@ func compareInstancePreprocessUnfreezeRecipeStepsPreprocessUpdateNewStyle(d, a i
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38547,21 +38550,21 @@ func compareInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectNewStyle(
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38590,28 +38593,28 @@ func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoNewStyle(d, a in
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38640,21 +38643,21 @@ func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameNewSty
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38683,7 +38686,7 @@ func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissionsNe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38712,7 +38715,7 @@ func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateNewStyle(
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38741,21 +38744,21 @@ func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38784,21 +38787,21 @@ func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38827,56 +38830,56 @@ func compareInstanceUnfreezeRecipeNewStyle(d, a interface{}, fn dcl.FieldName) (
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38905,119 +38908,119 @@ func compareInstanceUnfreezeRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldNa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39046,21 +39049,21 @@ func compareInstanceUnfreezeRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39089,14 +39092,14 @@ func compareInstanceUnfreezeRecipeStepsStatusDetailsNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39125,14 +39128,14 @@ func compareInstanceUnfreezeRecipeStepsQuotaRequestDeltasNewStyle(d, a interface
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39161,14 +39164,14 @@ func compareInstanceUnfreezeRecipeStepsPreprocessUpdateNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39197,21 +39200,21 @@ func compareInstanceUnfreezeRecipeStepsRequestedTenantProjectNewStyle(d, a inter
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39240,28 +39243,28 @@ func compareInstanceUnfreezeRecipeStepsPermissionsInfoNewStyle(d, a interface{},
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39290,21 +39293,21 @@ func compareInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a in
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39333,7 +39336,7 @@ func compareInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39362,7 +39365,7 @@ func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateNewStyle(d, a inter
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39391,21 +39394,21 @@ func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39434,21 +39437,21 @@ func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39477,56 +39480,56 @@ func compareInstancePreprocessReportInstanceHealthRecipeNewStyle(d, a interface{
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39555,119 +39558,119 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsNewStyle(d, a inter
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39696,21 +39699,21 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsStatusNewStyle(d, a
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39739,14 +39742,14 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsStatusDetailsNewSty
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39775,14 +39778,14 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltasN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39811,14 +39814,14 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdateNew
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39847,21 +39850,21 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProj
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39890,28 +39893,28 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoNewS
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39940,21 +39943,21 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPoli
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39983,7 +39986,7 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamP
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40012,7 +40015,7 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpd
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40041,21 +40044,21 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpd
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40084,21 +40087,21 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpd
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40127,56 +40130,56 @@ func compareInstanceReportInstanceHealthRecipeNewStyle(d, a interface{}, fn dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40205,119 +40208,119 @@ func compareInstanceReportInstanceHealthRecipeStepsNewStyle(d, a interface{}, fn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40346,21 +40349,21 @@ func compareInstanceReportInstanceHealthRecipeStepsStatusNewStyle(d, a interface
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40389,14 +40392,14 @@ func compareInstanceReportInstanceHealthRecipeStepsStatusDetailsNewStyle(d, a in
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40425,14 +40428,14 @@ func compareInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltasNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40461,14 +40464,14 @@ func compareInstanceReportInstanceHealthRecipeStepsPreprocessUpdateNewStyle(d, a
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40497,21 +40500,21 @@ func compareInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectNewStyl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40540,28 +40543,28 @@ func compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoNewStyle(d, a 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40590,21 +40593,21 @@ func compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameNewS
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40633,7 +40636,7 @@ func compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40662,7 +40665,7 @@ func compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateNewStyl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40691,21 +40694,21 @@ func compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNoti
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40734,21 +40737,21 @@ func compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNoti
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40777,56 +40780,56 @@ func compareInstancePreprocessGetRecipeNewStyle(d, a interface{}, fn dcl.FieldNa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40855,119 +40858,119 @@ func compareInstancePreprocessGetRecipeStepsNewStyle(d, a interface{}, fn dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40996,21 +40999,21 @@ func compareInstancePreprocessGetRecipeStepsStatusNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41039,14 +41042,14 @@ func compareInstancePreprocessGetRecipeStepsStatusDetailsNewStyle(d, a interface
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41075,14 +41078,14 @@ func compareInstancePreprocessGetRecipeStepsQuotaRequestDeltasNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41111,14 +41114,14 @@ func compareInstancePreprocessGetRecipeStepsPreprocessUpdateNewStyle(d, a interf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41147,21 +41150,21 @@ func compareInstancePreprocessGetRecipeStepsRequestedTenantProjectNewStyle(d, a 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41190,28 +41193,28 @@ func compareInstancePreprocessGetRecipeStepsPermissionsInfoNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41240,21 +41243,21 @@ func compareInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41283,7 +41286,7 @@ func compareInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissionsNewStyl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41312,7 +41315,7 @@ func compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateNewStyle(d, a 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41341,21 +41344,21 @@ func compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificatio
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41384,21 +41387,21 @@ func compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificatio
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41427,56 +41430,56 @@ func compareInstanceNotifyKeyAvailableRecipeNewStyle(d, a interface{}, fn dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41505,119 +41508,119 @@ func compareInstanceNotifyKeyAvailableRecipeStepsNewStyle(d, a interface{}, fn d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41646,21 +41649,21 @@ func compareInstanceNotifyKeyAvailableRecipeStepsStatusNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41689,14 +41692,14 @@ func compareInstanceNotifyKeyAvailableRecipeStepsStatusDetailsNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41725,14 +41728,14 @@ func compareInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltasNewStyle(d, a
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41761,14 +41764,14 @@ func compareInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdateNewStyle(d, a i
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41797,21 +41800,21 @@ func compareInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectNewStyle(
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41840,28 +41843,28 @@ func compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoNewStyle(d, a in
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41890,21 +41893,21 @@ func compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameNewSty
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41933,7 +41936,7 @@ func compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissionsNe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41962,7 +41965,7 @@ func compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateNewStyle(
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41991,21 +41994,21 @@ func compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotifi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42034,21 +42037,21 @@ func compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotifi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42077,56 +42080,56 @@ func compareInstanceNotifyKeyUnavailableRecipeNewStyle(d, a interface{}, fn dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42155,119 +42158,119 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsNewStyle(d, a interface{}, fn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42296,21 +42299,21 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsStatusNewStyle(d, a interface
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42339,14 +42342,14 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsStatusDetailsNewStyle(d, a in
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42375,14 +42378,14 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltasNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42411,14 +42414,14 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdateNewStyle(d, a
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42447,21 +42450,21 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectNewStyl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42490,28 +42493,28 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoNewStyle(d, a 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42540,21 +42543,21 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameNewS
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42583,7 +42586,7 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42612,7 +42615,7 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateNewStyl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42641,21 +42644,21 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNoti
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42684,21 +42687,21 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNoti
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42727,56 +42730,56 @@ func compareInstanceReadonlyRecipeNewStyle(d, a interface{}, fn dcl.FieldName) (
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42805,119 +42808,119 @@ func compareInstanceReadonlyRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldNa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42946,21 +42949,21 @@ func compareInstanceReadonlyRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42989,14 +42992,14 @@ func compareInstanceReadonlyRecipeStepsStatusDetailsNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43025,14 +43028,14 @@ func compareInstanceReadonlyRecipeStepsQuotaRequestDeltasNewStyle(d, a interface
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43061,14 +43064,14 @@ func compareInstanceReadonlyRecipeStepsPreprocessUpdateNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43097,21 +43100,21 @@ func compareInstanceReadonlyRecipeStepsRequestedTenantProjectNewStyle(d, a inter
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43140,28 +43143,28 @@ func compareInstanceReadonlyRecipeStepsPermissionsInfoNewStyle(d, a interface{},
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43190,21 +43193,21 @@ func compareInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a in
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43233,7 +43236,7 @@ func compareInstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsNewStyle(d, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43262,7 +43265,7 @@ func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateNewStyle(d, a inter
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43291,21 +43294,21 @@ func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43334,21 +43337,21 @@ func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43377,56 +43380,56 @@ func compareInstanceReconcileRecipeNewStyle(d, a interface{}, fn dcl.FieldName) 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43455,119 +43458,119 @@ func compareInstanceReconcileRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43596,21 +43599,21 @@ func compareInstanceReconcileRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43639,14 +43642,14 @@ func compareInstanceReconcileRecipeStepsStatusDetailsNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43675,14 +43678,14 @@ func compareInstanceReconcileRecipeStepsQuotaRequestDeltasNewStyle(d, a interfac
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43711,14 +43714,14 @@ func compareInstanceReconcileRecipeStepsPreprocessUpdateNewStyle(d, a interface{
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43747,21 +43750,21 @@ func compareInstanceReconcileRecipeStepsRequestedTenantProjectNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43790,28 +43793,28 @@ func compareInstanceReconcileRecipeStepsPermissionsInfoNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43840,21 +43843,21 @@ func compareInstanceReconcileRecipeStepsPermissionsInfoPolicyNameNewStyle(d, a i
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43883,7 +43886,7 @@ func compareInstanceReconcileRecipeStepsPermissionsInfoIamPermissionsNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43912,7 +43915,7 @@ func compareInstanceReconcileRecipeStepsKeyNotificationsUpdateNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43941,21 +43944,21 @@ func compareInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43984,21 +43987,21 @@ func compareInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44027,56 +44030,56 @@ func compareInstancePreprocessPassthroughRecipeNewStyle(d, a interface{}, fn dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44105,119 +44108,119 @@ func compareInstancePreprocessPassthroughRecipeStepsNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44246,21 +44249,21 @@ func compareInstancePreprocessPassthroughRecipeStepsStatusNewStyle(d, a interfac
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44289,14 +44292,14 @@ func compareInstancePreprocessPassthroughRecipeStepsStatusDetailsNewStyle(d, a i
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44325,14 +44328,14 @@ func compareInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltasNewStyle(d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44361,14 +44364,14 @@ func compareInstancePreprocessPassthroughRecipeStepsPreprocessUpdateNewStyle(d, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44397,21 +44400,21 @@ func compareInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectNewSty
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44440,28 +44443,28 @@ func compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoNewStyle(d, a
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44490,21 +44493,21 @@ func compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameNew
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44533,7 +44536,7 @@ func compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermission
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44562,7 +44565,7 @@ func compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateNewSty
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44591,21 +44594,21 @@ func compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNot
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44634,21 +44637,21 @@ func compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNot
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44677,56 +44680,56 @@ func compareInstancePreprocessReconcileRecipeNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HonorCancelRequest, actual.HonorCancelRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("HonorCancelRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IgnoreRecipeAfter, actual.IgnoreRecipeAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IgnoreRecipeAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyDeadlineSecondsBelow, actual.VerifyDeadlineSecondsBelow, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("VerifyDeadlineSecondsBelow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PopulateOperationResult, actual.PopulateOperationResult, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PopulateOperationResult")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipeStartTime, actual.ReadonlyRecipeStartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipeStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNamesStoredInClhWithDelay, actual.ResourceNamesStoredInClhWithDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceNamesStoredInClhWithDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelayToStoreResourcesInClhDbNanos, actual.DelayToStoreResourcesInClhDbNanos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelayToStoreResourcesInClhDbNanos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44755,119 +44758,119 @@ func compareInstancePreprocessReconcileRecipeStepsNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeTime, actual.RelativeTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RelativeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SleepDuration, actual.SleepDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("SleepDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorSpace, actual.ErrorSpace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ErrorSpace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceMetadataSize, actual.ResourceMetadataSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourceMetadataSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatedRepeatOperationDelaySec, actual.UpdatedRepeatOperationDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdatedRepeatOperationDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClhDataUpdateTime, actual.ClhDataUpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ClhDataUpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicErrorMessage, actual.PublicErrorMessage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicErrorMessage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44896,21 +44899,21 @@ func compareInstancePreprocessReconcileRecipeStepsStatusNewStyle(d, a interface{
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44939,14 +44942,14 @@ func compareInstancePreprocessReconcileRecipeStepsStatusDetailsNewStyle(d, a int
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44975,14 +44978,14 @@ func compareInstancePreprocessReconcileRecipeStepsQuotaRequestDeltasNewStyle(d, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -45011,14 +45014,14 @@ func compareInstancePreprocessReconcileRecipeStepsPreprocessUpdateNewStyle(d, a 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LatencySloBucketName, actual.LatencySloBucketName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("LatencySloBucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicOperationMetadata, actual.PublicOperationMetadata, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PublicOperationMetadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -45047,21 +45050,21 @@ func compareInstancePreprocessReconcileRecipeStepsRequestedTenantProjectNewStyle
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tag, actual.Tag, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Tag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Folder, actual.Folder, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Folder")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -45090,28 +45093,28 @@ func compareInstancePreprocessReconcileRecipeStepsPermissionsInfoNewStyle(d, a i
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourcePath, actual.ResourcePath, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResourcePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -45140,21 +45143,21 @@ func compareInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameNewSt
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -45183,7 +45186,7 @@ func compareInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissionsN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Permission, actual.Permission, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Permission")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -45212,7 +45215,7 @@ func compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateNewStyle
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -45241,21 +45244,21 @@ func compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotif
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataVersion, actual.DataVersion, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DataVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Delegate, actual.Delegate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Delegate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -45284,21 +45287,21 @@ func compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotif
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyOrVersionName, actual.KeyOrVersionName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyOrVersionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Grant, actual.Grant, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Grant")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DelegatorGaiaId, actual.DelegatorGaiaId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DelegatorGaiaId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -45327,49 +45330,49 @@ func compareInstanceHistoryNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Timestamp, actual.Timestamp, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Timestamp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Timestamp, actual.Timestamp, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Timestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OperationHandle, actual.OperationHandle, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OperationHandle")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OperationHandle, actual.OperationHandle, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("OperationHandle")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.StepIndex, actual.StepIndex, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StepIndex")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StepIndex, actual.StepIndex, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("StepIndex")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TenantProjectNumber, actual.TenantProjectNumber, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TenantProjectNumber")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TenantProjectNumber, actual.TenantProjectNumber, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TenantProjectNumber")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TenantProjectId, actual.TenantProjectId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TenantProjectId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TenantProjectId, actual.TenantProjectId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("TenantProjectId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.P4ServiceAccount, actual.P4ServiceAccount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("P4ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

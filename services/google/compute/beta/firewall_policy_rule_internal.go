@@ -183,7 +183,10 @@ func (c *Client) listFirewallPolicyRule(ctx context.Context, firewallPolicy, pag
 
 	var l []*FirewallPolicyRule
 	for _, v := range m.Rules {
-		res := flattenFirewallPolicyRule(c, v)
+		res, err := unmarshalMapFirewallPolicyRule(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.FirewallPolicy = &firewallPolicy
 		l = append(l, res)
 	}

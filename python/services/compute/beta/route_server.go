@@ -164,7 +164,7 @@ func (s *RouteServer) DeleteComputeBetaRoute(ctx context.Context, request *betap
 
 }
 
-// ListRoute handles the gRPC request by passing it to the underlying RouteList() method.
+// ListComputeBetaRoute handles the gRPC request by passing it to the underlying RouteList() method.
 func (s *RouteServer) ListComputeBetaRoute(ctx context.Context, request *betapb.ListComputeBetaRouteRequest) (*betapb.ListComputeBetaRouteResponse, error) {
 	cl, err := createConfigRoute(ctx, request.ServiceAccountFile)
 	if err != nil {

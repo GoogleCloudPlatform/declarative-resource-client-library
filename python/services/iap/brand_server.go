@@ -78,7 +78,7 @@ func (s *BrandServer) DeleteIapBrand(ctx context.Context, request *iappb.DeleteI
 
 }
 
-// ListBrand handles the gRPC request by passing it to the underlying BrandList() method.
+// ListIapBrand handles the gRPC request by passing it to the underlying BrandList() method.
 func (s *BrandServer) ListIapBrand(ctx context.Context, request *iappb.ListIapBrandRequest) (*iappb.ListIapBrandResponse, error) {
 	cl, err := createConfigBrand(ctx, request.ServiceAccountFile)
 	if err != nil {

@@ -273,7 +273,7 @@ func (s *KeyServer) DeleteApikeysKey(ctx context.Context, request *apikeyspb.Del
 
 }
 
-// ListKey handles the gRPC request by passing it to the underlying KeyList() method.
+// ListApikeysKey handles the gRPC request by passing it to the underlying KeyList() method.
 func (s *KeyServer) ListApikeysKey(ctx context.Context, request *apikeyspb.ListApikeysKeyRequest) (*apikeyspb.ListApikeysKeyResponse, error) {
 	cl, err := createConfigKey(ctx, request.ServiceAccountFile)
 	if err != nil {

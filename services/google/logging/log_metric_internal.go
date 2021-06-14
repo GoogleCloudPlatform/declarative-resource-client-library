@@ -255,7 +255,10 @@ func (c *Client) listLogMetric(ctx context.Context, project, pageToken string, p
 
 	var l []*LogMetric
 	for _, v := range m.Metrics {
-		res := flattenLogMetric(c, v)
+		res, err := unmarshalMapLogMetric(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

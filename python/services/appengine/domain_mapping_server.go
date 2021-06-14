@@ -183,7 +183,7 @@ func (s *DomainMappingServer) DeleteAppengineDomainMapping(ctx context.Context, 
 
 }
 
-// ListDomainMapping handles the gRPC request by passing it to the underlying DomainMappingList() method.
+// ListAppengineDomainMapping handles the gRPC request by passing it to the underlying DomainMappingList() method.
 func (s *DomainMappingServer) ListAppengineDomainMapping(ctx context.Context, request *appenginepb.ListAppengineDomainMappingRequest) (*appenginepb.ListAppengineDomainMappingResponse, error) {
 	cl, err := createConfigDomainMapping(ctx, request.ServiceAccountFile)
 	if err != nil {

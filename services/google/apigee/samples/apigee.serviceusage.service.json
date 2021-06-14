@@ -1,4 +1,4 @@
 {
   "name": "apigee.googleapis.com",
-  "project": "{{project}}"
+  "project": "{{ref:basic.cloudresourcemanager.project.json:name}}"
 }

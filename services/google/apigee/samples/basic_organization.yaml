@@ -11,6 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+dependencies:
+- samples/apigee.serviceusage.service.json
+- samples/basic.cloudresourcemanager.project.json
 description: A basic example of an apigee organization
 name: basic_organization
 resource: samples/basic.organization.json

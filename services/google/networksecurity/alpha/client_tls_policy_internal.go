@@ -307,7 +307,10 @@ func (c *Client) listClientTlsPolicy(ctx context.Context, project, location, pag
 
 	var l []*ClientTlsPolicy
 	for _, v := range m.ClientTlsPolicies {
-		res := flattenClientTlsPolicy(c, v)
+		res, err := unmarshalMapClientTlsPolicy(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

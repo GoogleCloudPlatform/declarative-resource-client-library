@@ -210,7 +210,10 @@ func (c *Client) listEnvironment(ctx context.Context, project, location, pageTok
 
 	var l []*Environment
 	for _, v := range m.Environments {
-		res := flattenEnvironment(c, v)
+		res, err := unmarshalMapEnvironment(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

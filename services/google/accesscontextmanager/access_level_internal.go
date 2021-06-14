@@ -71,7 +71,7 @@ func accessLevelListURL(userBasePath, policy string) (string, error) {
 	params := map[string]interface{}{
 		"policy": policy,
 	}
-	return dcl.URL("{{policy}}/accessLevels", "https://accesscontextmanager.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("accessPolicies/{{policy}}/accessLevels", "https://accesscontextmanager.googleapis.com/v1/", userBasePath, params), nil
 
 }
 
@@ -114,7 +114,7 @@ func newUpdateAccessLevelUpdateRequest(ctx context.Context, f *AccessLevel, c *C
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["basic"] = v
 	}
-	if v, err := dcl.DeriveField("%s/accessLevels/%s", f.Name, f.Policy, f.Name); err != nil {
+	if v, err := dcl.DeriveField("accessPolicies/%s/accessLevels/%s", f.Name, f.Policy, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["name"] = v
@@ -230,7 +230,10 @@ func (c *Client) listAccessLevel(ctx context.Context, policy, pageToken string, 
 
 	var l []*AccessLevel
 	for _, v := range m.AccessLevels {
-		res := flattenAccessLevel(c, v)
+		res, err := unmarshalMapAccessLevel(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Policy = &policy
 		l = append(l, res)
 	}
@@ -1251,7 +1254,7 @@ func expandAccessLevel(c *Client, f *AccessLevel) (map[string]interface{}, error
 	} else if v != nil {
 		m["basic"] = v
 	}
-	if v, err := dcl.DeriveField("%s/accessLevels/%s", f.Name, f.Policy, f.Name); err != nil {
+	if v, err := dcl.DeriveField("accessPolicies/%s/accessLevels/%s", f.Name, f.Policy, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v

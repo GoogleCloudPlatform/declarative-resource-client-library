@@ -152,7 +152,7 @@ func (s *RoleServer) DeleteIamRole(ctx context.Context, request *iampb.DeleteIam
 
 }
 
-// ListRole handles the gRPC request by passing it to the underlying RoleList() method.
+// ListIamRole handles the gRPC request by passing it to the underlying RoleList() method.
 func (s *RoleServer) ListIamRole(ctx context.Context, request *iampb.ListIamRoleRequest) (*iampb.ListIamRoleResponse, error) {
 	cl, err := createConfigRole(ctx, request.ServiceAccountFile)
 	if err != nil {

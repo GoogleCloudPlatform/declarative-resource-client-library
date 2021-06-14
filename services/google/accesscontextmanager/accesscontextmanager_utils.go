@@ -20,6 +20,7 @@ func GetAccessPolicyName(ctx context.Context, c *Client, parent *string) *string
 	if parent == nil {
 		return nil
 	}
+	c.Config.Logger.Infof("parent: %q\n", *parent)
 
 	policies, err := c.ListAccessPolicy(ctx, *parent)
 	// All errors can be associated with no access policies existing.

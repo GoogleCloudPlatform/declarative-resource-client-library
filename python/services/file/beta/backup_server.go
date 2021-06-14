@@ -141,7 +141,7 @@ func (s *BackupServer) DeleteFileBetaBackup(ctx context.Context, request *betapb
 
 }
 
-// ListBackup handles the gRPC request by passing it to the underlying BackupList() method.
+// ListFileBetaBackup handles the gRPC request by passing it to the underlying BackupList() method.
 func (s *BackupServer) ListFileBetaBackup(ctx context.Context, request *betapb.ListFileBetaBackupRequest) (*betapb.ListFileBetaBackupResponse, error) {
 	cl, err := createConfigBackup(ctx, request.ServiceAccountFile)
 	if err != nil {

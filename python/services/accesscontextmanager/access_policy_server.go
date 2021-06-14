@@ -81,7 +81,7 @@ func (s *AccessPolicyServer) DeleteAccesscontextmanagerAccessPolicy(ctx context.
 
 }
 
-// ListAccessPolicy handles the gRPC request by passing it to the underlying AccessPolicyList() method.
+// ListAccesscontextmanagerAccessPolicy handles the gRPC request by passing it to the underlying AccessPolicyList() method.
 func (s *AccessPolicyServer) ListAccesscontextmanagerAccessPolicy(ctx context.Context, request *accesscontextmanagerpb.ListAccesscontextmanagerAccessPolicyRequest) (*accesscontextmanagerpb.ListAccesscontextmanagerAccessPolicyResponse, error) {
 	cl, err := createConfigAccessPolicy(ctx, request.ServiceAccountFile)
 	if err != nil {

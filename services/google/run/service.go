@@ -24,6 +24,7 @@ import (
 )
 
 type Service struct {
+	Name       *string          `json:"name"`
 	ApiVersion *string          `json:"apiVersion"`
 	Kind       *string          `json:"kind"`
 	Metadata   *ServiceMetadata `json:"metadata"`
@@ -31,7 +32,6 @@ type Service struct {
 	Status     *ServiceStatus   `json:"status"`
 	Project    *string          `json:"project"`
 	Location   *string          `json:"location"`
-	Name       *string          `json:"name"`
 }
 
 func (r *Service) String() string {
@@ -40,7 +40,6 @@ func (r *Service) String() string {
 
 type ServiceMetadata struct {
 	empty                      bool                             `json:"-"`
-	Name                       *string                          `json:"name"`
 	GenerateName               *string                          `json:"generateName"`
 	Namespace                  *string                          `json:"namespace"`
 	SelfLink                   *string                          `json:"selfLink"`
@@ -71,8 +70,6 @@ func (r *ServiceMetadata) UnmarshalJSON(data []byte) error {
 	if len(m) == 0 {
 		*r = *EmptyServiceMetadata
 	} else {
-
-		r.Name = res.Name
 
 		r.GenerateName = res.GenerateName
 

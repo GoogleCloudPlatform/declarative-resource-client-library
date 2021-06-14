@@ -261,7 +261,10 @@ func (c *Client) listBucket(ctx context.Context, project, pageToken string, page
 
 	var l []*Bucket
 	for _, v := range m.Items {
-		res := flattenBucket(c, v)
+		res, err := unmarshalMapBucket(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

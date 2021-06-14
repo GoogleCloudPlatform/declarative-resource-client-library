@@ -361,7 +361,7 @@ func (s *UptimeCheckConfigServer) DeleteMonitoringUptimeCheckConfig(ctx context.
 
 }
 
-// ListUptimeCheckConfig handles the gRPC request by passing it to the underlying UptimeCheckConfigList() method.
+// ListMonitoringUptimeCheckConfig handles the gRPC request by passing it to the underlying UptimeCheckConfigList() method.
 func (s *UptimeCheckConfigServer) ListMonitoringUptimeCheckConfig(ctx context.Context, request *monitoringpb.ListMonitoringUptimeCheckConfigRequest) (*monitoringpb.ListMonitoringUptimeCheckConfigResponse, error) {
 	cl, err := createConfigUptimeCheckConfig(ctx, request.ServiceAccountFile)
 	if err != nil {

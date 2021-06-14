@@ -22,8 +22,7 @@ message ApigeeAttachment {
   string name = 1;
   string environment = 2;
   int64 created_at = 3;
-  string organization = 4;
-  string envgroup = 5;
+  string envgroup = 4;
 }
 
 message ApplyApigeeAttachmentRequest {
@@ -39,8 +38,7 @@ message DeleteApigeeAttachmentRequest {
 
 message ListApigeeAttachmentRequest {
   string service_account_file = 1;
-  string Organization = 2;
-  string Envgroup = 3;
+  string Envgroup = 2;
 }
 
 message ListApigeeAttachmentResponse {

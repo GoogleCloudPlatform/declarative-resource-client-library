@@ -221,7 +221,7 @@ func (s *InstanceServer) DeleteDatafusionBetaInstance(ctx context.Context, reque
 
 }
 
-// ListInstance handles the gRPC request by passing it to the underlying InstanceList() method.
+// ListDatafusionBetaInstance handles the gRPC request by passing it to the underlying InstanceList() method.
 func (s *InstanceServer) ListDatafusionBetaInstance(ctx context.Context, request *betapb.ListDatafusionBetaInstanceRequest) (*betapb.ListDatafusionBetaInstanceResponse, error) {
 	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
 	if err != nil {

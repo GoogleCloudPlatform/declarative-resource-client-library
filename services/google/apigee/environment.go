@@ -184,51 +184,6 @@ type EnvironmentList struct {
 	organization string
 }
 
-func (l *EnvironmentList) HasNext() bool {
-	return l.nextToken != ""
-}
-
-func (l *EnvironmentList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
-
-	if !l.HasNext() {
-		return fmt.Errorf("no next page")
-	}
-	items, token, err := c.listEnvironment(ctx, l.organization, l.nextToken, l.pageSize)
-	if err != nil {
-		return err
-	}
-	l.Items = items
-	l.nextToken = token
-	return err
-}
-
-func (c *Client) ListEnvironment(ctx context.Context, organization string) (*EnvironmentList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
-
-	return c.ListEnvironmentWithMaxResults(ctx, organization, EnvironmentMaxPage)
-
-}
-
-func (c *Client) ListEnvironmentWithMaxResults(ctx context.Context, organization string, pageSize int32) (*EnvironmentList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
-
-	items, token, err := c.listEnvironment(ctx, organization, "", pageSize)
-	if err != nil {
-		return nil, err
-	}
-	return &EnvironmentList{
-		Items:     items,
-		nextToken: token,
-		pageSize:  pageSize,
-
-		organization: organization,
-	}, nil
-}
-
 func (c *Client) GetEnvironment(ctx context.Context, r *Environment) (*Environment, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

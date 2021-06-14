@@ -2576,7 +2576,7 @@ func (s *ClusterServer) DeleteContainerCluster(ctx context.Context, request *con
 
 }
 
-// ListCluster handles the gRPC request by passing it to the underlying ClusterList() method.
+// ListContainerCluster handles the gRPC request by passing it to the underlying ClusterList() method.
 func (s *ClusterServer) ListContainerCluster(ctx context.Context, request *containerpb.ListContainerClusterRequest) (*containerpb.ListContainerClusterResponse, error) {
 	cl, err := createConfigCluster(ctx, request.ServiceAccountFile)
 	if err != nil {

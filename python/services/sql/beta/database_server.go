@@ -83,7 +83,7 @@ func (s *DatabaseServer) DeleteSqlBetaDatabase(ctx context.Context, request *bet
 
 }
 
-// ListDatabase handles the gRPC request by passing it to the underlying DatabaseList() method.
+// ListSqlBetaDatabase handles the gRPC request by passing it to the underlying DatabaseList() method.
 func (s *DatabaseServer) ListSqlBetaDatabase(ctx context.Context, request *betapb.ListSqlBetaDatabaseRequest) (*betapb.ListSqlBetaDatabaseResponse, error) {
 	cl, err := createConfigDatabase(ctx, request.ServiceAccountFile)
 	if err != nil {

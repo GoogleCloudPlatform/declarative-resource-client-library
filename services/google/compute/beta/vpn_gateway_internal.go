@@ -214,7 +214,10 @@ func (c *Client) listVpnGateway(ctx context.Context, project, region, pageToken 
 
 	var l []*VpnGateway
 	for _, v := range m.Items {
-		res := flattenVpnGateway(c, v)
+		res, err := unmarshalMapVpnGateway(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Region = &region
 		l = append(l, res)

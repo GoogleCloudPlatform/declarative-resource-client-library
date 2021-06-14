@@ -77,23 +77,9 @@ func (s *ProjectBillingInfoServer) DeleteCloudbillingProjectBillingInfo(ctx cont
 
 }
 
-// ListProjectBillingInfo handles the gRPC request by passing it to the underlying ProjectBillingInfoList() method.
-func (s *ProjectBillingInfoServer) ListCloudbillingProjectBillingInfo(ctx context.Context, request *cloudbillingpb.ListCloudbillingProjectBillingInfoRequest) (*cloudbillingpb.ListCloudbillingProjectBillingInfoResponse, error) {
-	cl, err := createConfigProjectBillingInfo(ctx, request.ServiceAccountFile)
-	if err != nil {
-		return nil, err
-	}
-
-	resources, err := cl.ListProjectBillingInfo(ctx, request.Name)
-	if err != nil {
-		return nil, err
-	}
-	var protos []*cloudbillingpb.CloudbillingProjectBillingInfo
-	for _, r := range resources.Items {
-		rp := ProjectBillingInfoToProto(r)
-		protos = append(protos, rp)
-	}
-	return &cloudbillingpb.ListCloudbillingProjectBillingInfoResponse{Items: protos}, nil
+// ListCloudbillingProjectBillingInfo is a no-op method because ProjectBillingInfo has no list method.
+func (s *ProjectBillingInfoServer) ListCloudbillingProjectBillingInfo(_ context.Context, _ *cloudbillingpb.ListCloudbillingProjectBillingInfoRequest) (*cloudbillingpb.ListCloudbillingProjectBillingInfoResponse, error) {
+	return nil, nil
 }
 
 func createConfigProjectBillingInfo(ctx context.Context, service_account_file string) (*cloudbilling.Client, error) {

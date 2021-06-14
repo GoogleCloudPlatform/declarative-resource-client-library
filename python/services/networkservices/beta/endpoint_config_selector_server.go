@@ -265,7 +265,7 @@ func (s *EndpointConfigSelectorServer) DeleteNetworkservicesBetaEndpointConfigSe
 
 }
 
-// ListEndpointConfigSelector handles the gRPC request by passing it to the underlying EndpointConfigSelectorList() method.
+// ListNetworkservicesBetaEndpointConfigSelector handles the gRPC request by passing it to the underlying EndpointConfigSelectorList() method.
 func (s *EndpointConfigSelectorServer) ListNetworkservicesBetaEndpointConfigSelector(ctx context.Context, request *betapb.ListNetworkservicesBetaEndpointConfigSelectorRequest) (*betapb.ListNetworkservicesBetaEndpointConfigSelectorResponse, error) {
 	cl, err := createConfigEndpointConfigSelector(ctx, request.ServiceAccountFile)
 	if err != nil {

@@ -48,55 +48,6 @@ type ProjectBillingInfoList struct {
 	Items []*ProjectBillingInfo
 
 	nextToken string
-
-	pageSize int32
-
-	name string
-}
-
-func (l *ProjectBillingInfoList) HasNext() bool {
-	return l.nextToken != ""
-}
-
-func (l *ProjectBillingInfoList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
-
-	if !l.HasNext() {
-		return fmt.Errorf("no next page")
-	}
-	items, token, err := c.listProjectBillingInfo(ctx, l.name, l.nextToken, l.pageSize)
-	if err != nil {
-		return err
-	}
-	l.Items = items
-	l.nextToken = token
-	return err
-}
-
-func (c *Client) ListProjectBillingInfo(ctx context.Context, name string) (*ProjectBillingInfoList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
-
-	return c.ListProjectBillingInfoWithMaxResults(ctx, name, ProjectBillingInfoMaxPage)
-
-}
-
-func (c *Client) ListProjectBillingInfoWithMaxResults(ctx context.Context, name string, pageSize int32) (*ProjectBillingInfoList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
-
-	items, token, err := c.listProjectBillingInfo(ctx, name, "", pageSize)
-	if err != nil {
-		return nil, err
-	}
-	return &ProjectBillingInfoList{
-		Items:     items,
-		nextToken: token,
-		pageSize:  pageSize,
-
-		name: name,
-	}, nil
 }
 
 func (c *Client) GetProjectBillingInfo(ctx context.Context, r *ProjectBillingInfo) (*ProjectBillingInfo, error) {
@@ -140,30 +91,6 @@ func (c *Client) DeleteProjectBillingInfo(ctx context.Context, r *ProjectBilling
 	c.Config.Logger.Info("Deleting ProjectBillingInfo...")
 	deleteOp := deleteProjectBillingInfoOperation{}
 	return deleteOp.do(ctx, r, c)
-}
-
-// DeleteAllProjectBillingInfo deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllProjectBillingInfo(ctx context.Context, name string, filter func(*ProjectBillingInfo) bool) error {
-	listObj, err := c.ListProjectBillingInfo(ctx, name)
-	if err != nil {
-		return err
-	}
-
-	err = c.deleteAllProjectBillingInfo(ctx, filter, listObj.Items)
-	if err != nil {
-		return err
-	}
-	for listObj.HasNext() {
-		err = listObj.Next(ctx, c)
-		if err != nil {
-			return nil
-		}
-		err = c.deleteAllProjectBillingInfo(ctx, filter, listObj.Items)
-		if err != nil {
-			return err
-		}
-	}
-	return nil
 }
 
 func (c *Client) ApplyProjectBillingInfo(ctx context.Context, rawDesired *ProjectBillingInfo, opts ...dcl.ApplyOption) (*ProjectBillingInfo, error) {

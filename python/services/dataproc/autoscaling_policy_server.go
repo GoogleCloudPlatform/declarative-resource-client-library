@@ -189,7 +189,7 @@ func (s *AutoscalingPolicyServer) DeleteDataprocAutoscalingPolicy(ctx context.Co
 
 }
 
-// ListAutoscalingPolicy handles the gRPC request by passing it to the underlying AutoscalingPolicyList() method.
+// ListDataprocAutoscalingPolicy handles the gRPC request by passing it to the underlying AutoscalingPolicyList() method.
 func (s *AutoscalingPolicyServer) ListDataprocAutoscalingPolicy(ctx context.Context, request *dataprocpb.ListDataprocAutoscalingPolicyRequest) (*dataprocpb.ListDataprocAutoscalingPolicyResponse, error) {
 	cl, err := createConfigAutoscalingPolicy(ctx, request.ServiceAccountFile)
 	if err != nil {

@@ -431,6 +431,7 @@ func ProtoToWorkflowTemplate(p *dataprocpb.DataprocWorkflowTemplate) *dataproc.W
 		CreateTime: dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime: dcl.StringOrNil(p.GetUpdateTime()),
 		Placement:  ProtoToDataprocWorkflowTemplatePlacement(p.GetPlacement()),
+		DagTimeout: dcl.StringOrNil(p.DagTimeout),
 		Project:    dcl.StringOrNil(p.Project),
 		Location:   dcl.StringOrNil(p.Location),
 	}
@@ -933,6 +934,7 @@ func WorkflowTemplateToProto(resource *dataproc.WorkflowTemplate) *dataprocpb.Da
 		CreateTime: dcl.ValueOrEmptyString(resource.CreateTime),
 		UpdateTime: dcl.ValueOrEmptyString(resource.UpdateTime),
 		Placement:  DataprocWorkflowTemplatePlacementToProto(resource.Placement),
+		DagTimeout: dcl.ValueOrEmptyString(resource.DagTimeout),
 		Project:    dcl.ValueOrEmptyString(resource.Project),
 		Location:   dcl.ValueOrEmptyString(resource.Location),
 	}
@@ -977,7 +979,7 @@ func (s *WorkflowTemplateServer) DeleteDataprocWorkflowTemplate(ctx context.Cont
 
 }
 
-// ListWorkflowTemplate handles the gRPC request by passing it to the underlying WorkflowTemplateList() method.
+// ListDataprocWorkflowTemplate handles the gRPC request by passing it to the underlying WorkflowTemplateList() method.
 func (s *WorkflowTemplateServer) ListDataprocWorkflowTemplate(ctx context.Context, request *dataprocpb.ListDataprocWorkflowTemplateRequest) (*dataprocpb.ListDataprocWorkflowTemplateResponse, error) {
 	cl, err := createConfigWorkflowTemplate(ctx, request.ServiceAccountFile)
 	if err != nil {

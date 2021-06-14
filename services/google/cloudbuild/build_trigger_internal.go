@@ -334,7 +334,10 @@ func (c *Client) listBuildTrigger(ctx context.Context, project, pageToken string
 
 	var l []*BuildTrigger
 	for _, v := range m.Triggers {
-		res := flattenBuildTrigger(c, v)
+		res, err := unmarshalMapBuildTrigger(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

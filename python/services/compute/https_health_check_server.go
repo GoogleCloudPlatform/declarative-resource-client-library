@@ -95,7 +95,7 @@ func (s *HttpsHealthCheckServer) DeleteComputeHttpsHealthCheck(ctx context.Conte
 
 }
 
-// ListHttpsHealthCheck handles the gRPC request by passing it to the underlying HttpsHealthCheckList() method.
+// ListComputeHttpsHealthCheck handles the gRPC request by passing it to the underlying HttpsHealthCheckList() method.
 func (s *HttpsHealthCheckServer) ListComputeHttpsHealthCheck(ctx context.Context, request *computepb.ListComputeHttpsHealthCheckRequest) (*computepb.ListComputeHttpsHealthCheckResponse, error) {
 	cl, err := createConfigHttpsHealthCheck(ctx, request.ServiceAccountFile)
 	if err != nil {

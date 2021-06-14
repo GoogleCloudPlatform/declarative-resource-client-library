@@ -122,7 +122,7 @@ func (s *TargetVpnGatewayServer) DeleteComputeBetaTargetVpnGateway(ctx context.C
 
 }
 
-// ListTargetVpnGateway handles the gRPC request by passing it to the underlying TargetVpnGatewayList() method.
+// ListComputeBetaTargetVpnGateway handles the gRPC request by passing it to the underlying TargetVpnGatewayList() method.
 func (s *TargetVpnGatewayServer) ListComputeBetaTargetVpnGateway(ctx context.Context, request *betapb.ListComputeBetaTargetVpnGatewayRequest) (*betapb.ListComputeBetaTargetVpnGatewayResponse, error) {
 	cl, err := createConfigTargetVpnGateway(ctx, request.ServiceAccountFile)
 	if err != nil {

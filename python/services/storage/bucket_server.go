@@ -378,7 +378,7 @@ func (s *BucketServer) DeleteStorageBucket(ctx context.Context, request *storage
 
 }
 
-// ListBucket handles the gRPC request by passing it to the underlying BucketList() method.
+// ListStorageBucket handles the gRPC request by passing it to the underlying BucketList() method.
 func (s *BucketServer) ListStorageBucket(ctx context.Context, request *storagepb.ListStorageBucketRequest) (*storagepb.ListStorageBucketResponse, error) {
 	cl, err := createConfigBucket(ctx, request.ServiceAccountFile)
 	if err != nil {

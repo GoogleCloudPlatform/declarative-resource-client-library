@@ -108,7 +108,7 @@ func (s *HmacKeyServer) DeleteStorageHmacKey(ctx context.Context, request *stora
 
 }
 
-// ListHmacKey handles the gRPC request by passing it to the underlying HmacKeyList() method.
+// ListStorageHmacKey handles the gRPC request by passing it to the underlying HmacKeyList() method.
 func (s *HmacKeyServer) ListStorageHmacKey(ctx context.Context, request *storagepb.ListStorageHmacKeyRequest) (*storagepb.ListStorageHmacKeyResponse, error) {
 	cl, err := createConfigHmacKey(ctx, request.ServiceAccountFile)
 	if err != nil {

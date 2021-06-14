@@ -382,7 +382,7 @@ func (s *InstanceServer) DeleteRedisBetaInstance(ctx context.Context, request *b
 
 }
 
-// ListInstance handles the gRPC request by passing it to the underlying InstanceList() method.
+// ListRedisBetaInstance handles the gRPC request by passing it to the underlying InstanceList() method.
 func (s *InstanceServer) ListRedisBetaInstance(ctx context.Context, request *betapb.ListRedisBetaInstanceRequest) (*betapb.ListRedisBetaInstanceResponse, error) {
 	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
 	if err != nil {

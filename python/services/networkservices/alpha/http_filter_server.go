@@ -89,7 +89,7 @@ func (s *HttpFilterServer) DeleteNetworkservicesAlphaHttpFilter(ctx context.Cont
 
 }
 
-// ListHttpFilter handles the gRPC request by passing it to the underlying HttpFilterList() method.
+// ListNetworkservicesAlphaHttpFilter handles the gRPC request by passing it to the underlying HttpFilterList() method.
 func (s *HttpFilterServer) ListNetworkservicesAlphaHttpFilter(ctx context.Context, request *alphapb.ListNetworkservicesAlphaHttpFilterRequest) (*alphapb.ListNetworkservicesAlphaHttpFilterResponse, error) {
 	cl, err := createConfigHttpFilter(ctx, request.ServiceAccountFile)
 	if err != nil {

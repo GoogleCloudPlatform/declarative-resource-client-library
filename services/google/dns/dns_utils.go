@@ -19,6 +19,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
@@ -113,6 +114,25 @@ func (op *deleteResourceRecordSetOperation) do(ctx context.Context, r *ResourceR
 		return err
 	}
 	return o.Wait(ctx, c.Config, *r.Project, *r.ManagedZone)
+}
+
+func (c *Client) getResourceRecordSetRaw(ctx context.Context, r *ResourceRecordSet) ([]byte, error) {
+
+	u, err := resourceRecordSetGetURL(c.Config.BasePath, r.urlNormalized())
+	if err != nil {
+		return nil, err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Response.Body.Close()
+	b, err := ioutil.ReadAll(resp.Response.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return b, nil
 }
 
 // GetResourceRecordSet fetches a Resource Record Set.

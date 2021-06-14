@@ -85,7 +85,7 @@ func (s *ReservationServer) DeleteBigqueryreservationReservation(ctx context.Con
 
 }
 
-// ListReservation handles the gRPC request by passing it to the underlying ReservationList() method.
+// ListBigqueryreservationReservation handles the gRPC request by passing it to the underlying ReservationList() method.
 func (s *ReservationServer) ListBigqueryreservationReservation(ctx context.Context, request *bigqueryreservationpb.ListBigqueryreservationReservationRequest) (*bigqueryreservationpb.ListBigqueryreservationReservationResponse, error) {
 	cl, err := createConfigReservation(ctx, request.ServiceAccountFile)
 	if err != nil {

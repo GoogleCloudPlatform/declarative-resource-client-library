@@ -318,7 +318,7 @@ func (s *InstanceServer) DeleteFileInstance(ctx context.Context, request *filepb
 
 }
 
-// ListInstance handles the gRPC request by passing it to the underlying InstanceList() method.
+// ListFileInstance handles the gRPC request by passing it to the underlying InstanceList() method.
 func (s *InstanceServer) ListFileInstance(ctx context.Context, request *filepb.ListFileInstanceRequest) (*filepb.ListFileInstanceResponse, error) {
 	cl, err := createConfigInstance(ctx, request.ServiceAccountFile)
 	if err != nil {

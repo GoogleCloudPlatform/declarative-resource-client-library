@@ -17,12 +17,38 @@ package run
 import (
 	"bytes"
 	"context"
+	"io/ioutil"
 	"time"
 
 	"google.golang.org/api/googleapi"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
+
+func (c *Client) getServiceRaw(ctx context.Context, r *Service) ([]byte, error) {
+	if dcl.IsZeroValue(r.ApiVersion) {
+		r.ApiVersion = dcl.String("serving.knative.dev/v1")
+	}
+	if dcl.IsZeroValue(r.Kind) {
+		r.Kind = dcl.String("Service")
+	}
+
+	u, err := serviceGetURL(c.Config.BasePath, r.urlNormalized())
+	if err != nil {
+		return nil, err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Response.Body.Close()
+	b, err := ioutil.ReadAll(resp.Response.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return b, nil
+}
 
 func (c *Client) GetService(ctx context.Context, r *Service) (*Service, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(60*time.Second))

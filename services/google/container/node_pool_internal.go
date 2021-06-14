@@ -530,7 +530,10 @@ func (c *Client) listNodePool(ctx context.Context, project, location, cluster, p
 
 	var l []*NodePool
 	for _, v := range m.NodePools {
-		res := flattenNodePool(c, v)
+		res, err := unmarshalMapNodePool(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		res.Cluster = &cluster

@@ -116,7 +116,7 @@ func (s *TargetSslProxyServer) DeleteComputeTargetSslProxy(ctx context.Context, 
 
 }
 
-// ListTargetSslProxy handles the gRPC request by passing it to the underlying TargetSslProxyList() method.
+// ListComputeTargetSslProxy handles the gRPC request by passing it to the underlying TargetSslProxyList() method.
 func (s *TargetSslProxyServer) ListComputeTargetSslProxy(ctx context.Context, request *computepb.ListComputeTargetSslProxyRequest) (*computepb.ListComputeTargetSslProxyResponse, error) {
 	cl, err := createConfigTargetSslProxy(ctx, request.ServiceAccountFile)
 	if err != nil {

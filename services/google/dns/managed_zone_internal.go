@@ -252,7 +252,10 @@ func (c *Client) listManagedZone(ctx context.Context, project, pageToken string,
 
 	var l []*ManagedZone
 	for _, v := range m.ManagedZones {
-		res := flattenManagedZone(c, v)
+		res, err := unmarshalMapManagedZone(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

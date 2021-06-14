@@ -257,7 +257,10 @@ func (c *Client) listAutoscalingPolicy(ctx context.Context, project, location, p
 
 	var l []*AutoscalingPolicy
 	for _, v := range m.Policies {
-		res := flattenAutoscalingPolicy(c, v)
+		res, err := unmarshalMapAutoscalingPolicy(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

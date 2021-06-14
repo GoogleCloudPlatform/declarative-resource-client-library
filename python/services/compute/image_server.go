@@ -666,7 +666,7 @@ func (s *ImageServer) DeleteComputeImage(ctx context.Context, request *computepb
 
 }
 
-// ListImage handles the gRPC request by passing it to the underlying ImageList() method.
+// ListComputeImage handles the gRPC request by passing it to the underlying ImageList() method.
 func (s *ImageServer) ListComputeImage(ctx context.Context, request *computepb.ListComputeImageRequest) (*computepb.ListComputeImageResponse, error) {
 	cl, err := createConfigImage(ctx, request.ServiceAccountFile)
 	if err != nil {

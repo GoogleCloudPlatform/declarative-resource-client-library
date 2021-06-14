@@ -200,7 +200,7 @@ func (s *NetworkEndpointGroupServer) DeleteComputeBetaNetworkEndpointGroup(ctx c
 
 }
 
-// ListNetworkEndpointGroup handles the gRPC request by passing it to the underlying NetworkEndpointGroupList() method.
+// ListComputeBetaNetworkEndpointGroup handles the gRPC request by passing it to the underlying NetworkEndpointGroupList() method.
 func (s *NetworkEndpointGroupServer) ListComputeBetaNetworkEndpointGroup(ctx context.Context, request *betapb.ListComputeBetaNetworkEndpointGroupRequest) (*betapb.ListComputeBetaNetworkEndpointGroupResponse, error) {
 	cl, err := createConfigNetworkEndpointGroup(ctx, request.ServiceAccountFile)
 	if err != nil {

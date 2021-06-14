@@ -131,7 +131,10 @@ func (c *Client) listPolicy(ctx context.Context, project, pageToken string, page
 
 	var l []*Policy
 	for _, v := range m.Items {
-		res := flattenPolicy(c, v)
+		res, err := unmarshalMapPolicy(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

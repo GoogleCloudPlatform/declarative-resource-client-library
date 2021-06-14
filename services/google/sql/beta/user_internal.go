@@ -206,7 +206,10 @@ func (c *Client) listUser(ctx context.Context, project, instance, pageToken stri
 
 	var l []*User
 	for _, v := range m.Items {
-		res := flattenUser(c, v)
+		res, err := unmarshalMapUser(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Instance = &instance
 		l = append(l, res)

@@ -577,7 +577,7 @@ func (s *BuildTriggerServer) DeleteCloudbuildBuildTrigger(ctx context.Context, r
 
 }
 
-// ListBuildTrigger handles the gRPC request by passing it to the underlying BuildTriggerList() method.
+// ListCloudbuildBuildTrigger handles the gRPC request by passing it to the underlying BuildTriggerList() method.
 func (s *BuildTriggerServer) ListCloudbuildBuildTrigger(ctx context.Context, request *cloudbuildpb.ListCloudbuildBuildTriggerRequest) (*cloudbuildpb.ListCloudbuildBuildTriggerResponse, error) {
 	cl, err := createConfigBuildTrigger(ctx, request.ServiceAccountFile)
 	if err != nil {

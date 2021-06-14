@@ -21,6 +21,7 @@ from typing import List
 class Service(object):
     def __init__(
         self,
+        name: str = None,
         api_version: str = None,
         kind: str = None,
         metadata: dict = None,
@@ -28,23 +29,25 @@ class Service(object):
         status: dict = None,
         project: str = None,
         location: str = None,
-        name: str = None,
         service_account_file: str = "",
     ):
 
         channel.initialize()
+        self.name = name
         self.api_version = api_version
         self.kind = kind
         self.metadata = metadata
         self.spec = spec
         self.project = project
         self.location = location
-        self.name = name
         self.service_account_file = service_account_file
 
     def apply(self):
         stub = service_pb2_grpc.RunServiceServiceStub(channel.Channel())
         request = service_pb2.ApplyRunServiceRequest()
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
         if Primitive.to_proto(self.api_version):
             request.resource.api_version = Primitive.to_proto(self.api_version)
 
@@ -65,12 +68,10 @@ class Service(object):
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyRunService(request)
+        self.name = Primitive.from_proto(response.name)
         self.api_version = Primitive.from_proto(response.api_version)
         self.kind = Primitive.from_proto(response.kind)
         self.metadata = ServiceMetadata.from_proto(response.metadata)
@@ -78,12 +79,14 @@ class Service(object):
         self.status = ServiceStatus.from_proto(response.status)
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
-        self.name = Primitive.from_proto(response.name)
 
     def delete(self):
         stub = service_pb2_grpc.RunServiceServiceStub(channel.Channel())
         request = service_pb2.DeleteRunServiceRequest()
         request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.name):
+            request.resource.name = Primitive.to_proto(self.name)
+
         if Primitive.to_proto(self.api_version):
             request.resource.api_version = Primitive.to_proto(self.api_version)
 
@@ -103,9 +106,6 @@ class Service(object):
 
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
-
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
 
         response = stub.DeleteRunService(request)
 
@@ -122,6 +122,8 @@ class Service(object):
 
     def to_proto(self):
         resource = service_pb2.RunService()
+        if Primitive.to_proto(self.name):
+            resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.api_version):
             resource.api_version = Primitive.to_proto(self.api_version)
         if Primitive.to_proto(self.kind):
@@ -138,15 +140,12 @@ class Service(object):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):
             resource.location = Primitive.to_proto(self.location)
-        if Primitive.to_proto(self.name):
-            resource.name = Primitive.to_proto(self.name)
         return resource
 
 
 class ServiceMetadata(object):
     def __init__(
         self,
-        name: str = None,
         generate_name: str = None,
         namespace: str = None,
         self_link: str = None,
@@ -162,7 +161,6 @@ class ServiceMetadata(object):
         finalizers: list = None,
         cluster_name: str = None,
     ):
-        self.name = name
         self.generate_name = generate_name
         self.namespace = namespace
         self.self_link = self_link
@@ -184,8 +182,6 @@ class ServiceMetadata(object):
             return None
 
         res = service_pb2.RunServiceMetadata()
-        if Primitive.to_proto(resource.name):
-            res.name = Primitive.to_proto(resource.name)
         if Primitive.to_proto(resource.generate_name):
             res.generate_name = Primitive.to_proto(resource.generate_name)
         if Primitive.to_proto(resource.namespace):
@@ -234,7 +230,6 @@ class ServiceMetadata(object):
             return None
 
         return ServiceMetadata(
-            name=Primitive.from_proto(resource.name),
             generate_name=Primitive.from_proto(resource.generate_name),
             namespace=Primitive.from_proto(resource.namespace),
             self_link=Primitive.from_proto(resource.self_link),

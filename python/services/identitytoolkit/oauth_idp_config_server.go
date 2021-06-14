@@ -113,7 +113,7 @@ func (s *OAuthIdpConfigServer) DeleteIdentitytoolkitOAuthIdpConfig(ctx context.C
 
 }
 
-// ListOAuthIdpConfig handles the gRPC request by passing it to the underlying OAuthIdpConfigList() method.
+// ListIdentitytoolkitOAuthIdpConfig handles the gRPC request by passing it to the underlying OAuthIdpConfigList() method.
 func (s *OAuthIdpConfigServer) ListIdentitytoolkitOAuthIdpConfig(ctx context.Context, request *identitytoolkitpb.ListIdentitytoolkitOAuthIdpConfigRequest) (*identitytoolkitpb.ListIdentitytoolkitOAuthIdpConfigResponse, error) {
 	cl, err := createConfigOAuthIdpConfig(ctx, request.ServiceAccountFile)
 	if err != nil {

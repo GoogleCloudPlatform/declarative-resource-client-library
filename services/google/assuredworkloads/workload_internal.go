@@ -201,7 +201,10 @@ func (c *Client) listWorkload(ctx context.Context, organization, location, pageT
 
 	var l []*Workload
 	for _, v := range m.Workloads {
-		res := flattenWorkload(c, v)
+		res, err := unmarshalMapWorkload(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Organization = &organization
 		res.Location = &location
 		l = append(l, res)
@@ -320,7 +323,7 @@ func (op *createWorkloadOperation) do(ctx context.Context, r *Workload, c *Clien
 	// Include Name in URL substitution for initial GET request.
 	name, ok := op.response["name"].(string)
 	if !ok {
-		return fmt.Errorf("expected name to be a string")
+		return fmt.Errorf("expected name to be a string, was %T", name)
 	}
 	r.Name = &name
 

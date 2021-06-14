@@ -206,7 +206,10 @@ func (c *Client) listBackendBucket(ctx context.Context, project, pageToken strin
 
 	var l []*BackendBucket
 	for _, v := range m.Items {
-		res := flattenBackendBucket(c, v)
+		res, err := unmarshalMapBackendBucket(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

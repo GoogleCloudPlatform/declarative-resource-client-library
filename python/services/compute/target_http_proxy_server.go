@@ -83,7 +83,7 @@ func (s *TargetHttpProxyServer) DeleteComputeTargetHttpProxy(ctx context.Context
 
 }
 
-// ListTargetHttpProxy handles the gRPC request by passing it to the underlying TargetHttpProxyList() method.
+// ListComputeTargetHttpProxy handles the gRPC request by passing it to the underlying TargetHttpProxyList() method.
 func (s *TargetHttpProxyServer) ListComputeTargetHttpProxy(ctx context.Context, request *computepb.ListComputeTargetHttpProxyRequest) (*computepb.ListComputeTargetHttpProxyResponse, error) {
 	cl, err := createConfigTargetHttpProxy(ctx, request.ServiceAccountFile)
 	if err != nil {

@@ -362,8 +362,8 @@ func (c *Client) listClusterRaw(ctx context.Context, project, location, pageToke
 }
 
 type listClusterOperation struct {
-	Items []map[string]interface{} `json:"items"`
-	Token string                   `json:"nextPageToken"`
+	Clusters []map[string]interface{} `json:"clusters"`
+	Token    string                   `json:"nextPageToken"`
 }
 
 func (c *Client) listCluster(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*Cluster, string, error) {
@@ -378,8 +378,11 @@ func (c *Client) listCluster(ctx context.Context, project, location, pageToken s
 	}
 
 	var l []*Cluster
-	for _, v := range m.Items {
-		res := flattenCluster(c, v)
+	for _, v := range m.Clusters {
+		res, err := unmarshalMapCluster(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

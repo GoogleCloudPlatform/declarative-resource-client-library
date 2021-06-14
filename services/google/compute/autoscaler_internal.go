@@ -307,7 +307,10 @@ func (c *Client) listAutoscaler(ctx context.Context, project, location, pageToke
 
 	var l []*Autoscaler
 	for _, v := range m.Items {
-		res := flattenAutoscaler(c, v)
+		res, err := unmarshalMapAutoscaler(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

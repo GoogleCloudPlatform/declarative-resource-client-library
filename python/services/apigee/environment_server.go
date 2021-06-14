@@ -158,7 +158,7 @@ func (s *EnvironmentServer) DeleteApigeeEnvironment(ctx context.Context, request
 
 }
 
-// ListEnvironment handles the gRPC request by passing it to the underlying EnvironmentList() method.
+// ListApigeeEnvironment handles the gRPC request by passing it to the underlying EnvironmentList() method.
 func (s *EnvironmentServer) ListApigeeEnvironment(ctx context.Context, request *apigeepb.ListApigeeEnvironmentRequest) (*apigeepb.ListApigeeEnvironmentResponse, error) {
 	cl, err := createConfigEnvironment(ctx, request.ServiceAccountFile)
 	if err != nil {

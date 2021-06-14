@@ -120,7 +120,10 @@ func (c *Client) listTargetSslProxy(ctx context.Context, project, pageToken stri
 
 	var l []*TargetSslProxy
 	for _, v := range m.Items {
-		res := flattenTargetSslProxy(c, v)
+		res, err := unmarshalMapTargetSslProxy(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

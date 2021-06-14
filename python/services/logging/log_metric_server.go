@@ -410,7 +410,7 @@ func (s *LogMetricServer) DeleteLoggingLogMetric(ctx context.Context, request *l
 
 }
 
-// ListLogMetric handles the gRPC request by passing it to the underlying LogMetricList() method.
+// ListLoggingLogMetric handles the gRPC request by passing it to the underlying LogMetricList() method.
 func (s *LogMetricServer) ListLoggingLogMetric(ctx context.Context, request *loggingpb.ListLoggingLogMetricRequest) (*loggingpb.ListLoggingLogMetricResponse, error) {
 	cl, err := createConfigLogMetric(ctx, request.ServiceAccountFile)
 	if err != nil {

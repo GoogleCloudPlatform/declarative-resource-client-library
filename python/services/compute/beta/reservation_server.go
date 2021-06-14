@@ -247,7 +247,7 @@ func (s *ReservationServer) DeleteComputeBetaReservation(ctx context.Context, re
 
 }
 
-// ListReservation handles the gRPC request by passing it to the underlying ReservationList() method.
+// ListComputeBetaReservation handles the gRPC request by passing it to the underlying ReservationList() method.
 func (s *ReservationServer) ListComputeBetaReservation(ctx context.Context, request *betapb.ListComputeBetaReservationRequest) (*betapb.ListComputeBetaReservationResponse, error) {
 	cl, err := createConfigReservation(ctx, request.ServiceAccountFile)
 	if err != nil {

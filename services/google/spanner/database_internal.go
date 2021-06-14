@@ -49,12 +49,12 @@ func databaseGetURL(userBasePath string, r *Database) (string, error) {
 	return dcl.URL("projects/{{project}}/instances/{{instance}}/databases/{{name}}", "https://spanner.googleapis.com/v1/", userBasePath, params), nil
 }
 
-func databaseListURL(userBasePath, project, name string) (string, error) {
+func databaseListURL(userBasePath, project, instance string) (string, error) {
 	params := map[string]interface{}{
-		"project": project,
-		"name":    name,
+		"project":  project,
+		"instance": instance,
 	}
-	return dcl.URL("projects/{{project}}/instances/{{name}}/databases", "https://spanner.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/instances/{{instance}}/databases", "https://spanner.googleapis.com/v1/", userBasePath, params), nil
 
 }
 
@@ -82,8 +82,8 @@ type databaseApiOperation interface {
 	do(context.Context, *Database, *Client) error
 }
 
-func (c *Client) listDatabaseRaw(ctx context.Context, project, name, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := databaseListURL(c.Config.BasePath, project, name)
+func (c *Client) listDatabaseRaw(ctx context.Context, project, instance, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := databaseListURL(c.Config.BasePath, project, instance)
 	if err != nil {
 		return nil, err
 	}
@@ -110,12 +110,12 @@ func (c *Client) listDatabaseRaw(ctx context.Context, project, name, pageToken s
 }
 
 type listDatabaseOperation struct {
-	Items []map[string]interface{} `json:"items"`
-	Token string                   `json:"nextPageToken"`
+	Databases []map[string]interface{} `json:"databases"`
+	Token     string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listDatabase(ctx context.Context, project, name, pageToken string, pageSize int32) ([]*Database, string, error) {
-	b, err := c.listDatabaseRaw(ctx, project, name, pageToken, pageSize)
+func (c *Client) listDatabase(ctx context.Context, project, instance, pageToken string, pageSize int32) ([]*Database, string, error) {
+	b, err := c.listDatabaseRaw(ctx, project, instance, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -126,10 +126,13 @@ func (c *Client) listDatabase(ctx context.Context, project, name, pageToken stri
 	}
 
 	var l []*Database
-	for _, v := range m.Items {
-		res := flattenDatabase(c, v)
+	for _, v := range m.Databases {
+		res, err := unmarshalMapDatabase(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
-		res.Name = &name
+		res.Instance = &instance
 		l = append(l, res)
 	}
 

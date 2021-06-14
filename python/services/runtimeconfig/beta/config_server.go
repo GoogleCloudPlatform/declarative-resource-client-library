@@ -77,7 +77,7 @@ func (s *ConfigServer) DeleteRuntimeconfigBetaConfig(ctx context.Context, reques
 
 }
 
-// ListConfig handles the gRPC request by passing it to the underlying ConfigList() method.
+// ListRuntimeconfigBetaConfig handles the gRPC request by passing it to the underlying ConfigList() method.
 func (s *ConfigServer) ListRuntimeconfigBetaConfig(ctx context.Context, request *betapb.ListRuntimeconfigBetaConfigRequest) (*betapb.ListRuntimeconfigBetaConfigResponse, error) {
 	cl, err := createConfigConfig(ctx, request.ServiceAccountFile)
 	if err != nil {

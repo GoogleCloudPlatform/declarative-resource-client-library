@@ -284,7 +284,10 @@ func (c *Client) listMembership(ctx context.Context, project, location, pageToke
 
 	var l []*Membership
 	for _, v := range m.Resources {
-		res := flattenMembership(c, v)
+		res, err := unmarshalMapMembership(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

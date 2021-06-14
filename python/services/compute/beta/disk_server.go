@@ -374,7 +374,7 @@ func (s *DiskServer) DeleteComputeBetaDisk(ctx context.Context, request *betapb.
 
 }
 
-// ListDisk handles the gRPC request by passing it to the underlying DiskList() method.
+// ListComputeBetaDisk handles the gRPC request by passing it to the underlying DiskList() method.
 func (s *DiskServer) ListComputeBetaDisk(ctx context.Context, request *betapb.ListComputeBetaDiskRequest) (*betapb.ListComputeBetaDiskResponse, error) {
 	cl, err := createConfigDisk(ctx, request.ServiceAccountFile)
 	if err != nil {

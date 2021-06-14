@@ -36,14 +36,6 @@ func projectBillingInfoGetURL(userBasePath string, r *ProjectBillingInfo) (strin
 	return dcl.URL("projects/{{name}}/billingInfo", "https://cloudbilling.googleapis.com/v1/", userBasePath, params), nil
 }
 
-func projectBillingInfoListURL(userBasePath, name string) (string, error) {
-	params := map[string]interface{}{
-		"name": name,
-	}
-	return dcl.URL("projects/{{name}}/billingInfo", "https://cloudbilling.googleapis.com/v1/", userBasePath, params), nil
-
-}
-
 func projectBillingInfoCreateURL(userBasePath, name string) (string, error) {
 	params := map[string]interface{}{
 		"name": name,
@@ -125,59 +117,6 @@ func (op *updateProjectBillingInfoUpdateProjectBillingInfoOperation) do(ctx cont
 	}
 
 	return nil
-}
-
-func (c *Client) listProjectBillingInfoRaw(ctx context.Context, name, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := projectBillingInfoListURL(c.Config.BasePath, name)
-	if err != nil {
-		return nil, err
-	}
-
-	m := make(map[string]string)
-	if pageToken != "" {
-		m["pageToken"] = pageToken
-	}
-
-	if pageSize != ProjectBillingInfoMaxPage {
-		m["pageSize"] = fmt.Sprintf("%v", pageSize)
-	}
-
-	u, err = dcl.AddQueryParams(u, m)
-	if err != nil {
-		return nil, err
-	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Response.Body.Close()
-	return ioutil.ReadAll(resp.Response.Body)
-}
-
-type listProjectBillingInfoOperation struct {
-	Items []map[string]interface{} `json:"items"`
-	Token string                   `json:"nextPageToken"`
-}
-
-func (c *Client) listProjectBillingInfo(ctx context.Context, name, pageToken string, pageSize int32) ([]*ProjectBillingInfo, string, error) {
-	b, err := c.listProjectBillingInfoRaw(ctx, name, pageToken, pageSize)
-	if err != nil {
-		return nil, "", err
-	}
-
-	var m listProjectBillingInfoOperation
-	if err := json.Unmarshal(b, &m); err != nil {
-		return nil, "", err
-	}
-
-	var l []*ProjectBillingInfo
-	for _, v := range m.Items {
-		res := flattenProjectBillingInfo(c, v)
-		res.Name = &name
-		l = append(l, res)
-	}
-
-	return l, m.Token, nil
 }
 
 func (c *Client) deleteAllProjectBillingInfo(ctx context.Context, f func(*ProjectBillingInfo) bool, resources []*ProjectBillingInfo) error {

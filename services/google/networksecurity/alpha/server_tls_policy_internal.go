@@ -301,8 +301,8 @@ func (c *Client) listServerTlsPolicyRaw(ctx context.Context, project, location, 
 }
 
 type listServerTlsPolicyOperation struct {
-	Items []map[string]interface{} `json:"items"`
-	Token string                   `json:"nextPageToken"`
+	ServerTlsPolicies []map[string]interface{} `json:"serverTlsPolicies"`
+	Token             string                   `json:"nextPageToken"`
 }
 
 func (c *Client) listServerTlsPolicy(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*ServerTlsPolicy, string, error) {
@@ -317,8 +317,11 @@ func (c *Client) listServerTlsPolicy(ctx context.Context, project, location, pag
 	}
 
 	var l []*ServerTlsPolicy
-	for _, v := range m.Items {
-		res := flattenServerTlsPolicy(c, v)
+	for _, v := range m.ServerTlsPolicies {
+		res, err := unmarshalMapServerTlsPolicy(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

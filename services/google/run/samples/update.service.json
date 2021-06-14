@@ -1,0 +1,30 @@
+{
+  "name": "{{service}}",
+  "project": "{{project}}",
+  "location": "{{region}}",
+  "apiVersion": "serving.knative.dev/v1",
+  "kind": "Service",
+  "metadata": {
+    "name": "{{service}}",
+    "labels": {
+      "label-one": "value-one"
+    }
+  },
+  "spec": {
+    "template": {
+      "spec": {
+        "containers": [
+          {
+            "image": "gcr.io/cloudrun/hello"
+          }
+        ]
+      }
+    },
+    "traffic": [
+      {
+        "percent": 100,
+        "latestRevision": true
+      }
+    ]
+  }
+}

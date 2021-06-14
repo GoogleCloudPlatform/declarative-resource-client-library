@@ -36,10 +36,18 @@ paths:
       description: A full instance of a Service
   deleteAll:
     description: The function used to delete all Service
-    parameters: []
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
   list:
     description: The function used to list information about many Service
-    parameters: []
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
 components:
   schemas:
     Service:

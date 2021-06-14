@@ -34,20 +34,6 @@ paths:
     - name: ProjectBillingInfo
       required: true
       description: A full instance of a ProjectBillingInfo
-  deleteAll:
-    description: The function used to delete all ProjectBillingInfo
-    parameters:
-    - name: name
-      required: true
-      schema:
-        type: string
-  list:
-    description: The function used to list information about many ProjectBillingInfo
-    parameters:
-    - name: name
-      required: true
-      schema:
-        type: string
 components:
   schemas:
     ProjectBillingInfo:

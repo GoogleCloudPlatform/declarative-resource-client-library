@@ -123,6 +123,11 @@ func newUpdateTenantOAuthIdpConfigUpdateConfigRequest(ctx context.Context, f *Te
 // the final JSON request body.
 func marshalUpdateTenantOAuthIdpConfigUpdateConfigRequest(c *Client, m map[string]interface{}) ([]byte, error) {
 
+	dcl.MoveMapEntry(
+		m,
+		[]string{"name"},
+		[]string{},
+	)
 	return json.Marshal(m)
 }
 
@@ -212,7 +217,10 @@ func (c *Client) listTenantOAuthIdpConfig(ctx context.Context, project, tenant, 
 
 	var l []*TenantOAuthIdpConfig
 	for _, v := range m.OauthIdpConfigs {
-		res := flattenTenantOAuthIdpConfig(c, v)
+		res, err := unmarshalMapTenantOAuthIdpConfig(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Tenant = &tenant
 		l = append(l, res)

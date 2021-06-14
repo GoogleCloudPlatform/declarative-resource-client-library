@@ -84,7 +84,7 @@ func servicePerimeterListURL(userBasePath, policy string) (string, error) {
 	params := map[string]interface{}{
 		"policy": policy,
 	}
-	return dcl.URL("{{policy}}/servicePerimeters", "https://accesscontextmanager.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("accessPolicies/{{policy}}/servicePerimeters", "https://accesscontextmanager.googleapis.com/v1/", userBasePath, params), nil
 
 }
 
@@ -243,7 +243,10 @@ func (c *Client) listServicePerimeter(ctx context.Context, policy, pageToken str
 
 	var l []*ServicePerimeter
 	for _, v := range m.ServicePerimeters {
-		res := flattenServicePerimeter(c, v)
+		res, err := unmarshalMapServicePerimeter(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Policy = &policy
 		l = append(l, res)
 	}
@@ -1248,7 +1251,7 @@ func expandServicePerimeter(c *Client, f *ServicePerimeter) (map[string]interfac
 	} else if v != nil {
 		m["policy"] = v
 	}
-	if v, err := dcl.DeriveField("%s/servicePerimeters/%s", f.Name, f.Policy, f.Name); err != nil {
+	if v, err := dcl.DeriveField("accessPolicies/%s/servicePerimeters/%s", f.Name, f.Policy, f.Name); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if v != nil {
 		m["name"] = v

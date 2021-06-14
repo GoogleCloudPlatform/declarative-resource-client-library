@@ -137,7 +137,10 @@ func (c *Client) listAssignment(ctx context.Context, project, location, reservat
 
 	var l []*Assignment
 	for _, v := range m.Assignments {
-		res := flattenAssignment(c, v)
+		res, err := unmarshalMapAssignment(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		res.Reservation = &reservation
@@ -248,7 +251,7 @@ func (op *createAssignmentOperation) do(ctx context.Context, r *Assignment, c *C
 	// Include Name in URL substitution for initial GET request.
 	name, ok := op.response["name"].(string)
 	if !ok {
-		return fmt.Errorf("expected name to be a string")
+		return fmt.Errorf("expected name to be a string, was %T", name)
 	}
 	r.Name = &name
 

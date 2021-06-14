@@ -73,13 +73,12 @@ class ProjectBillingInfo(object):
         response = stub.DeleteCloudbillingProjectBillingInfo(request)
 
     @classmethod
-    def list(self, name, service_account_file=""):
+    def list(self, service_account_file=""):
         stub = project_billing_info_pb2_grpc.CloudbillingProjectBillingInfoServiceStub(
             channel.Channel()
         )
         request = project_billing_info_pb2.ListCloudbillingProjectBillingInfoRequest()
         request.service_account_file = service_account_file
-        request.Name = name
 
         return stub.ListCloudbillingProjectBillingInfo(request).items
 

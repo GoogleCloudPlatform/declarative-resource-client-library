@@ -203,7 +203,7 @@ func (s *SslPolicyServer) DeleteComputeBetaSslPolicy(ctx context.Context, reques
 
 }
 
-// ListSslPolicy handles the gRPC request by passing it to the underlying SslPolicyList() method.
+// ListComputeBetaSslPolicy handles the gRPC request by passing it to the underlying SslPolicyList() method.
 func (s *SslPolicyServer) ListComputeBetaSslPolicy(ctx context.Context, request *betapb.ListComputeBetaSslPolicyRequest) (*betapb.ListComputeBetaSslPolicyResponse, error) {
 	cl, err := createConfigSslPolicy(ctx, request.ServiceAccountFile)
 	if err != nil {

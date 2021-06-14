@@ -131,7 +131,7 @@ func (s *RouterPeerServer) DeleteComputeBetaRouterPeer(ctx context.Context, requ
 
 }
 
-// ListRouterPeer handles the gRPC request by passing it to the underlying RouterPeerList() method.
+// ListComputeBetaRouterPeer handles the gRPC request by passing it to the underlying RouterPeerList() method.
 func (s *RouterPeerServer) ListComputeBetaRouterPeer(ctx context.Context, request *betapb.ListComputeBetaRouterPeerRequest) (*betapb.ListComputeBetaRouterPeerResponse, error) {
 	cl, err := createConfigRouterPeer(ctx, request.ServiceAccountFile)
 	if err != nil {

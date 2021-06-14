@@ -283,7 +283,7 @@ func (s *PolicyServer) DeleteBinaryauthorizationPolicy(ctx context.Context, requ
 
 }
 
-// ListPolicy handles the gRPC request by passing it to the underlying PolicyList() method.
+// ListBinaryauthorizationPolicy handles the gRPC request by passing it to the underlying PolicyList() method.
 func (s *PolicyServer) ListBinaryauthorizationPolicy(ctx context.Context, request *binaryauthorizationpb.ListBinaryauthorizationPolicyRequest) (*binaryauthorizationpb.ListBinaryauthorizationPolicyResponse, error) {
 	cl, err := createConfigPolicy(ctx, request.ServiceAccountFile)
 	if err != nil {

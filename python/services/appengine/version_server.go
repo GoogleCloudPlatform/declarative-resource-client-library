@@ -1177,7 +1177,7 @@ func (s *VersionServer) DeleteAppengineVersion(ctx context.Context, request *app
 
 }
 
-// ListVersion handles the gRPC request by passing it to the underlying VersionList() method.
+// ListAppengineVersion handles the gRPC request by passing it to the underlying VersionList() method.
 func (s *VersionServer) ListAppengineVersion(ctx context.Context, request *appenginepb.ListAppengineVersionRequest) (*appenginepb.ListAppengineVersionResponse, error) {
 	cl, err := createConfigVersion(ctx, request.ServiceAccountFile)
 	if err != nil {

@@ -161,7 +161,7 @@ func (s *TenantServer) DeleteIdentitytoolkitTenant(ctx context.Context, request 
 
 }
 
-// ListTenant handles the gRPC request by passing it to the underlying TenantList() method.
+// ListIdentitytoolkitTenant handles the gRPC request by passing it to the underlying TenantList() method.
 func (s *TenantServer) ListIdentitytoolkitTenant(ctx context.Context, request *identitytoolkitpb.ListIdentitytoolkitTenantRequest) (*identitytoolkitpb.ListIdentitytoolkitTenantResponse, error) {
 	cl, err := createConfigTenant(ctx, request.ServiceAccountFile)
 	if err != nil {

@@ -185,7 +185,10 @@ func (c *Client) listNetworkEndpointGroup(ctx context.Context, project, location
 
 	var l []*NetworkEndpointGroup
 	for _, v := range m.Items {
-		res := flattenNetworkEndpointGroup(c, v)
+		res, err := unmarshalMapNetworkEndpointGroup(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

@@ -81,7 +81,7 @@ func (s *FirewallPolicyAssociationServer) DeleteComputeBetaFirewallPolicyAssocia
 
 }
 
-// ListFirewallPolicyAssociation handles the gRPC request by passing it to the underlying FirewallPolicyAssociationList() method.
+// ListComputeBetaFirewallPolicyAssociation handles the gRPC request by passing it to the underlying FirewallPolicyAssociationList() method.
 func (s *FirewallPolicyAssociationServer) ListComputeBetaFirewallPolicyAssociation(ctx context.Context, request *betapb.ListComputeBetaFirewallPolicyAssociationRequest) (*betapb.ListComputeBetaFirewallPolicyAssociationResponse, error) {
 	cl, err := createConfigFirewallPolicyAssociation(ctx, request.ServiceAccountFile)
 	if err != nil {

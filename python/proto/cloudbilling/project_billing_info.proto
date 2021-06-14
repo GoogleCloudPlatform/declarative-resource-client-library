@@ -37,7 +37,6 @@ message DeleteCloudbillingProjectBillingInfoRequest {
 
 message ListCloudbillingProjectBillingInfoRequest {
   string service_account_file = 1;
-  string Name = 2;
 }
 
 message ListCloudbillingProjectBillingInfoResponse {

@@ -38,14 +38,14 @@ func accessPolicyGetURL(userBasePath string, r *AccessPolicy) (string, error) {
 	params := map[string]interface{}{
 		"parent": dcl.ValueOrEmptyString(r.Parent),
 	}
-	return dcl.URL("accessPolicies?parent=organizations/{{parent}}", "https://accesscontextmanager.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("accessPolicies?parent={{parent}}", "https://accesscontextmanager.googleapis.com/v1/", userBasePath, params), nil
 }
 
 func accessPolicyListURL(userBasePath, parent string) (string, error) {
 	params := map[string]interface{}{
 		"parent": parent,
 	}
-	return dcl.URL("accessPolicies?parent=organizations/{{parent}}", "https://accesscontextmanager.googleapis.com/v1/", userBasePath, params), nil
+	return dcl.URL("accessPolicies?parent={{parent}}", "https://accesscontextmanager.googleapis.com/v1/", userBasePath, params), nil
 
 }
 
@@ -186,7 +186,10 @@ func (c *Client) listAccessPolicy(ctx context.Context, parent, pageToken string,
 
 	var l []*AccessPolicy
 	for _, v := range m.AccessPolicies {
-		res := flattenAccessPolicy(c, v)
+		res, err := unmarshalMapAccessPolicy(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Parent = &parent
 		l = append(l, res)
 	}
@@ -308,7 +311,7 @@ func (op *createAccessPolicyOperation) do(ctx context.Context, r *AccessPolicy, 
 	// Include Name in URL substitution for initial GET request.
 	name, ok := op.response["name"].(string)
 	if !ok {
-		return fmt.Errorf("expected name to be a string")
+		return fmt.Errorf("expected name to be a string, was %T", name)
 	}
 	r.Name = &name
 
@@ -528,7 +531,7 @@ func diffAccessPolicy(c *Client, desired, actual *AccessPolicy, opts ...dcl.Appl
 func (r *AccessPolicy) urlNormalized() *AccessPolicy {
 	normalized := dcl.Copy(*r).(AccessPolicy)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Parent = dcl.SelfLinkToName(r.Parent)
+	normalized.Parent = r.Parent
 	normalized.Title = dcl.SelfLinkToName(r.Title)
 	return &normalized
 }
@@ -591,7 +594,7 @@ func expandAccessPolicy(c *Client, f *AccessPolicy) (map[string]interface{}, err
 	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v, err := dcl.DeriveField("organizations/%s", f.Parent, f.Parent); err != nil {
+	if v, err := dcl.DeriveFromPattern("organizations/%s", f.Parent, f.Parent); err != nil {
 		return nil, fmt.Errorf("error expanding Parent into parent: %w", err)
 	} else if v != nil {
 		m["parent"] = v

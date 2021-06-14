@@ -192,7 +192,10 @@ func (c *Client) listEnvgroup(ctx context.Context, organization, pageToken strin
 
 	var l []*Envgroup
 	for _, v := range m.EnvironmentGroups {
-		res := flattenEnvgroup(c, v)
+		res, err := unmarshalMapEnvgroup(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Organization = &organization
 		l = append(l, res)
 	}

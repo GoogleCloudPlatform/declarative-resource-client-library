@@ -195,7 +195,10 @@ func (c *Client) listNotificationChannel(ctx context.Context, project, pageToken
 
 	var l []*NotificationChannel
 	for _, v := range m.NotificationChannels {
-		res := flattenNotificationChannel(c, v)
+		res, err := unmarshalMapNotificationChannel(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}
@@ -304,7 +307,7 @@ func (op *createNotificationChannelOperation) do(ctx context.Context, r *Notific
 	// Include Name in URL substitution for initial GET request.
 	name, ok := op.response["name"].(string)
 	if !ok {
-		return fmt.Errorf("expected name to be a string")
+		return fmt.Errorf("expected name to be a string, was %T", name)
 	}
 	r.Name = &name
 

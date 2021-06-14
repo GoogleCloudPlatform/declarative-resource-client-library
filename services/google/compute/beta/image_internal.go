@@ -350,7 +350,10 @@ func (c *Client) listImage(ctx context.Context, project, pageToken string, pageS
 
 	var l []*Image
 	for _, v := range m.Items {
-		res := flattenImage(c, v)
+		res, err := unmarshalMapImage(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

@@ -1778,7 +1778,10 @@ func (c *Client) listCluster(ctx context.Context, project, location, pageToken s
 
 	var l []*Cluster
 	for _, v := range m.Clusters {
-		res := flattenCluster(c, v)
+		res, err := unmarshalMapCluster(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

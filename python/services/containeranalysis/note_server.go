@@ -1008,7 +1008,7 @@ func (s *NoteServer) DeleteContaineranalysisNote(ctx context.Context, request *c
 
 }
 
-// ListNote handles the gRPC request by passing it to the underlying NoteList() method.
+// ListContaineranalysisNote handles the gRPC request by passing it to the underlying NoteList() method.
 func (s *NoteServer) ListContaineranalysisNote(ctx context.Context, request *containeranalysispb.ListContaineranalysisNoteRequest) (*containeranalysispb.ListContaineranalysisNoteResponse, error) {
 	cl, err := createConfigNote(ctx, request.ServiceAccountFile)
 	if err != nil {

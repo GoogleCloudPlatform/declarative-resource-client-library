@@ -1018,7 +1018,7 @@ func (s *JobServer) DeleteDataprocJob(ctx context.Context, request *dataprocpb.D
 
 }
 
-// ListJob handles the gRPC request by passing it to the underlying JobList() method.
+// ListDataprocJob handles the gRPC request by passing it to the underlying JobList() method.
 func (s *JobServer) ListDataprocJob(ctx context.Context, request *dataprocpb.ListDataprocJobRequest) (*dataprocpb.ListDataprocJobResponse, error) {
 	cl, err := createConfigJob(ctx, request.ServiceAccountFile)
 	if err != nil {

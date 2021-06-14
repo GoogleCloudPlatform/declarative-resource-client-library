@@ -253,7 +253,7 @@ func (s *FeatureMembershipServer) DeleteGkehubBetaFeatureMembership(ctx context.
 
 }
 
-// ListFeatureMembership handles the gRPC request by passing it to the underlying FeatureMembershipList() method.
+// ListGkehubBetaFeatureMembership handles the gRPC request by passing it to the underlying FeatureMembershipList() method.
 func (s *FeatureMembershipServer) ListGkehubBetaFeatureMembership(ctx context.Context, request *betapb.ListGkehubBetaFeatureMembershipRequest) (*betapb.ListGkehubBetaFeatureMembershipResponse, error) {
 	cl, err := createConfigFeatureMembership(ctx, request.ServiceAccountFile)
 	if err != nil {

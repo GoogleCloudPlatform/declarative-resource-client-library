@@ -121,6 +121,16 @@ func newUpdateServiceAccountPatchServiceAccountRequest(ctx context.Context, f *S
 // the final JSON request body.
 func marshalUpdateServiceAccountPatchServiceAccountRequest(c *Client, m map[string]interface{}) ([]byte, error) {
 
+	dcl.MoveMapEntry(
+		m,
+		[]string{"project"},
+		[]string{},
+	)
+	dcl.MoveMapEntry(
+		m,
+		[]string{"email"},
+		[]string{},
+	)
 	return json.Marshal(m)
 }
 
@@ -220,7 +230,10 @@ func (c *Client) listServiceAccount(ctx context.Context, project, pageToken stri
 
 	var l []*ServiceAccount
 	for _, v := range m.Accounts {
-		res := flattenServiceAccount(c, v)
+		res, err := unmarshalMapServiceAccount(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

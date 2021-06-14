@@ -115,7 +115,7 @@ func (s *TenantOAuthIdpConfigServer) DeleteIdentitytoolkitTenantOAuthIdpConfig(c
 
 }
 
-// ListTenantOAuthIdpConfig handles the gRPC request by passing it to the underlying TenantOAuthIdpConfigList() method.
+// ListIdentitytoolkitTenantOAuthIdpConfig handles the gRPC request by passing it to the underlying TenantOAuthIdpConfigList() method.
 func (s *TenantOAuthIdpConfigServer) ListIdentitytoolkitTenantOAuthIdpConfig(ctx context.Context, request *identitytoolkitpb.ListIdentitytoolkitTenantOAuthIdpConfigRequest) (*identitytoolkitpb.ListIdentitytoolkitTenantOAuthIdpConfigResponse, error) {
 	cl, err := createConfigTenantOAuthIdpConfig(ctx, request.ServiceAccountFile)
 	if err != nil {

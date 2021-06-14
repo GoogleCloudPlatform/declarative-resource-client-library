@@ -291,7 +291,10 @@ func (c *Client) listTrigger(ctx context.Context, project, location, pageToken s
 
 	var l []*Trigger
 	for _, v := range m.Triggers {
-		res := flattenTrigger(c, v)
+		res, err := unmarshalMapTrigger(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

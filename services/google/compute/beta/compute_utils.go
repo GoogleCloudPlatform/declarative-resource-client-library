@@ -19,6 +19,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"io/ioutil"
 	"time"
 
 	"google.golang.org/api/googleapi"
@@ -480,6 +481,23 @@ func (r *NetworkEndpoint) customMatcher(c *Client) func([]byte) bool {
 		}
 		return true
 	}
+}
+
+func (c *Client) getNetworkEndpointRaw(ctx context.Context, r *NetworkEndpoint) ([]byte, error) {
+	u, err := networkEndpointGetURL(c.Config.BasePath, r.urlNormalized())
+	if err != nil {
+		return nil, err
+	}
+	resp, err := dcl.SendRequest(ctx, c.Config, "GET", u, &bytes.Buffer{}, c.Config.RetryProvider)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Response.Body.Close()
+	b, err := ioutil.ReadAll(resp.Response.Body)
+	if err != nil {
+		return nil, err
+	}
+	return b, nil
 }
 
 func (c *Client) GetNetworkEndpoint(ctx context.Context, r *NetworkEndpoint) (*NetworkEndpoint, error) {

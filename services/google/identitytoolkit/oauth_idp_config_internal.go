@@ -116,6 +116,11 @@ func newUpdateOAuthIdpConfigUpdateConfigRequest(ctx context.Context, f *OAuthIdp
 // the final JSON request body.
 func marshalUpdateOAuthIdpConfigUpdateConfigRequest(c *Client, m map[string]interface{}) ([]byte, error) {
 
+	dcl.MoveMapEntry(
+		m,
+		[]string{"name"},
+		[]string{},
+	)
 	return json.Marshal(m)
 }
 
@@ -205,7 +210,10 @@ func (c *Client) listOAuthIdpConfig(ctx context.Context, project, pageToken stri
 
 	var l []*OAuthIdpConfig
 	for _, v := range m.OauthIdpConfigs {
-		res := flattenOAuthIdpConfig(c, v)
+		res, err := unmarshalMapOAuthIdpConfig(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}

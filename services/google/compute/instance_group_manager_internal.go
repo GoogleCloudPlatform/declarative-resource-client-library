@@ -377,7 +377,10 @@ func (c *Client) listInstanceGroupManager(ctx context.Context, project, location
 
 	var l []*InstanceGroupManager
 	for _, v := range m.Items {
-		res := flattenInstanceGroupManager(c, v)
+		res, err := unmarshalMapInstanceGroupManager(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

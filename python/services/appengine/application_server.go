@@ -222,23 +222,9 @@ func (s *ApplicationServer) DeleteAppengineApplication(ctx context.Context, requ
 
 }
 
-// ListApplication handles the gRPC request by passing it to the underlying ApplicationList() method.
-func (s *ApplicationServer) ListAppengineApplication(ctx context.Context, request *appenginepb.ListAppengineApplicationRequest) (*appenginepb.ListAppengineApplicationResponse, error) {
-	cl, err := createConfigApplication(ctx, request.ServiceAccountFile)
-	if err != nil {
-		return nil, err
-	}
-
-	resources, err := cl.ListApplication(ctx)
-	if err != nil {
-		return nil, err
-	}
-	var protos []*appenginepb.AppengineApplication
-	for _, r := range resources.Items {
-		rp := ApplicationToProto(r)
-		protos = append(protos, rp)
-	}
-	return &appenginepb.ListAppengineApplicationResponse{Items: protos}, nil
+// ListAppengineApplication is a no-op method because Application has no list method.
+func (s *ApplicationServer) ListAppengineApplication(_ context.Context, _ *appenginepb.ListAppengineApplicationRequest) (*appenginepb.ListAppengineApplicationResponse, error) {
+	return nil, nil
 }
 
 func createConfigApplication(ctx context.Context, service_account_file string) (*appengine.Client, error) {

@@ -85,7 +85,7 @@ func (s *NetworkEndpointServer) DeleteComputeBetaNetworkEndpoint(ctx context.Con
 
 }
 
-// ListNetworkEndpoint handles the gRPC request by passing it to the underlying NetworkEndpointList() method.
+// ListComputeBetaNetworkEndpoint handles the gRPC request by passing it to the underlying NetworkEndpointList() method.
 func (s *NetworkEndpointServer) ListComputeBetaNetworkEndpoint(ctx context.Context, request *betapb.ListComputeBetaNetworkEndpointRequest) (*betapb.ListComputeBetaNetworkEndpointResponse, error) {
 	cl, err := createConfigNetworkEndpoint(ctx, request.ServiceAccountFile)
 	if err != nil {

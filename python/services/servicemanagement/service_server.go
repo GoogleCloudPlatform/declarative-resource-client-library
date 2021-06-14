@@ -75,14 +75,14 @@ func (s *ServiceServer) DeleteServicemanagementService(ctx context.Context, requ
 
 }
 
-// ListService handles the gRPC request by passing it to the underlying ServiceList() method.
+// ListServicemanagementService handles the gRPC request by passing it to the underlying ServiceList() method.
 func (s *ServiceServer) ListServicemanagementService(ctx context.Context, request *servicemanagementpb.ListServicemanagementServiceRequest) (*servicemanagementpb.ListServicemanagementServiceResponse, error) {
 	cl, err := createConfigService(ctx, request.ServiceAccountFile)
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := cl.ListService(ctx)
+	resources, err := cl.ListService(ctx, request.Project)
 	if err != nil {
 		return nil, err
 	}

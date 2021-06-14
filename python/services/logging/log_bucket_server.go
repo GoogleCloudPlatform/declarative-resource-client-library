@@ -40,7 +40,7 @@ func ProtoToLoggingLogBucketLifecycleStateEnum(e loggingpb.LoggingLogBucketLifec
 // ProtoToLogBucket converts a LogBucket resource from its proto representation.
 func ProtoToLogBucket(p *loggingpb.LoggingLogBucket) *logging.LogBucket {
 	obj := &logging.LogBucket{
-		SelfLink:       dcl.StringOrNil(p.SelfLink),
+		Name:           dcl.StringOrNil(p.Name),
 		Description:    dcl.StringOrNil(p.Description),
 		CreateTime:     dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:     dcl.StringOrNil(p.GetUpdateTime()),
@@ -49,7 +49,6 @@ func ProtoToLogBucket(p *loggingpb.LoggingLogBucket) *logging.LogBucket {
 		LifecycleState: ProtoToLoggingLogBucketLifecycleStateEnum(p.GetLifecycleState()),
 		Parent:         dcl.StringOrNil(p.Parent),
 		Location:       dcl.StringOrNil(p.Location),
-		Name:           dcl.StringOrNil(p.Name),
 	}
 	return obj
 }
@@ -68,7 +67,7 @@ func LoggingLogBucketLifecycleStateEnumToProto(e *logging.LogBucketLifecycleStat
 // LogBucketToProto converts a LogBucket resource to its proto representation.
 func LogBucketToProto(resource *logging.LogBucket) *loggingpb.LoggingLogBucket {
 	p := &loggingpb.LoggingLogBucket{
-		SelfLink:       dcl.ValueOrEmptyString(resource.SelfLink),
+		Name:           dcl.ValueOrEmptyString(resource.Name),
 		Description:    dcl.ValueOrEmptyString(resource.Description),
 		CreateTime:     dcl.ValueOrEmptyString(resource.CreateTime),
 		UpdateTime:     dcl.ValueOrEmptyString(resource.UpdateTime),
@@ -77,7 +76,6 @@ func LogBucketToProto(resource *logging.LogBucket) *loggingpb.LoggingLogBucket {
 		LifecycleState: LoggingLogBucketLifecycleStateEnumToProto(resource.LifecycleState),
 		Parent:         dcl.ValueOrEmptyString(resource.Parent),
 		Location:       dcl.ValueOrEmptyString(resource.Location),
-		Name:           dcl.ValueOrEmptyString(resource.Name),
 	}
 
 	return p
@@ -114,7 +112,7 @@ func (s *LogBucketServer) DeleteLoggingLogBucket(ctx context.Context, request *l
 
 }
 
-// ListLogBucket handles the gRPC request by passing it to the underlying LogBucketList() method.
+// ListLoggingLogBucket handles the gRPC request by passing it to the underlying LogBucketList() method.
 func (s *LogBucketServer) ListLoggingLogBucket(ctx context.Context, request *loggingpb.ListLoggingLogBucketRequest) (*loggingpb.ListLoggingLogBucketResponse, error) {
 	cl, err := createConfigLogBucket(ctx, request.ServiceAccountFile)
 	if err != nil {

@@ -464,7 +464,7 @@ func (s *EnvironmentServer) DeleteComposerBetaEnvironment(ctx context.Context, r
 
 }
 
-// ListEnvironment handles the gRPC request by passing it to the underlying EnvironmentList() method.
+// ListComposerBetaEnvironment handles the gRPC request by passing it to the underlying EnvironmentList() method.
 func (s *EnvironmentServer) ListComposerBetaEnvironment(ctx context.Context, request *betapb.ListComposerBetaEnvironmentRequest) (*betapb.ListComposerBetaEnvironmentResponse, error) {
 	cl, err := createConfigEnvironment(ctx, request.ServiceAccountFile)
 	if err != nil {

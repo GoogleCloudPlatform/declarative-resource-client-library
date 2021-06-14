@@ -293,7 +293,10 @@ func (c *Client) listJob(ctx context.Context, project, location, pageToken strin
 
 	var l []*Job
 	for _, v := range m.Jobs {
-		res := flattenJob(c, v)
+		res, err := unmarshalMapJob(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

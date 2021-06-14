@@ -100,7 +100,7 @@ func (s *ServiceServer) DeleteServiceusageService(ctx context.Context, request *
 
 }
 
-// ListService handles the gRPC request by passing it to the underlying ServiceList() method.
+// ListServiceusageService handles the gRPC request by passing it to the underlying ServiceList() method.
 func (s *ServiceServer) ListServiceusageService(ctx context.Context, request *serviceusagepb.ListServiceusageServiceRequest) (*serviceusagepb.ListServiceusageServiceResponse, error) {
 	cl, err := createConfigService(ctx, request.ServiceAccountFile)
 	if err != nil {

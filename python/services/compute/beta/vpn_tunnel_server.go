@@ -144,7 +144,7 @@ func (s *VpnTunnelServer) DeleteComputeBetaVpnTunnel(ctx context.Context, reques
 
 }
 
-// ListVpnTunnel handles the gRPC request by passing it to the underlying VpnTunnelList() method.
+// ListComputeBetaVpnTunnel handles the gRPC request by passing it to the underlying VpnTunnelList() method.
 func (s *VpnTunnelServer) ListComputeBetaVpnTunnel(ctx context.Context, request *betapb.ListComputeBetaVpnTunnelRequest) (*betapb.ListComputeBetaVpnTunnelResponse, error) {
 	cl, err := createConfigVpnTunnel(ctx, request.ServiceAccountFile)
 	if err != nil {

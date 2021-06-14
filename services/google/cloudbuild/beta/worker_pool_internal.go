@@ -224,7 +224,10 @@ func (c *Client) listWorkerPool(ctx context.Context, project, location, pageToke
 
 	var l []*WorkerPool
 	for _, v := range m.WorkerPools {
-		res := flattenWorkerPool(c, v)
+		res, err := unmarshalMapWorkerPool(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		res.Location = &location
 		l = append(l, res)

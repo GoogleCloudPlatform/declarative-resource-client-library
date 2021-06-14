@@ -173,7 +173,10 @@ func (c *Client) listFirewallRule(ctx context.Context, app, pageToken string, pa
 
 	var l []*FirewallRule
 	for _, v := range m.IngressRules {
-		res := flattenFirewallRule(c, v)
+		res, err := unmarshalMapFirewallRule(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.App = &app
 		l = append(l, res)
 	}

@@ -982,7 +982,7 @@ func (s *BackendServiceServer) DeleteComputeBetaBackendService(ctx context.Conte
 
 }
 
-// ListBackendService handles the gRPC request by passing it to the underlying BackendServiceList() method.
+// ListComputeBetaBackendService handles the gRPC request by passing it to the underlying BackendServiceList() method.
 func (s *BackendServiceServer) ListComputeBetaBackendService(ctx context.Context, request *betapb.ListComputeBetaBackendServiceRequest) (*betapb.ListComputeBetaBackendServiceResponse, error) {
 	cl, err := createConfigBackendService(ctx, request.ServiceAccountFile)
 	if err != nil {

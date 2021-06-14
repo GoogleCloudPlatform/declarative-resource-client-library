@@ -81,7 +81,7 @@ func (s *IdentityAwareProxyClientServer) DeleteIapIdentityAwareProxyClient(ctx c
 
 }
 
-// ListIdentityAwareProxyClient handles the gRPC request by passing it to the underlying IdentityAwareProxyClientList() method.
+// ListIapIdentityAwareProxyClient handles the gRPC request by passing it to the underlying IdentityAwareProxyClientList() method.
 func (s *IdentityAwareProxyClientServer) ListIapIdentityAwareProxyClient(ctx context.Context, request *iappb.ListIapIdentityAwareProxyClientRequest) (*iappb.ListIapIdentityAwareProxyClientResponse, error) {
 	cl, err := createConfigIdentityAwareProxyClient(ctx, request.ServiceAccountFile)
 	if err != nil {

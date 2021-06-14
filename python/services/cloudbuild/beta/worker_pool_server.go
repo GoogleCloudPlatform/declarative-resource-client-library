@@ -160,7 +160,7 @@ func (s *WorkerPoolServer) DeleteCloudbuildBetaWorkerPool(ctx context.Context, r
 
 }
 
-// ListWorkerPool handles the gRPC request by passing it to the underlying WorkerPoolList() method.
+// ListCloudbuildBetaWorkerPool handles the gRPC request by passing it to the underlying WorkerPoolList() method.
 func (s *WorkerPoolServer) ListCloudbuildBetaWorkerPool(ctx context.Context, request *betapb.ListCloudbuildBetaWorkerPoolRequest) (*betapb.ListCloudbuildBetaWorkerPoolResponse, error) {
 	cl, err := createConfigWorkerPool(ctx, request.ServiceAccountFile)
 	if err != nil {

@@ -323,7 +323,7 @@ func (s *AccessLevelServer) DeleteAccesscontextmanagerAccessLevel(ctx context.Co
 
 }
 
-// ListAccessLevel handles the gRPC request by passing it to the underlying AccessLevelList() method.
+// ListAccesscontextmanagerAccessLevel handles the gRPC request by passing it to the underlying AccessLevelList() method.
 func (s *AccessLevelServer) ListAccesscontextmanagerAccessLevel(ctx context.Context, request *accesscontextmanagerpb.ListAccesscontextmanagerAccessLevelRequest) (*accesscontextmanagerpb.ListAccesscontextmanagerAccessLevelResponse, error) {
 	cl, err := createConfigAccessLevel(ctx, request.ServiceAccountFile)
 	if err != nil {

@@ -532,7 +532,10 @@ func (c *Client) listVersion(ctx context.Context, app, service, pageToken string
 
 	var l []*Version
 	for _, v := range m.Versions {
-		res := flattenVersion(c, v)
+		res, err := unmarshalMapVersion(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.App = &app
 		res.Service = &service
 		l = append(l, res)

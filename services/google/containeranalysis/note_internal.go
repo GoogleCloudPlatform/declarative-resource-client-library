@@ -416,7 +416,10 @@ func (c *Client) listNote(ctx context.Context, project, pageToken string, pageSi
 
 	var l []*Note
 	for _, v := range m.Notes {
-		res := flattenNote(c, v)
+		res, err := unmarshalMapNote(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}
