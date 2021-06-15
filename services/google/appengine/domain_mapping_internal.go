@@ -421,6 +421,7 @@ func canonicalizeDomainMappingDesiredState(rawDesired, rawInitial *DomainMapping
 
 		return rawDesired, nil
 	}
+
 	if dcl.StringCanonicalize(rawDesired.SelfLink, rawInitial.SelfLink) {
 		rawDesired.SelfLink = rawInitial.SelfLink
 	}

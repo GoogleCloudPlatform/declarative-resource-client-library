@@ -364,6 +364,7 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 
 		return rawDesired, nil
 	}
+
 	if dcl.BoolCanonicalize(rawDesired.AllPorts, rawInitial.AllPorts) {
 		rawDesired.AllPorts = rawInitial.AllPorts
 	}
@@ -430,7 +431,7 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	if dcl.StringCanonicalize(rawDesired.Target, rawInitial.Target) {
 		rawDesired.Target = rawInitial.Target
 	}
-	if dcl.StringCanonicalize(rawDesired.Project, rawInitial.Project) {
+	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
 	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
@@ -604,7 +605,7 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
 		rawNew.Project = rawDesired.Project
 	} else {
-		if dcl.StringCanonicalize(rawDesired.Project, rawNew.Project) {
+		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
 			rawNew.Project = rawDesired.Project
 		}
 	}
@@ -941,7 +942,7 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -422,6 +422,7 @@ func canonicalizeObjectAccessControlDesiredState(rawDesired, rawInitial *ObjectA
 
 		return rawDesired, nil
 	}
+
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}

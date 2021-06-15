@@ -403,8 +403,9 @@ class FunctionSourceRepositoryArray(object):
 
 
 class FunctionHttpsTrigger(object):
-    def __init__(self, url: str = None):
+    def __init__(self, url: str = None, security_level: str = None):
         self.url = url
+        self.security_level = security_level
 
     @classmethod
     def to_proto(self, resource):
@@ -414,6 +415,10 @@ class FunctionHttpsTrigger(object):
         res = function_pb2.CloudfunctionsFunctionHttpsTrigger()
         if Primitive.to_proto(resource.url):
             res.url = Primitive.to_proto(resource.url)
+        if FunctionHttpsTriggerSecurityLevelEnum.to_proto(resource.security_level):
+            res.security_level = FunctionHttpsTriggerSecurityLevelEnum.to_proto(
+                resource.security_level
+            )
         return res
 
     @classmethod
@@ -421,7 +426,12 @@ class FunctionHttpsTrigger(object):
         if not resource:
             return None
 
-        return FunctionHttpsTrigger(url=Primitive.from_proto(resource.url),)
+        return FunctionHttpsTrigger(
+            url=Primitive.from_proto(resource.url),
+            security_level=FunctionHttpsTriggerSecurityLevelEnum.from_proto(
+                resource.security_level
+            ),
+        )
 
 
 class FunctionHttpsTriggerArray(object):
@@ -488,6 +498,24 @@ class FunctionEventTriggerArray(object):
     @classmethod
     def from_proto(self, resources):
         return [FunctionEventTrigger.from_proto(i) for i in resources]
+
+
+class FunctionHttpsTriggerSecurityLevelEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return function_pb2.CloudfunctionsFunctionHttpsTriggerSecurityLevelEnum.Value(
+            "CloudfunctionsFunctionHttpsTriggerSecurityLevelEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return function_pb2.CloudfunctionsFunctionHttpsTriggerSecurityLevelEnum.Name(
+            resource
+        )[len("CloudfunctionsFunctionHttpsTriggerSecurityLevelEnum") :]
 
 
 class FunctionStatusEnum(object):

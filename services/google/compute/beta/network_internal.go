@@ -428,6 +428,7 @@ func canonicalizeNetworkDesiredState(rawDesired, rawInitial *Network, opts ...dc
 
 		return rawDesired, nil
 	}
+
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}

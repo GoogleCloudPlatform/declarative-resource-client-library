@@ -260,6 +260,7 @@ func canonicalizeFeatureMembershipDesiredState(rawDesired, rawInitial *FeatureMe
 
 		return rawDesired, nil
 	}
+
 	if dcl.NameToSelfLink(rawDesired.Membership, rawInitial.Membership) {
 		rawDesired.Membership = rawInitial.Membership
 	}

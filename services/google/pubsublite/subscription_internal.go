@@ -433,6 +433,7 @@ func canonicalizeSubscriptionDesiredState(rawDesired, rawInitial *Subscription, 
 
 		return rawDesired, nil
 	}
+
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}

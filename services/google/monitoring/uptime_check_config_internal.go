@@ -523,34 +523,6 @@ func canonicalizeUptimeCheckConfigInitialState(rawInitial, rawDesired *UptimeChe
 
 func canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial *UptimeCheckConfig, opts ...dcl.ApplyOption) (*UptimeCheckConfig, error) {
 
-	if dcl.IsZeroValue(rawDesired.MonitoredResource) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.ResourceGroup) {
-			rawDesired.MonitoredResource = EmptyUptimeCheckConfigMonitoredResource
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.ResourceGroup) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.MonitoredResource) {
-			rawDesired.ResourceGroup = EmptyUptimeCheckConfigResourceGroup
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.HttpCheck) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.TcpCheck) {
-			rawDesired.HttpCheck = EmptyUptimeCheckConfigHttpCheck
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.TcpCheck) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.HttpCheck) {
-			rawDesired.TcpCheck = EmptyUptimeCheckConfigTcpCheck
-		}
-	}
-
 	if dcl.IsZeroValue(rawDesired.Period) {
 		rawDesired.Period = dcl.String("60s")
 	}
@@ -565,6 +537,39 @@ func canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial *UptimeChe
 
 		return rawDesired, nil
 	}
+
+	if rawDesired.MonitoredResource != nil || rawInitial.MonitoredResource != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.ResourceGroup) {
+			rawDesired.MonitoredResource = nil
+			rawInitial.MonitoredResource = nil
+		}
+	}
+
+	if rawDesired.ResourceGroup != nil || rawInitial.ResourceGroup != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.MonitoredResource) {
+			rawDesired.ResourceGroup = nil
+			rawInitial.ResourceGroup = nil
+		}
+	}
+
+	if rawDesired.HttpCheck != nil || rawInitial.HttpCheck != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.TcpCheck) {
+			rawDesired.HttpCheck = nil
+			rawInitial.HttpCheck = nil
+		}
+	}
+
+	if rawDesired.TcpCheck != nil || rawInitial.TcpCheck != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.HttpCheck) {
+			rawDesired.TcpCheck = nil
+			rawInitial.TcpCheck = nil
+		}
+	}
+
 	if dcl.IsZeroValue(rawDesired.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
@@ -1305,7 +1310,7 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

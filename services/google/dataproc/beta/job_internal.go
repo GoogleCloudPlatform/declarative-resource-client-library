@@ -689,62 +689,6 @@ func canonicalizeJobInitialState(rawInitial, rawDesired *Job) (*Job, error) {
 
 func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyOption) (*Job, error) {
 
-	if dcl.IsZeroValue(rawDesired.HadoopJob) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.SparkJob, rawDesired.PysparkJob, rawDesired.HiveJob, rawDesired.PigJob, rawDesired.SparkRJob, rawDesired.SparkSqlJob, rawDesired.PrestoJob) {
-			rawDesired.HadoopJob = EmptyJobHadoopJob
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.SparkJob) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.HadoopJob, rawDesired.PysparkJob, rawDesired.HiveJob, rawDesired.PigJob, rawDesired.SparkRJob, rawDesired.SparkSqlJob, rawDesired.PrestoJob) {
-			rawDesired.SparkJob = EmptyJobSparkJob
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.PysparkJob) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.HadoopJob, rawDesired.SparkJob, rawDesired.HiveJob, rawDesired.PigJob, rawDesired.SparkRJob, rawDesired.SparkSqlJob, rawDesired.PrestoJob) {
-			rawDesired.PysparkJob = EmptyJobPysparkJob
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.HiveJob) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.HadoopJob, rawDesired.SparkJob, rawDesired.PysparkJob, rawDesired.PigJob, rawDesired.SparkRJob, rawDesired.SparkSqlJob, rawDesired.PrestoJob) {
-			rawDesired.HiveJob = EmptyJobHiveJob
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.PigJob) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.HadoopJob, rawDesired.SparkJob, rawDesired.PysparkJob, rawDesired.HiveJob, rawDesired.SparkRJob, rawDesired.SparkSqlJob, rawDesired.PrestoJob) {
-			rawDesired.PigJob = EmptyJobPigJob
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.SparkRJob) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.HadoopJob, rawDesired.SparkJob, rawDesired.PysparkJob, rawDesired.HiveJob, rawDesired.PigJob, rawDesired.SparkSqlJob, rawDesired.PrestoJob) {
-			rawDesired.SparkRJob = EmptyJobSparkRJob
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.SparkSqlJob) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.HadoopJob, rawDesired.SparkJob, rawDesired.PysparkJob, rawDesired.HiveJob, rawDesired.PigJob, rawDesired.SparkRJob, rawDesired.PrestoJob) {
-			rawDesired.SparkSqlJob = EmptyJobSparkSqlJob
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.PrestoJob) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.HadoopJob, rawDesired.SparkJob, rawDesired.PysparkJob, rawDesired.HiveJob, rawDesired.PigJob, rawDesired.SparkRJob, rawDesired.SparkSqlJob) {
-			rawDesired.PrestoJob = EmptyJobPrestoJob
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -763,6 +707,71 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 
 		return rawDesired, nil
 	}
+
+	if rawDesired.HadoopJob != nil || rawInitial.HadoopJob != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.SparkJob, rawDesired.PysparkJob, rawDesired.HiveJob, rawDesired.PigJob, rawDesired.SparkRJob, rawDesired.SparkSqlJob, rawDesired.PrestoJob) {
+			rawDesired.HadoopJob = nil
+			rawInitial.HadoopJob = nil
+		}
+	}
+
+	if rawDesired.SparkJob != nil || rawInitial.SparkJob != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.HadoopJob, rawDesired.PysparkJob, rawDesired.HiveJob, rawDesired.PigJob, rawDesired.SparkRJob, rawDesired.SparkSqlJob, rawDesired.PrestoJob) {
+			rawDesired.SparkJob = nil
+			rawInitial.SparkJob = nil
+		}
+	}
+
+	if rawDesired.PysparkJob != nil || rawInitial.PysparkJob != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.HadoopJob, rawDesired.SparkJob, rawDesired.HiveJob, rawDesired.PigJob, rawDesired.SparkRJob, rawDesired.SparkSqlJob, rawDesired.PrestoJob) {
+			rawDesired.PysparkJob = nil
+			rawInitial.PysparkJob = nil
+		}
+	}
+
+	if rawDesired.HiveJob != nil || rawInitial.HiveJob != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.HadoopJob, rawDesired.SparkJob, rawDesired.PysparkJob, rawDesired.PigJob, rawDesired.SparkRJob, rawDesired.SparkSqlJob, rawDesired.PrestoJob) {
+			rawDesired.HiveJob = nil
+			rawInitial.HiveJob = nil
+		}
+	}
+
+	if rawDesired.PigJob != nil || rawInitial.PigJob != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.HadoopJob, rawDesired.SparkJob, rawDesired.PysparkJob, rawDesired.HiveJob, rawDesired.SparkRJob, rawDesired.SparkSqlJob, rawDesired.PrestoJob) {
+			rawDesired.PigJob = nil
+			rawInitial.PigJob = nil
+		}
+	}
+
+	if rawDesired.SparkRJob != nil || rawInitial.SparkRJob != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.HadoopJob, rawDesired.SparkJob, rawDesired.PysparkJob, rawDesired.HiveJob, rawDesired.PigJob, rawDesired.SparkSqlJob, rawDesired.PrestoJob) {
+			rawDesired.SparkRJob = nil
+			rawInitial.SparkRJob = nil
+		}
+	}
+
+	if rawDesired.SparkSqlJob != nil || rawInitial.SparkSqlJob != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.HadoopJob, rawDesired.SparkJob, rawDesired.PysparkJob, rawDesired.HiveJob, rawDesired.PigJob, rawDesired.SparkRJob, rawDesired.PrestoJob) {
+			rawDesired.SparkSqlJob = nil
+			rawInitial.SparkSqlJob = nil
+		}
+	}
+
+	if rawDesired.PrestoJob != nil || rawInitial.PrestoJob != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.HadoopJob, rawDesired.SparkJob, rawDesired.PysparkJob, rawDesired.HiveJob, rawDesired.PigJob, rawDesired.SparkRJob, rawDesired.SparkSqlJob) {
+			rawDesired.PrestoJob = nil
+			rawInitial.PrestoJob = nil
+		}
+	}
+
 	rawDesired.Reference = canonicalizeJobReference(rawDesired.Reference, rawInitial.Reference, opts...)
 	rawDesired.Placement = canonicalizeJobPlacement(rawDesired.Placement, rawInitial.Placement, opts...)
 	rawDesired.HadoopJob = canonicalizeJobHadoopJob(rawDesired.HadoopJob, rawInitial.HadoopJob, opts...)

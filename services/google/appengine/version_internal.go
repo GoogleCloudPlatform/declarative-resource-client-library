@@ -765,6 +765,7 @@ func canonicalizeVersionDesiredState(rawDesired, rawInitial *Version, opts ...dc
 
 		return rawDesired, nil
 	}
+
 	if dcl.StringCanonicalize(rawDesired.ConsumerName, rawInitial.ConsumerName) {
 		rawDesired.ConsumerName = rawInitial.ConsumerName
 	}

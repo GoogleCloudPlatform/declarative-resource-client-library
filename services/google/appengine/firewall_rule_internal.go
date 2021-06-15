@@ -379,6 +379,7 @@ func canonicalizeFirewallRuleDesiredState(rawDesired, rawInitial *FirewallRule, 
 
 		return rawDesired, nil
 	}
+
 	if dcl.IsZeroValue(rawDesired.Action) {
 		rawDesired.Action = rawInitial.Action
 	}

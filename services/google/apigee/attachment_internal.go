@@ -354,6 +354,7 @@ func canonicalizeAttachmentDesiredState(rawDesired, rawInitial *Attachment, opts
 
 		return rawDesired, nil
 	}
+
 	if dcl.IsZeroValue(rawDesired.Name) {
 		rawDesired.Name = rawInitial.Name
 	}

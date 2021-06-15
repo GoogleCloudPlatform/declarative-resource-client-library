@@ -185,8 +185,20 @@ components:
           x-kubernetes-immutable: true
           x-dcl-conflicts:
           - eventTrigger
-          x-dcl-send-empty: true
           properties:
+            securityLevel:
+              type: string
+              x-dcl-go-name: SecurityLevel
+              x-dcl-go-type: FunctionHttpsTriggerSecurityLevelEnum
+              description: 'Both HTTP and HTTPS requests with URLs that match the
+                handler succeed without redirects. The application can examine the
+                request to determine which protocol was used and respond accordingly.
+                Possible values: SECURITY_LEVEL_UNSPECIFIED, SECURE_ALWAYS, SECURE_OPTIONAL'
+              x-kubernetes-immutable: true
+              enum:
+              - SECURITY_LEVEL_UNSPECIFIED
+              - SECURE_ALWAYS
+              - SECURE_OPTIONAL
             url:
               type: string
               x-dcl-go-name: Url

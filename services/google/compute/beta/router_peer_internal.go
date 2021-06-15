@@ -539,6 +539,7 @@ func canonicalizeRouterPeerDesiredState(rawDesired, rawInitial *RouterPeer, opts
 
 		return rawDesired, nil
 	}
+
 	if dcl.NameToSelfLink(rawDesired.Router, rawInitial.Router) {
 		rawDesired.Router = rawInitial.Router
 	}

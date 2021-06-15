@@ -509,34 +509,6 @@ func canonicalizeFunctionInitialState(rawInitial, rawDesired *Function) (*Functi
 
 func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...dcl.ApplyOption) (*Function, error) {
 
-	if dcl.IsZeroValue(rawDesired.SourceArchiveUrl) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.SourceRepository) {
-			rawDesired.SourceArchiveUrl = dcl.String("")
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.SourceRepository) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.SourceArchiveUrl) {
-			rawDesired.SourceRepository = EmptyFunctionSourceRepository
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.EventTrigger) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.HttpsTrigger) {
-			rawDesired.EventTrigger = EmptyFunctionEventTrigger
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.HttpsTrigger) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.EventTrigger) {
-			rawDesired.HttpsTrigger = EmptyFunctionHttpsTrigger
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -546,6 +518,39 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 
 		return rawDesired, nil
 	}
+
+	if rawDesired.SourceArchiveUrl != nil || rawInitial.SourceArchiveUrl != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.SourceRepository) {
+			rawDesired.SourceArchiveUrl = nil
+			rawInitial.SourceArchiveUrl = nil
+		}
+	}
+
+	if rawDesired.SourceRepository != nil || rawInitial.SourceRepository != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.SourceArchiveUrl) {
+			rawDesired.SourceRepository = nil
+			rawInitial.SourceRepository = nil
+		}
+	}
+
+	if rawDesired.EventTrigger != nil || rawInitial.EventTrigger != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.HttpsTrigger) {
+			rawDesired.EventTrigger = nil
+			rawInitial.EventTrigger = nil
+		}
+	}
+
+	if rawDesired.HttpsTrigger != nil || rawInitial.HttpsTrigger != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.EventTrigger) {
+			rawDesired.HttpsTrigger = nil
+			rawInitial.HttpsTrigger = nil
+		}
+	}
+
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
@@ -840,6 +845,10 @@ func canonicalizeFunctionHttpsTrigger(des, initial *FunctionHttpsTrigger, opts .
 		return des
 	}
 
+	if dcl.IsZeroValue(des.SecurityLevel) {
+		des.SecurityLevel = initial.SecurityLevel
+	}
+
 	return des
 }
 
@@ -850,6 +859,9 @@ func canonicalizeNewFunctionHttpsTrigger(c *Client, des, nw *FunctionHttpsTrigge
 
 	if dcl.StringCanonicalize(des.Url, nw.Url) {
 		nw.Url = des.Url
+	}
+	if dcl.IsZeroValue(nw.SecurityLevel) {
+		nw.SecurityLevel = des.SecurityLevel
 	}
 
 	return nw
@@ -1230,6 +1242,13 @@ func compareFunctionHttpsTriggerNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.SecurityLevel, actual.SecurityLevel, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecurityLevel")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -1379,7 +1398,7 @@ func expandFunction(c *Client, f *Function) (map[string]interface{}, error) {
 	}
 	if v, err := expandFunctionHttpsTrigger(c, f.HttpsTrigger); err != nil {
 		return nil, fmt.Errorf("error expanding HttpsTrigger into httpsTrigger: %w", err)
-	} else {
+	} else if v != nil {
 		m["httpsTrigger"] = v
 	}
 	if v, err := expandFunctionEventTrigger(c, f.EventTrigger); err != nil {
@@ -1687,13 +1706,16 @@ func flattenFunctionHttpsTriggerSlice(c *Client, i interface{}) []FunctionHttpsT
 // expandFunctionHttpsTrigger expands an instance of FunctionHttpsTrigger into a JSON
 // request object.
 func expandFunctionHttpsTrigger(c *Client, f *FunctionHttpsTrigger) (map[string]interface{}, error) {
-	if f == nil {
+	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
 	if v := f.Url; !dcl.IsEmptyValueIndirect(v) {
 		m["url"] = v
+	}
+	if v := f.SecurityLevel; !dcl.IsEmptyValueIndirect(v) {
+		m["securityLevel"] = v
 	}
 
 	return m, nil
@@ -1713,6 +1735,7 @@ func flattenFunctionHttpsTrigger(c *Client, i interface{}) *FunctionHttpsTrigger
 		return EmptyFunctionHttpsTrigger
 	}
 	r.Url = dcl.FlattenString(m["url"])
+	r.SecurityLevel = flattenFunctionHttpsTriggerSecurityLevelEnum(m["securityLevel"])
 
 	return r
 }
@@ -1843,6 +1866,37 @@ func flattenFunctionEventTrigger(c *Client, i interface{}) *FunctionEventTrigger
 	r.FailurePolicy = FlattenFunctionEventRetry(m["failurePolicy"])
 
 	return r
+}
+
+// flattenFunctionHttpsTriggerSecurityLevelEnumSlice flattens the contents of FunctionHttpsTriggerSecurityLevelEnum from a JSON
+// response object.
+func flattenFunctionHttpsTriggerSecurityLevelEnumSlice(c *Client, i interface{}) []FunctionHttpsTriggerSecurityLevelEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []FunctionHttpsTriggerSecurityLevelEnum{}
+	}
+
+	if len(a) == 0 {
+		return []FunctionHttpsTriggerSecurityLevelEnum{}
+	}
+
+	items := make([]FunctionHttpsTriggerSecurityLevelEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenFunctionHttpsTriggerSecurityLevelEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenFunctionHttpsTriggerSecurityLevelEnum asserts that an interface is a string, and returns a
+// pointer to a *FunctionHttpsTriggerSecurityLevelEnum with the same value as that string.
+func flattenFunctionHttpsTriggerSecurityLevelEnum(i interface{}) *FunctionHttpsTriggerSecurityLevelEnum {
+	s, ok := i.(string)
+	if !ok {
+		return FunctionHttpsTriggerSecurityLevelEnumRef("")
+	}
+
+	return FunctionHttpsTriggerSecurityLevelEnumRef(s)
 }
 
 // flattenFunctionStatusEnumSlice flattens the contents of FunctionStatusEnum from a JSON

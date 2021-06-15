@@ -25,6 +25,18 @@ import (
 // Server implements the gRPC interface for Function.
 type FunctionServer struct{}
 
+// ProtoToFunctionHttpsTriggerSecurityLevelEnum converts a FunctionHttpsTriggerSecurityLevelEnum enum from its proto representation.
+func ProtoToCloudfunctionsFunctionHttpsTriggerSecurityLevelEnum(e cloudfunctionspb.CloudfunctionsFunctionHttpsTriggerSecurityLevelEnum) *cloudfunctions.FunctionHttpsTriggerSecurityLevelEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := cloudfunctionspb.CloudfunctionsFunctionHttpsTriggerSecurityLevelEnum_name[int32(e)]; ok {
+		e := cloudfunctions.FunctionHttpsTriggerSecurityLevelEnum(n[len("CloudfunctionsFunctionHttpsTriggerSecurityLevelEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToFunctionStatusEnum converts a FunctionStatusEnum enum from its proto representation.
 func ProtoToCloudfunctionsFunctionStatusEnum(e cloudfunctionspb.CloudfunctionsFunctionStatusEnum) *cloudfunctions.FunctionStatusEnum {
 	if e == 0 {
@@ -79,7 +91,8 @@ func ProtoToCloudfunctionsFunctionHttpsTrigger(p *cloudfunctionspb.Cloudfunction
 		return nil
 	}
 	obj := &cloudfunctions.FunctionHttpsTrigger{
-		Url: dcl.StringOrNil(p.Url),
+		Url:           dcl.StringOrNil(p.Url),
+		SecurityLevel: ProtoToCloudfunctionsFunctionHttpsTriggerSecurityLevelEnum(p.GetSecurityLevel()),
 	}
 	return obj
 }
@@ -124,6 +137,17 @@ func ProtoToFunction(p *cloudfunctionspb.CloudfunctionsFunction) *cloudfunctions
 		Project:                    dcl.StringOrNil(p.Project),
 	}
 	return obj
+}
+
+// FunctionHttpsTriggerSecurityLevelEnumToProto converts a FunctionHttpsTriggerSecurityLevelEnum enum to its proto representation.
+func CloudfunctionsFunctionHttpsTriggerSecurityLevelEnumToProto(e *cloudfunctions.FunctionHttpsTriggerSecurityLevelEnum) cloudfunctionspb.CloudfunctionsFunctionHttpsTriggerSecurityLevelEnum {
+	if e == nil {
+		return cloudfunctionspb.CloudfunctionsFunctionHttpsTriggerSecurityLevelEnum(0)
+	}
+	if v, ok := cloudfunctionspb.CloudfunctionsFunctionHttpsTriggerSecurityLevelEnum_value["FunctionHttpsTriggerSecurityLevelEnum"+string(*e)]; ok {
+		return cloudfunctionspb.CloudfunctionsFunctionHttpsTriggerSecurityLevelEnum(v)
+	}
+	return cloudfunctionspb.CloudfunctionsFunctionHttpsTriggerSecurityLevelEnum(0)
 }
 
 // FunctionStatusEnumToProto converts a FunctionStatusEnum enum to its proto representation.
@@ -177,7 +201,8 @@ func CloudfunctionsFunctionHttpsTriggerToProto(o *cloudfunctions.FunctionHttpsTr
 		return nil
 	}
 	p := &cloudfunctionspb.CloudfunctionsFunctionHttpsTrigger{
-		Url: dcl.ValueOrEmptyString(o.Url),
+		Url:           dcl.ValueOrEmptyString(o.Url),
+		SecurityLevel: CloudfunctionsFunctionHttpsTriggerSecurityLevelEnumToProto(o.SecurityLevel),
 	}
 	return p
 }

@@ -602,6 +602,7 @@ func canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial *Instan
 
 		return rawDesired, nil
 	}
+
 	if dcl.StringCanonicalize(rawDesired.BaseInstanceName, rawInitial.BaseInstanceName) {
 		rawDesired.BaseInstanceName = rawInitial.BaseInstanceName
 	}

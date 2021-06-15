@@ -410,26 +410,29 @@ func canonicalizeVariableInitialState(rawInitial, rawDesired *Variable) (*Variab
 
 func canonicalizeVariableDesiredState(rawDesired, rawInitial *Variable, opts ...dcl.ApplyOption) (*Variable, error) {
 
-	if dcl.IsZeroValue(rawDesired.Text) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.Value) {
-			rawDesired.Text = dcl.String("")
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.Value) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.Text) {
-			rawDesired.Value = dcl.String("")
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
 
 		return rawDesired, nil
 	}
+
+	if rawDesired.Text != nil || rawInitial.Text != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.Value) {
+			rawDesired.Text = nil
+			rawInitial.Text = nil
+		}
+	}
+
+	if rawDesired.Value != nil || rawInitial.Value != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.Text) {
+			rawDesired.Value = nil
+			rawInitial.Value = nil
+		}
+	}
+
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
@@ -540,7 +543,7 @@ func diffVariable(c *Client, desired, actual *Variable, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

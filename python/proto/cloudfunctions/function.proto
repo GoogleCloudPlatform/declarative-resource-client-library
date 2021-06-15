@@ -18,6 +18,13 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+enum CloudfunctionsFunctionHttpsTriggerSecurityLevelEnum {
+  CloudfunctionsFunctionHttpsTriggerSecurityLevelEnumNO_VALUE_DO_NOT_USE = 0;
+  CloudfunctionsFunctionHttpsTriggerSecurityLevelEnumSECURITY_LEVEL_UNSPECIFIED = 1;
+  CloudfunctionsFunctionHttpsTriggerSecurityLevelEnumSECURE_ALWAYS = 2;
+  CloudfunctionsFunctionHttpsTriggerSecurityLevelEnumSECURE_OPTIONAL = 3;
+}
+
 enum CloudfunctionsFunctionStatusEnum {
   CloudfunctionsFunctionStatusEnumNO_VALUE_DO_NOT_USE = 0;
   CloudfunctionsFunctionStatusEnumCLOUD_FUNCTION_STATUS_UNSPECIFIED = 1;
@@ -76,6 +83,7 @@ message CloudfunctionsFunctionSourceRepository {
 
 message CloudfunctionsFunctionHttpsTrigger {
   string url = 1;
+  CloudfunctionsFunctionHttpsTriggerSecurityLevelEnum security_level = 2;
 }
 
 message CloudfunctionsFunctionEventTrigger {

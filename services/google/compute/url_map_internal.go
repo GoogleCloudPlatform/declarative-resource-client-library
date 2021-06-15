@@ -847,6 +847,7 @@ func canonicalizeUrlMapDesiredState(rawDesired, rawInitial *UrlMap, opts ...dcl.
 
 		return rawDesired, nil
 	}
+
 	rawDesired.DefaultRouteAction = canonicalizeUrlMapDefaultRouteAction(rawDesired.DefaultRouteAction, rawInitial.DefaultRouteAction, opts...)
 	if dcl.StringCanonicalize(rawDesired.DefaultService, rawInitial.DefaultService) {
 		rawDesired.DefaultService = rawInitial.DefaultService
@@ -5691,7 +5692,7 @@ func diffUrlMap(c *Client, desired, actual *UrlMap, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

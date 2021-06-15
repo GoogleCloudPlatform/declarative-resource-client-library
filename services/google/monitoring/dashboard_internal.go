@@ -811,34 +811,6 @@ func canonicalizeDashboardInitialState(rawInitial, rawDesired *Dashboard) (*Dash
 
 func canonicalizeDashboardDesiredState(rawDesired, rawInitial *Dashboard, opts ...dcl.ApplyOption) (*Dashboard, error) {
 
-	if dcl.IsZeroValue(rawDesired.GridLayout) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.MosaicLayout, rawDesired.RowLayout, rawDesired.ColumnLayout) {
-			rawDesired.GridLayout = EmptyDashboardGridLayout
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.MosaicLayout) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.GridLayout, rawDesired.RowLayout, rawDesired.ColumnLayout) {
-			rawDesired.MosaicLayout = EmptyDashboardMosaicLayout
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.RowLayout) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.GridLayout, rawDesired.MosaicLayout, rawDesired.ColumnLayout) {
-			rawDesired.RowLayout = EmptyDashboardRowLayout
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.ColumnLayout) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.GridLayout, rawDesired.MosaicLayout, rawDesired.RowLayout) {
-			rawDesired.ColumnLayout = EmptyDashboardColumnLayout
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -849,6 +821,39 @@ func canonicalizeDashboardDesiredState(rawDesired, rawInitial *Dashboard, opts .
 
 		return rawDesired, nil
 	}
+
+	if rawDesired.GridLayout != nil || rawInitial.GridLayout != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.MosaicLayout, rawDesired.RowLayout, rawDesired.ColumnLayout) {
+			rawDesired.GridLayout = nil
+			rawInitial.GridLayout = nil
+		}
+	}
+
+	if rawDesired.MosaicLayout != nil || rawInitial.MosaicLayout != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.GridLayout, rawDesired.RowLayout, rawDesired.ColumnLayout) {
+			rawDesired.MosaicLayout = nil
+			rawInitial.MosaicLayout = nil
+		}
+	}
+
+	if rawDesired.RowLayout != nil || rawInitial.RowLayout != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.GridLayout, rawDesired.MosaicLayout, rawDesired.ColumnLayout) {
+			rawDesired.RowLayout = nil
+			rawInitial.RowLayout = nil
+		}
+	}
+
+	if rawDesired.ColumnLayout != nil || rawInitial.ColumnLayout != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.GridLayout, rawDesired.MosaicLayout, rawDesired.RowLayout) {
+			rawDesired.ColumnLayout = nil
+			rawInitial.ColumnLayout = nil
+		}
+	}
+
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}

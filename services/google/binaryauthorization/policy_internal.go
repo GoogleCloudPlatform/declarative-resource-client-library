@@ -268,6 +268,7 @@ func canonicalizePolicyDesiredState(rawDesired, rawInitial *Policy, opts ...dcl.
 
 		return rawDesired, nil
 	}
+
 	if dcl.IsZeroValue(rawDesired.AdmissionWhitelistPatterns) {
 		rawDesired.AdmissionWhitelistPatterns = rawInitial.AdmissionWhitelistPatterns
 	}

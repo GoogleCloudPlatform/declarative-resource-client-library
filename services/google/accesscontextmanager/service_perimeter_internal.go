@@ -472,6 +472,7 @@ func canonicalizeServicePerimeterDesiredState(rawDesired, rawInitial *ServicePer
 
 		return rawDesired, nil
 	}
+
 	if dcl.StringCanonicalize(rawDesired.Title, rawInitial.Title) {
 		rawDesired.Title = rawInitial.Title
 	}

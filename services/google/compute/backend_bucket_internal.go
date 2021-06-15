@@ -427,6 +427,7 @@ func canonicalizeBackendBucketDesiredState(rawDesired, rawInitial *BackendBucket
 
 		return rawDesired, nil
 	}
+
 	if dcl.NameToSelfLink(rawDesired.BucketName, rawInitial.BucketName) {
 		rawDesired.BucketName = rawInitial.BucketName
 	}
@@ -630,7 +631,7 @@ func diffBackendBucket(c *Client, desired, actual *BackendBucket, opts ...dcl.Ap
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -305,6 +305,7 @@ func canonicalizeNetworkEndpointDesiredState(rawDesired, rawInitial *NetworkEndp
 
 		return rawDesired, nil
 	}
+
 	if dcl.IsZeroValue(rawDesired.Port) {
 		rawDesired.Port = rawInitial.Port
 	}

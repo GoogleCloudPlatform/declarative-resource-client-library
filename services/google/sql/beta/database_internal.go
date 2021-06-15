@@ -418,6 +418,7 @@ func canonicalizeDatabaseDesiredState(rawDesired, rawInitial *Database, opts ...
 
 		return rawDesired, nil
 	}
+
 	if dcl.StringCanonicalize(rawDesired.Charset, rawInitial.Charset) {
 		rawDesired.Charset = rawInitial.Charset
 	}
@@ -430,7 +431,7 @@ func canonicalizeDatabaseDesiredState(rawDesired, rawInitial *Database, opts ...
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
-	if dcl.StringCanonicalize(rawDesired.Project, rawInitial.Project) {
+	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
 
@@ -474,7 +475,7 @@ func canonicalizeDatabaseNewState(c *Client, rawNew, rawDesired *Database) (*Dat
 	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
 		rawNew.Project = rawDesired.Project
 	} else {
-		if dcl.StringCanonicalize(rawDesired.Project, rawNew.Project) {
+		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
 			rawNew.Project = rawDesired.Project
 		}
 	}
@@ -533,7 +534,7 @@ func diffDatabase(c *Client, desired, actual *Database, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

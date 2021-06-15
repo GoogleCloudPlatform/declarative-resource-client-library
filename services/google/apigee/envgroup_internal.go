@@ -412,6 +412,7 @@ func canonicalizeEnvgroupDesiredState(rawDesired, rawInitial *Envgroup, opts ...
 
 		return rawDesired, nil
 	}
+
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}

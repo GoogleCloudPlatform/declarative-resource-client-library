@@ -700,6 +700,7 @@ func canonicalizeTargetPoolDesiredState(rawDesired, rawInitial *TargetPool, opts
 
 		return rawDesired, nil
 	}
+
 	if dcl.StringCanonicalize(rawDesired.BackupPool, rawInitial.BackupPool) {
 		rawDesired.BackupPool = rawInitial.BackupPool
 	}
@@ -727,7 +728,7 @@ func canonicalizeTargetPoolDesiredState(rawDesired, rawInitial *TargetPool, opts
 	if dcl.IsZeroValue(rawDesired.SessionAffinity) {
 		rawDesired.SessionAffinity = rawInitial.SessionAffinity
 	}
-	if dcl.StringCanonicalize(rawDesired.Project, rawInitial.Project) {
+	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
 	}
 
@@ -802,7 +803,7 @@ func canonicalizeTargetPoolNewState(c *Client, rawNew, rawDesired *TargetPool) (
 	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
 		rawNew.Project = rawDesired.Project
 	} else {
-		if dcl.StringCanonicalize(rawDesired.Project, rawNew.Project) {
+		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
 			rawNew.Project = rawDesired.Project
 		}
 	}
@@ -888,7 +889,7 @@ func diffTargetPool(c *Client, desired, actual *TargetPool, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

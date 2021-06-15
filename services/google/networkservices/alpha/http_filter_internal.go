@@ -450,6 +450,7 @@ func canonicalizeHttpFilterDesiredState(rawDesired, rawInitial *HttpFilter, opts
 
 		return rawDesired, nil
 	}
+
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}

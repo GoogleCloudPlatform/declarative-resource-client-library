@@ -801,20 +801,6 @@ func canonicalizeNodePoolInitialState(rawInitial, rawDesired *NodePool) (*NodePo
 
 func canonicalizeNodePoolDesiredState(rawDesired, rawInitial *NodePool, opts ...dcl.ApplyOption) (*NodePool, error) {
 
-	if dcl.IsZeroValue(rawDesired.NodeCount) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.Autoscaling) {
-			rawDesired.NodeCount = dcl.Int64(0)
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.Autoscaling) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.NodeCount) {
-			rawDesired.Autoscaling = EmptyNodePoolAutoscaling
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -826,6 +812,23 @@ func canonicalizeNodePoolDesiredState(rawDesired, rawInitial *NodePool, opts ...
 
 		return rawDesired, nil
 	}
+
+	if rawDesired.NodeCount != nil || rawInitial.NodeCount != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.Autoscaling) {
+			rawDesired.NodeCount = nil
+			rawInitial.NodeCount = nil
+		}
+	}
+
+	if rawDesired.Autoscaling != nil || rawInitial.Autoscaling != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.NodeCount) {
+			rawDesired.Autoscaling = nil
+			rawInitial.Autoscaling = nil
+		}
+	}
+
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}

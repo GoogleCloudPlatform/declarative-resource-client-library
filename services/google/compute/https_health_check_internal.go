@@ -473,6 +473,7 @@ func canonicalizeHttpsHealthCheckDesiredState(rawDesired, rawInitial *HttpsHealt
 
 		return rawDesired, nil
 	}
+
 	if dcl.IsZeroValue(rawDesired.CheckIntervalSec) {
 		rawDesired.CheckIntervalSec = rawInitial.CheckIntervalSec
 	}

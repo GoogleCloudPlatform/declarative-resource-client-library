@@ -16,5 +16,7 @@
     "TEST_ENV_VARIABLE": "test-env-variable-value"
   },
   "maxInstances": 10,
-  "httpsTrigger": {}
+  "httpsTrigger": {
+    "securityLevel": "SECURE_OPTIONAL"
+  }
 }

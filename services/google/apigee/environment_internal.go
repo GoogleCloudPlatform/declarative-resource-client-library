@@ -379,6 +379,7 @@ func canonicalizeEnvironmentDesiredState(rawDesired, rawInitial *Environment, op
 
 		return rawDesired, nil
 	}
+
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}

@@ -426,6 +426,7 @@ func canonicalizeAccessPolicyDesiredState(rawDesired, rawInitial *AccessPolicy, 
 
 		return rawDesired, nil
 	}
+
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Parent, rawInitial.Parent) {
 		rawDesired.Parent = rawInitial.Parent
 	}

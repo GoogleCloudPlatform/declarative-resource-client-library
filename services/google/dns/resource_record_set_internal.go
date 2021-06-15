@@ -289,6 +289,7 @@ func canonicalizeResourceRecordSetDesiredState(rawDesired, rawInitial *ResourceR
 
 		return rawDesired, nil
 	}
+
 	if dcl.StringCanonicalize(rawDesired.DnsName, rawInitial.DnsName) {
 		rawDesired.DnsName = rawInitial.DnsName
 	}

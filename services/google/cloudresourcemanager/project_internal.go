@@ -406,6 +406,7 @@ func canonicalizeProjectDesiredState(rawDesired, rawInitial *Project, opts ...dc
 
 		return rawDesired, nil
 	}
+
 	if dcl.IsZeroValue(rawDesired.Labels) {
 		rawDesired.Labels = rawInitial.Labels
 	}

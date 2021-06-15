@@ -470,6 +470,7 @@ func canonicalizeRouterDesiredState(rawDesired, rawInitial *Router, opts ...dcl.
 
 		return rawDesired, nil
 	}
+
 	if dcl.IsZeroValue(rawDesired.Nats) {
 		rawDesired.Nats = rawInitial.Nats
 	}

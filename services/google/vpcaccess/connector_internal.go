@@ -358,6 +358,7 @@ func canonicalizeConnectorDesiredState(rawDesired, rawInitial *Connector, opts .
 
 		return rawDesired, nil
 	}
+
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}

@@ -508,6 +508,7 @@ func canonicalizeMembershipDesiredState(rawDesired, rawInitial *Membership, opts
 
 		return rawDesired, nil
 	}
+
 	rawDesired.Endpoint = canonicalizeMembershipEndpoint(rawDesired.Endpoint, rawInitial.Endpoint, opts...)
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
@@ -1430,7 +1431,7 @@ func diffMembership(c *Client, desired, actual *Membership, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

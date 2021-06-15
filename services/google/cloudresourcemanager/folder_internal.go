@@ -418,6 +418,7 @@ func canonicalizeFolderDesiredState(rawDesired, rawInitial *Folder, opts ...dcl.
 
 		return rawDesired, nil
 	}
+
 	if dcl.StringCanonicalize(rawDesired.Parent, rawInitial.Parent) {
 		rawDesired.Parent = rawInitial.Parent
 	}

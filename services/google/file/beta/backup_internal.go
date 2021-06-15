@@ -427,6 +427,7 @@ func canonicalizeBackupDesiredState(rawDesired, rawInitial *Backup, opts ...dcl.
 
 		return rawDesired, nil
 	}
+
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}

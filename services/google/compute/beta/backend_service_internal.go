@@ -712,20 +712,6 @@ func canonicalizeBackendServiceInitialState(rawInitial, rawDesired *BackendServi
 
 func canonicalizeBackendServiceDesiredState(rawDesired, rawInitial *BackendService, opts ...dcl.ApplyOption) (*BackendService, error) {
 
-	if dcl.IsZeroValue(rawDesired.Iap) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.CdnPolicy) {
-			rawDesired.Iap = EmptyBackendServiceIap
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.CdnPolicy) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.Iap) {
-			rawDesired.CdnPolicy = EmptyBackendServiceCdnPolicy
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -744,6 +730,23 @@ func canonicalizeBackendServiceDesiredState(rawDesired, rawInitial *BackendServi
 
 		return rawDesired, nil
 	}
+
+	if rawDesired.Iap != nil || rawInitial.Iap != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.CdnPolicy) {
+			rawDesired.Iap = nil
+			rawInitial.Iap = nil
+		}
+	}
+
+	if rawDesired.CdnPolicy != nil || rawInitial.CdnPolicy != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.Iap) {
+			rawDesired.CdnPolicy = nil
+			rawInitial.CdnPolicy = nil
+		}
+	}
+
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
@@ -3168,7 +3171,7 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

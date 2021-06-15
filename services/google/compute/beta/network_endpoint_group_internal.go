@@ -422,27 +422,6 @@ func canonicalizeNetworkEndpointGroupInitialState(rawInitial, rawDesired *Networ
 
 func canonicalizeNetworkEndpointGroupDesiredState(rawDesired, rawInitial *NetworkEndpointGroup, opts ...dcl.ApplyOption) (*NetworkEndpointGroup, error) {
 
-	if dcl.IsZeroValue(rawDesired.CloudRun) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.AppEngine, rawDesired.CloudFunction) {
-			rawDesired.CloudRun = EmptyNetworkEndpointGroupCloudRun
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.AppEngine) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.CloudRun, rawDesired.CloudFunction) {
-			rawDesired.AppEngine = EmptyNetworkEndpointGroupAppEngine
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.CloudFunction) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.CloudRun, rawDesired.AppEngine) {
-			rawDesired.CloudFunction = EmptyNetworkEndpointGroupCloudFunction
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -452,6 +431,31 @@ func canonicalizeNetworkEndpointGroupDesiredState(rawDesired, rawInitial *Networ
 
 		return rawDesired, nil
 	}
+
+	if rawDesired.CloudRun != nil || rawInitial.CloudRun != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.AppEngine, rawDesired.CloudFunction) {
+			rawDesired.CloudRun = nil
+			rawInitial.CloudRun = nil
+		}
+	}
+
+	if rawDesired.AppEngine != nil || rawInitial.AppEngine != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.CloudRun, rawDesired.CloudFunction) {
+			rawDesired.AppEngine = nil
+			rawInitial.AppEngine = nil
+		}
+	}
+
+	if rawDesired.CloudFunction != nil || rawInitial.CloudFunction != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.CloudRun, rawDesired.AppEngine) {
+			rawDesired.CloudFunction = nil
+			rawInitial.CloudFunction = nil
+		}
+	}
+
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}

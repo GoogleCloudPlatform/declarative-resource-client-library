@@ -345,6 +345,7 @@ func canonicalizeOrganizationDesiredState(rawDesired, rawInitial *Organization, 
 
 		return rawDesired, nil
 	}
+
 	if dcl.IsZeroValue(rawDesired.Name) {
 		rawDesired.Name = rawInitial.Name
 	}

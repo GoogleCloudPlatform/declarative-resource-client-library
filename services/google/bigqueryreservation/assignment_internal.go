@@ -363,6 +363,7 @@ func canonicalizeAssignmentDesiredState(rawDesired, rawInitial *Assignment, opts
 
 		return rawDesired, nil
 	}
+
 	if dcl.StringCanonicalize(rawDesired.Assignee, rawInitial.Assignee) {
 		rawDesired.Assignee = rawInitial.Assignee
 	}
@@ -462,7 +463,7 @@ func diffAssignment(c *Client, desired, actual *Assignment, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

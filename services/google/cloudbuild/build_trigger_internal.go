@@ -549,20 +549,6 @@ func canonicalizeBuildTriggerInitialState(rawInitial, rawDesired *BuildTrigger) 
 
 func canonicalizeBuildTriggerDesiredState(rawDesired, rawInitial *BuildTrigger, opts ...dcl.ApplyOption) (*BuildTrigger, error) {
 
-	if dcl.IsZeroValue(rawDesired.Filename) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.Build) {
-			rawDesired.Filename = dcl.String("")
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.Build) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.Filename) {
-			rawDesired.Build = EmptyBuildTriggerBuild
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -572,6 +558,23 @@ func canonicalizeBuildTriggerDesiredState(rawDesired, rawInitial *BuildTrigger, 
 
 		return rawDesired, nil
 	}
+
+	if rawDesired.Filename != nil || rawInitial.Filename != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.Build) {
+			rawDesired.Filename = nil
+			rawInitial.Filename = nil
+		}
+	}
+
+	if rawDesired.Build != nil || rawInitial.Build != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.Filename) {
+			rawDesired.Build = nil
+			rawInitial.Build = nil
+		}
+	}
+
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
@@ -2013,7 +2016,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

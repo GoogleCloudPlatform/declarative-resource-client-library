@@ -451,6 +451,7 @@ func canonicalizeAccessLevelDesiredState(rawDesired, rawInitial *AccessLevel, op
 
 		return rawDesired, nil
 	}
+
 	if dcl.StringCanonicalize(rawDesired.Title, rawInitial.Title) {
 		rawDesired.Title = rawInitial.Title
 	}

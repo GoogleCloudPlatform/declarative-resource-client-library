@@ -466,6 +466,7 @@ func canonicalizeWorkloadDesiredState(rawDesired, rawInitial *Workload, opts ...
 
 		return rawDesired, nil
 	}
+
 	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
 		rawDesired.DisplayName = rawInitial.DisplayName
 	}

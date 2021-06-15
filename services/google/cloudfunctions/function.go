@@ -54,6 +54,33 @@ func (r *Function) String() string {
 	return dcl.SprintResource(r)
 }
 
+// The enum FunctionHttpsTriggerSecurityLevelEnum.
+type FunctionHttpsTriggerSecurityLevelEnum string
+
+// FunctionHttpsTriggerSecurityLevelEnumRef returns a *FunctionHttpsTriggerSecurityLevelEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func FunctionHttpsTriggerSecurityLevelEnumRef(s string) *FunctionHttpsTriggerSecurityLevelEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := FunctionHttpsTriggerSecurityLevelEnum(s)
+	return &v
+}
+
+func (v FunctionHttpsTriggerSecurityLevelEnum) Validate() error {
+	for _, s := range []string{"SECURITY_LEVEL_UNSPECIFIED", "SECURE_ALWAYS", "SECURE_OPTIONAL"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "FunctionHttpsTriggerSecurityLevelEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 // The enum FunctionStatusEnum.
 type FunctionStatusEnum string
 
@@ -185,8 +212,9 @@ func (r *FunctionSourceRepository) HashCode() string {
 }
 
 type FunctionHttpsTrigger struct {
-	empty bool    `json:"-"`
-	Url   *string `json:"url"`
+	empty         bool                                   `json:"-"`
+	Url           *string                                `json:"url"`
+	SecurityLevel *FunctionHttpsTriggerSecurityLevelEnum `json:"securityLevel"`
 }
 
 type jsonFunctionHttpsTrigger FunctionHttpsTrigger
@@ -205,6 +233,8 @@ func (r *FunctionHttpsTrigger) UnmarshalJSON(data []byte) error {
 	} else {
 
 		r.Url = res.Url
+
+		r.SecurityLevel = res.SecurityLevel
 
 	}
 	return nil

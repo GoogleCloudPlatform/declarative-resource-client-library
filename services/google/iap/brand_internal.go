@@ -261,6 +261,7 @@ func canonicalizeBrandDesiredState(rawDesired, rawInitial *Brand, opts ...dcl.Ap
 
 		return rawDesired, nil
 	}
+
 	if dcl.StringCanonicalize(rawDesired.ApplicationTitle, rawInitial.ApplicationTitle) {
 		rawDesired.ApplicationTitle = rawInitial.ApplicationTitle
 	}

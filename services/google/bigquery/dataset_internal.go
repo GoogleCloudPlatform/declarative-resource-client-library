@@ -472,6 +472,7 @@ func canonicalizeDatasetDesiredState(rawDesired, rawInitial *Dataset, opts ...dc
 
 		return rawDesired, nil
 	}
+
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
