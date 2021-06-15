@@ -141,7 +141,6 @@ components:
                   required:
                   - hosts
                   - ports
-                  - paths
                   properties:
                     hosts:
                       type: array
@@ -188,18 +187,6 @@ components:
                       x-dcl-go-name: Methods
                       description: Optional. A list of HTTP methods to match. Should
                         not be set for gRPC services.
-                      x-dcl-list-type: list
-                      items:
-                        type: string
-                        x-dcl-go-type: string
-                    paths:
-                      type: array
-                      x-dcl-go-name: Paths
-                      description: Required. A list of HTTP paths to match. gRPC methods
-                        must be presented as fully-qualified name in the form of "/packageName.serviceName/methodName".
-                        Each path can be an exact match, or a prefix match (example,
-                        “/packageName.serviceName/*”) or a suffix match (example,
-                        */video”) or a presence(any) match “*”.
                       x-dcl-list-type: list
                       items:
                         type: string

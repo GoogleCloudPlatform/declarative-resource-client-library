@@ -927,7 +927,7 @@ func diffSubscription(c *Client, desired, actual *Subscription, opts ...dcl.Appl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExpirationPolicy, actual.ExpirationPolicy, dcl.Info{ObjectFunction: compareSubscriptionExpirationPolicyNewStyle, OperationSelector: dcl.TriggersOperation("updateSubscriptionUpdateOperation")}, fn.AddNest("ExpirationPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExpirationPolicy, actual.ExpirationPolicy, dcl.Info{ObjectFunction: compareSubscriptionExpirationPolicyNewStyle, EmptyObject: EmptySubscriptionExpirationPolicy, OperationSelector: dcl.TriggersOperation("updateSubscriptionUpdateOperation")}, fn.AddNest("ExpirationPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -941,14 +941,14 @@ func diffSubscription(c *Client, desired, actual *Subscription, opts ...dcl.Appl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DeadLetterPolicy, actual.DeadLetterPolicy, dcl.Info{ObjectFunction: compareSubscriptionDeadLetterPolicyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeadLetterPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeadLetterPolicy, actual.DeadLetterPolicy, dcl.Info{ObjectFunction: compareSubscriptionDeadLetterPolicyNewStyle, EmptyObject: EmptySubscriptionDeadLetterPolicy, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeadLetterPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PushConfig, actual.PushConfig, dcl.Info{ObjectFunction: compareSubscriptionPushConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PushConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PushConfig, actual.PushConfig, dcl.Info{ObjectFunction: compareSubscriptionPushConfigNewStyle, EmptyObject: EmptySubscriptionPushConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PushConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1063,7 +1063,7 @@ func compareSubscriptionPushConfigNewStyle(d, a interface{}, fn dcl.FieldName) (
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OidcToken, actual.OidcToken, dcl.Info{ObjectFunction: compareSubscriptionPushConfigOidcTokenNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OidcToken")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OidcToken, actual.OidcToken, dcl.Info{ObjectFunction: compareSubscriptionPushConfigOidcTokenNewStyle, EmptyObject: EmptySubscriptionPushConfigOidcToken, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OidcToken")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

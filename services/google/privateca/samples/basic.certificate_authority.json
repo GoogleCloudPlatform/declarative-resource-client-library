@@ -1,0 +1,73 @@
+{
+  "name": "{{authority}}",
+  "project": "{{project}}",
+  "location": "{{region}}",
+  "type": "SELF_SIGNED",
+  "tier": "DEVOPS",
+  "config": {
+    "subjectConfig": {
+      "subject": {
+        "countryCode": "US",
+        "organization": "Google",
+        "organizationalUnit": "DCL",
+        "locality": "Seattle",
+        "province": "WA",
+        "streetAddress": "1021 Valley St",
+        "postalCode": "98109"
+      },
+      "commonName": "dcl",
+      "subjectAltName": {
+        "dnsNames": ["google.com"],
+        "emailAddresses": ["email@example.com"],
+        "ipAddresses": ["127.0.0.1"],
+        "uris": ["http://www.ietf.org/rfc/rfc3986.txt"]
+      }
+    },
+    "reusableConfig": {
+      "reusableConfig": "projects/568668481468/locations/{{region}}/reusableConfigs/root-unconstrained"
+    }
+  },
+  "lifetime": "86400s",
+  "keySpec": {
+    "algorithm": "EC_P256_SHA256"
+  },
+  "certificatePolicy": {
+    "allowedLocationsAndOrganizations": [
+      {
+        "countryCode": "US",
+        "organization": "Google",
+        "organizationalUnit": "DCL",
+        "locality": "Seattle",
+        "province": "WA",
+        "streetAddress": "1021 Valley St",
+        "postalCode": "98109"
+      }
+    ],
+    "allowedCommonNames": ["dcl"],
+    "allowedSans": {
+      "dnsNames": ["google.com"],
+      "emailAddresses": ["email@example.com"],
+      "ipAddresses": ["127.0.0.1"],
+      "uris": ["http://www.ietf.org/rfc/rfc3986.txt"]
+    },
+    "maximumLifetime": "4800s",
+    "allowedIssuanceModes": {
+      "allowCsrBasedIssuance": true,
+      "allowConfigBasedIssuance": true
+    },
+    "allowedConfigList": {
+      "allowedConfigValues": [
+        {
+          "reusableConfig": "projects/568668481468/locations/{{region}}/reusableConfigs/root-unconstrained"
+        }
+      ]
+    }
+  },
+  "issuingOptions": {
+    "includeCaCertUrl": true,
+    "includeCrlAccessUrl": false
+  },
+  "labels": {
+    "label-one": "value-one"
+  }
+}

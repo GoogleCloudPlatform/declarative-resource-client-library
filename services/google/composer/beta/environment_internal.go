@@ -1592,7 +1592,7 @@ func diffEnvironment(c *Client, desired, actual *Environment, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Config, actual.Config, dcl.Info{ObjectFunction: compareEnvironmentConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Config")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Config, actual.Config, dcl.Info{ObjectFunction: compareEnvironmentConfigNewStyle, EmptyObject: EmptyEnvironmentConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Config")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1691,49 +1691,49 @@ func compareEnvironmentConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SoftwareConfig, actual.SoftwareConfig, dcl.Info{ObjectFunction: compareEnvironmentConfigSoftwareConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SoftwareConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SoftwareConfig, actual.SoftwareConfig, dcl.Info{ObjectFunction: compareEnvironmentConfigSoftwareConfigNewStyle, EmptyObject: EmptyEnvironmentConfigSoftwareConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SoftwareConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NodeConfig, actual.NodeConfig, dcl.Info{ObjectFunction: compareEnvironmentConfigNodeConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NodeConfig, actual.NodeConfig, dcl.Info{ObjectFunction: compareEnvironmentConfigNodeConfigNewStyle, EmptyObject: EmptyEnvironmentConfigNodeConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PrivateEnvironmentConfig, actual.PrivateEnvironmentConfig, dcl.Info{ObjectFunction: compareEnvironmentConfigPrivateEnvironmentConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrivateEnvironmentConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PrivateEnvironmentConfig, actual.PrivateEnvironmentConfig, dcl.Info{ObjectFunction: compareEnvironmentConfigPrivateEnvironmentConfigNewStyle, EmptyObject: EmptyEnvironmentConfigPrivateEnvironmentConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrivateEnvironmentConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WebServerNetworkAccessControl, actual.WebServerNetworkAccessControl, dcl.Info{ObjectFunction: compareEnvironmentConfigWebServerNetworkAccessControlNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WebServerNetworkAccessControl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WebServerNetworkAccessControl, actual.WebServerNetworkAccessControl, dcl.Info{ObjectFunction: compareEnvironmentConfigWebServerNetworkAccessControlNewStyle, EmptyObject: EmptyEnvironmentConfigWebServerNetworkAccessControl, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WebServerNetworkAccessControl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DatabaseConfig, actual.DatabaseConfig, dcl.Info{ObjectFunction: compareEnvironmentConfigDatabaseConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DatabaseConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DatabaseConfig, actual.DatabaseConfig, dcl.Info{ObjectFunction: compareEnvironmentConfigDatabaseConfigNewStyle, EmptyObject: EmptyEnvironmentConfigDatabaseConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DatabaseConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WebServerConfig, actual.WebServerConfig, dcl.Info{ObjectFunction: compareEnvironmentConfigWebServerConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WebServerConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WebServerConfig, actual.WebServerConfig, dcl.Info{ObjectFunction: compareEnvironmentConfigWebServerConfigNewStyle, EmptyObject: EmptyEnvironmentConfigWebServerConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WebServerConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EncryptionConfig, actual.EncryptionConfig, dcl.Info{ObjectFunction: compareEnvironmentConfigEncryptionConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EncryptionConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EncryptionConfig, actual.EncryptionConfig, dcl.Info{ObjectFunction: compareEnvironmentConfigEncryptionConfigNewStyle, EmptyObject: EmptyEnvironmentConfigEncryptionConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EncryptionConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1747,7 +1747,7 @@ func compareEnvironmentConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaintenanceWindow, actual.MaintenanceWindow, dcl.Info{ObjectFunction: compareEnvironmentConfigMaintenanceWindowNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaintenanceWindow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaintenanceWindow, actual.MaintenanceWindow, dcl.Info{ObjectFunction: compareEnvironmentConfigMaintenanceWindowNewStyle, EmptyObject: EmptyEnvironmentConfigMaintenanceWindow, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaintenanceWindow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1889,7 +1889,7 @@ func compareEnvironmentConfigNodeConfigNewStyle(d, a interface{}, fn dcl.FieldNa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPAllocationPolicy, actual.IPAllocationPolicy, dcl.Info{ObjectFunction: compareEnvironmentConfigNodeConfigIPAllocationPolicyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpAllocationPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPAllocationPolicy, actual.IPAllocationPolicy, dcl.Info{ObjectFunction: compareEnvironmentConfigNodeConfigIPAllocationPolicyNewStyle, EmptyObject: EmptyEnvironmentConfigNodeConfigIPAllocationPolicy, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpAllocationPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1989,7 +1989,7 @@ func compareEnvironmentConfigPrivateEnvironmentConfigNewStyle(d, a interface{}, 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PrivateClusterConfig, actual.PrivateClusterConfig, dcl.Info{ObjectFunction: compareEnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrivateClusterConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PrivateClusterConfig, actual.PrivateClusterConfig, dcl.Info{ObjectFunction: compareEnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfigNewStyle, EmptyObject: EmptyEnvironmentConfigPrivateEnvironmentConfigPrivateClusterConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrivateClusterConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2082,7 +2082,7 @@ func compareEnvironmentConfigWebServerNetworkAccessControlNewStyle(d, a interfac
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AllowedIPRanges, actual.AllowedIPRanges, dcl.Info{ObjectFunction: compareEnvironmentConfigWebServerNetworkAccessControlAllowedIPRangesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowedIpRanges")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowedIPRanges, actual.AllowedIPRanges, dcl.Info{ObjectFunction: compareEnvironmentConfigWebServerNetworkAccessControlAllowedIPRangesNewStyle, EmptyObject: EmptyEnvironmentConfigWebServerNetworkAccessControlAllowedIPRanges, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowedIpRanges")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

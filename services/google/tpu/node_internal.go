@@ -1127,21 +1127,21 @@ func diffNode(c *Client, desired, actual *Node, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, ObjectFunction: compareNodeCreateTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, ObjectFunction: compareNodeCreateTimeNewStyle, EmptyObject: EmptyNodeCreateTime, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SchedulingConfig, actual.SchedulingConfig, dcl.Info{ObjectFunction: compareNodeSchedulingConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SchedulingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SchedulingConfig, actual.SchedulingConfig, dcl.Info{ObjectFunction: compareNodeSchedulingConfigNewStyle, EmptyObject: EmptyNodeSchedulingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SchedulingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NetworkEndpoints, actual.NetworkEndpoints, dcl.Info{OutputOnly: true, ObjectFunction: compareNodeNetworkEndpointsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkEndpoints")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NetworkEndpoints, actual.NetworkEndpoints, dcl.Info{OutputOnly: true, ObjectFunction: compareNodeNetworkEndpointsNewStyle, EmptyObject: EmptyNodeNetworkEndpoints, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkEndpoints")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1169,7 +1169,7 @@ func diffNode(c *Client, desired, actual *Node, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Symptoms, actual.Symptoms, dcl.Info{OutputOnly: true, ObjectFunction: compareNodeSymptomsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Symptoms")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Symptoms, actual.Symptoms, dcl.Info{OutputOnly: true, ObjectFunction: compareNodeSymptomsNewStyle, EmptyObject: EmptyNodeSymptoms, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Symptoms")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1320,7 +1320,7 @@ func compareNodeSymptomsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{ObjectFunction: compareNodeSymptomsCreateTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{ObjectFunction: compareNodeSymptomsCreateTimeNewStyle, EmptyObject: EmptyNodeSymptomsCreateTime, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

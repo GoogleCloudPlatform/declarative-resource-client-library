@@ -254,13 +254,11 @@ class AuthorizationPolicyRulesDestinations(object):
         self,
         hosts: list = None,
         ports: list = None,
-        paths: list = None,
         methods: list = None,
         http_header_match: dict = None,
     ):
         self.hosts = hosts
         self.ports = ports
-        self.paths = paths
         self.methods = methods
         self.http_header_match = http_header_match
 
@@ -276,8 +274,6 @@ class AuthorizationPolicyRulesDestinations(object):
             res.hosts.extend(Primitive.to_proto(resource.hosts))
         if int64Array.to_proto(resource.ports):
             res.ports.extend(int64Array.to_proto(resource.ports))
-        if Primitive.to_proto(resource.paths):
-            res.paths.extend(Primitive.to_proto(resource.paths))
         if Primitive.to_proto(resource.methods):
             res.methods.extend(Primitive.to_proto(resource.methods))
         if AuthorizationPolicyRulesDestinationsHttpHeaderMatch.to_proto(
@@ -300,7 +296,6 @@ class AuthorizationPolicyRulesDestinations(object):
         return AuthorizationPolicyRulesDestinations(
             hosts=Primitive.from_proto(resource.hosts),
             ports=int64Array.from_proto(resource.ports),
-            paths=Primitive.from_proto(resource.paths),
             methods=Primitive.from_proto(resource.methods),
             http_header_match=AuthorizationPolicyRulesDestinationsHttpHeaderMatch.from_proto(
                 resource.http_header_match

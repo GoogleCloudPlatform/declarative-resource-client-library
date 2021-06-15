@@ -704,7 +704,7 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{ObjectFunction: compareOrganizationPropertiesNewStyle, OperationSelector: dcl.TriggersOperation("updateOrganizationUpdateOrganizationOperation")}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{ObjectFunction: compareOrganizationPropertiesNewStyle, EmptyObject: EmptyOrganizationProperties, OperationSelector: dcl.TriggersOperation("updateOrganizationUpdateOrganizationOperation")}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -803,7 +803,7 @@ func compareOrganizationPropertiesNewStyle(d, a interface{}, fn dcl.FieldName) (
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Property, actual.Property, dcl.Info{Type: "Set", ObjectFunction: compareOrganizationPropertiesPropertyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Property")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Property, actual.Property, dcl.Info{Type: "Set", ObjectFunction: compareOrganizationPropertiesPropertyNewStyle, EmptyObject: EmptyOrganizationPropertiesProperty, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Property")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

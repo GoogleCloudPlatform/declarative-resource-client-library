@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="networkservices/beta", resources=["endpoint_config_selector"])
+connector(name="networkservices/beta", resources=["endpoint_policy"])

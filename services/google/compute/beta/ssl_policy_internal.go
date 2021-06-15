@@ -772,7 +772,7 @@ func diffSslPolicy(c *Client, desired, actual *SslPolicy, opts ...dcl.ApplyOptio
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Warning, actual.Warning, dcl.Info{OutputOnly: true, ObjectFunction: compareSslPolicyWarningNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Warnings")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Warning, actual.Warning, dcl.Info{OutputOnly: true, ObjectFunction: compareSslPolicyWarningNewStyle, EmptyObject: EmptySslPolicyWarning, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Warnings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -822,7 +822,7 @@ func compareSslPolicyWarningNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Data, actual.Data, dcl.Info{ObjectFunction: compareSslPolicyWarningDataNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Data")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Data, actual.Data, dcl.Info{ObjectFunction: compareSslPolicyWarningDataNewStyle, EmptyObject: EmptySslPolicyWarningData, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Data")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

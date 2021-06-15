@@ -602,7 +602,7 @@ func diffBackendBucket(c *Client, desired, actual *BackendBucket, opts ...dcl.Ap
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CdnPolicy, actual.CdnPolicy, dcl.Info{ObjectFunction: compareBackendBucketCdnPolicyNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendBucketUpdateOperation")}, fn.AddNest("CdnPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CdnPolicy, actual.CdnPolicy, dcl.Info{ObjectFunction: compareBackendBucketCdnPolicyNewStyle, EmptyObject: EmptyBackendBucketCdnPolicy, OperationSelector: dcl.TriggersOperation("updateBackendBucketUpdateOperation")}, fn.AddNest("CdnPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

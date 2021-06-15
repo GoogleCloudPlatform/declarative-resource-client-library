@@ -703,7 +703,7 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DispatchRules, actual.DispatchRules, dcl.Info{ObjectFunction: compareApplicationDispatchRulesNewStyle, OperationSelector: dcl.TriggersOperation("updateApplicationPatchApplicationOperation")}, fn.AddNest("DispatchRules")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DispatchRules, actual.DispatchRules, dcl.Info{ObjectFunction: compareApplicationDispatchRulesNewStyle, EmptyObject: EmptyApplicationDispatchRules, OperationSelector: dcl.TriggersOperation("updateApplicationPatchApplicationOperation")}, fn.AddNest("DispatchRules")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -759,7 +759,7 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Iap, actual.Iap, dcl.Info{ObjectFunction: compareApplicationIapNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Iap")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Iap, actual.Iap, dcl.Info{ObjectFunction: compareApplicationIapNewStyle, EmptyObject: EmptyApplicationIap, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Iap")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -780,7 +780,7 @@ func diffApplication(c *Client, desired, actual *Application, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FeatureSettings, actual.FeatureSettings, dcl.Info{ObjectFunction: compareApplicationFeatureSettingsNewStyle, OperationSelector: dcl.TriggersOperation("updateApplicationPatchApplicationOperation")}, fn.AddNest("FeatureSettings")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FeatureSettings, actual.FeatureSettings, dcl.Info{ObjectFunction: compareApplicationFeatureSettingsNewStyle, EmptyObject: EmptyApplicationFeatureSettings, OperationSelector: dcl.TriggersOperation("updateApplicationPatchApplicationOperation")}, fn.AddNest("FeatureSettings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

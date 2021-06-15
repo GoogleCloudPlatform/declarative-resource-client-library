@@ -668,14 +668,14 @@ func diffDomainMapping(c *Client, desired, actual *DomainMapping, opts ...dcl.Ap
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SslSettings, actual.SslSettings, dcl.Info{ObjectFunction: compareDomainMappingSslSettingsNewStyle, OperationSelector: dcl.TriggersOperation("updateDomainMappingUpdateDomainMappingOperation")}, fn.AddNest("SslSettings")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SslSettings, actual.SslSettings, dcl.Info{ObjectFunction: compareDomainMappingSslSettingsNewStyle, EmptyObject: EmptyDomainMappingSslSettings, OperationSelector: dcl.TriggersOperation("updateDomainMappingUpdateDomainMappingOperation")}, fn.AddNest("SslSettings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceRecords, actual.ResourceRecords, dcl.Info{OutputOnly: true, ObjectFunction: compareDomainMappingResourceRecordsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceRecords")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceRecords, actual.ResourceRecords, dcl.Info{OutputOnly: true, ObjectFunction: compareDomainMappingResourceRecordsNewStyle, EmptyObject: EmptyDomainMappingResourceRecords, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceRecords")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

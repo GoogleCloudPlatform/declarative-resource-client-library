@@ -81,9 +81,6 @@ func ProtoToNetworksecurityAlphaAuthorizationPolicyRulesDestinations(p *alphapb.
 	for _, r := range p.GetPorts() {
 		obj.Ports = append(obj.Ports, r)
 	}
-	for _, r := range p.GetPaths() {
-		obj.Paths = append(obj.Paths, r)
-	}
 	for _, r := range p.GetMethods() {
 		obj.Methods = append(obj.Methods, r)
 	}
@@ -173,9 +170,6 @@ func NetworksecurityAlphaAuthorizationPolicyRulesDestinationsToProto(o *alpha.Au
 	}
 	for _, r := range o.Ports {
 		p.Ports = append(p.Ports, r)
-	}
-	for _, r := range o.Paths {
-		p.Paths = append(p.Paths, r)
 	}
 	for _, r := range o.Methods {
 		p.Methods = append(p.Methods, r)

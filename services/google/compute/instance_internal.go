@@ -147,6 +147,10 @@ func (r *Instance) SetPolicyURL(userBasePath string) string {
 	return dcl.URL("projects/{{project}}/zones/{{zone}}/instances/{{name}}/setIamPolicy", "https://www.googleapis.com/compute/v1/", userBasePath, fields)
 }
 
+func (r *Instance) SetPolicyVerb() string {
+	return "POST"
+}
+
 func (r *Instance) getPolicyURL(userBasePath string) string {
 	n := r.urlNormalized()
 	fields := map[string]interface{}{
@@ -2395,14 +2399,14 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Disks, actual.Disks, dcl.Info{Ignore: true, ObjectFunction: compareInstanceDisksNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Disks")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Disks, actual.Disks, dcl.Info{Ignore: true, ObjectFunction: compareInstanceDisksNewStyle, EmptyObject: EmptyInstanceDisks, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Disks")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GuestAccelerators, actual.GuestAccelerators, dcl.Info{ObjectFunction: compareInstanceGuestAcceleratorsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GuestAccelerators")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GuestAccelerators, actual.GuestAccelerators, dcl.Info{ObjectFunction: compareInstanceGuestAcceleratorsNewStyle, EmptyObject: EmptyInstanceGuestAccelerators, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GuestAccelerators")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2458,28 +2462,28 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NetworkInterfaces, actual.NetworkInterfaces, dcl.Info{ObjectFunction: compareInstanceNetworkInterfacesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkInterfaces")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NetworkInterfaces, actual.NetworkInterfaces, dcl.Info{ObjectFunction: compareInstanceNetworkInterfacesNewStyle, EmptyObject: EmptyInstanceNetworkInterfaces, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkInterfaces")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scheduling, actual.Scheduling, dcl.Info{ObjectFunction: compareInstanceSchedulingNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scheduling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scheduling, actual.Scheduling, dcl.Info{ObjectFunction: compareInstanceSchedulingNewStyle, EmptyObject: EmptyInstanceScheduling, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scheduling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceAccounts, actual.ServiceAccounts, dcl.Info{ObjectFunction: compareInstanceServiceAccountsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceAccounts")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceAccounts, actual.ServiceAccounts, dcl.Info{ObjectFunction: compareInstanceServiceAccountsNewStyle, EmptyObject: EmptyInstanceServiceAccounts, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceAccounts")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ShieldedInstanceConfig, actual.ShieldedInstanceConfig, dcl.Info{ObjectFunction: compareInstanceShieldedInstanceConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateShieldedInstanceConfigOperation")}, fn.AddNest("ShieldedInstanceConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ShieldedInstanceConfig, actual.ShieldedInstanceConfig, dcl.Info{ObjectFunction: compareInstanceShieldedInstanceConfigNewStyle, EmptyObject: EmptyInstanceShieldedInstanceConfig, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateShieldedInstanceConfigOperation")}, fn.AddNest("ShieldedInstanceConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2571,7 +2575,7 @@ func compareInstanceDisksNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fi
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DiskEncryptionKey, actual.DiskEncryptionKey, dcl.Info{ObjectFunction: compareInstanceDisksDiskEncryptionKeyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskEncryptionKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DiskEncryptionKey, actual.DiskEncryptionKey, dcl.Info{ObjectFunction: compareInstanceDisksDiskEncryptionKeyNewStyle, EmptyObject: EmptyInstanceDisksDiskEncryptionKey, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskEncryptionKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2585,7 +2589,7 @@ func compareInstanceDisksNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fi
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InitializeParams, actual.InitializeParams, dcl.Info{Ignore: true, ObjectFunction: compareInstanceDisksInitializeParamsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InitializeParams")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InitializeParams, actual.InitializeParams, dcl.Info{Ignore: true, ObjectFunction: compareInstanceDisksInitializeParamsNewStyle, EmptyObject: EmptyInstanceDisksInitializeParams, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InitializeParams")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2713,7 +2717,7 @@ func compareInstanceDisksInitializeParamsNewStyle(d, a interface{}, fn dcl.Field
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey, dcl.Info{ObjectFunction: compareInstanceDisksInitializeParamsSourceImageEncryptionKeyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceImageEncryptionKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey, dcl.Info{ObjectFunction: compareInstanceDisksInitializeParamsSourceImageEncryptionKeyNewStyle, EmptyObject: EmptyInstanceDisksInitializeParamsSourceImageEncryptionKey, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceImageEncryptionKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2814,14 +2818,14 @@ func compareInstanceNetworkInterfacesNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AccessConfigs, actual.AccessConfigs, dcl.Info{ObjectFunction: compareInstanceNetworkInterfacesAccessConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AccessConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AccessConfigs, actual.AccessConfigs, dcl.Info{ObjectFunction: compareInstanceNetworkInterfacesAccessConfigsNewStyle, EmptyObject: EmptyInstanceNetworkInterfacesAccessConfigs, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AccessConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AliasIPRanges, actual.AliasIPRanges, dcl.Info{ObjectFunction: compareInstanceNetworkInterfacesAliasIPRangesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AliasIPRanges")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AliasIPRanges, actual.AliasIPRanges, dcl.Info{ObjectFunction: compareInstanceNetworkInterfacesAliasIPRangesNewStyle, EmptyObject: EmptyInstanceNetworkInterfacesAliasIPRanges, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AliasIPRanges")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

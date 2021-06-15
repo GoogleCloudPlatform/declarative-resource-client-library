@@ -608,7 +608,7 @@ func diffConnector(c *Client, desired, actual *Connector, opts ...dcl.ApplyOptio
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Subnet, actual.Subnet, dcl.Info{ObjectFunction: compareConnectorSubnetNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Subnet")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Subnet, actual.Subnet, dcl.Info{ObjectFunction: compareConnectorSubnetNewStyle, EmptyObject: EmptyConnectorSubnet, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Subnet")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

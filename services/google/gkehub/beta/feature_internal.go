@@ -861,21 +861,21 @@ func diffFeature(c *Client, desired, actual *Feature, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceState, actual.ResourceState, dcl.Info{ObjectFunction: compareFeatureResourceStateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceState")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceState, actual.ResourceState, dcl.Info{ObjectFunction: compareFeatureResourceStateNewStyle, EmptyObject: EmptyFeatureResourceState, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceState")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareFeatureSpecNewStyle, OperationSelector: dcl.TriggersOperation("updateFeatureUpdateFeatureOperation")}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareFeatureSpecNewStyle, EmptyObject: EmptyFeatureSpec, OperationSelector: dcl.TriggersOperation("updateFeatureUpdateFeatureOperation")}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, ObjectFunction: compareFeatureStateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, ObjectFunction: compareFeatureStateNewStyle, EmptyObject: EmptyFeatureState, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -975,7 +975,7 @@ func compareFeatureSpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Multiclusteringress, actual.Multiclusteringress, dcl.Info{ObjectFunction: compareFeatureSpecMulticlusteringressNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Multiclusteringress")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Multiclusteringress, actual.Multiclusteringress, dcl.Info{ObjectFunction: compareFeatureSpecMulticlusteringressNewStyle, EmptyObject: EmptyFeatureSpecMulticlusteringress, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Multiclusteringress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1033,7 +1033,7 @@ func compareFeatureStateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, ObjectFunction: compareFeatureStateStateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, ObjectFunction: compareFeatureStateStateNewStyle, EmptyObject: EmptyFeatureStateState, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

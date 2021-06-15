@@ -800,6 +800,7 @@ components:
       description: Optional. The Compute Engine config settings for additional worker
         instances in a cluster.
       x-kubernetes-immutable: true
+      x-dcl-server-default: true
       properties:
         accelerators:
           type: array
@@ -807,6 +808,7 @@ components:
           description: Optional. The Compute Engine accelerator configuration for
             these instances.
           x-kubernetes-immutable: true
+          x-dcl-server-default: true
           x-dcl-list-type: list
           items:
             type: object
@@ -833,6 +835,7 @@ components:
           x-dcl-go-type: ClusterInstanceGroupConfigDiskConfig
           description: Optional. Disk option config settings.
           x-kubernetes-immutable: true
+          x-dcl-server-default: true
           properties:
             bootDiskSizeGb:
               type: integer
@@ -878,6 +881,7 @@ components:
           description: Output only. The list of instance names. Dataproc derives the
             names from `cluster_name`, `num_instances`, and the instance group.
           x-kubernetes-immutable: true
+          x-dcl-server-default: true
           x-dcl-list-type: list
           items:
             type: string
@@ -909,6 +913,7 @@ components:
           description: Output only. The config for Compute Engine Instance Group Manager
             that manages this group. This is only used for preemptible instance groups.
           x-kubernetes-immutable: true
+          x-dcl-server-default: true
           properties:
             instanceGroupManagerName:
               type: string
@@ -930,6 +935,7 @@ components:
           description: Optional. Specifies the minimum cpu platform for the Instance
             Group. See (https://cloud.google.com/dataproc/docs/concepts/compute/dataproc-min-cpu).
           x-kubernetes-immutable: true
+          x-dcl-server-default: true
         numInstances:
           type: integer
           format: int64

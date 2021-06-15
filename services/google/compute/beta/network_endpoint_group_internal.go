@@ -940,21 +940,21 @@ func diffNetworkEndpointGroup(c *Client, desired, actual *NetworkEndpointGroup, 
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CloudRun, actual.CloudRun, dcl.Info{ObjectFunction: compareNetworkEndpointGroupCloudRunNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CloudRun")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CloudRun, actual.CloudRun, dcl.Info{ObjectFunction: compareNetworkEndpointGroupCloudRunNewStyle, EmptyObject: EmptyNetworkEndpointGroupCloudRun, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CloudRun")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AppEngine, actual.AppEngine, dcl.Info{ObjectFunction: compareNetworkEndpointGroupAppEngineNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AppEngine")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AppEngine, actual.AppEngine, dcl.Info{ObjectFunction: compareNetworkEndpointGroupAppEngineNewStyle, EmptyObject: EmptyNetworkEndpointGroupAppEngine, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AppEngine")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CloudFunction, actual.CloudFunction, dcl.Info{ObjectFunction: compareNetworkEndpointGroupCloudFunctionNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CloudFunction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CloudFunction, actual.CloudFunction, dcl.Info{ObjectFunction: compareNetworkEndpointGroupCloudFunctionNewStyle, EmptyObject: EmptyNetworkEndpointGroupCloudFunction, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CloudFunction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

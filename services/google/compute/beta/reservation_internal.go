@@ -848,7 +848,7 @@ func diffReservation(c *Client, desired, actual *Reservation, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SpecificReservation, actual.SpecificReservation, dcl.Info{ObjectFunction: compareReservationSpecificReservationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SpecificReservation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SpecificReservation, actual.SpecificReservation, dcl.Info{ObjectFunction: compareReservationSpecificReservationNewStyle, EmptyObject: EmptyReservationSpecificReservation, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SpecificReservation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -905,7 +905,7 @@ func compareReservationSpecificReservationNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceProperties, actual.InstanceProperties, dcl.Info{ObjectFunction: compareReservationSpecificReservationInstancePropertiesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceProperties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceProperties, actual.InstanceProperties, dcl.Info{ObjectFunction: compareReservationSpecificReservationInstancePropertiesNewStyle, EmptyObject: EmptyReservationSpecificReservationInstanceProperties, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceProperties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -955,7 +955,7 @@ func compareReservationSpecificReservationInstancePropertiesNewStyle(d, a interf
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GuestAccelerators, actual.GuestAccelerators, dcl.Info{ObjectFunction: compareReservationSpecificReservationInstancePropertiesGuestAcceleratorsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GuestAccelerators")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GuestAccelerators, actual.GuestAccelerators, dcl.Info{ObjectFunction: compareReservationSpecificReservationInstancePropertiesGuestAcceleratorsNewStyle, EmptyObject: EmptyReservationSpecificReservationInstancePropertiesGuestAccelerators, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GuestAccelerators")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -969,7 +969,7 @@ func compareReservationSpecificReservationInstancePropertiesNewStyle(d, a interf
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LocalSsds, actual.LocalSsds, dcl.Info{ObjectFunction: compareReservationSpecificReservationInstancePropertiesLocalSsdsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocalSsds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LocalSsds, actual.LocalSsds, dcl.Info{ObjectFunction: compareReservationSpecificReservationInstancePropertiesLocalSsdsNewStyle, EmptyObject: EmptyReservationSpecificReservationInstancePropertiesLocalSsds, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocalSsds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

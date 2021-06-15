@@ -1999,14 +1999,14 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TriggerTemplate, actual.TriggerTemplate, dcl.Info{ObjectFunction: compareBuildTriggerTriggerTemplateNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("TriggerTemplate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TriggerTemplate, actual.TriggerTemplate, dcl.Info{ObjectFunction: compareBuildTriggerTriggerTemplateNewStyle, EmptyObject: EmptyBuildTriggerTriggerTemplate, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("TriggerTemplate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Github, actual.Github, dcl.Info{ObjectFunction: compareBuildTriggerGithubNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Github")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Github, actual.Github, dcl.Info{ObjectFunction: compareBuildTriggerGithubNewStyle, EmptyObject: EmptyBuildTriggerGithub, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Github")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2020,7 +2020,7 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Build, actual.Build, dcl.Info{ObjectFunction: compareBuildTriggerBuildNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Build")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Build, actual.Build, dcl.Info{ObjectFunction: compareBuildTriggerBuildNewStyle, EmptyObject: EmptyBuildTriggerBuild, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Build")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2148,14 +2148,14 @@ func compareBuildTriggerGithubNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PullRequest, actual.PullRequest, dcl.Info{ObjectFunction: compareBuildTriggerGithubPullRequestNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("PullRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PullRequest, actual.PullRequest, dcl.Info{ObjectFunction: compareBuildTriggerGithubPullRequestNewStyle, EmptyObject: EmptyBuildTriggerGithubPullRequest, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("PullRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Push, actual.Push, dcl.Info{ObjectFunction: compareBuildTriggerGithubPushNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Push")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Push, actual.Push, dcl.Info{ObjectFunction: compareBuildTriggerGithubPushNewStyle, EmptyObject: EmptyBuildTriggerGithubPush, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Push")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2312,21 +2312,21 @@ func compareBuildTriggerBuildNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Secrets, actual.Secrets, dcl.Info{ObjectFunction: compareBuildTriggerBuildSecretsNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Secrets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Secrets, actual.Secrets, dcl.Info{ObjectFunction: compareBuildTriggerBuildSecretsNewStyle, EmptyObject: EmptyBuildTriggerBuildSecrets, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Secrets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareBuildTriggerBuildStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareBuildTriggerBuildStepsNewStyle, EmptyObject: EmptyBuildTriggerBuildSteps, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Source, actual.Source, dcl.Info{ObjectFunction: compareBuildTriggerBuildSourceNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Source")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Source, actual.Source, dcl.Info{ObjectFunction: compareBuildTriggerBuildSourceNewStyle, EmptyObject: EmptyBuildTriggerBuildSource, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Source")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2447,21 +2447,21 @@ func compareBuildTriggerBuildStepsNewStyle(d, a interface{}, fn dcl.FieldName) (
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Volumes, actual.Volumes, dcl.Info{ObjectFunction: compareBuildTriggerBuildStepsVolumesNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Volumes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Volumes, actual.Volumes, dcl.Info{ObjectFunction: compareBuildTriggerBuildStepsVolumesNewStyle, EmptyObject: EmptyBuildTriggerBuildStepsVolumes, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Volumes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Timing, actual.Timing, dcl.Info{OutputOnly: true, ObjectFunction: compareBuildTriggerBuildStepsTimingNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Timing")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Timing, actual.Timing, dcl.Info{OutputOnly: true, ObjectFunction: compareBuildTriggerBuildStepsTimingNewStyle, EmptyObject: EmptyBuildTriggerBuildStepsTiming, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Timing")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PullTiming, actual.PullTiming, dcl.Info{OutputOnly: true, ObjectFunction: compareBuildTriggerBuildStepsPullTimingNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PullTiming")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PullTiming, actual.PullTiming, dcl.Info{OutputOnly: true, ObjectFunction: compareBuildTriggerBuildStepsPullTimingNewStyle, EmptyObject: EmptyBuildTriggerBuildStepsPullTiming, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PullTiming")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2612,14 +2612,14 @@ func compareBuildTriggerBuildSourceNewStyle(d, a interface{}, fn dcl.FieldName) 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.StorageSource, actual.StorageSource, dcl.Info{ObjectFunction: compareBuildTriggerBuildSourceStorageSourceNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("StorageSource")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StorageSource, actual.StorageSource, dcl.Info{ObjectFunction: compareBuildTriggerBuildSourceStorageSourceNewStyle, EmptyObject: EmptyBuildTriggerBuildSourceStorageSource, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("StorageSource")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RepoSource, actual.RepoSource, dcl.Info{ObjectFunction: compareBuildTriggerBuildSourceRepoSourceNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("RepoSource")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RepoSource, actual.RepoSource, dcl.Info{ObjectFunction: compareBuildTriggerBuildSourceRepoSourceNewStyle, EmptyObject: EmptyBuildTriggerBuildSourceRepoSource, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("RepoSource")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

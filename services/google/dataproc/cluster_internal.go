@@ -239,6 +239,10 @@ func (r *Cluster) SetPolicyURL(userBasePath string) string {
 	return dcl.URL("projects/{{project}}/regions/{{location}}/clusters/{{name}}:setIamPolicy", "https://dataproc.googleapis.com/v1/", userBasePath, fields)
 }
 
+func (r *Cluster) SetPolicyVerb() string {
+	return "POST"
+}
+
 func (r *Cluster) getPolicyURL(userBasePath string) string {
 	n := r.urlNormalized()
 	fields := map[string]interface{}{
@@ -2395,7 +2399,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Config, actual.Config, dcl.Info{ObjectFunction: compareClusterClusterConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Config")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Config, actual.Config, dcl.Info{ObjectFunction: compareClusterClusterConfigNewStyle, EmptyObject: EmptyClusterClusterConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Config")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2409,14 +2413,14 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, ObjectFunction: compareClusterStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, ObjectFunction: compareClusterStatusNewStyle, EmptyObject: EmptyClusterStatus, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.StatusHistory, actual.StatusHistory, dcl.Info{OutputOnly: true, ObjectFunction: compareClusterStatusHistoryNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StatusHistory")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StatusHistory, actual.StatusHistory, dcl.Info{OutputOnly: true, ObjectFunction: compareClusterStatusHistoryNewStyle, EmptyObject: EmptyClusterStatusHistory, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StatusHistory")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2430,7 +2434,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Metrics, actual.Metrics, dcl.Info{OutputOnly: true, ObjectFunction: compareClusterMetricsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Metrics")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Metrics, actual.Metrics, dcl.Info{OutputOnly: true, ObjectFunction: compareClusterMetricsNewStyle, EmptyObject: EmptyClusterMetrics, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Metrics")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2480,77 +2484,77 @@ func compareClusterClusterConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GceClusterConfig, actual.GceClusterConfig, dcl.Info{ObjectFunction: compareClusterClusterConfigGceClusterConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GceClusterConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GceClusterConfig, actual.GceClusterConfig, dcl.Info{ObjectFunction: compareClusterClusterConfigGceClusterConfigNewStyle, EmptyObject: EmptyClusterClusterConfigGceClusterConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GceClusterConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MasterConfig, actual.MasterConfig, dcl.Info{ObjectFunction: compareClusterInstanceGroupConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MasterConfig, actual.MasterConfig, dcl.Info{ObjectFunction: compareClusterInstanceGroupConfigNewStyle, EmptyObject: EmptyClusterInstanceGroupConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WorkerConfig, actual.WorkerConfig, dcl.Info{ObjectFunction: compareClusterInstanceGroupConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WorkerConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WorkerConfig, actual.WorkerConfig, dcl.Info{ObjectFunction: compareClusterInstanceGroupConfigNewStyle, EmptyObject: EmptyClusterInstanceGroupConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WorkerConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryWorkerConfig, actual.SecondaryWorkerConfig, dcl.Info{ObjectFunction: compareClusterInstanceGroupConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecondaryWorkerConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryWorkerConfig, actual.SecondaryWorkerConfig, dcl.Info{ObjectFunction: compareClusterInstanceGroupConfigNewStyle, EmptyObject: EmptyClusterInstanceGroupConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecondaryWorkerConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SoftwareConfig, actual.SoftwareConfig, dcl.Info{ObjectFunction: compareClusterClusterConfigSoftwareConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SoftwareConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SoftwareConfig, actual.SoftwareConfig, dcl.Info{ObjectFunction: compareClusterClusterConfigSoftwareConfigNewStyle, EmptyObject: EmptyClusterClusterConfigSoftwareConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SoftwareConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InitializationActions, actual.InitializationActions, dcl.Info{ObjectFunction: compareClusterClusterConfigInitializationActionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InitializationActions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InitializationActions, actual.InitializationActions, dcl.Info{ObjectFunction: compareClusterClusterConfigInitializationActionsNewStyle, EmptyObject: EmptyClusterClusterConfigInitializationActions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InitializationActions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EncryptionConfig, actual.EncryptionConfig, dcl.Info{ObjectFunction: compareClusterClusterConfigEncryptionConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EncryptionConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EncryptionConfig, actual.EncryptionConfig, dcl.Info{ObjectFunction: compareClusterClusterConfigEncryptionConfigNewStyle, EmptyObject: EmptyClusterClusterConfigEncryptionConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EncryptionConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AutoscalingConfig, actual.AutoscalingConfig, dcl.Info{ObjectFunction: compareClusterClusterConfigAutoscalingConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AutoscalingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutoscalingConfig, actual.AutoscalingConfig, dcl.Info{ObjectFunction: compareClusterClusterConfigAutoscalingConfigNewStyle, EmptyObject: EmptyClusterClusterConfigAutoscalingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AutoscalingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecurityConfig, actual.SecurityConfig, dcl.Info{ObjectFunction: compareClusterClusterConfigSecurityConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecurityConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecurityConfig, actual.SecurityConfig, dcl.Info{ObjectFunction: compareClusterClusterConfigSecurityConfigNewStyle, EmptyObject: EmptyClusterClusterConfigSecurityConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecurityConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LifecycleConfig, actual.LifecycleConfig, dcl.Info{ObjectFunction: compareClusterClusterConfigLifecycleConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LifecycleConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LifecycleConfig, actual.LifecycleConfig, dcl.Info{ObjectFunction: compareClusterClusterConfigLifecycleConfigNewStyle, EmptyObject: EmptyClusterClusterConfigLifecycleConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LifecycleConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EndpointConfig, actual.EndpointConfig, dcl.Info{ObjectFunction: compareClusterClusterConfigEndpointConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EndpointConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EndpointConfig, actual.EndpointConfig, dcl.Info{ObjectFunction: compareClusterClusterConfigEndpointConfigNewStyle, EmptyObject: EmptyClusterClusterConfigEndpointConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EndpointConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2642,14 +2646,14 @@ func compareClusterClusterConfigGceClusterConfigNewStyle(d, a interface{}, fn dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReservationAffinity, actual.ReservationAffinity, dcl.Info{ObjectFunction: compareClusterClusterConfigGceClusterConfigReservationAffinityNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReservationAffinity")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReservationAffinity, actual.ReservationAffinity, dcl.Info{ObjectFunction: compareClusterClusterConfigGceClusterConfigReservationAffinityNewStyle, EmptyObject: EmptyClusterClusterConfigGceClusterConfigReservationAffinity, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReservationAffinity")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NodeGroupAffinity, actual.NodeGroupAffinity, dcl.Info{ObjectFunction: compareClusterClusterConfigGceClusterConfigNodeGroupAffinityNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeGroupAffinity")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NodeGroupAffinity, actual.NodeGroupAffinity, dcl.Info{ObjectFunction: compareClusterClusterConfigGceClusterConfigNodeGroupAffinityNewStyle, EmptyObject: EmptyClusterClusterConfigGceClusterConfigNodeGroupAffinity, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeGroupAffinity")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2778,7 +2782,7 @@ func compareClusterInstanceGroupConfigNewStyle(d, a interface{}, fn dcl.FieldNam
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DiskConfig, actual.DiskConfig, dcl.Info{ObjectFunction: compareClusterInstanceGroupConfigDiskConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DiskConfig, actual.DiskConfig, dcl.Info{ObjectFunction: compareClusterInstanceGroupConfigDiskConfigNewStyle, EmptyObject: EmptyClusterInstanceGroupConfigDiskConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2799,14 +2803,14 @@ func compareClusterInstanceGroupConfigNewStyle(d, a interface{}, fn dcl.FieldNam
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ManagedGroupConfig, actual.ManagedGroupConfig, dcl.Info{OutputOnly: true, ObjectFunction: compareClusterInstanceGroupConfigManagedGroupConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ManagedGroupConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ManagedGroupConfig, actual.ManagedGroupConfig, dcl.Info{OutputOnly: true, ObjectFunction: compareClusterInstanceGroupConfigManagedGroupConfigNewStyle, EmptyObject: EmptyClusterInstanceGroupConfigManagedGroupConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ManagedGroupConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Accelerators, actual.Accelerators, dcl.Info{ObjectFunction: compareClusterInstanceGroupConfigAcceleratorsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Accelerators")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Accelerators, actual.Accelerators, dcl.Info{ObjectFunction: compareClusterInstanceGroupConfigAcceleratorsNewStyle, EmptyObject: EmptyClusterInstanceGroupConfigAccelerators, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Accelerators")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3094,7 +3098,7 @@ func compareClusterClusterConfigSecurityConfigNewStyle(d, a interface{}, fn dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KerberosConfig, actual.KerberosConfig, dcl.Info{ObjectFunction: compareClusterClusterConfigSecurityConfigKerberosConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KerberosConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KerberosConfig, actual.KerberosConfig, dcl.Info{ObjectFunction: compareClusterClusterConfigSecurityConfigKerberosConfigNewStyle, EmptyObject: EmptyClusterClusterConfigSecurityConfigKerberosConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KerberosConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

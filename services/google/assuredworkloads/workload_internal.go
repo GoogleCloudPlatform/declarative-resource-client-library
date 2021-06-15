@@ -156,6 +156,40 @@ type updateWorkloadUpdateWorkloadOperation struct {
 // do will transcribe a subset of the resource into a request object and send a
 // PUT request to a single URL.
 
+func (op *updateWorkloadUpdateWorkloadOperation) do(ctx context.Context, r *Workload, c *Client) error {
+	_, err := c.GetWorkload(ctx, r.urlNormalized())
+	if err != nil {
+		return err
+	}
+
+	u, err := r.updateURL(c.Config.BasePath, "UpdateWorkload")
+	if err != nil {
+		return err
+	}
+	mask := dcl.UpdateMask(op.Diffs)
+	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
+	if err != nil {
+		return err
+	}
+
+	req, err := newUpdateWorkloadUpdateWorkloadRequest(ctx, r, c)
+	if err != nil {
+		return err
+	}
+
+	c.Config.Logger.Infof("Created update: %#v", req)
+	body, err := marshalUpdateWorkloadUpdateWorkloadRequest(c, req)
+	if err != nil {
+		return err
+	}
+	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (c *Client) listWorkloadRaw(ctx context.Context, organization, location, pageToken string, pageSize int32) ([]byte, error) {
 	u, err := workloadListURL(c.Config.BasePath, organization, location)
 	if err != nil {
@@ -700,7 +734,7 @@ func diffWorkload(c *Client, desired, actual *Workload, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{OutputOnly: true, ObjectFunction: compareWorkloadResourcesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{OutputOnly: true, ObjectFunction: compareWorkloadResourcesNewStyle, EmptyObject: EmptyWorkloadResources, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -742,7 +776,7 @@ func diffWorkload(c *Client, desired, actual *Workload, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KmsSettings, actual.KmsSettings, dcl.Info{Ignore: true, ObjectFunction: compareWorkloadKmsSettingsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KmsSettings")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KmsSettings, actual.KmsSettings, dcl.Info{Ignore: true, ObjectFunction: compareWorkloadKmsSettingsNewStyle, EmptyObject: EmptyWorkloadKmsSettings, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KmsSettings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

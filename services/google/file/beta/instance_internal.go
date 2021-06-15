@@ -880,14 +880,14 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FileShares, actual.FileShares, dcl.Info{ObjectFunction: compareInstanceFileSharesNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("FileShares")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FileShares, actual.FileShares, dcl.Info{ObjectFunction: compareInstanceFileSharesNewStyle, EmptyObject: EmptyInstanceFileShares, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("FileShares")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Networks, actual.Networks, dcl.Info{ObjectFunction: compareInstanceNetworksNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Networks")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Networks, actual.Networks, dcl.Info{ObjectFunction: compareInstanceNetworksNewStyle, EmptyObject: EmptyInstanceNetworks, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Networks")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -958,7 +958,7 @@ func compareInstanceFileSharesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NfsExportOptions, actual.NfsExportOptions, dcl.Info{ObjectFunction: compareInstanceFileSharesNfsExportOptionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NfsExportOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NfsExportOptions, actual.NfsExportOptions, dcl.Info{ObjectFunction: compareInstanceFileSharesNfsExportOptionsNewStyle, EmptyObject: EmptyInstanceFileSharesNfsExportOptions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NfsExportOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

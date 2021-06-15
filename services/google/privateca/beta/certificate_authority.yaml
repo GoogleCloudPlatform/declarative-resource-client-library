@@ -1,0 +1,2062 @@
+# Copyright 2021 Google LLC. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+info:
+  title: Privateca/CertificateAuthority
+  description: DCL Specification for the Privateca CertificateAuthority resource
+  x-dcl-has-iam: false
+paths:
+  get:
+    description: The function used to get information about a CertificateAuthority
+    parameters:
+    - name: CertificateAuthority
+      required: true
+      description: A full instance of a CertificateAuthority
+  apply:
+    description: The function used to apply information about a CertificateAuthority
+    parameters:
+    - name: CertificateAuthority
+      required: true
+      description: A full instance of a CertificateAuthority
+  delete:
+    description: The function used to delete a CertificateAuthority
+    parameters:
+    - name: CertificateAuthority
+      required: true
+      description: A full instance of a CertificateAuthority
+  deleteAll:
+    description: The function used to delete all CertificateAuthority
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string
+  list:
+    description: The function used to list information about many CertificateAuthority
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
+      required: true
+      schema:
+        type: string
+components:
+  schemas:
+    CertificateAuthority:
+      title: CertificateAuthority
+      x-dcl-id: projects/{{project}}/locations/{{location}}/certificateAuthorities/{{name}}
+      x-dcl-parent-container: project
+      x-dcl-labels: labels
+      type: object
+      required:
+      - type
+      - config
+      - lifetime
+      - keySpec
+      - tier
+      - project
+      - location
+      properties:
+        accessUrls:
+          type: object
+          x-dcl-go-name: AccessUrls
+          x-dcl-go-type: CertificateAuthorityAccessUrls
+          readOnly: true
+          description: Output only. URLs for accessing content published by this CA,
+            such as the CA certificate and CRLs.
+          x-kubernetes-immutable: true
+          properties:
+            caCertificateAccessUrl:
+              type: string
+              x-dcl-go-name: CaCertificateAccessUrl
+              description: The URL where this 's CA certificate is published. This
+                will only be set for CAs that have been activated.
+              x-kubernetes-immutable: true
+            crlAccessUrl:
+              type: string
+              x-dcl-go-name: CrlAccessUrl
+              description: The URL where this 's CRLs are published. This will only
+                be set for CAs that have been activated.
+              x-kubernetes-immutable: true
+            crlAccessUrls:
+              type: array
+              x-dcl-go-name: CrlAccessUrls
+              description: The URLs where this 's CRLs are published. This will only
+                be set for CAs that have been activated.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+        caCertificateDescriptions:
+          type: array
+          x-dcl-go-name: CaCertificateDescriptions
+          readOnly: true
+          description: Output only. A structured description of this CertificateAuthority's
+            CA certificate and its issuers. Ordered as self-to-root.
+          x-kubernetes-immutable: true
+          x-dcl-list-type: list
+          items:
+            type: object
+            x-dcl-go-type: CertificateAuthorityCaCertificateDescriptions
+            properties:
+              aiaIssuingCertificateUrls:
+                type: array
+                x-dcl-go-name: AiaIssuingCertificateUrls
+                description: Describes lists of issuer CA certificate URLs that appear
+                  in the "Authority Information Access" extension in the certificate.
+                x-kubernetes-immutable: true
+                x-dcl-list-type: list
+                items:
+                  type: string
+                  x-dcl-go-type: string
+              authorityKeyId:
+                type: object
+                x-dcl-go-name: AuthorityKeyId
+                x-dcl-go-type: CertificateAuthorityCaCertificateDescriptionsAuthorityKeyId
+                description: Identifies the subject_key_id of the parent certificate,
+                  per https://tools.ietf.org/html/rfc5280#section-4.2.1.1
+                x-kubernetes-immutable: true
+                properties:
+                  keyId:
+                    type: string
+                    x-dcl-go-name: KeyId
+                    description: Optional. The value of this KeyId encoded in lowercase
+                      hexadecimal. This is most likely the 160 bit SHA-1 hash of the
+                      public key.
+                    x-kubernetes-immutable: true
+              certFingerprint:
+                type: object
+                x-dcl-go-name: CertFingerprint
+                x-dcl-go-type: CertificateAuthorityCaCertificateDescriptionsCertFingerprint
+                description: The hash of the x.509 certificate.
+                x-kubernetes-immutable: true
+                properties:
+                  sha256Hash:
+                    type: string
+                    x-dcl-go-name: Sha256Hash
+                    description: The SHA 256 hash, encoded in hexadecimal, of the
+                      DER x509 certificate.
+                    x-kubernetes-immutable: true
+              configValues:
+                type: object
+                x-dcl-go-name: ConfigValues
+                x-dcl-go-type: CertificateAuthorityCaCertificateDescriptionsConfigValues
+                description: Describes some of the technical fields in a certificate.
+                x-kubernetes-immutable: true
+                properties:
+                  additionalExtensions:
+                    type: array
+                    x-dcl-go-name: AdditionalExtensions
+                    description: Optional. Describes custom X.509 extensions.
+                    x-kubernetes-immutable: true
+                    x-dcl-list-type: list
+                    items:
+                      type: object
+                      x-dcl-go-type: CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensions
+                      required:
+                      - objectId
+                      - critical
+                      - value
+                      properties:
+                        critical:
+                          type: boolean
+                          x-dcl-go-name: Critical
+                          description: Required. Indicates whether or not this extension
+                            is critical (i.e., if the client does not know how to
+                            handle this extension, the client should consider this
+                            to be an error).
+                          x-kubernetes-immutable: true
+                        objectId:
+                          type: object
+                          x-dcl-go-name: ObjectId
+                          x-dcl-go-type: CertificateAuthorityCaCertificateDescriptionsConfigValuesAdditionalExtensionsObjectId
+                          description: Required. The OID for this X.509 extension.
+                          x-kubernetes-immutable: true
+                          required:
+                          - objectIdPath
+                          properties:
+                            objectIdPath:
+                              type: array
+                              x-dcl-go-name: ObjectIdPath
+                              description: Required. The parts of an OID path. The
+                                most significant parts of the path come first.
+                              x-kubernetes-immutable: true
+                              x-dcl-list-type: list
+                              items:
+                                type: integer
+                                format: int64
+                                x-dcl-go-type: int64
+                        value:
+                          type: string
+                          x-dcl-go-name: Value
+                          description: Required. The value of this X.509 extension.
+                          x-kubernetes-immutable: true
+                  aiaOcspServers:
+                    type: array
+                    x-dcl-go-name: AiaOcspServers
+                    description: Optional. Describes Online Certificate Status Protocol
+                      (OCSP) endpoint addresses that appear in the "Authority Information
+                      Access" extension in the certificate.
+                    x-kubernetes-immutable: true
+                    x-dcl-list-type: list
+                    items:
+                      type: string
+                      x-dcl-go-type: string
+                  caOptions:
+                    type: object
+                    x-dcl-go-name: CaOptions
+                    x-dcl-go-type: CertificateAuthorityCaCertificateDescriptionsConfigValuesCaOptions
+                    description: Optional. Describes options in this that are relevant
+                      in a CA certificate.
+                    x-kubernetes-immutable: true
+                    properties:
+                      isCa:
+                        type: boolean
+                        x-dcl-go-name: IsCa
+                        description: Optional. Refers to the "CA" X.509 extension,
+                          which is a boolean value. When this value is missing, the
+                          extension will be omitted from the CA certificate.
+                        x-kubernetes-immutable: true
+                      maxIssuerPathLength:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: MaxIssuerPathLength
+                        description: Optional. Refers to the path length restriction
+                          X.509 extension. For a CA certificate, this value describes
+                          the depth of subordinate CA certificates that are allowed.
+                          If this value is less than 0, the request will fail. If
+                          this value is missing, the max path length will be omitted
+                          from the CA certificate.
+                        x-kubernetes-immutable: true
+                  keyUsage:
+                    type: object
+                    x-dcl-go-name: KeyUsage
+                    x-dcl-go-type: CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsage
+                    description: Optional. Indicates the intended use for keys that
+                      correspond to a certificate.
+                    x-kubernetes-immutable: true
+                    properties:
+                      baseKeyUsage:
+                        type: object
+                        x-dcl-go-name: BaseKeyUsage
+                        x-dcl-go-type: CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageBaseKeyUsage
+                        description: Describes high-level ways in which a key may
+                          be used.
+                        x-kubernetes-immutable: true
+                        properties:
+                          certSign:
+                            type: boolean
+                            x-dcl-go-name: CertSign
+                            description: The key may be used to sign certificates.
+                            x-kubernetes-immutable: true
+                          contentCommitment:
+                            type: boolean
+                            x-dcl-go-name: ContentCommitment
+                            description: The key may be used for cryptographic commitments.
+                              Note that this may also be referred to as "non-repudiation".
+                            x-kubernetes-immutable: true
+                          crlSign:
+                            type: boolean
+                            x-dcl-go-name: CrlSign
+                            description: The key may be used sign certificate revocation
+                              lists.
+                            x-kubernetes-immutable: true
+                          dataEncipherment:
+                            type: boolean
+                            x-dcl-go-name: DataEncipherment
+                            description: The key may be used to encipher data.
+                            x-kubernetes-immutable: true
+                          decipherOnly:
+                            type: boolean
+                            x-dcl-go-name: DecipherOnly
+                            description: The key may be used to decipher only.
+                            x-kubernetes-immutable: true
+                          digitalSignature:
+                            type: boolean
+                            x-dcl-go-name: DigitalSignature
+                            description: The key may be used for digital signatures.
+                            x-kubernetes-immutable: true
+                          encipherOnly:
+                            type: boolean
+                            x-dcl-go-name: EncipherOnly
+                            description: The key may be used to encipher only.
+                            x-kubernetes-immutable: true
+                          keyAgreement:
+                            type: boolean
+                            x-dcl-go-name: KeyAgreement
+                            description: The key may be used in a key agreement protocol.
+                            x-kubernetes-immutable: true
+                          keyEncipherment:
+                            type: boolean
+                            x-dcl-go-name: KeyEncipherment
+                            description: The key may be used to encipher other keys.
+                            x-kubernetes-immutable: true
+                      extendedKeyUsage:
+                        type: object
+                        x-dcl-go-name: ExtendedKeyUsage
+                        x-dcl-go-type: CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageExtendedKeyUsage
+                        description: Detailed scenarios in which a key may be used.
+                        x-kubernetes-immutable: true
+                        properties:
+                          clientAuth:
+                            type: boolean
+                            x-dcl-go-name: ClientAuth
+                            description: Corresponds to OID 1.3.6.1.5.5.7.3.2. Officially
+                              described as "TLS WWW client authentication", though
+                              regularly used for non-WWW TLS.
+                            x-kubernetes-immutable: true
+                          codeSigning:
+                            type: boolean
+                            x-dcl-go-name: CodeSigning
+                            description: Corresponds to OID 1.3.6.1.5.5.7.3.3. Officially
+                              described as "Signing of downloadable executable code
+                              client authentication".
+                            x-kubernetes-immutable: true
+                          emailProtection:
+                            type: boolean
+                            x-dcl-go-name: EmailProtection
+                            description: Corresponds to OID 1.3.6.1.5.5.7.3.4. Officially
+                              described as "Email protection".
+                            x-kubernetes-immutable: true
+                          ocspSigning:
+                            type: boolean
+                            x-dcl-go-name: OcspSigning
+                            description: Corresponds to OID 1.3.6.1.5.5.7.3.9. Officially
+                              described as "Signing OCSP responses".
+                            x-kubernetes-immutable: true
+                          serverAuth:
+                            type: boolean
+                            x-dcl-go-name: ServerAuth
+                            description: Corresponds to OID 1.3.6.1.5.5.7.3.1. Officially
+                              described as "TLS WWW server authentication", though
+                              regularly used for non-WWW TLS.
+                            x-kubernetes-immutable: true
+                          timeStamping:
+                            type: boolean
+                            x-dcl-go-name: TimeStamping
+                            description: Corresponds to OID 1.3.6.1.5.5.7.3.8. Officially
+                              described as "Binding the hash of an object to a time".
+                            x-kubernetes-immutable: true
+                      unknownExtendedKeyUsages:
+                        type: array
+                        x-dcl-go-name: UnknownExtendedKeyUsages
+                        description: Used to describe extended key usages that are
+                          not listed in the message.
+                        x-kubernetes-immutable: true
+                        x-dcl-list-type: list
+                        items:
+                          type: object
+                          x-dcl-go-type: CertificateAuthorityCaCertificateDescriptionsConfigValuesKeyUsageUnknownExtendedKeyUsages
+                          required:
+                          - objectIdPath
+                          properties:
+                            objectIdPath:
+                              type: array
+                              x-dcl-go-name: ObjectIdPath
+                              description: Required. The parts of an OID path. The
+                                most significant parts of the path come first.
+                              x-kubernetes-immutable: true
+                              x-dcl-list-type: list
+                              items:
+                                type: integer
+                                format: int64
+                                x-dcl-go-type: int64
+                  policyIds:
+                    type: array
+                    x-dcl-go-name: PolicyIds
+                    description: Optional. Describes the X.509 certificate policy
+                      object identifiers, per https://tools.ietf.org/html/rfc5280#section-4.2.1.4.
+                    x-kubernetes-immutable: true
+                    x-dcl-list-type: list
+                    items:
+                      type: object
+                      x-dcl-go-type: CertificateAuthorityCaCertificateDescriptionsConfigValuesPolicyIds
+                      required:
+                      - objectIdPath
+                      properties:
+                        objectIdPath:
+                          type: array
+                          x-dcl-go-name: ObjectIdPath
+                          description: Required. The parts of an OID path. The most
+                            significant parts of the path come first.
+                          x-kubernetes-immutable: true
+                          x-dcl-list-type: list
+                          items:
+                            type: integer
+                            format: int64
+                            x-dcl-go-type: int64
+              crlDistributionPoints:
+                type: array
+                x-dcl-go-name: CrlDistributionPoints
+                description: Describes a list of locations to obtain CRL information,
+                  i.e. the DistributionPoint.fullName described by https://tools.ietf.org/html/rfc5280#section-4.2.1.13
+                x-kubernetes-immutable: true
+                x-dcl-list-type: list
+                items:
+                  type: string
+                  x-dcl-go-type: string
+              publicKey:
+                type: object
+                x-dcl-go-name: PublicKey
+                x-dcl-go-type: CertificateAuthorityCaCertificateDescriptionsPublicKey
+                description: The public key that corresponds to an issued certificate.
+                x-kubernetes-immutable: true
+                required:
+                - key
+                - format
+                properties:
+                  format:
+                    type: string
+                    x-dcl-go-name: Format
+                    x-dcl-go-type: CertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum
+                    description: 'Required. The format of the public key. Possible
+                      values: KEY_FORMAT_UNSPECIFIED, PEM'
+                    x-kubernetes-immutable: true
+                    enum:
+                    - KEY_FORMAT_UNSPECIFIED
+                    - PEM
+                  key:
+                    type: string
+                    x-dcl-go-name: Key
+                    description: Required. A public key. The padding and encoding
+                      must match with the `KeyFormat` value specified for the `format`
+                      field.
+                    x-kubernetes-immutable: true
+                  type:
+                    type: string
+                    x-dcl-go-name: Type
+                    x-dcl-go-type: CertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnum
+                    description: 'Optional. The type of public key. If specified,
+                      it must match the public key used for the`key` field. Possible
+                      values: TYPE_UNSPECIFIED, SELF_SIGNED, SUBORDINATE'
+                    x-kubernetes-immutable: true
+                    enum:
+                    - TYPE_UNSPECIFIED
+                    - SELF_SIGNED
+                    - SUBORDINATE
+              subjectDescription:
+                type: object
+                x-dcl-go-name: SubjectDescription
+                x-dcl-go-type: CertificateAuthorityCaCertificateDescriptionsSubjectDescription
+                description: Describes some of the values in a certificate that are
+                  related to the subject and lifetime.
+                x-kubernetes-immutable: true
+                properties:
+                  commonName:
+                    type: string
+                    x-dcl-go-name: CommonName
+                    description: The "common name" of the distinguished name.
+                    x-kubernetes-immutable: true
+                  hexSerialNumber:
+                    type: string
+                    x-dcl-go-name: HexSerialNumber
+                    description: The serial number encoded in lowercase hexadecimal.
+                    x-kubernetes-immutable: true
+                  lifetime:
+                    type: string
+                    x-dcl-go-name: Lifetime
+                    description: For convenience, the actual lifetime of an issued
+                      certificate. Corresponds to 'not_after_time' - 'not_before_time'.
+                    x-kubernetes-immutable: true
+                  notAfterTime:
+                    type: string
+                    format: date-time
+                    x-dcl-go-name: NotAfterTime
+                    description: The time at which the certificate expires.
+                    x-kubernetes-immutable: true
+                  notBeforeTime:
+                    type: string
+                    format: date-time
+                    x-dcl-go-name: NotBeforeTime
+                    description: The time at which the certificate becomes valid.
+                    x-kubernetes-immutable: true
+                  subject:
+                    type: object
+                    x-dcl-go-name: Subject
+                    x-dcl-go-type: CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject
+                    description: Contains distinguished name fields such as the common
+                      name, location and / organization.
+                    x-kubernetes-immutable: true
+                    properties:
+                      commonName:
+                        type: string
+                        x-dcl-go-name: CommonName
+                        description: The "common name" of the subject.
+                        x-kubernetes-immutable: true
+                      countryCode:
+                        type: string
+                        x-dcl-go-name: CountryCode
+                        description: The country code of the subject.
+                        x-kubernetes-immutable: true
+                      locality:
+                        type: string
+                        x-dcl-go-name: Locality
+                        description: The locality or city of the subject.
+                        x-kubernetes-immutable: true
+                      organization:
+                        type: string
+                        x-dcl-go-name: Organization
+                        description: The organization of the subject.
+                        x-kubernetes-immutable: true
+                        x-dcl-references:
+                        - resource: Cloudresourcemanager/Organization
+                          field: name
+                      organizationalUnit:
+                        type: string
+                        x-dcl-go-name: OrganizationalUnit
+                        description: The organizational_unit of the subject.
+                        x-kubernetes-immutable: true
+                      postalCode:
+                        type: string
+                        x-dcl-go-name: PostalCode
+                        description: The postal code of the subject.
+                        x-kubernetes-immutable: true
+                      province:
+                        type: string
+                        x-dcl-go-name: Province
+                        description: The province, territory, or regional state of
+                          the subject.
+                        x-kubernetes-immutable: true
+                      streetAddress:
+                        type: string
+                        x-dcl-go-name: StreetAddress
+                        description: The street address of the subject.
+                        x-kubernetes-immutable: true
+                  subjectAltName:
+                    type: object
+                    x-dcl-go-name: SubjectAltName
+                    x-dcl-go-type: CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName
+                    description: The subject alternative name fields.
+                    x-kubernetes-immutable: true
+                    properties:
+                      customSans:
+                        type: array
+                        x-dcl-go-name: CustomSans
+                        description: Contains additional subject alternative name
+                          values.
+                        x-kubernetes-immutable: true
+                        x-dcl-list-type: list
+                        items:
+                          type: object
+                          x-dcl-go-type: CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans
+                          required:
+                          - objectId
+                          - critical
+                          - value
+                          properties:
+                            critical:
+                              type: boolean
+                              x-dcl-go-name: Critical
+                              description: Required. Indicates whether or not this
+                                extension is critical (i.e., if the client does not
+                                know how to handle this extension, the client should
+                                consider this to be an error).
+                              x-kubernetes-immutable: true
+                            objectId:
+                              type: object
+                              x-dcl-go-name: ObjectId
+                              x-dcl-go-type: CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId
+                              description: Required. The OID for this X.509 extension.
+                              x-kubernetes-immutable: true
+                              required:
+                              - objectIdPath
+                              properties:
+                                objectIdPath:
+                                  type: array
+                                  x-dcl-go-name: ObjectIdPath
+                                  description: Required. The parts of an OID path.
+                                    The most significant parts of the path come first.
+                                  x-kubernetes-immutable: true
+                                  x-dcl-list-type: list
+                                  items:
+                                    type: integer
+                                    format: int64
+                                    x-dcl-go-type: int64
+                            value:
+                              type: string
+                              x-dcl-go-name: Value
+                              description: Required. The value of this X.509 extension.
+                              x-kubernetes-immutable: true
+                      dnsNames:
+                        type: array
+                        x-dcl-go-name: DnsNames
+                        description: Contains only valid, fully-qualified host names.
+                        x-kubernetes-immutable: true
+                        x-dcl-list-type: list
+                        items:
+                          type: string
+                          x-dcl-go-type: string
+                      emailAddresses:
+                        type: array
+                        x-dcl-go-name: EmailAddresses
+                        description: Contains only valid RFC 2822 E-mail addresses.
+                        x-kubernetes-immutable: true
+                        x-dcl-list-type: list
+                        items:
+                          type: string
+                          x-dcl-go-type: string
+                      ipAddresses:
+                        type: array
+                        x-dcl-go-name: IPAddresses
+                        description: Contains only valid 32-bit IPv4 addresses or
+                          RFC 4291 IPv6 addresses.
+                        x-kubernetes-immutable: true
+                        x-dcl-list-type: list
+                        items:
+                          type: string
+                          x-dcl-go-type: string
+                      uris:
+                        type: array
+                        x-dcl-go-name: Uris
+                        description: Contains only valid RFC 3986 URIs.
+                        x-kubernetes-immutable: true
+                        x-dcl-list-type: list
+                        items:
+                          type: string
+                          x-dcl-go-type: string
+              subjectKeyId:
+                type: object
+                x-dcl-go-name: SubjectKeyId
+                x-dcl-go-type: CertificateAuthorityCaCertificateDescriptionsSubjectKeyId
+                description: Provides a means of identifiying certificates that contain
+                  a particular public key, per https://tools.ietf.org/html/rfc5280#section-4.2.1.2.
+                x-kubernetes-immutable: true
+                properties:
+                  keyId:
+                    type: string
+                    x-dcl-go-name: KeyId
+                    description: Optional. The value of this KeyId encoded in lowercase
+                      hexadecimal. This is most likely the 160 bit SHA-1 hash of the
+                      public key.
+                    x-kubernetes-immutable: true
+        certificatePolicy:
+          type: object
+          x-dcl-go-name: CertificatePolicy
+          x-dcl-go-type: CertificateAuthorityCertificatePolicy
+          description: Optional. The CertificateAuthorityPolicy to enforce when issuing
+            Certificates from this CertificateAuthority.
+          x-kubernetes-immutable: true
+          properties:
+            allowedCommonNames:
+              type: array
+              x-dcl-go-name: AllowedCommonNames
+              description: Optional. If any value is specified here, then all Certificates
+                issued by the CertificateAuthority must match at least one listed
+                value. If no value is specified, all values will be allowed for this
+                fied. Glob patterns are also supported.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            allowedConfigList:
+              type: object
+              x-dcl-go-name: AllowedConfigList
+              x-dcl-go-type: CertificateAuthorityCertificatePolicyAllowedConfigList
+              description: Optional. All Certificates issued by the CertificateAuthority
+                must match at least one listed ReusableConfigWrapper in the list.
+              x-kubernetes-immutable: true
+              required:
+              - allowedConfigValues
+              properties:
+                allowedConfigValues:
+                  type: array
+                  x-dcl-go-name: AllowedConfigValues
+                  description: Required. All Certificates issued by the CertificateAuthority
+                    must match at least one listed ReusableConfigWrapper. If a ReusableConfigWrapper
+                    has an empty field, any value will be allowed for that field.
+                  x-kubernetes-immutable: true
+                  x-dcl-list-type: list
+                  items:
+                    type: object
+                    x-dcl-go-type: CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues
+                    properties:
+                      reusableConfig:
+                        type: string
+                        x-dcl-go-name: ReusableConfig
+                        description: Required. A resource path to a ReusableConfig
+                          in the format projects/*/locations/*/reusableConfigs/*.
+                        x-kubernetes-immutable: true
+                      reusableConfigValues:
+                        type: object
+                        x-dcl-go-name: ReusableConfigValues
+                        x-dcl-go-type: CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValues
+                        description: Required. A user-specified inline ReusableConfigValues.
+                        x-kubernetes-immutable: true
+                        properties:
+                          additionalExtensions:
+                            type: array
+                            x-dcl-go-name: AdditionalExtensions
+                            description: Optional. Describes custom X.509 extensions.
+                            x-kubernetes-immutable: true
+                            x-dcl-list-type: list
+                            items:
+                              type: object
+                              x-dcl-go-type: CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensions
+                              required:
+                              - objectId
+                              - critical
+                              - value
+                              properties:
+                                critical:
+                                  type: boolean
+                                  x-dcl-go-name: Critical
+                                  description: Required. Indicates whether or not
+                                    this extension is critical (i.e., if the client
+                                    does not know how to handle this extension, the
+                                    client should consider this to be an error).
+                                  x-kubernetes-immutable: true
+                                objectId:
+                                  type: object
+                                  x-dcl-go-name: ObjectId
+                                  x-dcl-go-type: CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesAdditionalExtensionsObjectId
+                                  description: Required. The OID for this X.509 extension.
+                                  x-kubernetes-immutable: true
+                                  required:
+                                  - objectIdPath
+                                  properties:
+                                    objectIdPath:
+                                      type: array
+                                      x-dcl-go-name: ObjectIdPath
+                                      description: Required. The parts of an OID path.
+                                        The most significant parts of the path come
+                                        first.
+                                      x-kubernetes-immutable: true
+                                      x-dcl-list-type: list
+                                      items:
+                                        type: integer
+                                        format: int64
+                                        x-dcl-go-type: int64
+                                value:
+                                  type: string
+                                  x-dcl-go-name: Value
+                                  description: Required. The value of this X.509 extension.
+                                  x-kubernetes-immutable: true
+                          aiaOcspServers:
+                            type: array
+                            x-dcl-go-name: AiaOcspServers
+                            description: Optional. Describes Online Certificate Status
+                              Protocol (OCSP) endpoint addresses that appear in the
+                              "Authority Information Access" extension in the certificate.
+                            x-kubernetes-immutable: true
+                            x-dcl-list-type: list
+                            items:
+                              type: string
+                              x-dcl-go-type: string
+                          caOptions:
+                            type: object
+                            x-dcl-go-name: CaOptions
+                            x-dcl-go-type: CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesCaOptions
+                            description: Optional. Describes options in this ReusableConfigValues
+                              that are relevant in a CA certificate.
+                            x-kubernetes-immutable: true
+                            properties:
+                              isCa:
+                                type: boolean
+                                x-dcl-go-name: IsCa
+                                description: Optional. Refers to the "CA" X.509 extension,
+                                  which is a boolean value. When this value is missing,
+                                  the extension will be omitted from the CA certificate.
+                                x-kubernetes-immutable: true
+                              maxIssuerPathLength:
+                                type: integer
+                                format: int64
+                                x-dcl-go-name: MaxIssuerPathLength
+                                description: Optional. Refers to the path length restriction
+                                  X.509 extension. For a CA certificate, this value
+                                  describes the depth of subordinate CA certificates
+                                  that are allowed. If this value is less than 0,
+                                  the request will fail. If this value is missing,
+                                  the max path length will be omitted from the CA
+                                  certificate.
+                                x-kubernetes-immutable: true
+                          keyUsage:
+                            type: object
+                            x-dcl-go-name: KeyUsage
+                            x-dcl-go-type: CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsage
+                            description: Optional. Indicates the intended use for
+                              keys that correspond to a certificate.
+                            x-kubernetes-immutable: true
+                            properties:
+                              baseKeyUsage:
+                                type: object
+                                x-dcl-go-name: BaseKeyUsage
+                                x-dcl-go-type: CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage
+                                description: Describes high-level ways in which a
+                                  key may be used.
+                                x-kubernetes-immutable: true
+                                properties:
+                                  certSign:
+                                    type: boolean
+                                    x-dcl-go-name: CertSign
+                                    description: The key may be used to sign certificates.
+                                    x-kubernetes-immutable: true
+                                  contentCommitment:
+                                    type: boolean
+                                    x-dcl-go-name: ContentCommitment
+                                    description: The key may be used for cryptographic
+                                      commitments. Note that this may also be referred
+                                      to as "non-repudiation".
+                                    x-kubernetes-immutable: true
+                                  crlSign:
+                                    type: boolean
+                                    x-dcl-go-name: CrlSign
+                                    description: The key may be used sign certificate
+                                      revocation lists.
+                                    x-kubernetes-immutable: true
+                                  dataEncipherment:
+                                    type: boolean
+                                    x-dcl-go-name: DataEncipherment
+                                    description: The key may be used to encipher data.
+                                    x-kubernetes-immutable: true
+                                  decipherOnly:
+                                    type: boolean
+                                    x-dcl-go-name: DecipherOnly
+                                    description: The key may be used to decipher only.
+                                    x-kubernetes-immutable: true
+                                  digitalSignature:
+                                    type: boolean
+                                    x-dcl-go-name: DigitalSignature
+                                    description: The key may be used for digital signatures.
+                                    x-kubernetes-immutable: true
+                                  encipherOnly:
+                                    type: boolean
+                                    x-dcl-go-name: EncipherOnly
+                                    description: The key may be used to encipher only.
+                                    x-kubernetes-immutable: true
+                                  keyAgreement:
+                                    type: boolean
+                                    x-dcl-go-name: KeyAgreement
+                                    description: The key may be used in a key agreement
+                                      protocol.
+                                    x-kubernetes-immutable: true
+                                  keyEncipherment:
+                                    type: boolean
+                                    x-dcl-go-name: KeyEncipherment
+                                    description: The key may be used to encipher other
+                                      keys.
+                                    x-kubernetes-immutable: true
+                              extendedKeyUsage:
+                                type: object
+                                x-dcl-go-name: ExtendedKeyUsage
+                                x-dcl-go-type: CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage
+                                description: Detailed scenarios in which a key may
+                                  be used.
+                                x-kubernetes-immutable: true
+                                properties:
+                                  clientAuth:
+                                    type: boolean
+                                    x-dcl-go-name: ClientAuth
+                                    description: Corresponds to OID 1.3.6.1.5.5.7.3.2.
+                                      Officially described as "TLS WWW client authentication",
+                                      though regularly used for non-WWW TLS.
+                                    x-kubernetes-immutable: true
+                                  codeSigning:
+                                    type: boolean
+                                    x-dcl-go-name: CodeSigning
+                                    description: Corresponds to OID 1.3.6.1.5.5.7.3.3.
+                                      Officially described as "Signing of downloadable
+                                      executable code client authentication".
+                                    x-kubernetes-immutable: true
+                                  emailProtection:
+                                    type: boolean
+                                    x-dcl-go-name: EmailProtection
+                                    description: Corresponds to OID 1.3.6.1.5.5.7.3.4.
+                                      Officially described as "Email protection".
+                                    x-kubernetes-immutable: true
+                                  ocspSigning:
+                                    type: boolean
+                                    x-dcl-go-name: OcspSigning
+                                    description: Corresponds to OID 1.3.6.1.5.5.7.3.9.
+                                      Officially described as "Signing OCSP responses".
+                                    x-kubernetes-immutable: true
+                                  serverAuth:
+                                    type: boolean
+                                    x-dcl-go-name: ServerAuth
+                                    description: Corresponds to OID 1.3.6.1.5.5.7.3.1.
+                                      Officially described as "TLS WWW server authentication",
+                                      though regularly used for non-WWW TLS.
+                                    x-kubernetes-immutable: true
+                                  timeStamping:
+                                    type: boolean
+                                    x-dcl-go-name: TimeStamping
+                                    description: Corresponds to OID 1.3.6.1.5.5.7.3.8.
+                                      Officially described as "Binding the hash of
+                                      an object to a time".
+                                    x-kubernetes-immutable: true
+                              unknownExtendedKeyUsages:
+                                type: array
+                                x-dcl-go-name: UnknownExtendedKeyUsages
+                                description: Used to describe extended key usages
+                                  that are not listed in the KeyUsage.ExtendedKeyUsageOptions
+                                  message.
+                                x-kubernetes-immutable: true
+                                x-dcl-list-type: list
+                                items:
+                                  type: object
+                                  x-dcl-go-type: CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages
+                                  required:
+                                  - objectIdPath
+                                  properties:
+                                    objectIdPath:
+                                      type: array
+                                      x-dcl-go-name: ObjectIdPath
+                                      description: Required. The parts of an OID path.
+                                        The most significant parts of the path come
+                                        first.
+                                      x-kubernetes-immutable: true
+                                      x-dcl-list-type: list
+                                      items:
+                                        type: integer
+                                        format: int64
+                                        x-dcl-go-type: int64
+                          policyIds:
+                            type: array
+                            x-dcl-go-name: PolicyIds
+                            description: Optional. Describes the X.509 certificate
+                              policy object identifiers, per https://tools.ietf.org/html/rfc5280#section-4.2.1.4.
+                            x-kubernetes-immutable: true
+                            x-dcl-list-type: list
+                            items:
+                              type: object
+                              x-dcl-go-type: CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValuesReusableConfigValuesPolicyIds
+                              required:
+                              - objectIdPath
+                              properties:
+                                objectIdPath:
+                                  type: array
+                                  x-dcl-go-name: ObjectIdPath
+                                  description: Required. The parts of an OID path.
+                                    The most significant parts of the path come first.
+                                  x-kubernetes-immutable: true
+                                  x-dcl-list-type: list
+                                  items:
+                                    type: integer
+                                    format: int64
+                                    x-dcl-go-type: int64
+            allowedIssuanceModes:
+              type: object
+              x-dcl-go-name: AllowedIssuanceModes
+              x-dcl-go-type: CertificateAuthorityCertificatePolicyAllowedIssuanceModes
+              description: Optional. If specified, then only methods allowed in the
+                IssuanceModes may be used to issue Certificates.
+              x-kubernetes-immutable: true
+              required:
+              - allowCsrBasedIssuance
+              - allowConfigBasedIssuance
+              properties:
+                allowConfigBasedIssuance:
+                  type: boolean
+                  x-dcl-go-name: AllowConfigBasedIssuance
+                  description: Required. When true, allows callers to create .
+                  x-kubernetes-immutable: true
+                allowCsrBasedIssuance:
+                  type: boolean
+                  x-dcl-go-name: AllowCsrBasedIssuance
+                  description: Required. When true, allows callers to create by specifying
+                    a CSR.
+                  x-kubernetes-immutable: true
+            allowedLocationsAndOrganizations:
+              type: array
+              x-dcl-go-name: AllowedLocationsAndOrganizations
+              description: Optional. If any Subject is specified here, then all Certificates
+                issued by the CertificateAuthority must match at least one listed
+                Subject. If a Subject has an empty field, any value will be allowed
+                for that field.
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: object
+                x-dcl-go-type: CertificateAuthorityCertificatePolicyAllowedLocationsAndOrganizations
+                properties:
+                  countryCode:
+                    type: string
+                    x-dcl-go-name: CountryCode
+                    description: The country code of the subject.
+                    x-kubernetes-immutable: true
+                  locality:
+                    type: string
+                    x-dcl-go-name: Locality
+                    description: The locality or city of the subject.
+                    x-kubernetes-immutable: true
+                  organization:
+                    type: string
+                    x-dcl-go-name: Organization
+                    description: The organization of the subject.
+                    x-kubernetes-immutable: true
+                    x-dcl-references:
+                    - resource: Cloudresourcemanager/Organization
+                      field: name
+                  organizationalUnit:
+                    type: string
+                    x-dcl-go-name: OrganizationalUnit
+                    description: The organizational_unit of the subject.
+                    x-kubernetes-immutable: true
+                  postalCode:
+                    type: string
+                    x-dcl-go-name: PostalCode
+                    description: The postal code of the subject.
+                    x-kubernetes-immutable: true
+                  province:
+                    type: string
+                    x-dcl-go-name: Province
+                    description: The province, territory, or regional state of the
+                      subject.
+                    x-kubernetes-immutable: true
+                  streetAddress:
+                    type: string
+                    x-dcl-go-name: StreetAddress
+                    description: The street address of the subject.
+                    x-kubernetes-immutable: true
+            allowedSans:
+              type: object
+              x-dcl-go-name: AllowedSans
+              x-dcl-go-type: CertificateAuthorityCertificatePolicyAllowedSans
+              description: Optional. If a AllowedSubjectAltNames is specified here,
+                then all Certificates issued by the CertificateAuthority must match
+                AllowedSubjectAltNames. If no value or an empty value is specified,
+                any value will be allowed for the SubjectAltNames field.
+              x-kubernetes-immutable: true
+              properties:
+                allowCustomSans:
+                  type: boolean
+                  x-dcl-go-name: AllowCustomSans
+                  description: Optional. Specifies if to allow custom X509Extension
+                    values.
+                  x-kubernetes-immutable: true
+                allowGlobbingDnsWildcards:
+                  type: boolean
+                  x-dcl-go-name: AllowGlobbingDnsWildcards
+                  description: Optional. Specifies if glob patterns used for contains
+                    a literal wildcard.
+                  x-kubernetes-immutable: true
+                allowedDnsNames:
+                  type: array
+                  x-dcl-go-name: AllowedDnsNames
+                  description: 'Optional. Contains valid, fully-qualified host names.
+                    Glob patterns are also supported. To allow an explicit wildcard
+                    certificate, escape with backlash (i.e. "*"). E.g. for globbed
+                    entries: ''*bar.com'' will allow ''foo.bar.com'', but not ''*.bar.com'',
+                    unless the field is set. E.g. for wildcard entries: ''*.bar.com''
+                    will allow ''*.bar.com'', but not ''foo.bar.com''.'
+                  x-kubernetes-immutable: true
+                  x-dcl-list-type: list
+                  items:
+                    type: string
+                    x-dcl-go-type: string
+                allowedEmailAddresses:
+                  type: array
+                  x-dcl-go-name: AllowedEmailAddresses
+                  description: Optional. Contains valid RFC 2822 E-mail addresses.
+                    Glob patterns are also supported.
+                  x-kubernetes-immutable: true
+                  x-dcl-list-type: list
+                  items:
+                    type: string
+                    x-dcl-go-type: string
+                allowedIps:
+                  type: array
+                  x-dcl-go-name: AllowedIps
+                  description: Optional. Contains valid 32-bit IPv4 addresses and
+                    subnet ranges or RFC 4291 IPv6 addresses and subnet ranges. Subnet
+                    ranges are specified using the '/' notation (e.g. 10.0.0.0/8,
+                    2001:700:300:1800::/64). Glob patterns are supported only for
+                    ip address entries (i.e. not for subnet ranges).
+                  x-kubernetes-immutable: true
+                  x-dcl-list-type: list
+                  items:
+                    type: string
+                    x-dcl-go-type: string
+                allowedUris:
+                  type: array
+                  x-dcl-go-name: AllowedUris
+                  description: Optional. Contains valid RFC 3986 URIs. Glob patterns
+                    are also supported. To match across path seperators (i.e. '/')
+                    use the double star glob pattern (i.e. '**').
+                  x-kubernetes-immutable: true
+                  x-dcl-list-type: list
+                  items:
+                    type: string
+                    x-dcl-go-type: string
+            maximumLifetime:
+              type: string
+              x-dcl-go-name: MaximumLifetime
+              description: 'Optional. The maximum lifetime allowed by the CertificateAuthority.
+                Note that if the any part if the issuing chain expires before a Certificate''s
+                requested maximumLifetime, the effective lifetime will be explicitly
+                truncated. A duration in seconds with up to nine fractional digits,
+                terminated by ''s''. Example: "3.5s".'
+              x-kubernetes-immutable: true
+            overwriteConfigValues:
+              type: object
+              x-dcl-go-name: OverwriteConfigValues
+              x-dcl-go-type: CertificateAuthorityCertificatePolicyOverwriteConfigValues
+              description: Optional. All Certificates issued by the CertificateAuthority
+                will use the provided configuration values, overwriting any requested
+                configuration values.
+              x-kubernetes-immutable: true
+              properties:
+                reusableConfig:
+                  type: string
+                  x-dcl-go-name: ReusableConfig
+                  description: Required. A resource path to a ReusableConfig in the
+                    format projects/*/locations/*/reusableConfigs/*.
+                  x-kubernetes-immutable: true
+                reusableConfigValues:
+                  type: object
+                  x-dcl-go-name: ReusableConfigValues
+                  x-dcl-go-type: CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValues
+                  description: Required. A user-specified inline ReusableConfigValues.
+                  x-kubernetes-immutable: true
+                  properties:
+                    additionalExtensions:
+                      type: array
+                      x-dcl-go-name: AdditionalExtensions
+                      description: Optional. Describes custom X.509 extensions.
+                      x-kubernetes-immutable: true
+                      x-dcl-list-type: list
+                      items:
+                        type: object
+                        x-dcl-go-type: CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensions
+                        required:
+                        - objectId
+                        - critical
+                        - value
+                        properties:
+                          critical:
+                            type: boolean
+                            x-dcl-go-name: Critical
+                            description: Required. Indicates whether or not this extension
+                              is critical (i.e., if the client does not know how to
+                              handle this extension, the client should consider this
+                              to be an error).
+                            x-kubernetes-immutable: true
+                          objectId:
+                            type: object
+                            x-dcl-go-name: ObjectId
+                            x-dcl-go-type: CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesAdditionalExtensionsObjectId
+                            description: Required. The OID for this X.509 extension.
+                            x-kubernetes-immutable: true
+                            required:
+                            - objectIdPath
+                            properties:
+                              objectIdPath:
+                                type: array
+                                x-dcl-go-name: ObjectIdPath
+                                description: Required. The parts of an OID path. The
+                                  most significant parts of the path come first.
+                                x-kubernetes-immutable: true
+                                x-dcl-list-type: list
+                                items:
+                                  type: integer
+                                  format: int64
+                                  x-dcl-go-type: int64
+                          value:
+                            type: string
+                            x-dcl-go-name: Value
+                            description: Required. The value of this X.509 extension.
+                            x-kubernetes-immutable: true
+                    aiaOcspServers:
+                      type: array
+                      x-dcl-go-name: AiaOcspServers
+                      description: Optional. Describes Online Certificate Status Protocol
+                        (OCSP) endpoint addresses that appear in the "Authority Information
+                        Access" extension in the certificate.
+                      x-kubernetes-immutable: true
+                      x-dcl-list-type: list
+                      items:
+                        type: string
+                        x-dcl-go-type: string
+                    caOptions:
+                      type: object
+                      x-dcl-go-name: CaOptions
+                      x-dcl-go-type: CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesCaOptions
+                      description: Optional. Describes options in this ReusableConfigValues
+                        that are relevant in a CA certific
+                      x-kubernetes-immutable: true
+                      properties:
+                        isCa:
+                          type: boolean
+                          x-dcl-go-name: IsCa
+                          description: Optional. Refers to the "CA" X.509 extension,
+                            which is a boolean value. When this value is missing,
+                            the extension will be omitted from the CA certificate.
+                          x-kubernetes-immutable: true
+                        maxIssuerPathLength:
+                          type: integer
+                          format: int64
+                          x-dcl-go-name: MaxIssuerPathLength
+                          description: Optional. Refers to the path length restriction
+                            X.509 extension. For a CA certificate, this value describes
+                            the depth of subordinate CA certificates that are allowed.
+                            If this value is less than 0, the request will fail. If
+                            this value is missing, the max path length will be omitted
+                            from the CA certificate.
+                          x-kubernetes-immutable: true
+                    keyUsage:
+                      type: object
+                      x-dcl-go-name: KeyUsage
+                      x-dcl-go-type: CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsage
+                      description: Optional. Indicates the intended use for keys that
+                        correspond to a certificate.
+                      x-kubernetes-immutable: true
+                      properties:
+                        baseKeyUsage:
+                          type: object
+                          x-dcl-go-name: BaseKeyUsage
+                          x-dcl-go-type: CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageBaseKeyUsage
+                          description: Describes high-level ways in which a key may
+                            be used.
+                          x-kubernetes-immutable: true
+                          properties:
+                            certSign:
+                              type: boolean
+                              x-dcl-go-name: CertSign
+                              description: The key may be used to sign certificates.
+                              x-kubernetes-immutable: true
+                            contentCommitment:
+                              type: boolean
+                              x-dcl-go-name: ContentCommitment
+                              description: The key may be used for cryptographic commitments.
+                                Note that this may also be referred to as "non-repudiation".
+                              x-kubernetes-immutable: true
+                            crlSign:
+                              type: boolean
+                              x-dcl-go-name: CrlSign
+                              description: The key may be used sign certificate revocation
+                                lists.
+                              x-kubernetes-immutable: true
+                            dataEncipherment:
+                              type: boolean
+                              x-dcl-go-name: DataEncipherment
+                              description: The key may be used to encipher data.
+                              x-kubernetes-immutable: true
+                            decipherOnly:
+                              type: boolean
+                              x-dcl-go-name: DecipherOnly
+                              description: The key may be used to decipher only.
+                              x-kubernetes-immutable: true
+                            digitalSignature:
+                              type: boolean
+                              x-dcl-go-name: DigitalSignature
+                              description: The key may be used for digital signatures.
+                              x-kubernetes-immutable: true
+                            encipherOnly:
+                              type: boolean
+                              x-dcl-go-name: EncipherOnly
+                              description: The key may be used to encipher only.
+                              x-kubernetes-immutable: true
+                            keyAgreement:
+                              type: boolean
+                              x-dcl-go-name: KeyAgreement
+                              description: The key may be used in a key agreement
+                                protocol.
+                              x-kubernetes-immutable: true
+                            keyEncipherment:
+                              type: boolean
+                              x-dcl-go-name: KeyEncipherment
+                              description: The key may be used to encipher other keys.
+                              x-kubernetes-immutable: true
+                        extendedKeyUsage:
+                          type: object
+                          x-dcl-go-name: ExtendedKeyUsage
+                          x-dcl-go-type: CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageExtendedKeyUsage
+                          description: Detailed scenarios in which a key may be used.
+                          x-kubernetes-immutable: true
+                          properties:
+                            clientAuth:
+                              type: boolean
+                              x-dcl-go-name: ClientAuth
+                              description: Corresponds to OID 1.3.6.1.5.5.7.3.2. Officially
+                                described as "TLS WWW client authentication", though
+                                regularly used for non-WWW TLS.
+                              x-kubernetes-immutable: true
+                            codeSigning:
+                              type: boolean
+                              x-dcl-go-name: CodeSigning
+                              description: Corresponds to OID 1.3.6.1.5.5.7.3.3. Officially
+                                described as "Signing of downloadable executable code
+                                client authentication".
+                              x-kubernetes-immutable: true
+                            emailProtection:
+                              type: boolean
+                              x-dcl-go-name: EmailProtection
+                              description: Corresponds to OID 1.3.6.1.5.5.7.3.4. Officially
+                                described as "Email protection".
+                              x-kubernetes-immutable: true
+                            ocspSigning:
+                              type: boolean
+                              x-dcl-go-name: OcspSigning
+                              description: Corresponds to OID 1.3.6.1.5.5.7.3.9. Officially
+                                described as "Signing OCSP responses".
+                              x-kubernetes-immutable: true
+                            serverAuth:
+                              type: boolean
+                              x-dcl-go-name: ServerAuth
+                              description: Corresponds to OID 1.3.6.1.5.5.7.3.1. Officially
+                                described as "TLS WWW server authentication", though
+                                regularly used for non-WWW TLS.
+                              x-kubernetes-immutable: true
+                            timeStamping:
+                              type: boolean
+                              x-dcl-go-name: TimeStamping
+                              description: Corresponds to OID 1.3.6.1.5.5.7.3.8. Officially
+                                described as "Binding the hash of an object to a time".
+                              x-kubernetes-immutable: true
+                        unknownExtendedKeyUsages:
+                          type: array
+                          x-dcl-go-name: UnknownExtendedKeyUsages
+                          description: Used to describe extended key usages that are
+                            not listed in the message.
+                          x-kubernetes-immutable: true
+                          x-dcl-list-type: list
+                          items:
+                            type: object
+                            x-dcl-go-type: CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesKeyUsageUnknownExtendedKeyUsages
+                            required:
+                            - objectIdPath
+                            properties:
+                              objectIdPath:
+                                type: array
+                                x-dcl-go-name: ObjectIdPath
+                                description: Required. The parts of an OID path. The
+                                  most significant parts of the path come first.
+                                x-kubernetes-immutable: true
+                                x-dcl-list-type: list
+                                items:
+                                  type: integer
+                                  format: int64
+                                  x-dcl-go-type: int64
+                    policyIds:
+                      type: array
+                      x-dcl-go-name: PolicyIds
+                      description: Optional. Describes the X.509 certificate policy
+                        object identifiers, per https://tools.ietf.org/html/rfc5280#section-4.2.1.4.
+                      x-kubernetes-immutable: true
+                      x-dcl-list-type: list
+                      items:
+                        type: object
+                        x-dcl-go-type: CertificateAuthorityCertificatePolicyOverwriteConfigValuesReusableConfigValuesPolicyIds
+                        required:
+                        - objectIdPath
+                        properties:
+                          objectIdPath:
+                            type: array
+                            x-dcl-go-name: ObjectIdPath
+                            description: Required. The parts of an OID path. The most
+                              significant parts of the path come first.
+                            x-kubernetes-immutable: true
+                            x-dcl-list-type: list
+                            items:
+                              type: integer
+                              format: int64
+                              x-dcl-go-type: int64
+        config:
+          type: object
+          x-dcl-go-name: Config
+          x-dcl-go-type: CertificateAuthorityConfig
+          description: Required. Immutable. The config used to create a self-signed
+            X.509 certificate or CSR.
+          x-kubernetes-immutable: true
+          required:
+          - subjectConfig
+          - reusableConfig
+          properties:
+            publicKey:
+              type: object
+              x-dcl-go-name: PublicKey
+              x-dcl-go-type: CertificateAuthorityConfigPublicKey
+              description: Optional. The public key that corresponds to this config.
+                This is, for example, used when issuing Certificates, but not when
+                creating a self-signed CertificateAuthority or CertificateAuthority
+                CSR.
+              x-kubernetes-immutable: true
+              required:
+              - key
+              properties:
+                key:
+                  type: string
+                  x-dcl-go-name: Key
+                  description: Required. A public key. When this is specified in a
+                    request, the padding and encoding can be any of the options described
+                    by the respective 'KeyType' value. When this is generated by the
+                    service, it will always be an RFC 5280 SubjectPublicKeyInfo structure
+                    containing an algorithm identifier and a key. A base64-encoded
+                    string.
+                  x-kubernetes-immutable: true
+                type:
+                  type: string
+                  x-dcl-go-name: Type
+                  x-dcl-go-type: CertificateAuthorityConfigPublicKeyTypeEnum
+                  description: 'Optional. The type of public key. If specified, it
+                    must match the public key used for the `key` field. Possible values:
+                    KEY_TYPE_UNSPECIFIED, PEM_RSA_KEY, PEM_EC_KEY'
+                  x-kubernetes-immutable: true
+                  enum:
+                  - KEY_TYPE_UNSPECIFIED
+                  - PEM_RSA_KEY
+                  - PEM_EC_KEY
+            reusableConfig:
+              type: object
+              x-dcl-go-name: ReusableConfig
+              x-dcl-go-type: CertificateAuthorityConfigReusableConfig
+              description: Required. Describes how some of the technical fields in
+                a certificate should be populated.
+              x-kubernetes-immutable: true
+              properties:
+                reusableConfig:
+                  type: string
+                  x-dcl-go-name: ReusableConfig
+                  description: Required. A resource path to a ReusableConfig in the
+                    format `projects/*/locations/*/reusableConfigs/*`.
+                  x-kubernetes-immutable: true
+                reusableConfigValues:
+                  type: object
+                  x-dcl-go-name: ReusableConfigValues
+                  x-dcl-go-type: CertificateAuthorityConfigReusableConfigReusableConfigValues
+                  description: Required. A user-specified inline ReusableConfigValues.
+                  x-kubernetes-immutable: true
+                  properties:
+                    additionalExtensions:
+                      type: array
+                      x-dcl-go-name: AdditionalExtensions
+                      description: Optional. Describes custom X.509 extensions.
+                      x-kubernetes-immutable: true
+                      x-dcl-list-type: list
+                      items:
+                        type: object
+                        x-dcl-go-type: CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensions
+                        required:
+                        - objectId
+                        - critical
+                        - value
+                        properties:
+                          critical:
+                            type: boolean
+                            x-dcl-go-name: Critical
+                            description: Required. Indicates whether or not this extension
+                              is critical (i.e., if the client does not know how to
+                              handle this extension, the client should consider this
+                              to be an error).
+                            x-kubernetes-immutable: true
+                          objectId:
+                            type: object
+                            x-dcl-go-name: ObjectId
+                            x-dcl-go-type: CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalExtensionsObjectId
+                            description: Required. The OID for this X.509 extension.
+                            x-kubernetes-immutable: true
+                            required:
+                            - objectIdPath
+                            properties:
+                              objectIdPath:
+                                type: array
+                                x-dcl-go-name: ObjectIdPath
+                                description: Required. The parts of an OID path. The
+                                  most significant parts of the path come first.
+                                x-kubernetes-immutable: true
+                                x-dcl-list-type: list
+                                items:
+                                  type: integer
+                                  format: int64
+                                  x-dcl-go-type: int64
+                          value:
+                            type: string
+                            x-dcl-go-name: Value
+                            description: Required. The value of this X.509 extension.
+                            x-kubernetes-immutable: true
+                    aiaOcspServers:
+                      type: array
+                      x-dcl-go-name: AiaOcspServers
+                      description: Optional. Describes Online Certificate Status Protocol
+                        (OCSP) endpoint addresses that appear in the "Authority Information
+                        Access" extension in the certificate.
+                      x-kubernetes-immutable: true
+                      x-dcl-list-type: list
+                      items:
+                        type: string
+                        x-dcl-go-type: string
+                    caOptions:
+                      type: object
+                      x-dcl-go-name: CaOptions
+                      x-dcl-go-type: CertificateAuthorityConfigReusableConfigReusableConfigValuesCaOptions
+                      description: Optional. Describes options in this that are relevant
+                        in a CA certificate.
+                      x-kubernetes-immutable: true
+                      properties:
+                        isCa:
+                          type: boolean
+                          x-dcl-go-name: IsCa
+                          description: Optional. Refers to the "CA" X.509 extension,
+                            which is a boolean value. When this value is missing,
+                            the extension will be omitted from the CA certificate.
+                          x-kubernetes-immutable: true
+                        maxIssuerPathLength:
+                          type: integer
+                          format: int64
+                          x-dcl-go-name: MaxIssuerPathLength
+                          description: Optional. Refers to the path length restriction
+                            X.509 extension. For a CA certificate, this value describes
+                            the depth of subordinate CA certificates that are allowed.
+                            If this value is less than 0, the request will fail. If
+                            this value is missing, the max path length will be omitted
+                            from the CA certificate.
+                          x-kubernetes-immutable: true
+                    keyUsage:
+                      type: object
+                      x-dcl-go-name: KeyUsage
+                      x-dcl-go-type: CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsage
+                      description: Optional. Indicates the intended use for keys that
+                        correspond to a certificate.
+                      x-kubernetes-immutable: true
+                      properties:
+                        baseKeyUsage:
+                          type: object
+                          x-dcl-go-name: BaseKeyUsage
+                          x-dcl-go-type: CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageBaseKeyUsage
+                          description: Describes high-level ways in which a key may
+                            be used.
+                          x-kubernetes-immutable: true
+                          properties:
+                            certSign:
+                              type: boolean
+                              x-dcl-go-name: CertSign
+                              description: The key may be used to sign certificates.
+                              x-kubernetes-immutable: true
+                            contentCommitment:
+                              type: boolean
+                              x-dcl-go-name: ContentCommitment
+                              description: The key may be used for cryptographic commitments.
+                                Note that this may also be referred to as "non-repudiation".
+                              x-kubernetes-immutable: true
+                            crlSign:
+                              type: boolean
+                              x-dcl-go-name: CrlSign
+                              description: The key may be used sign certificate revocation
+                                lists.
+                              x-kubernetes-immutable: true
+                            dataEncipherment:
+                              type: boolean
+                              x-dcl-go-name: DataEncipherment
+                              description: The key may be used to encipher data.
+                              x-kubernetes-immutable: true
+                            decipherOnly:
+                              type: boolean
+                              x-dcl-go-name: DecipherOnly
+                              description: The key may be used to decipher only.
+                              x-kubernetes-immutable: true
+                            digitalSignature:
+                              type: boolean
+                              x-dcl-go-name: DigitalSignature
+                              description: The key may be used for digital signatures.
+                              x-kubernetes-immutable: true
+                            encipherOnly:
+                              type: boolean
+                              x-dcl-go-name: EncipherOnly
+                              description: The key may be used to encipher only.
+                              x-kubernetes-immutable: true
+                            keyAgreement:
+                              type: boolean
+                              x-dcl-go-name: KeyAgreement
+                              description: The key may be used in a key agreement
+                                protocol.
+                              x-kubernetes-immutable: true
+                            keyEncipherment:
+                              type: boolean
+                              x-dcl-go-name: KeyEncipherment
+                              description: The key may be used to encipher other keys.
+                              x-kubernetes-immutable: true
+                        extendedKeyUsage:
+                          type: object
+                          x-dcl-go-name: ExtendedKeyUsage
+                          x-dcl-go-type: CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageExtendedKeyUsage
+                          description: Detailed scenarios in which a key may be used.
+                          x-kubernetes-immutable: true
+                          properties:
+                            clientAuth:
+                              type: boolean
+                              x-dcl-go-name: ClientAuth
+                              description: Corresponds to OID 1.3.6.1.5.5.7.3.2. Officially
+                                described as "TLS WWW client authentication", though
+                                regularly used for non-WWW TLS.
+                              x-kubernetes-immutable: true
+                            codeSigning:
+                              type: boolean
+                              x-dcl-go-name: CodeSigning
+                              description: Corresponds to OID 1.3.6.1.5.5.7.3.3. Officially
+                                described as "Signing of downloadable executable code
+                                client authentication".
+                              x-kubernetes-immutable: true
+                            emailProtection:
+                              type: boolean
+                              x-dcl-go-name: EmailProtection
+                              description: Corresponds to OID 1.3.6.1.5.5.7.3.4. Officially
+                                described as "Email protection".
+                              x-kubernetes-immutable: true
+                            ocspSigning:
+                              type: boolean
+                              x-dcl-go-name: OcspSigning
+                              description: Corresponds to OID 1.3.6.1.5.5.7.3.9. Officially
+                                described as "Signing OCSP responses".
+                              x-kubernetes-immutable: true
+                            serverAuth:
+                              type: boolean
+                              x-dcl-go-name: ServerAuth
+                              description: Corresponds to OID 1.3.6.1.5.5.7.3.1. Officially
+                                described as "TLS WWW server authentication", though
+                                regularly used for non-WWW TLS.
+                              x-kubernetes-immutable: true
+                            timeStamping:
+                              type: boolean
+                              x-dcl-go-name: TimeStamping
+                              description: Corresponds to OID 1.3.6.1.5.5.7.3.8. Officially
+                                described as "Binding the hash of an object to a time".
+                              x-kubernetes-immutable: true
+                        unknownExtendedKeyUsages:
+                          type: array
+                          x-dcl-go-name: UnknownExtendedKeyUsages
+                          description: Used to describe extended key usages that are
+                            not listed in the message.
+                          x-kubernetes-immutable: true
+                          x-dcl-list-type: list
+                          items:
+                            type: object
+                            x-dcl-go-type: CertificateAuthorityConfigReusableConfigReusableConfigValuesKeyUsageUnknownExtendedKeyUsages
+                            required:
+                            - objectIdPath
+                            properties:
+                              objectIdPath:
+                                type: array
+                                x-dcl-go-name: ObjectIdPath
+                                description: Required. The parts of an OID path. The
+                                  most significant parts of the path come first.
+                                x-kubernetes-immutable: true
+                                x-dcl-list-type: list
+                                items:
+                                  type: integer
+                                  format: int64
+                                  x-dcl-go-type: int64
+                    policyIds:
+                      type: array
+                      x-dcl-go-name: PolicyIds
+                      description: Optional. Describes the X.509 certificate policy
+                        object identifiers, per https://tools.ietf.org/html/rfc5280#section-4.2.1.4.
+                      x-kubernetes-immutable: true
+                      x-dcl-list-type: list
+                      items:
+                        type: object
+                        x-dcl-go-type: CertificateAuthorityConfigReusableConfigReusableConfigValuesPolicyIds
+                        required:
+                        - objectIdPath
+                        properties:
+                          objectIdPath:
+                            type: array
+                            x-dcl-go-name: ObjectIdPath
+                            description: Required. The parts of an OID path. The most
+                              significant parts of the path come first.
+                            x-kubernetes-immutable: true
+                            x-dcl-list-type: list
+                            items:
+                              type: integer
+                              format: int64
+                              x-dcl-go-type: int64
+            subjectConfig:
+              type: object
+              x-dcl-go-name: SubjectConfig
+              x-dcl-go-type: CertificateAuthorityConfigSubjectConfig
+              description: Required. Specifies some of the values in a certificate
+                that are related to the subject.
+              x-kubernetes-immutable: true
+              required:
+              - subject
+              properties:
+                commonName:
+                  type: string
+                  x-dcl-go-name: CommonName
+                  description: Optional. The "common name" of the distinguished name.
+                  x-kubernetes-immutable: true
+                subject:
+                  type: object
+                  x-dcl-go-name: Subject
+                  x-dcl-go-type: CertificateAuthorityConfigSubjectConfigSubject
+                  description: Required. Contains distinguished name fields such as
+                    the location and organization.
+                  x-kubernetes-immutable: true
+                  properties:
+                    countryCode:
+                      type: string
+                      x-dcl-go-name: CountryCode
+                      description: The country code of the subject.
+                      x-kubernetes-immutable: true
+                    locality:
+                      type: string
+                      x-dcl-go-name: Locality
+                      description: The locality or city of the subject.
+                      x-kubernetes-immutable: true
+                    organization:
+                      type: string
+                      x-dcl-go-name: Organization
+                      description: The organization of the subject.
+                      x-kubernetes-immutable: true
+                      x-dcl-references:
+                      - resource: Cloudresourcemanager/Organization
+                        field: name
+                    organizationalUnit:
+                      type: string
+                      x-dcl-go-name: OrganizationalUnit
+                      description: The organizational unit of the subject.
+                      x-kubernetes-immutable: true
+                    postalCode:
+                      type: string
+                      x-dcl-go-name: PostalCode
+                      description: The postal code of the subject.
+                      x-kubernetes-immutable: true
+                    province:
+                      type: string
+                      x-dcl-go-name: Province
+                      description: The province, territory, or regional state of the
+                        subject.
+                      x-kubernetes-immutable: true
+                    streetAddress:
+                      type: string
+                      x-dcl-go-name: StreetAddress
+                      description: The street address of the subject.
+                      x-kubernetes-immutable: true
+                subjectAltName:
+                  type: object
+                  x-dcl-go-name: SubjectAltName
+                  x-dcl-go-type: CertificateAuthorityConfigSubjectConfigSubjectAltName
+                  description: Optional. The subject alternative name fields.
+                  x-kubernetes-immutable: true
+                  properties:
+                    customSans:
+                      type: array
+                      x-dcl-go-name: CustomSans
+                      description: Contains additional subject alternative name values.
+                      x-kubernetes-immutable: true
+                      x-dcl-list-type: list
+                      items:
+                        type: object
+                        x-dcl-go-type: CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans
+                        required:
+                        - objectId
+                        - critical
+                        - value
+                        properties:
+                          critical:
+                            type: boolean
+                            x-dcl-go-name: Critical
+                            description: Required. Indicates whether or not this extension
+                              is critical (i.e., if the client does not know how to
+                              handle this extension, the client should consider this
+                              to be an error).
+                            x-kubernetes-immutable: true
+                          objectId:
+                            type: object
+                            x-dcl-go-name: ObjectId
+                            x-dcl-go-type: CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId
+                            description: Required. The OID for this X.509 extension.
+                            x-kubernetes-immutable: true
+                            required:
+                            - objectIdPath
+                            properties:
+                              objectIdPath:
+                                type: array
+                                x-dcl-go-name: ObjectIdPath
+                                description: Required. The parts of an OID path. The
+                                  most significant parts of the path come first.
+                                x-kubernetes-immutable: true
+                                x-dcl-list-type: list
+                                items:
+                                  type: integer
+                                  format: int64
+                                  x-dcl-go-type: int64
+                          value:
+                            type: string
+                            x-dcl-go-name: Value
+                            description: Required. The value of this X.509 extension.
+                            x-kubernetes-immutable: true
+                    dnsNames:
+                      type: array
+                      x-dcl-go-name: DnsNames
+                      description: Contains only valid, fully-qualified host names.
+                      x-kubernetes-immutable: true
+                      x-dcl-list-type: list
+                      items:
+                        type: string
+                        x-dcl-go-type: string
+                    emailAddresses:
+                      type: array
+                      x-dcl-go-name: EmailAddresses
+                      description: Contains only valid RFC 2822 E-mail addresses.
+                      x-kubernetes-immutable: true
+                      x-dcl-list-type: list
+                      items:
+                        type: string
+                        x-dcl-go-type: string
+                    ipAddresses:
+                      type: array
+                      x-dcl-go-name: IPAddresses
+                      description: Contains only valid 32-bit IPv4 addresses or RFC
+                        4291 IPv6 addresses.
+                      x-kubernetes-immutable: true
+                      x-dcl-list-type: list
+                      items:
+                        type: string
+                        x-dcl-go-type: string
+                    uris:
+                      type: array
+                      x-dcl-go-name: Uris
+                      description: Contains only valid RFC 3986 URIs.
+                      x-kubernetes-immutable: true
+                      x-dcl-list-type: list
+                      items:
+                        type: string
+                        x-dcl-go-type: string
+        createTime:
+          type: string
+          format: date-time
+          x-dcl-go-name: CreateTime
+          readOnly: true
+          description: 'Output only. The time at which this CertificateAuthority was
+            created. A timestamp in RFC3339 UTC "Zulu" format, with nanosecond resolution
+            and up to nine fractional digits. Examples: "2014-10-02T15:01:23Z" and
+            "2014-10-02T15:01:23.045123456Z".'
+          x-kubernetes-immutable: true
+        deleteTime:
+          type: string
+          format: date-time
+          x-dcl-go-name: DeleteTime
+          readOnly: true
+          description: 'Output only. The time at which this CertificateAuthority will
+            be deleted. A timestamp in RFC3339 UTC "Zulu" format, with nanosecond
+            resolution and up to nine fractional digits. Examples: "2014-10-02T15:01:23Z"
+            and "2014-10-02T15:01:23.045123456Z".'
+          x-kubernetes-immutable: true
+        gcsBucket:
+          type: string
+          x-dcl-go-name: GcsBucket
+          description: Immutable. The name of a Cloud Storage bucket where this will
+            publish content, such as the CA certificate and CRLs. This must be a bucket
+            name, without any prefixes (such as `gs://`) or suffixes (such as `.googleapis.com`).
+            For example, to use a bucket named `my-bucket`, you would simply specify
+            `my-bucket`. If not specified, a managed bucket will be created.
+          x-kubernetes-immutable: true
+        issuingOptions:
+          type: object
+          x-dcl-go-name: IssuingOptions
+          x-dcl-go-type: CertificateAuthorityIssuingOptions
+          description: Optional. The IssuingOptions to follow when issuing Certificates
+            from this CertificateAuthority.
+          x-kubernetes-immutable: true
+          required:
+          - includeCaCertUrl
+          - includeCrlAccessUrl
+          properties:
+            includeCaCertUrl:
+              type: boolean
+              x-dcl-go-name: IncludeCaCertUrl
+              description: Required. When true, includes a URL to the issuing CA certificate
+                in the "authority information access" X.509 extension.
+              x-kubernetes-immutable: true
+            includeCrlAccessUrl:
+              type: boolean
+              x-dcl-go-name: IncludeCrlAccessUrl
+              description: Required. When true, includes a URL to the CRL corresponding
+                to certificates issued from a CertificateAuthority. CRLs will expire
+                7 days from their creation. However, we will rebuild daily. CRLs are
+                also rebuilt shortly after a certificate is revoked.
+              x-kubernetes-immutable: true
+        keySpec:
+          type: object
+          x-dcl-go-name: KeySpec
+          x-dcl-go-type: CertificateAuthorityKeySpec
+          description: Required. Immutable. Used when issuing certificates for this
+            is a self-signed CertificateAuthority, this key is also used to sign the
+            self-signed CA certificate. Otherwise, it is used to sign a CSR.
+          x-kubernetes-immutable: true
+          properties:
+            algorithm:
+              type: string
+              x-dcl-go-name: Algorithm
+              x-dcl-go-type: CertificateAuthorityKeySpecAlgorithmEnum
+              description: 'The algorithm to use for creating a managed Cloud KMS
+                key for a for a simplified experience. All managed keys will be have
+                their as `HSM`. Possible values: SIGN_HASH_ALGORITHM_UNSPECIFIED,
+                RSA_PSS_2048_SHA256, RSA_PSS_3072_SHA256, RSA_PSS_4096_SHA256, RSA_PKCS1_2048_SHA256,
+                RSA_PKCS1_3072_SHA256, RSA_PKCS1_4096_SHA256, EC_P256_SHA256, EC_P384_SHA384'
+              x-kubernetes-immutable: true
+              enum:
+              - SIGN_HASH_ALGORITHM_UNSPECIFIED
+              - RSA_PSS_2048_SHA256
+              - RSA_PSS_3072_SHA256
+              - RSA_PSS_4096_SHA256
+              - RSA_PKCS1_2048_SHA256
+              - RSA_PKCS1_3072_SHA256
+              - RSA_PKCS1_4096_SHA256
+              - EC_P256_SHA256
+              - EC_P384_SHA384
+            cloudKmsKeyVersion:
+              type: string
+              x-dcl-go-name: CloudKmsKeyVersion
+              description: The resource name for an existing Cloud KMS CryptoKeyVersion
+                in the format `projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*`.
+                This option enables full flexibility in the key's capabilities and
+                properties.
+              x-kubernetes-immutable: true
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          x-dcl-go-name: Labels
+          description: Optional. Labels with user-defined metadata.
+          x-kubernetes-immutable: true
+        lifetime:
+          type: string
+          x-dcl-go-name: Lifetime
+          description: Required. The desired lifetime of the CA certificate. Used
+            to create the "not_before_time" and "not_after_time" fields inside an
+            X.509 certificate.
+          x-kubernetes-immutable: true
+        location:
+          type: string
+          x-dcl-go-name: Location
+          description: The location for the resource
+          x-kubernetes-immutable: true
+        name:
+          type: string
+          x-dcl-go-name: Name
+          description: The resource name for the certificate authority.
+          x-kubernetes-immutable: true
+        pemCaCertificates:
+          type: array
+          x-dcl-go-name: PemCaCertificates
+          readOnly: true
+          description: Output only. This CertificateAuthority's certificate chain,
+            including the current CertificateAuthority's certificate. Ordered such
+            that the root issuer is the final element (consistent with RFC 5246).
+            For a self-signed CA, this will only list the current CertificateAuthority's
+            certificate.
+          x-kubernetes-immutable: true
+          x-dcl-list-type: list
+          items:
+            type: string
+            x-dcl-go-type: string
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project for the resource
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        state:
+          type: string
+          x-dcl-go-name: State
+          x-dcl-go-type: CertificateAuthorityStateEnum
+          readOnly: true
+          description: 'Output only. The State for this CertificateAuthority. Possible
+            values: STATE_UNSPECIFIED, ENABLED, DISABLED, STAGED, AWAITING_USER_ACTIVATION,
+            DELETED'
+          x-kubernetes-immutable: true
+          enum:
+          - STATE_UNSPECIFIED
+          - ENABLED
+          - DISABLED
+          - STAGED
+          - AWAITING_USER_ACTIVATION
+          - DELETED
+        subordinateConfig:
+          type: object
+          x-dcl-go-name: SubordinateConfig
+          x-dcl-go-type: CertificateAuthoritySubordinateConfig
+          description: Optional. If this is a subordinate CertificateAuthority, this
+            field will be set with the subordinate configuration, which describes
+            its issuers. This may be updated, but this CertificateAuthority must continue
+            to validate.
+          x-kubernetes-immutable: true
+          required:
+          - certificateAuthority
+          - pemIssuerChain
+          properties:
+            certificateAuthority:
+              type: string
+              x-dcl-go-name: CertificateAuthority
+              description: Required. This can refer to a CertificateAuthority in the
+                same project that was used to create a subordinate CertificateAuthority.
+                This field is used for information and usability purposes only. The
+                resource name is in the format projects/*/locations/*/certificateAuthorities/*.
+              x-kubernetes-immutable: true
+              x-dcl-references:
+              - resource: Privateca/CertificateAuthority
+                field: selfLink
+            pemIssuerChain:
+              type: object
+              x-dcl-go-name: PemIssuerChain
+              x-dcl-go-type: CertificateAuthoritySubordinateConfigPemIssuerChain
+              description: Required. Contains the PEM certificate chain for the issuers
+                of this CertificateAuthority, but not pem certificate for this CA
+                itself.
+              x-kubernetes-immutable: true
+              required:
+              - pemCertificates
+              properties:
+                pemCertificates:
+                  type: array
+                  x-dcl-go-name: PemCertificates
+                  description: Required. Expected to be in leaf-to-root order according
+                    to RFC 5246.
+                  x-kubernetes-immutable: true
+                  x-dcl-list-type: list
+                  items:
+                    type: string
+                    x-dcl-go-type: string
+        tier:
+          type: string
+          x-dcl-go-name: Tier
+          x-dcl-go-type: CertificateAuthorityTierEnum
+          description: 'Required. Immutable. The Tier of this CertificateAuthority.
+            Possible values: TIER_UNSPECIFIED, ENTERPRISE, DEVOPS'
+          x-kubernetes-immutable: true
+          enum:
+          - TIER_UNSPECIFIED
+          - ENTERPRISE
+          - DEVOPS
+        type:
+          type: string
+          x-dcl-go-name: Type
+          x-dcl-go-type: CertificateAuthorityTypeEnum
+          description: 'Required. Immutable. The Type of this CertificateAuthority.
+            Possible values: TYPE_UNSPECIFIED, SELF_SIGNED, SUBORDINATE'
+          x-kubernetes-immutable: true
+          enum:
+          - TYPE_UNSPECIFIED
+          - SELF_SIGNED
+          - SUBORDINATE
+        updateTime:
+          type: string
+          format: date-time
+          x-dcl-go-name: UpdateTime
+          readOnly: true
+          description: 'Output only. The time at which this CertificateAuthority was
+            updated. A timestamp in RFC3339 UTC "Zulu" format, with nanosecond resolution
+            and up to nine fractional digits. Examples: "2014-10-02T15:01:23Z" and
+            "2014-10-02T15:01:23.045123456Z".'
+          x-kubernetes-immutable: true

@@ -941,7 +941,7 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LogConfig, actual.LogConfig, dcl.Info{ObjectFunction: compareFirewallLogConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateFirewallUpdateOperation")}, fn.AddNest("LogConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LogConfig, actual.LogConfig, dcl.Info{ObjectFunction: compareFirewallLogConfigNewStyle, EmptyObject: EmptyFirewallLogConfig, OperationSelector: dcl.TriggersOperation("updateFirewallUpdateOperation")}, fn.AddNest("LogConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -983,14 +983,14 @@ func diffFirewall(c *Client, desired, actual *Firewall, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Allowed, actual.Allowed, dcl.Info{Type: "Set", ObjectFunction: compareFirewallAllowedNewStyle, OperationSelector: dcl.TriggersOperation("updateFirewallUpdateOperation")}, fn.AddNest("Allowed")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Allowed, actual.Allowed, dcl.Info{Type: "Set", ObjectFunction: compareFirewallAllowedNewStyle, EmptyObject: EmptyFirewallAllowed, OperationSelector: dcl.TriggersOperation("updateFirewallUpdateOperation")}, fn.AddNest("Allowed")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Denied, actual.Denied, dcl.Info{Type: "Set", ObjectFunction: compareFirewallDeniedNewStyle, OperationSelector: dcl.TriggersOperation("updateFirewallUpdateOperation")}, fn.AddNest("Denied")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Denied, actual.Denied, dcl.Info{Type: "Set", ObjectFunction: compareFirewallDeniedNewStyle, EmptyObject: EmptyFirewallDenied, OperationSelector: dcl.TriggersOperation("updateFirewallUpdateOperation")}, fn.AddNest("Denied")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -3205,21 +3205,21 @@ func diffWorkflowTemplate(c *Client, desired, actual *WorkflowTemplate, opts ...
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Placement, actual.Placement, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("Placement")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Placement, actual.Placement, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementNewStyle, EmptyObject: EmptyWorkflowTemplatePlacement, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("Placement")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Jobs, actual.Jobs, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("Jobs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Jobs, actual.Jobs, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsNewStyle, EmptyObject: EmptyWorkflowTemplateJobs, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("Jobs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Parameters, actual.Parameters, dcl.Info{ObjectFunction: compareWorkflowTemplateParametersNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("Parameters")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Parameters, actual.Parameters, dcl.Info{ObjectFunction: compareWorkflowTemplateParametersNewStyle, EmptyObject: EmptyWorkflowTemplateParameters, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("Parameters")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3269,14 +3269,14 @@ func compareWorkflowTemplatePlacementNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ManagedCluster, actual.ManagedCluster, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("ManagedCluster")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ManagedCluster, actual.ManagedCluster, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedCluster, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("ManagedCluster")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterSelector, actual.ClusterSelector, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementClusterSelectorNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("ClusterSelector")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterSelector, actual.ClusterSelector, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementClusterSelectorNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementClusterSelector, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("ClusterSelector")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3312,7 +3312,7 @@ func compareWorkflowTemplatePlacementManagedClusterNewStyle(d, a interface{}, fn
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Config, actual.Config, dcl.Info{ObjectFunction: compareClusterClusterConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("Config")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Config, actual.Config, dcl.Info{ObjectFunction: compareClusterClusterConfigNewStyle, EmptyObject: EmptyClusterClusterConfig, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("Config")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3391,56 +3391,56 @@ func compareWorkflowTemplateJobsNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HadoopJob, actual.HadoopJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsHadoopJobNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("HadoopJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HadoopJob, actual.HadoopJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsHadoopJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsHadoopJob, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("HadoopJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SparkJob, actual.SparkJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkJobNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("SparkJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SparkJob, actual.SparkJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkJob, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("SparkJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PysparkJob, actual.PysparkJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPysparkJobNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("PysparkJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PysparkJob, actual.PysparkJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPysparkJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPysparkJob, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("PysparkJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HiveJob, actual.HiveJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsHiveJobNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("HiveJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HiveJob, actual.HiveJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsHiveJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsHiveJob, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("HiveJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PigJob, actual.PigJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPigJobNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("PigJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PigJob, actual.PigJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPigJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPigJob, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("PigJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SparkRJob, actual.SparkRJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkRJobNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("SparkRJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SparkRJob, actual.SparkRJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkRJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkRJob, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("SparkRJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SparkSqlJob, actual.SparkSqlJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkSqlJobNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("SparkSqlJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SparkSqlJob, actual.SparkSqlJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkSqlJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkSqlJob, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("SparkSqlJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PrestoJob, actual.PrestoJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPrestoJobNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("PrestoJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PrestoJob, actual.PrestoJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPrestoJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPrestoJob, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("PrestoJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3454,7 +3454,7 @@ func compareWorkflowTemplateJobsNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scheduling, actual.Scheduling, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSchedulingNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("Scheduling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scheduling, actual.Scheduling, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSchedulingNewStyle, EmptyObject: EmptyWorkflowTemplateJobsScheduling, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("Scheduling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3539,7 +3539,7 @@ func compareWorkflowTemplateJobsHadoopJobNewStyle(d, a interface{}, fn dcl.Field
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsHadoopJobLoggingConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsHadoopJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsHadoopJobLoggingConfig, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3646,7 +3646,7 @@ func compareWorkflowTemplateJobsSparkJobNewStyle(d, a interface{}, fn dcl.FieldN
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkJobLoggingConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkJobLoggingConfig, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3753,7 +3753,7 @@ func compareWorkflowTemplateJobsPysparkJobNewStyle(d, a interface{}, fn dcl.Fiel
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPysparkJobLoggingConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPysparkJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPysparkJobLoggingConfig, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3818,7 +3818,7 @@ func compareWorkflowTemplateJobsHiveJobNewStyle(d, a interface{}, fn dcl.FieldNa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsHiveJobQueryListNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsHiveJobQueryListNewStyle, EmptyObject: EmptyWorkflowTemplateJobsHiveJobQueryList, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3911,7 +3911,7 @@ func compareWorkflowTemplateJobsPigJobNewStyle(d, a interface{}, fn dcl.FieldNam
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPigJobQueryListNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPigJobQueryListNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPigJobQueryList, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3946,7 +3946,7 @@ func compareWorkflowTemplateJobsPigJobNewStyle(d, a interface{}, fn dcl.FieldNam
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPigJobLoggingConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPigJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPigJobLoggingConfig, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4068,7 +4068,7 @@ func compareWorkflowTemplateJobsSparkRJobNewStyle(d, a interface{}, fn dcl.Field
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkRJobLoggingConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkRJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkRJobLoggingConfig, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4133,7 +4133,7 @@ func compareWorkflowTemplateJobsSparkSqlJobNewStyle(d, a interface{}, fn dcl.Fie
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkSqlJobQueryListNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkSqlJobQueryListNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkSqlJobQueryList, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4161,7 +4161,7 @@ func compareWorkflowTemplateJobsSparkSqlJobNewStyle(d, a interface{}, fn dcl.Fie
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkSqlJobLoggingConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkSqlJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkSqlJobLoggingConfig, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4255,7 +4255,7 @@ func compareWorkflowTemplateJobsPrestoJobNewStyle(d, a interface{}, fn dcl.Field
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPrestoJobQueryListNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPrestoJobQueryListNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPrestoJobQueryList, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4290,7 +4290,7 @@ func compareWorkflowTemplateJobsPrestoJobNewStyle(d, a interface{}, fn dcl.Field
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPrestoJobLoggingConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPrestoJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPrestoJobLoggingConfig, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4434,7 +4434,7 @@ func compareWorkflowTemplateParametersNewStyle(d, a interface{}, fn dcl.FieldNam
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Validation, actual.Validation, dcl.Info{ObjectFunction: compareWorkflowTemplateParametersValidationNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("Validation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Validation, actual.Validation, dcl.Info{ObjectFunction: compareWorkflowTemplateParametersValidationNewStyle, EmptyObject: EmptyWorkflowTemplateParametersValidation, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("Validation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4463,14 +4463,14 @@ func compareWorkflowTemplateParametersValidationNewStyle(d, a interface{}, fn dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Regex, actual.Regex, dcl.Info{ObjectFunction: compareWorkflowTemplateParametersValidationRegexNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("Regex")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Regex, actual.Regex, dcl.Info{ObjectFunction: compareWorkflowTemplateParametersValidationRegexNewStyle, EmptyObject: EmptyWorkflowTemplateParametersValidationRegex, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("Regex")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Values, actual.Values, dcl.Info{ObjectFunction: compareWorkflowTemplateParametersValidationValuesNewStyle, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("Values")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Values, actual.Values, dcl.Info{ObjectFunction: compareWorkflowTemplateParametersValidationValuesNewStyle, EmptyObject: EmptyWorkflowTemplateParametersValidationValues, OperationSelector: dcl.TriggersOperation("updateWorkflowTemplateUpdateWorkflowTemplateOperation")}, fn.AddNest("Values")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

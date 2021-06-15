@@ -584,7 +584,7 @@ func diffSubscription(c *Client, desired, actual *Subscription, opts ...dcl.Appl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DeliveryConfig, actual.DeliveryConfig, dcl.Info{ObjectFunction: compareSubscriptionDeliveryConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateSubscriptionUpdateSubscriptionOperation")}, fn.AddNest("DeliveryConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeliveryConfig, actual.DeliveryConfig, dcl.Info{ObjectFunction: compareSubscriptionDeliveryConfigNewStyle, EmptyObject: EmptySubscriptionDeliveryConfig, OperationSelector: dcl.TriggersOperation("updateSubscriptionUpdateSubscriptionOperation")}, fn.AddNest("DeliveryConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

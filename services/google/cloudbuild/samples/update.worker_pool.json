@@ -2,10 +2,11 @@
  "name": "{{ref:basic.worker_pool.json:name}}",
  "location": "{{region}}",
  "project": "{{project}}",
- "networkConfig": {
- },
+  "networkConfig": {
+    "peeredNetwork": "projects/{{project}}/global/networks/{{ref:other.compute.network.json:name}}"
+  },
  "workerConfig": {
-   "machineType": "n1-standard-1",
+   "machineType": "e2-standard-4",
    "diskSizeGb": 120,
    "noExternalIP": false
  }

@@ -102,6 +102,10 @@ func (r *Connection) SetPolicyURL(userBasePath string) string {
 	return dcl.URL("projects/{{project}}/locations/{{location}}/connections/{{name}}:setIamPolicy", "https://bigqueryconnection.googleapis.com/v1/", userBasePath, fields)
 }
 
+func (r *Connection) SetPolicyVerb() string {
+	return "POST"
+}
+
 func (r *Connection) getPolicyURL(userBasePath string) string {
 	n := r.urlNormalized()
 	fields := map[string]interface{}{
@@ -734,7 +738,7 @@ func diffConnection(c *Client, desired, actual *Connection, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CloudSql, actual.CloudSql, dcl.Info{ObjectFunction: compareConnectionCloudSqlNewStyle, OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("CloudSql")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CloudSql, actual.CloudSql, dcl.Info{ObjectFunction: compareConnectionCloudSqlNewStyle, EmptyObject: EmptyConnectionCloudSql, OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("CloudSql")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -819,7 +823,7 @@ func compareConnectionCloudSqlNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Credential, actual.Credential, dcl.Info{Ignore: true, ObjectFunction: compareConnectionCloudSqlCredentialNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Credential")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Credential, actual.Credential, dcl.Info{Ignore: true, ObjectFunction: compareConnectionCloudSqlCredentialNewStyle, EmptyObject: EmptyConnectionCloudSqlCredential, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Credential")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

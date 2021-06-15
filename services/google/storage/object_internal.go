@@ -890,7 +890,7 @@ func diffObject(c *Client, desired, actual *Object, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Owner, actual.Owner, dcl.Info{OutputOnly: true, ObjectFunction: compareObjectOwnerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Owner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Owner, actual.Owner, dcl.Info{OutputOnly: true, ObjectFunction: compareObjectOwnerNewStyle, EmptyObject: EmptyObjectOwner, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Owner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -918,7 +918,7 @@ func diffObject(c *Client, desired, actual *Object, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CustomerEncryption, actual.CustomerEncryption, dcl.Info{ObjectFunction: compareObjectCustomerEncryptionNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CustomerEncryption")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CustomerEncryption, actual.CustomerEncryption, dcl.Info{ObjectFunction: compareObjectCustomerEncryptionNewStyle, EmptyObject: EmptyObjectCustomerEncryption, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CustomerEncryption")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

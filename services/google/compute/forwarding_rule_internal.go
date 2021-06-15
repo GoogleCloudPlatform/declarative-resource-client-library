@@ -857,7 +857,7 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MetadataFilter, actual.MetadataFilter, dcl.Info{ObjectFunction: compareForwardingRuleMetadataFilterNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetadataFilters")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetadataFilter, actual.MetadataFilter, dcl.Info{ObjectFunction: compareForwardingRuleMetadataFilterNewStyle, EmptyObject: EmptyForwardingRuleMetadataFilter, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetadataFilters")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -984,7 +984,7 @@ func compareForwardingRuleMetadataFilterNewStyle(d, a interface{}, fn dcl.FieldN
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FilterLabel, actual.FilterLabel, dcl.Info{ObjectFunction: compareForwardingRuleMetadataFilterFilterLabelNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FilterLabels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FilterLabel, actual.FilterLabel, dcl.Info{ObjectFunction: compareForwardingRuleMetadataFilterFilterLabelNewStyle, EmptyObject: EmptyForwardingRuleMetadataFilterFilterLabel, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FilterLabels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

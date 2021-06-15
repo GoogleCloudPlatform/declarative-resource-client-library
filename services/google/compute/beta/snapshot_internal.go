@@ -755,14 +755,14 @@ func diffSnapshot(c *Client, desired, actual *Snapshot, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SnapshotEncryptionKey, actual.SnapshotEncryptionKey, dcl.Info{Ignore: true, ObjectFunction: compareSnapshotSnapshotEncryptionKeyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SnapshotEncryptionKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SnapshotEncryptionKey, actual.SnapshotEncryptionKey, dcl.Info{Ignore: true, ObjectFunction: compareSnapshotSnapshotEncryptionKeyNewStyle, EmptyObject: EmptySnapshotSnapshotEncryptionKey, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SnapshotEncryptionKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SourceDiskEncryptionKey, actual.SourceDiskEncryptionKey, dcl.Info{Ignore: true, ObjectFunction: compareSnapshotSourceDiskEncryptionKeyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceDiskEncryptionKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceDiskEncryptionKey, actual.SourceDiskEncryptionKey, dcl.Info{Ignore: true, ObjectFunction: compareSnapshotSourceDiskEncryptionKeyNewStyle, EmptyObject: EmptySnapshotSourceDiskEncryptionKey, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceDiskEncryptionKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

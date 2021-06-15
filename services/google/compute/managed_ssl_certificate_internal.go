@@ -556,7 +556,7 @@ func diffManagedSslCertificate(c *Client, desired, actual *ManagedSslCertificate
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Managed, actual.Managed, dcl.Info{ObjectFunction: compareManagedSslCertificateManagedNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Managed")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Managed, actual.Managed, dcl.Info{ObjectFunction: compareManagedSslCertificateManagedNewStyle, EmptyObject: EmptyManagedSslCertificateManaged, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Managed")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

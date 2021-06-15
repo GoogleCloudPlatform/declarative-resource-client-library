@@ -15,6 +15,9 @@ dependencies:
 - samples/basic.compute.network.json
 - samples/basic.compute.address.json
 - samples/basic.servicenetworking.connection.json
+- samples/other.compute.network.json
+- samples/other.compute.address.json
+- samples/other.servicenetworking.connection.json
 description: Example for workerpool instance
 name: worker_pool_instance
 resource: samples/basic.worker_pool.json

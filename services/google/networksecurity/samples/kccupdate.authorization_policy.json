@@ -14,12 +14,10 @@
       "destinations": [
         {
           "hosts": ["localhost"],
-          "paths": ["*"],
           "ports": [80]
         },
         {
           "hosts": ["localhost"],
-          "paths": ["*"],
           "ports": [8080]
         }
       ]

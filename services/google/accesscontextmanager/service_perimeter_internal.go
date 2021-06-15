@@ -948,7 +948,7 @@ func diffServicePerimeter(c *Client, desired, actual *ServicePerimeter, opts ...
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareServicePerimeterStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareServicePerimeterStatusNewStyle, EmptyObject: EmptyServicePerimeterStatus, OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -976,7 +976,7 @@ func diffServicePerimeter(c *Client, desired, actual *ServicePerimeter, opts ...
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareServicePerimeterSpecNewStyle, OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareServicePerimeterSpecNewStyle, EmptyObject: EmptyServicePerimeterSpec, OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1026,7 +1026,7 @@ func compareServicePerimeterStatusNewStyle(d, a interface{}, fn dcl.FieldName) (
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VPCAccessibleServices, actual.VPCAccessibleServices, dcl.Info{ObjectFunction: compareServicePerimeterStatusVPCAccessibleServicesNewStyle, OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("VpcAccessibleServices")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VPCAccessibleServices, actual.VPCAccessibleServices, dcl.Info{ObjectFunction: compareServicePerimeterStatusVPCAccessibleServicesNewStyle, EmptyObject: EmptyServicePerimeterStatusVPCAccessibleServices, OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("VpcAccessibleServices")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1112,7 +1112,7 @@ func compareServicePerimeterSpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VPCAccessibleServices, actual.VPCAccessibleServices, dcl.Info{ObjectFunction: compareServicePerimeterSpecVPCAccessibleServicesNewStyle, OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("VpcAccessibleServices")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VPCAccessibleServices, actual.VPCAccessibleServices, dcl.Info{ObjectFunction: compareServicePerimeterSpecVPCAccessibleServicesNewStyle, EmptyObject: EmptyServicePerimeterSpecVPCAccessibleServices, OperationSelector: dcl.TriggersOperation("updateServicePerimeterUpdateOperation")}, fn.AddNest("VpcAccessibleServices")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

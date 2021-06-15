@@ -125,6 +125,30 @@ func bucketDeleteURL(userBasePath string, r *Bucket) (string, error) {
 	return dcl.URL("b/{{name}}?userProject={{project}}", "https://www.googleapis.com/storage/v1/", userBasePath, params), nil
 }
 
+func (r *Bucket) SetPolicyURL(userBasePath string) string {
+	n := r.urlNormalized()
+	fields := map[string]interface{}{
+		"name": *n.Name,
+	}
+	return dcl.URL("b/{{name}}/iam", "https://www.googleapis.com/storage/v1/", userBasePath, fields)
+}
+
+func (r *Bucket) SetPolicyVerb() string {
+	return "PUT"
+}
+
+func (r *Bucket) getPolicyURL(userBasePath string) string {
+	n := r.urlNormalized()
+	fields := map[string]interface{}{
+		"name": *n.Name,
+	}
+	return dcl.URL("b/{{name}}/iam", "https://www.googleapis.com/storage/v1/", userBasePath, fields)
+}
+
+func (r *Bucket) IAMPolicyVersion() int {
+	return 3
+}
+
 // bucketApiOperation represents a mutable operation in the underlying REST
 // API such as Create, Update, or Delete.
 type bucketApiOperation interface {
@@ -1236,21 +1260,21 @@ func diffBucket(c *Client, desired, actual *Bucket, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Cors, actual.Cors, dcl.Info{ObjectFunction: compareBucketCorsNewStyle, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Cors")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Cors, actual.Cors, dcl.Info{ObjectFunction: compareBucketCorsNewStyle, EmptyObject: EmptyBucketCors, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Cors")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Lifecycle, actual.Lifecycle, dcl.Info{ObjectFunction: compareBucketLifecycleNewStyle, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Lifecycle")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Lifecycle, actual.Lifecycle, dcl.Info{ObjectFunction: compareBucketLifecycleNewStyle, EmptyObject: EmptyBucketLifecycle, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Lifecycle")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Logging, actual.Logging, dcl.Info{ObjectFunction: compareBucketLoggingNewStyle, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Logging")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Logging, actual.Logging, dcl.Info{ObjectFunction: compareBucketLoggingNewStyle, EmptyObject: EmptyBucketLogging, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Logging")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1264,14 +1288,14 @@ func diffBucket(c *Client, desired, actual *Bucket, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Versioning, actual.Versioning, dcl.Info{ObjectFunction: compareBucketVersioningNewStyle, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Versioning")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Versioning, actual.Versioning, dcl.Info{ObjectFunction: compareBucketVersioningNewStyle, EmptyObject: EmptyBucketVersioning, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Versioning")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Website, actual.Website, dcl.Info{ObjectFunction: compareBucketWebsiteNewStyle, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Website")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Website, actual.Website, dcl.Info{ObjectFunction: compareBucketWebsiteNewStyle, EmptyObject: EmptyBucketWebsite, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Website")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1350,7 +1374,7 @@ func compareBucketLifecycleNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Rule, actual.Rule, dcl.Info{ObjectFunction: compareBucketLifecycleRuleNewStyle, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Rule")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Rule, actual.Rule, dcl.Info{ObjectFunction: compareBucketLifecycleRuleNewStyle, EmptyObject: EmptyBucketLifecycleRule, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Rule")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1379,14 +1403,14 @@ func compareBucketLifecycleRuleNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{ObjectFunction: compareBucketLifecycleRuleActionNewStyle, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Action, actual.Action, dcl.Info{ObjectFunction: compareBucketLifecycleRuleActionNewStyle, EmptyObject: EmptyBucketLifecycleRuleAction, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Action")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Condition, actual.Condition, dcl.Info{ObjectFunction: compareBucketLifecycleRuleConditionNewStyle, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Condition")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Condition, actual.Condition, dcl.Info{ObjectFunction: compareBucketLifecycleRuleConditionNewStyle, EmptyObject: EmptyBucketLifecycleRuleCondition, OperationSelector: dcl.TriggersOperation("updateBucketUpdateOperation")}, fn.AddNest("Condition")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

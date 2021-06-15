@@ -664,7 +664,7 @@ func diffVpnGateway(c *Client, desired, actual *VpnGateway, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VpnInterface, actual.VpnInterface, dcl.Info{OutputOnly: true, ObjectFunction: compareVpnGatewayVpnInterfaceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VpnInterfaces")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VpnInterface, actual.VpnInterface, dcl.Info{OutputOnly: true, ObjectFunction: compareVpnGatewayVpnInterfaceNewStyle, EmptyObject: EmptyVpnGatewayVpnInterface, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VpnInterfaces")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

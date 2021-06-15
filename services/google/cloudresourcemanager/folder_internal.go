@@ -41,6 +41,10 @@ func (r *Folder) SetPolicyURL(userBasePath string) string {
 	return dcl.URL("v2/folders/{{name}}:setIamPolicy", "https://cloudresourcemanager.googleapis.com/", userBasePath, fields)
 }
 
+func (r *Folder) SetPolicyVerb() string {
+	return "POST"
+}
+
 func (r *Folder) getPolicyURL(userBasePath string) string {
 	n := r.urlNormalized()
 	fields := map[string]interface{}{

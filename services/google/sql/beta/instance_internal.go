@@ -4050,7 +4050,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxDiskSize, actual.MaxDiskSize, dcl.Info{ObjectFunction: compareInstanceMaxDiskSizeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxDiskSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxDiskSize, actual.MaxDiskSize, dcl.Info{ObjectFunction: compareInstanceMaxDiskSizeNewStyle, EmptyObject: EmptyInstanceMaxDiskSize, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxDiskSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4085,56 +4085,56 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CurrentDiskSize, actual.CurrentDiskSize, dcl.Info{ObjectFunction: compareInstanceCurrentDiskSizeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CurrentDiskSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CurrentDiskSize, actual.CurrentDiskSize, dcl.Info{ObjectFunction: compareInstanceCurrentDiskSizeNewStyle, EmptyObject: EmptyInstanceCurrentDiskSize, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CurrentDiskSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DiskEncryptionConfiguration, actual.DiskEncryptionConfiguration, dcl.Info{ObjectFunction: compareInstanceDiskEncryptionConfigurationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskEncryptionConfiguration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DiskEncryptionConfiguration, actual.DiskEncryptionConfiguration, dcl.Info{ObjectFunction: compareInstanceDiskEncryptionConfigurationNewStyle, EmptyObject: EmptyInstanceDiskEncryptionConfiguration, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskEncryptionConfiguration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FailoverReplica, actual.FailoverReplica, dcl.Info{ObjectFunction: compareInstanceFailoverReplicaNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FailoverReplica")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FailoverReplica, actual.FailoverReplica, dcl.Info{ObjectFunction: compareInstanceFailoverReplicaNewStyle, EmptyObject: EmptyInstanceFailoverReplica, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FailoverReplica")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPAddresses, actual.IPAddresses, dcl.Info{ObjectFunction: compareInstanceIPAddressesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpAddresses")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPAddresses, actual.IPAddresses, dcl.Info{ObjectFunction: compareInstanceIPAddressesNewStyle, EmptyObject: EmptyInstanceIPAddresses, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpAddresses")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MasterInstance, actual.MasterInstance, dcl.Info{ObjectFunction: compareInstanceMasterInstanceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterInstance")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MasterInstance, actual.MasterInstance, dcl.Info{ObjectFunction: compareInstanceMasterInstanceNewStyle, EmptyObject: EmptyInstanceMasterInstance, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterInstance")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReplicaConfiguration, actual.ReplicaConfiguration, dcl.Info{ObjectFunction: compareInstanceReplicaConfigurationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReplicaConfiguration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReplicaConfiguration, actual.ReplicaConfiguration, dcl.Info{ObjectFunction: compareInstanceReplicaConfigurationNewStyle, EmptyObject: EmptyInstanceReplicaConfiguration, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReplicaConfiguration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ScheduledMaintenance, actual.ScheduledMaintenance, dcl.Info{ObjectFunction: compareInstanceScheduledMaintenanceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ScheduledMaintenance")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ScheduledMaintenance, actual.ScheduledMaintenance, dcl.Info{ObjectFunction: compareInstanceScheduledMaintenanceNewStyle, EmptyObject: EmptyInstanceScheduledMaintenance, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ScheduledMaintenance")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Settings, actual.Settings, dcl.Info{ObjectFunction: compareInstanceSettingsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Settings")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Settings, actual.Settings, dcl.Info{ObjectFunction: compareInstanceSettingsNewStyle, EmptyObject: EmptyInstanceSettings, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Settings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4148,14 +4148,14 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReplicaInstances, actual.ReplicaInstances, dcl.Info{ObjectFunction: compareInstanceReplicaInstancesNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateOperation")}, fn.AddNest("ReplicaInstances")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReplicaInstances, actual.ReplicaInstances, dcl.Info{ObjectFunction: compareInstanceReplicaInstancesNewStyle, EmptyObject: EmptyInstanceReplicaInstances, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateOperation")}, fn.AddNest("ReplicaInstances")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServerCaCert, actual.ServerCaCert, dcl.Info{ObjectFunction: compareInstanceServerCaCertNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateOperation")}, fn.AddNest("ServerCaCert")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServerCaCert, actual.ServerCaCert, dcl.Info{ObjectFunction: compareInstanceServerCaCertNewStyle, EmptyObject: EmptyInstanceServerCaCert, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateOperation")}, fn.AddNest("ServerCaCert")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4176,7 +4176,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OnPremisesConfiguration, actual.OnPremisesConfiguration, dcl.Info{ObjectFunction: compareInstanceOnPremisesConfigurationNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateOperation")}, fn.AddNest("OnPremisesConfiguration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OnPremisesConfiguration, actual.OnPremisesConfiguration, dcl.Info{ObjectFunction: compareInstanceOnPremisesConfigurationNewStyle, EmptyObject: EmptyInstanceOnPremisesConfiguration, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateOperation")}, fn.AddNest("OnPremisesConfiguration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4190,7 +4190,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DiskEncryptionStatus, actual.DiskEncryptionStatus, dcl.Info{ObjectFunction: compareInstanceDiskEncryptionStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateOperation")}, fn.AddNest("DiskEncryptionStatus")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DiskEncryptionStatus, actual.DiskEncryptionStatus, dcl.Info{ObjectFunction: compareInstanceDiskEncryptionStatusNewStyle, EmptyObject: EmptyInstanceDiskEncryptionStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateOperation")}, fn.AddNest("DiskEncryptionStatus")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4334,7 +4334,7 @@ func compareInstanceFailoverReplicaNewStyle(d, a interface{}, fn dcl.FieldName) 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FailoverInstance, actual.FailoverInstance, dcl.Info{ObjectFunction: compareInstanceFailoverReplicaFailoverInstanceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FailoverInstance")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FailoverInstance, actual.FailoverInstance, dcl.Info{ObjectFunction: compareInstanceFailoverReplicaFailoverInstanceNewStyle, EmptyObject: EmptyInstanceFailoverReplicaFailoverInstance, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FailoverInstance")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4413,7 +4413,7 @@ func compareInstanceIPAddressesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeToRetire, actual.TimeToRetire, dcl.Info{ObjectFunction: compareInstanceIPAddressesTimeToRetireNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TimeToRetire")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeToRetire, actual.TimeToRetire, dcl.Info{ObjectFunction: compareInstanceIPAddressesTimeToRetireNewStyle, EmptyObject: EmptyInstanceIPAddressesTimeToRetire, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TimeToRetire")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4521,7 +4521,7 @@ func compareInstanceReplicaConfigurationNewStyle(d, a interface{}, fn dcl.FieldN
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MysqlReplicaConfiguration, actual.MysqlReplicaConfiguration, dcl.Info{ObjectFunction: compareInstanceReplicaConfigurationMysqlReplicaConfigurationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MysqlReplicaConfiguration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MysqlReplicaConfiguration, actual.MysqlReplicaConfiguration, dcl.Info{ObjectFunction: compareInstanceReplicaConfigurationMysqlReplicaConfigurationNewStyle, EmptyObject: EmptyInstanceReplicaConfigurationMysqlReplicaConfiguration, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MysqlReplicaConfiguration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4535,7 +4535,7 @@ func compareInstanceReplicaConfigurationNewStyle(d, a interface{}, fn dcl.FieldN
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReplicaPoolConfiguration, actual.ReplicaPoolConfiguration, dcl.Info{ObjectFunction: compareInstanceReplicaConfigurationReplicaPoolConfigurationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReplicaPoolConfiguration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReplicaPoolConfiguration, actual.ReplicaPoolConfiguration, dcl.Info{ObjectFunction: compareInstanceReplicaConfigurationReplicaPoolConfigurationNewStyle, EmptyObject: EmptyInstanceReplicaConfigurationReplicaPoolConfiguration, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReplicaPoolConfiguration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4592,7 +4592,7 @@ func compareInstanceReplicaConfigurationMysqlReplicaConfigurationNewStyle(d, a i
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MasterHeartbeatPeriod, actual.MasterHeartbeatPeriod, dcl.Info{ObjectFunction: compareInstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriodNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterHeartbeatPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MasterHeartbeatPeriod, actual.MasterHeartbeatPeriod, dcl.Info{ObjectFunction: compareInstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriodNewStyle, EmptyObject: EmptyInstanceReplicaConfigurationMysqlReplicaConfigurationMasterHeartbeatPeriod, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterHeartbeatPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4699,14 +4699,14 @@ func compareInstanceReplicaConfigurationReplicaPoolConfigurationNewStyle(d, a in
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.StaticPoolConfiguration, actual.StaticPoolConfiguration, dcl.Info{ObjectFunction: compareInstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfigurationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StaticPoolConfiguration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StaticPoolConfiguration, actual.StaticPoolConfiguration, dcl.Info{ObjectFunction: compareInstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfigurationNewStyle, EmptyObject: EmptyInstanceReplicaConfigurationReplicaPoolConfigurationStaticPoolConfiguration, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StaticPoolConfiguration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AutoscalingPoolConfiguration, actual.AutoscalingPoolConfiguration, dcl.Info{ObjectFunction: compareInstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfigurationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AutoscalingPoolConfiguration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutoscalingPoolConfiguration, actual.AutoscalingPoolConfiguration, dcl.Info{ObjectFunction: compareInstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfigurationNewStyle, EmptyObject: EmptyInstanceReplicaConfigurationReplicaPoolConfigurationAutoscalingPoolConfiguration, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AutoscalingPoolConfiguration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4842,7 +4842,7 @@ func compareInstanceScheduledMaintenanceNewStyle(d, a interface{}, fn dcl.FieldN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.StartTime, actual.StartTime, dcl.Info{ObjectFunction: compareInstanceScheduledMaintenanceStartTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StartTime, actual.StartTime, dcl.Info{ObjectFunction: compareInstanceScheduledMaintenanceStartTimeNewStyle, EmptyObject: EmptyInstanceScheduledMaintenanceStartTime, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4998,7 +4998,7 @@ func compareInstanceSettingsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SettingsVersion, actual.SettingsVersion, dcl.Info{ObjectFunction: compareInstanceSettingsSettingsVersionNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SettingsVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SettingsVersion, actual.SettingsVersion, dcl.Info{ObjectFunction: compareInstanceSettingsSettingsVersionNewStyle, EmptyObject: EmptyInstanceSettingsSettingsVersion, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SettingsVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5012,56 +5012,56 @@ func compareInstanceSettingsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.StorageAutoResizeLimit, actual.StorageAutoResizeLimit, dcl.Info{ObjectFunction: compareInstanceSettingsStorageAutoResizeLimitNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StorageAutoResizeLimit")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StorageAutoResizeLimit, actual.StorageAutoResizeLimit, dcl.Info{ObjectFunction: compareInstanceSettingsStorageAutoResizeLimitNewStyle, EmptyObject: EmptyInstanceSettingsStorageAutoResizeLimit, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StorageAutoResizeLimit")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPConfiguration, actual.IPConfiguration, dcl.Info{ObjectFunction: compareInstanceSettingsIPConfigurationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpConfiguration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPConfiguration, actual.IPConfiguration, dcl.Info{ObjectFunction: compareInstanceSettingsIPConfigurationNewStyle, EmptyObject: EmptyInstanceSettingsIPConfiguration, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpConfiguration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LocationPreference, actual.LocationPreference, dcl.Info{ObjectFunction: compareInstanceSettingsLocationPreferenceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocationPreference")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LocationPreference, actual.LocationPreference, dcl.Info{ObjectFunction: compareInstanceSettingsLocationPreferenceNewStyle, EmptyObject: EmptyInstanceSettingsLocationPreference, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocationPreference")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DatabaseFlags, actual.DatabaseFlags, dcl.Info{ObjectFunction: compareInstanceSettingsDatabaseFlagsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DatabaseFlags")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DatabaseFlags, actual.DatabaseFlags, dcl.Info{ObjectFunction: compareInstanceSettingsDatabaseFlagsNewStyle, EmptyObject: EmptyInstanceSettingsDatabaseFlags, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DatabaseFlags")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaintenanceWindow, actual.MaintenanceWindow, dcl.Info{ObjectFunction: compareInstanceSettingsMaintenanceWindowNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaintenanceWindow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaintenanceWindow, actual.MaintenanceWindow, dcl.Info{ObjectFunction: compareInstanceSettingsMaintenanceWindowNewStyle, EmptyObject: EmptyInstanceSettingsMaintenanceWindow, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaintenanceWindow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BackupConfiguration, actual.BackupConfiguration, dcl.Info{ObjectFunction: compareInstanceSettingsBackupConfigurationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BackupConfiguration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BackupConfiguration, actual.BackupConfiguration, dcl.Info{ObjectFunction: compareInstanceSettingsBackupConfigurationNewStyle, EmptyObject: EmptyInstanceSettingsBackupConfiguration, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BackupConfiguration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DataDiskSizeGb, actual.DataDiskSizeGb, dcl.Info{ObjectFunction: compareInstanceSettingsDataDiskSizeGbNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataDiskSizeGb")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataDiskSizeGb, actual.DataDiskSizeGb, dcl.Info{ObjectFunction: compareInstanceSettingsDataDiskSizeGbNewStyle, EmptyObject: EmptyInstanceSettingsDataDiskSizeGb, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataDiskSizeGb")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ActiveDirectoryConfig, actual.ActiveDirectoryConfig, dcl.Info{ObjectFunction: compareInstanceSettingsActiveDirectoryConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ActiveDirectoryConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ActiveDirectoryConfig, actual.ActiveDirectoryConfig, dcl.Info{ObjectFunction: compareInstanceSettingsActiveDirectoryConfigNewStyle, EmptyObject: EmptyInstanceSettingsActiveDirectoryConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ActiveDirectoryConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5075,14 +5075,14 @@ func compareInstanceSettingsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DenyMaintenancePeriods, actual.DenyMaintenancePeriods, dcl.Info{ObjectFunction: compareInstanceSettingsDenyMaintenancePeriodsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DenyMaintenancePeriods")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DenyMaintenancePeriods, actual.DenyMaintenancePeriods, dcl.Info{ObjectFunction: compareInstanceSettingsDenyMaintenancePeriodsNewStyle, EmptyObject: EmptyInstanceSettingsDenyMaintenancePeriods, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DenyMaintenancePeriods")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InsightsConfig, actual.InsightsConfig, dcl.Info{ObjectFunction: compareInstanceSettingsInsightsConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InsightsConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InsightsConfig, actual.InsightsConfig, dcl.Info{ObjectFunction: compareInstanceSettingsInsightsConfigNewStyle, EmptyObject: EmptyInstanceSettingsInsightsConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InsightsConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5190,7 +5190,7 @@ func compareInstanceSettingsIPConfigurationNewStyle(d, a interface{}, fn dcl.Fie
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AuthorizedNetworks, actual.AuthorizedNetworks, dcl.Info{ObjectFunction: compareInstanceSettingsIPConfigurationAuthorizedNetworksNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AuthorizedNetworks")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AuthorizedNetworks, actual.AuthorizedNetworks, dcl.Info{ObjectFunction: compareInstanceSettingsIPConfigurationAuthorizedNetworksNewStyle, EmptyObject: EmptyInstanceSettingsIPConfigurationAuthorizedNetworks, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AuthorizedNetworks")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5426,7 +5426,7 @@ func compareInstanceSettingsBackupConfigurationNewStyle(d, a interface{}, fn dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BackupRetentionSettings, actual.BackupRetentionSettings, dcl.Info{ObjectFunction: compareInstanceSettingsBackupConfigurationBackupRetentionSettingsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BackupRetentionSettings")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BackupRetentionSettings, actual.BackupRetentionSettings, dcl.Info{ObjectFunction: compareInstanceSettingsBackupConfigurationBackupRetentionSettingsNewStyle, EmptyObject: EmptyInstanceSettingsBackupConfigurationBackupRetentionSettings, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BackupRetentionSettings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

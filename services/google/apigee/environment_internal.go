@@ -89,6 +89,10 @@ func (r *Environment) SetPolicyURL(userBasePath string) string {
 	return dcl.URL("organizations/{{organization}}/environments/{{name}}:setIamPolicy", "https://apigee.googleapis.com/v1/", userBasePath, fields)
 }
 
+func (r *Environment) SetPolicyVerb() string {
+	return "POST"
+}
+
 func (r *Environment) getPolicyURL(userBasePath string) string {
 	n := r.urlNormalized()
 	fields := map[string]interface{}{
@@ -639,7 +643,7 @@ func diffEnvironment(c *Client, desired, actual *Environment, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{ObjectFunction: compareEnvironmentPropertiesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{ObjectFunction: compareEnvironmentPropertiesNewStyle, EmptyObject: EmptyEnvironmentProperties, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -689,7 +693,7 @@ func compareEnvironmentPropertiesNewStyle(d, a interface{}, fn dcl.FieldName) ([
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Property, actual.Property, dcl.Info{Type: "Set", ObjectFunction: compareEnvironmentPropertiesPropertyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Property")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Property, actual.Property, dcl.Info{Type: "Set", ObjectFunction: compareEnvironmentPropertiesPropertyNewStyle, EmptyObject: EmptyEnvironmentPropertiesProperty, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Property")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

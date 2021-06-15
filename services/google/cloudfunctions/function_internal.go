@@ -1026,21 +1026,21 @@ func diffFunction(c *Client, desired, actual *Function, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SourceRepository, actual.SourceRepository, dcl.Info{ObjectFunction: compareFunctionSourceRepositoryNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceRepository")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceRepository, actual.SourceRepository, dcl.Info{ObjectFunction: compareFunctionSourceRepositoryNewStyle, EmptyObject: EmptyFunctionSourceRepository, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceRepository")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HttpsTrigger, actual.HttpsTrigger, dcl.Info{ObjectFunction: compareFunctionHttpsTriggerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HttpsTrigger")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpsTrigger, actual.HttpsTrigger, dcl.Info{ObjectFunction: compareFunctionHttpsTriggerNewStyle, EmptyObject: EmptyFunctionHttpsTrigger, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HttpsTrigger")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EventTrigger, actual.EventTrigger, dcl.Info{ObjectFunction: compareFunctionEventTriggerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EventTrigger")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EventTrigger, actual.EventTrigger, dcl.Info{ObjectFunction: compareFunctionEventTriggerNewStyle, EmptyObject: EmptyFunctionEventTrigger, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EventTrigger")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

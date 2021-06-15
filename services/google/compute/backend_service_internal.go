@@ -2679,7 +2679,7 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Backends, actual.Backends, dcl.Info{ObjectFunction: compareBackendServiceBackendsNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("Backends")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Backends, actual.Backends, dcl.Info{ObjectFunction: compareBackendServiceBackendsNewStyle, EmptyObject: EmptyBackendServiceBackends, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("Backends")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2756,7 +2756,7 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FailoverPolicy, actual.FailoverPolicy, dcl.Info{ObjectFunction: compareBackendServiceFailoverPolicyNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("FailoverPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FailoverPolicy, actual.FailoverPolicy, dcl.Info{ObjectFunction: compareBackendServiceFailoverPolicyNewStyle, EmptyObject: EmptyBackendServiceFailoverPolicy, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("FailoverPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2770,21 +2770,21 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConnectionDraining, actual.ConnectionDraining, dcl.Info{ObjectFunction: compareBackendServiceConnectionDrainingNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("ConnectionDraining")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConnectionDraining, actual.ConnectionDraining, dcl.Info{ObjectFunction: compareBackendServiceConnectionDrainingNewStyle, EmptyObject: EmptyBackendServiceConnectionDraining, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("ConnectionDraining")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Iap, actual.Iap, dcl.Info{ObjectFunction: compareBackendServiceIapNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("Iap")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Iap, actual.Iap, dcl.Info{ObjectFunction: compareBackendServiceIapNewStyle, EmptyObject: EmptyBackendServiceIap, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("Iap")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CdnPolicy, actual.CdnPolicy, dcl.Info{ObjectFunction: compareBackendServiceCdnPolicyNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("CdnPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CdnPolicy, actual.CdnPolicy, dcl.Info{ObjectFunction: compareBackendServiceCdnPolicyNewStyle, EmptyObject: EmptyBackendServiceCdnPolicy, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("CdnPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2812,14 +2812,14 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LogConfig, actual.LogConfig, dcl.Info{ObjectFunction: compareBackendServiceLogConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("LogConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LogConfig, actual.LogConfig, dcl.Info{ObjectFunction: compareBackendServiceLogConfigNewStyle, EmptyObject: EmptyBackendServiceLogConfig, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("LogConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecuritySettings, actual.SecuritySettings, dcl.Info{ObjectFunction: compareBackendServiceSecuritySettingsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecuritySettings")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecuritySettings, actual.SecuritySettings, dcl.Info{ObjectFunction: compareBackendServiceSecuritySettingsNewStyle, EmptyObject: EmptyBackendServiceSecuritySettings, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecuritySettings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2833,21 +2833,21 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConsistentHash, actual.ConsistentHash, dcl.Info{ObjectFunction: compareBackendServiceConsistentHashNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("ConsistentHash")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConsistentHash, actual.ConsistentHash, dcl.Info{ObjectFunction: compareBackendServiceConsistentHashNewStyle, EmptyObject: EmptyBackendServiceConsistentHash, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("ConsistentHash")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CircuitBreakers, actual.CircuitBreakers, dcl.Info{ObjectFunction: compareBackendServiceCircuitBreakersNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("CircuitBreakers")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CircuitBreakers, actual.CircuitBreakers, dcl.Info{ObjectFunction: compareBackendServiceCircuitBreakersNewStyle, EmptyObject: EmptyBackendServiceCircuitBreakers, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("CircuitBreakers")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OutlierDetection, actual.OutlierDetection, dcl.Info{ObjectFunction: compareBackendServiceOutlierDetectionNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("OutlierDetection")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OutlierDetection, actual.OutlierDetection, dcl.Info{ObjectFunction: compareBackendServiceOutlierDetectionNewStyle, EmptyObject: EmptyBackendServiceOutlierDetection, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("OutlierDetection")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2861,7 +2861,7 @@ func diffBackendService(c *Client, desired, actual *BackendService, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxStreamDuration, actual.MaxStreamDuration, dcl.Info{ObjectFunction: compareBackendServiceMaxStreamDurationNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("MaxStreamDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxStreamDuration, actual.MaxStreamDuration, dcl.Info{ObjectFunction: compareBackendServiceMaxStreamDurationNewStyle, EmptyObject: EmptyBackendServiceMaxStreamDuration, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("MaxStreamDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3125,7 +3125,7 @@ func compareBackendServiceCdnPolicyNewStyle(d, a interface{}, fn dcl.FieldName) 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.CacheKeyPolicy, actual.CacheKeyPolicy, dcl.Info{ObjectFunction: compareBackendServiceCdnPolicyCacheKeyPolicyNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("CacheKeyPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CacheKeyPolicy, actual.CacheKeyPolicy, dcl.Info{ObjectFunction: compareBackendServiceCdnPolicyCacheKeyPolicyNewStyle, EmptyObject: EmptyBackendServiceCdnPolicyCacheKeyPolicy, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("CacheKeyPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3188,14 +3188,14 @@ func compareBackendServiceCdnPolicyNewStyle(d, a interface{}, fn dcl.FieldName) 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NegativeCachingPolicy, actual.NegativeCachingPolicy, dcl.Info{ObjectFunction: compareBackendServiceCdnPolicyNegativeCachingPolicyNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("NegativeCachingPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NegativeCachingPolicy, actual.NegativeCachingPolicy, dcl.Info{ObjectFunction: compareBackendServiceCdnPolicyNegativeCachingPolicyNewStyle, EmptyObject: EmptyBackendServiceCdnPolicyNegativeCachingPolicy, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("NegativeCachingPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BypassCacheOnRequestHeaders, actual.BypassCacheOnRequestHeaders, dcl.Info{ObjectFunction: compareBackendServiceCdnPolicyBypassCacheOnRequestHeadersNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("BypassCacheOnRequestHeaders")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BypassCacheOnRequestHeaders, actual.BypassCacheOnRequestHeaders, dcl.Info{ObjectFunction: compareBackendServiceCdnPolicyBypassCacheOnRequestHeadersNewStyle, EmptyObject: EmptyBackendServiceCdnPolicyBypassCacheOnRequestHeaders, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("BypassCacheOnRequestHeaders")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3439,7 +3439,7 @@ func compareBackendServiceConsistentHashNewStyle(d, a interface{}, fn dcl.FieldN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.HttpCookie, actual.HttpCookie, dcl.Info{ObjectFunction: compareBackendServiceConsistentHashHttpCookieNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("HttpCookie")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpCookie, actual.HttpCookie, dcl.Info{ObjectFunction: compareBackendServiceConsistentHashHttpCookieNewStyle, EmptyObject: EmptyBackendServiceConsistentHashHttpCookie, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("HttpCookie")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3496,7 +3496,7 @@ func compareBackendServiceConsistentHashHttpCookieNewStyle(d, a interface{}, fn 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Ttl, actual.Ttl, dcl.Info{ObjectFunction: compareBackendServiceConsistentHashHttpCookieTtlNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("Ttl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Ttl, actual.Ttl, dcl.Info{ObjectFunction: compareBackendServiceConsistentHashHttpCookieTtlNewStyle, EmptyObject: EmptyBackendServiceConsistentHashHttpCookieTtl, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("Ttl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3625,14 +3625,14 @@ func compareBackendServiceOutlierDetectionNewStyle(d, a interface{}, fn dcl.Fiel
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Interval, actual.Interval, dcl.Info{ObjectFunction: compareBackendServiceOutlierDetectionIntervalNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("Interval")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Interval, actual.Interval, dcl.Info{ObjectFunction: compareBackendServiceOutlierDetectionIntervalNewStyle, EmptyObject: EmptyBackendServiceOutlierDetectionInterval, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("Interval")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BaseEjectionTime, actual.BaseEjectionTime, dcl.Info{ObjectFunction: compareBackendServiceOutlierDetectionBaseEjectionTimeNewStyle, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("BaseEjectionTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BaseEjectionTime, actual.BaseEjectionTime, dcl.Info{ObjectFunction: compareBackendServiceOutlierDetectionBaseEjectionTimeNewStyle, EmptyObject: EmptyBackendServiceOutlierDetectionBaseEjectionTime, OperationSelector: dcl.TriggersOperation("updateBackendServiceUpdateOperation")}, fn.AddNest("BaseEjectionTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

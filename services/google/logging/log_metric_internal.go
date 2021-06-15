@@ -1219,7 +1219,7 @@ func diffLogMetric(c *Client, desired, actual *LogMetric, opts ...dcl.ApplyOptio
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MetricDescriptor, actual.MetricDescriptor, dcl.Info{ObjectFunction: compareLogMetricMetricDescriptorNewStyle, OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("MetricDescriptor")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricDescriptor, actual.MetricDescriptor, dcl.Info{ObjectFunction: compareLogMetricMetricDescriptorNewStyle, EmptyObject: EmptyLogMetricMetricDescriptor, OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("MetricDescriptor")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1240,7 +1240,7 @@ func diffLogMetric(c *Client, desired, actual *LogMetric, opts ...dcl.ApplyOptio
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareLogMetricBucketOptionsNewStyle, OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareLogMetricBucketOptionsNewStyle, EmptyObject: EmptyLogMetricBucketOptions, OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1304,7 +1304,7 @@ func compareLogMetricMetricDescriptorNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Type: "Set", ObjectFunction: compareLogMetricMetricDescriptorLabelsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Type: "Set", ObjectFunction: compareLogMetricMetricDescriptorLabelsNewStyle, EmptyObject: EmptyLogMetricMetricDescriptorLabels, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1346,7 +1346,7 @@ func compareLogMetricMetricDescriptorNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{Ignore: true, ObjectFunction: compareLogMetricMetricDescriptorMetadataNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{Ignore: true, ObjectFunction: compareLogMetricMetricDescriptorMetadataNewStyle, EmptyObject: EmptyLogMetricMetricDescriptorMetadata, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1475,21 +1475,21 @@ func compareLogMetricBucketOptionsNewStyle(d, a interface{}, fn dcl.FieldName) (
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareLogMetricBucketOptionsLinearBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareLogMetricBucketOptionsLinearBucketsNewStyle, EmptyObject: EmptyLogMetricBucketOptionsLinearBuckets, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareLogMetricBucketOptionsExponentialBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareLogMetricBucketOptionsExponentialBucketsNewStyle, EmptyObject: EmptyLogMetricBucketOptionsExponentialBuckets, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareLogMetricBucketOptionsExplicitBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareLogMetricBucketOptionsExplicitBucketsNewStyle, EmptyObject: EmptyLogMetricBucketOptionsExplicitBuckets, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -14,5 +14,4 @@
 description: A basic example for a binary authorization policy
 name: basic_policy
 resource: samples/basic.policy.json
-versions:
-- ga
+versions: []

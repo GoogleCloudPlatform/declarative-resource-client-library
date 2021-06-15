@@ -740,7 +740,7 @@ func diffAttestor(c *Client, desired, actual *Attestor, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UserOwnedDrydockNote, actual.UserOwnedDrydockNote, dcl.Info{ObjectFunction: compareAttestorUserOwnedDrydockNoteNewStyle, OperationSelector: dcl.TriggersOperation("updateAttestorUpdateAttestorOperation")}, fn.AddNest("UserOwnedGrafeasNote")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UserOwnedDrydockNote, actual.UserOwnedDrydockNote, dcl.Info{ObjectFunction: compareAttestorUserOwnedDrydockNoteNewStyle, EmptyObject: EmptyAttestorUserOwnedDrydockNote, OperationSelector: dcl.TriggersOperation("updateAttestorUpdateAttestorOperation")}, fn.AddNest("UserOwnedGrafeasNote")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -790,7 +790,7 @@ func compareAttestorUserOwnedDrydockNoteNewStyle(d, a interface{}, fn dcl.FieldN
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublicKeys, actual.PublicKeys, dcl.Info{ObjectFunction: compareAttestorUserOwnedDrydockNotePublicKeysNewStyle, OperationSelector: dcl.TriggersOperation("updateAttestorUpdateAttestorOperation")}, fn.AddNest("PublicKeys")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublicKeys, actual.PublicKeys, dcl.Info{ObjectFunction: compareAttestorUserOwnedDrydockNotePublicKeysNewStyle, EmptyObject: EmptyAttestorUserOwnedDrydockNotePublicKeys, OperationSelector: dcl.TriggersOperation("updateAttestorUpdateAttestorOperation")}, fn.AddNest("PublicKeys")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -847,7 +847,7 @@ func compareAttestorUserOwnedDrydockNotePublicKeysNewStyle(d, a interface{}, fn 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PkixPublicKey, actual.PkixPublicKey, dcl.Info{ObjectFunction: compareAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyNewStyle, OperationSelector: dcl.TriggersOperation("updateAttestorUpdateAttestorOperation")}, fn.AddNest("PkixPublicKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PkixPublicKey, actual.PkixPublicKey, dcl.Info{ObjectFunction: compareAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyNewStyle, EmptyObject: EmptyAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey, OperationSelector: dcl.TriggersOperation("updateAttestorUpdateAttestorOperation")}, fn.AddNest("PkixPublicKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

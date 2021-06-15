@@ -660,7 +660,7 @@ func diffTenantOAuthIdpConfig(c *Client, desired, actual *TenantOAuthIdpConfig, 
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResponseType, actual.ResponseType, dcl.Info{ObjectFunction: compareTenantOAuthIdpConfigResponseTypeNewStyle, OperationSelector: dcl.TriggersOperation("updateTenantOAuthIdpConfigUpdateConfigOperation")}, fn.AddNest("ResponseType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResponseType, actual.ResponseType, dcl.Info{ObjectFunction: compareTenantOAuthIdpConfigResponseTypeNewStyle, EmptyObject: EmptyTenantOAuthIdpConfigResponseType, OperationSelector: dcl.TriggersOperation("updateTenantOAuthIdpConfigUpdateConfigOperation")}, fn.AddNest("ResponseType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

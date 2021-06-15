@@ -1449,21 +1449,21 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]*dcl.F
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PubsubTarget, actual.PubsubTarget, dcl.Info{ObjectFunction: compareJobPubsubTargetNewStyle, OperationSelector: dcl.TriggersOperation("updateJobUpdateJobOperation")}, fn.AddNest("PubsubTarget")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PubsubTarget, actual.PubsubTarget, dcl.Info{ObjectFunction: compareJobPubsubTargetNewStyle, EmptyObject: EmptyJobPubsubTarget, OperationSelector: dcl.TriggersOperation("updateJobUpdateJobOperation")}, fn.AddNest("PubsubTarget")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AppEngineHttpTarget, actual.AppEngineHttpTarget, dcl.Info{ObjectFunction: compareJobAppEngineHttpTargetNewStyle, OperationSelector: dcl.TriggersOperation("updateJobUpdateJobOperation")}, fn.AddNest("AppEngineHttpTarget")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AppEngineHttpTarget, actual.AppEngineHttpTarget, dcl.Info{ObjectFunction: compareJobAppEngineHttpTargetNewStyle, EmptyObject: EmptyJobAppEngineHttpTarget, OperationSelector: dcl.TriggersOperation("updateJobUpdateJobOperation")}, fn.AddNest("AppEngineHttpTarget")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HttpTarget, actual.HttpTarget, dcl.Info{ObjectFunction: compareJobHttpTargetNewStyle, OperationSelector: dcl.TriggersOperation("updateJobUpdateJobOperation")}, fn.AddNest("HttpTarget")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpTarget, actual.HttpTarget, dcl.Info{ObjectFunction: compareJobHttpTargetNewStyle, EmptyObject: EmptyJobHttpTarget, OperationSelector: dcl.TriggersOperation("updateJobUpdateJobOperation")}, fn.AddNest("HttpTarget")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1498,7 +1498,7 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]*dcl.F
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, ObjectFunction: compareJobStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, ObjectFunction: compareJobStatusNewStyle, EmptyObject: EmptyJobStatus, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1519,7 +1519,7 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]*dcl.F
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RetryConfig, actual.RetryConfig, dcl.Info{ObjectFunction: compareJobRetryConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateJobUpdateJobOperation")}, fn.AddNest("RetryConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RetryConfig, actual.RetryConfig, dcl.Info{ObjectFunction: compareJobRetryConfigNewStyle, EmptyObject: EmptyJobRetryConfig, OperationSelector: dcl.TriggersOperation("updateJobUpdateJobOperation")}, fn.AddNest("RetryConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1619,7 +1619,7 @@ func compareJobAppEngineHttpTargetNewStyle(d, a interface{}, fn dcl.FieldName) (
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AppEngineRouting, actual.AppEngineRouting, dcl.Info{ObjectFunction: compareJobAppEngineHttpTargetAppEngineRoutingNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AppEngineRouting")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AppEngineRouting, actual.AppEngineRouting, dcl.Info{ObjectFunction: compareJobAppEngineHttpTargetAppEngineRoutingNewStyle, EmptyObject: EmptyJobAppEngineHttpTargetAppEngineRouting, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AppEngineRouting")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1747,14 +1747,14 @@ func compareJobHttpTargetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fi
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OAuthToken, actual.OAuthToken, dcl.Info{ObjectFunction: compareJobHttpTargetOAuthTokenNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OauthToken")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OAuthToken, actual.OAuthToken, dcl.Info{ObjectFunction: compareJobHttpTargetOAuthTokenNewStyle, EmptyObject: EmptyJobHttpTargetOAuthToken, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OauthToken")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OidcToken, actual.OidcToken, dcl.Info{ObjectFunction: compareJobHttpTargetOidcTokenNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OidcToken")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OidcToken, actual.OidcToken, dcl.Info{ObjectFunction: compareJobHttpTargetOidcTokenNewStyle, EmptyObject: EmptyJobHttpTargetOidcToken, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OidcToken")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1869,7 +1869,7 @@ func compareJobStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldD
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareJobStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareJobStatusDetailsNewStyle, EmptyObject: EmptyJobStatusDetails, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

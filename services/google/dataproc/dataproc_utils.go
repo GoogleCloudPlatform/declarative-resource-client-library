@@ -23,3 +23,8 @@ func encodeJobCreateRequest(m map[string]interface{}) map[string]interface{} {
 	dcl.PutMapEntry(req, []string{"job"}, m)
 	return req
 }
+
+// CompareClusterInstanceGroupConfigNewStyle exposes the compareClusterInstanceGroupConfigNewStyle function for testing.
+func CompareClusterInstanceGroupConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	return compareClusterInstanceGroupConfigNewStyle(d, a, fn)
+}

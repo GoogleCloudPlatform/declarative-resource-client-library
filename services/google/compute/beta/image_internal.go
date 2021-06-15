@@ -1878,14 +1878,14 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GuestOsFeature, actual.GuestOsFeature, dcl.Info{Type: "Set", ObjectFunction: compareImageGuestOsFeatureNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GuestOsFeatures")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GuestOsFeature, actual.GuestOsFeature, dcl.Info{Type: "Set", ObjectFunction: compareImageGuestOsFeatureNewStyle, EmptyObject: EmptyImageGuestOsFeature, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GuestOsFeatures")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ImageEncryptionKey, actual.ImageEncryptionKey, dcl.Info{ObjectFunction: compareImageImageEncryptionKeyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ImageEncryptionKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ImageEncryptionKey, actual.ImageEncryptionKey, dcl.Info{ObjectFunction: compareImageImageEncryptionKeyNewStyle, EmptyObject: EmptyImageImageEncryptionKey, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ImageEncryptionKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1913,14 +1913,14 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RawDisk, actual.RawDisk, dcl.Info{Ignore: true, ObjectFunction: compareImageRawDiskNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RawDisk")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RawDisk, actual.RawDisk, dcl.Info{Ignore: true, ObjectFunction: compareImageRawDiskNewStyle, EmptyObject: EmptyImageRawDisk, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RawDisk")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ShieldedInstanceInitialState, actual.ShieldedInstanceInitialState, dcl.Info{ObjectFunction: compareImageShieldedInstanceInitialStateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ShieldedInstanceInitialState")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ShieldedInstanceInitialState, actual.ShieldedInstanceInitialState, dcl.Info{ObjectFunction: compareImageShieldedInstanceInitialStateNewStyle, EmptyObject: EmptyImageShieldedInstanceInitialState, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ShieldedInstanceInitialState")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1941,7 +1941,7 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SourceDiskEncryptionKey, actual.SourceDiskEncryptionKey, dcl.Info{ObjectFunction: compareImageSourceDiskEncryptionKeyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceDiskEncryptionKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceDiskEncryptionKey, actual.SourceDiskEncryptionKey, dcl.Info{ObjectFunction: compareImageSourceDiskEncryptionKeyNewStyle, EmptyObject: EmptyImageSourceDiskEncryptionKey, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceDiskEncryptionKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1962,7 +1962,7 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey, dcl.Info{ObjectFunction: compareImageSourceImageEncryptionKeyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceImageEncryptionKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey, dcl.Info{ObjectFunction: compareImageSourceImageEncryptionKeyNewStyle, EmptyObject: EmptyImageSourceImageEncryptionKey, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceImageEncryptionKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1983,7 +1983,7 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey, dcl.Info{ObjectFunction: compareImageSourceSnapshotEncryptionKeyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceSnapshotEncryptionKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey, dcl.Info{ObjectFunction: compareImageSourceSnapshotEncryptionKeyNewStyle, EmptyObject: EmptyImageSourceSnapshotEncryptionKey, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceSnapshotEncryptionKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2018,7 +2018,7 @@ func diffImage(c *Client, desired, actual *Image, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Deprecated, actual.Deprecated, dcl.Info{ObjectFunction: compareImageDeprecatedNewStyle, OperationSelector: dcl.TriggersOperation("updateImageDeprecateOperation")}, fn.AddNest("Deprecated")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Deprecated, actual.Deprecated, dcl.Info{ObjectFunction: compareImageDeprecatedNewStyle, EmptyObject: EmptyImageDeprecated, OperationSelector: dcl.TriggersOperation("updateImageDeprecateOperation")}, fn.AddNest("Deprecated")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2176,28 +2176,28 @@ func compareImageShieldedInstanceInitialStateNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Pk, actual.Pk, dcl.Info{ObjectFunction: compareImageShieldedInstanceInitialStatePkNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Pk")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Pk, actual.Pk, dcl.Info{ObjectFunction: compareImageShieldedInstanceInitialStatePkNewStyle, EmptyObject: EmptyImageShieldedInstanceInitialStatePk, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Pk")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Kek, actual.Kek, dcl.Info{ObjectFunction: compareImageShieldedInstanceInitialStateKekNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Keks")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Kek, actual.Kek, dcl.Info{ObjectFunction: compareImageShieldedInstanceInitialStateKekNewStyle, EmptyObject: EmptyImageShieldedInstanceInitialStateKek, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Keks")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Db, actual.Db, dcl.Info{ObjectFunction: compareImageShieldedInstanceInitialStateDbNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Dbs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Db, actual.Db, dcl.Info{ObjectFunction: compareImageShieldedInstanceInitialStateDbNewStyle, EmptyObject: EmptyImageShieldedInstanceInitialStateDb, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Dbs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Dbx, actual.Dbx, dcl.Info{ObjectFunction: compareImageShieldedInstanceInitialStateDbxNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Dbxs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Dbx, actual.Dbx, dcl.Info{ObjectFunction: compareImageShieldedInstanceInitialStateDbxNewStyle, EmptyObject: EmptyImageShieldedInstanceInitialStateDbx, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Dbxs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

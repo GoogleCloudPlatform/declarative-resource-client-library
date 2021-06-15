@@ -5008,21 +5008,21 @@ func diffService(c *Client, desired, actual *Service, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{ObjectFunction: compareServiceMetadataNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{ObjectFunction: compareServiceMetadataNewStyle, EmptyObject: EmptyServiceMetadata, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareServiceSpecNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareServiceSpecNewStyle, EmptyObject: EmptyServiceSpec, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, ObjectFunction: compareServiceStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, ObjectFunction: compareServiceStatusNewStyle, EmptyObject: EmptyServiceStatus, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5107,7 +5107,7 @@ func compareServiceMetadataNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, ObjectFunction: compareServiceMetadataCreateTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, ObjectFunction: compareServiceMetadataCreateTimeNewStyle, EmptyObject: EmptyServiceMetadataCreateTime, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5128,14 +5128,14 @@ func compareServiceMetadataNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OwnerReferences, actual.OwnerReferences, dcl.Info{ObjectFunction: compareServiceMetadataOwnerReferencesNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("OwnerReferences")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OwnerReferences, actual.OwnerReferences, dcl.Info{ObjectFunction: compareServiceMetadataOwnerReferencesNewStyle, EmptyObject: EmptyServiceMetadataOwnerReferences, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("OwnerReferences")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{OutputOnly: true, ObjectFunction: compareServiceMetadataDeleteTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeletionTimestamp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{OutputOnly: true, ObjectFunction: compareServiceMetadataDeleteTimeNewStyle, EmptyObject: EmptyServiceMetadataDeleteTime, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeletionTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5321,14 +5321,14 @@ func compareServiceSpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Template, actual.Template, dcl.Info{ObjectFunction: compareServiceSpecTemplateNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Template")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Template, actual.Template, dcl.Info{ObjectFunction: compareServiceSpecTemplateNewStyle, EmptyObject: EmptyServiceSpecTemplate, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Template")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Traffic, actual.Traffic, dcl.Info{ObjectFunction: compareServiceSpecTrafficNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Traffic")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Traffic, actual.Traffic, dcl.Info{ObjectFunction: compareServiceSpecTrafficNewStyle, EmptyObject: EmptyServiceSpecTraffic, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Traffic")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5357,14 +5357,14 @@ func compareServiceSpecTemplateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{ObjectFunction: compareServiceSpecTemplateMetadataNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{ObjectFunction: compareServiceSpecTemplateMetadataNewStyle, EmptyObject: EmptyServiceSpecTemplateMetadata, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecNewStyle, EmptyObject: EmptyServiceSpecTemplateSpec, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5442,7 +5442,7 @@ func compareServiceSpecTemplateMetadataNewStyle(d, a interface{}, fn dcl.FieldNa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, ObjectFunction: compareServiceSpecTemplateMetadataCreateTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, ObjectFunction: compareServiceSpecTemplateMetadataCreateTimeNewStyle, EmptyObject: EmptyServiceSpecTemplateMetadataCreateTime, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5463,14 +5463,14 @@ func compareServiceSpecTemplateMetadataNewStyle(d, a interface{}, fn dcl.FieldNa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OwnerReferences, actual.OwnerReferences, dcl.Info{ObjectFunction: compareServiceSpecTemplateMetadataOwnerReferencesNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("OwnerReferences")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OwnerReferences, actual.OwnerReferences, dcl.Info{ObjectFunction: compareServiceSpecTemplateMetadataOwnerReferencesNewStyle, EmptyObject: EmptyServiceSpecTemplateMetadataOwnerReferences, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("OwnerReferences")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{OutputOnly: true, ObjectFunction: compareServiceSpecTemplateMetadataDeleteTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeletionTimestamp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{OutputOnly: true, ObjectFunction: compareServiceSpecTemplateMetadataDeleteTimeNewStyle, EmptyObject: EmptyServiceSpecTemplateMetadataDeleteTime, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeletionTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5677,14 +5677,14 @@ func compareServiceSpecTemplateSpecNewStyle(d, a interface{}, fn dcl.FieldName) 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Containers, actual.Containers, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Containers")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Containers, actual.Containers, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainers, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Containers")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Volumes, actual.Volumes, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Volumes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Volumes, actual.Volumes, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecVolumes, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Volumes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5741,14 +5741,14 @@ func compareServiceSpecTemplateSpecContainersNewStyle(d, a interface{}, fn dcl.F
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Env, actual.Env, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Env")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Env, actual.Env, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersEnv, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Env")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersResourcesNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersResourcesNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersResources, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5762,35 +5762,35 @@ func compareServiceSpecTemplateSpecContainersNewStyle(d, a interface{}, fn dcl.F
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Ports, actual.Ports, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersPortsNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Ports")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Ports, actual.Ports, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersPortsNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersPorts, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Ports")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EnvFrom, actual.EnvFrom, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnvFrom")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnvFrom, actual.EnvFrom, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersEnvFrom, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnvFrom")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VolumeMounts, actual.VolumeMounts, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersVolumeMountsNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("VolumeMounts")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VolumeMounts, actual.VolumeMounts, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersVolumeMountsNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersVolumeMounts, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("VolumeMounts")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LivenessProbe, actual.LivenessProbe, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("LivenessProbe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LivenessProbe, actual.LivenessProbe, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersLivenessProbe, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("LivenessProbe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadinessProbe, actual.ReadinessProbe, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("ReadinessProbe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadinessProbe, actual.ReadinessProbe, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersReadinessProbe, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("ReadinessProbe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5818,7 +5818,7 @@ func compareServiceSpecTemplateSpecContainersNewStyle(d, a interface{}, fn dcl.F
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecurityContext, actual.SecurityContext, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersSecurityContextNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("SecurityContext")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecurityContext, actual.SecurityContext, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersSecurityContextNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersSecurityContext, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("SecurityContext")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5861,7 +5861,7 @@ func compareServiceSpecTemplateSpecContainersEnvNewStyle(d, a interface{}, fn dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ValueFrom, actual.ValueFrom, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("ValueFrom")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ValueFrom, actual.ValueFrom, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersEnvValueFrom, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("ValueFrom")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5890,14 +5890,14 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromNewStyle(d, a interface
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ConfigMapKeyRef, actual.ConfigMapKeyRef, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("ConfigMapKeyRef")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConfigMapKeyRef, actual.ConfigMapKeyRef, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("ConfigMapKeyRef")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecretKeyRef, actual.SecretKeyRef, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("SecretKeyRef")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecretKeyRef, actual.SecretKeyRef, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("SecretKeyRef")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5926,7 +5926,7 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefNewStyle
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LocalObjectReference, actual.LocalObjectReference, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("LocalObjectReference")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LocalObjectReference, actual.LocalObjectReference, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReferenceNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("LocalObjectReference")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6005,7 +6005,7 @@ func compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LocalObjectReference, actual.LocalObjectReference, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("LocalObjectReference")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LocalObjectReference, actual.LocalObjectReference, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReferenceNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("LocalObjectReference")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6170,14 +6170,14 @@ func compareServiceSpecTemplateSpecContainersEnvFromNewStyle(d, a interface{}, f
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConfigMapRef, actual.ConfigMapRef, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigMapRef")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConfigMapRef, actual.ConfigMapRef, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersEnvFromConfigMapRef, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigMapRef")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecretRef, actual.SecretRef, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromSecretRefNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecretRef")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecretRef, actual.SecretRef, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromSecretRefNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersEnvFromSecretRef, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecretRef")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6206,7 +6206,7 @@ func compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefNewStyle(d, a in
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LocalObjectReference, actual.LocalObjectReference, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocalObjectReference")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LocalObjectReference, actual.LocalObjectReference, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReferenceNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocalObjectReference")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6278,7 +6278,7 @@ func compareServiceSpecTemplateSpecContainersEnvFromSecretRefNewStyle(d, a inter
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LocalObjectReference, actual.LocalObjectReference, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocalObjectReference")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LocalObjectReference, actual.LocalObjectReference, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReferenceNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocalObjectReference")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6435,21 +6435,21 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeNewStyle(d, a interfac
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Exec, actual.Exec, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeExecNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Exec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Exec, actual.Exec, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeExecNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersLivenessProbeExec, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Exec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HttpGet, actual.HttpGet, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("HttpGet")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpGet, actual.HttpGet, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersLivenessProbeHttpGet, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("HttpGet")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TcpSocket, actual.TcpSocket, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocketNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("TcpSocket")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TcpSocket, actual.TcpSocket, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeTcpSocketNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersLivenessProbeTcpSocket, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("TcpSocket")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6528,7 +6528,7 @@ func compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetNewStyle(d, a i
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HttpHeaders, actual.HttpHeaders, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("HttpHeaders")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpHeaders, actual.HttpHeaders, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeadersNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("HttpHeaders")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6664,21 +6664,21 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeNewStyle(d, a interfa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Exec, actual.Exec, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeExecNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Exec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Exec, actual.Exec, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeExecNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersReadinessProbeExec, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Exec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HttpGet, actual.HttpGet, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("HttpGet")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpGet, actual.HttpGet, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersReadinessProbeHttpGet, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("HttpGet")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TcpSocket, actual.TcpSocket, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocketNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("TcpSocket")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TcpSocket, actual.TcpSocket, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeTcpSocketNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersReadinessProbeTcpSocket, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("TcpSocket")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6757,7 +6757,7 @@ func compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetNewStyle(d, a 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HttpHeaders, actual.HttpHeaders, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("HttpHeaders")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpHeaders, actual.HttpHeaders, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeadersNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("HttpHeaders")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6894,14 +6894,14 @@ func compareServiceSpecTemplateSpecVolumesNewStyle(d, a interface{}, fn dcl.Fiel
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Secret, actual.Secret, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesSecretNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Secret")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Secret, actual.Secret, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesSecretNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecVolumesSecret, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Secret")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConfigMap, actual.ConfigMap, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesConfigMapNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("ConfigMap")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConfigMap, actual.ConfigMap, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesConfigMapNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecVolumesConfigMap, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("ConfigMap")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6937,7 +6937,7 @@ func compareServiceSpecTemplateSpecVolumesSecretNewStyle(d, a interface{}, fn dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Items, actual.Items, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesSecretItemsNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Items")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Items, actual.Items, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesSecretItemsNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecVolumesSecretItems, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Items")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7030,7 +7030,7 @@ func compareServiceSpecTemplateSpecVolumesConfigMapNewStyle(d, a interface{}, fn
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Items, actual.Items, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesConfigMapItemsNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Items")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Items, actual.Items, dcl.Info{ObjectFunction: compareServiceSpecTemplateSpecVolumesConfigMapItemsNewStyle, EmptyObject: EmptyServiceSpecTemplateSpecVolumesConfigMapItems, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Items")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7187,7 +7187,7 @@ func compareServiceStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fi
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{ObjectFunction: compareServiceStatusConditionsNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{ObjectFunction: compareServiceStatusConditionsNewStyle, EmptyObject: EmptyServiceStatusConditions, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7208,7 +7208,7 @@ func compareServiceStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fi
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Traffic, actual.Traffic, dcl.Info{ObjectFunction: compareServiceStatusTrafficNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Traffic")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Traffic, actual.Traffic, dcl.Info{ObjectFunction: compareServiceStatusTrafficNewStyle, EmptyObject: EmptyServiceStatusTraffic, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Traffic")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7222,7 +7222,7 @@ func compareServiceStatusNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fi
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Address, actual.Address, dcl.Info{ObjectFunction: compareServiceStatusAddressNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Address")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Address, actual.Address, dcl.Info{ObjectFunction: compareServiceStatusAddressNewStyle, EmptyObject: EmptyServiceStatusAddress, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("Address")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7279,7 +7279,7 @@ func compareServiceStatusConditionsNewStyle(d, a interface{}, fn dcl.FieldName) 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LastTransitionTime, actual.LastTransitionTime, dcl.Info{ObjectFunction: compareServiceStatusConditionsLastTransitionTimeNewStyle, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("LastTransitionTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LastTransitionTime, actual.LastTransitionTime, dcl.Info{ObjectFunction: compareServiceStatusConditionsLastTransitionTimeNewStyle, EmptyObject: EmptyServiceStatusConditionsLastTransitionTime, OperationSelector: dcl.TriggersOperation("updateServiceReplaceServiceOperation")}, fn.AddNest("LastTransitionTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

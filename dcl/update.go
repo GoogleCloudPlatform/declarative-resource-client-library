@@ -14,6 +14,7 @@
 package dcl
 
 import (
+	"fmt"
 	"regexp"
 	"sort"
 	"strings"
@@ -86,4 +87,18 @@ func SnakeCaseUpdateMask(ds []*FieldDiff) string {
 	// Sorting the entries is optional, but makes it easier to read + test.
 	sort.Strings(dupesRemoved)
 	return strings.Join(dupesRemoved, ",")
+}
+
+// UpdateMaskWithPrefix returns a Standard Update Mask with a prefix attached.
+func UpdateMaskWithPrefix(ds []*FieldDiff, prefix string) string {
+	um := UpdateMask(ds)
+	parts := strings.Split(um, ",")
+
+	var ss []string
+
+	for _, part := range parts {
+		ss = append(ss, fmt.Sprintf("%s.%s", prefix, part))
+	}
+
+	return strings.Join(ss, ",")
 }

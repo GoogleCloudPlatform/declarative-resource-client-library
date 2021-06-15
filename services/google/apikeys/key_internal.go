@@ -1104,7 +1104,7 @@ func diffKey(c *Client, desired, actual *Key, opts ...dcl.ApplyOption) ([]*dcl.F
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Restrictions, actual.Restrictions, dcl.Info{ObjectFunction: compareKeyRestrictionsNewStyle, OperationSelector: dcl.TriggersOperation("updateKeyUpdateKeyOperation")}, fn.AddNest("Restrictions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Restrictions, actual.Restrictions, dcl.Info{ObjectFunction: compareKeyRestrictionsNewStyle, EmptyObject: EmptyKeyRestrictions, OperationSelector: dcl.TriggersOperation("updateKeyUpdateKeyOperation")}, fn.AddNest("Restrictions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1147,35 +1147,35 @@ func compareKeyRestrictionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.BrowserKeyRestrictions, actual.BrowserKeyRestrictions, dcl.Info{ObjectFunction: compareKeyRestrictionsBrowserKeyRestrictionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BrowserKeyRestrictions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BrowserKeyRestrictions, actual.BrowserKeyRestrictions, dcl.Info{ObjectFunction: compareKeyRestrictionsBrowserKeyRestrictionsNewStyle, EmptyObject: EmptyKeyRestrictionsBrowserKeyRestrictions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BrowserKeyRestrictions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServerKeyRestrictions, actual.ServerKeyRestrictions, dcl.Info{ObjectFunction: compareKeyRestrictionsServerKeyRestrictionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServerKeyRestrictions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServerKeyRestrictions, actual.ServerKeyRestrictions, dcl.Info{ObjectFunction: compareKeyRestrictionsServerKeyRestrictionsNewStyle, EmptyObject: EmptyKeyRestrictionsServerKeyRestrictions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServerKeyRestrictions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AndroidKeyRestrictions, actual.AndroidKeyRestrictions, dcl.Info{ObjectFunction: compareKeyRestrictionsAndroidKeyRestrictionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AndroidKeyRestrictions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AndroidKeyRestrictions, actual.AndroidKeyRestrictions, dcl.Info{ObjectFunction: compareKeyRestrictionsAndroidKeyRestrictionsNewStyle, EmptyObject: EmptyKeyRestrictionsAndroidKeyRestrictions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AndroidKeyRestrictions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IosKeyRestrictions, actual.IosKeyRestrictions, dcl.Info{ObjectFunction: compareKeyRestrictionsIosKeyRestrictionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IosKeyRestrictions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IosKeyRestrictions, actual.IosKeyRestrictions, dcl.Info{ObjectFunction: compareKeyRestrictionsIosKeyRestrictionsNewStyle, EmptyObject: EmptyKeyRestrictionsIosKeyRestrictions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IosKeyRestrictions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiTargets, actual.ApiTargets, dcl.Info{ObjectFunction: compareKeyRestrictionsApiTargetsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiTargets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiTargets, actual.ApiTargets, dcl.Info{ObjectFunction: compareKeyRestrictionsApiTargetsNewStyle, EmptyObject: EmptyKeyRestrictionsApiTargets, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiTargets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1262,7 +1262,7 @@ func compareKeyRestrictionsAndroidKeyRestrictionsNewStyle(d, a interface{}, fn d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AllowedApplications, actual.AllowedApplications, dcl.Info{ObjectFunction: compareKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowedApplications")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowedApplications, actual.AllowedApplications, dcl.Info{ObjectFunction: compareKeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsNewStyle, EmptyObject: EmptyKeyRestrictionsAndroidKeyRestrictionsAllowedApplications, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowedApplications")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

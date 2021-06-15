@@ -1044,7 +1044,7 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MatchingCriteria, actual.MatchingCriteria, dcl.Info{Type: "Set", ObjectFunction: compareTriggerMatchingCriteriaNewStyle, OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("EventFilters")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MatchingCriteria, actual.MatchingCriteria, dcl.Info{Type: "Set", ObjectFunction: compareTriggerMatchingCriteriaNewStyle, EmptyObject: EmptyTriggerMatchingCriteria, OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("EventFilters")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1058,14 +1058,14 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Destination, actual.Destination, dcl.Info{ObjectFunction: compareTriggerDestinationNewStyle, OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("Destination")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Destination, actual.Destination, dcl.Info{ObjectFunction: compareTriggerDestinationNewStyle, EmptyObject: EmptyTriggerDestination, OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("Destination")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Transport, actual.Transport, dcl.Info{ObjectFunction: compareTriggerTransportNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Transport")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Transport, actual.Transport, dcl.Info{ObjectFunction: compareTriggerTransportNewStyle, EmptyObject: EmptyTriggerTransport, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Transport")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1158,7 +1158,7 @@ func compareTriggerDestinationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.CloudRunService, actual.CloudRunService, dcl.Info{ObjectFunction: compareTriggerDestinationCloudRunServiceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CloudRun")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CloudRunService, actual.CloudRunService, dcl.Info{ObjectFunction: compareTriggerDestinationCloudRunServiceNewStyle, EmptyObject: EmptyTriggerDestinationCloudRunService, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CloudRun")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1237,7 +1237,7 @@ func compareTriggerTransportNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Pubsub, actual.Pubsub, dcl.Info{ObjectFunction: compareTriggerTransportPubsubNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Pubsub")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Pubsub, actual.Pubsub, dcl.Info{ObjectFunction: compareTriggerTransportPubsubNewStyle, EmptyObject: EmptyTriggerTransportPubsub, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Pubsub")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

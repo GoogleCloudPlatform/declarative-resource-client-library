@@ -50,9 +50,8 @@ message NetworksecurityBetaAuthorizationPolicyRulesSources {
 message NetworksecurityBetaAuthorizationPolicyRulesDestinations {
   repeated string hosts = 1;
   repeated int64 ports = 2;
-  repeated string paths = 3;
-  repeated string methods = 4;
-  NetworksecurityBetaAuthorizationPolicyRulesDestinationsHttpHeaderMatch http_header_match = 5;
+  repeated string methods = 3;
+  NetworksecurityBetaAuthorizationPolicyRulesDestinationsHttpHeaderMatch http_header_match = 4;
 }
 
 message NetworksecurityBetaAuthorizationPolicyRulesDestinationsHttpHeaderMatch {

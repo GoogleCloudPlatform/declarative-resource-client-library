@@ -3,7 +3,7 @@
  "location": "{{region}}",
  "project": "{{project}}",
   "workerConfig": {
-    "machineType": "n1-standard-2",
+    "machineType": "e2-standard-2",
     "diskSizeGb": 100,
     "noExternalIP": true
   },

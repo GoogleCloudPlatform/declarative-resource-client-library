@@ -1285,7 +1285,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServerCaCerts, actual.ServerCaCerts, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceServerCaCertsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServerCaCerts")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServerCaCerts, actual.ServerCaCerts, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceServerCaCertsNewStyle, EmptyObject: EmptyInstanceServerCaCerts, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServerCaCerts")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1299,14 +1299,14 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaintenancePolicy, actual.MaintenancePolicy, dcl.Info{ObjectFunction: compareInstanceMaintenancePolicyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaintenancePolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaintenancePolicy, actual.MaintenancePolicy, dcl.Info{ObjectFunction: compareInstanceMaintenancePolicyNewStyle, EmptyObject: EmptyInstanceMaintenancePolicy, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaintenancePolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaintenanceSchedule, actual.MaintenanceSchedule, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceMaintenanceScheduleNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaintenanceSchedule")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaintenanceSchedule, actual.MaintenanceSchedule, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceMaintenanceScheduleNewStyle, EmptyObject: EmptyInstanceMaintenanceSchedule, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaintenanceSchedule")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1427,7 +1427,7 @@ func compareInstanceMaintenancePolicyNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WeeklyMaintenanceWindow, actual.WeeklyMaintenanceWindow, dcl.Info{ObjectFunction: compareInstanceMaintenancePolicyWeeklyMaintenanceWindowNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WeeklyMaintenanceWindow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WeeklyMaintenanceWindow, actual.WeeklyMaintenanceWindow, dcl.Info{ObjectFunction: compareInstanceMaintenancePolicyWeeklyMaintenanceWindowNewStyle, EmptyObject: EmptyInstanceMaintenancePolicyWeeklyMaintenanceWindow, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WeeklyMaintenanceWindow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1463,7 +1463,7 @@ func compareInstanceMaintenancePolicyWeeklyMaintenanceWindowNewStyle(d, a interf
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.StartTime, actual.StartTime, dcl.Info{ObjectFunction: compareInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StartTime, actual.StartTime, dcl.Info{ObjectFunction: compareInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTimeNewStyle, EmptyObject: EmptyInstanceMaintenancePolicyWeeklyMaintenanceWindowStartTime, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

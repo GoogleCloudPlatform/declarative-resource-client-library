@@ -1765,14 +1765,14 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DistributionPolicy, actual.DistributionPolicy, dcl.Info{ObjectFunction: compareInstanceGroupManagerDistributionPolicyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DistributionPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DistributionPolicy, actual.DistributionPolicy, dcl.Info{ObjectFunction: compareInstanceGroupManagerDistributionPolicyNewStyle, EmptyObject: EmptyInstanceGroupManagerDistributionPolicy, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DistributionPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CurrentActions, actual.CurrentActions, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerCurrentActionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CurrentActions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CurrentActions, actual.CurrentActions, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerCurrentActionsNewStyle, EmptyObject: EmptyInstanceGroupManagerCurrentActions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CurrentActions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1786,7 +1786,7 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Versions, actual.Versions, dcl.Info{ObjectFunction: compareInstanceGroupManagerVersionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Versions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Versions, actual.Versions, dcl.Info{ObjectFunction: compareInstanceGroupManagerVersionsNewStyle, EmptyObject: EmptyInstanceGroupManagerVersions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Versions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1821,14 +1821,14 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NamedPorts, actual.NamedPorts, dcl.Info{ObjectFunction: compareInstanceGroupManagerNamedPortsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NamedPorts")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NamedPorts, actual.NamedPorts, dcl.Info{ObjectFunction: compareInstanceGroupManagerNamedPortsNewStyle, EmptyObject: EmptyInstanceGroupManagerNamedPorts, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NamedPorts")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerStatusNewStyle, EmptyObject: EmptyInstanceGroupManagerStatus, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1842,14 +1842,14 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AutoHealingPolicies, actual.AutoHealingPolicies, dcl.Info{ObjectFunction: compareInstanceGroupManagerAutoHealingPoliciesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AutoHealingPolicies")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutoHealingPolicies, actual.AutoHealingPolicies, dcl.Info{ObjectFunction: compareInstanceGroupManagerAutoHealingPoliciesNewStyle, EmptyObject: EmptyInstanceGroupManagerAutoHealingPolicies, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AutoHealingPolicies")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatePolicy, actual.UpdatePolicy, dcl.Info{ObjectFunction: compareInstanceGroupManagerUpdatePolicyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatePolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatePolicy, actual.UpdatePolicy, dcl.Info{ObjectFunction: compareInstanceGroupManagerUpdatePolicyNewStyle, EmptyObject: EmptyInstanceGroupManagerUpdatePolicy, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdatePolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1913,7 +1913,7 @@ func compareInstanceGroupManagerDistributionPolicyNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Zones, actual.Zones, dcl.Info{ObjectFunction: compareInstanceGroupManagerDistributionPolicyZonesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zones")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Zones, actual.Zones, dcl.Info{ObjectFunction: compareInstanceGroupManagerDistributionPolicyZonesNewStyle, EmptyObject: EmptyInstanceGroupManagerDistributionPolicyZones, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zones")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2063,7 +2063,7 @@ func compareInstanceGroupManagerVersionsNewStyle(d, a interface{}, fn dcl.FieldN
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetSize, actual.TargetSize, dcl.Info{ObjectFunction: compareInstanceGroupManagerVersionsTargetSizeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetSize, actual.TargetSize, dcl.Info{ObjectFunction: compareInstanceGroupManagerVersionsTargetSizeNewStyle, EmptyObject: EmptyInstanceGroupManagerVersionsTargetSize, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2178,7 +2178,7 @@ func compareInstanceGroupManagerStatusNewStyle(d, a interface{}, fn dcl.FieldNam
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VersionTarget, actual.VersionTarget, dcl.Info{ObjectFunction: compareInstanceGroupManagerStatusVersionTargetNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VersionTarget")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VersionTarget, actual.VersionTarget, dcl.Info{ObjectFunction: compareInstanceGroupManagerStatusVersionTargetNewStyle, EmptyObject: EmptyInstanceGroupManagerStatusVersionTarget, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VersionTarget")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2293,7 +2293,7 @@ func compareInstanceGroupManagerUpdatePolicyNewStyle(d, a interface{}, fn dcl.Fi
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxSurge, actual.MaxSurge, dcl.Info{ObjectFunction: compareInstanceGroupManagerUpdatePolicyMaxSurgeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxSurge")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxSurge, actual.MaxSurge, dcl.Info{ObjectFunction: compareInstanceGroupManagerUpdatePolicyMaxSurgeNewStyle, EmptyObject: EmptyInstanceGroupManagerUpdatePolicyMaxSurge, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxSurge")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2343,7 +2343,7 @@ func compareInstanceGroupManagerUpdatePolicyMaxSurgeNewStyle(d, a interface{}, f
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxUnavailable, actual.MaxUnavailable, dcl.Info{ObjectFunction: compareInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxUnavailable")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxUnavailable, actual.MaxUnavailable, dcl.Info{ObjectFunction: compareInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableNewStyle, EmptyObject: EmptyInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxUnavailable")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

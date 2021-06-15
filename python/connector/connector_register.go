@@ -28,6 +28,8 @@ import (
 
 	assuredworkloads_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads/connector"
 
+	bigquery_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigquery/connector"
+
 	bigqueryconnection_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryconnection/connector"
 
 	bigqueryreservation_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryreservation/connector"
@@ -82,6 +84,8 @@ import (
 
 	osconfig_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/beta_connector"
 
+	privateca_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca/beta_connector"
+
 	pubsub_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/connector"
 
 	pubsublite_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsublite/connector"
@@ -132,6 +136,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	appengine_connector.RegisterServers(grpcServer)
 
 	assuredworkloads_connector.RegisterServers(grpcServer)
+
+	bigquery_connector.RegisterServers(grpcServer)
 
 	bigqueryconnection_connector.RegisterServers(grpcServer)
 
@@ -186,6 +192,8 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	networkservices_alpha_connector.RegisterServers(grpcServer)
 
 	osconfig_beta_connector.RegisterServers(grpcServer)
+
+	privateca_beta_connector.RegisterServers(grpcServer)
 
 	pubsub_connector.RegisterServers(grpcServer)
 

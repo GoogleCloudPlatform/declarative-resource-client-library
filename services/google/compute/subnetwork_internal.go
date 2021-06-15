@@ -1006,7 +1006,7 @@ func diffSubnetwork(c *Client, desired, actual *Subnetwork, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryIPRanges, actual.SecondaryIPRanges, dcl.Info{ObjectFunction: compareSubnetworkSecondaryIPRangesNewStyle, OperationSelector: dcl.TriggersOperation("updateSubnetworkUpdateOperation")}, fn.AddNest("SecondaryIpRanges")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryIPRanges, actual.SecondaryIPRanges, dcl.Info{ObjectFunction: compareSubnetworkSecondaryIPRangesNewStyle, EmptyObject: EmptySubnetworkSecondaryIPRanges, OperationSelector: dcl.TriggersOperation("updateSubnetworkUpdateOperation")}, fn.AddNest("SecondaryIpRanges")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1027,7 +1027,7 @@ func diffSubnetwork(c *Client, desired, actual *Subnetwork, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LogConfig, actual.LogConfig, dcl.Info{ObjectFunction: compareSubnetworkLogConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateSubnetworkUpdateOperation")}, fn.AddNest("LogConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LogConfig, actual.LogConfig, dcl.Info{ObjectFunction: compareSubnetworkLogConfigNewStyle, EmptyObject: EmptySubnetworkLogConfig, OperationSelector: dcl.TriggersOperation("updateSubnetworkUpdateOperation")}, fn.AddNest("LogConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

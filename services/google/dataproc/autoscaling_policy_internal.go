@@ -886,21 +886,21 @@ func diffAutoscalingPolicy(c *Client, desired, actual *AutoscalingPolicy, opts .
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BasicAlgorithm, actual.BasicAlgorithm, dcl.Info{ObjectFunction: compareAutoscalingPolicyBasicAlgorithmNewStyle, OperationSelector: dcl.TriggersOperation("updateAutoscalingPolicyUpdateAutoscalingPolicyOperation")}, fn.AddNest("BasicAlgorithm")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BasicAlgorithm, actual.BasicAlgorithm, dcl.Info{ObjectFunction: compareAutoscalingPolicyBasicAlgorithmNewStyle, EmptyObject: EmptyAutoscalingPolicyBasicAlgorithm, OperationSelector: dcl.TriggersOperation("updateAutoscalingPolicyUpdateAutoscalingPolicyOperation")}, fn.AddNest("BasicAlgorithm")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WorkerConfig, actual.WorkerConfig, dcl.Info{ObjectFunction: compareAutoscalingPolicyWorkerConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateAutoscalingPolicyUpdateAutoscalingPolicyOperation")}, fn.AddNest("WorkerConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WorkerConfig, actual.WorkerConfig, dcl.Info{ObjectFunction: compareAutoscalingPolicyWorkerConfigNewStyle, EmptyObject: EmptyAutoscalingPolicyWorkerConfig, OperationSelector: dcl.TriggersOperation("updateAutoscalingPolicyUpdateAutoscalingPolicyOperation")}, fn.AddNest("WorkerConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryWorkerConfig, actual.SecondaryWorkerConfig, dcl.Info{ObjectFunction: compareAutoscalingPolicySecondaryWorkerConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateAutoscalingPolicyUpdateAutoscalingPolicyOperation")}, fn.AddNest("SecondaryWorkerConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryWorkerConfig, actual.SecondaryWorkerConfig, dcl.Info{ObjectFunction: compareAutoscalingPolicySecondaryWorkerConfigNewStyle, EmptyObject: EmptyAutoscalingPolicySecondaryWorkerConfig, OperationSelector: dcl.TriggersOperation("updateAutoscalingPolicyUpdateAutoscalingPolicyOperation")}, fn.AddNest("SecondaryWorkerConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -943,7 +943,7 @@ func compareAutoscalingPolicyBasicAlgorithmNewStyle(d, a interface{}, fn dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.YarnConfig, actual.YarnConfig, dcl.Info{ObjectFunction: compareAutoscalingPolicyBasicAlgorithmYarnConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("YarnConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.YarnConfig, actual.YarnConfig, dcl.Info{ObjectFunction: compareAutoscalingPolicyBasicAlgorithmYarnConfigNewStyle, EmptyObject: EmptyAutoscalingPolicyBasicAlgorithmYarnConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("YarnConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

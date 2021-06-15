@@ -12,10 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 dependencies:
-- samples/basic.http_filter.json
-- samples/basic.networksecurity.authorization_policy.json
-- samples/basic.networksecurity.client_tls_policy.json
-- samples/basic.networksecurity.server_tls_policy.json
+- samples/first.http_filter.json
+- samples/first.networksecurity.authorization_policy.json
+- samples/first.networksecurity.client_tls_policy.json
+- samples/first.networksecurity.server_tls_policy.json
+- samples/second.http_filter.json
+- samples/second.networksecurity.authorization_policy.json
+- samples/second.networksecurity.client_tls_policy.json
+- samples/second.networksecurity.server_tls_policy.json
 description: A basic example of a networkservices endpoint config selector
 name: basic_endpoint_config_selector
 resource: samples/basic.endpoint_config_selector.json

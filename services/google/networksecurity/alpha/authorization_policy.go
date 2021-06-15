@@ -170,7 +170,6 @@ type AuthorizationPolicyRulesDestinations struct {
 	empty           bool                                                 `json:"-"`
 	Hosts           []string                                             `json:"hosts"`
 	Ports           []int64                                              `json:"ports"`
-	Paths           []string                                             `json:"paths"`
 	Methods         []string                                             `json:"methods"`
 	HttpHeaderMatch *AuthorizationPolicyRulesDestinationsHttpHeaderMatch `json:"httpHeaderMatch"`
 }
@@ -193,8 +192,6 @@ func (r *AuthorizationPolicyRulesDestinations) UnmarshalJSON(data []byte) error 
 		r.Hosts = res.Hosts
 
 		r.Ports = res.Ports
-
-		r.Paths = res.Paths
 
 		r.Methods = res.Methods
 

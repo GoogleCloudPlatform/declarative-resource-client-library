@@ -9486,7 +9486,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MasterAuth, actual.MasterAuth, dcl.Info{ObjectFunction: compareClusterMasterAuthNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterAuth")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MasterAuth, actual.MasterAuth, dcl.Info{ObjectFunction: compareClusterMasterAuthNewStyle, EmptyObject: EmptyClusterMasterAuth, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterAuth")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9521,7 +9521,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AddonsConfig, actual.AddonsConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAddonsConfigOperation")}, fn.AddNest("AddonsConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AddonsConfig, actual.AddonsConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigNewStyle, EmptyObject: EmptyClusterAddonsConfig, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAddonsConfigOperation")}, fn.AddNest("AddonsConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9535,7 +9535,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NodePools, actual.NodePools, dcl.Info{ObjectFunction: compareClusterNodePoolsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodePools")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NodePools, actual.NodePools, dcl.Info{ObjectFunction: compareClusterNodePoolsNewStyle, EmptyObject: EmptyClusterNodePools, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodePools")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9570,105 +9570,105 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LegacyAbac, actual.LegacyAbac, dcl.Info{ObjectFunction: compareClusterLegacyAbacNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateLegacyAbacOperation")}, fn.AddNest("LegacyAbac")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LegacyAbac, actual.LegacyAbac, dcl.Info{ObjectFunction: compareClusterLegacyAbacNewStyle, EmptyObject: EmptyClusterLegacyAbac, OperationSelector: dcl.TriggersOperation("updateClusterUpdateLegacyAbacOperation")}, fn.AddNest("LegacyAbac")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NetworkPolicy, actual.NetworkPolicy, dcl.Info{ObjectFunction: compareClusterNetworkPolicyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NetworkPolicy, actual.NetworkPolicy, dcl.Info{ObjectFunction: compareClusterNetworkPolicyNewStyle, EmptyObject: EmptyClusterNetworkPolicy, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPAllocationPolicy, actual.IPAllocationPolicy, dcl.Info{ObjectFunction: compareClusterIPAllocationPolicyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpAllocationPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPAllocationPolicy, actual.IPAllocationPolicy, dcl.Info{ObjectFunction: compareClusterIPAllocationPolicyNewStyle, EmptyObject: EmptyClusterIPAllocationPolicy, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpAllocationPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MasterAuthorizedNetworksConfig, actual.MasterAuthorizedNetworksConfig, dcl.Info{ObjectFunction: compareClusterMasterAuthorizedNetworksConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateMasterAuthorizedNetworksConfigOperation")}, fn.AddNest("MasterAuthorizedNetworksConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MasterAuthorizedNetworksConfig, actual.MasterAuthorizedNetworksConfig, dcl.Info{ObjectFunction: compareClusterMasterAuthorizedNetworksConfigNewStyle, EmptyObject: EmptyClusterMasterAuthorizedNetworksConfig, OperationSelector: dcl.TriggersOperation("updateClusterUpdateMasterAuthorizedNetworksConfigOperation")}, fn.AddNest("MasterAuthorizedNetworksConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BinaryAuthorization, actual.BinaryAuthorization, dcl.Info{ObjectFunction: compareClusterBinaryAuthorizationNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateBinaryAuthorizationOperation")}, fn.AddNest("BinaryAuthorization")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BinaryAuthorization, actual.BinaryAuthorization, dcl.Info{ObjectFunction: compareClusterBinaryAuthorizationNewStyle, EmptyObject: EmptyClusterBinaryAuthorization, OperationSelector: dcl.TriggersOperation("updateClusterUpdateBinaryAuthorizationOperation")}, fn.AddNest("BinaryAuthorization")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Autoscaling, actual.Autoscaling, dcl.Info{ObjectFunction: compareClusterAutoscalingNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Autoscaling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Autoscaling, actual.Autoscaling, dcl.Info{ObjectFunction: compareClusterAutoscalingNewStyle, EmptyObject: EmptyClusterAutoscaling, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Autoscaling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NetworkConfig, actual.NetworkConfig, dcl.Info{ObjectFunction: compareClusterNetworkConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NetworkConfig, actual.NetworkConfig, dcl.Info{ObjectFunction: compareClusterNetworkConfigNewStyle, EmptyObject: EmptyClusterNetworkConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaintenancePolicy, actual.MaintenancePolicy, dcl.Info{ObjectFunction: compareClusterMaintenancePolicyNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterSetMaintenancePolicyOperation")}, fn.AddNest("MaintenancePolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaintenancePolicy, actual.MaintenancePolicy, dcl.Info{ObjectFunction: compareClusterMaintenancePolicyNewStyle, EmptyObject: EmptyClusterMaintenancePolicy, OperationSelector: dcl.TriggersOperation("updateClusterSetMaintenancePolicyOperation")}, fn.AddNest("MaintenancePolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DefaultMaxPodsConstraint, actual.DefaultMaxPodsConstraint, dcl.Info{ObjectFunction: compareClusterDefaultMaxPodsConstraintNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultMaxPodsConstraint")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DefaultMaxPodsConstraint, actual.DefaultMaxPodsConstraint, dcl.Info{ObjectFunction: compareClusterDefaultMaxPodsConstraintNewStyle, EmptyObject: EmptyClusterDefaultMaxPodsConstraint, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultMaxPodsConstraint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceUsageExportConfig, actual.ResourceUsageExportConfig, dcl.Info{ObjectFunction: compareClusterResourceUsageExportConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceUsageExportConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceUsageExportConfig, actual.ResourceUsageExportConfig, dcl.Info{ObjectFunction: compareClusterResourceUsageExportConfigNewStyle, EmptyObject: EmptyClusterResourceUsageExportConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceUsageExportConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AuthenticatorGroupsConfig, actual.AuthenticatorGroupsConfig, dcl.Info{ObjectFunction: compareClusterAuthenticatorGroupsConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AuthenticatorGroupsConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AuthenticatorGroupsConfig, actual.AuthenticatorGroupsConfig, dcl.Info{ObjectFunction: compareClusterAuthenticatorGroupsConfigNewStyle, EmptyObject: EmptyClusterAuthenticatorGroupsConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AuthenticatorGroupsConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PrivateClusterConfig, actual.PrivateClusterConfig, dcl.Info{ObjectFunction: compareClusterPrivateClusterConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrivateClusterConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PrivateClusterConfig, actual.PrivateClusterConfig, dcl.Info{ObjectFunction: compareClusterPrivateClusterConfigNewStyle, EmptyObject: EmptyClusterPrivateClusterConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrivateClusterConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DatabaseEncryption, actual.DatabaseEncryption, dcl.Info{ObjectFunction: compareClusterDatabaseEncryptionNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateDatabaseEncryptionOperation")}, fn.AddNest("DatabaseEncryption")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DatabaseEncryption, actual.DatabaseEncryption, dcl.Info{ObjectFunction: compareClusterDatabaseEncryptionNewStyle, EmptyObject: EmptyClusterDatabaseEncryption, OperationSelector: dcl.TriggersOperation("updateClusterUpdateDatabaseEncryptionOperation")}, fn.AddNest("DatabaseEncryption")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerticalPodAutoscaling, actual.VerticalPodAutoscaling, dcl.Info{ObjectFunction: compareClusterVerticalPodAutoscalingNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateVerticalPodAutoscalingOperation")}, fn.AddNest("VerticalPodAutoscaling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerticalPodAutoscaling, actual.VerticalPodAutoscaling, dcl.Info{ObjectFunction: compareClusterVerticalPodAutoscalingNewStyle, EmptyObject: EmptyClusterVerticalPodAutoscaling, OperationSelector: dcl.TriggersOperation("updateClusterUpdateVerticalPodAutoscalingOperation")}, fn.AddNest("VerticalPodAutoscaling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ShieldedNodes, actual.ShieldedNodes, dcl.Info{ObjectFunction: compareClusterShieldedNodesNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateShieldedNodesOperation")}, fn.AddNest("ShieldedNodes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ShieldedNodes, actual.ShieldedNodes, dcl.Info{ObjectFunction: compareClusterShieldedNodesNewStyle, EmptyObject: EmptyClusterShieldedNodes, OperationSelector: dcl.TriggersOperation("updateClusterUpdateShieldedNodesOperation")}, fn.AddNest("ShieldedNodes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9752,14 +9752,14 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{ObjectFunction: compareClusterConditionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{ObjectFunction: compareClusterConditionsNewStyle, EmptyObject: EmptyClusterConditions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Autopilot, actual.Autopilot, dcl.Info{ObjectFunction: compareClusterAutopilotNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Autopilot")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Autopilot, actual.Autopilot, dcl.Info{ObjectFunction: compareClusterAutopilotNewStyle, EmptyObject: EmptyClusterAutopilot, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Autopilot")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9773,35 +9773,35 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NodeConfig, actual.NodeConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NodeConfig, actual.NodeConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigNewStyle, EmptyObject: EmptyClusterNodeConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReleaseChannel, actual.ReleaseChannel, dcl.Info{ObjectFunction: compareClusterReleaseChannelNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReleaseChannel")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReleaseChannel, actual.ReleaseChannel, dcl.Info{ObjectFunction: compareClusterReleaseChannelNewStyle, EmptyObject: EmptyClusterReleaseChannel, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReleaseChannel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WorkloadIdentityConfig, actual.WorkloadIdentityConfig, dcl.Info{ObjectFunction: compareClusterWorkloadIdentityConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateWorkloadIdentityConfigOperation")}, fn.AddNest("WorkloadIdentityConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WorkloadIdentityConfig, actual.WorkloadIdentityConfig, dcl.Info{ObjectFunction: compareClusterWorkloadIdentityConfigNewStyle, EmptyObject: EmptyClusterWorkloadIdentityConfig, OperationSelector: dcl.TriggersOperation("updateClusterUpdateWorkloadIdentityConfigOperation")}, fn.AddNest("WorkloadIdentityConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NotificationConfig, actual.NotificationConfig, dcl.Info{ObjectFunction: compareClusterNotificationConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NotificationConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NotificationConfig, actual.NotificationConfig, dcl.Info{ObjectFunction: compareClusterNotificationConfigNewStyle, EmptyObject: EmptyClusterNotificationConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NotificationConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConfidentialNodes, actual.ConfidentialNodes, dcl.Info{ObjectFunction: compareClusterConfidentialNodesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfidentialNodes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConfidentialNodes, actual.ConfidentialNodes, dcl.Info{ObjectFunction: compareClusterConfidentialNodesNewStyle, EmptyObject: EmptyClusterConfidentialNodes, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfidentialNodes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9864,7 +9864,7 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PodSecurityPolicyConfig, actual.PodSecurityPolicyConfig, dcl.Info{ObjectFunction: compareClusterPodSecurityPolicyConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PodSecurityPolicyConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PodSecurityPolicyConfig, actual.PodSecurityPolicyConfig, dcl.Info{ObjectFunction: compareClusterPodSecurityPolicyConfigNewStyle, EmptyObject: EmptyClusterPodSecurityPolicyConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PodSecurityPolicyConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9885,21 +9885,21 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterTelemetry, actual.ClusterTelemetry, dcl.Info{ObjectFunction: compareClusterClusterTelemetryNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterTelemetry")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterTelemetry, actual.ClusterTelemetry, dcl.Info{ObjectFunction: compareClusterClusterTelemetryNewStyle, EmptyObject: EmptyClusterClusterTelemetry, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterTelemetry")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TPUConfig, actual.TPUConfig, dcl.Info{ObjectFunction: compareClusterTPUConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TpuConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TPUConfig, actual.TPUConfig, dcl.Info{ObjectFunction: compareClusterTPUConfigNewStyle, EmptyObject: EmptyClusterTPUConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TpuConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Master, actual.Master, dcl.Info{ObjectFunction: compareClusterMasterNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Master")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Master, actual.Master, dcl.Info{ObjectFunction: compareClusterMasterNewStyle, EmptyObject: EmptyClusterMaster, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Master")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9942,7 +9942,7 @@ func compareClusterMasterAuthNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClientCertificateConfig, actual.ClientCertificateConfig, dcl.Info{ObjectFunction: compareClusterMasterAuthClientCertificateConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClientCertificateConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClientCertificateConfig, actual.ClientCertificateConfig, dcl.Info{ObjectFunction: compareClusterMasterAuthClientCertificateConfigNewStyle, EmptyObject: EmptyClusterMasterAuthClientCertificateConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClientCertificateConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10021,70 +10021,70 @@ func compareClusterAddonsConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.HttpLoadBalancing, actual.HttpLoadBalancing, dcl.Info{ObjectFunction: compareClusterAddonsConfigHttpLoadBalancingNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAddonsConfigOperation")}, fn.AddNest("HttpLoadBalancing")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpLoadBalancing, actual.HttpLoadBalancing, dcl.Info{ObjectFunction: compareClusterAddonsConfigHttpLoadBalancingNewStyle, EmptyObject: EmptyClusterAddonsConfigHttpLoadBalancing, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAddonsConfigOperation")}, fn.AddNest("HttpLoadBalancing")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HorizontalPodAutoscaling, actual.HorizontalPodAutoscaling, dcl.Info{ObjectFunction: compareClusterAddonsConfigHorizontalPodAutoscalingNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAddonsConfigOperation")}, fn.AddNest("HorizontalPodAutoscaling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HorizontalPodAutoscaling, actual.HorizontalPodAutoscaling, dcl.Info{ObjectFunction: compareClusterAddonsConfigHorizontalPodAutoscalingNewStyle, EmptyObject: EmptyClusterAddonsConfigHorizontalPodAutoscaling, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAddonsConfigOperation")}, fn.AddNest("HorizontalPodAutoscaling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KubernetesDashboard, actual.KubernetesDashboard, dcl.Info{ObjectFunction: compareClusterAddonsConfigKubernetesDashboardNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAddonsConfigOperation")}, fn.AddNest("KubernetesDashboard")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KubernetesDashboard, actual.KubernetesDashboard, dcl.Info{ObjectFunction: compareClusterAddonsConfigKubernetesDashboardNewStyle, EmptyObject: EmptyClusterAddonsConfigKubernetesDashboard, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAddonsConfigOperation")}, fn.AddNest("KubernetesDashboard")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NetworkPolicyConfig, actual.NetworkPolicyConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigNetworkPolicyConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAddonsConfigOperation")}, fn.AddNest("NetworkPolicyConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NetworkPolicyConfig, actual.NetworkPolicyConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigNetworkPolicyConfigNewStyle, EmptyObject: EmptyClusterAddonsConfigNetworkPolicyConfig, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAddonsConfigOperation")}, fn.AddNest("NetworkPolicyConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CloudRunConfig, actual.CloudRunConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigCloudRunConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAddonsConfigOperation")}, fn.AddNest("CloudRunConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CloudRunConfig, actual.CloudRunConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigCloudRunConfigNewStyle, EmptyObject: EmptyClusterAddonsConfigCloudRunConfig, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAddonsConfigOperation")}, fn.AddNest("CloudRunConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DnsCacheConfig, actual.DnsCacheConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigDnsCacheConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DnsCacheConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DnsCacheConfig, actual.DnsCacheConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigDnsCacheConfigNewStyle, EmptyObject: EmptyClusterAddonsConfigDnsCacheConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DnsCacheConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConfigConnectorConfig, actual.ConfigConnectorConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigConfigConnectorConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigConnectorConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConfigConnectorConfig, actual.ConfigConnectorConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigConfigConnectorConfigNewStyle, EmptyObject: EmptyClusterAddonsConfigConfigConnectorConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigConnectorConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GcePersistentDiskCsiDriverConfig, actual.GcePersistentDiskCsiDriverConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigGcePersistentDiskCsiDriverConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GcePersistentDiskCsiDriverConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GcePersistentDiskCsiDriverConfig, actual.GcePersistentDiskCsiDriverConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigGcePersistentDiskCsiDriverConfigNewStyle, EmptyObject: EmptyClusterAddonsConfigGcePersistentDiskCsiDriverConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GcePersistentDiskCsiDriverConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IstioConfig, actual.IstioConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigIstioConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IstioConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IstioConfig, actual.IstioConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigIstioConfigNewStyle, EmptyObject: EmptyClusterAddonsConfigIstioConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IstioConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KalmConfig, actual.KalmConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigKalmConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KalmConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KalmConfig, actual.KalmConfig, dcl.Info{ObjectFunction: compareClusterAddonsConfigKalmConfigNewStyle, EmptyObject: EmptyClusterAddonsConfigKalmConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KalmConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10424,7 +10424,7 @@ func compareClusterNodePoolsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Config, actual.Config, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Config")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Config, actual.Config, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigNewStyle, EmptyObject: EmptyClusterNodePoolsConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Config")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10480,28 +10480,28 @@ func compareClusterNodePoolsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Autoscaling, actual.Autoscaling, dcl.Info{ObjectFunction: compareClusterNodePoolsAutoscalingNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Autoscaling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Autoscaling, actual.Autoscaling, dcl.Info{ObjectFunction: compareClusterNodePoolsAutoscalingNewStyle, EmptyObject: EmptyClusterNodePoolsAutoscaling, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Autoscaling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Management, actual.Management, dcl.Info{ObjectFunction: compareClusterNodePoolsManagementNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Management")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Management, actual.Management, dcl.Info{ObjectFunction: compareClusterNodePoolsManagementNewStyle, EmptyObject: EmptyClusterNodePoolsManagement, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Management")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxPodsConstraint, actual.MaxPodsConstraint, dcl.Info{ObjectFunction: compareClusterNodePoolsMaxPodsConstraintNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxPodsConstraint")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxPodsConstraint, actual.MaxPodsConstraint, dcl.Info{ObjectFunction: compareClusterNodePoolsMaxPodsConstraintNewStyle, EmptyObject: EmptyClusterNodePoolsMaxPodsConstraint, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxPodsConstraint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{ObjectFunction: compareClusterNodePoolsConditionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{ObjectFunction: compareClusterNodePoolsConditionsNewStyle, EmptyObject: EmptyClusterNodePoolsConditions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10515,14 +10515,14 @@ func compareClusterNodePoolsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpgradeSettings, actual.UpgradeSettings, dcl.Info{ObjectFunction: compareClusterNodePoolsUpgradeSettingsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpgradeSettings")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpgradeSettings, actual.UpgradeSettings, dcl.Info{ObjectFunction: compareClusterNodePoolsUpgradeSettingsNewStyle, EmptyObject: EmptyClusterNodePoolsUpgradeSettings, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpgradeSettings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NetworkConfig, actual.NetworkConfig, dcl.Info{ObjectFunction: compareClusterNodePoolsNetworkConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NetworkConfig, actual.NetworkConfig, dcl.Info{ObjectFunction: compareClusterNodePoolsNetworkConfigNewStyle, EmptyObject: EmptyClusterNodePoolsNetworkConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10621,7 +10621,7 @@ func compareClusterNodePoolsConfigNewStyle(d, a interface{}, fn dcl.FieldName) (
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Accelerators, actual.Accelerators, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigAcceleratorsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Accelerators")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Accelerators, actual.Accelerators, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigAcceleratorsNewStyle, EmptyObject: EmptyClusterNodePoolsConfigAccelerators, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Accelerators")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10642,21 +10642,21 @@ func compareClusterNodePoolsConfigNewStyle(d, a interface{}, fn dcl.FieldName) (
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WorkloadMetadataConfig, actual.WorkloadMetadataConfig, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigWorkloadMetadataConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WorkloadMetadataConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WorkloadMetadataConfig, actual.WorkloadMetadataConfig, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigWorkloadMetadataConfigNewStyle, EmptyObject: EmptyClusterNodePoolsConfigWorkloadMetadataConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WorkloadMetadataConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Taints, actual.Taints, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigTaintsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Taints")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Taints, actual.Taints, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigTaintsNewStyle, EmptyObject: EmptyClusterNodePoolsConfigTaints, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Taints")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SandboxConfig, actual.SandboxConfig, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigSandboxConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SandboxConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SandboxConfig, actual.SandboxConfig, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigSandboxConfigNewStyle, EmptyObject: EmptyClusterNodePoolsConfigSandboxConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SandboxConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10670,28 +10670,28 @@ func compareClusterNodePoolsConfigNewStyle(d, a interface{}, fn dcl.FieldName) (
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReservationAffinity, actual.ReservationAffinity, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigReservationAffinityNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReservationAffinity")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReservationAffinity, actual.ReservationAffinity, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigReservationAffinityNewStyle, EmptyObject: EmptyClusterNodePoolsConfigReservationAffinity, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReservationAffinity")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ShieldedInstanceConfig, actual.ShieldedInstanceConfig, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigShieldedInstanceConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ShieldedInstanceConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ShieldedInstanceConfig, actual.ShieldedInstanceConfig, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigShieldedInstanceConfigNewStyle, EmptyObject: EmptyClusterNodePoolsConfigShieldedInstanceConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ShieldedInstanceConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LinuxNodeConfig, actual.LinuxNodeConfig, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigLinuxNodeConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LinuxNodeConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LinuxNodeConfig, actual.LinuxNodeConfig, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigLinuxNodeConfigNewStyle, EmptyObject: EmptyClusterNodePoolsConfigLinuxNodeConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LinuxNodeConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KubeletConfig, actual.KubeletConfig, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigKubeletConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KubeletConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KubeletConfig, actual.KubeletConfig, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigKubeletConfigNewStyle, EmptyObject: EmptyClusterNodePoolsConfigKubeletConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KubeletConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10705,7 +10705,7 @@ func compareClusterNodePoolsConfigNewStyle(d, a interface{}, fn dcl.FieldName) (
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EphemeralStorageConfig, actual.EphemeralStorageConfig, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigEphemeralStorageConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EphemeralStorageConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EphemeralStorageConfig, actual.EphemeralStorageConfig, dcl.Info{ObjectFunction: compareClusterNodePoolsConfigEphemeralStorageConfigNewStyle, EmptyObject: EmptyClusterNodePoolsConfigEphemeralStorageConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EphemeralStorageConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11129,7 +11129,7 @@ func compareClusterNodePoolsManagementNewStyle(d, a interface{}, fn dcl.FieldNam
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpgradeOptions, actual.UpgradeOptions, dcl.Info{ObjectFunction: compareClusterNodePoolsManagementUpgradeOptionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpgradeOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpgradeOptions, actual.UpgradeOptions, dcl.Info{ObjectFunction: compareClusterNodePoolsManagementUpgradeOptionsNewStyle, EmptyObject: EmptyClusterNodePoolsManagementUpgradeOptions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpgradeOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11537,7 +11537,7 @@ func compareClusterMasterAuthorizedNetworksConfigNewStyle(d, a interface{}, fn d
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CidrBlocks, actual.CidrBlocks, dcl.Info{ObjectFunction: compareClusterMasterAuthorizedNetworksConfigCidrBlocksNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateMasterAuthorizedNetworksConfigOperation")}, fn.AddNest("CidrBlocks")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CidrBlocks, actual.CidrBlocks, dcl.Info{ObjectFunction: compareClusterMasterAuthorizedNetworksConfigCidrBlocksNewStyle, EmptyObject: EmptyClusterMasterAuthorizedNetworksConfigCidrBlocks, OperationSelector: dcl.TriggersOperation("updateClusterUpdateMasterAuthorizedNetworksConfigOperation")}, fn.AddNest("CidrBlocks")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11638,14 +11638,14 @@ func compareClusterAutoscalingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceLimits, actual.ResourceLimits, dcl.Info{ObjectFunction: compareClusterAutoscalingResourceLimitsNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAutoscalingOperation")}, fn.AddNest("ResourceLimits")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceLimits, actual.ResourceLimits, dcl.Info{ObjectFunction: compareClusterAutoscalingResourceLimitsNewStyle, EmptyObject: EmptyClusterAutoscalingResourceLimits, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAutoscalingOperation")}, fn.AddNest("ResourceLimits")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AutoprovisioningNodePoolDefaults, actual.AutoprovisioningNodePoolDefaults, dcl.Info{ObjectFunction: compareClusterAutoscalingAutoprovisioningNodePoolDefaultsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AutoprovisioningNodePoolDefaults")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutoprovisioningNodePoolDefaults, actual.AutoprovisioningNodePoolDefaults, dcl.Info{ObjectFunction: compareClusterAutoscalingAutoprovisioningNodePoolDefaultsNewStyle, EmptyObject: EmptyClusterAutoscalingAutoprovisioningNodePoolDefaults, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AutoprovisioningNodePoolDefaults")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11745,14 +11745,14 @@ func compareClusterAutoscalingAutoprovisioningNodePoolDefaultsNewStyle(d, a inte
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpgradeSettings, actual.UpgradeSettings, dcl.Info{ObjectFunction: compareClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettingsNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAutoscalingOperation")}, fn.AddNest("UpgradeSettings")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpgradeSettings, actual.UpgradeSettings, dcl.Info{ObjectFunction: compareClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettingsNewStyle, EmptyObject: EmptyClusterAutoscalingAutoprovisioningNodePoolDefaultsUpgradeSettings, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAutoscalingOperation")}, fn.AddNest("UpgradeSettings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Management, actual.Management, dcl.Info{ObjectFunction: compareClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementNewStyle, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAutoscalingOperation")}, fn.AddNest("Management")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Management, actual.Management, dcl.Info{ObjectFunction: compareClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementNewStyle, EmptyObject: EmptyClusterAutoscalingAutoprovisioningNodePoolDefaultsManagement, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAutoscalingOperation")}, fn.AddNest("Management")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11780,7 +11780,7 @@ func compareClusterAutoscalingAutoprovisioningNodePoolDefaultsNewStyle(d, a inte
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ShieldedInstanceConfig, actual.ShieldedInstanceConfig, dcl.Info{ObjectFunction: compareClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ShieldedInstanceConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ShieldedInstanceConfig, actual.ShieldedInstanceConfig, dcl.Info{ObjectFunction: compareClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfigNewStyle, EmptyObject: EmptyClusterAutoscalingAutoprovisioningNodePoolDefaultsShieldedInstanceConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ShieldedInstanceConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11866,7 +11866,7 @@ func compareClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementNewStyle
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpgradeOptions, actual.UpgradeOptions, dcl.Info{ObjectFunction: compareClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpgradeOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpgradeOptions, actual.UpgradeOptions, dcl.Info{ObjectFunction: compareClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptionsNewStyle, EmptyObject: EmptyClusterAutoscalingAutoprovisioningNodePoolDefaultsManagementUpgradeOptions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpgradeOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11988,7 +11988,7 @@ func compareClusterNetworkConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DefaultSnatStatus, actual.DefaultSnatStatus, dcl.Info{ObjectFunction: compareClusterNetworkConfigDefaultSnatStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultSnatStatus")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DefaultSnatStatus, actual.DefaultSnatStatus, dcl.Info{ObjectFunction: compareClusterNetworkConfigDefaultSnatStatusNewStyle, EmptyObject: EmptyClusterNetworkConfigDefaultSnatStatus, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultSnatStatus")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -12060,7 +12060,7 @@ func compareClusterMaintenancePolicyNewStyle(d, a interface{}, fn dcl.FieldName)
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Window, actual.Window, dcl.Info{ObjectFunction: compareClusterMaintenancePolicyWindowNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Window")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Window, actual.Window, dcl.Info{ObjectFunction: compareClusterMaintenancePolicyWindowNewStyle, EmptyObject: EmptyClusterMaintenancePolicyWindow, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Window")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -12096,14 +12096,14 @@ func compareClusterMaintenancePolicyWindowNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DailyMaintenanceWindow, actual.DailyMaintenanceWindow, dcl.Info{ObjectFunction: compareClusterMaintenancePolicyWindowDailyMaintenanceWindowNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DailyMaintenanceWindow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DailyMaintenanceWindow, actual.DailyMaintenanceWindow, dcl.Info{ObjectFunction: compareClusterMaintenancePolicyWindowDailyMaintenanceWindowNewStyle, EmptyObject: EmptyClusterMaintenancePolicyWindowDailyMaintenanceWindow, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DailyMaintenanceWindow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RecurringWindow, actual.RecurringWindow, dcl.Info{ObjectFunction: compareClusterMaintenancePolicyWindowRecurringWindowNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RecurringWindow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RecurringWindow, actual.RecurringWindow, dcl.Info{ObjectFunction: compareClusterMaintenancePolicyWindowRecurringWindowNewStyle, EmptyObject: EmptyClusterMaintenancePolicyWindowRecurringWindow, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RecurringWindow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -12175,7 +12175,7 @@ func compareClusterMaintenancePolicyWindowRecurringWindowNewStyle(d, a interface
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Window, actual.Window, dcl.Info{ObjectFunction: compareClusterMaintenancePolicyWindowRecurringWindowWindowNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Window")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Window, actual.Window, dcl.Info{ObjectFunction: compareClusterMaintenancePolicyWindowRecurringWindowWindowNewStyle, EmptyObject: EmptyClusterMaintenancePolicyWindowRecurringWindowWindow, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Window")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -12276,7 +12276,7 @@ func compareClusterResourceUsageExportConfigNewStyle(d, a interface{}, fn dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.BigqueryDestination, actual.BigqueryDestination, dcl.Info{ObjectFunction: compareClusterResourceUsageExportConfigBigqueryDestinationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BigqueryDestination")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BigqueryDestination, actual.BigqueryDestination, dcl.Info{ObjectFunction: compareClusterResourceUsageExportConfigBigqueryDestinationNewStyle, EmptyObject: EmptyClusterResourceUsageExportConfigBigqueryDestination, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BigqueryDestination")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -12290,7 +12290,7 @@ func compareClusterResourceUsageExportConfigNewStyle(d, a interface{}, fn dcl.Fi
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConsumptionMeteringConfig, actual.ConsumptionMeteringConfig, dcl.Info{ObjectFunction: compareClusterResourceUsageExportConfigConsumptionMeteringConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConsumptionMeteringConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConsumptionMeteringConfig, actual.ConsumptionMeteringConfig, dcl.Info{ObjectFunction: compareClusterResourceUsageExportConfigConsumptionMeteringConfigNewStyle, EmptyObject: EmptyClusterResourceUsageExportConfigConsumptionMeteringConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConsumptionMeteringConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -12462,7 +12462,7 @@ func compareClusterPrivateClusterConfigNewStyle(d, a interface{}, fn dcl.FieldNa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MasterGlobalAccessConfig, actual.MasterGlobalAccessConfig, dcl.Info{ObjectFunction: compareClusterPrivateClusterConfigMasterGlobalAccessConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterGlobalAccessConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MasterGlobalAccessConfig, actual.MasterGlobalAccessConfig, dcl.Info{ObjectFunction: compareClusterPrivateClusterConfigMasterGlobalAccessConfigNewStyle, EmptyObject: EmptyClusterPrivateClusterConfigMasterGlobalAccessConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterGlobalAccessConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -12763,7 +12763,7 @@ func compareClusterNodeConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Accelerators, actual.Accelerators, dcl.Info{ObjectFunction: compareClusterNodeConfigAcceleratorsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Accelerators")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Accelerators, actual.Accelerators, dcl.Info{ObjectFunction: compareClusterNodeConfigAcceleratorsNewStyle, EmptyObject: EmptyClusterNodeConfigAccelerators, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Accelerators")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -12784,21 +12784,21 @@ func compareClusterNodeConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WorkloadMetadataConfig, actual.WorkloadMetadataConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigWorkloadMetadataConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WorkloadMetadataConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WorkloadMetadataConfig, actual.WorkloadMetadataConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigWorkloadMetadataConfigNewStyle, EmptyObject: EmptyClusterNodeConfigWorkloadMetadataConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WorkloadMetadataConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Taints, actual.Taints, dcl.Info{ObjectFunction: compareClusterNodeConfigTaintsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Taints")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Taints, actual.Taints, dcl.Info{ObjectFunction: compareClusterNodeConfigTaintsNewStyle, EmptyObject: EmptyClusterNodeConfigTaints, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Taints")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SandboxConfig, actual.SandboxConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigSandboxConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SandboxConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SandboxConfig, actual.SandboxConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigSandboxConfigNewStyle, EmptyObject: EmptyClusterNodeConfigSandboxConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SandboxConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -12812,28 +12812,28 @@ func compareClusterNodeConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReservationAffinity, actual.ReservationAffinity, dcl.Info{ObjectFunction: compareClusterNodeConfigReservationAffinityNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReservationAffinity")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReservationAffinity, actual.ReservationAffinity, dcl.Info{ObjectFunction: compareClusterNodeConfigReservationAffinityNewStyle, EmptyObject: EmptyClusterNodeConfigReservationAffinity, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReservationAffinity")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ShieldedInstanceConfig, actual.ShieldedInstanceConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigShieldedInstanceConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ShieldedInstanceConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ShieldedInstanceConfig, actual.ShieldedInstanceConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigShieldedInstanceConfigNewStyle, EmptyObject: EmptyClusterNodeConfigShieldedInstanceConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ShieldedInstanceConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LinuxNodeConfig, actual.LinuxNodeConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigLinuxNodeConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LinuxNodeConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LinuxNodeConfig, actual.LinuxNodeConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigLinuxNodeConfigNewStyle, EmptyObject: EmptyClusterNodeConfigLinuxNodeConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LinuxNodeConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KubeletConfig, actual.KubeletConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigKubeletConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KubeletConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KubeletConfig, actual.KubeletConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigKubeletConfigNewStyle, EmptyObject: EmptyClusterNodeConfigKubeletConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KubeletConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -12847,7 +12847,7 @@ func compareClusterNodeConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EphemeralStorageConfig, actual.EphemeralStorageConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigEphemeralStorageConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EphemeralStorageConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EphemeralStorageConfig, actual.EphemeralStorageConfig, dcl.Info{ObjectFunction: compareClusterNodeConfigEphemeralStorageConfigNewStyle, EmptyObject: EmptyClusterNodeConfigEphemeralStorageConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EphemeralStorageConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -13279,7 +13279,7 @@ func compareClusterNotificationConfigNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Pubsub, actual.Pubsub, dcl.Info{ObjectFunction: compareClusterNotificationConfigPubsubNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Pubsub")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Pubsub, actual.Pubsub, dcl.Info{ObjectFunction: compareClusterNotificationConfigPubsubNewStyle, EmptyObject: EmptyClusterNotificationConfigPubsub, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Pubsub")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

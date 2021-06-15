@@ -3616,21 +3616,21 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AutomaticScaling, actual.AutomaticScaling, dcl.Info{ObjectFunction: compareVersionAutomaticScalingNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("AutomaticScaling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutomaticScaling, actual.AutomaticScaling, dcl.Info{ObjectFunction: compareVersionAutomaticScalingNewStyle, EmptyObject: EmptyVersionAutomaticScaling, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("AutomaticScaling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BasicScaling, actual.BasicScaling, dcl.Info{ObjectFunction: compareVersionBasicScalingNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("BasicScaling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BasicScaling, actual.BasicScaling, dcl.Info{ObjectFunction: compareVersionBasicScalingNewStyle, EmptyObject: EmptyVersionBasicScaling, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("BasicScaling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ManualScaling, actual.ManualScaling, dcl.Info{ObjectFunction: compareVersionManualScalingNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("ManualScaling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ManualScaling, actual.ManualScaling, dcl.Info{ObjectFunction: compareVersionManualScalingNewStyle, EmptyObject: EmptyVersionManualScaling, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("ManualScaling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3651,7 +3651,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{ObjectFunction: compareVersionNetworkNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{ObjectFunction: compareVersionNetworkNewStyle, EmptyObject: EmptyVersionNetwork, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3665,7 +3665,7 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{ObjectFunction: compareVersionResourcesNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{ObjectFunction: compareVersionResourcesNewStyle, EmptyObject: EmptyVersionResources, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3756,28 +3756,28 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Handlers, actual.Handlers, dcl.Info{ObjectFunction: compareVersionHandlersNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Handlers")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Handlers, actual.Handlers, dcl.Info{ObjectFunction: compareVersionHandlersNewStyle, EmptyObject: EmptyVersionHandlers, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Handlers")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ErrorHandlers, actual.ErrorHandlers, dcl.Info{ObjectFunction: compareVersionErrorHandlersNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("ErrorHandlers")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ErrorHandlers, actual.ErrorHandlers, dcl.Info{ObjectFunction: compareVersionErrorHandlersNewStyle, EmptyObject: EmptyVersionErrorHandlers, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("ErrorHandlers")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Libraries, actual.Libraries, dcl.Info{ObjectFunction: compareVersionLibrariesNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Libraries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Libraries, actual.Libraries, dcl.Info{ObjectFunction: compareVersionLibrariesNewStyle, EmptyObject: EmptyVersionLibraries, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Libraries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiConfig, actual.ApiConfig, dcl.Info{ObjectFunction: compareVersionApiConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("ApiConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiConfig, actual.ApiConfig, dcl.Info{ObjectFunction: compareVersionApiConfigNewStyle, EmptyObject: EmptyVersionApiConfig, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("ApiConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3798,28 +3798,28 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Deployment, actual.Deployment, dcl.Info{ObjectFunction: compareVersionDeploymentNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Deployment")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Deployment, actual.Deployment, dcl.Info{ObjectFunction: compareVersionDeploymentNewStyle, EmptyObject: EmptyVersionDeployment, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Deployment")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HealthCheck, actual.HealthCheck, dcl.Info{ObjectFunction: compareVersionHealthCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("HealthCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HealthCheck, actual.HealthCheck, dcl.Info{ObjectFunction: compareVersionHealthCheckNewStyle, EmptyObject: EmptyVersionHealthCheck, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("HealthCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadinessCheck, actual.ReadinessCheck, dcl.Info{ObjectFunction: compareVersionReadinessCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("ReadinessCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadinessCheck, actual.ReadinessCheck, dcl.Info{ObjectFunction: compareVersionReadinessCheckNewStyle, EmptyObject: EmptyVersionReadinessCheck, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("ReadinessCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LivenessCheck, actual.LivenessCheck, dcl.Info{ObjectFunction: compareVersionLivenessCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("LivenessCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LivenessCheck, actual.LivenessCheck, dcl.Info{ObjectFunction: compareVersionLivenessCheckNewStyle, EmptyObject: EmptyVersionLivenessCheck, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("LivenessCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3840,14 +3840,14 @@ func diffVersion(c *Client, desired, actual *Version, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Entrypoint, actual.Entrypoint, dcl.Info{ObjectFunction: compareVersionEntrypointNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Entrypoint")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Entrypoint, actual.Entrypoint, dcl.Info{ObjectFunction: compareVersionEntrypointNewStyle, EmptyObject: EmptyVersionEntrypoint, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("Entrypoint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VPCAccessConnector, actual.VPCAccessConnector, dcl.Info{ObjectFunction: compareVersionVPCAccessConnectorNewStyle, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("VpcAccessConnector")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VPCAccessConnector, actual.VPCAccessConnector, dcl.Info{ObjectFunction: compareVersionVPCAccessConnectorNewStyle, EmptyObject: EmptyVersionVPCAccessConnector, OperationSelector: dcl.TriggersOperation("updateVersionPatchVersionOperation")}, fn.AddNest("VpcAccessConnector")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3897,7 +3897,7 @@ func compareVersionAutomaticScalingNewStyle(d, a interface{}, fn dcl.FieldName) 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CpuUtilization, actual.CpuUtilization, dcl.Info{ObjectFunction: compareVersionAutomaticScalingCpuUtilizationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CpuUtilization")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CpuUtilization, actual.CpuUtilization, dcl.Info{ObjectFunction: compareVersionAutomaticScalingCpuUtilizationNewStyle, EmptyObject: EmptyVersionAutomaticScalingCpuUtilization, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CpuUtilization")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3953,28 +3953,28 @@ func compareVersionAutomaticScalingNewStyle(d, a interface{}, fn dcl.FieldName) 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestUtilization, actual.RequestUtilization, dcl.Info{ObjectFunction: compareVersionAutomaticScalingRequestUtilizationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestUtilization")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestUtilization, actual.RequestUtilization, dcl.Info{ObjectFunction: compareVersionAutomaticScalingRequestUtilizationNewStyle, EmptyObject: EmptyVersionAutomaticScalingRequestUtilization, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequestUtilization")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DiskUtilization, actual.DiskUtilization, dcl.Info{ObjectFunction: compareVersionAutomaticScalingDiskUtilizationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskUtilization")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DiskUtilization, actual.DiskUtilization, dcl.Info{ObjectFunction: compareVersionAutomaticScalingDiskUtilizationNewStyle, EmptyObject: EmptyVersionAutomaticScalingDiskUtilization, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskUtilization")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NetworkUtilization, actual.NetworkUtilization, dcl.Info{ObjectFunction: compareVersionAutomaticScalingNetworkUtilizationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkUtilization")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NetworkUtilization, actual.NetworkUtilization, dcl.Info{ObjectFunction: compareVersionAutomaticScalingNetworkUtilizationNewStyle, EmptyObject: EmptyVersionAutomaticScalingNetworkUtilization, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkUtilization")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.StandardSchedulerSettings, actual.StandardSchedulerSettings, dcl.Info{ObjectFunction: compareVersionAutomaticScalingStandardSchedulerSettingsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StandardSchedulerSettings")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StandardSchedulerSettings, actual.StandardSchedulerSettings, dcl.Info{ObjectFunction: compareVersionAutomaticScalingStandardSchedulerSettingsNewStyle, EmptyObject: EmptyVersionAutomaticScalingStandardSchedulerSettings, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StandardSchedulerSettings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4368,7 +4368,7 @@ func compareVersionResourcesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Volumes, actual.Volumes, dcl.Info{ObjectFunction: compareVersionResourcesVolumesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Volumes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Volumes, actual.Volumes, dcl.Info{ObjectFunction: compareVersionResourcesVolumesNewStyle, EmptyObject: EmptyVersionResourcesVolumes, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Volumes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4447,21 +4447,21 @@ func compareVersionHandlersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.StaticFiles, actual.StaticFiles, dcl.Info{ObjectFunction: compareVersionHandlersStaticFilesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StaticFiles")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StaticFiles, actual.StaticFiles, dcl.Info{ObjectFunction: compareVersionHandlersStaticFilesNewStyle, EmptyObject: EmptyVersionHandlersStaticFiles, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StaticFiles")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Script, actual.Script, dcl.Info{ObjectFunction: compareVersionHandlersScriptNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Script")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Script, actual.Script, dcl.Info{ObjectFunction: compareVersionHandlersScriptNewStyle, EmptyObject: EmptyVersionHandlersScript, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Script")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiEndpoint, actual.ApiEndpoint, dcl.Info{ObjectFunction: compareVersionHandlersApiEndpointNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiEndpoint")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiEndpoint, actual.ApiEndpoint, dcl.Info{ObjectFunction: compareVersionHandlersApiEndpointNewStyle, EmptyObject: EmptyVersionHandlersApiEndpoint, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ApiEndpoint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4783,21 +4783,21 @@ func compareVersionDeploymentNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Container, actual.Container, dcl.Info{ObjectFunction: compareVersionDeploymentContainerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Container")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Container, actual.Container, dcl.Info{ObjectFunction: compareVersionDeploymentContainerNewStyle, EmptyObject: EmptyVersionDeploymentContainer, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Container")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Zip, actual.Zip, dcl.Info{ObjectFunction: compareVersionDeploymentZipNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zip")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Zip, actual.Zip, dcl.Info{ObjectFunction: compareVersionDeploymentZipNewStyle, EmptyObject: EmptyVersionDeploymentZip, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zip")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CloudBuildOptions, actual.CloudBuildOptions, dcl.Info{ObjectFunction: compareVersionDeploymentCloudBuildOptionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CloudBuildOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CloudBuildOptions, actual.CloudBuildOptions, dcl.Info{ObjectFunction: compareVersionDeploymentCloudBuildOptionsNewStyle, EmptyObject: EmptyVersionDeploymentCloudBuildOptions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CloudBuildOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

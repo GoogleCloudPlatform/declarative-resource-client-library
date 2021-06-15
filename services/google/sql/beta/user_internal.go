@@ -627,7 +627,7 @@ func diffUser(c *Client, desired, actual *User, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SqlserverUserDetails, actual.SqlserverUserDetails, dcl.Info{ObjectFunction: compareUserSqlserverUserDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateUserUpdateOperation")}, fn.AddNest("SqlserverUserDetails")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SqlserverUserDetails, actual.SqlserverUserDetails, dcl.Info{ObjectFunction: compareUserSqlserverUserDetailsNewStyle, EmptyObject: EmptyUserSqlserverUserDetails, OperationSelector: dcl.TriggersOperation("updateUserUpdateOperation")}, fn.AddNest("SqlserverUserDetails")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

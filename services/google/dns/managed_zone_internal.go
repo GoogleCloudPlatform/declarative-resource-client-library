@@ -1216,7 +1216,7 @@ func diffManagedZone(c *Client, desired, actual *ManagedZone, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DnssecConfig, actual.DnssecConfig, dcl.Info{ObjectFunction: compareManagedZoneDnssecConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DnssecConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DnssecConfig, actual.DnssecConfig, dcl.Info{ObjectFunction: compareManagedZoneDnssecConfigNewStyle, EmptyObject: EmptyManagedZoneDnssecConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DnssecConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1251,14 +1251,14 @@ func diffManagedZone(c *Client, desired, actual *ManagedZone, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PrivateVisibilityConfig, actual.PrivateVisibilityConfig, dcl.Info{ObjectFunction: compareManagedZonePrivateVisibilityConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateManagedZoneUpdateOperation")}, fn.AddNest("PrivateVisibilityConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PrivateVisibilityConfig, actual.PrivateVisibilityConfig, dcl.Info{ObjectFunction: compareManagedZonePrivateVisibilityConfigNewStyle, EmptyObject: EmptyManagedZonePrivateVisibilityConfig, OperationSelector: dcl.TriggersOperation("updateManagedZoneUpdateOperation")}, fn.AddNest("PrivateVisibilityConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ForwardingConfig, actual.ForwardingConfig, dcl.Info{ObjectFunction: compareManagedZoneForwardingConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateManagedZoneUpdateOperation")}, fn.AddNest("ForwardingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ForwardingConfig, actual.ForwardingConfig, dcl.Info{ObjectFunction: compareManagedZoneForwardingConfigNewStyle, EmptyObject: EmptyManagedZoneForwardingConfig, OperationSelector: dcl.TriggersOperation("updateManagedZoneUpdateOperation")}, fn.AddNest("ForwardingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1272,7 +1272,7 @@ func diffManagedZone(c *Client, desired, actual *ManagedZone, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PeeringConfig, actual.PeeringConfig, dcl.Info{ObjectFunction: compareManagedZonePeeringConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateManagedZoneUpdateOperation")}, fn.AddNest("PeeringConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PeeringConfig, actual.PeeringConfig, dcl.Info{ObjectFunction: compareManagedZonePeeringConfigNewStyle, EmptyObject: EmptyManagedZonePeeringConfig, OperationSelector: dcl.TriggersOperation("updateManagedZoneUpdateOperation")}, fn.AddNest("PeeringConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1329,7 +1329,7 @@ func compareManagedZoneDnssecConfigNewStyle(d, a interface{}, fn dcl.FieldName) 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DefaultKeySpecs, actual.DefaultKeySpecs, dcl.Info{ObjectFunction: compareManagedZoneDnssecConfigDefaultKeySpecsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultKeySpecs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DefaultKeySpecs, actual.DefaultKeySpecs, dcl.Info{ObjectFunction: compareManagedZoneDnssecConfigDefaultKeySpecsNewStyle, EmptyObject: EmptyManagedZoneDnssecConfigDefaultKeySpecs, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultKeySpecs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1408,7 +1408,7 @@ func compareManagedZonePrivateVisibilityConfigNewStyle(d, a interface{}, fn dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Networks, actual.Networks, dcl.Info{ObjectFunction: compareManagedZonePrivateVisibilityConfigNetworksNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Networks")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Networks, actual.Networks, dcl.Info{ObjectFunction: compareManagedZonePrivateVisibilityConfigNetworksNewStyle, EmptyObject: EmptyManagedZonePrivateVisibilityConfigNetworks, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Networks")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1466,7 +1466,7 @@ func compareManagedZoneForwardingConfigNewStyle(d, a interface{}, fn dcl.FieldNa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TargetNameServers, actual.TargetNameServers, dcl.Info{ObjectFunction: compareManagedZoneForwardingConfigTargetNameServersNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetNameServers")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetNameServers, actual.TargetNameServers, dcl.Info{ObjectFunction: compareManagedZoneForwardingConfigTargetNameServersNewStyle, EmptyObject: EmptyManagedZoneForwardingConfigTargetNameServers, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetNameServers")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1531,7 +1531,7 @@ func compareManagedZonePeeringConfigNewStyle(d, a interface{}, fn dcl.FieldName)
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TargetNetwork, actual.TargetNetwork, dcl.Info{ObjectFunction: compareManagedZonePeeringConfigTargetNetworkNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetNetwork")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetNetwork, actual.TargetNetwork, dcl.Info{ObjectFunction: compareManagedZonePeeringConfigTargetNetworkNewStyle, EmptyObject: EmptyManagedZonePeeringConfigTargetNetwork, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetNetwork")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

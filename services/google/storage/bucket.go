@@ -14,6 +14,7 @@
 package storage
 
 import (
+	"bytes"
 	"context"
 	"crypto/sha256"
 	"encoding/json"
@@ -823,4 +824,13 @@ func applyBucketHelper(c *Client, ctx context.Context, rawDesired *Bucket, opts 
 	}
 	c.Config.Logger.Info("Done Apply.")
 	return newState, nil
+}
+func (r *Bucket) GetPolicy(basePath string) (string, string, *bytes.Buffer, error) {
+	u := r.getPolicyURL(basePath)
+	body := &bytes.Buffer{}
+	u, err := dcl.AddQueryParams(u, map[string]string{"optionsRequestedPolicyVersion": fmt.Sprintf("%d", r.IAMPolicyVersion())})
+	if err != nil {
+		return "", "", nil, err
+	}
+	return u, "GET", body, nil
 }

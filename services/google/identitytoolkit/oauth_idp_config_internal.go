@@ -647,7 +647,7 @@ func diffOAuthIdpConfig(c *Client, desired, actual *OAuthIdpConfig, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResponseType, actual.ResponseType, dcl.Info{ObjectFunction: compareOAuthIdpConfigResponseTypeNewStyle, OperationSelector: dcl.TriggersOperation("updateOAuthIdpConfigUpdateConfigOperation")}, fn.AddNest("ResponseType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResponseType, actual.ResponseType, dcl.Info{ObjectFunction: compareOAuthIdpConfigResponseTypeNewStyle, EmptyObject: EmptyOAuthIdpConfigResponseType, OperationSelector: dcl.TriggersOperation("updateOAuthIdpConfigUpdateConfigOperation")}, fn.AddNest("ResponseType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

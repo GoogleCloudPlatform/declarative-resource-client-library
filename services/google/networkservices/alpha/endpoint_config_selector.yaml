@@ -81,7 +81,7 @@ components:
             only when EndpointConfigSelectorType is SIDECAR_PROXY.
           x-dcl-references:
           - resource: Networksecurity/AuthorizationPolicy
-            field: selfLink
+            field: name
         clientTlsPolicy:
           type: string
           x-dcl-go-name: ClientTlsPolicy
@@ -95,7 +95,7 @@ components:
             only when EndpointConfigSelectorType is SIDECAR_PROXY.
           x-dcl-references:
           - resource: Networksecurity/ClientTlsPolicy
-            field: selfLink
+            field: name
         createTime:
           type: string
           format: date-time
@@ -234,7 +234,7 @@ components:
             authentication is disabled(open) for this endpoint.
           x-dcl-references:
           - resource: Networksecurity/ServerTlsPolicy
-            field: selfLink
+            field: name
         trafficPortSelector:
           type: object
           x-dcl-go-name: TrafficPortSelector

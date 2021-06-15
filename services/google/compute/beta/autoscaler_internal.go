@@ -1312,7 +1312,7 @@ func diffAutoscaler(c *Client, desired, actual *Autoscaler, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AutoscalingPolicy, actual.AutoscalingPolicy, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyNewStyle, OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("AutoscalingPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutoscalingPolicy, actual.AutoscalingPolicy, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyNewStyle, EmptyObject: EmptyAutoscalerAutoscalingPolicy, OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("AutoscalingPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1347,7 +1347,7 @@ func diffAutoscaler(c *Client, desired, actual *Autoscaler, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.StatusDetails, actual.StatusDetails, dcl.Info{OutputOnly: true, ObjectFunction: compareAutoscalerStatusDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StatusDetails")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StatusDetails, actual.StatusDetails, dcl.Info{OutputOnly: true, ObjectFunction: compareAutoscalerStatusDetailsNewStyle, EmptyObject: EmptyAutoscalerStatusDetails, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StatusDetails")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1432,7 +1432,7 @@ func compareAutoscalerAutoscalingPolicyNewStyle(d, a interface{}, fn dcl.FieldNa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ScaleInControl, actual.ScaleInControl, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyScaleInControlNewStyle, OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("ScaleInControl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ScaleInControl, actual.ScaleInControl, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyScaleInControlNewStyle, EmptyObject: EmptyAutoscalerAutoscalingPolicyScaleInControl, OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("ScaleInControl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1446,21 +1446,21 @@ func compareAutoscalerAutoscalingPolicyNewStyle(d, a interface{}, fn dcl.FieldNa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CpuUtilization, actual.CpuUtilization, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyCpuUtilizationNewStyle, OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("CpuUtilization")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CpuUtilization, actual.CpuUtilization, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyCpuUtilizationNewStyle, EmptyObject: EmptyAutoscalerAutoscalingPolicyCpuUtilization, OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("CpuUtilization")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CustomMetricUtilizations, actual.CustomMetricUtilizations, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyCustomMetricUtilizationsNewStyle, OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("CustomMetricUtilizations")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CustomMetricUtilizations, actual.CustomMetricUtilizations, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyCustomMetricUtilizationsNewStyle, EmptyObject: EmptyAutoscalerAutoscalingPolicyCustomMetricUtilizations, OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("CustomMetricUtilizations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoadBalancingUtilization, actual.LoadBalancingUtilization, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyLoadBalancingUtilizationNewStyle, OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("LoadBalancingUtilization")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoadBalancingUtilization, actual.LoadBalancingUtilization, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyLoadBalancingUtilizationNewStyle, EmptyObject: EmptyAutoscalerAutoscalingPolicyLoadBalancingUtilization, OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("LoadBalancingUtilization")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1496,7 +1496,7 @@ func compareAutoscalerAutoscalingPolicyScaleInControlNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MaxScaledInReplicas, actual.MaxScaledInReplicas, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicasNewStyle, OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("MaxScaledInReplicas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxScaledInReplicas, actual.MaxScaledInReplicas, dcl.Info{ObjectFunction: compareAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicasNewStyle, EmptyObject: EmptyAutoscalerAutoscalingPolicyScaleInControlMaxScaledInReplicas, OperationSelector: dcl.TriggersOperation("updateAutoscalerUpdateOperation")}, fn.AddNest("MaxScaledInReplicas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

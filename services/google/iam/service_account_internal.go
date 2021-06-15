@@ -83,6 +83,10 @@ func (r *ServiceAccount) SetPolicyURL(userBasePath string) string {
 	return dcl.URL("projects/{{project}}/serviceAccounts/{{name}}@{{project}}.iam.gserviceaccount.com:setIamPolicy", "https://iam.googleapis.com/v1/", userBasePath, fields)
 }
 
+func (r *ServiceAccount) SetPolicyVerb() string {
+	return "POST"
+}
+
 func (r *ServiceAccount) getPolicyURL(userBasePath string) string {
 	n := r.urlNormalized()
 	fields := map[string]interface{}{
@@ -736,7 +740,7 @@ func diffServiceAccount(c *Client, desired, actual *ServiceAccount, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ActasResources, actual.ActasResources, dcl.Info{ObjectFunction: compareServiceAccountActasResourcesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ActasResources")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ActasResources, actual.ActasResources, dcl.Info{ObjectFunction: compareServiceAccountActasResourcesNewStyle, EmptyObject: EmptyServiceAccountActasResources, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ActasResources")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -772,7 +776,7 @@ func compareServiceAccountActasResourcesNewStyle(d, a interface{}, fn dcl.FieldN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{ObjectFunction: compareServiceAccountActasResourcesResourcesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.Info{ObjectFunction: compareServiceAccountActasResourcesResourcesNewStyle, EmptyObject: EmptyServiceAccountActasResourcesResources, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

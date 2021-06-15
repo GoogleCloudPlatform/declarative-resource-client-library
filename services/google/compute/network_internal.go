@@ -630,7 +630,7 @@ func diffNetwork(c *Client, desired, actual *Network, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RoutingConfig, actual.RoutingConfig, dcl.Info{ObjectFunction: compareNetworkRoutingConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateNetworkUpdateOperation")}, fn.AddNest("RoutingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RoutingConfig, actual.RoutingConfig, dcl.Info{ObjectFunction: compareNetworkRoutingConfigNewStyle, EmptyObject: EmptyNetworkRoutingConfig, OperationSelector: dcl.TriggersOperation("updateNetworkUpdateOperation")}, fn.AddNest("RoutingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

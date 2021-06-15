@@ -1056,21 +1056,21 @@ func diffEndpointConfigSelector(c *Client, desired, actual *EndpointConfigSelect
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HttpFilters, actual.HttpFilters, dcl.Info{ObjectFunction: compareEndpointConfigSelectorHttpFiltersNewStyle, OperationSelector: dcl.TriggersOperation("updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation")}, fn.AddNest("HttpFilters")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpFilters, actual.HttpFilters, dcl.Info{ObjectFunction: compareEndpointConfigSelectorHttpFiltersNewStyle, EmptyObject: EmptyEndpointConfigSelectorHttpFilters, OperationSelector: dcl.TriggersOperation("updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation")}, fn.AddNest("HttpFilters")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EndpointMatcher, actual.EndpointMatcher, dcl.Info{ObjectFunction: compareEndpointConfigSelectorEndpointMatcherNewStyle, OperationSelector: dcl.TriggersOperation("updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation")}, fn.AddNest("EndpointMatcher")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EndpointMatcher, actual.EndpointMatcher, dcl.Info{ObjectFunction: compareEndpointConfigSelectorEndpointMatcherNewStyle, EmptyObject: EmptyEndpointConfigSelectorEndpointMatcher, OperationSelector: dcl.TriggersOperation("updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation")}, fn.AddNest("EndpointMatcher")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TrafficPortSelector, actual.TrafficPortSelector, dcl.Info{ObjectFunction: compareEndpointConfigSelectorTrafficPortSelectorNewStyle, OperationSelector: dcl.TriggersOperation("updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation")}, fn.AddNest("TrafficPortSelector")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TrafficPortSelector, actual.TrafficPortSelector, dcl.Info{ObjectFunction: compareEndpointConfigSelectorTrafficPortSelectorNewStyle, EmptyObject: EmptyEndpointConfigSelectorTrafficPortSelector, OperationSelector: dcl.TriggersOperation("updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation")}, fn.AddNest("TrafficPortSelector")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1163,7 +1163,7 @@ func compareEndpointConfigSelectorEndpointMatcherNewStyle(d, a interface{}, fn d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetadataLabelMatcher, actual.MetadataLabelMatcher, dcl.Info{ObjectFunction: compareEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetadataLabelMatcher")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetadataLabelMatcher, actual.MetadataLabelMatcher, dcl.Info{ObjectFunction: compareEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherNewStyle, EmptyObject: EmptyEndpointConfigSelectorEndpointMatcherMetadataLabelMatcher, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetadataLabelMatcher")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1199,7 +1199,7 @@ func compareEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherNewStyle(d,
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MetadataLabels, actual.MetadataLabels, dcl.Info{ObjectFunction: compareEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetadataLabels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetadataLabels, actual.MetadataLabels, dcl.Info{ObjectFunction: compareEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelsNewStyle, EmptyObject: EmptyEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabels, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetadataLabels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -613,7 +613,7 @@ func diffDefaultObjectAccessControl(c *Client, desired, actual *DefaultObjectAcc
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ProjectTeam, actual.ProjectTeam, dcl.Info{OutputOnly: true, ObjectFunction: compareDefaultObjectAccessControlProjectTeamNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ProjectTeam")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ProjectTeam, actual.ProjectTeam, dcl.Info{OutputOnly: true, ObjectFunction: compareDefaultObjectAccessControlProjectTeamNewStyle, EmptyObject: EmptyDefaultObjectAccessControlProjectTeam, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ProjectTeam")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

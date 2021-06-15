@@ -14,7 +14,7 @@
 info:
   title: Storage/Bucket
   description: DCL Specification for the Storage Bucket resource
-  x-dcl-has-iam: false
+  x-dcl-has-iam: true
 paths:
   get:
     description: The function used to get information about a Bucket

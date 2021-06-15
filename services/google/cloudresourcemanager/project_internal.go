@@ -70,6 +70,10 @@ func (r *Project) SetPolicyURL(userBasePath string) string {
 	return dcl.URL("v1/projects/{{name}}:setIamPolicy", "https://cloudresourcemanager.googleapis.com/", userBasePath, fields)
 }
 
+func (r *Project) SetPolicyVerb() string {
+	return "POST"
+}
+
 func (r *Project) getPolicyURL(userBasePath string) string {
 	n := r.urlNormalized()
 	fields := map[string]interface{}{
@@ -574,7 +578,7 @@ func diffProject(c *Client, desired, actual *Project, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.Info{ObjectFunction: compareProjectParentNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Parent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.Info{ObjectFunction: compareProjectParentNewStyle, EmptyObject: EmptyProjectParent, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Parent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

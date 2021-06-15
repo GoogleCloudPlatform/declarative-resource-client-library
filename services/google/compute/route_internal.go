@@ -705,7 +705,7 @@ func diffRoute(c *Client, desired, actual *Route, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Warning, actual.Warning, dcl.Info{OutputOnly: true, ObjectFunction: compareRouteWarningNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Warnings")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Warning, actual.Warning, dcl.Info{OutputOnly: true, ObjectFunction: compareRouteWarningNewStyle, EmptyObject: EmptyRouteWarning, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Warnings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

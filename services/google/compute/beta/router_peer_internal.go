@@ -842,7 +842,7 @@ func diffRouterPeer(c *Client, desired, actual *RouterPeer, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AdvertisedIPRanges, actual.AdvertisedIPRanges, dcl.Info{ObjectFunction: compareRouterPeerAdvertisedIPRangesNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterPeerUpdateOperation")}, fn.AddNest("AdvertisedIpRanges")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdvertisedIPRanges, actual.AdvertisedIPRanges, dcl.Info{ObjectFunction: compareRouterPeerAdvertisedIPRangesNewStyle, EmptyObject: EmptyRouterPeerAdvertisedIPRanges, OperationSelector: dcl.TriggersOperation("updateRouterPeerUpdateOperation")}, fn.AddNest("AdvertisedIpRanges")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

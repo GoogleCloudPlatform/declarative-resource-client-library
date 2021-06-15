@@ -599,14 +599,14 @@ func diffPolicy(c *Client, desired, actual *Policy, opts ...dcl.ApplyOption) ([]
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.AdmissionWhitelistPatterns, actual.AdmissionWhitelistPatterns, dcl.Info{ObjectFunction: comparePolicyAdmissionWhitelistPatternsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AdmissionWhitelistPatterns")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdmissionWhitelistPatterns, actual.AdmissionWhitelistPatterns, dcl.Info{ObjectFunction: comparePolicyAdmissionWhitelistPatternsNewStyle, EmptyObject: EmptyPolicyAdmissionWhitelistPatterns, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AdmissionWhitelistPatterns")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DefaultAdmissionRule, actual.DefaultAdmissionRule, dcl.Info{ObjectFunction: comparePolicyDefaultAdmissionRuleNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultAdmissionRule")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DefaultAdmissionRule, actual.DefaultAdmissionRule, dcl.Info{ObjectFunction: comparePolicyDefaultAdmissionRuleNewStyle, EmptyObject: EmptyPolicyDefaultAdmissionRule, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultAdmissionRule")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

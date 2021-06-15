@@ -571,7 +571,7 @@ func diffRepo(c *Client, desired, actual *Repo, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PubsubConfigs, actual.PubsubConfigs, dcl.Info{Type: "Set", ObjectFunction: compareRepoPubsubConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateRepoUpdateRepoOperation")}, fn.AddNest("PubsubConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PubsubConfigs, actual.PubsubConfigs, dcl.Info{Type: "Set", ObjectFunction: compareRepoPubsubConfigsNewStyle, EmptyObject: EmptyRepoPubsubConfigs, OperationSelector: dcl.TriggersOperation("updateRepoUpdateRepoOperation")}, fn.AddNest("PubsubConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -888,7 +888,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NetworkConfig, actual.NetworkConfig, dcl.Info{ObjectFunction: compareInstanceNetworkConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("NetworkConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NetworkConfig, actual.NetworkConfig, dcl.Info{ObjectFunction: compareInstanceNetworkConfigNewStyle, EmptyObject: EmptyInstanceNetworkConfig, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("NetworkConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -965,7 +965,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AvailableVersion, actual.AvailableVersion, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceAvailableVersionNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AvailableVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AvailableVersion, actual.AvailableVersion, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceAvailableVersionNewStyle, EmptyObject: EmptyInstanceAvailableVersion, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AvailableVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

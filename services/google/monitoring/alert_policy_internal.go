@@ -6137,7 +6137,7 @@ func diffAlertPolicy(c *Client, desired, actual *AlertPolicy, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Documentation, actual.Documentation, dcl.Info{ObjectFunction: compareAlertPolicyDocumentationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Documentation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Documentation, actual.Documentation, dcl.Info{ObjectFunction: compareAlertPolicyDocumentationNewStyle, EmptyObject: EmptyAlertPolicyDocumentation, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Documentation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6151,7 +6151,7 @@ func diffAlertPolicy(c *Client, desired, actual *AlertPolicy, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsNewStyle, EmptyObject: EmptyAlertPolicyConditions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6172,14 +6172,14 @@ func diffAlertPolicy(c *Client, desired, actual *AlertPolicy, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{ObjectFunction: compareAlertPolicyEnabledNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.Info{ObjectFunction: compareAlertPolicyEnabledNewStyle, EmptyObject: EmptyAlertPolicyEnabled, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Validity, actual.Validity, dcl.Info{ObjectFunction: compareAlertPolicyValidityNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Validity")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Validity, actual.Validity, dcl.Info{ObjectFunction: compareAlertPolicyValidityNewStyle, EmptyObject: EmptyAlertPolicyValidity, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Validity")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6193,28 +6193,28 @@ func diffAlertPolicy(c *Client, desired, actual *AlertPolicy, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreationRecord, actual.CreationRecord, dcl.Info{ObjectFunction: compareAlertPolicyCreationRecordNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationRecord")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreationRecord, actual.CreationRecord, dcl.Info{ObjectFunction: compareAlertPolicyCreationRecordNewStyle, EmptyObject: EmptyAlertPolicyCreationRecord, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationRecord")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MutationRecord, actual.MutationRecord, dcl.Info{ObjectFunction: compareAlertPolicyMutationRecordNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MutationRecord")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MutationRecord, actual.MutationRecord, dcl.Info{ObjectFunction: compareAlertPolicyMutationRecordNewStyle, EmptyObject: EmptyAlertPolicyMutationRecord, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MutationRecord")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IncidentStrategy, actual.IncidentStrategy, dcl.Info{ObjectFunction: compareAlertPolicyIncidentStrategyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IncidentStrategy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IncidentStrategy, actual.IncidentStrategy, dcl.Info{ObjectFunction: compareAlertPolicyIncidentStrategyNewStyle, EmptyObject: EmptyAlertPolicyIncidentStrategy, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IncidentStrategy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{ObjectFunction: compareAlertPolicyMetadataNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{ObjectFunction: compareAlertPolicyMetadataNewStyle, EmptyObject: EmptyAlertPolicyMetadata, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6307,63 +6307,63 @@ func compareAlertPolicyConditionsNewStyle(d, a interface{}, fn dcl.FieldName) ([
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConditionThreshold, actual.ConditionThreshold, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionThreshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConditionThreshold, actual.ConditionThreshold, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionThreshold, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionThreshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConditionAbsent, actual.ConditionAbsent, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionAbsent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConditionAbsent, actual.ConditionAbsent, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionAbsent, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionAbsent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConditionMatchedLog, actual.ConditionMatchedLog, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionMatchedLogNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionMatchedLog")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConditionMatchedLog, actual.ConditionMatchedLog, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionMatchedLogNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionMatchedLog, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionMatchedLog")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConditionClusterOutlier, actual.ConditionClusterOutlier, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionClusterOutlierNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionClusterOutlier")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConditionClusterOutlier, actual.ConditionClusterOutlier, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionClusterOutlierNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionClusterOutlier, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionClusterOutlier")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConditionRate, actual.ConditionRate, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionRate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConditionRate, actual.ConditionRate, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionRate, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionRate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConditionUpMon, actual.ConditionUpMon, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionUpMonNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionUpMon")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConditionUpMon, actual.ConditionUpMon, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionUpMonNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionUpMon, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionUpMon")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConditionProcessCount, actual.ConditionProcessCount, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionProcessCountNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionProcessCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConditionProcessCount, actual.ConditionProcessCount, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionProcessCountNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionProcessCount, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionProcessCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConditionTimeSeriesQueryLanguage, actual.ConditionTimeSeriesQueryLanguage, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionTimeSeriesQueryLanguageNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionTimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConditionTimeSeriesQueryLanguage, actual.ConditionTimeSeriesQueryLanguage, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionTimeSeriesQueryLanguageNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionTimeSeriesQueryLanguage, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionTimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConditionMonitoringQueryLanguage, actual.ConditionMonitoringQueryLanguage, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionMonitoringQueryLanguageNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionMonitoringQueryLanguage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConditionMonitoringQueryLanguage, actual.ConditionMonitoringQueryLanguage, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionMonitoringQueryLanguageNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionMonitoringQueryLanguage, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConditionMonitoringQueryLanguage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6399,7 +6399,7 @@ func compareAlertPolicyConditionsConditionThresholdNewStyle(d, a interface{}, fn
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregations, actual.Aggregations, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Aggregations")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregations, actual.Aggregations, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionThresholdAggregations, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Aggregations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6413,7 +6413,7 @@ func compareAlertPolicyConditionsConditionThresholdNewStyle(d, a interface{}, fn
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DenominatorAggregations, actual.DenominatorAggregations, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DenominatorAggregations")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DenominatorAggregations, actual.DenominatorAggregations, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregations, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DenominatorAggregations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6441,7 +6441,7 @@ func compareAlertPolicyConditionsConditionThresholdNewStyle(d, a interface{}, fn
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdTriggerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdTriggerNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionThresholdTrigger, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6498,14 +6498,14 @@ func compareAlertPolicyConditionsConditionThresholdAggregationsNewStyle(d, a int
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParamsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParamsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceFractionLessThanParams, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParams, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6563,14 +6563,14 @@ func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsExemplarSampling, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6599,21 +6599,21 @@ func compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistrib
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionThresholdAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6814,14 +6814,14 @@ func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsNewSty
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParamsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParamsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceFractionLessThanParams, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParams, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6879,14 +6879,14 @@ func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsExemplarSampling, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6915,21 +6915,21 @@ func compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduce
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionThresholdDenominatorAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7145,21 +7145,21 @@ func compareAlertPolicyConditionsConditionAbsentNewStyle(d, a interface{}, fn dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregations, actual.Aggregations, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Aggregations")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregations, actual.Aggregations, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionAbsentAggregations, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Aggregations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentDurationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentDurationNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionAbsentDuration, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentTriggerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentTriggerNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionAbsentTrigger, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7216,14 +7216,14 @@ func compareAlertPolicyConditionsConditionAbsentAggregationsNewStyle(d, a interf
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParamsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParamsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceFractionLessThanParams, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParams, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7281,14 +7281,14 @@ func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsExemplarSampling, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7317,21 +7317,21 @@ func compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionAbsentAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7648,7 +7648,7 @@ func compareAlertPolicyConditionsConditionRateNewStyle(d, a interface{}, fn dcl.
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregations, actual.Aggregations, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Aggregations")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregations, actual.Aggregations, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionRateAggregations, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Aggregations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7669,14 +7669,14 @@ func compareAlertPolicyConditionsConditionRateNewStyle(d, a interface{}, fn dcl.
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeWindow, actual.TimeWindow, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateTimeWindowNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TimeWindow")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeWindow, actual.TimeWindow, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateTimeWindowNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionRateTimeWindow, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TimeWindow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateTriggerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateTriggerNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionRateTrigger, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7733,14 +7733,14 @@ func compareAlertPolicyConditionsConditionRateAggregationsNewStyle(d, a interfac
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParamsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReduceFractionLessThanParams, actual.ReduceFractionLessThanParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParamsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionRateAggregationsReduceFractionLessThanParams, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceFractionLessThanParams")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReduceMakeDistributionParams, actual.ReduceMakeDistributionParams, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParams, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReduceMakeDistributionParams")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7798,14 +7798,14 @@ func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BucketOptions, actual.BucketOptions, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BucketOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExemplarSampling, actual.ExemplarSampling, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSamplingNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsExemplarSampling, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExemplarSampling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -7834,21 +7834,21 @@ func compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistribution
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LinearBuckets, actual.LinearBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBucketsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsLinearBuckets, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LinearBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExponentialBuckets, actual.ExponentialBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBucketsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExponentialBuckets, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExponentialBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExplicitBuckets, actual.ExplicitBuckets, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBucketsNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionRateAggregationsReduceMakeDistributionParamsBucketOptionsExplicitBuckets, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExplicitBuckets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8114,14 +8114,14 @@ func compareAlertPolicyConditionsConditionUpMonNewStyle(d, a interface{}, fn dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionUpMonDurationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionUpMonDurationNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionUpMonDuration, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionUpMonTriggerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionUpMonTriggerNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionUpMonTrigger, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8257,14 +8257,14 @@ func compareAlertPolicyConditionsConditionProcessCountNewStyle(d, a interface{},
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionProcessCountTriggerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionProcessCountTriggerNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionProcessCountTrigger, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionProcessCountDurationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionProcessCountDurationNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionProcessCountDuration, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8408,14 +8408,14 @@ func compareAlertPolicyConditionsConditionMonitoringQueryLanguageNewStyle(d, a i
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionMonitoringQueryLanguageDurationNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Duration, actual.Duration, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionMonitoringQueryLanguageDurationNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionMonitoringQueryLanguageDuration, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Duration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionMonitoringQueryLanguageTriggerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Trigger, actual.Trigger, dcl.Info{ObjectFunction: compareAlertPolicyConditionsConditionMonitoringQueryLanguageTriggerNewStyle, EmptyObject: EmptyAlertPolicyConditionsConditionMonitoringQueryLanguageTrigger, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Trigger")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8559,7 +8559,7 @@ func compareAlertPolicyValidityNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareAlertPolicyValidityDetailsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareAlertPolicyValidityDetailsNewStyle, EmptyObject: EmptyAlertPolicyValidityDetails, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8624,7 +8624,7 @@ func compareAlertPolicyCreationRecordNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MutateTime, actual.MutateTime, dcl.Info{ObjectFunction: compareAlertPolicyCreationRecordMutateTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MutateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MutateTime, actual.MutateTime, dcl.Info{ObjectFunction: compareAlertPolicyCreationRecordMutateTimeNewStyle, EmptyObject: EmptyAlertPolicyCreationRecordMutateTime, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MutateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8696,7 +8696,7 @@ func compareAlertPolicyMutationRecordNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MutateTime, actual.MutateTime, dcl.Info{ObjectFunction: compareAlertPolicyMutationRecordMutateTimeNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MutateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MutateTime, actual.MutateTime, dcl.Info{ObjectFunction: compareAlertPolicyMutationRecordMutateTimeNewStyle, EmptyObject: EmptyAlertPolicyMutationRecordMutateTime, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MutateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

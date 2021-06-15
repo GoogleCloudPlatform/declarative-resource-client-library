@@ -55,9 +55,6 @@ func (r *AuthorizationPolicyRulesDestinations) validate() error {
 	if err := dcl.Required(r, "ports"); err != nil {
 		return err
 	}
-	if err := dcl.Required(r, "paths"); err != nil {
-		return err
-	}
 	if !dcl.IsEmptyValueIndirect(r.HttpHeaderMatch) {
 		if err := r.HttpHeaderMatch.validate(); err != nil {
 			return err
@@ -120,6 +117,10 @@ func (r *AuthorizationPolicy) SetPolicyURL(userBasePath string) string {
 		"name":     *n.Name,
 	}
 	return dcl.URL("projects/{{project}}/locations/{{location}}/authorizationPolicies/{{name}}:setIamPolicy", "https://networksecurity.googleapis.com/v1beta1/", userBasePath, fields)
+}
+
+func (r *AuthorizationPolicy) SetPolicyVerb() string {
+	return "POST"
 }
 
 func (r *AuthorizationPolicy) getPolicyURL(userBasePath string) string {
@@ -739,9 +740,6 @@ func canonicalizeAuthorizationPolicyRulesDestinations(des, initial *Authorizatio
 	if dcl.IsZeroValue(des.Ports) {
 		des.Ports = initial.Ports
 	}
-	if dcl.IsZeroValue(des.Paths) {
-		des.Paths = initial.Paths
-	}
 	if dcl.IsZeroValue(des.Methods) {
 		des.Methods = initial.Methods
 	}
@@ -760,9 +758,6 @@ func canonicalizeNewAuthorizationPolicyRulesDestinations(c *Client, des, nw *Aut
 	}
 	if dcl.IsZeroValue(nw.Ports) {
 		nw.Ports = des.Ports
-	}
-	if dcl.IsZeroValue(nw.Paths) {
-		nw.Paths = des.Paths
 	}
 	if dcl.IsZeroValue(nw.Methods) {
 		nw.Methods = des.Methods
@@ -952,7 +947,7 @@ func diffAuthorizationPolicy(c *Client, desired, actual *AuthorizationPolicy, op
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Rules, actual.Rules, dcl.Info{ObjectFunction: compareAuthorizationPolicyRulesNewStyle, OperationSelector: dcl.TriggersOperation("updateAuthorizationPolicyUpdateAuthorizationPolicyOperation")}, fn.AddNest("Rules")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Rules, actual.Rules, dcl.Info{ObjectFunction: compareAuthorizationPolicyRulesNewStyle, EmptyObject: EmptyAuthorizationPolicyRules, OperationSelector: dcl.TriggersOperation("updateAuthorizationPolicyUpdateAuthorizationPolicyOperation")}, fn.AddNest("Rules")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -995,14 +990,14 @@ func compareAuthorizationPolicyRulesNewStyle(d, a interface{}, fn dcl.FieldName)
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Sources, actual.Sources, dcl.Info{ObjectFunction: compareAuthorizationPolicyRulesSourcesNewStyle, OperationSelector: dcl.TriggersOperation("updateAuthorizationPolicyUpdateAuthorizationPolicyOperation")}, fn.AddNest("Sources")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Sources, actual.Sources, dcl.Info{ObjectFunction: compareAuthorizationPolicyRulesSourcesNewStyle, EmptyObject: EmptyAuthorizationPolicyRulesSources, OperationSelector: dcl.TriggersOperation("updateAuthorizationPolicyUpdateAuthorizationPolicyOperation")}, fn.AddNest("Sources")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Destinations, actual.Destinations, dcl.Info{ObjectFunction: compareAuthorizationPolicyRulesDestinationsNewStyle, OperationSelector: dcl.TriggersOperation("updateAuthorizationPolicyUpdateAuthorizationPolicyOperation")}, fn.AddNest("Destinations")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Destinations, actual.Destinations, dcl.Info{ObjectFunction: compareAuthorizationPolicyRulesDestinationsNewStyle, EmptyObject: EmptyAuthorizationPolicyRulesDestinations, OperationSelector: dcl.TriggersOperation("updateAuthorizationPolicyUpdateAuthorizationPolicyOperation")}, fn.AddNest("Destinations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1081,13 +1076,6 @@ func compareAuthorizationPolicyRulesDestinationsNewStyle(d, a interface{}, fn dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Paths, actual.Paths, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAuthorizationPolicyUpdateAuthorizationPolicyOperation")}, fn.AddNest("Paths")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.Methods, actual.Methods, dcl.Info{OperationSelector: dcl.TriggersOperation("updateAuthorizationPolicyUpdateAuthorizationPolicyOperation")}, fn.AddNest("Methods")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -1095,7 +1083,7 @@ func compareAuthorizationPolicyRulesDestinationsNewStyle(d, a interface{}, fn dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HttpHeaderMatch, actual.HttpHeaderMatch, dcl.Info{ObjectFunction: compareAuthorizationPolicyRulesDestinationsHttpHeaderMatchNewStyle, OperationSelector: dcl.TriggersOperation("updateAuthorizationPolicyUpdateAuthorizationPolicyOperation")}, fn.AddNest("HttpHeaderMatch")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpHeaderMatch, actual.HttpHeaderMatch, dcl.Info{ObjectFunction: compareAuthorizationPolicyRulesDestinationsHttpHeaderMatchNewStyle, EmptyObject: EmptyAuthorizationPolicyRulesDestinationsHttpHeaderMatch, OperationSelector: dcl.TriggersOperation("updateAuthorizationPolicyUpdateAuthorizationPolicyOperation")}, fn.AddNest("HttpHeaderMatch")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1609,9 +1597,6 @@ func expandAuthorizationPolicyRulesDestinations(c *Client, f *AuthorizationPolic
 	if v := f.Ports; !dcl.IsEmptyValueIndirect(v) {
 		m["ports"] = v
 	}
-	if v := f.Paths; !dcl.IsEmptyValueIndirect(v) {
-		m["paths"] = v
-	}
 	if v := f.Methods; !dcl.IsEmptyValueIndirect(v) {
 		m["methods"] = v
 	}
@@ -1639,7 +1624,6 @@ func flattenAuthorizationPolicyRulesDestinations(c *Client, i interface{}) *Auth
 	}
 	r.Hosts = dcl.FlattenStringSlice(m["hosts"])
 	r.Ports = dcl.FlattenIntSlice(m["ports"])
-	r.Paths = dcl.FlattenStringSlice(m["paths"])
 	r.Methods = dcl.FlattenStringSlice(m["methods"])
 	r.HttpHeaderMatch = flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c, m["httpHeaderMatch"])
 

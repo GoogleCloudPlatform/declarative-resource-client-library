@@ -871,7 +871,7 @@ func diffFeatureMembership(c *Client, desired, actual *FeatureMembership, opts .
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Configmanagement, actual.Configmanagement, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementNewStyle, OperationSelector: dcl.TriggersOperation("updateFeatureMembershipUpdateFeatureMembershipOperation")}, fn.AddNest("Configmanagement")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Configmanagement, actual.Configmanagement, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementNewStyle, EmptyObject: EmptyFeatureMembershipConfigmanagement, OperationSelector: dcl.TriggersOperation("updateFeatureMembershipUpdateFeatureMembershipOperation")}, fn.AddNest("Configmanagement")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -900,28 +900,28 @@ func compareFeatureMembershipConfigmanagementNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ConfigSync, actual.ConfigSync, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementConfigSyncNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigSync")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConfigSync, actual.ConfigSync, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementConfigSyncNewStyle, EmptyObject: EmptyFeatureMembershipConfigmanagementConfigSync, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigSync")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyController, actual.PolicyController, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementPolicyControllerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyController")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyController, actual.PolicyController, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementPolicyControllerNewStyle, EmptyObject: EmptyFeatureMembershipConfigmanagementPolicyController, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyController")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Binauthz, actual.Binauthz, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementBinauthzNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Binauthz")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Binauthz, actual.Binauthz, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementBinauthzNewStyle, EmptyObject: EmptyFeatureMembershipConfigmanagementBinauthz, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Binauthz")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HierarchyController, actual.HierarchyController, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementHierarchyControllerNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HierarchyController")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HierarchyController, actual.HierarchyController, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementHierarchyControllerNewStyle, EmptyObject: EmptyFeatureMembershipConfigmanagementHierarchyController, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HierarchyController")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -957,7 +957,7 @@ func compareFeatureMembershipConfigmanagementConfigSyncNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Git, actual.Git, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementConfigSyncGitNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Git")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Git, actual.Git, dcl.Info{ObjectFunction: compareFeatureMembershipConfigmanagementConfigSyncGitNewStyle, EmptyObject: EmptyFeatureMembershipConfigmanagementConfigSyncGit, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Git")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

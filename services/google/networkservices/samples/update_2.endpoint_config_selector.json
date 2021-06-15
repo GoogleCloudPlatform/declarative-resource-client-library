@@ -1,13 +1,12 @@
 {
   "name": "{{selector}}",
-  "location": "global",
   "project": "{{project}}",
+  "location": "global",
   "labels": {
     "label-one": "value-one",
     "label-two": "value-two"
   },
   "type": "SIDECAR_PROXY",
-  "description": "An updated sample endpoint config selector",
   "endpointMatcher": {
     "metadataLabelMatcher": {
       "metadataLabelMatchCriteria": "MATCH_ALL",
@@ -21,5 +20,6 @@
   },
   "trafficPortSelector": {
     "ports": ["8082"]
-  }
+  },
+  "description": "An updated sample endpoint config selector"
 }

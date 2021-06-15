@@ -1147,14 +1147,14 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DiskEncryptionKey, actual.DiskEncryptionKey, dcl.Info{ObjectFunction: compareDiskEncryptionKeyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskEncryptionKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DiskEncryptionKey, actual.DiskEncryptionKey, dcl.Info{ObjectFunction: compareDiskEncryptionKeyNewStyle, EmptyObject: EmptyDiskEncryptionKey, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskEncryptionKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GuestOsFeature, actual.GuestOsFeature, dcl.Info{ObjectFunction: compareDiskGuestOsFeatureNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GuestOsFeature")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GuestOsFeature, actual.GuestOsFeature, dcl.Info{ObjectFunction: compareDiskGuestOsFeatureNewStyle, EmptyObject: EmptyDiskGuestOsFeature, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GuestOsFeature")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1224,7 +1224,7 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey, dcl.Info{ObjectFunction: compareDiskEncryptionKeyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceImageEncryptionKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceImageEncryptionKey, actual.SourceImageEncryptionKey, dcl.Info{ObjectFunction: compareDiskEncryptionKeyNewStyle, EmptyObject: EmptyDiskEncryptionKey, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceImageEncryptionKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1245,7 +1245,7 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey, dcl.Info{ObjectFunction: compareDiskEncryptionKeyNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceSnapshotEncryptionKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SourceSnapshotEncryptionKey, actual.SourceSnapshotEncryptionKey, dcl.Info{ObjectFunction: compareDiskEncryptionKeyNewStyle, EmptyObject: EmptyDiskEncryptionKey, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceSnapshotEncryptionKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1308,7 +1308,7 @@ func diffDisk(c *Client, desired, actual *Disk, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GuestOsFeatures, actual.GuestOsFeatures, dcl.Info{ObjectFunction: compareDiskGuestOsFeaturesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GuestOsFeatures")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GuestOsFeatures, actual.GuestOsFeatures, dcl.Info{ObjectFunction: compareDiskGuestOsFeaturesNewStyle, EmptyObject: EmptyDiskGuestOsFeatures, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GuestOsFeatures")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

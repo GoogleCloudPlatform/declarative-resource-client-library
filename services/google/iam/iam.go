@@ -29,6 +29,7 @@ import (
 // ResourceWithPolicy is any DCL resource which has an IAM policy.
 type ResourceWithPolicy interface {
 	SetPolicyURL(string) string
+	SetPolicyVerb() string
 	GetPolicy(string) (string, string, *bytes.Buffer, error)
 	IAMPolicyVersion() int
 }
@@ -131,15 +132,24 @@ func (c *Client) SetPolicy(ctx context.Context, p *Policy) (*Policy, error) {
 	}
 	p.Etag = currentPolicy.Etag
 	p.Version = p.Resource.IAMPolicyVersion()
+	verb := p.Resource.SetPolicyVerb()
 	m, err := p.Encode()
 	if err != nil {
 		return nil, err
+	}
+	if verb == "PUT" {
+		// Currently only storage has this verb and requires a different format for the request body.
+		policyMap, ok := m["policy"].(map[string]interface{})
+		if !ok {
+			return nil, fmt.Errorf("no policy found in map: %v", m)
+		}
+		m = policyMap
 	}
 	b, err := json.Marshal(m)
 	if err != nil {
 		return nil, err
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", p.Resource.SetPolicyURL(c.Config.BasePath), bytes.NewBuffer(b), c.Config.RetryProvider)
+	resp, err := dcl.SendRequest(ctx, c.Config, verb, p.Resource.SetPolicyURL(c.Config.BasePath), bytes.NewBuffer(b), c.Config.RetryProvider)
 	if err != nil {
 		return nil, err
 	}

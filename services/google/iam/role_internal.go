@@ -635,7 +635,7 @@ func diffRole(c *Client, desired, actual *Role, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LocalizedValues, actual.LocalizedValues, dcl.Info{ObjectFunction: compareRoleLocalizedValuesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocalizedValues")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LocalizedValues, actual.LocalizedValues, dcl.Info{ObjectFunction: compareRoleLocalizedValuesNewStyle, EmptyObject: EmptyRoleLocalizedValues, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocalizedValues")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -95,7 +95,7 @@ func (list *ServiceList) hasEnabled(name string, c *Client) bool {
 // waitForServiceEnabled waits for the service to appear in the list of enabled services.
 func (r *Service) waitForServiceEnabled(ctx context.Context, c *Client) error {
 	foundCount := 0
-	return dcl.Do(ctx, func(ctc context.Context) (*dcl.RetryDetails, error) {
+	return dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		list, err := c.ListService(ctx, *r.Project)
 		if err != nil {
 			return nil, err

@@ -29915,7 +29915,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Sku, actual.Sku, dcl.Info{ObjectFunction: compareInstanceSkuNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Sku")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Sku, actual.Sku, dcl.Info{ObjectFunction: compareInstanceSkuNewStyle, EmptyObject: EmptyInstanceSku, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Sku")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -29999,168 +29999,168 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.References, actual.References, dcl.Info{ObjectFunction: compareInstanceReferencesNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("References")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.References, actual.References, dcl.Info{ObjectFunction: compareInstanceReferencesNewStyle, EmptyObject: EmptyInstanceReferences, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("References")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessCreateRecipe, actual.PreprocessCreateRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessCreateRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessCreateRecipe, actual.PreprocessCreateRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeNewStyle, EmptyObject: EmptyInstancePreprocessCreateRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessCreateRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateRecipe, actual.CreateRecipe, dcl.Info{ObjectFunction: compareInstanceCreateRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("CreateRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateRecipe, actual.CreateRecipe, dcl.Info{ObjectFunction: compareInstanceCreateRecipeNewStyle, EmptyObject: EmptyInstanceCreateRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("CreateRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DeleteRecipe, actual.DeleteRecipe, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DeleteRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeleteRecipe, actual.DeleteRecipe, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeNewStyle, EmptyObject: EmptyInstanceDeleteRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("DeleteRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateRecipe, actual.UpdateRecipe, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdateRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateRecipe, actual.UpdateRecipe, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeNewStyle, EmptyObject: EmptyInstanceUpdateRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UpdateRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessResetRecipe, actual.PreprocessResetRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessResetRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessResetRecipe, actual.PreprocessResetRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeNewStyle, EmptyObject: EmptyInstancePreprocessResetRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessResetRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResetRecipe, actual.ResetRecipe, dcl.Info{ObjectFunction: compareInstanceResetRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResetRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResetRecipe, actual.ResetRecipe, dcl.Info{ObjectFunction: compareInstanceResetRecipeNewStyle, EmptyObject: EmptyInstanceResetRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ResetRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessRepairRecipe, actual.PreprocessRepairRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessRepairRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessRepairRecipe, actual.PreprocessRepairRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeNewStyle, EmptyObject: EmptyInstancePreprocessRepairRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessRepairRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RepairRecipe, actual.RepairRecipe, dcl.Info{ObjectFunction: compareInstanceRepairRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RepairRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RepairRecipe, actual.RepairRecipe, dcl.Info{ObjectFunction: compareInstanceRepairRecipeNewStyle, EmptyObject: EmptyInstanceRepairRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RepairRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessDeleteRecipe, actual.PreprocessDeleteRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessDeleteRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessDeleteRecipe, actual.PreprocessDeleteRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeNewStyle, EmptyObject: EmptyInstancePreprocessDeleteRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessDeleteRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdateRecipe, actual.PreprocessUpdateRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdateRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdateRecipe, actual.PreprocessUpdateRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeNewStyle, EmptyObject: EmptyInstancePreprocessUpdateRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdateRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessFreezeRecipe, actual.PreprocessFreezeRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessFreezeRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessFreezeRecipe, actual.PreprocessFreezeRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeNewStyle, EmptyObject: EmptyInstancePreprocessFreezeRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessFreezeRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FreezeRecipe, actual.FreezeRecipe, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("FreezeRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FreezeRecipe, actual.FreezeRecipe, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeNewStyle, EmptyObject: EmptyInstanceFreezeRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("FreezeRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUnfreezeRecipe, actual.PreprocessUnfreezeRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUnfreezeRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUnfreezeRecipe, actual.PreprocessUnfreezeRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeNewStyle, EmptyObject: EmptyInstancePreprocessUnfreezeRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUnfreezeRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UnfreezeRecipe, actual.UnfreezeRecipe, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UnfreezeRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UnfreezeRecipe, actual.UnfreezeRecipe, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeNewStyle, EmptyObject: EmptyInstanceUnfreezeRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("UnfreezeRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessReportInstanceHealthRecipe, actual.PreprocessReportInstanceHealthRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessReportInstanceHealthRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessReportInstanceHealthRecipe, actual.PreprocessReportInstanceHealthRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeNewStyle, EmptyObject: EmptyInstancePreprocessReportInstanceHealthRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessReportInstanceHealthRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReportInstanceHealthRecipe, actual.ReportInstanceHealthRecipe, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReportInstanceHealthRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReportInstanceHealthRecipe, actual.ReportInstanceHealthRecipe, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeNewStyle, EmptyObject: EmptyInstanceReportInstanceHealthRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReportInstanceHealthRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessGetRecipe, actual.PreprocessGetRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessGetRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessGetRecipe, actual.PreprocessGetRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeNewStyle, EmptyObject: EmptyInstancePreprocessGetRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessGetRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NotifyKeyAvailableRecipe, actual.NotifyKeyAvailableRecipe, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("NotifyKeyAvailableRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NotifyKeyAvailableRecipe, actual.NotifyKeyAvailableRecipe, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeNewStyle, EmptyObject: EmptyInstanceNotifyKeyAvailableRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("NotifyKeyAvailableRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NotifyKeyUnavailableRecipe, actual.NotifyKeyUnavailableRecipe, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("NotifyKeyUnavailableRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NotifyKeyUnavailableRecipe, actual.NotifyKeyUnavailableRecipe, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeNewStyle, EmptyObject: EmptyInstanceNotifyKeyUnavailableRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("NotifyKeyUnavailableRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadonlyRecipe, actual.ReadonlyRecipe, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadonlyRecipe, actual.ReadonlyRecipe, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeNewStyle, EmptyObject: EmptyInstanceReadonlyRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReadonlyRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReconcileRecipe, actual.ReconcileRecipe, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReconcileRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReconcileRecipe, actual.ReconcileRecipe, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeNewStyle, EmptyObject: EmptyInstanceReconcileRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ReconcileRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessPassthroughRecipe, actual.PreprocessPassthroughRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessPassthroughRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessPassthroughRecipe, actual.PreprocessPassthroughRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeNewStyle, EmptyObject: EmptyInstancePreprocessPassthroughRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessPassthroughRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessReconcileRecipe, actual.PreprocessReconcileRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessReconcileRecipe")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessReconcileRecipe, actual.PreprocessReconcileRecipe, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeNewStyle, EmptyObject: EmptyInstancePreprocessReconcileRecipe, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessReconcileRecipe")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30174,7 +30174,7 @@ func diffInstance(c *Client, desired, actual *Instance, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.History, actual.History, dcl.Info{ObjectFunction: compareInstanceHistoryNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("History")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.History, actual.History, dcl.Info{ObjectFunction: compareInstanceHistoryNewStyle, EmptyObject: EmptyInstanceHistory, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("History")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30302,7 +30302,7 @@ func compareInstanceReferencesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceReferencesDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceReferencesDetailsNewStyle, EmptyObject: EmptyInstanceReferencesDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30374,7 +30374,7 @@ func compareInstancePreprocessCreateRecipeNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsNewStyle, EmptyObject: EmptyInstancePreprocessCreateRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30473,7 +30473,7 @@ func compareInstancePreprocessCreateRecipeStepsNewStyle(d, a interface{}, fn dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsStatusNewStyle, EmptyObject: EmptyInstancePreprocessCreateRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30515,14 +30515,14 @@ func compareInstancePreprocessCreateRecipeStepsNewStyle(d, a interface{}, fn dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstancePreprocessCreateRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstancePreprocessCreateRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30536,21 +30536,21 @@ func compareInstancePreprocessCreateRecipeStepsNewStyle(d, a interface{}, fn dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstancePreprocessCreateRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstancePreprocessCreateRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstancePreprocessCreateRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30607,7 +30607,7 @@ func compareInstancePreprocessCreateRecipeStepsStatusNewStyle(d, a interface{}, 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstancePreprocessCreateRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30787,14 +30787,14 @@ func compareInstancePreprocessCreateRecipeStepsPermissionsInfoNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstancePreprocessCreateRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstancePreprocessCreateRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30808,7 +30808,7 @@ func compareInstancePreprocessCreateRecipeStepsPermissionsInfoNewStyle(d, a inte
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30915,7 +30915,7 @@ func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -30958,7 +30958,7 @@ func compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotifica
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstancePreprocessCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31030,7 +31030,7 @@ func compareInstanceCreateRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsNewStyle, EmptyObject: EmptyInstanceCreateRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31129,7 +31129,7 @@ func compareInstanceCreateRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsStatusNewStyle, EmptyObject: EmptyInstanceCreateRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31171,14 +31171,14 @@ func compareInstanceCreateRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstanceCreateRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstanceCreateRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31192,21 +31192,21 @@ func compareInstanceCreateRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstanceCreateRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstanceCreateRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstanceCreateRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31263,7 +31263,7 @@ func compareInstanceCreateRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.Fie
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstanceCreateRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31443,14 +31443,14 @@ func compareInstanceCreateRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstanceCreateRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstanceCreateRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31464,7 +31464,7 @@ func compareInstanceCreateRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31565,7 +31565,7 @@ func compareInstanceCreateRecipeStepsKeyNotificationsUpdateNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31608,7 +31608,7 @@ func compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoN
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstanceCreateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31680,7 +31680,7 @@ func compareInstanceDeleteRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsNewStyle, EmptyObject: EmptyInstanceDeleteRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31779,7 +31779,7 @@ func compareInstanceDeleteRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsStatusNewStyle, EmptyObject: EmptyInstanceDeleteRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31821,14 +31821,14 @@ func compareInstanceDeleteRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstanceDeleteRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstanceDeleteRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31842,21 +31842,21 @@ func compareInstanceDeleteRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstanceDeleteRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstanceDeleteRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstanceDeleteRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -31913,7 +31913,7 @@ func compareInstanceDeleteRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.Fie
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstanceDeleteRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32093,14 +32093,14 @@ func compareInstanceDeleteRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstanceDeleteRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstanceDeleteRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32114,7 +32114,7 @@ func compareInstanceDeleteRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32215,7 +32215,7 @@ func compareInstanceDeleteRecipeStepsKeyNotificationsUpdateNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32258,7 +32258,7 @@ func compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoN
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstanceDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32330,7 +32330,7 @@ func compareInstanceUpdateRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsNewStyle, EmptyObject: EmptyInstanceUpdateRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32429,7 +32429,7 @@ func compareInstanceUpdateRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsStatusNewStyle, EmptyObject: EmptyInstanceUpdateRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32471,14 +32471,14 @@ func compareInstanceUpdateRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstanceUpdateRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstanceUpdateRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32492,21 +32492,21 @@ func compareInstanceUpdateRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstanceUpdateRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstanceUpdateRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstanceUpdateRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32563,7 +32563,7 @@ func compareInstanceUpdateRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.Fie
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstanceUpdateRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32743,14 +32743,14 @@ func compareInstanceUpdateRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstanceUpdateRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstanceUpdateRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32764,7 +32764,7 @@ func compareInstanceUpdateRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32865,7 +32865,7 @@ func compareInstanceUpdateRecipeStepsKeyNotificationsUpdateNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32908,7 +32908,7 @@ func compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoN
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstanceUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32980,7 +32980,7 @@ func compareInstancePreprocessResetRecipeNewStyle(d, a interface{}, fn dcl.Field
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsNewStyle, EmptyObject: EmptyInstancePreprocessResetRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33079,7 +33079,7 @@ func compareInstancePreprocessResetRecipeStepsNewStyle(d, a interface{}, fn dcl.
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsStatusNewStyle, EmptyObject: EmptyInstancePreprocessResetRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33121,14 +33121,14 @@ func compareInstancePreprocessResetRecipeStepsNewStyle(d, a interface{}, fn dcl.
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstancePreprocessResetRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstancePreprocessResetRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33142,21 +33142,21 @@ func compareInstancePreprocessResetRecipeStepsNewStyle(d, a interface{}, fn dcl.
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstancePreprocessResetRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstancePreprocessResetRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstancePreprocessResetRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33213,7 +33213,7 @@ func compareInstancePreprocessResetRecipeStepsStatusNewStyle(d, a interface{}, f
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstancePreprocessResetRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33393,14 +33393,14 @@ func compareInstancePreprocessResetRecipeStepsPermissionsInfoNewStyle(d, a inter
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstancePreprocessResetRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstancePreprocessResetRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33414,7 +33414,7 @@ func compareInstancePreprocessResetRecipeStepsPermissionsInfoNewStyle(d, a inter
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33515,7 +33515,7 @@ func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateNewStyle(d, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33558,7 +33558,7 @@ func compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificat
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstancePreprocessResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33630,7 +33630,7 @@ func compareInstanceResetRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsNewStyle, EmptyObject: EmptyInstanceResetRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33729,7 +33729,7 @@ func compareInstanceResetRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName)
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsStatusNewStyle, EmptyObject: EmptyInstanceResetRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33771,14 +33771,14 @@ func compareInstanceResetRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName)
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstanceResetRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstanceResetRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33792,21 +33792,21 @@ func compareInstanceResetRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName)
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstanceResetRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstanceResetRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstanceResetRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33863,7 +33863,7 @@ func compareInstanceResetRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.Fiel
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstanceResetRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34043,14 +34043,14 @@ func compareInstanceResetRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstanceResetRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstanceResetRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34064,7 +34064,7 @@ func compareInstanceResetRecipeStepsPermissionsInfoNewStyle(d, a interface{}, fn
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34165,7 +34165,7 @@ func compareInstanceResetRecipeStepsKeyNotificationsUpdateNewStyle(d, a interfac
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34208,7 +34208,7 @@ func compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNe
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstanceResetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34280,7 +34280,7 @@ func compareInstancePreprocessRepairRecipeNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsNewStyle, EmptyObject: EmptyInstancePreprocessRepairRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34379,7 +34379,7 @@ func compareInstancePreprocessRepairRecipeStepsNewStyle(d, a interface{}, fn dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsStatusNewStyle, EmptyObject: EmptyInstancePreprocessRepairRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34421,14 +34421,14 @@ func compareInstancePreprocessRepairRecipeStepsNewStyle(d, a interface{}, fn dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstancePreprocessRepairRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstancePreprocessRepairRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34442,21 +34442,21 @@ func compareInstancePreprocessRepairRecipeStepsNewStyle(d, a interface{}, fn dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstancePreprocessRepairRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstancePreprocessRepairRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstancePreprocessRepairRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34513,7 +34513,7 @@ func compareInstancePreprocessRepairRecipeStepsStatusNewStyle(d, a interface{}, 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstancePreprocessRepairRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34693,14 +34693,14 @@ func compareInstancePreprocessRepairRecipeStepsPermissionsInfoNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstancePreprocessRepairRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstancePreprocessRepairRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34714,7 +34714,7 @@ func compareInstancePreprocessRepairRecipeStepsPermissionsInfoNewStyle(d, a inte
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34815,7 +34815,7 @@ func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34858,7 +34858,7 @@ func compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotifica
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstancePreprocessRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -34930,7 +34930,7 @@ func compareInstanceRepairRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsNewStyle, EmptyObject: EmptyInstanceRepairRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35029,7 +35029,7 @@ func compareInstanceRepairRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsStatusNewStyle, EmptyObject: EmptyInstanceRepairRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35071,14 +35071,14 @@ func compareInstanceRepairRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstanceRepairRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstanceRepairRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35092,21 +35092,21 @@ func compareInstanceRepairRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstanceRepairRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstanceRepairRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstanceRepairRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35163,7 +35163,7 @@ func compareInstanceRepairRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.Fie
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstanceRepairRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35343,14 +35343,14 @@ func compareInstanceRepairRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstanceRepairRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstanceRepairRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35364,7 +35364,7 @@ func compareInstanceRepairRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35465,7 +35465,7 @@ func compareInstanceRepairRecipeStepsKeyNotificationsUpdateNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35508,7 +35508,7 @@ func compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoN
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstanceRepairRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35580,7 +35580,7 @@ func compareInstancePreprocessDeleteRecipeNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsNewStyle, EmptyObject: EmptyInstancePreprocessDeleteRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35679,7 +35679,7 @@ func compareInstancePreprocessDeleteRecipeStepsNewStyle(d, a interface{}, fn dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsStatusNewStyle, EmptyObject: EmptyInstancePreprocessDeleteRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35721,14 +35721,14 @@ func compareInstancePreprocessDeleteRecipeStepsNewStyle(d, a interface{}, fn dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstancePreprocessDeleteRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35742,21 +35742,21 @@ func compareInstancePreprocessDeleteRecipeStepsNewStyle(d, a interface{}, fn dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstancePreprocessDeleteRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstancePreprocessDeleteRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35813,7 +35813,7 @@ func compareInstancePreprocessDeleteRecipeStepsStatusNewStyle(d, a interface{}, 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstancePreprocessDeleteRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35993,14 +35993,14 @@ func compareInstancePreprocessDeleteRecipeStepsPermissionsInfoNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstancePreprocessDeleteRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstancePreprocessDeleteRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36014,7 +36014,7 @@ func compareInstancePreprocessDeleteRecipeStepsPermissionsInfoNewStyle(d, a inte
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36115,7 +36115,7 @@ func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36158,7 +36158,7 @@ func compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotifica
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstancePreprocessDeleteRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36230,7 +36230,7 @@ func compareInstancePreprocessUpdateRecipeNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsNewStyle, EmptyObject: EmptyInstancePreprocessUpdateRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36329,7 +36329,7 @@ func compareInstancePreprocessUpdateRecipeStepsNewStyle(d, a interface{}, fn dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsStatusNewStyle, EmptyObject: EmptyInstancePreprocessUpdateRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36371,14 +36371,14 @@ func compareInstancePreprocessUpdateRecipeStepsNewStyle(d, a interface{}, fn dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstancePreprocessUpdateRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36392,21 +36392,21 @@ func compareInstancePreprocessUpdateRecipeStepsNewStyle(d, a interface{}, fn dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstancePreprocessUpdateRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstancePreprocessUpdateRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36463,7 +36463,7 @@ func compareInstancePreprocessUpdateRecipeStepsStatusNewStyle(d, a interface{}, 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstancePreprocessUpdateRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36643,14 +36643,14 @@ func compareInstancePreprocessUpdateRecipeStepsPermissionsInfoNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstancePreprocessUpdateRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstancePreprocessUpdateRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36664,7 +36664,7 @@ func compareInstancePreprocessUpdateRecipeStepsPermissionsInfoNewStyle(d, a inte
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36765,7 +36765,7 @@ func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36808,7 +36808,7 @@ func compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotifica
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstancePreprocessUpdateRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36880,7 +36880,7 @@ func compareInstancePreprocessFreezeRecipeNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsNewStyle, EmptyObject: EmptyInstancePreprocessFreezeRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36979,7 +36979,7 @@ func compareInstancePreprocessFreezeRecipeStepsNewStyle(d, a interface{}, fn dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsStatusNewStyle, EmptyObject: EmptyInstancePreprocessFreezeRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37021,14 +37021,14 @@ func compareInstancePreprocessFreezeRecipeStepsNewStyle(d, a interface{}, fn dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstancePreprocessFreezeRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37042,21 +37042,21 @@ func compareInstancePreprocessFreezeRecipeStepsNewStyle(d, a interface{}, fn dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstancePreprocessFreezeRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstancePreprocessFreezeRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37113,7 +37113,7 @@ func compareInstancePreprocessFreezeRecipeStepsStatusNewStyle(d, a interface{}, 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstancePreprocessFreezeRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37293,14 +37293,14 @@ func compareInstancePreprocessFreezeRecipeStepsPermissionsInfoNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstancePreprocessFreezeRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstancePreprocessFreezeRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37314,7 +37314,7 @@ func compareInstancePreprocessFreezeRecipeStepsPermissionsInfoNewStyle(d, a inte
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37415,7 +37415,7 @@ func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37458,7 +37458,7 @@ func compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotifica
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstancePreprocessFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37530,7 +37530,7 @@ func compareInstanceFreezeRecipeNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsNewStyle, EmptyObject: EmptyInstanceFreezeRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37629,7 +37629,7 @@ func compareInstanceFreezeRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsStatusNewStyle, EmptyObject: EmptyInstanceFreezeRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37671,14 +37671,14 @@ func compareInstanceFreezeRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstanceFreezeRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstanceFreezeRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37692,21 +37692,21 @@ func compareInstanceFreezeRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstanceFreezeRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstanceFreezeRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstanceFreezeRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37763,7 +37763,7 @@ func compareInstanceFreezeRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.Fie
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstanceFreezeRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37943,14 +37943,14 @@ func compareInstanceFreezeRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstanceFreezeRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstanceFreezeRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37964,7 +37964,7 @@ func compareInstanceFreezeRecipeStepsPermissionsInfoNewStyle(d, a interface{}, f
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38065,7 +38065,7 @@ func compareInstanceFreezeRecipeStepsKeyNotificationsUpdateNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38108,7 +38108,7 @@ func compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoN
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstanceFreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38180,7 +38180,7 @@ func compareInstancePreprocessUnfreezeRecipeNewStyle(d, a interface{}, fn dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsNewStyle, EmptyObject: EmptyInstancePreprocessUnfreezeRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38279,7 +38279,7 @@ func compareInstancePreprocessUnfreezeRecipeStepsNewStyle(d, a interface{}, fn d
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsStatusNewStyle, EmptyObject: EmptyInstancePreprocessUnfreezeRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38321,14 +38321,14 @@ func compareInstancePreprocessUnfreezeRecipeStepsNewStyle(d, a interface{}, fn d
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38342,21 +38342,21 @@ func compareInstancePreprocessUnfreezeRecipeStepsNewStyle(d, a interface{}, fn d
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstancePreprocessUnfreezeRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstancePreprocessUnfreezeRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38413,7 +38413,7 @@ func compareInstancePreprocessUnfreezeRecipeStepsStatusNewStyle(d, a interface{}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstancePreprocessUnfreezeRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38593,14 +38593,14 @@ func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoNewStyle(d, a in
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstancePreprocessUnfreezeRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstancePreprocessUnfreezeRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38614,7 +38614,7 @@ func compareInstancePreprocessUnfreezeRecipeStepsPermissionsInfoNewStyle(d, a in
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38715,7 +38715,7 @@ func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateNewStyle(
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38758,7 +38758,7 @@ func compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotifi
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstancePreprocessUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38830,7 +38830,7 @@ func compareInstanceUnfreezeRecipeNewStyle(d, a interface{}, fn dcl.FieldName) (
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsNewStyle, EmptyObject: EmptyInstanceUnfreezeRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38929,7 +38929,7 @@ func compareInstanceUnfreezeRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldNa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsStatusNewStyle, EmptyObject: EmptyInstanceUnfreezeRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38971,14 +38971,14 @@ func compareInstanceUnfreezeRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldNa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstanceUnfreezeRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstanceUnfreezeRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -38992,21 +38992,21 @@ func compareInstanceUnfreezeRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldNa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstanceUnfreezeRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstanceUnfreezeRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstanceUnfreezeRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39063,7 +39063,7 @@ func compareInstanceUnfreezeRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.F
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstanceUnfreezeRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39243,14 +39243,14 @@ func compareInstanceUnfreezeRecipeStepsPermissionsInfoNewStyle(d, a interface{},
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstanceUnfreezeRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstanceUnfreezeRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39264,7 +39264,7 @@ func compareInstanceUnfreezeRecipeStepsPermissionsInfoNewStyle(d, a interface{},
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39365,7 +39365,7 @@ func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateNewStyle(d, a inter
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39408,7 +39408,7 @@ func compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstanceUnfreezeRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39480,7 +39480,7 @@ func compareInstancePreprocessReportInstanceHealthRecipeNewStyle(d, a interface{
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsNewStyle, EmptyObject: EmptyInstancePreprocessReportInstanceHealthRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39579,7 +39579,7 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsNewStyle(d, a inter
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsStatusNewStyle, EmptyObject: EmptyInstancePreprocessReportInstanceHealthRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39621,14 +39621,14 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsNewStyle(d, a inter
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39642,21 +39642,21 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsNewStyle(d, a inter
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39713,7 +39713,7 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsStatusNewStyle(d, a
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39893,14 +39893,14 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoNewS
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39914,7 +39914,7 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsPermissionsInfoNewS
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40015,7 +40015,7 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpd
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40058,7 +40058,7 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpd
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstancePreprocessReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40130,7 +40130,7 @@ func compareInstanceReportInstanceHealthRecipeNewStyle(d, a interface{}, fn dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsNewStyle, EmptyObject: EmptyInstanceReportInstanceHealthRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40229,7 +40229,7 @@ func compareInstanceReportInstanceHealthRecipeStepsNewStyle(d, a interface{}, fn
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsStatusNewStyle, EmptyObject: EmptyInstanceReportInstanceHealthRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40271,14 +40271,14 @@ func compareInstanceReportInstanceHealthRecipeStepsNewStyle(d, a interface{}, fn
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstanceReportInstanceHealthRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40292,21 +40292,21 @@ func compareInstanceReportInstanceHealthRecipeStepsNewStyle(d, a interface{}, fn
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstanceReportInstanceHealthRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstanceReportInstanceHealthRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40363,7 +40363,7 @@ func compareInstanceReportInstanceHealthRecipeStepsStatusNewStyle(d, a interface
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstanceReportInstanceHealthRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40543,14 +40543,14 @@ func compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoNewStyle(d, a 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstanceReportInstanceHealthRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstanceReportInstanceHealthRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40564,7 +40564,7 @@ func compareInstanceReportInstanceHealthRecipeStepsPermissionsInfoNewStyle(d, a 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40665,7 +40665,7 @@ func compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateNewStyl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40708,7 +40708,7 @@ func compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNoti
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstanceReportInstanceHealthRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40780,7 +40780,7 @@ func compareInstancePreprocessGetRecipeNewStyle(d, a interface{}, fn dcl.FieldNa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsNewStyle, EmptyObject: EmptyInstancePreprocessGetRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40879,7 +40879,7 @@ func compareInstancePreprocessGetRecipeStepsNewStyle(d, a interface{}, fn dcl.Fi
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsStatusNewStyle, EmptyObject: EmptyInstancePreprocessGetRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40921,14 +40921,14 @@ func compareInstancePreprocessGetRecipeStepsNewStyle(d, a interface{}, fn dcl.Fi
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstancePreprocessGetRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstancePreprocessGetRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40942,21 +40942,21 @@ func compareInstancePreprocessGetRecipeStepsNewStyle(d, a interface{}, fn dcl.Fi
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstancePreprocessGetRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstancePreprocessGetRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstancePreprocessGetRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41013,7 +41013,7 @@ func compareInstancePreprocessGetRecipeStepsStatusNewStyle(d, a interface{}, fn 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstancePreprocessGetRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41193,14 +41193,14 @@ func compareInstancePreprocessGetRecipeStepsPermissionsInfoNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstancePreprocessGetRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstancePreprocessGetRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41214,7 +41214,7 @@ func compareInstancePreprocessGetRecipeStepsPermissionsInfoNewStyle(d, a interfa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41315,7 +41315,7 @@ func compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateNewStyle(d, a 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41358,7 +41358,7 @@ func compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificatio
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstancePreprocessGetRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41430,7 +41430,7 @@ func compareInstanceNotifyKeyAvailableRecipeNewStyle(d, a interface{}, fn dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsNewStyle, EmptyObject: EmptyInstanceNotifyKeyAvailableRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41529,7 +41529,7 @@ func compareInstanceNotifyKeyAvailableRecipeStepsNewStyle(d, a interface{}, fn d
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsStatusNewStyle, EmptyObject: EmptyInstanceNotifyKeyAvailableRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41571,14 +41571,14 @@ func compareInstanceNotifyKeyAvailableRecipeStepsNewStyle(d, a interface{}, fn d
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41592,21 +41592,21 @@ func compareInstanceNotifyKeyAvailableRecipeStepsNewStyle(d, a interface{}, fn d
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstanceNotifyKeyAvailableRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41663,7 +41663,7 @@ func compareInstanceNotifyKeyAvailableRecipeStepsStatusNewStyle(d, a interface{}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstanceNotifyKeyAvailableRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41843,14 +41843,14 @@ func compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoNewStyle(d, a in
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41864,7 +41864,7 @@ func compareInstanceNotifyKeyAvailableRecipeStepsPermissionsInfoNewStyle(d, a in
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41965,7 +41965,7 @@ func compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateNewStyle(
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42008,7 +42008,7 @@ func compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotifi
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstanceNotifyKeyAvailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42080,7 +42080,7 @@ func compareInstanceNotifyKeyUnavailableRecipeNewStyle(d, a interface{}, fn dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsNewStyle, EmptyObject: EmptyInstanceNotifyKeyUnavailableRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42179,7 +42179,7 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsNewStyle(d, a interface{}, fn
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsStatusNewStyle, EmptyObject: EmptyInstanceNotifyKeyUnavailableRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42221,14 +42221,14 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsNewStyle(d, a interface{}, fn
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42242,21 +42242,21 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsNewStyle(d, a interface{}, fn
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42313,7 +42313,7 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsStatusNewStyle(d, a interface
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstanceNotifyKeyUnavailableRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42493,14 +42493,14 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoNewStyle(d, a 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42514,7 +42514,7 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsPermissionsInfoNewStyle(d, a 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42615,7 +42615,7 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateNewStyl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42658,7 +42658,7 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNoti
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstanceNotifyKeyUnavailableRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42730,7 +42730,7 @@ func compareInstanceReadonlyRecipeNewStyle(d, a interface{}, fn dcl.FieldName) (
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsNewStyle, EmptyObject: EmptyInstanceReadonlyRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42829,7 +42829,7 @@ func compareInstanceReadonlyRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldNa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsStatusNewStyle, EmptyObject: EmptyInstanceReadonlyRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42871,14 +42871,14 @@ func compareInstanceReadonlyRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldNa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstanceReadonlyRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstanceReadonlyRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42892,21 +42892,21 @@ func compareInstanceReadonlyRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldNa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstanceReadonlyRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstanceReadonlyRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstanceReadonlyRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -42963,7 +42963,7 @@ func compareInstanceReadonlyRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.F
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstanceReadonlyRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43143,14 +43143,14 @@ func compareInstanceReadonlyRecipeStepsPermissionsInfoNewStyle(d, a interface{},
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstanceReadonlyRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstanceReadonlyRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43164,7 +43164,7 @@ func compareInstanceReadonlyRecipeStepsPermissionsInfoNewStyle(d, a interface{},
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43265,7 +43265,7 @@ func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateNewStyle(d, a inter
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43308,7 +43308,7 @@ func compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInf
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstanceReadonlyRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43380,7 +43380,7 @@ func compareInstanceReconcileRecipeNewStyle(d, a interface{}, fn dcl.FieldName) 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsNewStyle, EmptyObject: EmptyInstanceReconcileRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43479,7 +43479,7 @@ func compareInstanceReconcileRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldN
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsStatusNewStyle, EmptyObject: EmptyInstanceReconcileRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43521,14 +43521,14 @@ func compareInstanceReconcileRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldN
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstanceReconcileRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstanceReconcileRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43542,21 +43542,21 @@ func compareInstanceReconcileRecipeStepsNewStyle(d, a interface{}, fn dcl.FieldN
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstanceReconcileRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstanceReconcileRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstanceReconcileRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43613,7 +43613,7 @@ func compareInstanceReconcileRecipeStepsStatusNewStyle(d, a interface{}, fn dcl.
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstanceReconcileRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43793,14 +43793,14 @@ func compareInstanceReconcileRecipeStepsPermissionsInfoNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstanceReconcileRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstanceReconcileRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43814,7 +43814,7 @@ func compareInstanceReconcileRecipeStepsPermissionsInfoNewStyle(d, a interface{}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43915,7 +43915,7 @@ func compareInstanceReconcileRecipeStepsKeyNotificationsUpdateNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43958,7 +43958,7 @@ func compareInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsIn
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstanceReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44030,7 +44030,7 @@ func compareInstancePreprocessPassthroughRecipeNewStyle(d, a interface{}, fn dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsNewStyle, EmptyObject: EmptyInstancePreprocessPassthroughRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44129,7 +44129,7 @@ func compareInstancePreprocessPassthroughRecipeStepsNewStyle(d, a interface{}, f
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsStatusNewStyle, EmptyObject: EmptyInstancePreprocessPassthroughRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44171,14 +44171,14 @@ func compareInstancePreprocessPassthroughRecipeStepsNewStyle(d, a interface{}, f
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstancePreprocessPassthroughRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44192,21 +44192,21 @@ func compareInstancePreprocessPassthroughRecipeStepsNewStyle(d, a interface{}, f
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstancePreprocessPassthroughRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstancePreprocessPassthroughRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44263,7 +44263,7 @@ func compareInstancePreprocessPassthroughRecipeStepsStatusNewStyle(d, a interfac
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstancePreprocessPassthroughRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44443,14 +44443,14 @@ func compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoNewStyle(d, a
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstancePreprocessPassthroughRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstancePreprocessPassthroughRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44464,7 +44464,7 @@ func compareInstancePreprocessPassthroughRecipeStepsPermissionsInfoNewStyle(d, a
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44565,7 +44565,7 @@ func compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateNewSty
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44608,7 +44608,7 @@ func compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNot
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstancePreprocessPassthroughRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44680,7 +44680,7 @@ func compareInstancePreprocessReconcileRecipeNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsNewStyle, EmptyObject: EmptyInstancePreprocessReconcileRecipeSteps, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44779,7 +44779,7 @@ func compareInstancePreprocessReconcileRecipeStepsNewStyle(d, a interface{}, fn 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsStatusNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsStatusNewStyle, EmptyObject: EmptyInstancePreprocessReconcileRecipeStepsStatus, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44821,14 +44821,14 @@ func compareInstancePreprocessReconcileRecipeStepsNewStyle(d, a interface{}, fn 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsQuotaRequestDeltasNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QuotaRequestDeltas, actual.QuotaRequestDeltas, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsQuotaRequestDeltasNewStyle, EmptyObject: EmptyInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaRequestDeltas")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsPreprocessUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreprocessUpdate, actual.PreprocessUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsPreprocessUpdateNewStyle, EmptyObject: EmptyInstancePreprocessReconcileRecipeStepsPreprocessUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PreprocessUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44842,21 +44842,21 @@ func compareInstancePreprocessReconcileRecipeStepsNewStyle(d, a interface{}, fn 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsRequestedTenantProjectNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestedTenantProject, actual.RequestedTenantProject, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsRequestedTenantProjectNewStyle, EmptyObject: EmptyInstancePreprocessReconcileRecipeStepsRequestedTenantProject, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("RequestedTenantProject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsPermissionsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PermissionsInfo, actual.PermissionsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsPermissionsInfoNewStyle, EmptyObject: EmptyInstancePreprocessReconcileRecipeStepsPermissionsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PermissionsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsUpdate, actual.KeyNotificationsUpdate, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateNewStyle, EmptyObject: EmptyInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdate, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsUpdate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44913,7 +44913,7 @@ func compareInstancePreprocessReconcileRecipeStepsStatusNewStyle(d, a interface{
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsStatusDetailsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsStatusDetailsNewStyle, EmptyObject: EmptyInstancePreprocessReconcileRecipeStepsStatusDetails, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -45093,14 +45093,14 @@ func compareInstancePreprocessReconcileRecipeStepsPermissionsInfoNewStyle(d, a i
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PolicyName, actual.PolicyName, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyNameNewStyle, EmptyObject: EmptyInstancePreprocessReconcileRecipeStepsPermissionsInfoPolicyName, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("PolicyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissionsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamPermissions, actual.IamPermissions, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissionsNewStyle, EmptyObject: EmptyInstancePreprocessReconcileRecipeStepsPermissionsInfoIamPermissions, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("IamPermissions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -45114,7 +45114,7 @@ func compareInstancePreprocessReconcileRecipeStepsPermissionsInfoNewStyle(d, a i
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiAttrs, actual.ApiAttrs, dcl.Info{ObjectFunction: compareInstanceGoogleprotobufstructNewStyle, EmptyObject: EmptyInstanceGoogleprotobufstruct, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("ApiAttrs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -45215,7 +45215,7 @@ func compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateNewStyle
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationsInfo, actual.KeyNotificationsInfo, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoNewStyle, EmptyObject: EmptyInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfo, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationsInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -45258,7 +45258,7 @@ func compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotif
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyNotificationConfigs, actual.KeyNotificationConfigs, dcl.Info{ObjectFunction: compareInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigsNewStyle, EmptyObject: EmptyInstancePreprocessReconcileRecipeStepsKeyNotificationsUpdateKeyNotificationsInfoKeyNotificationConfigs, OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("KeyNotificationConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

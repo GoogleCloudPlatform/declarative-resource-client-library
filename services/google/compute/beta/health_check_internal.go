@@ -1219,21 +1219,21 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Http2HealthCheck, actual.Http2HealthCheck, dcl.Info{ObjectFunction: compareHealthCheckHttp2HealthCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Http2HealthCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Http2HealthCheck, actual.Http2HealthCheck, dcl.Info{ObjectFunction: compareHealthCheckHttp2HealthCheckNewStyle, EmptyObject: EmptyHealthCheckHttp2HealthCheck, OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("Http2HealthCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HttpHealthCheck, actual.HttpHealthCheck, dcl.Info{ObjectFunction: compareHealthCheckHttpHealthCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("HttpHealthCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpHealthCheck, actual.HttpHealthCheck, dcl.Info{ObjectFunction: compareHealthCheckHttpHealthCheckNewStyle, EmptyObject: EmptyHealthCheckHttpHealthCheck, OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("HttpHealthCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HttpsHealthCheck, actual.HttpsHealthCheck, dcl.Info{ObjectFunction: compareHealthCheckHttpsHealthCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("HttpsHealthCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpsHealthCheck, actual.HttpsHealthCheck, dcl.Info{ObjectFunction: compareHealthCheckHttpsHealthCheckNewStyle, EmptyObject: EmptyHealthCheckHttpsHealthCheck, OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("HttpsHealthCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1247,14 +1247,14 @@ func diffHealthCheck(c *Client, desired, actual *HealthCheck, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SslHealthCheck, actual.SslHealthCheck, dcl.Info{ObjectFunction: compareHealthCheckSslHealthCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("SslHealthCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SslHealthCheck, actual.SslHealthCheck, dcl.Info{ObjectFunction: compareHealthCheckSslHealthCheckNewStyle, EmptyObject: EmptyHealthCheckSslHealthCheck, OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("SslHealthCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TcpHealthCheck, actual.TcpHealthCheck, dcl.Info{ObjectFunction: compareHealthCheckTcpHealthCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("TcpHealthCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TcpHealthCheck, actual.TcpHealthCheck, dcl.Info{ObjectFunction: compareHealthCheckTcpHealthCheckNewStyle, EmptyObject: EmptyHealthCheckTcpHealthCheck, OperationSelector: dcl.TriggersOperation("updateHealthCheckUpdateOperation")}, fn.AddNest("TcpHealthCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

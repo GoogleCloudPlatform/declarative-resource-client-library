@@ -750,14 +750,14 @@ func diffTopic(c *Client, desired, actual *Topic, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PartitionConfig, actual.PartitionConfig, dcl.Info{ObjectFunction: compareTopicPartitionConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateTopicUpdateTopicOperation")}, fn.AddNest("PartitionConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PartitionConfig, actual.PartitionConfig, dcl.Info{ObjectFunction: compareTopicPartitionConfigNewStyle, EmptyObject: EmptyTopicPartitionConfig, OperationSelector: dcl.TriggersOperation("updateTopicUpdateTopicOperation")}, fn.AddNest("PartitionConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RetentionConfig, actual.RetentionConfig, dcl.Info{ObjectFunction: compareTopicRetentionConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateTopicUpdateTopicOperation")}, fn.AddNest("RetentionConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RetentionConfig, actual.RetentionConfig, dcl.Info{ObjectFunction: compareTopicRetentionConfigNewStyle, EmptyObject: EmptyTopicRetentionConfig, OperationSelector: dcl.TriggersOperation("updateTopicUpdateTopicOperation")}, fn.AddNest("RetentionConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -807,7 +807,7 @@ func compareTopicPartitionConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Capacity, actual.Capacity, dcl.Info{ObjectFunction: compareTopicPartitionConfigCapacityNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Capacity")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Capacity, actual.Capacity, dcl.Info{ObjectFunction: compareTopicPartitionConfigCapacityNewStyle, EmptyObject: EmptyTopicPartitionConfigCapacity, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Capacity")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -674,7 +674,7 @@ func diffMetricDescriptor(c *Client, desired, actual *MetricDescriptor, opts ...
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Type: "Set", ObjectFunction: compareMetricDescriptorLabelsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Type: "Set", ObjectFunction: compareMetricDescriptorLabelsNewStyle, EmptyObject: EmptyMetricDescriptorLabels, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -716,7 +716,7 @@ func diffMetricDescriptor(c *Client, desired, actual *MetricDescriptor, opts ...
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{Ignore: true, ObjectFunction: compareMetricDescriptorMetadataNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{Ignore: true, ObjectFunction: compareMetricDescriptorMetadataNewStyle, EmptyObject: EmptyMetricDescriptorMetadata, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

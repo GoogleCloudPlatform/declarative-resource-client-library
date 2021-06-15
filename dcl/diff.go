@@ -35,6 +35,8 @@ type Info struct {
 
 	// OperationSelector takes in the field's diff and returns the name of the operation (or Recreate) that should be triggered.
 	OperationSelector func(d *FieldDiff) []string
+
+	EmptyObject interface{}
 }
 
 // FieldName is used to add information about a field's name for logging purposes.
@@ -196,7 +198,47 @@ func Diff(desired, actual interface{}, info Info, fn FieldName) ([]*FieldDiff, e
 			diffs = append(diffs, mapDiffs...)
 		}
 
-	case "int", "float64", "int64":
+	case "int64":
+		dInt, err := makeint64(desired)
+		if err != nil {
+			return nil, err
+		}
+
+		// 0 is the empty value for integers.
+		if IsZeroValue(actual) && *dInt == 0 {
+			return diffs, nil
+		}
+
+		if !reflect.DeepEqual(desired, actual) {
+			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: desired, Actual: actual})
+		}
+
+	case "int":
+		dInt, err := makeint(desired)
+		if err != nil {
+			return nil, err
+		}
+
+		// 0 is the empty value for integers.
+		if IsZeroValue(actual) && *dInt == 0 {
+			return diffs, nil
+		}
+
+		if !reflect.DeepEqual(desired, actual) {
+			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: desired, Actual: actual})
+		}
+
+	case "float64":
+		dFloat, err := makefloat64(desired)
+		if err != nil {
+			return nil, err
+		}
+
+		// 0 is the empty value for integers.
+		if IsZeroValue(actual) && *dFloat == 0.0 {
+			return diffs, nil
+		}
+
 		if !reflect.DeepEqual(desired, actual) {
 			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: desired, Actual: actual})
 		}
@@ -227,10 +269,15 @@ func Diff(desired, actual interface{}, info Info, fn FieldName) ([]*FieldDiff, e
 			return nil, fmt.Errorf("struct %v given without an object function", desired)
 		}
 
+		if info.EmptyObject == nil {
+			return nil, fmt.Errorf("struct %v given without an empty object type", desired)
+		}
+
+		// If the API returns nil, we can't diff against a nil. We should use the empty object instead.
+		// This is because the user could write out a config that is functionally equivalent to the empty object (contains all 0s and ""),
+		// but is not technically the empty object.
 		if actual == nil || ValueType(actual) == "invalid" {
-			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: desired, Actual: actual})
-			addOperationToDiffs(diffs, info)
-			return diffs, nil
+			actual = info.EmptyObject
 		}
 
 		ds, err := info.ObjectFunction(desired, actual, fn)
@@ -345,6 +392,42 @@ func str(d interface{}) (*string, error) {
 			return nil, fmt.Errorf("was given non string %v", d)
 		}
 		dPtr = String(dStr)
+	}
+	return dPtr, nil
+}
+
+func makeint64(d interface{}) (*int64, error) {
+	dPtr, dOk := d.(*int64)
+	if !dOk {
+		dInt, dOk2 := d.(int64)
+		if !dOk2 {
+			return nil, fmt.Errorf("was given non int64 %v", d)
+		}
+		dPtr = Int64(dInt)
+	}
+	return dPtr, nil
+}
+
+func makeint(d interface{}) (*int, error) {
+	dPtr, dOk := d.(*int)
+	if !dOk {
+		dInt, dOk2 := d.(int)
+		if !dOk2 {
+			return nil, fmt.Errorf("was given non int %v", d)
+		}
+		dPtr = &dInt
+	}
+	return dPtr, nil
+}
+
+func makefloat64(d interface{}) (*float64, error) {
+	dPtr, dOk := d.(*float64)
+	if !dOk {
+		dFloat, dOk2 := d.(float64)
+		if !dOk2 {
+			return nil, fmt.Errorf("was given non float64 %v", d)
+		}
+		dPtr = &dFloat
 	}
 	return dPtr, nil
 }

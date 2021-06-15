@@ -938,7 +938,7 @@ func diffAccessLevel(c *Client, desired, actual *AccessLevel, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Basic, actual.Basic, dcl.Info{ObjectFunction: compareAccessLevelBasicNewStyle, OperationSelector: dcl.TriggersOperation("updateAccessLevelUpdateOperation")}, fn.AddNest("Basic")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Basic, actual.Basic, dcl.Info{ObjectFunction: compareAccessLevelBasicNewStyle, EmptyObject: EmptyAccessLevelBasic, OperationSelector: dcl.TriggersOperation("updateAccessLevelUpdateOperation")}, fn.AddNest("Basic")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -988,7 +988,7 @@ func compareAccessLevelBasicNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{ObjectFunction: compareAccessLevelBasicConditionsNewStyle, OperationSelector: dcl.TriggersOperation("updateAccessLevelUpdateOperation")}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{ObjectFunction: compareAccessLevelBasicConditionsNewStyle, EmptyObject: EmptyAccessLevelBasicConditions, OperationSelector: dcl.TriggersOperation("updateAccessLevelUpdateOperation")}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1052,7 +1052,7 @@ func compareAccessLevelBasicConditionsNewStyle(d, a interface{}, fn dcl.FieldNam
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DevicePolicy, actual.DevicePolicy, dcl.Info{ObjectFunction: compareAccessLevelBasicConditionsDevicePolicyNewStyle, OperationSelector: dcl.TriggersOperation("updateAccessLevelUpdateOperation")}, fn.AddNest("DevicePolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DevicePolicy, actual.DevicePolicy, dcl.Info{ObjectFunction: compareAccessLevelBasicConditionsDevicePolicyNewStyle, EmptyObject: EmptyAccessLevelBasicConditionsDevicePolicy, OperationSelector: dcl.TriggersOperation("updateAccessLevelUpdateOperation")}, fn.AddNest("DevicePolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1116,7 +1116,7 @@ func compareAccessLevelBasicConditionsDevicePolicyNewStyle(d, a interface{}, fn 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OsConstraints, actual.OsConstraints, dcl.Info{ObjectFunction: compareAccessLevelBasicConditionsDevicePolicyOsConstraintsNewStyle, OperationSelector: dcl.TriggersOperation("updateAccessLevelUpdateOperation")}, fn.AddNest("OsConstraints")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OsConstraints, actual.OsConstraints, dcl.Info{ObjectFunction: compareAccessLevelBasicConditionsDevicePolicyOsConstraintsNewStyle, EmptyObject: EmptyAccessLevelBasicConditionsDevicePolicyOsConstraints, OperationSelector: dcl.TriggersOperation("updateAccessLevelUpdateOperation")}, fn.AddNest("OsConstraints")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

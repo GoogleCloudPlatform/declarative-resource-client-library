@@ -654,7 +654,7 @@ func diffTenant(c *Client, desired, actual *Tenant, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MfaConfig, actual.MfaConfig, dcl.Info{ObjectFunction: compareTenantMfaConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateTenantUpdateTenantOperation")}, fn.AddNest("MfaConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MfaConfig, actual.MfaConfig, dcl.Info{ObjectFunction: compareTenantMfaConfigNewStyle, EmptyObject: EmptyTenantMfaConfig, OperationSelector: dcl.TriggersOperation("updateTenantUpdateTenantOperation")}, fn.AddNest("MfaConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

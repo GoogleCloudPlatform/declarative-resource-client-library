@@ -1359,7 +1359,7 @@ func diffRouter(c *Client, desired, actual *Router, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Nats, actual.Nats, dcl.Info{ObjectFunction: compareRouterNatsNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Nats")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Nats, actual.Nats, dcl.Info{ObjectFunction: compareRouterNatsNewStyle, EmptyObject: EmptyRouterNats, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Nats")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1380,7 +1380,7 @@ func diffRouter(c *Client, desired, actual *Router, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Interfaces, actual.Interfaces, dcl.Info{ObjectFunction: compareRouterInterfacesNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Interfaces")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Interfaces, actual.Interfaces, dcl.Info{ObjectFunction: compareRouterInterfacesNewStyle, EmptyObject: EmptyRouterInterfaces, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Interfaces")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1394,14 +1394,14 @@ func diffRouter(c *Client, desired, actual *Router, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BgpPeers, actual.BgpPeers, dcl.Info{ObjectFunction: compareRouterBgpPeersNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("BgpPeers")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BgpPeers, actual.BgpPeers, dcl.Info{ObjectFunction: compareRouterBgpPeersNewStyle, EmptyObject: EmptyRouterBgpPeers, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("BgpPeers")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Bgp, actual.Bgp, dcl.Info{ObjectFunction: compareRouterBgpNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Bgp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Bgp, actual.Bgp, dcl.Info{ObjectFunction: compareRouterBgpNewStyle, EmptyObject: EmptyRouterBgp, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Bgp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1458,7 +1458,7 @@ func compareRouterNatsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Field
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LogConfig, actual.LogConfig, dcl.Info{ObjectFunction: compareRouterNatsLogConfigNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("LogConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LogConfig, actual.LogConfig, dcl.Info{ObjectFunction: compareRouterNatsLogConfigNewStyle, EmptyObject: EmptyRouterNatsLogConfig, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("LogConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1528,7 +1528,7 @@ func compareRouterNatsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Field
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Subnetworks, actual.Subnetworks, dcl.Info{ObjectFunction: compareRouterNatsSubnetworksNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Subnetworks")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Subnetworks, actual.Subnetworks, dcl.Info{ObjectFunction: compareRouterNatsSubnetworksNewStyle, EmptyObject: EmptyRouterNatsSubnetworks, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("Subnetworks")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1749,7 +1749,7 @@ func compareRouterBgpPeersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AdvertisedIPRanges, actual.AdvertisedIPRanges, dcl.Info{ObjectFunction: compareRouterBgpPeersAdvertisedIPRangesNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("AdvertisedIpRanges")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdvertisedIPRanges, actual.AdvertisedIPRanges, dcl.Info{ObjectFunction: compareRouterBgpPeersAdvertisedIPRangesNewStyle, EmptyObject: EmptyRouterBgpPeersAdvertisedIPRanges, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("AdvertisedIpRanges")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1835,7 +1835,7 @@ func compareRouterBgpNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldD
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AdvertisedIPRanges, actual.AdvertisedIPRanges, dcl.Info{ObjectFunction: compareRouterBgpAdvertisedIPRangesNewStyle, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("AdvertisedIpRanges")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdvertisedIPRanges, actual.AdvertisedIPRanges, dcl.Info{ObjectFunction: compareRouterBgpAdvertisedIPRangesNewStyle, EmptyObject: EmptyRouterBgpAdvertisedIPRanges, OperationSelector: dcl.TriggersOperation("updateRouterUpdateOperation")}, fn.AddNest("AdvertisedIpRanges")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

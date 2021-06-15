@@ -961,14 +961,14 @@ func diffInterconnect(c *Client, desired, actual *Interconnect, opts ...dcl.Appl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExpectedOutages, actual.ExpectedOutages, dcl.Info{OutputOnly: true, ObjectFunction: compareInterconnectExpectedOutagesNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExpectedOutages")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExpectedOutages, actual.ExpectedOutages, dcl.Info{OutputOnly: true, ObjectFunction: compareInterconnectExpectedOutagesNewStyle, EmptyObject: EmptyInterconnectExpectedOutages, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExpectedOutages")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CircuitInfos, actual.CircuitInfos, dcl.Info{OutputOnly: true, ObjectFunction: compareInterconnectCircuitInfosNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CircuitInfos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CircuitInfos, actual.CircuitInfos, dcl.Info{OutputOnly: true, ObjectFunction: compareInterconnectCircuitInfosNewStyle, EmptyObject: EmptyInterconnectCircuitInfos, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CircuitInfos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

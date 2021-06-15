@@ -1242,28 +1242,28 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MonitoredResource, actual.MonitoredResource, dcl.Info{ObjectFunction: compareUptimeCheckConfigMonitoredResourceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MonitoredResource")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MonitoredResource, actual.MonitoredResource, dcl.Info{ObjectFunction: compareUptimeCheckConfigMonitoredResourceNewStyle, EmptyObject: EmptyUptimeCheckConfigMonitoredResource, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MonitoredResource")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceGroup, actual.ResourceGroup, dcl.Info{ObjectFunction: compareUptimeCheckConfigResourceGroupNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceGroup")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceGroup, actual.ResourceGroup, dcl.Info{ObjectFunction: compareUptimeCheckConfigResourceGroupNewStyle, EmptyObject: EmptyUptimeCheckConfigResourceGroup, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceGroup")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HttpCheck, actual.HttpCheck, dcl.Info{ObjectFunction: compareUptimeCheckConfigHttpCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("HttpCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpCheck, actual.HttpCheck, dcl.Info{ObjectFunction: compareUptimeCheckConfigHttpCheckNewStyle, EmptyObject: EmptyUptimeCheckConfigHttpCheck, OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("HttpCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TcpCheck, actual.TcpCheck, dcl.Info{ObjectFunction: compareUptimeCheckConfigTcpCheckNewStyle, OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("TcpCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TcpCheck, actual.TcpCheck, dcl.Info{ObjectFunction: compareUptimeCheckConfigTcpCheckNewStyle, EmptyObject: EmptyUptimeCheckConfigTcpCheck, OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("TcpCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1284,7 +1284,7 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ContentMatchers, actual.ContentMatchers, dcl.Info{ObjectFunction: compareUptimeCheckConfigContentMatchersNewStyle, OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("ContentMatchers")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ContentMatchers, actual.ContentMatchers, dcl.Info{ObjectFunction: compareUptimeCheckConfigContentMatchersNewStyle, EmptyObject: EmptyUptimeCheckConfigContentMatchers, OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("ContentMatchers")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1434,7 +1434,7 @@ func compareUptimeCheckConfigHttpCheckNewStyle(d, a interface{}, fn dcl.FieldNam
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AuthInfo, actual.AuthInfo, dcl.Info{ObjectFunction: compareUptimeCheckConfigHttpCheckAuthInfoNewStyle, OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("AuthInfo")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AuthInfo, actual.AuthInfo, dcl.Info{ObjectFunction: compareUptimeCheckConfigHttpCheckAuthInfoNewStyle, EmptyObject: EmptyUptimeCheckConfigHttpCheckAuthInfo, OperationSelector: dcl.TriggersOperation("updateUptimeCheckConfigUpdateUptimeCheckConfigOperation")}, fn.AddNest("AuthInfo")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

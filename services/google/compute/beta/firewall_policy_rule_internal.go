@@ -627,7 +627,7 @@ func diffFirewallPolicyRule(c *Client, desired, actual *FirewallPolicyRule, opts
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Match, actual.Match, dcl.Info{ObjectFunction: compareFirewallPolicyRuleMatchNewStyle, OperationSelector: dcl.TriggersOperation("updateFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("Match")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Match, actual.Match, dcl.Info{ObjectFunction: compareFirewallPolicyRuleMatchNewStyle, EmptyObject: EmptyFirewallPolicyRuleMatch, OperationSelector: dcl.TriggersOperation("updateFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("Match")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -733,7 +733,7 @@ func compareFirewallPolicyRuleMatchNewStyle(d, a interface{}, fn dcl.FieldName) 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Layer4Configs, actual.Layer4Configs, dcl.Info{ObjectFunction: compareFirewallPolicyRuleMatchLayer4ConfigsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Layer4Configs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Layer4Configs, actual.Layer4Configs, dcl.Info{ObjectFunction: compareFirewallPolicyRuleMatchLayer4ConfigsNewStyle, EmptyObject: EmptyFirewallPolicyRuleMatchLayer4Configs, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Layer4Configs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

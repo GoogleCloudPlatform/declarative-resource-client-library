@@ -3059,91 +3059,91 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]*dcl.F
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Reference, actual.Reference, dcl.Info{ObjectFunction: compareJobReferenceNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Reference")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Reference, actual.Reference, dcl.Info{ObjectFunction: compareJobReferenceNewStyle, EmptyObject: EmptyJobReference, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Reference")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Placement, actual.Placement, dcl.Info{ObjectFunction: compareJobPlacementNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Placement")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Placement, actual.Placement, dcl.Info{ObjectFunction: compareJobPlacementNewStyle, EmptyObject: EmptyJobPlacement, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Placement")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HadoopJob, actual.HadoopJob, dcl.Info{ObjectFunction: compareJobHadoopJobNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HadoopJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HadoopJob, actual.HadoopJob, dcl.Info{ObjectFunction: compareJobHadoopJobNewStyle, EmptyObject: EmptyJobHadoopJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HadoopJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SparkJob, actual.SparkJob, dcl.Info{ObjectFunction: compareJobSparkJobNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SparkJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SparkJob, actual.SparkJob, dcl.Info{ObjectFunction: compareJobSparkJobNewStyle, EmptyObject: EmptyJobSparkJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SparkJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PysparkJob, actual.PysparkJob, dcl.Info{ObjectFunction: compareJobPysparkJobNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PysparkJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PysparkJob, actual.PysparkJob, dcl.Info{ObjectFunction: compareJobPysparkJobNewStyle, EmptyObject: EmptyJobPysparkJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PysparkJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HiveJob, actual.HiveJob, dcl.Info{ObjectFunction: compareJobHiveJobNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HiveJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HiveJob, actual.HiveJob, dcl.Info{ObjectFunction: compareJobHiveJobNewStyle, EmptyObject: EmptyJobHiveJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HiveJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PigJob, actual.PigJob, dcl.Info{ObjectFunction: compareJobPigJobNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PigJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PigJob, actual.PigJob, dcl.Info{ObjectFunction: compareJobPigJobNewStyle, EmptyObject: EmptyJobPigJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PigJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SparkRJob, actual.SparkRJob, dcl.Info{ObjectFunction: compareJobSparkRJobNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SparkRJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SparkRJob, actual.SparkRJob, dcl.Info{ObjectFunction: compareJobSparkRJobNewStyle, EmptyObject: EmptyJobSparkRJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SparkRJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SparkSqlJob, actual.SparkSqlJob, dcl.Info{ObjectFunction: compareJobSparkSqlJobNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SparkSqlJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SparkSqlJob, actual.SparkSqlJob, dcl.Info{ObjectFunction: compareJobSparkSqlJobNewStyle, EmptyObject: EmptyJobSparkSqlJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SparkSqlJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PrestoJob, actual.PrestoJob, dcl.Info{ObjectFunction: compareJobPrestoJobNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrestoJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PrestoJob, actual.PrestoJob, dcl.Info{ObjectFunction: compareJobPrestoJobNewStyle, EmptyObject: EmptyJobPrestoJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrestoJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, ObjectFunction: compareJobStatusNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, ObjectFunction: compareJobStatusNewStyle, EmptyObject: EmptyJobStatus, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.StatusHistory, actual.StatusHistory, dcl.Info{OutputOnly: true, ObjectFunction: compareJobStatusHistoryNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StatusHistory")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StatusHistory, actual.StatusHistory, dcl.Info{OutputOnly: true, ObjectFunction: compareJobStatusHistoryNewStyle, EmptyObject: EmptyJobStatusHistory, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StatusHistory")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.YarnApplications, actual.YarnApplications, dcl.Info{OutputOnly: true, ObjectFunction: compareJobYarnApplicationsNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("YarnApplications")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.YarnApplications, actual.YarnApplications, dcl.Info{OutputOnly: true, ObjectFunction: compareJobYarnApplicationsNewStyle, EmptyObject: EmptyJobYarnApplications, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("YarnApplications")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3171,7 +3171,7 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]*dcl.F
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scheduling, actual.Scheduling, dcl.Info{ObjectFunction: compareJobSchedulingNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scheduling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scheduling, actual.Scheduling, dcl.Info{ObjectFunction: compareJobSchedulingNewStyle, EmptyObject: EmptyJobScheduling, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scheduling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3356,7 +3356,7 @@ func compareJobHadoopJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fie
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobHadoopJobLoggingConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobHadoopJobLoggingConfigNewStyle, EmptyObject: EmptyJobHadoopJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3463,7 +3463,7 @@ func compareJobSparkJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fiel
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobSparkJobLoggingConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobSparkJobLoggingConfigNewStyle, EmptyObject: EmptyJobSparkJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3570,7 +3570,7 @@ func compareJobPysparkJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fi
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobPysparkJobLoggingConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobPysparkJobLoggingConfigNewStyle, EmptyObject: EmptyJobPysparkJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3635,7 +3635,7 @@ func compareJobHiveJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Field
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareJobHiveJobQueryListNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareJobHiveJobQueryListNewStyle, EmptyObject: EmptyJobHiveJobQueryList, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3728,7 +3728,7 @@ func compareJobPigJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldD
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareJobPigJobQueryListNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareJobPigJobQueryListNewStyle, EmptyObject: EmptyJobPigJobQueryList, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3763,7 +3763,7 @@ func compareJobPigJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldD
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobPigJobLoggingConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobPigJobLoggingConfigNewStyle, EmptyObject: EmptyJobPigJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3885,7 +3885,7 @@ func compareJobSparkRJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fie
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobSparkRJobLoggingConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobSparkRJobLoggingConfigNewStyle, EmptyObject: EmptyJobSparkRJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3950,7 +3950,7 @@ func compareJobSparkSqlJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareJobSparkSqlJobQueryListNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareJobSparkSqlJobQueryListNewStyle, EmptyObject: EmptyJobSparkSqlJobQueryList, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3978,7 +3978,7 @@ func compareJobSparkSqlJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobSparkSqlJobLoggingConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobSparkSqlJobLoggingConfigNewStyle, EmptyObject: EmptyJobSparkSqlJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4072,7 +4072,7 @@ func compareJobPrestoJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fie
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareJobPrestoJobQueryListNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareJobPrestoJobQueryListNewStyle, EmptyObject: EmptyJobPrestoJobQueryList, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4107,7 +4107,7 @@ func compareJobPrestoJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fie
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobPrestoJobLoggingConfigNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareJobPrestoJobLoggingConfigNewStyle, EmptyObject: EmptyJobPrestoJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
