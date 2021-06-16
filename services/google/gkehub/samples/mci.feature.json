@@ -3,7 +3,7 @@
   "project": "{{ref:multiclusteringress.serviceusage.service.json:project}}",
   "location": "global",
   "labels": {
-    "key": "one"
+    "label-one": "value-one"
   },
   "spec": {
     "multiclusteringress": {

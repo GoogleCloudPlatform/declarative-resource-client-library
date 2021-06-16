@@ -24,6 +24,8 @@ description: A basic example for a GKEHub acm feature membership
 name: acm_feature_membership
 resource: samples/acm.feature_membership.json
 updates:
-- resource: samples/update_acm.feature_membership.json
+- dependencies:
+  - samples/update_acm.feature.json
+  resource: samples/update_acm.feature_membership.json
 versions:
 - beta

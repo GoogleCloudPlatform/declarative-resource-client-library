@@ -37,7 +37,6 @@ class Feature(object):
         channel.initialize()
         self.name = name
         self.labels = labels
-        self.resource_state = resource_state
         self.spec = spec
         self.project = project
         self.location = location
@@ -52,12 +51,6 @@ class Feature(object):
         if Primitive.to_proto(self.labels):
             request.resource.labels = Primitive.to_proto(self.labels)
 
-        if FeatureResourceState.to_proto(self.resource_state):
-            request.resource.resource_state.CopyFrom(
-                FeatureResourceState.to_proto(self.resource_state)
-            )
-        else:
-            request.resource.ClearField("resource_state")
         if FeatureSpec.to_proto(self.spec):
             request.resource.spec.CopyFrom(FeatureSpec.to_proto(self.spec))
         else:
@@ -92,12 +85,6 @@ class Feature(object):
         if Primitive.to_proto(self.labels):
             request.resource.labels = Primitive.to_proto(self.labels)
 
-        if FeatureResourceState.to_proto(self.resource_state):
-            request.resource.resource_state.CopyFrom(
-                FeatureResourceState.to_proto(self.resource_state)
-            )
-        else:
-            request.resource.ClearField("resource_state")
         if FeatureSpec.to_proto(self.spec):
             request.resource.spec.CopyFrom(FeatureSpec.to_proto(self.spec))
         else:
@@ -127,12 +114,6 @@ class Feature(object):
             resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.labels):
             resource.labels = Primitive.to_proto(self.labels)
-        if FeatureResourceState.to_proto(self.resource_state):
-            resource.resource_state.CopyFrom(
-                FeatureResourceState.to_proto(self.resource_state)
-            )
-        else:
-            resource.ClearField("resource_state")
         if FeatureSpec.to_proto(self.spec):
             resource.spec.CopyFrom(FeatureSpec.to_proto(self.spec))
         else:

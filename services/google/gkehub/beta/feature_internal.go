@@ -398,7 +398,6 @@ func canonicalizeFeatureDesiredState(rawDesired, rawInitial *Feature, opts ...dc
 	if dcl.IsZeroValue(rawDesired.Labels) {
 		rawDesired.Labels = rawInitial.Labels
 	}
-	rawDesired.ResourceState = canonicalizeFeatureResourceState(rawDesired.ResourceState, rawInitial.ResourceState, opts...)
 	rawDesired.Spec = canonicalizeFeatureSpec(rawDesired.Spec, rawInitial.Spec, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		rawDesired.Project = rawInitial.Project
@@ -475,13 +474,6 @@ func canonicalizeFeatureResourceState(des, initial *FeatureResourceState, opts .
 
 	if initial == nil {
 		return des
-	}
-
-	if dcl.IsZeroValue(des.State) {
-		des.State = initial.State
-	}
-	if dcl.BoolCanonicalize(des.HasResources, initial.HasResources) || dcl.IsZeroValue(des.HasResources) {
-		des.HasResources = initial.HasResources
 	}
 
 	return des
@@ -862,7 +854,7 @@ func diffFeature(c *Client, desired, actual *Feature, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceState, actual.ResourceState, dcl.Info{ObjectFunction: compareFeatureResourceStateNewStyle, EmptyObject: EmptyFeatureResourceState, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceState")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceState, actual.ResourceState, dcl.Info{OutputOnly: true, ObjectFunction: compareFeatureResourceStateNewStyle, EmptyObject: EmptyFeatureResourceState, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceState")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -940,14 +932,14 @@ func compareFeatureResourceStateNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HasResources, actual.HasResources, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HasResources")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HasResources, actual.HasResources, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HasResources")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

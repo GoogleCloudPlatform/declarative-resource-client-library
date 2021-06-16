@@ -1,0 +1,100 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+syntax = "proto3";
+
+package dcl;
+
+import "proto/connector/sdk.proto";
+import "proto/empty.proto";
+
+enum AssuredworkloadsBetaWorkloadResourcesResourceTypeEnum {
+  AssuredworkloadsBetaWorkloadResourcesResourceTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  AssuredworkloadsBetaWorkloadResourcesResourceTypeEnumRESOURCE_TYPE_UNSPECIFIED = 1;
+  AssuredworkloadsBetaWorkloadResourcesResourceTypeEnumCONSUMER_PROJECT = 2;
+  AssuredworkloadsBetaWorkloadResourcesResourceTypeEnumENCRYPTION_KEYS_PROJECT = 3;
+}
+
+enum AssuredworkloadsBetaWorkloadComplianceRegimeEnum {
+  AssuredworkloadsBetaWorkloadComplianceRegimeEnumNO_VALUE_DO_NOT_USE = 0;
+  AssuredworkloadsBetaWorkloadComplianceRegimeEnumCOMPLIANCE_REGIME_UNSPECIFIED = 1;
+  AssuredworkloadsBetaWorkloadComplianceRegimeEnumIL4 = 2;
+  AssuredworkloadsBetaWorkloadComplianceRegimeEnumCJIS = 3;
+  AssuredworkloadsBetaWorkloadComplianceRegimeEnumFEDRAMP_HIGH = 4;
+  AssuredworkloadsBetaWorkloadComplianceRegimeEnumFEDRAMP_MODERATE = 5;
+  AssuredworkloadsBetaWorkloadComplianceRegimeEnumUS_REGIONAL_ACCESS = 6;
+}
+
+enum AssuredworkloadsBetaWorkloadResourceSettingsResourceTypeEnum {
+  AssuredworkloadsBetaWorkloadResourceSettingsResourceTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  AssuredworkloadsBetaWorkloadResourceSettingsResourceTypeEnumRESOURCE_TYPE_UNSPECIFIED = 1;
+  AssuredworkloadsBetaWorkloadResourceSettingsResourceTypeEnumCONSUMER_PROJECT = 2;
+  AssuredworkloadsBetaWorkloadResourceSettingsResourceTypeEnumENCRYPTION_KEYS_PROJECT = 3;
+}
+
+message AssuredworkloadsBetaWorkload {
+  string name = 1;
+  string display_name = 2;
+  repeated AssuredworkloadsBetaWorkloadResources resources = 3;
+  AssuredworkloadsBetaWorkloadComplianceRegimeEnum compliance_regime = 4;
+  string create_time = 5;
+  string billing_account = 6;
+  map<string, string> labels = 7;
+  string provisioned_resources_parent = 8;
+  AssuredworkloadsBetaWorkloadKmsSettings kms_settings = 9;
+  repeated AssuredworkloadsBetaWorkloadResourceSettings resource_settings = 10;
+  string organization = 11;
+  string location = 12;
+}
+
+message AssuredworkloadsBetaWorkloadResources {
+  int64 resource_id = 1;
+  AssuredworkloadsBetaWorkloadResourcesResourceTypeEnum resource_type = 2;
+}
+
+message AssuredworkloadsBetaWorkloadKmsSettings {
+  string next_rotation_time = 1;
+  string rotation_period = 2;
+}
+
+message AssuredworkloadsBetaWorkloadResourceSettings {
+  string resource_id = 1;
+  AssuredworkloadsBetaWorkloadResourceSettingsResourceTypeEnum resource_type = 2;
+}
+
+message ApplyAssuredworkloadsBetaWorkloadRequest {
+  AssuredworkloadsBetaWorkload resource = 1;
+  repeated LifecycleDirective lifecycle_directives = 2;
+  string service_account_file = 3;
+}
+
+message DeleteAssuredworkloadsBetaWorkloadRequest {
+  string service_account_file = 1;
+  AssuredworkloadsBetaWorkload resource = 2;
+}
+
+message ListAssuredworkloadsBetaWorkloadRequest {
+  string service_account_file = 1;
+  string Organization = 2;
+  string Location = 3;
+}
+
+message ListAssuredworkloadsBetaWorkloadResponse {
+  repeated AssuredworkloadsBetaWorkload items = 1;
+}
+
+service AssuredworkloadsBetaWorkloadService {
+  rpc ApplyAssuredworkloadsBetaWorkload(ApplyAssuredworkloadsBetaWorkloadRequest) returns (AssuredworkloadsBetaWorkload);
+  rpc DeleteAssuredworkloadsBetaWorkload(DeleteAssuredworkloadsBetaWorkloadRequest) returns (google.protobuf.Empty);
+  rpc ListAssuredworkloadsBetaWorkload(ListAssuredworkloadsBetaWorkloadRequest) returns (ListAssuredworkloadsBetaWorkloadResponse);
+}

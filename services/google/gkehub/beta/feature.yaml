@@ -112,12 +112,14 @@ components:
           type: object
           x-dcl-go-name: ResourceState
           x-dcl-go-type: FeatureResourceState
+          readOnly: true
           description: State of the Feature resource itself.
           x-kubernetes-immutable: true
           properties:
             hasResources:
               type: boolean
               x-dcl-go-name: HasResources
+              readOnly: true
               description: Whether this Feature has outstanding resources that need
                 to be cleaned up before it can be disabled.
               x-kubernetes-immutable: true
@@ -125,6 +127,7 @@ components:
               type: string
               x-dcl-go-name: State
               x-dcl-go-type: FeatureResourceStateStateEnum
+              readOnly: true
               description: 'The current state of the Feature resource in the Hub API.
                 Possible values: STATE_UNSPECIFIED, ENABLING, ACTIVE, DISABLING, UPDATING,
                 SERVICE_UPDATING'

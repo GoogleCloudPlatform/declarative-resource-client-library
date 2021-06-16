@@ -11,15 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-dependencies:
-- samples/gkehub.serviceusage.service.json
-- samples/multiclusterservicediscovery.serviceusage.service.json
-- samples/basic.cloudbilling.project_billing_info.json
-- samples/basic.cloudresourcemanager.project.json
-description: A basic example for an GKEHub MCSD feature
-name: mcsd_feature
-resource: samples/mcsd.feature.json
-updates:
-- resource: samples/update_mcsd.feature.json
-versions:
-- beta
+
+load("//:connector_rules.bzl", "proto_package")
+proto_package(name="assuredworkloads/beta", resources=["workload"])

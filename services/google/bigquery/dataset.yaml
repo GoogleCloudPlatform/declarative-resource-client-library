@@ -230,8 +230,7 @@ components:
             explicitly when creating a table, the `defaultPartitionExpirationMs` of
             the containing dataset is ignored. When creating a partitioned table,
             if `defaultPartitionExpirationMs` is set, the `defaultTableExpirationMs`
-            value is ignored and the table will not be inherit a table expiration
-            deadline.
+            value is ignored and the table will not inherit a table expiration deadline.
         defaultTableExpirationMs:
           type: string
           x-dcl-go-name: DefaultTableExpirationMs

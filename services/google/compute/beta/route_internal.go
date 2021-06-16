@@ -363,7 +363,7 @@ func canonicalizeRouteDesiredState(rawDesired, rawInitial *Route, opts ...dcl.Ap
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
-	if dcl.StringCanonicalize(rawDesired.Network, rawInitial.Network) {
+	if dcl.PartialSelfLinkToSelfLink(rawDesired.Network, rawInitial.Network) {
 		rawDesired.Network = rawInitial.Network
 	}
 	if dcl.IsZeroValue(rawDesired.Tag) {
@@ -426,7 +426,7 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	if dcl.IsEmptyValueIndirect(rawNew.Network) && dcl.IsEmptyValueIndirect(rawDesired.Network) {
 		rawNew.Network = rawDesired.Network
 	} else {
-		if dcl.StringCanonicalize(rawDesired.Network, rawNew.Network) {
+		if dcl.PartialSelfLinkToSelfLink(rawDesired.Network, rawNew.Network) {
 			rawNew.Network = rawDesired.Network
 		}
 	}
@@ -866,7 +866,9 @@ func expandRoute(c *Client, f *Route) (map[string]interface{}, error) {
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
 	}
-	if v := f.Network; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.DeriveField("global/networks/%s", f.Network, f.Network); err != nil {
+		return nil, fmt.Errorf("error expanding Network into network: %w", err)
+	} else if v != nil {
 		m["network"] = v
 	}
 	if v := f.Tag; !dcl.IsEmptyValueIndirect(v) {
