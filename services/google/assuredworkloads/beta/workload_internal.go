@@ -169,7 +169,7 @@ func (op *updateWorkloadUpdateWorkloadOperation) do(ctx context.Context, r *Work
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.Diffs)
+	mask := dcl.UpdateMaskWithPrefix(op.Diffs, "Workload")
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err

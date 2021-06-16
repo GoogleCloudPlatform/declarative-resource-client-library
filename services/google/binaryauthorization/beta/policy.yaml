@@ -1,0 +1,215 @@
+# Copyright 2021 Google LLC. All Rights Reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+info:
+  title: BinaryAuthorization/Policy
+  description: DCL Specification for the BinaryAuthorization Policy resource
+  x-dcl-has-iam: false
+paths:
+  get:
+    description: The function used to get information about a Policy
+    parameters:
+    - name: Policy
+      required: true
+      description: A full instance of a Policy
+  apply:
+    description: The function used to apply information about a Policy
+    parameters:
+    - name: Policy
+      required: true
+      description: A full instance of a Policy
+  list:
+    description: The function used to list information about many Policy
+    parameters:
+    - name: project
+      required: true
+      schema:
+        type: string
+components:
+  schemas:
+    Policy:
+      title: Policy
+      x-dcl-id: projects/{{project}}/policy
+      x-dcl-parent-container: project
+      type: object
+      required:
+      - defaultAdmissionRule
+      properties:
+        admissionWhitelistPatterns:
+          type: array
+          x-dcl-go-name: AdmissionWhitelistPatterns
+          description: Optional. Admission policy allowlisting. A matching admission
+            request will always be permitted. This feature is typically used to exclude
+            Google or third-party infrastructure images from Binary Authorization
+            policies.
+          x-kubernetes-immutable: true
+          x-dcl-list-type: list
+          items:
+            type: object
+            x-dcl-go-type: PolicyAdmissionWhitelistPatterns
+            properties:
+              namePattern:
+                type: string
+                x-dcl-go-name: NamePattern
+                description: An image name pattern to allowlist, in the form `registry/path/to/image`.
+                  This supports a trailing `*` as a wildcard, but this is allowed
+                  only in text after the `registry/` part.
+                x-kubernetes-immutable: true
+        clusterAdmissionRules:
+          type: object
+          additionalProperties:
+            type: object
+            x-dcl-go-type: PolicyClusterAdmissionRules
+            required:
+            - evaluationMode
+            - enforcementMode
+            properties:
+              enforcementMode:
+                type: string
+                x-dcl-go-name: EnforcementMode
+                x-dcl-go-type: PolicyClusterAdmissionRulesEnforcementModeEnum
+                description: 'Required. The action when a pod creation is denied by
+                  the admission rule. Possible values: ENFORCEMENT_MODE_UNSPECIFIED,
+                  ENFORCED_BLOCK_AND_AUDIT_LOG, DRYRUN_AUDIT_LOG_ONLY'
+                x-kubernetes-immutable: true
+                enum:
+                - ENFORCEMENT_MODE_UNSPECIFIED
+                - ENFORCED_BLOCK_AND_AUDIT_LOG
+                - DRYRUN_AUDIT_LOG_ONLY
+              evaluationMode:
+                type: string
+                x-dcl-go-name: EvaluationMode
+                x-dcl-go-type: PolicyClusterAdmissionRulesEvaluationModeEnum
+                description: 'Required. How this admission rule will be evaluated.
+                  Possible values: ALWAYS_ALLOW, ALWAYS_DENY, REQUIRE_ATTESTATION'
+                x-kubernetes-immutable: true
+                enum:
+                - ALWAYS_ALLOW
+                - ALWAYS_DENY
+                - REQUIRE_ATTESTATION
+              requireAttestationsBy:
+                type: array
+                x-dcl-go-name: RequireAttestationsBy
+                description: 'Optional. The resource names of the attestors that must
+                  attest to a container image, in the format `projects/*/attestors/*`.
+                  Each attestor must exist before a policy can reference it. To add
+                  an attestor to a policy the principal issuing the policy change
+                  request must be able to read the attestor resource. Note: this field
+                  must be non-empty when the evaluation_mode field specifies REQUIRE_ATTESTATION,
+                  otherwise it must be empty.'
+                x-kubernetes-immutable: true
+                x-dcl-list-type: list
+                items:
+                  type: string
+                  x-dcl-go-type: string
+                  x-dcl-references:
+                  - resource: Binaryauthorization/Attestor
+                    field: name
+          x-dcl-go-name: ClusterAdmissionRules
+          description: Optional.
+          x-kubernetes-immutable: true
+        defaultAdmissionRule:
+          type: object
+          x-dcl-go-name: DefaultAdmissionRule
+          x-dcl-go-type: PolicyDefaultAdmissionRule
+          description: Required. Default admission rule for a cluster without a per-cluster,
+            per- kubernetes-service-account, or per-istio-service-identity admission
+            rule.
+          x-kubernetes-immutable: true
+          required:
+          - evaluationMode
+          - enforcementMode
+          properties:
+            enforcementMode:
+              type: string
+              x-dcl-go-name: EnforcementMode
+              x-dcl-go-type: PolicyDefaultAdmissionRuleEnforcementModeEnum
+              description: 'Required. The action when a pod creation is denied by
+                the admission rule. Possible values: ENFORCEMENT_MODE_UNSPECIFIED,
+                ENFORCED_BLOCK_AND_AUDIT_LOG, DRYRUN_AUDIT_LOG_ONLY'
+              x-kubernetes-immutable: true
+              enum:
+              - ENFORCEMENT_MODE_UNSPECIFIED
+              - ENFORCED_BLOCK_AND_AUDIT_LOG
+              - DRYRUN_AUDIT_LOG_ONLY
+            evaluationMode:
+              type: string
+              x-dcl-go-name: EvaluationMode
+              x-dcl-go-type: PolicyDefaultAdmissionRuleEvaluationModeEnum
+              description: 'Required. How this admission rule will be evaluated. Possible
+                values: GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED, ENABLE, DISABLE'
+              x-kubernetes-immutable: true
+              enum:
+              - GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED
+              - ENABLE
+              - DISABLE
+            requireAttestationsBy:
+              type: array
+              x-dcl-go-name: RequireAttestationsBy
+              description: 'Optional. The resource names of the attestors that must
+                attest to a container image, in the format `projects/*/attestors/*`.
+                Each attestor must exist before a policy can reference it. To add
+                an attestor to a policy the principal issuing the policy change request
+                must be able to read the attestor resource. Note: this field must
+                be non-empty when the evaluation_mode field specifies REQUIRE_ATTESTATION,
+                otherwise it must be empty.'
+              x-kubernetes-immutable: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+                x-dcl-references:
+                - resource: Binaryauthorization/Attestor
+                  field: name
+        description:
+          type: string
+          x-dcl-go-name: Description
+          description: Optional. A descriptive comment.
+          x-kubernetes-immutable: true
+        globalPolicyEvaluationMode:
+          type: string
+          x-dcl-go-name: GlobalPolicyEvaluationMode
+          x-dcl-go-type: PolicyGlobalPolicyEvaluationModeEnum
+          description: 'Optional. Controls the evaluation of a Google-maintained global
+            admission policy for common system-level images. Images not covered by
+            the global policy will be subject to the project admission policy. This
+            setting has no effect when specified inside a global admission policy.
+            Possible values: GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED, ENABLE, DISABLE'
+          x-kubernetes-immutable: true
+          enum:
+          - GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED
+          - ENABLE
+          - DISABLE
+        project:
+          type: string
+          x-dcl-go-name: Project
+          description: The project of the resource.
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Project
+            field: name
+            parent: true
+        selfLink:
+          type: string
+          x-dcl-go-name: SelfLink
+          readOnly: true
+          description: Output only. The resource name, in the format `projects/*/policy`.
+            There is at most one policy per project.
+          x-kubernetes-immutable: true
+        updateTime:
+          type: string
+          format: date-time
+          x-dcl-go-name: UpdateTime
+          readOnly: true
+          description: Output only. Time when the policy was last updated.
+          x-kubernetes-immutable: true
