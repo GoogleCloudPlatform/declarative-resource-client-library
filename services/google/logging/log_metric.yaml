@@ -55,7 +55,6 @@ components:
       x-dcl-id: projects/{{project}}/metrics/{{name}}
       x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
-      x-dcl-labels: metricdescriptor.labels
       type: object
       required:
       - name

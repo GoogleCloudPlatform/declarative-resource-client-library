@@ -64,6 +64,7 @@ components:
       x-dcl-locations:
       - region
       x-dcl-parent-container: project
+      x-dcl-labels: labels
       type: object
       required:
       - sharedSecret

@@ -504,10 +504,10 @@ components:
           x-dcl-go-name: WorkerConfig
     InstanceGroupConfig:
       type: object
-      x-dcl-go-name: SecondaryWorkerConfig
+      x-dcl-go-name: WorkerConfig
       x-dcl-go-type: ClusterInstanceGroupConfig
-      description: Optional. The Compute Engine config settings for additional worker
-        instances in a cluster.
+      description: Optional. The Compute Engine config settings for worker instances
+        in a cluster.
       x-kubernetes-immutable: true
       x-dcl-server-default: true
       properties:

@@ -456,11 +456,16 @@ components:
           x-kubernetes-immutable: true
     EncryptionKey:
       type: object
-      x-dcl-go-name: SourceSnapshotEncryptionKey
+      x-dcl-go-name: DiskEncryptionKey
       x-dcl-go-type: DiskEncryptionKey
-      description: The [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption)
-        of the source snapshot. Required if the source snapshot is protected by a
-        customer-supplied encryption key.
+      description: Encrypts the disk using a [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption).
+        After you encrypt a disk with a customer-supplied key, you must provide the
+        same key if you use the disk later (e.g. to create a disk snapshot, to create
+        a disk image, to create a machine image, or to attach the disk to a virtual
+        machine). Customer-supplied encryption keys do not protect access to metadata
+        of the disk. If you do not provide an encryption key when creating the disk,
+        then the disk will be encrypted using an automatically generated key and you
+        do not need to provide a key to use the disk later.
       x-kubernetes-immutable: true
       properties:
         kmsKeyName:

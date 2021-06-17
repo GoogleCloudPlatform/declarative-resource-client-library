@@ -54,7 +54,6 @@ components:
       title: Instance
       x-dcl-id: projects/{{project}}/instances/{{name}}
       x-dcl-parent-container: project
-      x-dcl-labels: labels
       type: object
       required:
       - name

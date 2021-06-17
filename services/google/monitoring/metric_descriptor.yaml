@@ -54,7 +54,6 @@ components:
       title: MetricDescriptor
       x-dcl-id: v3/projects/{{project}}/metricDescriptors/{{type}}
       x-dcl-parent-container: project
-      x-dcl-labels: labels
       type: object
       required:
       - type
