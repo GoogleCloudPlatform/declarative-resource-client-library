@@ -1,0 +1,293 @@
+// Copyright 2021 Google LLC. All Rights Reserved.
+// 
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// 
+//     http://www.apache.org/licenses/LICENSE-2.0
+// 
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+syntax = "proto3";
+
+package dcl;
+
+import "proto/connector/sdk.proto";
+import "proto/empty.proto";
+
+enum OsconfigAlphaOsPolicyAssignmentOsPoliciesModeEnum {
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesModeEnumNO_VALUE_DO_NOT_USE = 0;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesModeEnumMODE_UNSPECIFIED = 1;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesModeEnumVALIDATION = 2;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesModeEnumENFORCEMENT = 3;
+}
+
+enum OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnum {
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnumNO_VALUE_DO_NOT_USE = 0;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnumDESIRED_STATE_UNSPECIFIED = 1;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnumINSTALLED = 2;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnumREMOVED = 3;
+}
+
+enum OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum {
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumARCHIVE_TYPE_UNSPECIFIED = 1;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumDEB = 2;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumDEB_SRC = 3;
+}
+
+enum OsconfigAlphaOsPolicyAssignmentExecInterpreterEnum {
+  OsconfigAlphaOsPolicyAssignmentExecInterpreterEnumNO_VALUE_DO_NOT_USE = 0;
+  OsconfigAlphaOsPolicyAssignmentExecInterpreterEnumINTERPRETER_UNSPECIFIED = 1;
+  OsconfigAlphaOsPolicyAssignmentExecInterpreterEnumNONE = 2;
+  OsconfigAlphaOsPolicyAssignmentExecInterpreterEnumSHELL = 3;
+  OsconfigAlphaOsPolicyAssignmentExecInterpreterEnumPOWERSHELL = 4;
+}
+
+enum OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnum {
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnumNO_VALUE_DO_NOT_USE = 0;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnumOS_POLICY_COMPLIANCE_STATE_UNSPECIFIED = 1;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnumCOMPLIANT = 2;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnumNON_COMPLIANT = 3;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnumUNKNOWN = 4;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnumNO_OS_POLICIES_APPLICABLE = 5;
+}
+
+enum OsconfigAlphaOsPolicyAssignmentRolloutStateEnum {
+  OsconfigAlphaOsPolicyAssignmentRolloutStateEnumNO_VALUE_DO_NOT_USE = 0;
+  OsconfigAlphaOsPolicyAssignmentRolloutStateEnumROLLOUT_STATE_UNSPECIFIED = 1;
+  OsconfigAlphaOsPolicyAssignmentRolloutStateEnumIN_PROGRESS = 2;
+  OsconfigAlphaOsPolicyAssignmentRolloutStateEnumCANCELLING = 3;
+  OsconfigAlphaOsPolicyAssignmentRolloutStateEnumCANCELLED = 4;
+  OsconfigAlphaOsPolicyAssignmentRolloutStateEnumSUCCEEDED = 5;
+}
+
+message OsconfigAlphaOsPolicyAssignment {
+  string name = 1;
+  string description = 2;
+  repeated OsconfigAlphaOsPolicyAssignmentOsPolicies os_policies = 3;
+  OsconfigAlphaOsPolicyAssignmentInstanceFilter instance_filter = 4;
+  OsconfigAlphaOsPolicyAssignmentRollout rollout = 5;
+  string revision_id = 6;
+  string revision_create_time = 7;
+  OsconfigAlphaOsPolicyAssignmentRolloutStateEnum rollout_state = 8;
+  bool baseline = 9;
+  bool deleted = 10;
+  bool reconciling = 11;
+  string uid = 12;
+  string project = 13;
+  string location = 14;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPolicies {
+  string id = 1;
+  string description = 2;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesModeEnum mode = 3;
+  repeated OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroups resource_groups = 4;
+  bool allow_no_resource_group_match = 5;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroups {
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsOsFilter os_filter = 1;
+  repeated OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResources resources = 2;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsOsFilter {
+  string os_short_name = 1;
+  string os_version = 2;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResources {
+  string id = 1;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg pkg = 2;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository repository = 3;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec exec = 4;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile file = 5;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg {
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnum desired_state = 1;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt apt = 2;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb deb = 3;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum yum = 4;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper zypper = 5;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm rpm = 6;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget googet = 7;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi msi = 8;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgApt {
+  string name = 1;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDeb {
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource source = 1;
+  bool pull_deps = 2;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSource {
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote remote = 1;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs gcs = 2;
+  string local_path = 3;
+  bool allow_insecure = 4;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceRemote {
+  string uri = 1;
+  string sha256_checksum = 2;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDebSourceGcs {
+  string bucket = 1;
+  string object = 2;
+  int64 generation = 3;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgYum {
+  string name = 1;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgZypper {
+  string name = 1;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm {
+  OsconfigAlphaOsPolicyAssignmentFile source = 1;
+  bool pull_deps = 2;
+}
+
+message OsconfigAlphaOsPolicyAssignmentFile {
+  OsconfigAlphaOsPolicyAssignmentFileRemote remote = 1;
+  OsconfigAlphaOsPolicyAssignmentFileGcs gcs = 2;
+  string local_path = 3;
+  bool allow_insecure = 4;
+}
+
+message OsconfigAlphaOsPolicyAssignmentFileRemote {
+  string uri = 1;
+  string sha256_checksum = 2;
+}
+
+message OsconfigAlphaOsPolicyAssignmentFileGcs {
+  string bucket = 1;
+  string object = 2;
+  int64 generation = 3;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgGooget {
+  string name = 1;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi {
+  OsconfigAlphaOsPolicyAssignmentFile source = 1;
+  repeated string properties = 2;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository {
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt apt = 1;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum yum = 2;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper zypper = 3;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo goo = 4;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryApt {
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum archive_type = 1;
+  string uri = 2;
+  string distribution = 3;
+  repeated string components = 4;
+  string gpg_key = 5;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryYum {
+  string id = 1;
+  string display_name = 2;
+  string base_url = 3;
+  repeated string gpg_keys = 4;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryZypper {
+  string id = 1;
+  string display_name = 2;
+  string base_url = 3;
+  repeated string gpg_keys = 4;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryGoo {
+  string name = 1;
+  string url = 2;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesExec {
+  OsconfigAlphaOsPolicyAssignmentExec validate = 1;
+  OsconfigAlphaOsPolicyAssignmentExec enforce = 2;
+}
+
+message OsconfigAlphaOsPolicyAssignmentExec {
+  OsconfigAlphaOsPolicyAssignmentFile file = 1;
+  string script = 2;
+  repeated string args = 3;
+  OsconfigAlphaOsPolicyAssignmentExecInterpreterEnum interpreter = 4;
+}
+
+message OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFile {
+  OsconfigAlphaOsPolicyAssignmentFile file = 1;
+  string content = 2;
+  string path = 3;
+  OsconfigAlphaOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnum state = 4;
+  string permissions = 5;
+}
+
+message OsconfigAlphaOsPolicyAssignmentInstanceFilter {
+  bool all = 1;
+  repeated string os_short_names = 2;
+  repeated OsconfigAlphaOsPolicyAssignmentInstanceFilterInclusionLabels inclusion_labels = 3;
+  repeated OsconfigAlphaOsPolicyAssignmentInstanceFilterExclusionLabels exclusion_labels = 4;
+}
+
+message OsconfigAlphaOsPolicyAssignmentInstanceFilterInclusionLabels {
+  map<string, string> labels = 1;
+}
+
+message OsconfigAlphaOsPolicyAssignmentInstanceFilterExclusionLabels {
+  map<string, string> labels = 1;
+}
+
+message OsconfigAlphaOsPolicyAssignmentRollout {
+  OsconfigAlphaOsPolicyAssignmentRolloutDisruptionBudget disruption_budget = 1;
+  string min_wait_duration = 2;
+}
+
+message OsconfigAlphaOsPolicyAssignmentRolloutDisruptionBudget {
+  int64 fixed = 1;
+  int64 percent = 2;
+}
+
+message ApplyOsconfigAlphaOsPolicyAssignmentRequest {
+  OsconfigAlphaOsPolicyAssignment resource = 1;
+  repeated LifecycleDirective lifecycle_directives = 2;
+  string service_account_file = 3;
+}
+
+message DeleteOsconfigAlphaOsPolicyAssignmentRequest {
+  string service_account_file = 1;
+  OsconfigAlphaOsPolicyAssignment resource = 2;
+}
+
+message ListOsconfigAlphaOsPolicyAssignmentRequest {
+  string service_account_file = 1;
+  string Project = 2;
+  string Location = 3;
+}
+
+message ListOsconfigAlphaOsPolicyAssignmentResponse {
+  repeated OsconfigAlphaOsPolicyAssignment items = 1;
+}
+
+service OsconfigAlphaOsPolicyAssignmentService {
+  rpc ApplyOsconfigAlphaOsPolicyAssignment(ApplyOsconfigAlphaOsPolicyAssignmentRequest) returns (OsconfigAlphaOsPolicyAssignment);
+  rpc DeleteOsconfigAlphaOsPolicyAssignment(DeleteOsconfigAlphaOsPolicyAssignmentRequest) returns (google.protobuf.Empty);
+  rpc ListOsconfigAlphaOsPolicyAssignment(ListOsconfigAlphaOsPolicyAssignmentRequest) returns (ListOsconfigAlphaOsPolicyAssignmentResponse);
+}

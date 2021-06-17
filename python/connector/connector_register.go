@@ -82,7 +82,7 @@ import (
 
 	networkservices_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkservices/alpha_connector"
 
-	osconfig_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/beta_connector"
+	osconfig_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/alpha_connector"
 
 	privateca_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca/beta_connector"
 
@@ -191,7 +191,7 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	networkservices_alpha_connector.RegisterServers(grpcServer)
 
-	osconfig_beta_connector.RegisterServers(grpcServer)
+	osconfig_alpha_connector.RegisterServers(grpcServer)
 
 	privateca_beta_connector.RegisterServers(grpcServer)
 
