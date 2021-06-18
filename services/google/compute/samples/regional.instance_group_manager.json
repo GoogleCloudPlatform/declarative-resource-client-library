@@ -4,7 +4,7 @@
   "location": "{{region}}",
   "autoHealingPolicies": [
     {
-      "healthCheck": "{{ref:basic.https_health_check.json:selfLink}}",
+      "healthCheck": "{{ref:https.health_check.json:selfLink}}",
       "initialDelaySec": 300
     }
   ],

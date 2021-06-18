@@ -13,7 +13,7 @@
 # limitations under the License.
 dependencies:
 - samples/basic.instance_template.json
-- samples/basic.https_health_check.json
+- samples/https.health_check.json
 description: An example of a regional instance group manager.
 name: regional_instance_group_manager
 resource: samples/regional.instance_group_manager.json

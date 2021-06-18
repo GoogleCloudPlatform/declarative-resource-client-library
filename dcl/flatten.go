@@ -28,6 +28,12 @@ func SelfLinkToName(v *string) *string {
 	return &ret
 }
 
+// SelfLinkToNameExpander returns the element of a string after the last slash.
+// Return value also has error since the dcl template requires the expander to return error.
+func SelfLinkToNameExpander(v *string) (*string, error) {
+	return SelfLinkToName(v), nil
+}
+
 // SelfLinkToNameArray returns a slice of the elements of a slice of strings after the last slash.
 func SelfLinkToNameArray(v []string) []string {
 	var a []string

@@ -13,6 +13,7 @@
 # limitations under the License.
 dependencies:
 - samples/zonal.instance_group_manager.json
+- samples/https.health_check.json
 - samples/basic.instance_template.json
 description: An example of a zonal autoscaler.
 name: zonal_autoscaler

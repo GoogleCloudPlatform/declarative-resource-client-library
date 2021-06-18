@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 dependencies:
+- samples/https.health_check.json
 - samples/basic.instance_template.json
 description: An example of a zonal instance group manager.
 name: zonal_instance_group_manager
