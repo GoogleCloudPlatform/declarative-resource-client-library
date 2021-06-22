@@ -45,6 +45,10 @@ func SendRequest(ctx context.Context, c *Config, verb, url string, body *bytes.B
 	hdrs.Set("User-Agent", c.UserAgent())
 	hdrs.Set("Content-Type", c.contentType)
 
+	if c.UserOverrideProject != "" {
+		hdrs.Set("X-Goog-User-Project", c.UserOverrideProject)
+	}
+
 	u, err := AddQueryParams(url, c.queryParams)
 	if err != nil {
 		return nil, err

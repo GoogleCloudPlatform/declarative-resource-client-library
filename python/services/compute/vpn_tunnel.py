@@ -21,6 +21,7 @@ from typing import List
 class VpnTunnel(object):
     def __init__(
         self,
+        labels: dict = None,
         id: int = None,
         name: str = None,
         description: str = None,
@@ -46,6 +47,7 @@ class VpnTunnel(object):
     ):
 
         channel.initialize()
+        self.labels = labels
         self.name = name
         self.description = description
         self.region = region
@@ -67,6 +69,9 @@ class VpnTunnel(object):
     def apply(self):
         stub = vpn_tunnel_pb2_grpc.ComputeVpnTunnelServiceStub(channel.Channel())
         request = vpn_tunnel_pb2.ApplyComputeVpnTunnelRequest()
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
@@ -130,6 +135,7 @@ class VpnTunnel(object):
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyComputeVpnTunnel(request)
+        self.labels = Primitive.from_proto(response.labels)
         self.id = Primitive.from_proto(response.id)
         self.name = Primitive.from_proto(response.name)
         self.description = Primitive.from_proto(response.description)
@@ -166,6 +172,9 @@ class VpnTunnel(object):
         stub = vpn_tunnel_pb2_grpc.ComputeVpnTunnelServiceStub(channel.Channel())
         request = vpn_tunnel_pb2.DeleteComputeVpnTunnelRequest()
         request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.labels):
+            request.resource.labels = Primitive.to_proto(self.labels)
+
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
@@ -241,6 +250,8 @@ class VpnTunnel(object):
 
     def to_proto(self):
         resource = vpn_tunnel_pb2.ComputeVpnTunnel()
+        if Primitive.to_proto(self.labels):
+            resource.labels = Primitive.to_proto(self.labels)
         if Primitive.to_proto(self.name):
             resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.description):

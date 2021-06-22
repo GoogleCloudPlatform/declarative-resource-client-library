@@ -353,6 +353,9 @@ func canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial *VpnTunnel, opts .
 		return rawDesired, nil
 	}
 
+	if dcl.IsZeroValue(rawDesired.Labels) {
+		rawDesired.Labels = rawInitial.Labels
+	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
@@ -406,6 +409,11 @@ func canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial *VpnTunnel, opts .
 }
 
 func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*VpnTunnel, error) {
+
+	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
+		rawNew.Labels = rawDesired.Labels
+	} else {
+	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
 		rawNew.Id = rawDesired.Id
@@ -560,6 +568,13 @@ func diffVpnTunnel(c *Client, desired, actual *VpnTunnel, opts ...dcl.ApplyOptio
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -780,6 +795,9 @@ func unmarshalMapVpnTunnel(m map[string]interface{}, c *Client) (*VpnTunnel, err
 // expandVpnTunnel expands VpnTunnel into a JSON request object.
 func expandVpnTunnel(c *Client, f *VpnTunnel) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
 	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
 		m["id"] = v
 	}
@@ -863,6 +881,7 @@ func flattenVpnTunnel(c *Client, i interface{}) *VpnTunnel {
 	}
 
 	res := &VpnTunnel{}
+	res.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	res.Id = dcl.FlattenInteger(m["id"])
 	res.Name = dcl.FlattenString(m["name"])
 	res.Description = dcl.FlattenString(m["description"])

@@ -38,15 +38,16 @@ type ConfigOption func(*Config)
 // Config is used to enclose the credentials and http client used to make
 // requests to GCP APIs.
 type Config struct {
-	RetryProvider RetryProvider
-	timeout       time.Duration
-	header        http.Header
-	clientOptions []option.ClientOption
-	userAgent     string
-	contentType   string
-	queryParams   map[string]string
-	Logger        Logger
-	BasePath      string
+	RetryProvider       RetryProvider
+	timeout             time.Duration
+	header              http.Header
+	clientOptions       []option.ClientOption
+	userAgent           string
+	contentType         string
+	queryParams         map[string]string
+	Logger              Logger
+	BasePath            string
+	UserOverrideProject string
 }
 
 // UserAgent returns the user agent for the config, which will always include the
@@ -77,14 +78,15 @@ func NewConfig(o ...ConfigOption) *Config {
 // Clone returns a copy of an existing Config with optional new values.
 func (c *Config) Clone(o ...ConfigOption) *Config {
 	result := &Config{
-		RetryProvider: c.RetryProvider,
-		timeout:       c.timeout,
-		clientOptions: c.clientOptions,
-		userAgent:     c.userAgent,
-		contentType:   c.contentType,
-		queryParams:   c.queryParams,
-		Logger:        c.Logger,
-		BasePath:      c.BasePath,
+		RetryProvider:       c.RetryProvider,
+		timeout:             c.timeout,
+		clientOptions:       c.clientOptions,
+		userAgent:           c.userAgent,
+		contentType:         c.contentType,
+		queryParams:         c.queryParams,
+		Logger:              c.Logger,
+		BasePath:            c.BasePath,
+		UserOverrideProject: c.UserOverrideProject,
 	}
 
 	if c.header != nil {
@@ -295,6 +297,14 @@ func WithCredentialsJSON(p []byte) ConfigOption {
 func WithHTTPClient(client *http.Client) ConfigOption {
 	return func(c *Config) {
 		c.clientOptions = append(c.clientOptions, option.WithHTTPClient(client))
+	}
+}
+
+// WithUserOverrideProject returns a ConfigOption that specifies the user override project.
+// This will be used to set X-Goog-User-Project on API calls.
+func WithUserOverrideProject(project string) ConfigOption {
+	return func(c *Config) {
+		c.UserOverrideProject = project
 	}
 }
 
