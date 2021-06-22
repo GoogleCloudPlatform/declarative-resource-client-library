@@ -44,6 +44,7 @@ func ProtoToEventarcBetaTriggerDestination(p *betapb.EventarcBetaTriggerDestinat
 	}
 	obj := &beta.TriggerDestination{
 		CloudRunService: ProtoToEventarcBetaTriggerDestinationCloudRunService(p.GetCloudRunService()),
+		CloudFunction:   dcl.StringOrNil(p.CloudFunction),
 	}
 	return obj
 }
@@ -88,6 +89,7 @@ func ProtoToEventarcBetaTriggerTransportPubsub(p *betapb.EventarcBetaTriggerTran
 func ProtoToTrigger(p *betapb.EventarcBetaTrigger) *beta.Trigger {
 	obj := &beta.Trigger{
 		Name:           dcl.StringOrNil(p.Name),
+		Uid:            dcl.StringOrNil(p.Uid),
 		CreateTime:     dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:     dcl.StringOrNil(p.GetUpdateTime()),
 		ServiceAccount: dcl.StringOrNil(p.ServiceAccount),
@@ -122,6 +124,7 @@ func EventarcBetaTriggerDestinationToProto(o *beta.TriggerDestination) *betapb.E
 	}
 	p := &betapb.EventarcBetaTriggerDestination{
 		CloudRunService: EventarcBetaTriggerDestinationCloudRunServiceToProto(o.CloudRunService),
+		CloudFunction:   dcl.ValueOrEmptyString(o.CloudFunction),
 	}
 	return p
 }
@@ -166,6 +169,7 @@ func EventarcBetaTriggerTransportPubsubToProto(o *beta.TriggerTransportPubsub) *
 func TriggerToProto(resource *beta.Trigger) *betapb.EventarcBetaTrigger {
 	p := &betapb.EventarcBetaTrigger{
 		Name:           dcl.ValueOrEmptyString(resource.Name),
+		Uid:            dcl.ValueOrEmptyString(resource.Uid),
 		CreateTime:     dcl.ValueOrEmptyString(resource.CreateTime),
 		UpdateTime:     dcl.ValueOrEmptyString(resource.UpdateTime),
 		ServiceAccount: dcl.ValueOrEmptyString(resource.ServiceAccount),

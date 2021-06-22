@@ -22,6 +22,7 @@ class Trigger(object):
     def __init__(
         self,
         name: str = None,
+        uid: str = None,
         create_time: str = None,
         update_time: str = None,
         matching_criteria: list = None,
@@ -84,6 +85,7 @@ class Trigger(object):
 
         response = stub.ApplyEventarcBetaTrigger(request)
         self.name = Primitive.from_proto(response.name)
+        self.uid = Primitive.from_proto(response.uid)
         self.create_time = Primitive.from_proto(response.create_time)
         self.update_time = Primitive.from_proto(response.update_time)
         self.matching_criteria = TriggerMatchingCriteriaArray.from_proto(
@@ -213,8 +215,9 @@ class TriggerMatchingCriteriaArray(object):
 
 
 class TriggerDestination(object):
-    def __init__(self, cloud_run_service: dict = None):
+    def __init__(self, cloud_run_service: dict = None, cloud_function: str = None):
         self.cloud_run_service = cloud_run_service
+        self.cloud_function = cloud_function
 
     @classmethod
     def to_proto(self, resource):
@@ -228,6 +231,8 @@ class TriggerDestination(object):
             )
         else:
             res.ClearField("cloud_run_service")
+        if Primitive.to_proto(resource.cloud_function):
+            res.cloud_function = Primitive.to_proto(resource.cloud_function)
         return res
 
     @classmethod
@@ -239,6 +244,7 @@ class TriggerDestination(object):
             cloud_run_service=TriggerDestinationCloudRunService.from_proto(
                 resource.cloud_run_service
             ),
+            cloud_function=Primitive.from_proto(resource.cloud_function),
         )
 
 

@@ -99,7 +99,7 @@ func triggerGetURL(userBasePath string, r *Trigger) (string, error) {
 		"location": dcl.ValueOrEmptyString(r.Location),
 		"name":     dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/triggers/{{name}}", "https://eventarc.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/triggers/{{name}}", "https://eventarc.googleapis.com/v1/", userBasePath, params), nil
 }
 
 func triggerListURL(userBasePath, project, location string) (string, error) {
@@ -107,7 +107,7 @@ func triggerListURL(userBasePath, project, location string) (string, error) {
 		"project":  project,
 		"location": location,
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/triggers", "https://eventarc.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/triggers", "https://eventarc.googleapis.com/v1/", userBasePath, params), nil
 
 }
 
@@ -117,7 +117,7 @@ func triggerCreateURL(userBasePath, project, location, name string) (string, err
 		"location": location,
 		"name":     name,
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/triggers?triggerId={{name}}", "https://eventarc.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/triggers?triggerId={{name}}", "https://eventarc.googleapis.com/v1/", userBasePath, params), nil
 
 }
 
@@ -127,7 +127,7 @@ func triggerDeleteURL(userBasePath string, r *Trigger) (string, error) {
 		"location": dcl.ValueOrEmptyString(r.Location),
 		"name":     dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/triggers/{{name}}", "https://eventarc.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/triggers/{{name}}", "https://eventarc.googleapis.com/v1/", userBasePath, params), nil
 }
 
 // triggerApiOperation represents a mutable operation in the underlying REST
@@ -148,9 +148,9 @@ func newUpdateTriggerUpdateTriggerRequest(ctx context.Context, f *Trigger, c *Cl
 		req["name"] = v
 	}
 	if v, err := expandTriggerMatchingCriteriaSlice(c, f.MatchingCriteria); err != nil {
-		return nil, fmt.Errorf("error expanding MatchingCriteria into matchingCriteria: %w", err)
+		return nil, fmt.Errorf("error expanding MatchingCriteria into eventFilters: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["matchingCriteria"] = v
+		req["eventFilters"] = v
 	}
 	if v := f.ServiceAccount; !dcl.IsEmptyValueIndirect(v) {
 		req["serviceAccount"] = v
@@ -237,7 +237,7 @@ func (op *updateTriggerUpdateTriggerOperation) do(ctx context.Context, r *Trigge
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	err = o.Wait(ctx, c.Config, "https://eventarc.googleapis.com/v1beta1/", "GET")
+	err = o.Wait(ctx, c.Config, "https://eventarc.googleapis.com/v1/", "GET")
 
 	if err != nil {
 		return err
@@ -353,7 +353,7 @@ func (op *deleteTriggerOperation) do(ctx context.Context, r *Trigger, c *Client)
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://eventarc.googleapis.com/v1beta1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, "https://eventarc.googleapis.com/v1/", "GET"); err != nil {
 		return err
 	}
 
@@ -408,7 +408,7 @@ func (op *createTriggerOperation) do(ctx context.Context, r *Trigger, c *Client)
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	if err := o.Wait(ctx, c.Config, "https://eventarc.googleapis.com/v1beta1/", "GET"); err != nil {
+	if err := o.Wait(ctx, c.Config, "https://eventarc.googleapis.com/v1/", "GET"); err != nil {
 		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
 		return err
 	}
@@ -546,6 +546,14 @@ func canonicalizeTriggerNewState(c *Client, rawNew, rawDesired *Trigger) (*Trigg
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Uid) && dcl.IsEmptyValueIndirect(rawDesired.Uid) {
+		rawNew.Uid = rawDesired.Uid
+	} else {
+		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
+			rawNew.Uid = rawDesired.Uid
 		}
 	}
 
@@ -698,6 +706,9 @@ func canonicalizeTriggerDestination(des, initial *TriggerDestination, opts ...dc
 	}
 
 	des.CloudRunService = canonicalizeTriggerDestinationCloudRunService(des.CloudRunService, initial.CloudRunService, opts...)
+	if dcl.NameToSelfLink(des.CloudFunction, initial.CloudFunction) || dcl.IsZeroValue(des.CloudFunction) {
+		des.CloudFunction = initial.CloudFunction
+	}
 
 	return des
 }
@@ -708,6 +719,9 @@ func canonicalizeNewTriggerDestination(c *Client, des, nw *TriggerDestination) *
 	}
 
 	nw.CloudRunService = canonicalizeNewTriggerDestinationCloudRunService(c, des.CloudRunService, nw.CloudRunService)
+	if dcl.NameToSelfLink(des.CloudFunction, nw.CloudFunction) {
+		nw.CloudFunction = des.CloudFunction
+	}
 
 	return nw
 }
@@ -1010,6 +1024,13 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -1024,7 +1045,7 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MatchingCriteria, actual.MatchingCriteria, dcl.Info{Type: "Set", ObjectFunction: compareTriggerMatchingCriteriaNewStyle, EmptyObject: EmptyTriggerMatchingCriteria, OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("MatchingCriteria")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MatchingCriteria, actual.MatchingCriteria, dcl.Info{Type: "Set", ObjectFunction: compareTriggerMatchingCriteriaNewStyle, EmptyObject: EmptyTriggerMatchingCriteria, OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("EventFilters")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1138,7 +1159,14 @@ func compareTriggerDestinationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.CloudRunService, actual.CloudRunService, dcl.Info{ObjectFunction: compareTriggerDestinationCloudRunServiceNewStyle, EmptyObject: EmptyTriggerDestinationCloudRunService, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CloudRunService")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CloudRunService, actual.CloudRunService, dcl.Info{ObjectFunction: compareTriggerDestinationCloudRunServiceNewStyle, EmptyObject: EmptyTriggerDestinationCloudRunService, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CloudRun")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CloudFunction, actual.CloudFunction, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CloudFunction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1261,6 +1289,7 @@ func compareTriggerTransportPubsubNewStyle(d, a interface{}, fn dcl.FieldName) (
 func (r *Trigger) urlNormalized() *Trigger {
 	normalized := dcl.Copy(*r).(Trigger)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Uid = dcl.SelfLinkToName(r.Uid)
 	normalized.ServiceAccount = dcl.SelfLinkToName(r.ServiceAccount)
 	normalized.Etag = dcl.SelfLinkToName(r.Etag)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
@@ -1291,7 +1320,7 @@ func (r *Trigger) updateURL(userBasePath, updateName string) (string, error) {
 			"location": dcl.ValueOrEmptyString(n.Location),
 			"name":     dcl.ValueOrEmptyString(n.Name),
 		}
-		return dcl.URL("projects/{{project}}/locations/{{location}}/triggers/{{name}}", "https://eventarc.googleapis.com/v1beta1/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/locations/{{location}}/triggers/{{name}}", "https://eventarc.googleapis.com/v1/", userBasePath, fields), nil
 
 	}
 	return "", fmt.Errorf("unknown update name: %s", updateName)
@@ -1331,6 +1360,9 @@ func expandTrigger(c *Client, f *Trigger) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
+	if v := f.Uid; !dcl.IsEmptyValueIndirect(v) {
+		m["uid"] = v
+	}
 	if v := f.CreateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["createTime"] = v
 	}
@@ -1338,9 +1370,9 @@ func expandTrigger(c *Client, f *Trigger) (map[string]interface{}, error) {
 		m["updateTime"] = v
 	}
 	if v, err := expandTriggerMatchingCriteriaSlice(c, f.MatchingCriteria); err != nil {
-		return nil, fmt.Errorf("error expanding MatchingCriteria into matchingCriteria: %w", err)
+		return nil, fmt.Errorf("error expanding MatchingCriteria into eventFilters: %w", err)
 	} else if v != nil {
-		m["matchingCriteria"] = v
+		m["eventFilters"] = v
 	}
 	if v := f.ServiceAccount; !dcl.IsEmptyValueIndirect(v) {
 		m["serviceAccount"] = v
@@ -1388,9 +1420,10 @@ func flattenTrigger(c *Client, i interface{}) *Trigger {
 
 	res := &Trigger{}
 	res.Name = dcl.FlattenString(m["name"])
+	res.Uid = dcl.FlattenString(m["uid"])
 	res.CreateTime = dcl.FlattenString(m["createTime"])
 	res.UpdateTime = dcl.FlattenString(m["updateTime"])
-	res.MatchingCriteria = flattenTriggerMatchingCriteriaSlice(c, m["matchingCriteria"])
+	res.MatchingCriteria = flattenTriggerMatchingCriteriaSlice(c, m["eventFilters"])
 	res.ServiceAccount = dcl.FlattenString(m["serviceAccount"])
 	res.Destination = flattenTriggerDestination(c, m["destination"])
 	res.Transport = flattenTriggerTransport(c, m["transport"])
@@ -1610,9 +1643,12 @@ func expandTriggerDestination(c *Client, f *TriggerDestination) (map[string]inte
 
 	m := make(map[string]interface{})
 	if v, err := expandTriggerDestinationCloudRunService(c, f.CloudRunService); err != nil {
-		return nil, fmt.Errorf("error expanding CloudRunService into cloudRunService: %w", err)
+		return nil, fmt.Errorf("error expanding CloudRunService into cloudRun: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["cloudRunService"] = v
+		m["cloudRun"] = v
+	}
+	if v := f.CloudFunction; !dcl.IsEmptyValueIndirect(v) {
+		m["cloudFunction"] = v
 	}
 
 	return m, nil
@@ -1631,7 +1667,8 @@ func flattenTriggerDestination(c *Client, i interface{}) *TriggerDestination {
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyTriggerDestination
 	}
-	r.CloudRunService = flattenTriggerDestinationCloudRunService(c, m["cloudRunService"])
+	r.CloudRunService = flattenTriggerDestinationCloudRunService(c, m["cloudRun"])
+	r.CloudFunction = dcl.FlattenString(m["cloudFunction"])
 
 	return r
 }

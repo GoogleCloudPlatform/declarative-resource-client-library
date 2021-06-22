@@ -26,6 +26,7 @@ import (
 
 type Trigger struct {
 	Name             *string                   `json:"name"`
+	Uid              *string                   `json:"uid"`
 	CreateTime       *string                   `json:"createTime"`
 	UpdateTime       *string                   `json:"updateTime"`
 	MatchingCriteria []TriggerMatchingCriteria `json:"matchingCriteria"`
@@ -94,6 +95,7 @@ func (r *TriggerMatchingCriteria) HashCode() string {
 type TriggerDestination struct {
 	empty           bool                               `json:"-"`
 	CloudRunService *TriggerDestinationCloudRunService `json:"cloudRunService"`
+	CloudFunction   *string                            `json:"cloudFunction"`
 }
 
 type jsonTriggerDestination TriggerDestination
@@ -112,6 +114,8 @@ func (r *TriggerDestination) UnmarshalJSON(data []byte) error {
 	} else {
 
 		r.CloudRunService = res.CloudRunService
+
+		r.CloudFunction = res.CloudFunction
 
 	}
 	return nil

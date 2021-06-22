@@ -85,6 +85,14 @@ components:
           description: Required. Destination specifies where the events should be
             sent to.
           properties:
+            cloudFunction:
+              type: string
+              x-dcl-go-name: CloudFunction
+              description: 'The Cloud Function resource name. Only Cloud Functions
+                V2 is supported. Format: projects/{project}/locations/{location}/functions/{function}'
+              x-dcl-references:
+              - resource: Cloudfunctions/CloudFunction
+                field: selfLink
             cloudRunService:
               type: object
               x-dcl-go-name: CloudRunService
@@ -227,6 +235,14 @@ components:
                     only. The topic you provide here will not be deleted by Eventarc
                     at trigger deletion.'
                   x-kubernetes-immutable: true
+        uid:
+          type: string
+          x-dcl-go-name: Uid
+          readOnly: true
+          description: Output only. Server assigned unique identifier for the trigger.
+            The value is a UUID4 string and guaranteed to remain unchanged until the
+            resource is deleted.
+          x-kubernetes-immutable: true
         updateTime:
           type: string
           format: date-time
