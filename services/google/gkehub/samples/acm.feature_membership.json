@@ -2,7 +2,7 @@
   "membership": "{{ref:first.membership.json:name}}",
   "project": "{{ref:gkehub.serviceusage.service.json:project}}",
   "location": "global",
-  "feature": "{{ref:acm.feature.json:name}}",
+  "feature": "projects/{{ref:acm.feature.json:project}}/locations/{{ref:acm.feature.json:location}}/features/{{ref:acm.feature.json:name}}",
   "configmanagement": {
     "version": "1.6.2",
     "configSync": {

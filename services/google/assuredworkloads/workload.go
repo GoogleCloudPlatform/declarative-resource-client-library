@@ -34,6 +34,7 @@ type Workload struct {
 	Labels                     map[string]string             `json:"labels"`
 	ProvisionedResourcesParent *string                       `json:"provisionedResourcesParent"`
 	KmsSettings                *WorkloadKmsSettings          `json:"kmsSettings"`
+	ResourceSettings           []WorkloadResourceSettings    `json:"resourceSettings"`
 	Organization               *string                       `json:"organization"`
 	Location                   *string                       `json:"location"`
 }
@@ -57,7 +58,7 @@ func WorkloadResourcesResourceTypeEnumRef(s string) *WorkloadResourcesResourceTy
 }
 
 func (v WorkloadResourcesResourceTypeEnum) Validate() error {
-	for _, s := range []string{"RESOURCE_TYPE_UNSPECIFIED", "CONSUMER_PROJECT", "ENCRYPTION_KEYS_PROJECT"} {
+	for _, s := range []string{"RESOURCE_TYPE_UNSPECIFIED", "CONSUMER_PROJECT", "ENCRYPTION_KEYS_PROJECT", "KEYRING"} {
 		if string(v) == s {
 			return nil
 		}
@@ -91,6 +92,33 @@ func (v WorkloadComplianceRegimeEnum) Validate() error {
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "WorkloadComplianceRegimeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum WorkloadResourceSettingsResourceTypeEnum.
+type WorkloadResourceSettingsResourceTypeEnum string
+
+// WorkloadResourceSettingsResourceTypeEnumRef returns a *WorkloadResourceSettingsResourceTypeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func WorkloadResourceSettingsResourceTypeEnumRef(s string) *WorkloadResourceSettingsResourceTypeEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := WorkloadResourceSettingsResourceTypeEnum(s)
+	return &v
+}
+
+func (v WorkloadResourceSettingsResourceTypeEnum) Validate() error {
+	for _, s := range []string{"RESOURCE_TYPE_UNSPECIFIED", "CONSUMER_PROJECT", "ENCRYPTION_KEYS_PROJECT", "KEYRING"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "WorkloadResourceSettingsResourceTypeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -188,6 +216,55 @@ func (r *WorkloadKmsSettings) String() string {
 }
 
 func (r *WorkloadKmsSettings) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type WorkloadResourceSettings struct {
+	empty        bool                                      `json:"-"`
+	ResourceId   *string                                   `json:"resourceId"`
+	ResourceType *WorkloadResourceSettingsResourceTypeEnum `json:"resourceType"`
+}
+
+type jsonWorkloadResourceSettings WorkloadResourceSettings
+
+func (r *WorkloadResourceSettings) UnmarshalJSON(data []byte) error {
+	var res jsonWorkloadResourceSettings
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkloadResourceSettings
+	} else {
+
+		r.ResourceId = res.ResourceId
+
+		r.ResourceType = res.ResourceType
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this WorkloadResourceSettings is
+// empty.  Go lacks global const objects, but this object should be treated
+// as one.  Modifying this object will have undesirable results.
+var EmptyWorkloadResourceSettings *WorkloadResourceSettings = &WorkloadResourceSettings{empty: true}
+
+func (r *WorkloadResourceSettings) Empty() bool {
+	return r.empty
+}
+
+func (r *WorkloadResourceSettings) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *WorkloadResourceSettings) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

@@ -3,5 +3,25 @@
   "complianceRegime": "FEDRAMP_MODERATE",
   "billingAccount": "billingAccounts/{{billing_account}}",
   "organization": "{{org_id}}",
-  "location": "{{region}}"
+  "location": "{{region}}",
+  "labels": {
+    "label-one": "value-one"
+  },
+  "provisionedResourcesParent": "organizations/{{org_id}}",
+  "kmsSettings": {
+    "nextRotationTime": "9999-10-02T15:01:23Z",
+    "rotationPeriod": "10368000s"
+  },
+  "resourceSettings": [
+    {
+      "resourceType": "CONSUMER_PROJECT"
+    },
+    {
+      "resourceType": "ENCRYPTION_KEYS_PROJECT"
+    },
+    {
+      "resourceId": "{{ring}}",
+      "resourceType": "KEYRING"
+    }
+  ]
 }

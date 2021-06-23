@@ -23,6 +23,7 @@ enum AssuredworkloadsBetaWorkloadResourcesResourceTypeEnum {
   AssuredworkloadsBetaWorkloadResourcesResourceTypeEnumRESOURCE_TYPE_UNSPECIFIED = 1;
   AssuredworkloadsBetaWorkloadResourcesResourceTypeEnumCONSUMER_PROJECT = 2;
   AssuredworkloadsBetaWorkloadResourcesResourceTypeEnumENCRYPTION_KEYS_PROJECT = 3;
+  AssuredworkloadsBetaWorkloadResourcesResourceTypeEnumKEYRING = 4;
 }
 
 enum AssuredworkloadsBetaWorkloadComplianceRegimeEnum {
@@ -40,6 +41,7 @@ enum AssuredworkloadsBetaWorkloadResourceSettingsResourceTypeEnum {
   AssuredworkloadsBetaWorkloadResourceSettingsResourceTypeEnumRESOURCE_TYPE_UNSPECIFIED = 1;
   AssuredworkloadsBetaWorkloadResourceSettingsResourceTypeEnumCONSUMER_PROJECT = 2;
   AssuredworkloadsBetaWorkloadResourceSettingsResourceTypeEnumENCRYPTION_KEYS_PROJECT = 3;
+  AssuredworkloadsBetaWorkloadResourceSettingsResourceTypeEnumKEYRING = 4;
 }
 
 message AssuredworkloadsBetaWorkload {

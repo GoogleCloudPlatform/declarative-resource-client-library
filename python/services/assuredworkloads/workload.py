@@ -32,6 +32,7 @@ class Workload(object):
         labels: dict = None,
         provisioned_resources_parent: str = None,
         kms_settings: dict = None,
+        resource_settings: list = None,
         organization: str = None,
         location: str = None,
         service_account_file: str = "",
@@ -44,6 +45,7 @@ class Workload(object):
         self.labels = labels
         self.provisioned_resources_parent = provisioned_resources_parent
         self.kms_settings = kms_settings
+        self.resource_settings = resource_settings
         self.organization = organization
         self.location = location
         self.service_account_file = service_account_file
@@ -76,6 +78,10 @@ class Workload(object):
             )
         else:
             request.resource.ClearField("kms_settings")
+        if WorkloadResourceSettingsArray.to_proto(self.resource_settings):
+            request.resource.resource_settings.extend(
+                WorkloadResourceSettingsArray.to_proto(self.resource_settings)
+            )
         if Primitive.to_proto(self.organization):
             request.resource.organization = Primitive.to_proto(self.organization)
 
@@ -98,6 +104,9 @@ class Workload(object):
             response.provisioned_resources_parent
         )
         self.kms_settings = WorkloadKmsSettings.from_proto(response.kms_settings)
+        self.resource_settings = WorkloadResourceSettingsArray.from_proto(
+            response.resource_settings
+        )
         self.organization = Primitive.from_proto(response.organization)
         self.location = Primitive.from_proto(response.location)
 
@@ -130,6 +139,10 @@ class Workload(object):
             )
         else:
             request.resource.ClearField("kms_settings")
+        if WorkloadResourceSettingsArray.to_proto(self.resource_settings):
+            request.resource.resource_settings.extend(
+                WorkloadResourceSettingsArray.to_proto(self.resource_settings)
+            )
         if Primitive.to_proto(self.organization):
             request.resource.organization = Primitive.to_proto(self.organization)
 
@@ -171,6 +184,10 @@ class Workload(object):
             )
         else:
             resource.ClearField("kms_settings")
+        if WorkloadResourceSettingsArray.to_proto(self.resource_settings):
+            resource.resource_settings.extend(
+                WorkloadResourceSettingsArray.to_proto(self.resource_settings)
+            )
         if Primitive.to_proto(self.organization):
             resource.organization = Primitive.to_proto(self.organization)
         if Primitive.to_proto(self.location):
@@ -262,6 +279,50 @@ class WorkloadKmsSettingsArray(object):
         return [WorkloadKmsSettings.from_proto(i) for i in resources]
 
 
+class WorkloadResourceSettings(object):
+    def __init__(self, resource_id: str = None, resource_type: str = None):
+        self.resource_id = resource_id
+        self.resource_type = resource_type
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = workload_pb2.AssuredworkloadsWorkloadResourceSettings()
+        if Primitive.to_proto(resource.resource_id):
+            res.resource_id = Primitive.to_proto(resource.resource_id)
+        if WorkloadResourceSettingsResourceTypeEnum.to_proto(resource.resource_type):
+            res.resource_type = WorkloadResourceSettingsResourceTypeEnum.to_proto(
+                resource.resource_type
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkloadResourceSettings(
+            resource_id=Primitive.from_proto(resource.resource_id),
+            resource_type=WorkloadResourceSettingsResourceTypeEnum.from_proto(
+                resource.resource_type
+            ),
+        )
+
+
+class WorkloadResourceSettingsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [WorkloadResourceSettings.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [WorkloadResourceSettings.from_proto(i) for i in resources]
+
+
 class WorkloadResourcesResourceTypeEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -295,6 +356,26 @@ class WorkloadComplianceRegimeEnum(object):
             return resource
         return workload_pb2.AssuredworkloadsWorkloadComplianceRegimeEnum.Name(resource)[
             len("AssuredworkloadsWorkloadComplianceRegimeEnum") :
+        ]
+
+
+class WorkloadResourceSettingsResourceTypeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return workload_pb2.AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum.Value(
+            "AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return workload_pb2.AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum.Name(
+            resource
+        )[
+            len("AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum") :
         ]
 
 

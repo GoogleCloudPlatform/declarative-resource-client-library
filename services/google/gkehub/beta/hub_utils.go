@@ -51,6 +51,7 @@ func flattenHubReferenceLink(config interface{}) *string {
 	return &v
 }
 
+// Feature has custom url methods because it uses v1beta endpoints instead of v1beta1.
 func featureGetURL(userBasePath string, r *Feature) (string, error) {
 	params := map[string]interface{}{
 		"project":  dcl.ValueOrEmptyString(r.Project),
@@ -134,7 +135,7 @@ func (op *updateFeatureUpdateFeatureOperation) do(ctx context.Context, r *Featur
 
 // getMembershipSpecs returns a map of membership specs taken from the get response of the feature membership's feature object.
 func getMembershipSpecs(ctx context.Context, r *FeatureMembership, c *Client) (map[string]interface{}, error) {
-	u, err := featureMembershipGetURL(c.Config.BasePath, r)
+	u, err := featureMembershipGetURL(c.Config.BasePath, r.urlNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -216,21 +217,23 @@ func sendFeatureUpdate(ctx context.Context, req map[string]interface{}, c *Clien
 }
 
 func (op *createFeatureMembershipOperation) do(ctx context.Context, r *FeatureMembership, c *Client) error {
-	u, err := featureMembershipCreateURL(c.Config.BasePath, *r.Project, *r.Location, *r.Feature)
+	nr := r.urlNormalized()
+	project, location, feature := nr.createFields()
+	u, err := featureMembershipCreateURL(c.Config.BasePath, project, location, feature)
 	if err != nil {
 		return err
 	}
 	u = strings.Replace(u, "v1beta1", "v1beta", 1)
 
-	membershipSpecs, err := getMembershipSpecs(ctx, r, c)
+	membershipSpecs, err := getMembershipSpecs(ctx, nr, c)
 	if err != nil {
 		return err
 	}
-	m, err := expandFeatureMembership(c, r)
+	m, err := expandFeatureMembership(c, nr)
 	if err != nil {
 		return err
 	}
-	if err := dcl.PutMapEntry(membershipSpecs, []string{membershipSpecKey(r)}, m); err != nil {
+	if err := dcl.PutMapEntry(membershipSpecs, []string{membershipSpecKey(nr)}, m); err != nil {
 		return err
 	}
 	req := map[string]interface{}{
@@ -241,11 +244,12 @@ func (op *createFeatureMembershipOperation) do(ctx context.Context, r *FeatureMe
 
 // GetFeatureMembership returns a feature membership object retrieved from the membershipSpecs field of a feature.
 func (c *Client) GetFeatureMembership(ctx context.Context, r *FeatureMembership) (*FeatureMembership, error) {
-	membershipSpecs, err := getMembershipSpecs(ctx, r, c)
+	nr := r.urlNormalized()
+	membershipSpecs, err := getMembershipSpecs(ctx, nr, c)
 	if err != nil {
 		return nil, err
 	}
-	_, spec, err := findMembershipSpec(dcl.ValueOrEmptyString(r.Membership), membershipSpecs)
+	_, spec, err := findMembershipSpec(dcl.ValueOrEmptyString(nr.Membership), membershipSpecs)
 	if err != nil {
 		return nil, err
 	}
@@ -337,17 +341,18 @@ func (op *updateFeatureMembershipUpdateFeatureMembershipOperation) do(ctx contex
 }
 
 func (op *deleteFeatureMembershipOperation) do(ctx context.Context, r *FeatureMembership, c *Client) error {
-	u, err := featureMembershipDeleteURL(c.Config.BasePath, r)
+	nr := r.urlNormalized()
+	u, err := featureMembershipDeleteURL(c.Config.BasePath, nr)
 	if err != nil {
 		return err
 	}
 	u = strings.Replace(u, "v1beta1", "v1beta", 1)
 
-	membershipSpecs, err := getMembershipSpecs(ctx, r, c)
+	membershipSpecs, err := getMembershipSpecs(ctx, nr, c)
 	if err != nil {
 		return err
 	}
-	key, _, err := findMembershipSpec(dcl.ValueOrEmptyString(r.Membership), membershipSpecs)
+	key, _, err := findMembershipSpec(dcl.ValueOrEmptyString(nr.Membership), membershipSpecs)
 	if err != nil {
 		return err
 	}

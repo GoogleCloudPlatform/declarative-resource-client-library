@@ -6,6 +6,6 @@
   "complianceRegime": "FEDRAMP_MODERATE",
   "billingAccount": "billingAccounts/{{billing_account}}",
   "labels": {
-    "label-one": "value-one"
+    "label-two": "value-two"
   }
 }

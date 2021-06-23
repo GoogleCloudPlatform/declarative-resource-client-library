@@ -49,6 +49,18 @@ func ProtoToAssuredworkloadsWorkloadComplianceRegimeEnum(e assuredworkloadspb.As
 	return nil
 }
 
+// ProtoToWorkloadResourceSettingsResourceTypeEnum converts a WorkloadResourceSettingsResourceTypeEnum enum from its proto representation.
+func ProtoToAssuredworkloadsWorkloadResourceSettingsResourceTypeEnum(e assuredworkloadspb.AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum) *assuredworkloads.WorkloadResourceSettingsResourceTypeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := assuredworkloadspb.AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum_name[int32(e)]; ok {
+		e := assuredworkloads.WorkloadResourceSettingsResourceTypeEnum(n[len("AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToWorkloadResources converts a WorkloadResources resource from its proto representation.
 func ProtoToAssuredworkloadsWorkloadResources(p *assuredworkloadspb.AssuredworkloadsWorkloadResources) *assuredworkloads.WorkloadResources {
 	if p == nil {
@@ -73,6 +85,18 @@ func ProtoToAssuredworkloadsWorkloadKmsSettings(p *assuredworkloadspb.Assuredwor
 	return obj
 }
 
+// ProtoToWorkloadResourceSettings converts a WorkloadResourceSettings resource from its proto representation.
+func ProtoToAssuredworkloadsWorkloadResourceSettings(p *assuredworkloadspb.AssuredworkloadsWorkloadResourceSettings) *assuredworkloads.WorkloadResourceSettings {
+	if p == nil {
+		return nil
+	}
+	obj := &assuredworkloads.WorkloadResourceSettings{
+		ResourceId:   dcl.StringOrNil(p.ResourceId),
+		ResourceType: ProtoToAssuredworkloadsWorkloadResourceSettingsResourceTypeEnum(p.GetResourceType()),
+	}
+	return obj
+}
+
 // ProtoToWorkload converts a Workload resource from its proto representation.
 func ProtoToWorkload(p *assuredworkloadspb.AssuredworkloadsWorkload) *assuredworkloads.Workload {
 	obj := &assuredworkloads.Workload{
@@ -88,6 +112,9 @@ func ProtoToWorkload(p *assuredworkloadspb.AssuredworkloadsWorkload) *assuredwor
 	}
 	for _, r := range p.GetResources() {
 		obj.Resources = append(obj.Resources, *ProtoToAssuredworkloadsWorkloadResources(r))
+	}
+	for _, r := range p.GetResourceSettings() {
+		obj.ResourceSettings = append(obj.ResourceSettings, *ProtoToAssuredworkloadsWorkloadResourceSettings(r))
 	}
 	return obj
 }
@@ -114,6 +141,17 @@ func AssuredworkloadsWorkloadComplianceRegimeEnumToProto(e *assuredworkloads.Wor
 	return assuredworkloadspb.AssuredworkloadsWorkloadComplianceRegimeEnum(0)
 }
 
+// WorkloadResourceSettingsResourceTypeEnumToProto converts a WorkloadResourceSettingsResourceTypeEnum enum to its proto representation.
+func AssuredworkloadsWorkloadResourceSettingsResourceTypeEnumToProto(e *assuredworkloads.WorkloadResourceSettingsResourceTypeEnum) assuredworkloadspb.AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum {
+	if e == nil {
+		return assuredworkloadspb.AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum(0)
+	}
+	if v, ok := assuredworkloadspb.AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum_value["WorkloadResourceSettingsResourceTypeEnum"+string(*e)]; ok {
+		return assuredworkloadspb.AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum(v)
+	}
+	return assuredworkloadspb.AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum(0)
+}
+
 // WorkloadResourcesToProto converts a WorkloadResources resource to its proto representation.
 func AssuredworkloadsWorkloadResourcesToProto(o *assuredworkloads.WorkloadResources) *assuredworkloadspb.AssuredworkloadsWorkloadResources {
 	if o == nil {
@@ -138,6 +176,18 @@ func AssuredworkloadsWorkloadKmsSettingsToProto(o *assuredworkloads.WorkloadKmsS
 	return p
 }
 
+// WorkloadResourceSettingsToProto converts a WorkloadResourceSettings resource to its proto representation.
+func AssuredworkloadsWorkloadResourceSettingsToProto(o *assuredworkloads.WorkloadResourceSettings) *assuredworkloadspb.AssuredworkloadsWorkloadResourceSettings {
+	if o == nil {
+		return nil
+	}
+	p := &assuredworkloadspb.AssuredworkloadsWorkloadResourceSettings{
+		ResourceId:   dcl.ValueOrEmptyString(o.ResourceId),
+		ResourceType: AssuredworkloadsWorkloadResourceSettingsResourceTypeEnumToProto(o.ResourceType),
+	}
+	return p
+}
+
 // WorkloadToProto converts a Workload resource to its proto representation.
 func WorkloadToProto(resource *assuredworkloads.Workload) *assuredworkloadspb.AssuredworkloadsWorkload {
 	p := &assuredworkloadspb.AssuredworkloadsWorkload{
@@ -153,6 +203,9 @@ func WorkloadToProto(resource *assuredworkloads.Workload) *assuredworkloadspb.As
 	}
 	for _, r := range resource.Resources {
 		p.Resources = append(p.Resources, AssuredworkloadsWorkloadResourcesToProto(&r))
+	}
+	for _, r := range resource.ResourceSettings {
+		p.ResourceSettings = append(p.ResourceSettings, AssuredworkloadsWorkloadResourceSettingsToProto(&r))
 	}
 
 	return p

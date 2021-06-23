@@ -177,6 +177,38 @@ components:
             be the same or a child of the Workload parent. If not specified all resources
             are created under the Workload parent. Formats: folders/{folder_id}, organizations/{organization_id}'
           x-kubernetes-immutable: true
+        resourceSettings:
+          type: array
+          x-dcl-go-name: ResourceSettings
+          description: Input only. Resource properties that are used to customize
+            workload resources. These properties (such as custom project id) will
+            be used to create workload resources if possible. This field is optional.
+          x-kubernetes-immutable: true
+          x-dcl-list-type: list
+          items:
+            type: object
+            x-dcl-go-type: WorkloadResourceSettings
+            properties:
+              resourceId:
+                type: string
+                x-dcl-go-name: ResourceId
+                description: Resource identifier. For a project this represents project_id.
+                  If the project is already taken, the workload creation will fail.
+                x-kubernetes-immutable: true
+              resourceType:
+                type: string
+                x-dcl-go-name: ResourceType
+                x-dcl-go-type: WorkloadResourceSettingsResourceTypeEnum
+                description: 'Indicates the type of resource. This field should be
+                  specified to correspond the id to the right project type (CONSUMER_PROJECT
+                  or ENCRYPTION_KEYS_PROJECT) Possible values: RESOURCE_TYPE_UNSPECIFIED,
+                  CONSUMER_PROJECT, ENCRYPTION_KEYS_PROJECT, KEYRING'
+                x-kubernetes-immutable: true
+                enum:
+                - RESOURCE_TYPE_UNSPECIFIED
+                - CONSUMER_PROJECT
+                - ENCRYPTION_KEYS_PROJECT
+                - KEYRING
         resources:
           type: array
           x-dcl-go-name: Resources
@@ -201,9 +233,10 @@ components:
                 x-dcl-go-name: ResourceType
                 x-dcl-go-type: WorkloadResourcesResourceTypeEnum
                 description: 'Indicates the type of resource. Possible values: RESOURCE_TYPE_UNSPECIFIED,
-                  CONSUMER_PROJECT, ENCRYPTION_KEYS_PROJECT'
+                  CONSUMER_PROJECT, ENCRYPTION_KEYS_PROJECT, KEYRING'
                 x-kubernetes-immutable: true
                 enum:
                 - RESOURCE_TYPE_UNSPECIFIED
                 - CONSUMER_PROJECT
                 - ENCRYPTION_KEYS_PROJECT
+                - KEYRING
