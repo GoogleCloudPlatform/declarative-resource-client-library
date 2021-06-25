@@ -734,10 +734,12 @@ class InstanceGroupManagerUpdatePolicy(object):
         instance_redistribution_type: str = None,
         minimal_action: str = None,
         max_surge: dict = None,
+        max_unavailable: dict = None,
     ):
         self.instance_redistribution_type = instance_redistribution_type
         self.minimal_action = minimal_action
         self.max_surge = max_surge
+        self.max_unavailable = max_unavailable
 
     @classmethod
     def to_proto(self, resource):
@@ -763,6 +765,16 @@ class InstanceGroupManagerUpdatePolicy(object):
             )
         else:
             res.ClearField("max_surge")
+        if InstanceGroupManagerUpdatePolicyMaxUnavailable.to_proto(
+            resource.max_unavailable
+        ):
+            res.max_unavailable.CopyFrom(
+                InstanceGroupManagerUpdatePolicyMaxUnavailable.to_proto(
+                    resource.max_unavailable
+                )
+            )
+        else:
+            res.ClearField("max_unavailable")
         return res
 
     @classmethod
@@ -780,6 +792,9 @@ class InstanceGroupManagerUpdatePolicy(object):
             max_surge=InstanceGroupManagerUpdatePolicyMaxSurge.from_proto(
                 resource.max_surge
             ),
+            max_unavailable=InstanceGroupManagerUpdatePolicyMaxUnavailable.from_proto(
+                resource.max_unavailable
+            ),
         )
 
 
@@ -796,17 +811,10 @@ class InstanceGroupManagerUpdatePolicyArray(object):
 
 
 class InstanceGroupManagerUpdatePolicyMaxSurge(object):
-    def __init__(
-        self,
-        fixed: int = None,
-        percent: int = None,
-        calculated: int = None,
-        max_unavailable: dict = None,
-    ):
+    def __init__(self, fixed: int = None, percent: int = None, calculated: int = None):
         self.fixed = fixed
         self.percent = percent
         self.calculated = calculated
-        self.max_unavailable = max_unavailable
 
     @classmethod
     def to_proto(self, resource):
@@ -822,16 +830,6 @@ class InstanceGroupManagerUpdatePolicyMaxSurge(object):
             res.percent = Primitive.to_proto(resource.percent)
         if Primitive.to_proto(resource.calculated):
             res.calculated = Primitive.to_proto(resource.calculated)
-        if InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable.to_proto(
-            resource.max_unavailable
-        ):
-            res.max_unavailable.CopyFrom(
-                InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable.to_proto(
-                    resource.max_unavailable
-                )
-            )
-        else:
-            res.ClearField("max_unavailable")
         return res
 
     @classmethod
@@ -843,9 +841,6 @@ class InstanceGroupManagerUpdatePolicyMaxSurge(object):
             fixed=Primitive.from_proto(resource.fixed),
             percent=Primitive.from_proto(resource.percent),
             calculated=Primitive.from_proto(resource.calculated),
-            max_unavailable=InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable.from_proto(
-                resource.max_unavailable
-            ),
         )
 
 
@@ -863,7 +858,7 @@ class InstanceGroupManagerUpdatePolicyMaxSurgeArray(object):
         ]
 
 
-class InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(object):
+class InstanceGroupManagerUpdatePolicyMaxUnavailable(object):
     def __init__(self, fixed: int = None, percent: int = None, calculated: int = None):
         self.fixed = fixed
         self.percent = percent
@@ -875,7 +870,7 @@ class InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(object):
             return None
 
         res = (
-            instance_group_manager_pb2.ComputeInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable()
+            instance_group_manager_pb2.ComputeInstanceGroupManagerUpdatePolicyMaxUnavailable()
         )
         if Primitive.to_proto(resource.fixed):
             res.fixed = Primitive.to_proto(resource.fixed)
@@ -890,27 +885,27 @@ class InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(object):
         if not resource:
             return None
 
-        return InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(
+        return InstanceGroupManagerUpdatePolicyMaxUnavailable(
             fixed=Primitive.from_proto(resource.fixed),
             percent=Primitive.from_proto(resource.percent),
             calculated=Primitive.from_proto(resource.calculated),
         )
 
 
-class InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableArray(object):
+class InstanceGroupManagerUpdatePolicyMaxUnavailableArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
         return [
-            InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable.to_proto(i)
+            InstanceGroupManagerUpdatePolicyMaxUnavailable.to_proto(i)
             for i in resources
         ]
 
     @classmethod
     def from_proto(self, resources):
         return [
-            InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable.from_proto(i)
+            InstanceGroupManagerUpdatePolicyMaxUnavailable.from_proto(i)
             for i in resources
         ]
 

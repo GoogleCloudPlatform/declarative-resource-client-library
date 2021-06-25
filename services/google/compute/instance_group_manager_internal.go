@@ -102,9 +102,6 @@ func (r *InstanceGroupManagerUpdatePolicy) validate() error {
 			return err
 		}
 	}
-	return nil
-}
-func (r *InstanceGroupManagerUpdatePolicyMaxSurge) validate() error {
 	if !dcl.IsEmptyValueIndirect(r.MaxUnavailable) {
 		if err := r.MaxUnavailable.validate(); err != nil {
 			return err
@@ -112,7 +109,10 @@ func (r *InstanceGroupManagerUpdatePolicyMaxSurge) validate() error {
 	}
 	return nil
 }
-func (r *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) validate() error {
+func (r *InstanceGroupManagerUpdatePolicyMaxSurge) validate() error {
+	return nil
+}
+func (r *InstanceGroupManagerUpdatePolicyMaxUnavailable) validate() error {
 	return nil
 }
 
@@ -1506,6 +1506,7 @@ func canonicalizeInstanceGroupManagerUpdatePolicy(des, initial *InstanceGroupMan
 		des.MinimalAction = initial.MinimalAction
 	}
 	des.MaxSurge = canonicalizeInstanceGroupManagerUpdatePolicyMaxSurge(des.MaxSurge, initial.MaxSurge, opts...)
+	des.MaxUnavailable = canonicalizeInstanceGroupManagerUpdatePolicyMaxUnavailable(des.MaxUnavailable, initial.MaxUnavailable, opts...)
 
 	return des
 }
@@ -1522,6 +1523,7 @@ func canonicalizeNewInstanceGroupManagerUpdatePolicy(c *Client, des, nw *Instanc
 		nw.MinimalAction = des.MinimalAction
 	}
 	nw.MaxSurge = canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurge(c, des.MaxSurge, nw.MaxSurge)
+	nw.MaxUnavailable = canonicalizeNewInstanceGroupManagerUpdatePolicyMaxUnavailable(c, des.MaxUnavailable, nw.MaxUnavailable)
 
 	return nw
 }
@@ -1587,7 +1589,6 @@ func canonicalizeInstanceGroupManagerUpdatePolicyMaxSurge(des, initial *Instance
 	if dcl.IsZeroValue(des.Percent) {
 		des.Percent = initial.Percent
 	}
-	des.MaxUnavailable = canonicalizeInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(des.MaxUnavailable, initial.MaxUnavailable, opts...)
 
 	return des
 }
@@ -1606,7 +1607,6 @@ func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurge(c *Client, des, nw 
 	if dcl.IsZeroValue(nw.Calculated) {
 		nw.Calculated = des.Calculated
 	}
-	nw.MaxUnavailable = canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c, des.MaxUnavailable, nw.MaxUnavailable)
 
 	return nw
 }
@@ -1654,7 +1654,7 @@ func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurgeSlice(c *Client, des
 	return items
 }
 
-func canonicalizeInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(des, initial *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable, opts ...dcl.ApplyOption) *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable {
+func canonicalizeInstanceGroupManagerUpdatePolicyMaxUnavailable(des, initial *InstanceGroupManagerUpdatePolicyMaxUnavailable, opts ...dcl.ApplyOption) *InstanceGroupManagerUpdatePolicyMaxUnavailable {
 	if des == nil {
 		return initial
 	}
@@ -1676,7 +1676,7 @@ func canonicalizeInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(des, ini
 	return des
 }
 
-func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c *Client, des, nw *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable {
+func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxUnavailable(c *Client, des, nw *InstanceGroupManagerUpdatePolicyMaxUnavailable) *InstanceGroupManagerUpdatePolicyMaxUnavailable {
 	if des == nil || nw == nil {
 		return nw
 	}
@@ -1694,15 +1694,15 @@ func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c *Cl
 	return nw
 }
 
-func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableSet(c *Client, des, nw []InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) []InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable {
+func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxUnavailableSet(c *Client, des, nw []InstanceGroupManagerUpdatePolicyMaxUnavailable) []InstanceGroupManagerUpdatePolicyMaxUnavailable {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable
+	var reorderedNew []InstanceGroupManagerUpdatePolicyMaxUnavailable
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareInstanceGroupManagerUpdatePolicyMaxUnavailableNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1717,7 +1717,7 @@ func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableSet(c 
 	return reorderedNew
 }
 
-func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableSlice(c *Client, des, nw []InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) []InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable {
+func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxUnavailableSlice(c *Client, des, nw []InstanceGroupManagerUpdatePolicyMaxUnavailable) []InstanceGroupManagerUpdatePolicyMaxUnavailable {
 	if des == nil {
 		return nw
 	}
@@ -1728,10 +1728,10 @@ func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableSlice(
 		return nw
 	}
 
-	var items []InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable
+	var items []InstanceGroupManagerUpdatePolicyMaxUnavailable
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c, &d, &n))
+		items = append(items, *canonicalizeNewInstanceGroupManagerUpdatePolicyMaxUnavailable(c, &d, &n))
 	}
 
 	return items
@@ -2300,6 +2300,13 @@ func compareInstanceGroupManagerUpdatePolicyNewStyle(d, a interface{}, fn dcl.Fi
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.MaxUnavailable, actual.MaxUnavailable, dcl.Info{ObjectFunction: compareInstanceGroupManagerUpdatePolicyMaxUnavailableNewStyle, EmptyObject: EmptyInstanceGroupManagerUpdatePolicyMaxUnavailable, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxUnavailable")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -2343,32 +2350,25 @@ func compareInstanceGroupManagerUpdatePolicyMaxSurgeNewStyle(d, a interface{}, f
 		}
 		diffs = append(diffs, ds...)
 	}
-
-	if ds, err := dcl.Diff(desired.MaxUnavailable, actual.MaxUnavailable, dcl.Info{ObjectFunction: compareInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableNewStyle, EmptyObject: EmptyInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxUnavailable")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
 	return diffs, nil
 }
 
-func compareInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareInstanceGroupManagerUpdatePolicyMaxUnavailableNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable)
+	desired, ok := d.(*InstanceGroupManagerUpdatePolicyMaxUnavailable)
 	if !ok {
-		desiredNotPointer, ok := d.(InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable)
+		desiredNotPointer, ok := d.(InstanceGroupManagerUpdatePolicyMaxUnavailable)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable or *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable", d)
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicyMaxUnavailable or *InstanceGroupManagerUpdatePolicyMaxUnavailable", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable)
+	actual, ok := a.(*InstanceGroupManagerUpdatePolicyMaxUnavailable)
 	if !ok {
-		actualNotPointer, ok := a.(InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable)
+		actualNotPointer, ok := a.(InstanceGroupManagerUpdatePolicyMaxUnavailable)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable", a)
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicyMaxUnavailable", a)
 		}
 		actual = &actualNotPointer
 	}
@@ -3806,6 +3806,11 @@ func expandInstanceGroupManagerUpdatePolicy(c *Client, f *InstanceGroupManagerUp
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["maxSurge"] = v
 	}
+	if v, err := expandInstanceGroupManagerUpdatePolicyMaxUnavailable(c, f.MaxUnavailable); err != nil {
+		return nil, fmt.Errorf("error expanding MaxUnavailable into maxUnavailable: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["maxUnavailable"] = v
+	}
 
 	return m, nil
 }
@@ -3826,6 +3831,7 @@ func flattenInstanceGroupManagerUpdatePolicy(c *Client, i interface{}) *Instance
 	r.InstanceRedistributionType = flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum(m["instanceRedistributionType"])
 	r.MinimalAction = flattenInstanceGroupManagerUpdatePolicyMinimalActionEnum(m["minimalAction"])
 	r.MaxSurge = flattenInstanceGroupManagerUpdatePolicyMaxSurge(c, m["maxSurge"])
+	r.MaxUnavailable = flattenInstanceGroupManagerUpdatePolicyMaxUnavailable(c, m["maxUnavailable"])
 
 	return r
 }
@@ -3928,11 +3934,6 @@ func expandInstanceGroupManagerUpdatePolicyMaxSurge(c *Client, f *InstanceGroupM
 	if v := f.Calculated; !dcl.IsEmptyValueIndirect(v) {
 		m["calculated"] = v
 	}
-	if v, err := expandInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c, f.MaxUnavailable); err != nil {
-		return nil, fmt.Errorf("error expanding MaxUnavailable into maxUnavailable: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["maxUnavailable"] = v
-	}
 
 	return m, nil
 }
@@ -3953,21 +3954,20 @@ func flattenInstanceGroupManagerUpdatePolicyMaxSurge(c *Client, i interface{}) *
 	r.Fixed = dcl.FlattenInteger(m["fixed"])
 	r.Percent = dcl.FlattenInteger(m["percent"])
 	r.Calculated = dcl.FlattenInteger(m["calculated"])
-	r.MaxUnavailable = flattenInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c, m["maxUnavailable"])
 
 	return r
 }
 
-// expandInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableMap expands the contents of InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable into a JSON
+// expandInstanceGroupManagerUpdatePolicyMaxUnavailableMap expands the contents of InstanceGroupManagerUpdatePolicyMaxUnavailable into a JSON
 // request object.
-func expandInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableMap(c *Client, f map[string]InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) (map[string]interface{}, error) {
+func expandInstanceGroupManagerUpdatePolicyMaxUnavailableMap(c *Client, f map[string]InstanceGroupManagerUpdatePolicyMaxUnavailable) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c, &item)
+		i, err := expandInstanceGroupManagerUpdatePolicyMaxUnavailable(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -3979,16 +3979,16 @@ func expandInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableMap(c *Client, 
 	return items, nil
 }
 
-// expandInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableSlice expands the contents of InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable into a JSON
+// expandInstanceGroupManagerUpdatePolicyMaxUnavailableSlice expands the contents of InstanceGroupManagerUpdatePolicyMaxUnavailable into a JSON
 // request object.
-func expandInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableSlice(c *Client, f []InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) ([]map[string]interface{}, error) {
+func expandInstanceGroupManagerUpdatePolicyMaxUnavailableSlice(c *Client, f []InstanceGroupManagerUpdatePolicyMaxUnavailable) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c, &item)
+		i, err := expandInstanceGroupManagerUpdatePolicyMaxUnavailable(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -3999,49 +3999,49 @@ func expandInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableSlice(c *Client
 	return items, nil
 }
 
-// flattenInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableMap flattens the contents of InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable from a JSON
+// flattenInstanceGroupManagerUpdatePolicyMaxUnavailableMap flattens the contents of InstanceGroupManagerUpdatePolicyMaxUnavailable from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableMap(c *Client, i interface{}) map[string]InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable {
+func flattenInstanceGroupManagerUpdatePolicyMaxUnavailableMap(c *Client, i interface{}) map[string]InstanceGroupManagerUpdatePolicyMaxUnavailable {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable{}
+		return map[string]InstanceGroupManagerUpdatePolicyMaxUnavailable{}
 	}
 
 	if len(a) == 0 {
-		return map[string]InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable{}
+		return map[string]InstanceGroupManagerUpdatePolicyMaxUnavailable{}
 	}
 
-	items := make(map[string]InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable)
+	items := make(map[string]InstanceGroupManagerUpdatePolicyMaxUnavailable)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c, item.(map[string]interface{}))
+		items[k] = *flattenInstanceGroupManagerUpdatePolicyMaxUnavailable(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableSlice flattens the contents of InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable from a JSON
+// flattenInstanceGroupManagerUpdatePolicyMaxUnavailableSlice flattens the contents of InstanceGroupManagerUpdatePolicyMaxUnavailable from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableSlice(c *Client, i interface{}) []InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable {
+func flattenInstanceGroupManagerUpdatePolicyMaxUnavailableSlice(c *Client, i interface{}) []InstanceGroupManagerUpdatePolicyMaxUnavailable {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable{}
+		return []InstanceGroupManagerUpdatePolicyMaxUnavailable{}
 	}
 
 	if len(a) == 0 {
-		return []InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable{}
+		return []InstanceGroupManagerUpdatePolicyMaxUnavailable{}
 	}
 
-	items := make([]InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable, 0, len(a))
+	items := make([]InstanceGroupManagerUpdatePolicyMaxUnavailable, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c, item.(map[string]interface{})))
+		items = append(items, *flattenInstanceGroupManagerUpdatePolicyMaxUnavailable(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable expands an instance of InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable into a JSON
+// expandInstanceGroupManagerUpdatePolicyMaxUnavailable expands an instance of InstanceGroupManagerUpdatePolicyMaxUnavailable into a JSON
 // request object.
-func expandInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c *Client, f *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) (map[string]interface{}, error) {
+func expandInstanceGroupManagerUpdatePolicyMaxUnavailable(c *Client, f *InstanceGroupManagerUpdatePolicyMaxUnavailable) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -4060,18 +4060,18 @@ func expandInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c *Client, f *
 	return m, nil
 }
 
-// flattenInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable flattens an instance of InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable from a JSON
+// flattenInstanceGroupManagerUpdatePolicyMaxUnavailable flattens an instance of InstanceGroupManagerUpdatePolicyMaxUnavailable from a JSON
 // response object.
-func flattenInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(c *Client, i interface{}) *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable {
+func flattenInstanceGroupManagerUpdatePolicyMaxUnavailable(c *Client, i interface{}) *InstanceGroupManagerUpdatePolicyMaxUnavailable {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable{}
+	r := &InstanceGroupManagerUpdatePolicyMaxUnavailable{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable
+		return EmptyInstanceGroupManagerUpdatePolicyMaxUnavailable
 	}
 	r.Fixed = dcl.FlattenInteger(m["fixed"])
 	r.Percent = dcl.FlattenInteger(m["percent"])

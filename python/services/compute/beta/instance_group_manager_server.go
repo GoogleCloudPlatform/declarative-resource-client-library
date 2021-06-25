@@ -173,6 +173,7 @@ func ProtoToComputeBetaInstanceGroupManagerUpdatePolicy(p *betapb.ComputeBetaIns
 		InstanceRedistributionType: ProtoToComputeBetaInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum(p.GetInstanceRedistributionType()),
 		MinimalAction:              ProtoToComputeBetaInstanceGroupManagerUpdatePolicyMinimalActionEnum(p.GetMinimalAction()),
 		MaxSurge:                   ProtoToComputeBetaInstanceGroupManagerUpdatePolicyMaxSurge(p.GetMaxSurge()),
+		MaxUnavailable:             ProtoToComputeBetaInstanceGroupManagerUpdatePolicyMaxUnavailable(p.GetMaxUnavailable()),
 	}
 	return obj
 }
@@ -183,20 +184,19 @@ func ProtoToComputeBetaInstanceGroupManagerUpdatePolicyMaxSurge(p *betapb.Comput
 		return nil
 	}
 	obj := &beta.InstanceGroupManagerUpdatePolicyMaxSurge{
-		Fixed:          dcl.Int64OrNil(p.Fixed),
-		Percent:        dcl.Int64OrNil(p.Percent),
-		Calculated:     dcl.Int64OrNil(p.Calculated),
-		MaxUnavailable: ProtoToComputeBetaInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(p.GetMaxUnavailable()),
+		Fixed:      dcl.Int64OrNil(p.Fixed),
+		Percent:    dcl.Int64OrNil(p.Percent),
+		Calculated: dcl.Int64OrNil(p.Calculated),
 	}
 	return obj
 }
 
-// ProtoToInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable converts a InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable resource from its proto representation.
-func ProtoToComputeBetaInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(p *betapb.ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) *beta.InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable {
+// ProtoToInstanceGroupManagerUpdatePolicyMaxUnavailable converts a InstanceGroupManagerUpdatePolicyMaxUnavailable resource from its proto representation.
+func ProtoToComputeBetaInstanceGroupManagerUpdatePolicyMaxUnavailable(p *betapb.ComputeBetaInstanceGroupManagerUpdatePolicyMaxUnavailable) *beta.InstanceGroupManagerUpdatePolicyMaxUnavailable {
 	if p == nil {
 		return nil
 	}
-	obj := &beta.InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable{
+	obj := &beta.InstanceGroupManagerUpdatePolicyMaxUnavailable{
 		Fixed:      dcl.Int64OrNil(p.Fixed),
 		Percent:    dcl.Int64OrNil(p.Percent),
 		Calculated: dcl.Int64OrNil(p.Calculated),
@@ -385,6 +385,7 @@ func ComputeBetaInstanceGroupManagerUpdatePolicyToProto(o *beta.InstanceGroupMan
 		InstanceRedistributionType: ComputeBetaInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumToProto(o.InstanceRedistributionType),
 		MinimalAction:              ComputeBetaInstanceGroupManagerUpdatePolicyMinimalActionEnumToProto(o.MinimalAction),
 		MaxSurge:                   ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurgeToProto(o.MaxSurge),
+		MaxUnavailable:             ComputeBetaInstanceGroupManagerUpdatePolicyMaxUnavailableToProto(o.MaxUnavailable),
 	}
 	return p
 }
@@ -395,20 +396,19 @@ func ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurgeToProto(o *beta.Instance
 		return nil
 	}
 	p := &betapb.ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurge{
-		Fixed:          dcl.ValueOrEmptyInt64(o.Fixed),
-		Percent:        dcl.ValueOrEmptyInt64(o.Percent),
-		Calculated:     dcl.ValueOrEmptyInt64(o.Calculated),
-		MaxUnavailable: ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableToProto(o.MaxUnavailable),
+		Fixed:      dcl.ValueOrEmptyInt64(o.Fixed),
+		Percent:    dcl.ValueOrEmptyInt64(o.Percent),
+		Calculated: dcl.ValueOrEmptyInt64(o.Calculated),
 	}
 	return p
 }
 
-// InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableToProto converts a InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable resource to its proto representation.
-func ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableToProto(o *beta.InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) *betapb.ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable {
+// InstanceGroupManagerUpdatePolicyMaxUnavailableToProto converts a InstanceGroupManagerUpdatePolicyMaxUnavailable resource to its proto representation.
+func ComputeBetaInstanceGroupManagerUpdatePolicyMaxUnavailableToProto(o *beta.InstanceGroupManagerUpdatePolicyMaxUnavailable) *betapb.ComputeBetaInstanceGroupManagerUpdatePolicyMaxUnavailable {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable{
+	p := &betapb.ComputeBetaInstanceGroupManagerUpdatePolicyMaxUnavailable{
 		Fixed:      dcl.ValueOrEmptyInt64(o.Fixed),
 		Percent:    dcl.ValueOrEmptyInt64(o.Percent),
 		Calculated: dcl.ValueOrEmptyInt64(o.Calculated),

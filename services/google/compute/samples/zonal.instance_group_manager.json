@@ -10,5 +10,16 @@
       "healthCheck": "{{ref:https.health_check.json:selfLink}}",
       "initialDelaySec": 120
     }
-  ]
+  ],
+  "updatePolicy": {
+    "type": "OPPORTUNISTIC",
+    "minimalAction": "RESTART",
+    "mostDisruptiveAllowedAction": "RESTART",
+    "maxSurge": {
+      "fixed": 3
+    },
+    "maxUnavailable": {
+      "fixed": 3
+    }
+  }
 }

@@ -108,16 +108,16 @@ message ComputeInstanceGroupManagerUpdatePolicy {
   ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum instance_redistribution_type = 1;
   ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnum minimal_action = 2;
   ComputeInstanceGroupManagerUpdatePolicyMaxSurge max_surge = 3;
+  ComputeInstanceGroupManagerUpdatePolicyMaxUnavailable max_unavailable = 4;
 }
 
 message ComputeInstanceGroupManagerUpdatePolicyMaxSurge {
   int64 fixed = 1;
   int64 percent = 2;
   int64 calculated = 3;
-  ComputeInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable max_unavailable = 4;
 }
 
-message ComputeInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable {
+message ComputeInstanceGroupManagerUpdatePolicyMaxUnavailable {
   int64 fixed = 1;
   int64 percent = 2;
   int64 calculated = 3;

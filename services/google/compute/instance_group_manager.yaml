@@ -400,36 +400,36 @@ components:
                   description: Specifies a fixed number of VM instances. This must
                     be a positive integer.
                   x-kubernetes-immutable: true
-                maxUnavailable:
-                  type: object
-                  x-dcl-go-name: MaxUnavailable
-                  x-dcl-go-type: InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable
-                  description: The maximum number of instances that can be unavailable
-                    during the update process
+                percent:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: Percent
+                  description: Specifies a percentage of instances between 0 to 100%,
+                    inclusive. For example, specify 80 for 80%.
                   x-kubernetes-immutable: true
-                  properties:
-                    calculated:
-                      type: integer
-                      format: int64
-                      x-dcl-go-name: Calculated
-                      readOnly: true
-                      description: Absolute value of VM instances calculated based
-                        on the specific mode.
-                      x-kubernetes-immutable: true
-                    fixed:
-                      type: integer
-                      format: int64
-                      x-dcl-go-name: Fixed
-                      description: Specifies a fixed number of VM instances. This
-                        must be a positive integer.
-                      x-kubernetes-immutable: true
-                    percent:
-                      type: integer
-                      format: int64
-                      x-dcl-go-name: Percent
-                      description: Specifies a percentage of instances between 0 to
-                        100%, inclusive. For example, specify 80 for 80%.
-                      x-kubernetes-immutable: true
+            maxUnavailable:
+              type: object
+              x-dcl-go-name: MaxUnavailable
+              x-dcl-go-type: InstanceGroupManagerUpdatePolicyMaxUnavailable
+              description: The maximum number of instances that can be unavailable
+                during the update process
+              x-kubernetes-immutable: true
+              properties:
+                calculated:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: Calculated
+                  readOnly: true
+                  description: Absolute value of VM instances calculated based on
+                    the specific mode.
+                  x-kubernetes-immutable: true
+                fixed:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: Fixed
+                  description: Specifies a fixed number of VM instances. This must
+                    be a positive integer.
+                  x-kubernetes-immutable: true
                 percent:
                   type: integer
                   format: int64

@@ -108,16 +108,16 @@ message ComputeBetaInstanceGroupManagerUpdatePolicy {
   ComputeBetaInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum instance_redistribution_type = 1;
   ComputeBetaInstanceGroupManagerUpdatePolicyMinimalActionEnum minimal_action = 2;
   ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurge max_surge = 3;
+  ComputeBetaInstanceGroupManagerUpdatePolicyMaxUnavailable max_unavailable = 4;
 }
 
 message ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurge {
   int64 fixed = 1;
   int64 percent = 2;
   int64 calculated = 3;
-  ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable max_unavailable = 4;
 }
 
-message ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable {
+message ComputeBetaInstanceGroupManagerUpdatePolicyMaxUnavailable {
   int64 fixed = 1;
   int64 percent = 2;
   int64 calculated = 3;

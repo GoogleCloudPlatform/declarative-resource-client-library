@@ -10,5 +10,17 @@
   ],
   "baseInstanceName": "dcl",
   "targetSize": 3,
-  "instanceTemplate": "{{ref:basic.instance_template.json:selfLink}}"
+  "instanceTemplate": "{{ref:basic.instance_template.json:selfLink}}",
+  "updatePolicy": {
+    "type": "OPPORTUNISTIC",
+    "instanceRedistributionType": "PROACTIVE",
+    "minimalAction": "RESTART",
+    "mostDisruptiveAllowedAction": "RESTART",
+    "maxSurge": {
+      "fixed": 3
+    },
+    "maxUnavailable": {
+      "fixed": 3
+    }
+  }
 }

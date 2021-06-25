@@ -569,6 +569,7 @@ type InstanceGroupManagerUpdatePolicy struct {
 	InstanceRedistributionType *InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum `json:"instanceRedistributionType"`
 	MinimalAction              *InstanceGroupManagerUpdatePolicyMinimalActionEnum              `json:"minimalAction"`
 	MaxSurge                   *InstanceGroupManagerUpdatePolicyMaxSurge                       `json:"maxSurge"`
+	MaxUnavailable             *InstanceGroupManagerUpdatePolicyMaxUnavailable                 `json:"maxUnavailable"`
 }
 
 type jsonInstanceGroupManagerUpdatePolicy InstanceGroupManagerUpdatePolicy
@@ -591,6 +592,8 @@ func (r *InstanceGroupManagerUpdatePolicy) UnmarshalJSON(data []byte) error {
 		r.MinimalAction = res.MinimalAction
 
 		r.MaxSurge = res.MaxSurge
+
+		r.MaxUnavailable = res.MaxUnavailable
 
 	}
 	return nil
@@ -617,11 +620,10 @@ func (r *InstanceGroupManagerUpdatePolicy) HashCode() string {
 }
 
 type InstanceGroupManagerUpdatePolicyMaxSurge struct {
-	empty          bool                                                    `json:"-"`
-	Fixed          *int64                                                  `json:"fixed"`
-	Percent        *int64                                                  `json:"percent"`
-	Calculated     *int64                                                  `json:"calculated"`
-	MaxUnavailable *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable `json:"maxUnavailable"`
+	empty      bool   `json:"-"`
+	Fixed      *int64 `json:"fixed"`
+	Percent    *int64 `json:"percent"`
+	Calculated *int64 `json:"calculated"`
 }
 
 type jsonInstanceGroupManagerUpdatePolicyMaxSurge InstanceGroupManagerUpdatePolicyMaxSurge
@@ -644,8 +646,6 @@ func (r *InstanceGroupManagerUpdatePolicyMaxSurge) UnmarshalJSON(data []byte) er
 		r.Percent = res.Percent
 
 		r.Calculated = res.Calculated
-
-		r.MaxUnavailable = res.MaxUnavailable
 
 	}
 	return nil
@@ -671,17 +671,17 @@ func (r *InstanceGroupManagerUpdatePolicyMaxSurge) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable struct {
+type InstanceGroupManagerUpdatePolicyMaxUnavailable struct {
 	empty      bool   `json:"-"`
 	Fixed      *int64 `json:"fixed"`
 	Percent    *int64 `json:"percent"`
 	Calculated *int64 `json:"calculated"`
 }
 
-type jsonInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable
+type jsonInstanceGroupManagerUpdatePolicyMaxUnavailable InstanceGroupManagerUpdatePolicyMaxUnavailable
 
-func (r *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) UnmarshalJSON(data []byte) error {
-	var res jsonInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable
+func (r *InstanceGroupManagerUpdatePolicyMaxUnavailable) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerUpdatePolicyMaxUnavailable
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -690,7 +690,7 @@ func (r *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) UnmarshalJSON(d
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable
+		*r = *EmptyInstanceGroupManagerUpdatePolicyMaxUnavailable
 	} else {
 
 		r.Fixed = res.Fixed
@@ -703,20 +703,20 @@ func (r *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) UnmarshalJSON(d
 	return nil
 }
 
-// This object is used to assert a desired state where this InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable is
+// This object is used to assert a desired state where this InstanceGroupManagerUpdatePolicyMaxUnavailable is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable = &InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable{empty: true}
+var EmptyInstanceGroupManagerUpdatePolicyMaxUnavailable *InstanceGroupManagerUpdatePolicyMaxUnavailable = &InstanceGroupManagerUpdatePolicyMaxUnavailable{empty: true}
 
-func (r *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) Empty() bool {
+func (r *InstanceGroupManagerUpdatePolicyMaxUnavailable) Empty() bool {
 	return r.empty
 }
 
-func (r *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) String() string {
+func (r *InstanceGroupManagerUpdatePolicyMaxUnavailable) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) HashCode() string {
+func (r *InstanceGroupManagerUpdatePolicyMaxUnavailable) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

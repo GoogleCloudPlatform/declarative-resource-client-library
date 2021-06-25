@@ -477,10 +477,10 @@ func canonicalizeConnectorSubnet(des, initial *ConnectorSubnet, opts ...dcl.Appl
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.NameToSelfLink(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
 		des.Name = initial.Name
 	}
-	if dcl.StringCanonicalize(des.ProjectId, initial.ProjectId) || dcl.IsZeroValue(des.ProjectId) {
+	if dcl.NameToSelfLink(des.ProjectId, initial.ProjectId) || dcl.IsZeroValue(des.ProjectId) {
 		des.ProjectId = initial.ProjectId
 	}
 
@@ -492,10 +492,10 @@ func canonicalizeNewConnectorSubnet(c *Client, des, nw *ConnectorSubnet) *Connec
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.Name, nw.Name) {
+	if dcl.NameToSelfLink(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.StringCanonicalize(des.ProjectId, nw.ProjectId) {
+	if dcl.NameToSelfLink(des.ProjectId, nw.ProjectId) {
 		nw.ProjectId = des.ProjectId
 	}
 
@@ -673,14 +673,14 @@ func compareConnectorSubnetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -756,7 +756,9 @@ func expandConnector(c *Client, f *Connector) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["name"] = v
 	}
-	if v := f.Network; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.SelfLinkToNameExpander(f.Network); err != nil {
+		return nil, fmt.Errorf("error expanding Network into network: %w", err)
+	} else if v != nil {
 		m["network"] = v
 	}
 	if v := f.IPCidrRange; !dcl.IsEmptyValueIndirect(v) {
@@ -920,7 +922,9 @@ func expandConnectorSubnet(c *Client, f *ConnectorSubnet) (map[string]interface{
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.SelfLinkToNameExpander(f.Name); err != nil {
+		return nil, fmt.Errorf("error expanding Name into name: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
 	if v := f.ProjectId; !dcl.IsEmptyValueIndirect(v) {

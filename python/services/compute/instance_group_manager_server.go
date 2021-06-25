@@ -173,6 +173,7 @@ func ProtoToComputeInstanceGroupManagerUpdatePolicy(p *computepb.ComputeInstance
 		InstanceRedistributionType: ProtoToComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum(p.GetInstanceRedistributionType()),
 		MinimalAction:              ProtoToComputeInstanceGroupManagerUpdatePolicyMinimalActionEnum(p.GetMinimalAction()),
 		MaxSurge:                   ProtoToComputeInstanceGroupManagerUpdatePolicyMaxSurge(p.GetMaxSurge()),
+		MaxUnavailable:             ProtoToComputeInstanceGroupManagerUpdatePolicyMaxUnavailable(p.GetMaxUnavailable()),
 	}
 	return obj
 }
@@ -183,20 +184,19 @@ func ProtoToComputeInstanceGroupManagerUpdatePolicyMaxSurge(p *computepb.Compute
 		return nil
 	}
 	obj := &compute.InstanceGroupManagerUpdatePolicyMaxSurge{
-		Fixed:          dcl.Int64OrNil(p.Fixed),
-		Percent:        dcl.Int64OrNil(p.Percent),
-		Calculated:     dcl.Int64OrNil(p.Calculated),
-		MaxUnavailable: ProtoToComputeInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(p.GetMaxUnavailable()),
+		Fixed:      dcl.Int64OrNil(p.Fixed),
+		Percent:    dcl.Int64OrNil(p.Percent),
+		Calculated: dcl.Int64OrNil(p.Calculated),
 	}
 	return obj
 }
 
-// ProtoToInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable converts a InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable resource from its proto representation.
-func ProtoToComputeInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable(p *computepb.ComputeInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) *compute.InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable {
+// ProtoToInstanceGroupManagerUpdatePolicyMaxUnavailable converts a InstanceGroupManagerUpdatePolicyMaxUnavailable resource from its proto representation.
+func ProtoToComputeInstanceGroupManagerUpdatePolicyMaxUnavailable(p *computepb.ComputeInstanceGroupManagerUpdatePolicyMaxUnavailable) *compute.InstanceGroupManagerUpdatePolicyMaxUnavailable {
 	if p == nil {
 		return nil
 	}
-	obj := &compute.InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable{
+	obj := &compute.InstanceGroupManagerUpdatePolicyMaxUnavailable{
 		Fixed:      dcl.Int64OrNil(p.Fixed),
 		Percent:    dcl.Int64OrNil(p.Percent),
 		Calculated: dcl.Int64OrNil(p.Calculated),
@@ -385,6 +385,7 @@ func ComputeInstanceGroupManagerUpdatePolicyToProto(o *compute.InstanceGroupMana
 		InstanceRedistributionType: ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumToProto(o.InstanceRedistributionType),
 		MinimalAction:              ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnumToProto(o.MinimalAction),
 		MaxSurge:                   ComputeInstanceGroupManagerUpdatePolicyMaxSurgeToProto(o.MaxSurge),
+		MaxUnavailable:             ComputeInstanceGroupManagerUpdatePolicyMaxUnavailableToProto(o.MaxUnavailable),
 	}
 	return p
 }
@@ -395,20 +396,19 @@ func ComputeInstanceGroupManagerUpdatePolicyMaxSurgeToProto(o *compute.InstanceG
 		return nil
 	}
 	p := &computepb.ComputeInstanceGroupManagerUpdatePolicyMaxSurge{
-		Fixed:          dcl.ValueOrEmptyInt64(o.Fixed),
-		Percent:        dcl.ValueOrEmptyInt64(o.Percent),
-		Calculated:     dcl.ValueOrEmptyInt64(o.Calculated),
-		MaxUnavailable: ComputeInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableToProto(o.MaxUnavailable),
+		Fixed:      dcl.ValueOrEmptyInt64(o.Fixed),
+		Percent:    dcl.ValueOrEmptyInt64(o.Percent),
+		Calculated: dcl.ValueOrEmptyInt64(o.Calculated),
 	}
 	return p
 }
 
-// InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableToProto converts a InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable resource to its proto representation.
-func ComputeInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailableToProto(o *compute.InstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable) *computepb.ComputeInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable {
+// InstanceGroupManagerUpdatePolicyMaxUnavailableToProto converts a InstanceGroupManagerUpdatePolicyMaxUnavailable resource to its proto representation.
+func ComputeInstanceGroupManagerUpdatePolicyMaxUnavailableToProto(o *compute.InstanceGroupManagerUpdatePolicyMaxUnavailable) *computepb.ComputeInstanceGroupManagerUpdatePolicyMaxUnavailable {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeInstanceGroupManagerUpdatePolicyMaxSurgeMaxUnavailable{
+	p := &computepb.ComputeInstanceGroupManagerUpdatePolicyMaxUnavailable{
 		Fixed:      dcl.ValueOrEmptyInt64(o.Fixed),
 		Percent:    dcl.ValueOrEmptyInt64(o.Percent),
 		Calculated: dcl.ValueOrEmptyInt64(o.Calculated),
