@@ -407,7 +407,6 @@ func (c *Client) httpFilterDiffsForRawDesired(ctx context.Context, rawDesired *H
 		desired, err = canonicalizeHttpFilterDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for HttpFilter: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for HttpFilter: %v", rawDesired)
 
@@ -427,6 +426,7 @@ func (c *Client) httpFilterDiffsForRawDesired(ctx context.Context, rawDesired *H
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffHttpFilter(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

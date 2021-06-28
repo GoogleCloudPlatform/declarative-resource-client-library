@@ -1,4 +1,5 @@
 {
   "name": "drive.googleapis.com",
-  "project": "{{project}}"
+  "project": "{{project}}",
+  "state": "ENABLED"
 }

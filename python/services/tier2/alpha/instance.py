@@ -1393,9 +1393,15 @@ class InstancePreprocessCreateRecipeStepsStatusDetailsArray(object):
 
 
 class InstancePreprocessCreateRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -1409,6 +1415,8 @@ class InstancePreprocessCreateRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -1419,6 +1427,7 @@ class InstancePreprocessCreateRecipeStepsQuotaRequestDeltas(object):
         return InstancePreprocessCreateRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -2327,9 +2336,15 @@ class InstanceCreateRecipeStepsStatusDetailsArray(object):
 
 
 class InstanceCreateRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -2341,6 +2356,8 @@ class InstanceCreateRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -2351,6 +2368,7 @@ class InstanceCreateRecipeStepsQuotaRequestDeltas(object):
         return InstanceCreateRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -3208,9 +3226,15 @@ class InstanceDeleteRecipeStepsStatusDetailsArray(object):
 
 
 class InstanceDeleteRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -3222,6 +3246,8 @@ class InstanceDeleteRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -3232,6 +3258,7 @@ class InstanceDeleteRecipeStepsQuotaRequestDeltas(object):
         return InstanceDeleteRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -4089,9 +4116,15 @@ class InstanceUpdateRecipeStepsStatusDetailsArray(object):
 
 
 class InstanceUpdateRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -4103,6 +4136,8 @@ class InstanceUpdateRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -4113,6 +4148,7 @@ class InstanceUpdateRecipeStepsQuotaRequestDeltas(object):
         return InstanceUpdateRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -4988,9 +5024,15 @@ class InstancePreprocessResetRecipeStepsStatusDetailsArray(object):
 
 
 class InstancePreprocessResetRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -5004,6 +5046,8 @@ class InstancePreprocessResetRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -5014,6 +5058,7 @@ class InstancePreprocessResetRecipeStepsQuotaRequestDeltas(object):
         return InstancePreprocessResetRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -5891,9 +5936,15 @@ class InstanceResetRecipeStepsStatusDetailsArray(object):
 
 
 class InstanceResetRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -5905,6 +5956,8 @@ class InstanceResetRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -5915,6 +5968,7 @@ class InstanceResetRecipeStepsQuotaRequestDeltas(object):
         return InstanceResetRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -6790,9 +6844,15 @@ class InstancePreprocessRepairRecipeStepsStatusDetailsArray(object):
 
 
 class InstancePreprocessRepairRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -6806,6 +6866,8 @@ class InstancePreprocessRepairRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -6816,6 +6878,7 @@ class InstancePreprocessRepairRecipeStepsQuotaRequestDeltas(object):
         return InstancePreprocessRepairRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -7695,9 +7758,15 @@ class InstanceRepairRecipeStepsStatusDetailsArray(object):
 
 
 class InstanceRepairRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -7709,6 +7778,8 @@ class InstanceRepairRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -7719,6 +7790,7 @@ class InstanceRepairRecipeStepsQuotaRequestDeltas(object):
         return InstanceRepairRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -8598,9 +8670,15 @@ class InstancePreprocessDeleteRecipeStepsStatusDetailsArray(object):
 
 
 class InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -8614,6 +8692,8 @@ class InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -8624,6 +8704,7 @@ class InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(object):
         return InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -9525,9 +9606,15 @@ class InstancePreprocessUpdateRecipeStepsStatusDetailsArray(object):
 
 
 class InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -9541,6 +9628,8 @@ class InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -9551,6 +9640,7 @@ class InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(object):
         return InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -10452,9 +10542,15 @@ class InstancePreprocessFreezeRecipeStepsStatusDetailsArray(object):
 
 
 class InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -10468,6 +10564,8 @@ class InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -10478,6 +10576,7 @@ class InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(object):
         return InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -11357,9 +11456,15 @@ class InstanceFreezeRecipeStepsStatusDetailsArray(object):
 
 
 class InstanceFreezeRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -11371,6 +11476,8 @@ class InstanceFreezeRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -11381,6 +11488,7 @@ class InstanceFreezeRecipeStepsQuotaRequestDeltas(object):
         return InstanceFreezeRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -12262,9 +12370,15 @@ class InstancePreprocessUnfreezeRecipeStepsStatusDetailsArray(object):
 
 
 class InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -12278,6 +12392,8 @@ class InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -12288,6 +12404,7 @@ class InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(object):
         return InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -13171,9 +13288,15 @@ class InstanceUnfreezeRecipeStepsStatusDetailsArray(object):
 
 
 class InstanceUnfreezeRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -13185,6 +13308,8 @@ class InstanceUnfreezeRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -13195,6 +13320,7 @@ class InstanceUnfreezeRecipeStepsQuotaRequestDeltas(object):
         return InstanceUnfreezeRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -14108,9 +14234,15 @@ class InstancePreprocessReportInstanceHealthRecipeStepsStatusDetailsArray(object
 
 
 class InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -14124,6 +14256,8 @@ class InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas(object
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -14134,6 +14268,7 @@ class InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas(object
         return InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -15078,9 +15213,15 @@ class InstanceReportInstanceHealthRecipeStepsStatusDetailsArray(object):
 
 
 class InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -15094,6 +15235,8 @@ class InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -15104,6 +15247,7 @@ class InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(object):
         return InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -16002,9 +16146,15 @@ class InstancePreprocessGetRecipeStepsStatusDetailsArray(object):
 
 
 class InstancePreprocessGetRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -16018,6 +16168,8 @@ class InstancePreprocessGetRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -16028,6 +16180,7 @@ class InstancePreprocessGetRecipeStepsQuotaRequestDeltas(object):
         return InstancePreprocessGetRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -16925,9 +17078,15 @@ class InstanceNotifyKeyAvailableRecipeStepsStatusDetailsArray(object):
 
 
 class InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -16941,6 +17100,8 @@ class InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -16951,6 +17112,7 @@ class InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(object):
         return InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -17861,9 +18023,15 @@ class InstanceNotifyKeyUnavailableRecipeStepsStatusDetailsArray(object):
 
 
 class InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -17877,6 +18045,8 @@ class InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -17887,6 +18057,7 @@ class InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(object):
         return InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -18772,9 +18943,15 @@ class InstanceReadonlyRecipeStepsStatusDetailsArray(object):
 
 
 class InstanceReadonlyRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -18786,6 +18963,8 @@ class InstanceReadonlyRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -18796,6 +18975,7 @@ class InstanceReadonlyRecipeStepsQuotaRequestDeltas(object):
         return InstanceReadonlyRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -19666,9 +19846,15 @@ class InstanceReconcileRecipeStepsStatusDetailsArray(object):
 
 
 class InstanceReconcileRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -19680,6 +19866,8 @@ class InstanceReconcileRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -19690,6 +19878,7 @@ class InstanceReconcileRecipeStepsQuotaRequestDeltas(object):
         return InstanceReconcileRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -20588,9 +20777,15 @@ class InstancePreprocessPassthroughRecipeStepsStatusDetailsArray(object):
 
 
 class InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -20604,6 +20799,8 @@ class InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -20614,6 +20811,7 @@ class InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(object):
         return InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 
@@ -21528,9 +21726,15 @@ class InstancePreprocessReconcileRecipeStepsStatusDetailsArray(object):
 
 
 class InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(object):
-    def __init__(self, metric_name: str = None, amount: int = None):
+    def __init__(
+        self,
+        metric_name: str = None,
+        amount: int = None,
+        quota_location_name: str = None,
+    ):
         self.metric_name = metric_name
         self.amount = amount
+        self.quota_location_name = quota_location_name
 
     @classmethod
     def to_proto(self, resource):
@@ -21544,6 +21748,8 @@ class InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(object):
             res.metric_name = Primitive.to_proto(resource.metric_name)
         if Primitive.to_proto(resource.amount):
             res.amount = Primitive.to_proto(resource.amount)
+        if Primitive.to_proto(resource.quota_location_name):
+            res.quota_location_name = Primitive.to_proto(resource.quota_location_name)
         return res
 
     @classmethod
@@ -21554,6 +21760,7 @@ class InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(object):
         return InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(
             metric_name=Primitive.from_proto(resource.metric_name),
             amount=Primitive.from_proto(resource.amount),
+            quota_location_name=Primitive.from_proto(resource.quota_location_name),
         )
 
 

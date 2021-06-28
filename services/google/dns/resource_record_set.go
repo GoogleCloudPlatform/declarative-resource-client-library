@@ -177,8 +177,13 @@ func applyResourceRecordSetHelper(c *Client, ctx context.Context, rawDesired *Re
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToResourceRecordSetOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -220,9 +225,7 @@ func applyResourceRecordSetHelper(c *Client, ctx context.Context, rawDesired *Re
 	if create {
 		ops = append(ops, &createResourceRecordSetOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteResourceRecordSetOperation{})
-
 		ops = append(ops, &createResourceRecordSetOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeResourceRecordSetDesiredState(rawDesired, nil)
@@ -252,7 +255,6 @@ func applyResourceRecordSetHelper(c *Client, ctx context.Context, rawDesired *Re
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

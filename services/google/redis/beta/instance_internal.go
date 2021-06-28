@@ -434,7 +434,6 @@ func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Ins
 		desired, err = canonicalizeInstanceDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Instance: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Instance: %v", rawDesired)
 
@@ -454,6 +453,7 @@ func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Ins
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffInstance(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

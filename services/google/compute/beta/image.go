@@ -1098,8 +1098,13 @@ func applyImageHelper(c *Client, ctx context.Context, rawDesired *Image, opts ..
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToImageOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -1141,9 +1146,7 @@ func applyImageHelper(c *Client, ctx context.Context, rawDesired *Image, opts ..
 	if create {
 		ops = append(ops, &createImageOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteImageOperation{})
-
 		ops = append(ops, &createImageOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeImageDesiredState(rawDesired, nil)
@@ -1173,7 +1176,6 @@ func applyImageHelper(c *Client, ctx context.Context, rawDesired *Image, opts ..
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

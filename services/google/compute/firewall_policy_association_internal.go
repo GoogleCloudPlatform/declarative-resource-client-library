@@ -203,7 +203,6 @@ func (c *Client) firewallPolicyAssociationDiffsForRawDesired(ctx context.Context
 		desired, err = canonicalizeFirewallPolicyAssociationDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for FirewallPolicyAssociation: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for FirewallPolicyAssociation: %v", rawDesired)
 
@@ -223,6 +222,7 @@ func (c *Client) firewallPolicyAssociationDiffsForRawDesired(ctx context.Context
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffFirewallPolicyAssociation(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

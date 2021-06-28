@@ -413,7 +413,6 @@ func (c *Client) connectionDiffsForRawDesired(ctx context.Context, rawDesired *C
 		desired, err = canonicalizeConnectionDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Connection: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Connection: %v", rawDesired)
 
@@ -433,6 +432,7 @@ func (c *Client) connectionDiffsForRawDesired(ctx context.Context, rawDesired *C
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffConnection(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

@@ -373,8 +373,13 @@ func applySslPolicyHelper(c *Client, ctx context.Context, rawDesired *SslPolicy,
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToSslPolicyOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -416,9 +421,7 @@ func applySslPolicyHelper(c *Client, ctx context.Context, rawDesired *SslPolicy,
 	if create {
 		ops = append(ops, &createSslPolicyOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteSslPolicyOperation{})
-
 		ops = append(ops, &createSslPolicyOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeSslPolicyDesiredState(rawDesired, nil)
@@ -448,7 +451,6 @@ func applySslPolicyHelper(c *Client, ctx context.Context, rawDesired *SslPolicy,
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

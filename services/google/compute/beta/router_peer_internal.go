@@ -417,7 +417,6 @@ func (c *Client) routerPeerDiffsForRawDesired(ctx context.Context, rawDesired *R
 		desired, err = canonicalizeRouterPeerDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for RouterPeer: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for RouterPeer: %v", rawDesired)
 
@@ -437,6 +436,7 @@ func (c *Client) routerPeerDiffsForRawDesired(ctx context.Context, rawDesired *R
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffRouterPeer(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

@@ -206,8 +206,13 @@ func applyGroupHelper(c *Client, ctx context.Context, rawDesired *Group, opts ..
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToGroupOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -249,9 +254,7 @@ func applyGroupHelper(c *Client, ctx context.Context, rawDesired *Group, opts ..
 	if create {
 		ops = append(ops, &createGroupOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteGroupOperation{})
-
 		ops = append(ops, &createGroupOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeGroupDesiredState(rawDesired, nil)
@@ -281,7 +284,6 @@ func applyGroupHelper(c *Client, ctx context.Context, rawDesired *Group, opts ..
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

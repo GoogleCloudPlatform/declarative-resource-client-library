@@ -272,8 +272,13 @@ func applyAssignmentHelper(c *Client, ctx context.Context, rawDesired *Assignmen
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToAssignmentOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -315,9 +320,7 @@ func applyAssignmentHelper(c *Client, ctx context.Context, rawDesired *Assignmen
 	if create {
 		ops = append(ops, &createAssignmentOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteAssignmentOperation{})
-
 		ops = append(ops, &createAssignmentOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeAssignmentDesiredState(rawDesired, nil)
@@ -347,7 +350,6 @@ func applyAssignmentHelper(c *Client, ctx context.Context, rawDesired *Assignmen
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

@@ -362,7 +362,6 @@ func (c *Client) projectDiffsForRawDesired(ctx context.Context, rawDesired *Proj
 		desired, err = canonicalizeProjectDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Project: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Project: %v", rawDesired)
 
@@ -382,6 +381,7 @@ func (c *Client) projectDiffsForRawDesired(ctx context.Context, rawDesired *Proj
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffProject(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

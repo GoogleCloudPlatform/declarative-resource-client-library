@@ -582,7 +582,6 @@ func (c *Client) jobDiffsForRawDesired(ctx context.Context, rawDesired *Job, opt
 		desired, err := canonicalizeJobDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
-
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetJob(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -595,7 +594,6 @@ func (c *Client) jobDiffsForRawDesired(ctx context.Context, rawDesired *Job, opt
 		desired, err = canonicalizeJobDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Job: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Job: %v", rawDesired)
 
@@ -615,6 +613,7 @@ func (c *Client) jobDiffsForRawDesired(ctx context.Context, rawDesired *Job, opt
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffJob(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

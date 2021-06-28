@@ -456,7 +456,6 @@ func (c *Client) endpointConfigSelectorDiffsForRawDesired(ctx context.Context, r
 		desired, err = canonicalizeEndpointConfigSelectorDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for EndpointConfigSelector: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for EndpointConfigSelector: %v", rawDesired)
 
@@ -476,6 +475,7 @@ func (c *Client) endpointConfigSelectorDiffsForRawDesired(ctx context.Context, r
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffEndpointConfigSelector(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

@@ -26,9 +26,9 @@ import (
 // number of times service must be present in enabled services list to be considered enabled
 const requiredFoundCount = 0
 
-// Do creates a create request and creates a service.
-func (op *createServiceOperation) do(ctx context.Context, r *Service, c *Client) error {
-	u, err := serviceCreateURL(c.Config.BasePath, *r.Project, *r.Name)
+// Do creates an enable service request and updates a service.
+func (op *updateServiceEnableServiceOperation) do(ctx context.Context, r *Service, c *Client) error {
+	u, err := r.updateURL(c.Config.BasePath, "EnableService")
 	if err != nil {
 		return err
 	}
@@ -57,7 +57,7 @@ func (op *createServiceOperation) do(ctx context.Context, r *Service, c *Client)
 	return nil
 }
 
-// Do creates a delete request and deletes a service.
+// Do creates a disable service request and deletes a service.
 func (op *deleteServiceOperation) do(ctx context.Context, r *Service, c *Client) error {
 	u, err := serviceDeleteURL(c.Config.BasePath, r)
 	if err != nil {

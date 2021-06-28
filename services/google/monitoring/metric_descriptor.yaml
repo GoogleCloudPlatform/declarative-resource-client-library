@@ -52,7 +52,7 @@ components:
   schemas:
     MetricDescriptor:
       title: MetricDescriptor
-      x-dcl-id: v3/projects/{{project}}/metricDescriptors/{{type}}
+      x-dcl-id: projects/{{project}}/metricDescriptors/{{type}}
       x-dcl-parent-container: project
       type: object
       required:

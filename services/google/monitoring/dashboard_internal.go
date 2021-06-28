@@ -399,14 +399,14 @@ func dashboardGetURL(userBasePath string, r *Dashboard) (string, error) {
 		"project": dcl.ValueOrEmptyString(r.Project),
 		"name":    dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("v1/projects/{{project}}/dashboards/{{name}}", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/dashboards/{{name}}", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 }
 
 func dashboardListURL(userBasePath, project string) (string, error) {
 	params := map[string]interface{}{
 		"project": project,
 	}
-	return dcl.URL("v1/projects/{{project}}/dashboards", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/dashboards", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 
 }
 
@@ -414,7 +414,7 @@ func dashboardCreateURL(userBasePath, project string) (string, error) {
 	params := map[string]interface{}{
 		"project": project,
 	}
-	return dcl.URL("v1/projects/{{project}}/dashboards", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/dashboards", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 
 }
 
@@ -423,7 +423,7 @@ func dashboardDeleteURL(userBasePath string, r *Dashboard) (string, error) {
 		"project": dcl.ValueOrEmptyString(r.Project),
 		"name":    dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("v1/projects/{{project}}/dashboards/{{name}}", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/dashboards/{{name}}", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 }
 
 // dashboardApiOperation represents a mutable operation in the underlying REST
@@ -745,7 +745,6 @@ func (c *Client) dashboardDiffsForRawDesired(ctx context.Context, rawDesired *Da
 		desired, err = canonicalizeDashboardDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Dashboard: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Dashboard: %v", rawDesired)
 
@@ -765,6 +764,7 @@ func (c *Client) dashboardDiffsForRawDesired(ctx context.Context, rawDesired *Da
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffDashboard(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -6600,7 +6600,7 @@ func (r *Dashboard) updateURL(userBasePath, updateName string) (string, error) {
 			"project": dcl.ValueOrEmptyString(n.Project),
 			"name":    dcl.ValueOrEmptyString(n.Name),
 		}
-		return dcl.URL("v1/projects/{{project}}/dashboards/{{name}}", "https://monitoring.googleapis.com/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/dashboards/{{name}}", "https://monitoring.googleapis.com/v3/", userBasePath, fields), nil
 
 	}
 	return "", fmt.Errorf("unknown update name: %s", updateName)

@@ -468,7 +468,6 @@ func (c *Client) healthCheckDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err = canonicalizeHealthCheckDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for HealthCheck: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for HealthCheck: %v", rawDesired)
 
@@ -488,6 +487,7 @@ func (c *Client) healthCheckDiffsForRawDesired(ctx context.Context, rawDesired *
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffHealthCheck(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

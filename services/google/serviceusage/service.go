@@ -230,8 +230,13 @@ func applyServiceHelper(c *Client, ctx context.Context, rawDesired *Service, opt
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToServiceOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -239,53 +244,19 @@ func applyServiceHelper(c *Client, ctx context.Context, rawDesired *Service, opt
 	// TODO(magic-modules-eng): 2.2 Feasibility check (all updates are feasible so far).
 
 	// 2.3: Lifecycle Directive Check
-	var create bool
-	var recreate bool
 	lp := dcl.FetchLifecycleParams(opts)
 	if initial == nil {
-		if dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
-			return nil, dcl.ApplyInfeasibleError{Message: fmt.Sprintf("Creation blocked by lifecycle params: %#v.", desired)}
-		}
-		create = true
-	} else if dcl.HasLifecycleParam(lp, dcl.BlockAcquire) {
-		return nil, dcl.ApplyInfeasibleError{
-			Message: fmt.Sprintf("Resource already exists - apply blocked by lifecycle params: %#v.", initial),
-		}
+		return nil, dcl.ApplyInfeasibleError{Message: "No initial state found for singleton resource."}
 	} else {
 		for _, d := range diffs {
-			if d.RequiresRecreate {
-				if dcl.HasLifecycleParam(lp, dcl.BlockDestruction) || dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
-					return nil, dcl.ApplyInfeasibleError{
-						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
-					}
-				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
-				recreate = true
-			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {
 				return nil, dcl.ApplyInfeasibleError{Message: fmt.Sprintf("Modification blocked, diff (%v) unresolvable.", d)}
 			}
 		}
 	}
-
-	// 2.4 Imperative Request Planning
 	var ops []serviceApiOperation
-	if create {
-		ops = append(ops, &createServiceOperation{})
-	} else if recreate {
-
-		ops = append(ops, &deleteServiceOperation{})
-
-		ops = append(ops, &createServiceOperation{})
-		// We should re-canonicalize based on a nil existing resource.
-		desired, err = canonicalizeServiceDesiredState(rawDesired, nil)
-		if err != nil {
-			return nil, err
-		}
-	} else {
-		for _, d := range diffs {
-			ops = append(ops, d.UpdateOp)
-		}
+	for _, d := range diffs {
+		ops = append(ops, d.UpdateOp)
 	}
 	c.Config.Logger.Infof("Created plan: %#v", ops)
 
@@ -304,28 +275,6 @@ func applyServiceHelper(c *Client, ctx context.Context, rawDesired *Service, opt
 	rawNew, err := c.GetService(ctx, desired.urlNormalized())
 	if err != nil {
 		return nil, err
-	}
-
-	// Get additional values from the first response.
-	// These values should be merged into the newState above.
-	if len(ops) > 0 {
-		lastOp := ops[len(ops)-1]
-		if o, ok := lastOp.(*createServiceOperation); ok {
-			if r, hasR := o.FirstResponse(); hasR {
-
-				c.Config.Logger.Info("Retrieving raw new state from operation...")
-
-				fullResp, err := unmarshalMapService(r, c)
-				if err != nil {
-					return nil, err
-				}
-
-				rawNew, err = canonicalizeServiceNewState(c, rawNew, fullResp)
-				if err != nil {
-					return nil, err
-				}
-			}
-		}
 	}
 
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)

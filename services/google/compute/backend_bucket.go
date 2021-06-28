@@ -258,8 +258,13 @@ func applyBackendBucketHelper(c *Client, ctx context.Context, rawDesired *Backen
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToBackendBucketOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -301,9 +306,7 @@ func applyBackendBucketHelper(c *Client, ctx context.Context, rawDesired *Backen
 	if create {
 		ops = append(ops, &createBackendBucketOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteBackendBucketOperation{})
-
 		ops = append(ops, &createBackendBucketOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeBackendBucketDesiredState(rawDesired, nil)
@@ -333,7 +336,6 @@ func applyBackendBucketHelper(c *Client, ctx context.Context, rawDesired *Backen
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

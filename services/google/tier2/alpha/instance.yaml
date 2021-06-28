@@ -359,6 +359,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -774,6 +784,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -1199,6 +1219,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -1662,6 +1692,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -2064,6 +2104,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -2473,6 +2523,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -2875,6 +2935,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -3277,6 +3347,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -3679,6 +3759,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -4081,6 +4171,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -4483,6 +4583,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -4885,6 +4995,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -5287,6 +5407,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -5689,6 +5819,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -6091,6 +6231,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -6493,6 +6643,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -6914,6 +7074,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -7316,6 +7486,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -7796,6 +7976,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -8198,6 +8388,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -8606,6 +8806,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -9058,6 +9268,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64
@@ -9460,6 +9680,16 @@ components:
                           type: string
                           x-dcl-go-name: MetricName
                           description: The name of the metric to charge.
+                        quotaLocationName:
+                          type: string
+                          x-dcl-go-name: QuotaLocationName
+                          description: 'Location of the quota charge. If not present,
+                            it is assumed to be the same as the location of the target
+                            resource of the CLH call. Location should be the same
+                            as the location of the target resource of the CLH call,
+                            or an ancestor or descendant of that location. Example
+                            values: “global”, “us-central1”, “us-central1-a”. TODO(b/191688750):
+                            To be supported by CCFE.'
                   relativeTime:
                     type: integer
                     format: int64

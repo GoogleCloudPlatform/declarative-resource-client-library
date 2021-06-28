@@ -447,7 +447,6 @@ func (c *Client) authorizationPolicyDiffsForRawDesired(ctx context.Context, rawD
 		desired, err = canonicalizeAuthorizationPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for AuthorizationPolicy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for AuthorizationPolicy: %v", rawDesired)
 
@@ -467,6 +466,7 @@ func (c *Client) authorizationPolicyDiffsForRawDesired(ctx context.Context, rawD
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffAuthorizationPolicy(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

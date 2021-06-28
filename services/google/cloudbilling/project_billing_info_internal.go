@@ -36,14 +36,6 @@ func projectBillingInfoGetURL(userBasePath string, r *ProjectBillingInfo) (strin
 	return dcl.URL("projects/{{name}}/billingInfo", "https://cloudbilling.googleapis.com/v1/", userBasePath, params), nil
 }
 
-func projectBillingInfoCreateURL(userBasePath, name string) (string, error) {
-	params := map[string]interface{}{
-		"name": name,
-	}
-	return dcl.URL("projects/{{name}}/billingInfo", "https://cloudbilling.googleapis.com/v1/", userBasePath, params), nil
-
-}
-
 func projectBillingInfoDeleteURL(userBasePath string, r *ProjectBillingInfo) (string, error) {
 	params := map[string]interface{}{
 		"name": dcl.ValueOrEmptyString(r.Name),
@@ -150,39 +142,6 @@ func (op *createProjectBillingInfoOperation) FirstResponse() (map[string]interfa
 	return op.response, len(op.response) > 0
 }
 
-func (op *createProjectBillingInfoOperation) do(ctx context.Context, r *ProjectBillingInfo, c *Client) error {
-	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	name := r.createFields()
-	u, err := projectBillingInfoCreateURL(c.Config.BasePath, name)
-
-	if err != nil {
-		return err
-	}
-
-	req, err := r.marshal(c)
-	if err != nil {
-		return err
-	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(req), c.Config.RetryProvider)
-	if err != nil {
-		return err
-	}
-
-	o, err := dcl.ResponseBodyAsJSON(resp)
-	if err != nil {
-		return fmt.Errorf("error decoding response body into JSON: %w", err)
-	}
-	op.response = o
-
-	if _, err := c.GetProjectBillingInfo(ctx, r.urlNormalized()); err != nil {
-		c.Config.Logger.Warningf("get returned error: %v", err)
-		return err
-	}
-
-	return nil
-}
-
 func (c *Client) getProjectBillingInfoRaw(ctx context.Context, r *ProjectBillingInfo) ([]byte, error) {
 
 	u, err := projectBillingInfoGetURL(c.Config.BasePath, r.urlNormalized())
@@ -217,11 +176,18 @@ func (c *Client) projectBillingInfoDiffsForRawDesired(ctx context.Context, rawDe
 		fetchState = rawDesired
 	}
 
-	// Simulate the resource not existing because create operation should be called anyway.
-	rawInitial := &ProjectBillingInfo{}
-	desired, err = canonicalizeProjectBillingInfoDesiredState(rawDesired, rawInitial)
-	return nil, desired, nil, err
-
+	// 1.2: Retrieval of raw initial state from API
+	rawInitial, err := c.GetProjectBillingInfo(ctx, fetchState.urlNormalized())
+	if rawInitial == nil {
+		if !dcl.IsNotFound(err) {
+			c.Config.Logger.Warningf("Failed to retrieve whether a ProjectBillingInfo resource already exists: %s", err)
+			return nil, nil, nil, fmt.Errorf("failed to retrieve ProjectBillingInfo resource: %v", err)
+		}
+		c.Config.Logger.Info("Found that ProjectBillingInfo resource did not exist.")
+		// Perform canonicalization to pick up defaults.
+		desired, err = canonicalizeProjectBillingInfoDesiredState(rawDesired, rawInitial)
+		return nil, desired, nil, err
+	}
 	c.Config.Logger.Infof("Found initial state for ProjectBillingInfo: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for ProjectBillingInfo: %v", rawDesired)
 
@@ -241,6 +207,7 @@ func (c *Client) projectBillingInfoDiffsForRawDesired(ctx context.Context, rawDe
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffProjectBillingInfo(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -354,8 +321,7 @@ func (r *ProjectBillingInfo) getFields() string {
 }
 
 func (r *ProjectBillingInfo) createFields() string {
-	n := r.urlNormalized()
-	return dcl.ValueOrEmptyString(n.Name)
+	return ""
 }
 
 func (r *ProjectBillingInfo) deleteFields() string {

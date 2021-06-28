@@ -262,7 +262,6 @@ func (c *Client) networkEndpointDiffsForRawDesired(ctx context.Context, rawDesir
 		desired, err = canonicalizeNetworkEndpointDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for NetworkEndpoint: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for NetworkEndpoint: %v", rawDesired)
 
@@ -282,6 +281,7 @@ func (c *Client) networkEndpointDiffsForRawDesired(ctx context.Context, rawDesir
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffNetworkEndpoint(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

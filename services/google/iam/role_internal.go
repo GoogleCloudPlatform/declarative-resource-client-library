@@ -342,7 +342,6 @@ func (c *Client) roleDiffsForRawDesired(ctx context.Context, rawDesired *Role, o
 		desired, err = canonicalizeRoleDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Role: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Role: %v", rawDesired)
 
@@ -362,6 +361,7 @@ func (c *Client) roleDiffsForRawDesired(ctx context.Context, rawDesired *Role, o
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffRole(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

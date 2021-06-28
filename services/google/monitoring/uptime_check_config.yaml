@@ -52,7 +52,7 @@ components:
   schemas:
     UptimeCheckConfig:
       title: UptimeCheckConfig
-      x-dcl-id: v3/projects/{{project}}/uptimeCheckConfigs/{{name}}
+      x-dcl-id: projects/{{project}}/uptimeCheckConfigs/{{name}}
       x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
       type: object

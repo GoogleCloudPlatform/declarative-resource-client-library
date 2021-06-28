@@ -52,7 +52,7 @@ components:
   schemas:
     NotificationChannel:
       title: NotificationChannel
-      x-dcl-id: v3/projects/{{project}}/notificationChannels/{{name}}
+      x-dcl-id: projects/{{project}}/notificationChannels/{{name}}
       x-dcl-parent-container: project
       type: object
       properties:

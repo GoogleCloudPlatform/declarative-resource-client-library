@@ -339,8 +339,13 @@ func applyApplicationHelper(c *Client, ctx context.Context, rawDesired *Applicat
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToApplicationOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -382,7 +387,6 @@ func applyApplicationHelper(c *Client, ctx context.Context, rawDesired *Applicat
 	if create {
 		ops = append(ops, &createApplicationOperation{})
 	} else if recreate {
-
 		ops = append(ops, &createApplicationOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeApplicationDesiredState(rawDesired, nil)
@@ -412,7 +416,6 @@ func applyApplicationHelper(c *Client, ctx context.Context, rawDesired *Applicat
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

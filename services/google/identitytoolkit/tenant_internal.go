@@ -368,7 +368,6 @@ func (c *Client) tenantDiffsForRawDesired(ctx context.Context, rawDesired *Tenan
 		desired, err := canonicalizeTenantDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
-
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetTenant(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -381,7 +380,6 @@ func (c *Client) tenantDiffsForRawDesired(ctx context.Context, rawDesired *Tenan
 		desired, err = canonicalizeTenantDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Tenant: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Tenant: %v", rawDesired)
 
@@ -401,6 +399,7 @@ func (c *Client) tenantDiffsForRawDesired(ctx context.Context, rawDesired *Tenan
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffTenant(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

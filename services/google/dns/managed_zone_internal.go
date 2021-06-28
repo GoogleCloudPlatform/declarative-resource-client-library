@@ -415,7 +415,6 @@ func (c *Client) managedZoneDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err = canonicalizeManagedZoneDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for ManagedZone: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for ManagedZone: %v", rawDesired)
 
@@ -435,6 +434,7 @@ func (c *Client) managedZoneDiffsForRawDesired(ctx context.Context, rawDesired *
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffManagedZone(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

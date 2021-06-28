@@ -364,7 +364,6 @@ func (c *Client) defaultObjectAccessControlDiffsForRawDesired(ctx context.Contex
 		desired, err = canonicalizeDefaultObjectAccessControlDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for DefaultObjectAccessControl: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for DefaultObjectAccessControl: %v", rawDesired)
 
@@ -384,6 +383,7 @@ func (c *Client) defaultObjectAccessControlDiffsForRawDesired(ctx context.Contex
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffDefaultObjectAccessControl(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

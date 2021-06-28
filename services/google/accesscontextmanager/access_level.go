@@ -540,8 +540,13 @@ func applyAccessLevelHelper(c *Client, ctx context.Context, rawDesired *AccessLe
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToAccessLevelOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -583,9 +588,7 @@ func applyAccessLevelHelper(c *Client, ctx context.Context, rawDesired *AccessLe
 	if create {
 		ops = append(ops, &createAccessLevelOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteAccessLevelOperation{})
-
 		ops = append(ops, &createAccessLevelOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeAccessLevelDesiredState(rawDesired, nil)
@@ -615,7 +618,6 @@ func applyAccessLevelHelper(c *Client, ctx context.Context, rawDesired *AccessLe
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

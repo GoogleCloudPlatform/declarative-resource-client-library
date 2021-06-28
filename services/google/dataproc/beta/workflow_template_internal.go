@@ -649,7 +649,6 @@ func (c *Client) workflowTemplateDiffsForRawDesired(ctx context.Context, rawDesi
 		desired, err = canonicalizeWorkflowTemplateDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for WorkflowTemplate: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for WorkflowTemplate: %v", rawDesired)
 
@@ -669,6 +668,7 @@ func (c *Client) workflowTemplateDiffsForRawDesired(ctx context.Context, rawDesi
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffWorkflowTemplate(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

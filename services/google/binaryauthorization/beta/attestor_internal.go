@@ -370,7 +370,6 @@ func (c *Client) attestorDiffsForRawDesired(ctx context.Context, rawDesired *Att
 		desired, err = canonicalizeAttestorDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Attestor: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Attestor: %v", rawDesired)
 
@@ -390,6 +389,7 @@ func (c *Client) attestorDiffsForRawDesired(ctx context.Context, rawDesired *Att
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffAttestor(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -741,7 +741,7 @@ func diffAttestor(c *Client, desired, actual *Attestor, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UserOwnedDrydockNote, actual.UserOwnedDrydockNote, dcl.Info{ObjectFunction: compareAttestorUserOwnedDrydockNoteNewStyle, EmptyObject: EmptyAttestorUserOwnedDrydockNote, OperationSelector: dcl.TriggersOperation("updateAttestorUpdateAttestorOperation")}, fn.AddNest("UserOwnedDrydockNote")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UserOwnedDrydockNote, actual.UserOwnedDrydockNote, dcl.Info{ObjectFunction: compareAttestorUserOwnedDrydockNoteNewStyle, EmptyObject: EmptyAttestorUserOwnedDrydockNote, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UserOwnedDrydockNote")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

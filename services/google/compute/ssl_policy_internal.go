@@ -402,7 +402,6 @@ func (c *Client) sslPolicyDiffsForRawDesired(ctx context.Context, rawDesired *Ss
 		desired, err = canonicalizeSslPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for SslPolicy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for SslPolicy: %v", rawDesired)
 
@@ -422,6 +421,7 @@ func (c *Client) sslPolicyDiffsForRawDesired(ctx context.Context, rawDesired *Ss
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffSslPolicy(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

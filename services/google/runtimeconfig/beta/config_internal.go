@@ -346,7 +346,6 @@ func (c *Client) configDiffsForRawDesired(ctx context.Context, rawDesired *Confi
 		desired, err = canonicalizeConfigDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Config: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Config: %v", rawDesired)
 
@@ -366,6 +365,7 @@ func (c *Client) configDiffsForRawDesired(ctx context.Context, rawDesired *Confi
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffConfig(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

@@ -402,7 +402,6 @@ func (c *Client) workerPoolDiffsForRawDesired(ctx context.Context, rawDesired *W
 		desired, err = canonicalizeWorkerPoolDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for WorkerPool: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for WorkerPool: %v", rawDesired)
 
@@ -422,6 +421,7 @@ func (c *Client) workerPoolDiffsForRawDesired(ctx context.Context, rawDesired *W
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffWorkerPool(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

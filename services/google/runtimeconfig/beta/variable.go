@@ -211,8 +211,13 @@ func applyVariableHelper(c *Client, ctx context.Context, rawDesired *Variable, o
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToVariableOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -254,9 +259,7 @@ func applyVariableHelper(c *Client, ctx context.Context, rawDesired *Variable, o
 	if create {
 		ops = append(ops, &createVariableOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteVariableOperation{})
-
 		ops = append(ops, &createVariableOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeVariableDesiredState(rawDesired, nil)
@@ -286,7 +289,6 @@ func applyVariableHelper(c *Client, ctx context.Context, rawDesired *Variable, o
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

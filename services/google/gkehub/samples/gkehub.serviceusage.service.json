@@ -1,4 +1,5 @@
 {
   "name": "gkehub.googleapis.com",
-  "project": "{{ref:basic.cloudbilling.project_billing_info.json:name}}"
+  "project": "{{ref:basic.cloudbilling.project_billing_info.json:name}}",
+  "state": "ENABLED"
 }

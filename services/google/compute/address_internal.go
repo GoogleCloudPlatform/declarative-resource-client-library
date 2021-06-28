@@ -391,7 +391,6 @@ func (c *Client) addressDiffsForRawDesired(ctx context.Context, rawDesired *Addr
 		desired, err = canonicalizeAddressDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Address: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Address: %v", rawDesired)
 
@@ -411,6 +410,7 @@ func (c *Client) addressDiffsForRawDesired(ctx context.Context, rawDesired *Addr
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffAddress(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

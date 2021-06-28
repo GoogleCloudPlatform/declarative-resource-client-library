@@ -963,8 +963,13 @@ func applyInstanceHelper(c *Client, ctx context.Context, rawDesired *Instance, o
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToInstanceOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -1006,9 +1011,7 @@ func applyInstanceHelper(c *Client, ctx context.Context, rawDesired *Instance, o
 	if create {
 		ops = append(ops, &createInstanceOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteInstanceOperation{})
-
 		ops = append(ops, &createInstanceOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeInstanceDesiredState(rawDesired, nil)
@@ -1038,7 +1041,6 @@ func applyInstanceHelper(c *Client, ctx context.Context, rawDesired *Instance, o
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

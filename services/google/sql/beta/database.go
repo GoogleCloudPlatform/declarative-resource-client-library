@@ -211,8 +211,13 @@ func applyDatabaseHelper(c *Client, ctx context.Context, rawDesired *Database, o
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToDatabaseOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -254,9 +259,7 @@ func applyDatabaseHelper(c *Client, ctx context.Context, rawDesired *Database, o
 	if create {
 		ops = append(ops, &createDatabaseOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteDatabaseOperation{})
-
 		ops = append(ops, &createDatabaseOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeDatabaseDesiredState(rawDesired, nil)
@@ -286,7 +289,6 @@ func applyDatabaseHelper(c *Client, ctx context.Context, rawDesired *Database, o
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

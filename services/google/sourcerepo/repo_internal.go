@@ -359,7 +359,6 @@ func (c *Client) repoDiffsForRawDesired(ctx context.Context, rawDesired *Repo, o
 		desired, err = canonicalizeRepoDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Repo: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Repo: %v", rawDesired)
 
@@ -379,6 +378,7 @@ func (c *Client) repoDiffsForRawDesired(ctx context.Context, rawDesired *Repo, o
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffRepo(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

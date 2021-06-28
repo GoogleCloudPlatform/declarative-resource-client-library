@@ -765,8 +765,13 @@ func applyManagedZoneHelper(c *Client, ctx context.Context, rawDesired *ManagedZ
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToManagedZoneOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -808,9 +813,7 @@ func applyManagedZoneHelper(c *Client, ctx context.Context, rawDesired *ManagedZ
 	if create {
 		ops = append(ops, &createManagedZoneOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteManagedZoneOperation{})
-
 		ops = append(ops, &createManagedZoneOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeManagedZoneDesiredState(rawDesired, nil)
@@ -840,7 +843,6 @@ func applyManagedZoneHelper(c *Client, ctx context.Context, rawDesired *ManagedZ
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

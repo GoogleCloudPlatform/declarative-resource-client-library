@@ -548,6 +548,7 @@ message Tier2AlphaInstancePreprocessCreateRecipeStepsStatusDetails {
 message Tier2AlphaInstancePreprocessCreateRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstancePreprocessCreateRecipeStepsPreprocessUpdate {
@@ -642,6 +643,7 @@ message Tier2AlphaInstanceCreateRecipeStepsStatusDetails {
 message Tier2AlphaInstanceCreateRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstanceCreateRecipeStepsPreprocessUpdate {
@@ -733,6 +735,7 @@ message Tier2AlphaInstanceDeleteRecipeStepsStatusDetails {
 message Tier2AlphaInstanceDeleteRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstanceDeleteRecipeStepsPreprocessUpdate {
@@ -824,6 +827,7 @@ message Tier2AlphaInstanceUpdateRecipeStepsStatusDetails {
 message Tier2AlphaInstanceUpdateRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstanceUpdateRecipeStepsPreprocessUpdate {
@@ -915,6 +919,7 @@ message Tier2AlphaInstancePreprocessResetRecipeStepsStatusDetails {
 message Tier2AlphaInstancePreprocessResetRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstancePreprocessResetRecipeStepsPreprocessUpdate {
@@ -1006,6 +1011,7 @@ message Tier2AlphaInstanceResetRecipeStepsStatusDetails {
 message Tier2AlphaInstanceResetRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstanceResetRecipeStepsPreprocessUpdate {
@@ -1097,6 +1103,7 @@ message Tier2AlphaInstancePreprocessRepairRecipeStepsStatusDetails {
 message Tier2AlphaInstancePreprocessRepairRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstancePreprocessRepairRecipeStepsPreprocessUpdate {
@@ -1188,6 +1195,7 @@ message Tier2AlphaInstanceRepairRecipeStepsStatusDetails {
 message Tier2AlphaInstanceRepairRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstanceRepairRecipeStepsPreprocessUpdate {
@@ -1279,6 +1287,7 @@ message Tier2AlphaInstancePreprocessDeleteRecipeStepsStatusDetails {
 message Tier2AlphaInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstancePreprocessDeleteRecipeStepsPreprocessUpdate {
@@ -1370,6 +1379,7 @@ message Tier2AlphaInstancePreprocessUpdateRecipeStepsStatusDetails {
 message Tier2AlphaInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstancePreprocessUpdateRecipeStepsPreprocessUpdate {
@@ -1461,6 +1471,7 @@ message Tier2AlphaInstancePreprocessFreezeRecipeStepsStatusDetails {
 message Tier2AlphaInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstancePreprocessFreezeRecipeStepsPreprocessUpdate {
@@ -1552,6 +1563,7 @@ message Tier2AlphaInstanceFreezeRecipeStepsStatusDetails {
 message Tier2AlphaInstanceFreezeRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstanceFreezeRecipeStepsPreprocessUpdate {
@@ -1643,6 +1655,7 @@ message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsStatusDetails {
 message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstancePreprocessUnfreezeRecipeStepsPreprocessUpdate {
@@ -1734,6 +1747,7 @@ message Tier2AlphaInstanceUnfreezeRecipeStepsStatusDetails {
 message Tier2AlphaInstanceUnfreezeRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstanceUnfreezeRecipeStepsPreprocessUpdate {
@@ -1825,6 +1839,7 @@ message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsStatusDetails
 message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsPreprocessUpdate {
@@ -1916,6 +1931,7 @@ message Tier2AlphaInstanceReportInstanceHealthRecipeStepsStatusDetails {
 message Tier2AlphaInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstanceReportInstanceHealthRecipeStepsPreprocessUpdate {
@@ -2007,6 +2023,7 @@ message Tier2AlphaInstancePreprocessGetRecipeStepsStatusDetails {
 message Tier2AlphaInstancePreprocessGetRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstancePreprocessGetRecipeStepsPreprocessUpdate {
@@ -2098,6 +2115,7 @@ message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsStatusDetails {
 message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsPreprocessUpdate {
@@ -2189,6 +2207,7 @@ message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsStatusDetails {
 message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsPreprocessUpdate {
@@ -2280,6 +2299,7 @@ message Tier2AlphaInstanceReadonlyRecipeStepsStatusDetails {
 message Tier2AlphaInstanceReadonlyRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstanceReadonlyRecipeStepsPreprocessUpdate {
@@ -2371,6 +2391,7 @@ message Tier2AlphaInstanceReconcileRecipeStepsStatusDetails {
 message Tier2AlphaInstanceReconcileRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstanceReconcileRecipeStepsPreprocessUpdate {
@@ -2462,6 +2483,7 @@ message Tier2AlphaInstancePreprocessPassthroughRecipeStepsStatusDetails {
 message Tier2AlphaInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstancePreprocessPassthroughRecipeStepsPreprocessUpdate {
@@ -2553,6 +2575,7 @@ message Tier2AlphaInstancePreprocessReconcileRecipeStepsStatusDetails {
 message Tier2AlphaInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas {
   string metric_name = 1;
   int64 amount = 2;
+  string quota_location_name = 3;
 }
 
 message Tier2AlphaInstancePreprocessReconcileRecipeStepsPreprocessUpdate {

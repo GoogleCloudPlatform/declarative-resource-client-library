@@ -527,7 +527,6 @@ func (c *Client) imageDiffsForRawDesired(ctx context.Context, rawDesired *Image,
 		desired, err = canonicalizeImageDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Image: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Image: %v", rawDesired)
 
@@ -547,6 +546,7 @@ func (c *Client) imageDiffsForRawDesired(ctx context.Context, rawDesired *Image,
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffImage(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

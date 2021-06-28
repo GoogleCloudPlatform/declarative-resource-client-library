@@ -242,8 +242,13 @@ func applyTargetPoolHelper(c *Client, ctx context.Context, rawDesired *TargetPoo
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToTargetPoolOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -285,9 +290,7 @@ func applyTargetPoolHelper(c *Client, ctx context.Context, rawDesired *TargetPoo
 	if create {
 		ops = append(ops, &createTargetPoolOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteTargetPoolOperation{})
-
 		ops = append(ops, &createTargetPoolOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeTargetPoolDesiredState(rawDesired, nil)
@@ -317,7 +320,6 @@ func applyTargetPoolHelper(c *Client, ctx context.Context, rawDesired *TargetPoo
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

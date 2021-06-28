@@ -257,8 +257,13 @@ func applyVpnTunnelHelper(c *Client, ctx context.Context, rawDesired *VpnTunnel,
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToVpnTunnelOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -300,9 +305,7 @@ func applyVpnTunnelHelper(c *Client, ctx context.Context, rawDesired *VpnTunnel,
 	if create {
 		ops = append(ops, &createVpnTunnelOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteVpnTunnelOperation{})
-
 		ops = append(ops, &createVpnTunnelOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeVpnTunnelDesiredState(rawDesired, nil)
@@ -332,7 +335,6 @@ func applyVpnTunnelHelper(c *Client, ctx context.Context, rawDesired *VpnTunnel,
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

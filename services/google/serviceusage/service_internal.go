@@ -45,15 +45,6 @@ func serviceListURL(userBasePath, project string) (string, error) {
 
 }
 
-func serviceCreateURL(userBasePath, project, name string) (string, error) {
-	params := map[string]interface{}{
-		"project": project,
-		"name":    name,
-	}
-	return dcl.URL("projects/{{project}}/services/{{name}}:enable", "https://serviceusage.googleapis.com/v1/", userBasePath, params), nil
-
-}
-
 func serviceDeleteURL(userBasePath string, r *Service) (string, error) {
 	params := map[string]interface{}{
 		"project": dcl.ValueOrEmptyString(r.Project),
@@ -67,6 +58,37 @@ func serviceDeleteURL(userBasePath string, r *Service) (string, error) {
 type serviceApiOperation interface {
 	do(context.Context, *Service, *Client) error
 }
+
+// newUpdateServiceEnableServiceRequest creates a request for an
+// Service resource's EnableService update type by filling in the update
+// fields based on the intended state of the resource.
+func newUpdateServiceEnableServiceRequest(ctx context.Context, f *Service, c *Client) (map[string]interface{}, error) {
+	req := map[string]interface{}{}
+
+	if v := f.State; !dcl.IsEmptyValueIndirect(v) {
+		req["state"] = v
+	}
+	return req, nil
+}
+
+// marshalUpdateServiceEnableServiceRequest converts the update into
+// the final JSON request body.
+func marshalUpdateServiceEnableServiceRequest(c *Client, m map[string]interface{}) ([]byte, error) {
+
+	return json.Marshal(m)
+}
+
+type updateServiceEnableServiceOperation struct {
+	// If the update operation has the REQUIRES_APPLY_OPTIONS trait, this will be populated.
+	// Usually it will be nil - this is to prevent us from accidentally depending on apply
+	// options, which should usually be unnecessary.
+	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
+}
+
+// do creates a request and sends it to the appropriate URL. In most operations,
+// do will transcribe a subset of the resource into a request object and send a
+// PUT request to a single URL.
 
 func (c *Client) listServiceRaw(ctx context.Context, project, pageToken string, pageSize int32) ([]byte, error) {
 	u, err := serviceListURL(c.Config.BasePath, project)
@@ -189,11 +211,18 @@ func (c *Client) serviceDiffsForRawDesired(ctx context.Context, rawDesired *Serv
 		fetchState = rawDesired
 	}
 
-	// Simulate the resource not existing because create operation should be called anyway.
-	rawInitial := &Service{}
-	desired, err = canonicalizeServiceDesiredState(rawDesired, rawInitial)
-	return nil, desired, nil, err
-
+	// 1.2: Retrieval of raw initial state from API
+	rawInitial, err := c.GetService(ctx, fetchState.urlNormalized())
+	if rawInitial == nil {
+		if !dcl.IsNotFound(err) {
+			c.Config.Logger.Warningf("Failed to retrieve whether a Service resource already exists: %s", err)
+			return nil, nil, nil, fmt.Errorf("failed to retrieve Service resource: %v", err)
+		}
+		c.Config.Logger.Info("Found that Service resource did not exist.")
+		// Perform canonicalization to pick up defaults.
+		desired, err = canonicalizeServiceDesiredState(rawDesired, rawInitial)
+		return nil, desired, nil, err
+	}
 	c.Config.Logger.Infof("Found initial state for Service: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Service: %v", rawDesired)
 
@@ -213,6 +242,7 @@ func (c *Client) serviceDiffsForRawDesired(ctx context.Context, rawDesired *Serv
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffService(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -289,7 +319,7 @@ func diffService(c *Client, desired, actual *Service, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateServiceEnableServiceOperation")}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -321,9 +351,8 @@ func (r *Service) getFields() (string, string) {
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
-func (r *Service) createFields() (string, string) {
-	n := r.urlNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
+func (r *Service) createFields() string {
+	return ""
 }
 
 func (r *Service) deleteFields() (string, string) {
@@ -332,6 +361,15 @@ func (r *Service) deleteFields() (string, string) {
 }
 
 func (r *Service) updateURL(userBasePath, updateName string) (string, error) {
+	n := r.urlNormalized()
+	if updateName == "EnableService" {
+		fields := map[string]interface{}{
+			"project": dcl.ValueOrEmptyString(n.Project),
+			"name":    dcl.ValueOrEmptyString(n.Name),
+		}
+		return dcl.URL("projects/{{project}}/services/{{name}}:enable", "https://serviceusage.googleapis.com/v1/", userBasePath, fields), nil
+
+	}
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -491,6 +529,9 @@ func convertFieldDiffToServiceOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.
 
 func convertOpNameToserviceApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (serviceApiOperation, error) {
 	switch op {
+
+	case "updateServiceEnableServiceOperation":
+		return &updateServiceEnableServiceOperation{Diffs: diffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", op)

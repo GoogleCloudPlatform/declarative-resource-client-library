@@ -657,7 +657,6 @@ func (c *Client) targetPoolDiffsForRawDesired(ctx context.Context, rawDesired *T
 		desired, err = canonicalizeTargetPoolDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for TargetPool: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for TargetPool: %v", rawDesired)
 
@@ -677,6 +676,7 @@ func (c *Client) targetPoolDiffsForRawDesired(ctx context.Context, rawDesired *T
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffTargetPool(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

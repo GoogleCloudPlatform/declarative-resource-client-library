@@ -291,8 +291,13 @@ func applyRoleHelper(c *Client, ctx context.Context, rawDesired *Role, opts ...d
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToRoleOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -334,9 +339,7 @@ func applyRoleHelper(c *Client, ctx context.Context, rawDesired *Role, opts ...d
 	if create {
 		ops = append(ops, &createRoleOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteRoleOperation{})
-
 		ops = append(ops, &createRoleOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeRoleDesiredState(rawDesired, nil)
@@ -366,7 +369,6 @@ func applyRoleHelper(c *Client, ctx context.Context, rawDesired *Role, opts ...d
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

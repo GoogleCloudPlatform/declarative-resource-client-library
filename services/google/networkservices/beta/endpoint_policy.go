@@ -464,8 +464,13 @@ func applyEndpointPolicyHelper(c *Client, ctx context.Context, rawDesired *Endpo
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToEndpointPolicyOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -507,9 +512,7 @@ func applyEndpointPolicyHelper(c *Client, ctx context.Context, rawDesired *Endpo
 	if create {
 		ops = append(ops, &createEndpointPolicyOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteEndpointPolicyOperation{})
-
 		ops = append(ops, &createEndpointPolicyOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeEndpointPolicyDesiredState(rawDesired, nil)
@@ -539,7 +542,6 @@ func applyEndpointPolicyHelper(c *Client, ctx context.Context, rawDesired *Endpo
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

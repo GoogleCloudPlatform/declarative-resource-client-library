@@ -309,7 +309,6 @@ func (c *Client) routeDiffsForRawDesired(ctx context.Context, rawDesired *Route,
 		desired, err = canonicalizeRouteDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Route: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Route: %v", rawDesired)
 
@@ -329,6 +328,7 @@ func (c *Client) routeDiffsForRawDesired(ctx context.Context, rawDesired *Route,
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffRoute(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

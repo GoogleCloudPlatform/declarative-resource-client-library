@@ -288,7 +288,6 @@ func (c *Client) identityAwareProxyClientDiffsForRawDesired(ctx context.Context,
 		desired, err := canonicalizeIdentityAwareProxyClientDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
-
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetIdentityAwareProxyClient(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -301,7 +300,6 @@ func (c *Client) identityAwareProxyClientDiffsForRawDesired(ctx context.Context,
 		desired, err = canonicalizeIdentityAwareProxyClientDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for IdentityAwareProxyClient: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for IdentityAwareProxyClient: %v", rawDesired)
 
@@ -321,6 +319,7 @@ func (c *Client) identityAwareProxyClientDiffsForRawDesired(ctx context.Context,
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffIdentityAwareProxyClient(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

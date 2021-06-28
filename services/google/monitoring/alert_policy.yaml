@@ -52,7 +52,7 @@ components:
   schemas:
     AlertPolicy:
       title: AlertPolicy
-      x-dcl-id: v3/projects/{{project}}/alertPolicies/{{name}}
+      x-dcl-id: projects/{{project}}/alertPolicies/{{name}}
       x-dcl-parent-container: project
       type: object
       required:

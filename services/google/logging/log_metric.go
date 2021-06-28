@@ -730,8 +730,13 @@ func applyLogMetricHelper(c *Client, ctx context.Context, rawDesired *LogMetric,
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToLogMetricOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -773,9 +778,7 @@ func applyLogMetricHelper(c *Client, ctx context.Context, rawDesired *LogMetric,
 	if create {
 		ops = append(ops, &createLogMetricOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteLogMetricOperation{})
-
 		ops = append(ops, &createLogMetricOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeLogMetricDesiredState(rawDesired, nil)
@@ -805,7 +808,6 @@ func applyLogMetricHelper(c *Client, ctx context.Context, rawDesired *LogMetric,
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

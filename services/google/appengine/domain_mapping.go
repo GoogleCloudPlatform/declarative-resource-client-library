@@ -365,8 +365,13 @@ func applyDomainMappingHelper(c *Client, ctx context.Context, rawDesired *Domain
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToDomainMappingOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -408,9 +413,7 @@ func applyDomainMappingHelper(c *Client, ctx context.Context, rawDesired *Domain
 	if create {
 		ops = append(ops, &createDomainMappingOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteDomainMappingOperation{})
-
 		ops = append(ops, &createDomainMappingOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeDomainMappingDesiredState(rawDesired, nil)
@@ -440,7 +443,6 @@ func applyDomainMappingHelper(c *Client, ctx context.Context, rawDesired *Domain
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

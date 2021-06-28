@@ -373,7 +373,6 @@ func (c *Client) oAuthIdpConfigDiffsForRawDesired(ctx context.Context, rawDesire
 		desired, err = canonicalizeOAuthIdpConfigDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for OAuthIdpConfig: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for OAuthIdpConfig: %v", rawDesired)
 
@@ -393,6 +392,7 @@ func (c *Client) oAuthIdpConfigDiffsForRawDesired(ctx context.Context, rawDesire
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffOAuthIdpConfig(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

@@ -409,7 +409,6 @@ func (c *Client) interconnectDiffsForRawDesired(ctx context.Context, rawDesired 
 		desired, err = canonicalizeInterconnectDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Interconnect: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Interconnect: %v", rawDesired)
 
@@ -429,6 +428,7 @@ func (c *Client) interconnectDiffsForRawDesired(ctx context.Context, rawDesired 
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffInterconnect(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

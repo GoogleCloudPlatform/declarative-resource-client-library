@@ -381,7 +381,6 @@ func (c *Client) tenantOAuthIdpConfigDiffsForRawDesired(ctx context.Context, raw
 		desired, err = canonicalizeTenantOAuthIdpConfigDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for TenantOAuthIdpConfig: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for TenantOAuthIdpConfig: %v", rawDesired)
 
@@ -401,6 +400,7 @@ func (c *Client) tenantOAuthIdpConfigDiffsForRawDesired(ctx context.Context, raw
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffTenantOAuthIdpConfig(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

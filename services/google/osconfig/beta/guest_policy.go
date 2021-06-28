@@ -1969,8 +1969,13 @@ func applyGuestPolicyHelper(c *Client, ctx context.Context, rawDesired *GuestPol
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToGuestPolicyOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -2012,9 +2017,7 @@ func applyGuestPolicyHelper(c *Client, ctx context.Context, rawDesired *GuestPol
 	if create {
 		ops = append(ops, &createGuestPolicyOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteGuestPolicyOperation{})
-
 		ops = append(ops, &createGuestPolicyOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeGuestPolicyDesiredState(rawDesired, nil)
@@ -2044,7 +2047,6 @@ func applyGuestPolicyHelper(c *Client, ctx context.Context, rawDesired *GuestPol
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

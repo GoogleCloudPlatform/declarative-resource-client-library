@@ -241,8 +241,13 @@ func applyLogBucketHelper(c *Client, ctx context.Context, rawDesired *LogBucket,
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToLogBucketOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -284,9 +289,7 @@ func applyLogBucketHelper(c *Client, ctx context.Context, rawDesired *LogBucket,
 	if create {
 		ops = append(ops, &createLogBucketOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteLogBucketOperation{})
-
 		ops = append(ops, &createLogBucketOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeLogBucketDesiredState(rawDesired, nil)
@@ -316,7 +319,6 @@ func applyLogBucketHelper(c *Client, ctx context.Context, rawDesired *LogBucket,
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

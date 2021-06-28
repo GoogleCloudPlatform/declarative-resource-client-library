@@ -323,6 +323,11 @@ func newUpdateBackendServiceUpdateRequest(ctx context.Context, f *BackendService
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["logConfig"] = v
 	}
+	if v, err := expandBackendServiceSecuritySettings(c, f.SecuritySettings); err != nil {
+		return nil, fmt.Errorf("error expanding SecuritySettings into securitySettings: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["securitySettings"] = v
+	}
 	if v := f.LocalityLbPolicy; !dcl.IsEmptyValueIndirect(v) {
 		req["localityLbPolicy"] = v
 	}
@@ -660,7 +665,6 @@ func (c *Client) backendServiceDiffsForRawDesired(ctx context.Context, rawDesire
 		desired, err = canonicalizeBackendServiceDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for BackendService: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for BackendService: %v", rawDesired)
 
@@ -680,6 +684,7 @@ func (c *Client) backendServiceDiffsForRawDesired(ctx context.Context, rawDesire
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffBackendService(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

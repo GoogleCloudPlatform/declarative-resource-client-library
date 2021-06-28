@@ -26,49 +26,25 @@ import (
 // Server implements the gRPC interface for Policy.
 type PolicyServer struct{}
 
-// ProtoToPolicyClusterAdmissionRulesEvaluationModeEnum converts a PolicyClusterAdmissionRulesEvaluationModeEnum enum from its proto representation.
-func ProtoToBinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnum(e binaryauthorizationpb.BinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnum) *binaryauthorization.PolicyClusterAdmissionRulesEvaluationModeEnum {
+// ProtoToPolicyAdmissionRuleEvaluationModeEnum converts a PolicyAdmissionRuleEvaluationModeEnum enum from its proto representation.
+func ProtoToBinaryauthorizationPolicyAdmissionRuleEvaluationModeEnum(e binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRuleEvaluationModeEnum) *binaryauthorization.PolicyAdmissionRuleEvaluationModeEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := binaryauthorizationpb.BinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnum_name[int32(e)]; ok {
-		e := binaryauthorization.PolicyClusterAdmissionRulesEvaluationModeEnum(n[len("BinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnum"):])
+	if n, ok := binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRuleEvaluationModeEnum_name[int32(e)]; ok {
+		e := binaryauthorization.PolicyAdmissionRuleEvaluationModeEnum(n[len("BinaryauthorizationPolicyAdmissionRuleEvaluationModeEnum"):])
 		return &e
 	}
 	return nil
 }
 
-// ProtoToPolicyClusterAdmissionRulesEnforcementModeEnum converts a PolicyClusterAdmissionRulesEnforcementModeEnum enum from its proto representation.
-func ProtoToBinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnum(e binaryauthorizationpb.BinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnum) *binaryauthorization.PolicyClusterAdmissionRulesEnforcementModeEnum {
+// ProtoToPolicyAdmissionRuleEnforcementModeEnum converts a PolicyAdmissionRuleEnforcementModeEnum enum from its proto representation.
+func ProtoToBinaryauthorizationPolicyAdmissionRuleEnforcementModeEnum(e binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRuleEnforcementModeEnum) *binaryauthorization.PolicyAdmissionRuleEnforcementModeEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := binaryauthorizationpb.BinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnum_name[int32(e)]; ok {
-		e := binaryauthorization.PolicyClusterAdmissionRulesEnforcementModeEnum(n[len("BinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnum"):])
-		return &e
-	}
-	return nil
-}
-
-// ProtoToPolicyDefaultAdmissionRuleEvaluationModeEnum converts a PolicyDefaultAdmissionRuleEvaluationModeEnum enum from its proto representation.
-func ProtoToBinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnum(e binaryauthorizationpb.BinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnum) *binaryauthorization.PolicyDefaultAdmissionRuleEvaluationModeEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := binaryauthorizationpb.BinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnum_name[int32(e)]; ok {
-		e := binaryauthorization.PolicyDefaultAdmissionRuleEvaluationModeEnum(n[len("BinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnum"):])
-		return &e
-	}
-	return nil
-}
-
-// ProtoToPolicyDefaultAdmissionRuleEnforcementModeEnum converts a PolicyDefaultAdmissionRuleEnforcementModeEnum enum from its proto representation.
-func ProtoToBinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnum(e binaryauthorizationpb.BinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnum) *binaryauthorization.PolicyDefaultAdmissionRuleEnforcementModeEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := binaryauthorizationpb.BinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnum_name[int32(e)]; ok {
-		e := binaryauthorization.PolicyDefaultAdmissionRuleEnforcementModeEnum(n[len("BinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnum"):])
+	if n, ok := binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRuleEnforcementModeEnum_name[int32(e)]; ok {
+		e := binaryauthorization.PolicyAdmissionRuleEnforcementModeEnum(n[len("BinaryauthorizationPolicyAdmissionRuleEnforcementModeEnum"):])
 		return &e
 	}
 	return nil
@@ -97,29 +73,14 @@ func ProtoToBinaryauthorizationPolicyAdmissionWhitelistPatterns(p *binaryauthori
 	return obj
 }
 
-// ProtoToPolicyClusterAdmissionRules converts a PolicyClusterAdmissionRules resource from its proto representation.
-func ProtoToBinaryauthorizationPolicyClusterAdmissionRules(p *binaryauthorizationpb.BinaryauthorizationPolicyClusterAdmissionRules) *binaryauthorization.PolicyClusterAdmissionRules {
+// ProtoToPolicyAdmissionRule converts a PolicyAdmissionRule resource from its proto representation.
+func ProtoToBinaryauthorizationPolicyAdmissionRule(p *binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRule) *binaryauthorization.PolicyAdmissionRule {
 	if p == nil {
 		return nil
 	}
-	obj := &binaryauthorization.PolicyClusterAdmissionRules{
-		EvaluationMode:  ProtoToBinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnum(p.GetEvaluationMode()),
-		EnforcementMode: ProtoToBinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnum(p.GetEnforcementMode()),
-	}
-	for _, r := range p.GetRequireAttestationsBy() {
-		obj.RequireAttestationsBy = append(obj.RequireAttestationsBy, r)
-	}
-	return obj
-}
-
-// ProtoToPolicyDefaultAdmissionRule converts a PolicyDefaultAdmissionRule resource from its proto representation.
-func ProtoToBinaryauthorizationPolicyDefaultAdmissionRule(p *binaryauthorizationpb.BinaryauthorizationPolicyDefaultAdmissionRule) *binaryauthorization.PolicyDefaultAdmissionRule {
-	if p == nil {
-		return nil
-	}
-	obj := &binaryauthorization.PolicyDefaultAdmissionRule{
-		EvaluationMode:  ProtoToBinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnum(p.GetEvaluationMode()),
-		EnforcementMode: ProtoToBinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnum(p.GetEnforcementMode()),
+	obj := &binaryauthorization.PolicyAdmissionRule{
+		EvaluationMode:  ProtoToBinaryauthorizationPolicyAdmissionRuleEvaluationModeEnum(p.GetEvaluationMode()),
+		EnforcementMode: ProtoToBinaryauthorizationPolicyAdmissionRuleEnforcementModeEnum(p.GetEnforcementMode()),
 	}
 	for _, r := range p.GetRequireAttestationsBy() {
 		obj.RequireAttestationsBy = append(obj.RequireAttestationsBy, r)
@@ -130,7 +91,7 @@ func ProtoToBinaryauthorizationPolicyDefaultAdmissionRule(p *binaryauthorization
 // ProtoToPolicy converts a Policy resource from its proto representation.
 func ProtoToPolicy(p *binaryauthorizationpb.BinaryauthorizationPolicy) *binaryauthorization.Policy {
 	obj := &binaryauthorization.Policy{
-		DefaultAdmissionRule:       ProtoToBinaryauthorizationPolicyDefaultAdmissionRule(p.GetDefaultAdmissionRule()),
+		DefaultAdmissionRule:       ProtoToBinaryauthorizationPolicyAdmissionRule(p.GetDefaultAdmissionRule()),
 		Description:                dcl.StringOrNil(p.Description),
 		GlobalPolicyEvaluationMode: ProtoToBinaryauthorizationPolicyGlobalPolicyEvaluationModeEnum(p.GetGlobalPolicyEvaluationMode()),
 		SelfLink:                   dcl.StringOrNil(p.SelfLink),
@@ -143,48 +104,26 @@ func ProtoToPolicy(p *binaryauthorizationpb.BinaryauthorizationPolicy) *binaryau
 	return obj
 }
 
-// PolicyClusterAdmissionRulesEvaluationModeEnumToProto converts a PolicyClusterAdmissionRulesEvaluationModeEnum enum to its proto representation.
-func BinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnumToProto(e *binaryauthorization.PolicyClusterAdmissionRulesEvaluationModeEnum) binaryauthorizationpb.BinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnum {
+// PolicyAdmissionRuleEvaluationModeEnumToProto converts a PolicyAdmissionRuleEvaluationModeEnum enum to its proto representation.
+func BinaryauthorizationPolicyAdmissionRuleEvaluationModeEnumToProto(e *binaryauthorization.PolicyAdmissionRuleEvaluationModeEnum) binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRuleEvaluationModeEnum {
 	if e == nil {
-		return binaryauthorizationpb.BinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnum(0)
+		return binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRuleEvaluationModeEnum(0)
 	}
-	if v, ok := binaryauthorizationpb.BinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnum_value["PolicyClusterAdmissionRulesEvaluationModeEnum"+string(*e)]; ok {
-		return binaryauthorizationpb.BinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnum(v)
+	if v, ok := binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRuleEvaluationModeEnum_value["PolicyAdmissionRuleEvaluationModeEnum"+string(*e)]; ok {
+		return binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRuleEvaluationModeEnum(v)
 	}
-	return binaryauthorizationpb.BinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnum(0)
+	return binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRuleEvaluationModeEnum(0)
 }
 
-// PolicyClusterAdmissionRulesEnforcementModeEnumToProto converts a PolicyClusterAdmissionRulesEnforcementModeEnum enum to its proto representation.
-func BinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnumToProto(e *binaryauthorization.PolicyClusterAdmissionRulesEnforcementModeEnum) binaryauthorizationpb.BinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnum {
+// PolicyAdmissionRuleEnforcementModeEnumToProto converts a PolicyAdmissionRuleEnforcementModeEnum enum to its proto representation.
+func BinaryauthorizationPolicyAdmissionRuleEnforcementModeEnumToProto(e *binaryauthorization.PolicyAdmissionRuleEnforcementModeEnum) binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRuleEnforcementModeEnum {
 	if e == nil {
-		return binaryauthorizationpb.BinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnum(0)
+		return binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRuleEnforcementModeEnum(0)
 	}
-	if v, ok := binaryauthorizationpb.BinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnum_value["PolicyClusterAdmissionRulesEnforcementModeEnum"+string(*e)]; ok {
-		return binaryauthorizationpb.BinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnum(v)
+	if v, ok := binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRuleEnforcementModeEnum_value["PolicyAdmissionRuleEnforcementModeEnum"+string(*e)]; ok {
+		return binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRuleEnforcementModeEnum(v)
 	}
-	return binaryauthorizationpb.BinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnum(0)
-}
-
-// PolicyDefaultAdmissionRuleEvaluationModeEnumToProto converts a PolicyDefaultAdmissionRuleEvaluationModeEnum enum to its proto representation.
-func BinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnumToProto(e *binaryauthorization.PolicyDefaultAdmissionRuleEvaluationModeEnum) binaryauthorizationpb.BinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnum {
-	if e == nil {
-		return binaryauthorizationpb.BinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnum(0)
-	}
-	if v, ok := binaryauthorizationpb.BinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnum_value["PolicyDefaultAdmissionRuleEvaluationModeEnum"+string(*e)]; ok {
-		return binaryauthorizationpb.BinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnum(v)
-	}
-	return binaryauthorizationpb.BinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnum(0)
-}
-
-// PolicyDefaultAdmissionRuleEnforcementModeEnumToProto converts a PolicyDefaultAdmissionRuleEnforcementModeEnum enum to its proto representation.
-func BinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnumToProto(e *binaryauthorization.PolicyDefaultAdmissionRuleEnforcementModeEnum) binaryauthorizationpb.BinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnum {
-	if e == nil {
-		return binaryauthorizationpb.BinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnum(0)
-	}
-	if v, ok := binaryauthorizationpb.BinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnum_value["PolicyDefaultAdmissionRuleEnforcementModeEnum"+string(*e)]; ok {
-		return binaryauthorizationpb.BinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnum(v)
-	}
-	return binaryauthorizationpb.BinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnum(0)
+	return binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRuleEnforcementModeEnum(0)
 }
 
 // PolicyGlobalPolicyEvaluationModeEnumToProto converts a PolicyGlobalPolicyEvaluationModeEnum enum to its proto representation.
@@ -209,29 +148,14 @@ func BinaryauthorizationPolicyAdmissionWhitelistPatternsToProto(o *binaryauthori
 	return p
 }
 
-// PolicyClusterAdmissionRulesToProto converts a PolicyClusterAdmissionRules resource to its proto representation.
-func BinaryauthorizationPolicyClusterAdmissionRulesToProto(o *binaryauthorization.PolicyClusterAdmissionRules) *binaryauthorizationpb.BinaryauthorizationPolicyClusterAdmissionRules {
+// PolicyAdmissionRuleToProto converts a PolicyAdmissionRule resource to its proto representation.
+func BinaryauthorizationPolicyAdmissionRuleToProto(o *binaryauthorization.PolicyAdmissionRule) *binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRule {
 	if o == nil {
 		return nil
 	}
-	p := &binaryauthorizationpb.BinaryauthorizationPolicyClusterAdmissionRules{
-		EvaluationMode:  BinaryauthorizationPolicyClusterAdmissionRulesEvaluationModeEnumToProto(o.EvaluationMode),
-		EnforcementMode: BinaryauthorizationPolicyClusterAdmissionRulesEnforcementModeEnumToProto(o.EnforcementMode),
-	}
-	for _, r := range o.RequireAttestationsBy {
-		p.RequireAttestationsBy = append(p.RequireAttestationsBy, r)
-	}
-	return p
-}
-
-// PolicyDefaultAdmissionRuleToProto converts a PolicyDefaultAdmissionRule resource to its proto representation.
-func BinaryauthorizationPolicyDefaultAdmissionRuleToProto(o *binaryauthorization.PolicyDefaultAdmissionRule) *binaryauthorizationpb.BinaryauthorizationPolicyDefaultAdmissionRule {
-	if o == nil {
-		return nil
-	}
-	p := &binaryauthorizationpb.BinaryauthorizationPolicyDefaultAdmissionRule{
-		EvaluationMode:  BinaryauthorizationPolicyDefaultAdmissionRuleEvaluationModeEnumToProto(o.EvaluationMode),
-		EnforcementMode: BinaryauthorizationPolicyDefaultAdmissionRuleEnforcementModeEnumToProto(o.EnforcementMode),
+	p := &binaryauthorizationpb.BinaryauthorizationPolicyAdmissionRule{
+		EvaluationMode:  BinaryauthorizationPolicyAdmissionRuleEvaluationModeEnumToProto(o.EvaluationMode),
+		EnforcementMode: BinaryauthorizationPolicyAdmissionRuleEnforcementModeEnumToProto(o.EnforcementMode),
 	}
 	for _, r := range o.RequireAttestationsBy {
 		p.RequireAttestationsBy = append(p.RequireAttestationsBy, r)
@@ -242,7 +166,7 @@ func BinaryauthorizationPolicyDefaultAdmissionRuleToProto(o *binaryauthorization
 // PolicyToProto converts a Policy resource to its proto representation.
 func PolicyToProto(resource *binaryauthorization.Policy) *binaryauthorizationpb.BinaryauthorizationPolicy {
 	p := &binaryauthorizationpb.BinaryauthorizationPolicy{
-		DefaultAdmissionRule:       BinaryauthorizationPolicyDefaultAdmissionRuleToProto(resource.DefaultAdmissionRule),
+		DefaultAdmissionRule:       BinaryauthorizationPolicyAdmissionRuleToProto(resource.DefaultAdmissionRule),
 		Description:                dcl.ValueOrEmptyString(resource.Description),
 		GlobalPolicyEvaluationMode: BinaryauthorizationPolicyGlobalPolicyEvaluationModeEnumToProto(resource.GlobalPolicyEvaluationMode),
 		SelfLink:                   dcl.ValueOrEmptyString(resource.SelfLink),
@@ -283,23 +207,9 @@ func (s *PolicyServer) DeleteBinaryauthorizationPolicy(ctx context.Context, requ
 
 }
 
-// ListBinaryauthorizationPolicy handles the gRPC request by passing it to the underlying PolicyList() method.
-func (s *PolicyServer) ListBinaryauthorizationPolicy(ctx context.Context, request *binaryauthorizationpb.ListBinaryauthorizationPolicyRequest) (*binaryauthorizationpb.ListBinaryauthorizationPolicyResponse, error) {
-	cl, err := createConfigPolicy(ctx, request.ServiceAccountFile)
-	if err != nil {
-		return nil, err
-	}
-
-	resources, err := cl.ListPolicy(ctx, request.Project)
-	if err != nil {
-		return nil, err
-	}
-	var protos []*binaryauthorizationpb.BinaryauthorizationPolicy
-	for _, r := range resources.Items {
-		rp := PolicyToProto(r)
-		protos = append(protos, rp)
-	}
-	return &binaryauthorizationpb.ListBinaryauthorizationPolicyResponse{Items: protos}, nil
+// ListBinaryauthorizationPolicy is a no-op method because Policy has no list method.
+func (s *PolicyServer) ListBinaryauthorizationPolicy(_ context.Context, _ *binaryauthorizationpb.ListBinaryauthorizationPolicyRequest) (*binaryauthorizationpb.ListBinaryauthorizationPolicyResponse, error) {
+	return nil, nil
 }
 
 func createConfigPolicy(ctx context.Context, service_account_file string) (*binaryauthorization.Client, error) {

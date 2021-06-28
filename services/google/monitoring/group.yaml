@@ -52,7 +52,7 @@ components:
   schemas:
     Group:
       title: Group
-      x-dcl-id: v3/projects/{{project}}/groups/{{name}}
+      x-dcl-id: projects/{{project}}/groups/{{name}}
       x-dcl-parent-container: project
       type: object
       required:

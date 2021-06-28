@@ -1,5 +1,6 @@
 {
   "name": "{{ref:basic.note.json:name}}",
+  "project": "{{project}}",
   "shortDescription": "An updated basic note",
   "longDescription": "This note has been updated from the basic note.",
   "relatedUrl": [
@@ -16,6 +17,5 @@
     "hint": {
       "humanReadableName": "Attestor Note"
     }
-  },
-  "project": "{{project}}"
+  }
 }

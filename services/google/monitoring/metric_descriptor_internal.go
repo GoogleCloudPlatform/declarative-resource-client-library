@@ -58,14 +58,14 @@ func metricDescriptorGetURL(userBasePath string, r *MetricDescriptor) (string, e
 		"project": dcl.ValueOrEmptyString(r.Project),
 		"type":    dcl.ValueOrEmptyString(r.Type),
 	}
-	return dcl.URL("v3/projects/{{project}}/metricDescriptors/{{type}}", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/metricDescriptors/{{type}}", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 }
 
 func metricDescriptorListURL(userBasePath, project string) (string, error) {
 	params := map[string]interface{}{
 		"project": project,
 	}
-	return dcl.URL("v3/projects/{{project}}/metricDescriptors", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/metricDescriptors", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 
 }
 
@@ -73,7 +73,7 @@ func metricDescriptorCreateURL(userBasePath, project string) (string, error) {
 	params := map[string]interface{}{
 		"project": project,
 	}
-	return dcl.URL("v3/projects/{{project}}/metricDescriptors", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/metricDescriptors", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 
 }
 
@@ -82,7 +82,7 @@ func metricDescriptorDeleteURL(userBasePath string, r *MetricDescriptor) (string
 		"project": dcl.ValueOrEmptyString(r.Project),
 		"type":    dcl.ValueOrEmptyString(r.Type),
 	}
-	return dcl.URL("v3/projects/{{project}}/metricDescriptors/{{type}}", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/metricDescriptors/{{type}}", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 }
 
 // metricDescriptorApiOperation represents a mutable operation in the underlying REST
@@ -319,7 +319,6 @@ func (c *Client) metricDescriptorDiffsForRawDesired(ctx context.Context, rawDesi
 		desired, err = canonicalizeMetricDescriptorDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for MetricDescriptor: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for MetricDescriptor: %v", rawDesired)
 
@@ -339,6 +338,7 @@ func (c *Client) metricDescriptorDiffsForRawDesired(ctx context.Context, rawDesi
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffMetricDescriptor(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

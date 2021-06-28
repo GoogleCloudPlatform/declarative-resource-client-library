@@ -76,7 +76,6 @@ components:
           x-dcl-go-name: State
           x-dcl-go-type: ServiceStateEnum
           description: 'The state of the resource. Possible values: DISABLED, ENABLED'
-          x-kubernetes-immutable: true
           enum:
           - DISABLED
           - ENABLED

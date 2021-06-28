@@ -421,7 +421,6 @@ func (c *Client) autoscalingPolicyDiffsForRawDesired(ctx context.Context, rawDes
 		desired, err = canonicalizeAutoscalingPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for AutoscalingPolicy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for AutoscalingPolicy: %v", rawDesired)
 
@@ -441,6 +440,7 @@ func (c *Client) autoscalingPolicyDiffsForRawDesired(ctx context.Context, rawDes
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffAutoscalingPolicy(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

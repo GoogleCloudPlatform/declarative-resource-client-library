@@ -740,8 +740,9 @@ func ProtoToTier2AlphaInstancePreprocessCreateRecipeStepsQuotaRequestDeltas(p *a
 		return nil
 	}
 	obj := &alpha.InstancePreprocessCreateRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -945,8 +946,9 @@ func ProtoToTier2AlphaInstanceCreateRecipeStepsQuotaRequestDeltas(p *alphapb.Tie
 		return nil
 	}
 	obj := &alpha.InstanceCreateRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -1141,8 +1143,9 @@ func ProtoToTier2AlphaInstanceDeleteRecipeStepsQuotaRequestDeltas(p *alphapb.Tie
 		return nil
 	}
 	obj := &alpha.InstanceDeleteRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -1337,8 +1340,9 @@ func ProtoToTier2AlphaInstanceUpdateRecipeStepsQuotaRequestDeltas(p *alphapb.Tie
 		return nil
 	}
 	obj := &alpha.InstanceUpdateRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -1533,8 +1537,9 @@ func ProtoToTier2AlphaInstancePreprocessResetRecipeStepsQuotaRequestDeltas(p *al
 		return nil
 	}
 	obj := &alpha.InstancePreprocessResetRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -1729,8 +1734,9 @@ func ProtoToTier2AlphaInstanceResetRecipeStepsQuotaRequestDeltas(p *alphapb.Tier
 		return nil
 	}
 	obj := &alpha.InstanceResetRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -1925,8 +1931,9 @@ func ProtoToTier2AlphaInstancePreprocessRepairRecipeStepsQuotaRequestDeltas(p *a
 		return nil
 	}
 	obj := &alpha.InstancePreprocessRepairRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -2121,8 +2128,9 @@ func ProtoToTier2AlphaInstanceRepairRecipeStepsQuotaRequestDeltas(p *alphapb.Tie
 		return nil
 	}
 	obj := &alpha.InstanceRepairRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -2317,8 +2325,9 @@ func ProtoToTier2AlphaInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(p *a
 		return nil
 	}
 	obj := &alpha.InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -2513,8 +2522,9 @@ func ProtoToTier2AlphaInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(p *a
 		return nil
 	}
 	obj := &alpha.InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -2709,8 +2719,9 @@ func ProtoToTier2AlphaInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(p *a
 		return nil
 	}
 	obj := &alpha.InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -2905,8 +2916,9 @@ func ProtoToTier2AlphaInstanceFreezeRecipeStepsQuotaRequestDeltas(p *alphapb.Tie
 		return nil
 	}
 	obj := &alpha.InstanceFreezeRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -3101,8 +3113,9 @@ func ProtoToTier2AlphaInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(p 
 		return nil
 	}
 	obj := &alpha.InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -3297,8 +3310,9 @@ func ProtoToTier2AlphaInstanceUnfreezeRecipeStepsQuotaRequestDeltas(p *alphapb.T
 		return nil
 	}
 	obj := &alpha.InstanceUnfreezeRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -3493,8 +3507,9 @@ func ProtoToTier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequ
 		return nil
 	}
 	obj := &alpha.InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -3689,8 +3704,9 @@ func ProtoToTier2AlphaInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(
 		return nil
 	}
 	obj := &alpha.InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -3885,8 +3901,9 @@ func ProtoToTier2AlphaInstancePreprocessGetRecipeStepsQuotaRequestDeltas(p *alph
 		return nil
 	}
 	obj := &alpha.InstancePreprocessGetRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -4081,8 +4098,9 @@ func ProtoToTier2AlphaInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(p 
 		return nil
 	}
 	obj := &alpha.InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -4277,8 +4295,9 @@ func ProtoToTier2AlphaInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(
 		return nil
 	}
 	obj := &alpha.InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -4473,8 +4492,9 @@ func ProtoToTier2AlphaInstanceReadonlyRecipeStepsQuotaRequestDeltas(p *alphapb.T
 		return nil
 	}
 	obj := &alpha.InstanceReadonlyRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -4669,8 +4689,9 @@ func ProtoToTier2AlphaInstanceReconcileRecipeStepsQuotaRequestDeltas(p *alphapb.
 		return nil
 	}
 	obj := &alpha.InstanceReconcileRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -4865,8 +4886,9 @@ func ProtoToTier2AlphaInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas
 		return nil
 	}
 	obj := &alpha.InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -5061,8 +5083,9 @@ func ProtoToTier2AlphaInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(p
 		return nil
 	}
 	obj := &alpha.InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.StringOrNil(p.MetricName),
-		Amount:     dcl.Int64OrNil(p.Amount),
+		MetricName:        dcl.StringOrNil(p.MetricName),
+		Amount:            dcl.Int64OrNil(p.Amount),
+		QuotaLocationName: dcl.StringOrNil(p.QuotaLocationName),
 	}
 	return obj
 }
@@ -5913,8 +5936,9 @@ func Tier2AlphaInstancePreprocessCreateRecipeStepsQuotaRequestDeltasToProto(o *a
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessCreateRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -6118,8 +6142,9 @@ func Tier2AlphaInstanceCreateRecipeStepsQuotaRequestDeltasToProto(o *alpha.Insta
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceCreateRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -6314,8 +6339,9 @@ func Tier2AlphaInstanceDeleteRecipeStepsQuotaRequestDeltasToProto(o *alpha.Insta
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceDeleteRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -6510,8 +6536,9 @@ func Tier2AlphaInstanceUpdateRecipeStepsQuotaRequestDeltasToProto(o *alpha.Insta
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceUpdateRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -6706,8 +6733,9 @@ func Tier2AlphaInstancePreprocessResetRecipeStepsQuotaRequestDeltasToProto(o *al
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessResetRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -6902,8 +6930,9 @@ func Tier2AlphaInstanceResetRecipeStepsQuotaRequestDeltasToProto(o *alpha.Instan
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceResetRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -7098,8 +7127,9 @@ func Tier2AlphaInstancePreprocessRepairRecipeStepsQuotaRequestDeltasToProto(o *a
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessRepairRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -7294,8 +7324,9 @@ func Tier2AlphaInstanceRepairRecipeStepsQuotaRequestDeltasToProto(o *alpha.Insta
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceRepairRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -7490,8 +7521,9 @@ func Tier2AlphaInstancePreprocessDeleteRecipeStepsQuotaRequestDeltasToProto(o *a
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -7686,8 +7718,9 @@ func Tier2AlphaInstancePreprocessUpdateRecipeStepsQuotaRequestDeltasToProto(o *a
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -7882,8 +7915,9 @@ func Tier2AlphaInstancePreprocessFreezeRecipeStepsQuotaRequestDeltasToProto(o *a
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -8078,8 +8112,9 @@ func Tier2AlphaInstanceFreezeRecipeStepsQuotaRequestDeltasToProto(o *alpha.Insta
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceFreezeRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -8274,8 +8309,9 @@ func Tier2AlphaInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltasToProto(o 
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -8470,8 +8506,9 @@ func Tier2AlphaInstanceUnfreezeRecipeStepsQuotaRequestDeltasToProto(o *alpha.Ins
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceUnfreezeRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -8666,8 +8703,9 @@ func Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDelt
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -8862,8 +8900,9 @@ func Tier2AlphaInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltasToProto(
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -9058,8 +9097,9 @@ func Tier2AlphaInstancePreprocessGetRecipeStepsQuotaRequestDeltasToProto(o *alph
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessGetRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -9254,8 +9294,9 @@ func Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltasToProto(o 
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -9450,8 +9491,9 @@ func Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltasToProto(
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -9646,8 +9688,9 @@ func Tier2AlphaInstanceReadonlyRecipeStepsQuotaRequestDeltasToProto(o *alpha.Ins
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceReadonlyRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -9842,8 +9885,9 @@ func Tier2AlphaInstanceReconcileRecipeStepsQuotaRequestDeltasToProto(o *alpha.In
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstanceReconcileRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -10038,8 +10082,9 @@ func Tier2AlphaInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltasToProto
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }
@@ -10234,8 +10279,9 @@ func Tier2AlphaInstancePreprocessReconcileRecipeStepsQuotaRequestDeltasToProto(o
 		return nil
 	}
 	p := &alphapb.Tier2AlphaInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas{
-		MetricName: dcl.ValueOrEmptyString(o.MetricName),
-		Amount:     dcl.ValueOrEmptyInt64(o.Amount),
+		MetricName:        dcl.ValueOrEmptyString(o.MetricName),
+		Amount:            dcl.ValueOrEmptyInt64(o.Amount),
+		QuotaLocationName: dcl.ValueOrEmptyString(o.QuotaLocationName),
 	}
 	return p
 }

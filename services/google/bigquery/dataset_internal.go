@@ -428,7 +428,6 @@ func (c *Client) datasetDiffsForRawDesired(ctx context.Context, rawDesired *Data
 		desired, err = canonicalizeDatasetDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Dataset: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Dataset: %v", rawDesired)
 
@@ -448,6 +447,7 @@ func (c *Client) datasetDiffsForRawDesired(ctx context.Context, rawDesired *Data
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffDataset(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

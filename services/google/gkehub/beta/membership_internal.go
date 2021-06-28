@@ -462,7 +462,6 @@ func (c *Client) membershipDiffsForRawDesired(ctx context.Context, rawDesired *M
 		desired, err = canonicalizeMembershipDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Membership: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Membership: %v", rawDesired)
 
@@ -482,6 +481,7 @@ func (c *Client) membershipDiffsForRawDesired(ctx context.Context, rawDesired *M
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffMembership(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

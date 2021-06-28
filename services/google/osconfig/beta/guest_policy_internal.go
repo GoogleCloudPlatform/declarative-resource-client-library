@@ -602,7 +602,6 @@ func (c *Client) guestPolicyDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err = canonicalizeGuestPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for GuestPolicy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for GuestPolicy: %v", rawDesired)
 
@@ -622,6 +621,7 @@ func (c *Client) guestPolicyDiffsForRawDesired(ctx context.Context, rawDesired *
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffGuestPolicy(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

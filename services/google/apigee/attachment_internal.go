@@ -298,7 +298,6 @@ func (c *Client) attachmentDiffsForRawDesired(ctx context.Context, rawDesired *A
 		desired, err := canonicalizeAttachmentDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
-
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetAttachment(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -311,7 +310,6 @@ func (c *Client) attachmentDiffsForRawDesired(ctx context.Context, rawDesired *A
 		desired, err = canonicalizeAttachmentDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Attachment: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Attachment: %v", rawDesired)
 
@@ -331,6 +329,7 @@ func (c *Client) attachmentDiffsForRawDesired(ctx context.Context, rawDesired *A
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffAttachment(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

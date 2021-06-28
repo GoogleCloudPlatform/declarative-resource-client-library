@@ -384,7 +384,6 @@ func (c *Client) backupDiffsForRawDesired(ctx context.Context, rawDesired *Backu
 		desired, err = canonicalizeBackupDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Backup: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Backup: %v", rawDesired)
 
@@ -404,6 +403,7 @@ func (c *Client) backupDiffsForRawDesired(ctx context.Context, rawDesired *Backu
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffBackup(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

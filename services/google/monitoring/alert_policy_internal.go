@@ -516,14 +516,14 @@ func alertPolicyGetURL(userBasePath string, r *AlertPolicy) (string, error) {
 		"project": dcl.ValueOrEmptyString(r.Project),
 		"name":    dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("v3/projects/{{project}}/alertPolicies/{{name}}", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/alertPolicies/{{name}}", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 }
 
 func alertPolicyListURL(userBasePath, project string) (string, error) {
 	params := map[string]interface{}{
 		"project": project,
 	}
-	return dcl.URL("v3/projects/{{project}}/alertPolicies", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/alertPolicies", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 
 }
 
@@ -531,7 +531,7 @@ func alertPolicyCreateURL(userBasePath, project string) (string, error) {
 	params := map[string]interface{}{
 		"project": project,
 	}
-	return dcl.URL("v3/projects/{{project}}/alertPolicies", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/alertPolicies", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 
 }
 
@@ -540,7 +540,7 @@ func alertPolicyDeleteURL(userBasePath string, r *AlertPolicy) (string, error) {
 		"project": dcl.ValueOrEmptyString(r.Project),
 		"name":    dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("v3/projects/{{project}}/alertPolicies/{{name}}", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/alertPolicies/{{name}}", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 }
 
 // alertPolicyApiOperation represents a mutable operation in the underlying REST
@@ -607,7 +607,7 @@ func (op *updateAlertPolicyUpdateAlertPolicyOperation) do(ctx context.Context, r
 	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
 		return err
 	}
-	err = o.Wait(ctx, c.Config, "https://monitoring.googleapis.com/", "GET")
+	err = o.Wait(ctx, c.Config, "https://monitoring.googleapis.com/v3/", "GET")
 
 	if err != nil {
 		return err
@@ -825,7 +825,6 @@ func (c *Client) alertPolicyDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err := canonicalizeAlertPolicyDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
-
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetAlertPolicy(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -838,7 +837,6 @@ func (c *Client) alertPolicyDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err = canonicalizeAlertPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for AlertPolicy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for AlertPolicy: %v", rawDesired)
 
@@ -858,6 +856,7 @@ func (c *Client) alertPolicyDiffsForRawDesired(ctx context.Context, rawDesired *
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffAlertPolicy(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -8840,7 +8839,7 @@ func (r *AlertPolicy) updateURL(userBasePath, updateName string) (string, error)
 			"project": dcl.ValueOrEmptyString(n.Project),
 			"name":    dcl.ValueOrEmptyString(n.Name),
 		}
-		return dcl.URL("v3/projects/{{project}}/alertPolicies/{{name}}", "https://monitoring.googleapis.com/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/alertPolicies/{{name}}", "https://monitoring.googleapis.com/v3/", userBasePath, fields), nil
 
 	}
 	return "", fmt.Errorf("unknown update name: %s", updateName)

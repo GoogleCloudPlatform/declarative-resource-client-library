@@ -35,14 +35,14 @@ func notificationChannelGetURL(userBasePath string, r *NotificationChannel) (str
 		"project": dcl.ValueOrEmptyString(r.Project),
 		"name":    dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("v3/projects/{{project}}/notificationChannels/{{name}}", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/notificationChannels/{{name}}", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 }
 
 func notificationChannelListURL(userBasePath, project string) (string, error) {
 	params := map[string]interface{}{
 		"project": project,
 	}
-	return dcl.URL("v3/projects/{{project}}/notificationChannels", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/notificationChannels", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 
 }
 
@@ -50,7 +50,7 @@ func notificationChannelCreateURL(userBasePath, project string) (string, error) 
 	params := map[string]interface{}{
 		"project": project,
 	}
-	return dcl.URL("v3/projects/{{project}}/notificationChannels", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/notificationChannels", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 
 }
 
@@ -59,7 +59,7 @@ func notificationChannelDeleteURL(userBasePath string, r *NotificationChannel) (
 		"project": dcl.ValueOrEmptyString(r.Project),
 		"name":    dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("v3/projects/{{project}}/notificationChannels/{{name}}", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/notificationChannels/{{name}}", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 }
 
 // notificationChannelApiOperation represents a mutable operation in the underlying REST
@@ -362,7 +362,6 @@ func (c *Client) notificationChannelDiffsForRawDesired(ctx context.Context, rawD
 		desired, err := canonicalizeNotificationChannelDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
-
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetNotificationChannel(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -375,7 +374,6 @@ func (c *Client) notificationChannelDiffsForRawDesired(ctx context.Context, rawD
 		desired, err = canonicalizeNotificationChannelDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for NotificationChannel: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for NotificationChannel: %v", rawDesired)
 
@@ -395,6 +393,7 @@ func (c *Client) notificationChannelDiffsForRawDesired(ctx context.Context, rawD
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffNotificationChannel(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -623,7 +622,7 @@ func (r *NotificationChannel) updateURL(userBasePath, updateName string) (string
 			"project": dcl.ValueOrEmptyString(n.Project),
 			"name":    dcl.ValueOrEmptyString(n.Name),
 		}
-		return dcl.URL("v3/projects/{{project}}/notificationChannels/{{name}}", "https://monitoring.googleapis.com/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/notificationChannels/{{name}}", "https://monitoring.googleapis.com/v3/", userBasePath, fields), nil
 
 	}
 	return "", fmt.Errorf("unknown update name: %s", updateName)

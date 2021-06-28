@@ -274,7 +274,6 @@ func (c *Client) logBucketDiffsForRawDesired(ctx context.Context, rawDesired *Lo
 		desired, err = canonicalizeLogBucketDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for LogBucket: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for LogBucket: %v", rawDesired)
 
@@ -294,6 +293,7 @@ func (c *Client) logBucketDiffsForRawDesired(ctx context.Context, rawDesired *Lo
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffLogBucket(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

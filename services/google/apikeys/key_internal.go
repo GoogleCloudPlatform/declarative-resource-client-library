@@ -386,7 +386,6 @@ func (c *Client) keyDiffsForRawDesired(ctx context.Context, rawDesired *Key, opt
 		desired, err = canonicalizeKeyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Key: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Key: %v", rawDesired)
 
@@ -406,6 +405,7 @@ func (c *Client) keyDiffsForRawDesired(ctx context.Context, rawDesired *Key, opt
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffKey(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

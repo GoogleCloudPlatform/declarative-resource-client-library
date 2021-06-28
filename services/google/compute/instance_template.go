@@ -1287,8 +1287,13 @@ func applyInstanceTemplateHelper(c *Client, ctx context.Context, rawDesired *Ins
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToInstanceTemplateOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -1330,9 +1335,7 @@ func applyInstanceTemplateHelper(c *Client, ctx context.Context, rawDesired *Ins
 	if create {
 		ops = append(ops, &createInstanceTemplateOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteInstanceTemplateOperation{})
-
 		ops = append(ops, &createInstanceTemplateOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeInstanceTemplateDesiredState(rawDesired, nil)
@@ -1362,7 +1365,6 @@ func applyInstanceTemplateHelper(c *Client, ctx context.Context, rawDesired *Ins
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

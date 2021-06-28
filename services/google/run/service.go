@@ -2812,8 +2812,13 @@ func applyServiceHelper(c *Client, ctx context.Context, rawDesired *Service, opt
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToServiceOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -2855,9 +2860,7 @@ func applyServiceHelper(c *Client, ctx context.Context, rawDesired *Service, opt
 	if create {
 		ops = append(ops, &createServiceOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteServiceOperation{})
-
 		ops = append(ops, &createServiceOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeServiceDesiredState(rawDesired, nil)
@@ -2887,7 +2890,6 @@ func applyServiceHelper(c *Client, ctx context.Context, rawDesired *Service, opt
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

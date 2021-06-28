@@ -1,5 +1,5 @@
 {
-  "name": "{{note_1}}",
+  "name": "{{note}}",
   "project": "{{project}}",
   "package": {
     "name": "{{package}}"

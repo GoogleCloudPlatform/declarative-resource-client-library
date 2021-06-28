@@ -218,8 +218,13 @@ func applyConnectionHelper(c *Client, ctx context.Context, rawDesired *Connectio
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToConnectionOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -261,9 +266,7 @@ func applyConnectionHelper(c *Client, ctx context.Context, rawDesired *Connectio
 	if create {
 		ops = append(ops, &createConnectionOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteConnectionOperation{})
-
 		ops = append(ops, &createConnectionOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeConnectionDesiredState(rawDesired, nil)
@@ -293,7 +296,6 @@ func applyConnectionHelper(c *Client, ctx context.Context, rawDesired *Connectio
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

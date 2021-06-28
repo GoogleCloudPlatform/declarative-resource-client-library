@@ -834,8 +834,13 @@ func applyHealthCheckHelper(c *Client, ctx context.Context, rawDesired *HealthCh
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToHealthCheckOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -877,9 +882,7 @@ func applyHealthCheckHelper(c *Client, ctx context.Context, rawDesired *HealthCh
 	if create {
 		ops = append(ops, &createHealthCheckOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteHealthCheckOperation{})
-
 		ops = append(ops, &createHealthCheckOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeHealthCheckDesiredState(rawDesired, nil)
@@ -909,7 +912,6 @@ func applyHealthCheckHelper(c *Client, ctx context.Context, rawDesired *HealthCh
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

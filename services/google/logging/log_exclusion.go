@@ -207,8 +207,13 @@ func applyLogExclusionHelper(c *Client, ctx context.Context, rawDesired *LogExcl
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToLogExclusionOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -250,9 +255,7 @@ func applyLogExclusionHelper(c *Client, ctx context.Context, rawDesired *LogExcl
 	if create {
 		ops = append(ops, &createLogExclusionOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteLogExclusionOperation{})
-
 		ops = append(ops, &createLogExclusionOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeLogExclusionDesiredState(rawDesired, nil)
@@ -282,7 +285,6 @@ func applyLogExclusionHelper(c *Client, ctx context.Context, rawDesired *LogExcl
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

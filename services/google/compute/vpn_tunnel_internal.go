@@ -305,7 +305,6 @@ func (c *Client) vpnTunnelDiffsForRawDesired(ctx context.Context, rawDesired *Vp
 		desired, err = canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for VpnTunnel: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for VpnTunnel: %v", rawDesired)
 
@@ -325,6 +324,7 @@ func (c *Client) vpnTunnelDiffsForRawDesired(ctx context.Context, rawDesired *Vp
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffVpnTunnel(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

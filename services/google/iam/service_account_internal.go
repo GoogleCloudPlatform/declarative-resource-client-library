@@ -397,7 +397,6 @@ func (c *Client) serviceAccountDiffsForRawDesired(ctx context.Context, rawDesire
 		desired, err = canonicalizeServiceAccountDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for ServiceAccount: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for ServiceAccount: %v", rawDesired)
 
@@ -417,6 +416,7 @@ func (c *Client) serviceAccountDiffsForRawDesired(ctx context.Context, rawDesire
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffServiceAccount(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

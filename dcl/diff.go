@@ -126,6 +126,7 @@ func Diff(desired, actual interface{}, info Info, fn FieldName) ([]*FieldDiff, e
 		if !info.CustomDiff(desired, actual) {
 			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: desired, Actual: actual})
 		}
+		addOperationToDiffs(diffs, info)
 		return diffs, nil
 	}
 

@@ -906,8 +906,13 @@ func applyEnvironmentHelper(c *Client, ctx context.Context, rawDesired *Environm
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToEnvironmentOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -949,9 +954,7 @@ func applyEnvironmentHelper(c *Client, ctx context.Context, rawDesired *Environm
 	if create {
 		ops = append(ops, &createEnvironmentOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteEnvironmentOperation{})
-
 		ops = append(ops, &createEnvironmentOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeEnvironmentDesiredState(rawDesired, nil)
@@ -981,7 +984,6 @@ func applyEnvironmentHelper(c *Client, ctx context.Context, rawDesired *Environm
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

@@ -318,8 +318,13 @@ func applyDefaultObjectAccessControlHelper(c *Client, ctx context.Context, rawDe
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToDefaultObjectAccessControlOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -361,9 +366,7 @@ func applyDefaultObjectAccessControlHelper(c *Client, ctx context.Context, rawDe
 	if create {
 		ops = append(ops, &createDefaultObjectAccessControlOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteDefaultObjectAccessControlOperation{})
-
 		ops = append(ops, &createDefaultObjectAccessControlOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeDefaultObjectAccessControlDesiredState(rawDesired, nil)
@@ -393,7 +396,6 @@ func applyDefaultObjectAccessControlHelper(c *Client, ctx context.Context, rawDe
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

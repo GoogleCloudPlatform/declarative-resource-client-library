@@ -341,8 +341,13 @@ func applyIndexHelper(c *Client, ctx context.Context, rawDesired *Index, opts ..
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToIndexOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -384,9 +389,7 @@ func applyIndexHelper(c *Client, ctx context.Context, rawDesired *Index, opts ..
 	if create {
 		ops = append(ops, &createIndexOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteIndexOperation{})
-
 		ops = append(ops, &createIndexOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeIndexDesiredState(rawDesired, nil)
@@ -416,7 +419,6 @@ func applyIndexHelper(c *Client, ctx context.Context, rawDesired *Index, opts ..
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

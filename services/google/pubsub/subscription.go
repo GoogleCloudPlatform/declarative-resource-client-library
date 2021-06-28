@@ -408,8 +408,13 @@ func applySubscriptionHelper(c *Client, ctx context.Context, rawDesired *Subscri
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToSubscriptionOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -451,9 +456,7 @@ func applySubscriptionHelper(c *Client, ctx context.Context, rawDesired *Subscri
 	if create {
 		ops = append(ops, &createSubscriptionOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteSubscriptionOperation{})
-
 		ops = append(ops, &createSubscriptionOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeSubscriptionDesiredState(rawDesired, nil)
@@ -483,7 +486,6 @@ func applySubscriptionHelper(c *Client, ctx context.Context, rawDesired *Subscri
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

@@ -388,7 +388,6 @@ func (c *Client) userDiffsForRawDesired(ctx context.Context, rawDesired *User, o
 		desired, err = canonicalizeUserDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for User: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for User: %v", rawDesired)
 
@@ -408,6 +407,7 @@ func (c *Client) userDiffsForRawDesired(ctx context.Context, rawDesired *User, o
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffUser(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

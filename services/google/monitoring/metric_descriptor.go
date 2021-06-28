@@ -453,8 +453,13 @@ func applyMetricDescriptorHelper(c *Client, ctx context.Context, rawDesired *Met
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToMetricDescriptorOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -496,9 +501,7 @@ func applyMetricDescriptorHelper(c *Client, ctx context.Context, rawDesired *Met
 	if create {
 		ops = append(ops, &createMetricDescriptorOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteMetricDescriptorOperation{})
-
 		ops = append(ops, &createMetricDescriptorOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeMetricDescriptorDesiredState(rawDesired, nil)
@@ -528,7 +531,6 @@ func applyMetricDescriptorHelper(c *Client, ctx context.Context, rawDesired *Met
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

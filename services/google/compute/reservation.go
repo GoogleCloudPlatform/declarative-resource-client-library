@@ -476,8 +476,13 @@ func applyReservationHelper(c *Client, ctx context.Context, rawDesired *Reservat
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToReservationOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -519,9 +524,7 @@ func applyReservationHelper(c *Client, ctx context.Context, rawDesired *Reservat
 	if create {
 		ops = append(ops, &createReservationOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteReservationOperation{})
-
 		ops = append(ops, &createReservationOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeReservationDesiredState(rawDesired, nil)
@@ -551,7 +554,6 @@ func applyReservationHelper(c *Client, ctx context.Context, rawDesired *Reservat
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

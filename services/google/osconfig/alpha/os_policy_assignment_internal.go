@@ -750,7 +750,6 @@ func (c *Client) osPolicyAssignmentDiffsForRawDesired(ctx context.Context, rawDe
 		desired, err = canonicalizeOsPolicyAssignmentDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for OsPolicyAssignment: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for OsPolicyAssignment: %v", rawDesired)
 
@@ -770,6 +769,7 @@ func (c *Client) osPolicyAssignmentDiffsForRawDesired(ctx context.Context, rawDe
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffOsPolicyAssignment(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

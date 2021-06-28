@@ -359,7 +359,6 @@ func (c *Client) reservationDiffsForRawDesired(ctx context.Context, rawDesired *
 		desired, err = canonicalizeReservationDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Reservation: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Reservation: %v", rawDesired)
 
@@ -379,6 +378,7 @@ func (c *Client) reservationDiffsForRawDesired(ctx context.Context, rawDesired *
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffReservation(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

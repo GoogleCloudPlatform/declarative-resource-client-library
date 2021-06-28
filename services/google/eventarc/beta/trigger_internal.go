@@ -469,7 +469,6 @@ func (c *Client) triggerDiffsForRawDesired(ctx context.Context, rawDesired *Trig
 		desired, err = canonicalizeTriggerDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Trigger: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Trigger: %v", rawDesired)
 
@@ -489,6 +488,7 @@ func (c *Client) triggerDiffsForRawDesired(ctx context.Context, rawDesired *Trig
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffTrigger(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

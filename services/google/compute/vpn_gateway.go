@@ -265,8 +265,13 @@ func applyVpnGatewayHelper(c *Client, ctx context.Context, rawDesired *VpnGatewa
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToVpnGatewayOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -308,9 +313,7 @@ func applyVpnGatewayHelper(c *Client, ctx context.Context, rawDesired *VpnGatewa
 	if create {
 		ops = append(ops, &createVpnGatewayOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteVpnGatewayOperation{})
-
 		ops = append(ops, &createVpnGatewayOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeVpnGatewayDesiredState(rawDesired, nil)
@@ -340,7 +343,6 @@ func applyVpnGatewayHelper(c *Client, ctx context.Context, rawDesired *VpnGatewa
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

@@ -232,8 +232,13 @@ func applyFirewallRuleHelper(c *Client, ctx context.Context, rawDesired *Firewal
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToFirewallRuleOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -275,9 +280,7 @@ func applyFirewallRuleHelper(c *Client, ctx context.Context, rawDesired *Firewal
 	if create {
 		ops = append(ops, &createFirewallRuleOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteFirewallRuleOperation{})
-
 		ops = append(ops, &createFirewallRuleOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeFirewallRuleDesiredState(rawDesired, nil)
@@ -307,7 +310,6 @@ func applyFirewallRuleHelper(c *Client, ctx context.Context, rawDesired *Firewal
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

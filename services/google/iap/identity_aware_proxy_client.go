@@ -210,8 +210,13 @@ func applyIdentityAwareProxyClientHelper(c *Client, ctx context.Context, rawDesi
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToIdentityAwareProxyClientOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -253,9 +258,7 @@ func applyIdentityAwareProxyClientHelper(c *Client, ctx context.Context, rawDesi
 	if create {
 		ops = append(ops, &createIdentityAwareProxyClientOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteIdentityAwareProxyClientOperation{})
-
 		ops = append(ops, &createIdentityAwareProxyClientOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeIdentityAwareProxyClientDesiredState(rawDesired, nil)
@@ -285,7 +288,6 @@ func applyIdentityAwareProxyClientHelper(c *Client, ctx context.Context, rawDesi
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

@@ -310,8 +310,13 @@ func applySnapshotHelper(c *Client, ctx context.Context, rawDesired *Snapshot, o
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToSnapshotOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -353,9 +358,7 @@ func applySnapshotHelper(c *Client, ctx context.Context, rawDesired *Snapshot, o
 	if create {
 		ops = append(ops, &createSnapshotOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteSnapshotOperation{})
-
 		ops = append(ops, &createSnapshotOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeSnapshotDesiredState(rawDesired, nil)
@@ -385,7 +388,6 @@ func applySnapshotHelper(c *Client, ctx context.Context, rawDesired *Snapshot, o
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

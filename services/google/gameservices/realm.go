@@ -213,8 +213,13 @@ func applyRealmHelper(c *Client, ctx context.Context, rawDesired *Realm, opts ..
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToRealmOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -256,9 +261,7 @@ func applyRealmHelper(c *Client, ctx context.Context, rawDesired *Realm, opts ..
 	if create {
 		ops = append(ops, &createRealmOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteRealmOperation{})
-
 		ops = append(ops, &createRealmOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeRealmDesiredState(rawDesired, nil)
@@ -288,7 +291,6 @@ func applyRealmHelper(c *Client, ctx context.Context, rawDesired *Realm, opts ..
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

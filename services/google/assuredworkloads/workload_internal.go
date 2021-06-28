@@ -412,7 +412,6 @@ func (c *Client) workloadDiffsForRawDesired(ctx context.Context, rawDesired *Wor
 		desired, err := canonicalizeWorkloadDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
-
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetWorkload(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -425,7 +424,6 @@ func (c *Client) workloadDiffsForRawDesired(ctx context.Context, rawDesired *Wor
 		desired, err = canonicalizeWorkloadDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Workload: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Workload: %v", rawDesired)
 
@@ -445,6 +443,7 @@ func (c *Client) workloadDiffsForRawDesired(ctx context.Context, rawDesired *Wor
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffWorkload(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

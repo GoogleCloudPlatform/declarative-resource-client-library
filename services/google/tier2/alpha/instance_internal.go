@@ -2402,7 +2402,6 @@ func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Ins
 		desired, err = canonicalizeInstanceDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Instance: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Instance: %v", rawDesired)
 
@@ -2422,6 +2421,7 @@ func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Ins
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffInstance(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -3548,6 +3548,9 @@ func canonicalizeInstancePreprocessCreateRecipeStepsQuotaRequestDeltas(des, init
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -3562,6 +3565,9 @@ func canonicalizeNewInstancePreprocessCreateRecipeStepsQuotaRequestDeltas(c *Cli
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -4770,6 +4776,9 @@ func canonicalizeInstanceCreateRecipeStepsQuotaRequestDeltas(des, initial *Insta
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -4784,6 +4793,9 @@ func canonicalizeNewInstanceCreateRecipeStepsQuotaRequestDeltas(c *Client, des, 
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -5926,6 +5938,9 @@ func canonicalizeInstanceDeleteRecipeStepsQuotaRequestDeltas(des, initial *Insta
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -5940,6 +5955,9 @@ func canonicalizeNewInstanceDeleteRecipeStepsQuotaRequestDeltas(c *Client, des, 
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -7082,6 +7100,9 @@ func canonicalizeInstanceUpdateRecipeStepsQuotaRequestDeltas(des, initial *Insta
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -7096,6 +7117,9 @@ func canonicalizeNewInstanceUpdateRecipeStepsQuotaRequestDeltas(c *Client, des, 
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -8238,6 +8262,9 @@ func canonicalizeInstancePreprocessResetRecipeStepsQuotaRequestDeltas(des, initi
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -8252,6 +8279,9 @@ func canonicalizeNewInstancePreprocessResetRecipeStepsQuotaRequestDeltas(c *Clie
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -9394,6 +9424,9 @@ func canonicalizeInstanceResetRecipeStepsQuotaRequestDeltas(des, initial *Instan
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -9408,6 +9441,9 @@ func canonicalizeNewInstanceResetRecipeStepsQuotaRequestDeltas(c *Client, des, n
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -10550,6 +10586,9 @@ func canonicalizeInstancePreprocessRepairRecipeStepsQuotaRequestDeltas(des, init
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -10564,6 +10603,9 @@ func canonicalizeNewInstancePreprocessRepairRecipeStepsQuotaRequestDeltas(c *Cli
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -11706,6 +11748,9 @@ func canonicalizeInstanceRepairRecipeStepsQuotaRequestDeltas(des, initial *Insta
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -11720,6 +11765,9 @@ func canonicalizeNewInstanceRepairRecipeStepsQuotaRequestDeltas(c *Client, des, 
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -12862,6 +12910,9 @@ func canonicalizeInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(des, init
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -12876,6 +12927,9 @@ func canonicalizeNewInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(c *Cli
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -14018,6 +14072,9 @@ func canonicalizeInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(des, init
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -14032,6 +14089,9 @@ func canonicalizeNewInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(c *Cli
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -15174,6 +15234,9 @@ func canonicalizeInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(des, init
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -15188,6 +15251,9 @@ func canonicalizeNewInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(c *Cli
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -16330,6 +16396,9 @@ func canonicalizeInstanceFreezeRecipeStepsQuotaRequestDeltas(des, initial *Insta
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -16344,6 +16413,9 @@ func canonicalizeNewInstanceFreezeRecipeStepsQuotaRequestDeltas(c *Client, des, 
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -17486,6 +17558,9 @@ func canonicalizeInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(des, in
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -17500,6 +17575,9 @@ func canonicalizeNewInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(c *C
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -18642,6 +18720,9 @@ func canonicalizeInstanceUnfreezeRecipeStepsQuotaRequestDeltas(des, initial *Ins
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -18656,6 +18737,9 @@ func canonicalizeNewInstanceUnfreezeRecipeStepsQuotaRequestDeltas(c *Client, des
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -19798,6 +19882,9 @@ func canonicalizeInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDe
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -19812,6 +19899,9 @@ func canonicalizeNewInstancePreprocessReportInstanceHealthRecipeStepsQuotaReques
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -20954,6 +21044,9 @@ func canonicalizeInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(des, 
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -20968,6 +21061,9 @@ func canonicalizeNewInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(c 
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -22110,6 +22206,9 @@ func canonicalizeInstancePreprocessGetRecipeStepsQuotaRequestDeltas(des, initial
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -22124,6 +22223,9 @@ func canonicalizeNewInstancePreprocessGetRecipeStepsQuotaRequestDeltas(c *Client
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -23266,6 +23368,9 @@ func canonicalizeInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(des, in
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -23280,6 +23385,9 @@ func canonicalizeNewInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(c *C
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -24422,6 +24530,9 @@ func canonicalizeInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(des, 
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -24436,6 +24547,9 @@ func canonicalizeNewInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(c 
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -25578,6 +25692,9 @@ func canonicalizeInstanceReadonlyRecipeStepsQuotaRequestDeltas(des, initial *Ins
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -25592,6 +25709,9 @@ func canonicalizeNewInstanceReadonlyRecipeStepsQuotaRequestDeltas(c *Client, des
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -26734,6 +26854,9 @@ func canonicalizeInstanceReconcileRecipeStepsQuotaRequestDeltas(des, initial *In
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -26748,6 +26871,9 @@ func canonicalizeNewInstanceReconcileRecipeStepsQuotaRequestDeltas(c *Client, de
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -27890,6 +28016,9 @@ func canonicalizeInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(des,
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -27904,6 +28033,9 @@ func canonicalizeNewInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(c
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -29046,6 +29178,9 @@ func canonicalizeInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(des, i
 	if dcl.IsZeroValue(des.Amount) {
 		des.Amount = initial.Amount
 	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, initial.QuotaLocationName) || dcl.IsZeroValue(des.QuotaLocationName) {
+		des.QuotaLocationName = initial.QuotaLocationName
+	}
 
 	return des
 }
@@ -29060,6 +29195,9 @@ func canonicalizeNewInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(c *
 	}
 	if dcl.IsZeroValue(nw.Amount) {
 		nw.Amount = des.Amount
+	}
+	if dcl.StringCanonicalize(des.QuotaLocationName, nw.QuotaLocationName) {
+		nw.QuotaLocationName = des.QuotaLocationName
 	}
 
 	return nw
@@ -30686,6 +30824,13 @@ func compareInstancePreprocessCreateRecipeStepsQuotaRequestDeltasNewStyle(d, a i
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -31342,6 +31487,13 @@ func compareInstanceCreateRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -31987,6 +32139,13 @@ func compareInstanceDeleteRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}
 	}
 
 	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -32642,6 +32801,13 @@ func compareInstanceUpdateRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -33287,6 +33453,13 @@ func compareInstancePreprocessResetRecipeStepsQuotaRequestDeltasNewStyle(d, a in
 	}
 
 	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -33942,6 +34115,13 @@ func compareInstanceResetRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{},
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -34587,6 +34767,13 @@ func compareInstancePreprocessRepairRecipeStepsQuotaRequestDeltasNewStyle(d, a i
 	}
 
 	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -35242,6 +35429,13 @@ func compareInstanceRepairRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -35887,6 +36081,13 @@ func compareInstancePreprocessDeleteRecipeStepsQuotaRequestDeltasNewStyle(d, a i
 	}
 
 	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -36542,6 +36743,13 @@ func compareInstancePreprocessUpdateRecipeStepsQuotaRequestDeltasNewStyle(d, a i
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -37187,6 +37395,13 @@ func compareInstancePreprocessFreezeRecipeStepsQuotaRequestDeltasNewStyle(d, a i
 	}
 
 	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -37842,6 +38057,13 @@ func compareInstanceFreezeRecipeStepsQuotaRequestDeltasNewStyle(d, a interface{}
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -38487,6 +38709,13 @@ func compareInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltasNewStyle(d, a
 	}
 
 	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -39142,6 +39371,13 @@ func compareInstanceUnfreezeRecipeStepsQuotaRequestDeltasNewStyle(d, a interface
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -39787,6 +40023,13 @@ func compareInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltasN
 	}
 
 	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -40442,6 +40685,13 @@ func compareInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltasNewStyle(d,
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -41087,6 +41337,13 @@ func compareInstancePreprocessGetRecipeStepsQuotaRequestDeltasNewStyle(d, a inte
 	}
 
 	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -41742,6 +41999,13 @@ func compareInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltasNewStyle(d, a
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -42387,6 +42651,13 @@ func compareInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltasNewStyle(d,
 	}
 
 	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -43042,6 +43313,13 @@ func compareInstanceReadonlyRecipeStepsQuotaRequestDeltasNewStyle(d, a interface
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -43687,6 +43965,13 @@ func compareInstanceReconcileRecipeStepsQuotaRequestDeltasNewStyle(d, a interfac
 	}
 
 	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -44342,6 +44627,13 @@ func compareInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltasNewStyle(d
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -44987,6 +45279,13 @@ func compareInstancePreprocessReconcileRecipeStepsQuotaRequestDeltasNewStyle(d, 
 	}
 
 	if ds, err := dcl.Diff(desired.Amount, actual.Amount, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("Amount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.QuotaLocationName, actual.QuotaLocationName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceUpdateInstanceOperation")}, fn.AddNest("QuotaLocationName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -46776,6 +47075,9 @@ func expandInstancePreprocessCreateRecipeStepsQuotaRequestDeltas(c *Client, f *I
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -46795,6 +47097,7 @@ func flattenInstancePreprocessCreateRecipeStepsQuotaRequestDeltas(c *Client, i i
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -48550,6 +48853,9 @@ func expandInstanceCreateRecipeStepsQuotaRequestDeltas(c *Client, f *InstanceCre
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -48569,6 +48875,7 @@ func flattenInstanceCreateRecipeStepsQuotaRequestDeltas(c *Client, i interface{}
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -50214,6 +50521,9 @@ func expandInstanceDeleteRecipeStepsQuotaRequestDeltas(c *Client, f *InstanceDel
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -50233,6 +50543,7 @@ func flattenInstanceDeleteRecipeStepsQuotaRequestDeltas(c *Client, i interface{}
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -51878,6 +52189,9 @@ func expandInstanceUpdateRecipeStepsQuotaRequestDeltas(c *Client, f *InstanceUpd
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -51897,6 +52211,7 @@ func flattenInstanceUpdateRecipeStepsQuotaRequestDeltas(c *Client, i interface{}
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -53542,6 +53857,9 @@ func expandInstancePreprocessResetRecipeStepsQuotaRequestDeltas(c *Client, f *In
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -53561,6 +53879,7 @@ func flattenInstancePreprocessResetRecipeStepsQuotaRequestDeltas(c *Client, i in
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -55206,6 +55525,9 @@ func expandInstanceResetRecipeStepsQuotaRequestDeltas(c *Client, f *InstanceRese
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -55225,6 +55547,7 @@ func flattenInstanceResetRecipeStepsQuotaRequestDeltas(c *Client, i interface{})
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -56870,6 +57193,9 @@ func expandInstancePreprocessRepairRecipeStepsQuotaRequestDeltas(c *Client, f *I
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -56889,6 +57215,7 @@ func flattenInstancePreprocessRepairRecipeStepsQuotaRequestDeltas(c *Client, i i
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -58534,6 +58861,9 @@ func expandInstanceRepairRecipeStepsQuotaRequestDeltas(c *Client, f *InstanceRep
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -58553,6 +58883,7 @@ func flattenInstanceRepairRecipeStepsQuotaRequestDeltas(c *Client, i interface{}
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -60198,6 +60529,9 @@ func expandInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(c *Client, f *I
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -60217,6 +60551,7 @@ func flattenInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas(c *Client, i i
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -61862,6 +62197,9 @@ func expandInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(c *Client, f *I
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -61881,6 +62219,7 @@ func flattenInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas(c *Client, i i
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -63526,6 +63865,9 @@ func expandInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(c *Client, f *I
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -63545,6 +63887,7 @@ func flattenInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas(c *Client, i i
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -65190,6 +65533,9 @@ func expandInstanceFreezeRecipeStepsQuotaRequestDeltas(c *Client, f *InstanceFre
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -65209,6 +65555,7 @@ func flattenInstanceFreezeRecipeStepsQuotaRequestDeltas(c *Client, i interface{}
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -66854,6 +67201,9 @@ func expandInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(c *Client, f 
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -66873,6 +67223,7 @@ func flattenInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas(c *Client, i
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -68518,6 +68869,9 @@ func expandInstanceUnfreezeRecipeStepsQuotaRequestDeltas(c *Client, f *InstanceU
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -68537,6 +68891,7 @@ func flattenInstanceUnfreezeRecipeStepsQuotaRequestDeltas(c *Client, i interface
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -70182,6 +70537,9 @@ func expandInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas(c
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -70201,6 +70559,7 @@ func flattenInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas(
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -71846,6 +72205,9 @@ func expandInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(c *Client, 
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -71865,6 +72227,7 @@ func flattenInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas(c *Client,
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -73510,6 +73873,9 @@ func expandInstancePreprocessGetRecipeStepsQuotaRequestDeltas(c *Client, f *Inst
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -73529,6 +73895,7 @@ func flattenInstancePreprocessGetRecipeStepsQuotaRequestDeltas(c *Client, i inte
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -75174,6 +75541,9 @@ func expandInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(c *Client, f 
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -75193,6 +75563,7 @@ func flattenInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas(c *Client, i
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -76838,6 +77209,9 @@ func expandInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(c *Client, 
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -76857,6 +77231,7 @@ func flattenInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas(c *Client,
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -78502,6 +78877,9 @@ func expandInstanceReadonlyRecipeStepsQuotaRequestDeltas(c *Client, f *InstanceR
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -78521,6 +78899,7 @@ func flattenInstanceReadonlyRecipeStepsQuotaRequestDeltas(c *Client, i interface
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -80166,6 +80545,9 @@ func expandInstanceReconcileRecipeStepsQuotaRequestDeltas(c *Client, f *Instance
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -80185,6 +80567,7 @@ func flattenInstanceReconcileRecipeStepsQuotaRequestDeltas(c *Client, i interfac
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -81830,6 +82213,9 @@ func expandInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(c *Client,
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -81849,6 +82235,7 @@ func flattenInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas(c *Client
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }
@@ -83494,6 +83881,9 @@ func expandInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(c *Client, f
 	if v := f.Amount; !dcl.IsEmptyValueIndirect(v) {
 		m["amount"] = v
 	}
+	if v := f.QuotaLocationName; !dcl.IsEmptyValueIndirect(v) {
+		m["quotaLocationName"] = v
+	}
 
 	return m, nil
 }
@@ -83513,6 +83903,7 @@ func flattenInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas(c *Client, 
 	}
 	r.MetricName = dcl.FlattenString(m["metricName"])
 	r.Amount = dcl.FlattenInteger(m["amount"])
+	r.QuotaLocationName = dcl.FlattenString(m["quotaLocationName"])
 
 	return r
 }

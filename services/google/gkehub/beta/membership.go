@@ -735,8 +735,13 @@ func applyMembershipHelper(c *Client, ctx context.Context, rawDesired *Membershi
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToMembershipOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -778,9 +783,7 @@ func applyMembershipHelper(c *Client, ctx context.Context, rawDesired *Membershi
 	if create {
 		ops = append(ops, &createMembershipOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteMembershipOperation{})
-
 		ops = append(ops, &createMembershipOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeMembershipDesiredState(rawDesired, nil)
@@ -810,7 +813,6 @@ func applyMembershipHelper(c *Client, ctx context.Context, rawDesired *Membershi
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

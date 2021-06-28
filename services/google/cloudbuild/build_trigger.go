@@ -1009,8 +1009,13 @@ func applyBuildTriggerHelper(c *Client, ctx context.Context, rawDesired *BuildTr
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToBuildTriggerOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -1052,9 +1057,7 @@ func applyBuildTriggerHelper(c *Client, ctx context.Context, rawDesired *BuildTr
 	if create {
 		ops = append(ops, &createBuildTriggerOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteBuildTriggerOperation{})
-
 		ops = append(ops, &createBuildTriggerOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeBuildTriggerDesiredState(rawDesired, nil)
@@ -1084,7 +1087,6 @@ func applyBuildTriggerHelper(c *Client, ctx context.Context, rawDesired *BuildTr
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

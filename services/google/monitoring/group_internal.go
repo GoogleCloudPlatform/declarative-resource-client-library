@@ -44,14 +44,14 @@ func groupGetURL(userBasePath string, r *Group) (string, error) {
 		"project": dcl.ValueOrEmptyString(r.Project),
 		"name":    dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("v3/projects/{{project}}/groups/{{name}}", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/groups/{{name}}", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 }
 
 func groupListURL(userBasePath, project string) (string, error) {
 	params := map[string]interface{}{
 		"project": project,
 	}
-	return dcl.URL("v3/projects/{{project}}/groups", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/groups", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 
 }
 
@@ -59,7 +59,7 @@ func groupCreateURL(userBasePath, project string) (string, error) {
 	params := map[string]interface{}{
 		"project": project,
 	}
-	return dcl.URL("v3/projects/{{project}}/groups", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/groups", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 
 }
 
@@ -68,7 +68,7 @@ func groupDeleteURL(userBasePath string, r *Group) (string, error) {
 		"project": dcl.ValueOrEmptyString(r.Project),
 		"name":    dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("v3/projects/{{project}}/groups/{{name}}", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/groups/{{name}}", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 }
 
 // groupApiOperation represents a mutable operation in the underlying REST
@@ -357,7 +357,6 @@ func (c *Client) groupDiffsForRawDesired(ctx context.Context, rawDesired *Group,
 		desired, err := canonicalizeGroupDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
-
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetGroup(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -370,7 +369,6 @@ func (c *Client) groupDiffsForRawDesired(ctx context.Context, rawDesired *Group,
 		desired, err = canonicalizeGroupDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Group: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Group: %v", rawDesired)
 
@@ -390,6 +388,7 @@ func (c *Client) groupDiffsForRawDesired(ctx context.Context, rawDesired *Group,
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffGroup(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -575,7 +574,7 @@ func (r *Group) updateURL(userBasePath, updateName string) (string, error) {
 			"project": dcl.ValueOrEmptyString(n.Project),
 			"name":    dcl.ValueOrEmptyString(n.Name),
 		}
-		return dcl.URL("v3/projects/{{project}}/groups/{{name}}", "https://monitoring.googleapis.com/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/groups/{{name}}", "https://monitoring.googleapis.com/v3/", userBasePath, fields), nil
 
 	}
 	return "", fmt.Errorf("unknown update name: %s", updateName)

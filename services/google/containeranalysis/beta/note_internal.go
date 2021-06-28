@@ -590,7 +590,6 @@ func (c *Client) noteDiffsForRawDesired(ctx context.Context, rawDesired *Note, o
 		desired, err = canonicalizeNoteDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Note: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Note: %v", rawDesired)
 
@@ -610,6 +609,7 @@ func (c *Client) noteDiffsForRawDesired(ctx context.Context, rawDesired *Note, o
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffNote(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

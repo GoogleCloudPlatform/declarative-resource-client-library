@@ -341,8 +341,13 @@ func applyWorkerPoolHelper(c *Client, ctx context.Context, rawDesired *WorkerPoo
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToWorkerPoolOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -384,9 +389,7 @@ func applyWorkerPoolHelper(c *Client, ctx context.Context, rawDesired *WorkerPoo
 	if create {
 		ops = append(ops, &createWorkerPoolOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteWorkerPoolOperation{})
-
 		ops = append(ops, &createWorkerPoolOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeWorkerPoolDesiredState(rawDesired, nil)
@@ -416,7 +419,6 @@ func applyWorkerPoolHelper(c *Client, ctx context.Context, rawDesired *WorkerPoo
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

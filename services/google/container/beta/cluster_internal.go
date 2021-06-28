@@ -860,6 +860,11 @@ func (op *updateClusterUpdateAddonsConfigOperation) do(ctx context.Context, r *C
 func newUpdateClusterUpdateAutoscalingRequest(ctx context.Context, f *Cluster, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
+	if v, err := expandClusterAutoscaling(c, f.Autoscaling); err != nil {
+		return nil, fmt.Errorf("error expanding Autoscaling into desiredAutoscaling: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["desiredAutoscaling"] = v
+	}
 	return req, nil
 }
 
@@ -1965,7 +1970,6 @@ func (c *Client) clusterDiffsForRawDesired(ctx context.Context, rawDesired *Clus
 		desired, err = canonicalizeClusterDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Cluster: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Cluster: %v", rawDesired)
 
@@ -1985,6 +1989,7 @@ func (c *Client) clusterDiffsForRawDesired(ctx context.Context, rawDesired *Clus
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffCluster(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

@@ -694,8 +694,13 @@ func applyBucketHelper(c *Client, ctx context.Context, rawDesired *Bucket, opts 
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToBucketOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -737,9 +742,7 @@ func applyBucketHelper(c *Client, ctx context.Context, rawDesired *Bucket, opts 
 	if create {
 		ops = append(ops, &createBucketOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteBucketOperation{})
-
 		ops = append(ops, &createBucketOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeBucketDesiredState(rawDesired, nil)
@@ -769,7 +772,6 @@ func applyBucketHelper(c *Client, ctx context.Context, rawDesired *Bucket, opts 
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

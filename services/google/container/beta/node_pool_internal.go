@@ -417,6 +417,11 @@ func (op *updateNodePoolSetSizeOperation) do(ctx context.Context, r *NodePool, c
 func newUpdateNodePoolUpdateRequest(ctx context.Context, f *NodePool, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
+	if v, err := expandNodePoolConfig(c, f.Config); err != nil {
+		return nil, fmt.Errorf("error expanding Config into config: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["config"] = v
+	}
 	if v := f.Locations; !dcl.IsEmptyValueIndirect(v) {
 		req["locations"] = v
 	}
@@ -713,7 +718,6 @@ func (c *Client) nodePoolDiffsForRawDesired(ctx context.Context, rawDesired *Nod
 		desired, err = canonicalizeNodePoolDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for NodePool: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for NodePool: %v", rawDesired)
 
@@ -733,6 +737,7 @@ func (c *Client) nodePoolDiffsForRawDesired(ctx context.Context, rawDesired *Nod
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffNodePool(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

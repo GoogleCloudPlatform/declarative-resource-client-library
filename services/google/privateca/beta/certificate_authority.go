@@ -3929,8 +3929,13 @@ func applyCertificateAuthorityHelper(c *Client, ctx context.Context, rawDesired 
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToCertificateAuthorityOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -3972,9 +3977,7 @@ func applyCertificateAuthorityHelper(c *Client, ctx context.Context, rawDesired 
 	if create {
 		ops = append(ops, &createCertificateAuthorityOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteCertificateAuthorityOperation{})
-
 		ops = append(ops, &createCertificateAuthorityOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeCertificateAuthorityDesiredState(rawDesired, nil)
@@ -4004,7 +4007,6 @@ func applyCertificateAuthorityHelper(c *Client, ctx context.Context, rawDesired 
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

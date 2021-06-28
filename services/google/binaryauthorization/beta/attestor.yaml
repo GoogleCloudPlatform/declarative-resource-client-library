@@ -92,6 +92,7 @@ components:
           x-dcl-go-type: AttestorUserOwnedDrydockNote
           description: This specifies how an attestation will be read, and how it
             will be used during policy enforcement.
+          x-kubernetes-immutable: true
           required:
           - noteReference
           properties:
@@ -107,6 +108,7 @@ components:
                 address is fixed for the lifetime of the Attestor, but callers should
                 not make any other assumptions about the service account email; future
                 versions may use an email based on a different naming pattern.
+              x-kubernetes-immutable: true
             noteReference:
               type: string
               x-dcl-go-name: NoteReference
@@ -116,6 +118,7 @@ components:
                 stored as a Grafeas Attestation. Authority Occurrence that names a
                 container image and that links to this Note. Grafeas is an external
                 dependency.'
+              x-kubernetes-immutable: true
               x-dcl-references:
               - resource: Containeranalysis/Note
                 field: name

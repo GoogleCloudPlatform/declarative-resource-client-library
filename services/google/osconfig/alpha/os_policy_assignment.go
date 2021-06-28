@@ -1986,8 +1986,13 @@ func applyOsPolicyAssignmentHelper(c *Client, ctx context.Context, rawDesired *O
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToOsPolicyAssignmentOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -2029,9 +2034,7 @@ func applyOsPolicyAssignmentHelper(c *Client, ctx context.Context, rawDesired *O
 	if create {
 		ops = append(ops, &createOsPolicyAssignmentOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteOsPolicyAssignmentOperation{})
-
 		ops = append(ops, &createOsPolicyAssignmentOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeOsPolicyAssignmentDesiredState(rawDesired, nil)
@@ -2061,7 +2064,6 @@ func applyOsPolicyAssignmentHelper(c *Client, ctx context.Context, rawDesired *O
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

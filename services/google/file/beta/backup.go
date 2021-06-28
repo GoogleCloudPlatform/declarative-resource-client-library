@@ -272,8 +272,13 @@ func applyBackupHelper(c *Client, ctx context.Context, rawDesired *Backup, opts 
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToBackupOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -315,9 +320,7 @@ func applyBackupHelper(c *Client, ctx context.Context, rawDesired *Backup, opts 
 	if create {
 		ops = append(ops, &createBackupOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteBackupOperation{})
-
 		ops = append(ops, &createBackupOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeBackupDesiredState(rawDesired, nil)
@@ -347,7 +350,6 @@ func applyBackupHelper(c *Client, ctx context.Context, rawDesired *Backup, opts 
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

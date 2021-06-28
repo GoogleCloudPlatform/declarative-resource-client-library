@@ -336,7 +336,6 @@ func (c *Client) firewallRuleDiffsForRawDesired(ctx context.Context, rawDesired 
 		desired, err = canonicalizeFirewallRuleDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for FirewallRule: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for FirewallRule: %v", rawDesired)
 
@@ -356,6 +355,7 @@ func (c *Client) firewallRuleDiffsForRawDesired(ctx context.Context, rawDesired 
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffFirewallRule(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

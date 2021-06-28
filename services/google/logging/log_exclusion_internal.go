@@ -353,7 +353,6 @@ func (c *Client) logExclusionDiffsForRawDesired(ctx context.Context, rawDesired 
 		desired, err = canonicalizeLogExclusionDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for LogExclusion: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for LogExclusion: %v", rawDesired)
 
@@ -373,6 +372,7 @@ func (c *Client) logExclusionDiffsForRawDesired(ctx context.Context, rawDesired 
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffLogExclusion(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

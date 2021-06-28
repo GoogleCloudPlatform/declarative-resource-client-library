@@ -207,8 +207,13 @@ func applyConfigHelper(c *Client, ctx context.Context, rawDesired *Config, opts 
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToConfigOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -250,9 +255,7 @@ func applyConfigHelper(c *Client, ctx context.Context, rawDesired *Config, opts 
 	if create {
 		ops = append(ops, &createConfigOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteConfigOperation{})
-
 		ops = append(ops, &createConfigOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeConfigDesiredState(rawDesired, nil)
@@ -282,7 +285,6 @@ func applyConfigHelper(c *Client, ctx context.Context, rawDesired *Config, opts 
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

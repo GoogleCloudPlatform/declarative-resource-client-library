@@ -108,14 +108,14 @@ func uptimeCheckConfigGetURL(userBasePath string, r *UptimeCheckConfig) (string,
 		"project": dcl.ValueOrEmptyString(r.Project),
 		"name":    dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("v3/projects/{{project}}/uptimeCheckConfigs/{{name}}", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/uptimeCheckConfigs/{{name}}", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 }
 
 func uptimeCheckConfigListURL(userBasePath, project string) (string, error) {
 	params := map[string]interface{}{
 		"project": project,
 	}
-	return dcl.URL("v3/projects/{{project}}/uptimeCheckConfigs", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/uptimeCheckConfigs", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 
 }
 
@@ -123,7 +123,7 @@ func uptimeCheckConfigCreateURL(userBasePath, project string) (string, error) {
 	params := map[string]interface{}{
 		"project": project,
 	}
-	return dcl.URL("v3/projects/{{project}}/uptimeCheckConfigs", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/uptimeCheckConfigs", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 
 }
 
@@ -132,7 +132,7 @@ func uptimeCheckConfigDeleteURL(userBasePath string, r *UptimeCheckConfig) (stri
 		"project": dcl.ValueOrEmptyString(r.Project),
 		"name":    dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("v3/projects/{{project}}/uptimeCheckConfigs/{{name}}", "https://monitoring.googleapis.com/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/uptimeCheckConfigs/{{name}}", "https://monitoring.googleapis.com/v3/", userBasePath, params), nil
 }
 
 // uptimeCheckConfigApiOperation represents a mutable operation in the underlying REST
@@ -444,7 +444,6 @@ func (c *Client) uptimeCheckConfigDiffsForRawDesired(ctx context.Context, rawDes
 		desired, err := canonicalizeUptimeCheckConfigDesiredState(rawDesired, nil)
 		return nil, desired, nil, err
 	}
-
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetUptimeCheckConfig(ctx, fetchState.urlNormalized())
 	if rawInitial == nil {
@@ -457,7 +456,6 @@ func (c *Client) uptimeCheckConfigDiffsForRawDesired(ctx context.Context, rawDes
 		desired, err = canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for UptimeCheckConfig: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for UptimeCheckConfig: %v", rawDesired)
 
@@ -477,6 +475,7 @@ func (c *Client) uptimeCheckConfigDiffsForRawDesired(ctx context.Context, rawDes
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffUptimeCheckConfig(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1619,7 +1618,7 @@ func (r *UptimeCheckConfig) updateURL(userBasePath, updateName string) (string, 
 			"project": dcl.ValueOrEmptyString(n.Project),
 			"name":    dcl.ValueOrEmptyString(n.Name),
 		}
-		return dcl.URL("v3/projects/{{project}}/uptimeCheckConfigs/{{name}}", "https://monitoring.googleapis.com/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/uptimeCheckConfigs/{{name}}", "https://monitoring.googleapis.com/v3/", userBasePath, fields), nil
 
 	}
 	return "", fmt.Errorf("unknown update name: %s", updateName)

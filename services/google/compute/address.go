@@ -362,8 +362,13 @@ func applyAddressHelper(c *Client, ctx context.Context, rawDesired *Address, opt
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToAddressOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -405,9 +410,7 @@ func applyAddressHelper(c *Client, ctx context.Context, rawDesired *Address, opt
 	if create {
 		ops = append(ops, &createAddressOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteAddressOperation{})
-
 		ops = append(ops, &createAddressOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeAddressDesiredState(rawDesired, nil)
@@ -437,7 +440,6 @@ func applyAddressHelper(c *Client, ctx context.Context, rawDesired *Address, opt
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

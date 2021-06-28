@@ -262,8 +262,13 @@ func applyOAuthIdpConfigHelper(c *Client, ctx context.Context, rawDesired *OAuth
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToOAuthIdpConfigOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -305,9 +310,7 @@ func applyOAuthIdpConfigHelper(c *Client, ctx context.Context, rawDesired *OAuth
 	if create {
 		ops = append(ops, &createOAuthIdpConfigOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteOAuthIdpConfigOperation{})
-
 		ops = append(ops, &createOAuthIdpConfigOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeOAuthIdpConfigDesiredState(rawDesired, nil)
@@ -337,7 +340,6 @@ func applyOAuthIdpConfigHelper(c *Client, ctx context.Context, rawDesired *OAuth
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

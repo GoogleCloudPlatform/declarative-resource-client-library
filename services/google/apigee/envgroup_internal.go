@@ -369,7 +369,6 @@ func (c *Client) envgroupDiffsForRawDesired(ctx context.Context, rawDesired *Env
 		desired, err = canonicalizeEnvgroupDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for Envgroup: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Envgroup: %v", rawDesired)
 
@@ -389,6 +388,7 @@ func (c *Client) envgroupDiffsForRawDesired(ctx context.Context, rawDesired *Env
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffEnvgroup(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 

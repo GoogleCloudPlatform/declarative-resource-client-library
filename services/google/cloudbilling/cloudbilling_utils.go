@@ -25,8 +25,7 @@ import (
 func (op *deleteProjectBillingInfoOperation) do(ctx context.Context, r *ProjectBillingInfo, c *Client) error {
 	// ProjectBillingInfo has no DELETE route, so we will instead delete using a PUT request with billing account set to an empty string.
 
-	projectID := r.createFields()
-	u, err := projectBillingInfoCreateURL(c.Config.BasePath, projectID)
+	u, err := r.updateURL(c.Config.BasePath, "UpdateProjectBillingInfo")
 	if err != nil {
 		return err
 	}

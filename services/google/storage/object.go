@@ -297,8 +297,13 @@ func applyObjectHelper(c *Client, ctx context.Context, rawDesired *Object, opts 
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToObjectOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -340,9 +345,7 @@ func applyObjectHelper(c *Client, ctx context.Context, rawDesired *Object, opts 
 	if create {
 		ops = append(ops, &createObjectOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteObjectOperation{})
-
 		ops = append(ops, &createObjectOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeObjectDesiredState(rawDesired, nil)
@@ -372,7 +375,6 @@ func applyObjectHelper(c *Client, ctx context.Context, rawDesired *Object, opts 
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

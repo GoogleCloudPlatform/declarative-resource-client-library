@@ -52,7 +52,7 @@ components:
   schemas:
     Dashboard:
       title: Dashboard
-      x-dcl-id: v1/projects/{{project}}/dashboards/{{name}}
+      x-dcl-id: projects/{{project}}/dashboards/{{name}}
       x-dcl-parent-container: project
       type: object
       required:

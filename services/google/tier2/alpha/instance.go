@@ -1822,9 +1822,10 @@ func (r *InstancePreprocessCreateRecipeStepsStatusDetails) HashCode() string {
 }
 
 type InstancePreprocessCreateRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstancePreprocessCreateRecipeStepsQuotaRequestDeltas InstancePreprocessCreateRecipeStepsQuotaRequestDeltas
@@ -1845,6 +1846,8 @@ func (r *InstancePreprocessCreateRecipeStepsQuotaRequestDeltas) UnmarshalJSON(da
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -2580,9 +2583,10 @@ func (r *InstanceCreateRecipeStepsStatusDetails) HashCode() string {
 }
 
 type InstanceCreateRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstanceCreateRecipeStepsQuotaRequestDeltas InstanceCreateRecipeStepsQuotaRequestDeltas
@@ -2603,6 +2607,8 @@ func (r *InstanceCreateRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte)
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -3295,9 +3301,10 @@ func (r *InstanceDeleteRecipeStepsStatusDetails) HashCode() string {
 }
 
 type InstanceDeleteRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstanceDeleteRecipeStepsQuotaRequestDeltas InstanceDeleteRecipeStepsQuotaRequestDeltas
@@ -3318,6 +3325,8 @@ func (r *InstanceDeleteRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte)
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -4010,9 +4019,10 @@ func (r *InstanceUpdateRecipeStepsStatusDetails) HashCode() string {
 }
 
 type InstanceUpdateRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstanceUpdateRecipeStepsQuotaRequestDeltas InstanceUpdateRecipeStepsQuotaRequestDeltas
@@ -4033,6 +4043,8 @@ func (r *InstanceUpdateRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte)
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -4725,9 +4737,10 @@ func (r *InstancePreprocessResetRecipeStepsStatusDetails) HashCode() string {
 }
 
 type InstancePreprocessResetRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstancePreprocessResetRecipeStepsQuotaRequestDeltas InstancePreprocessResetRecipeStepsQuotaRequestDeltas
@@ -4748,6 +4761,8 @@ func (r *InstancePreprocessResetRecipeStepsQuotaRequestDeltas) UnmarshalJSON(dat
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -5440,9 +5455,10 @@ func (r *InstanceResetRecipeStepsStatusDetails) HashCode() string {
 }
 
 type InstanceResetRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstanceResetRecipeStepsQuotaRequestDeltas InstanceResetRecipeStepsQuotaRequestDeltas
@@ -5463,6 +5479,8 @@ func (r *InstanceResetRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte) 
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -6155,9 +6173,10 @@ func (r *InstancePreprocessRepairRecipeStepsStatusDetails) HashCode() string {
 }
 
 type InstancePreprocessRepairRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstancePreprocessRepairRecipeStepsQuotaRequestDeltas InstancePreprocessRepairRecipeStepsQuotaRequestDeltas
@@ -6178,6 +6197,8 @@ func (r *InstancePreprocessRepairRecipeStepsQuotaRequestDeltas) UnmarshalJSON(da
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -6870,9 +6891,10 @@ func (r *InstanceRepairRecipeStepsStatusDetails) HashCode() string {
 }
 
 type InstanceRepairRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstanceRepairRecipeStepsQuotaRequestDeltas InstanceRepairRecipeStepsQuotaRequestDeltas
@@ -6893,6 +6915,8 @@ func (r *InstanceRepairRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte)
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -7585,9 +7609,10 @@ func (r *InstancePreprocessDeleteRecipeStepsStatusDetails) HashCode() string {
 }
 
 type InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstancePreprocessDeleteRecipeStepsQuotaRequestDeltas InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas
@@ -7608,6 +7633,8 @@ func (r *InstancePreprocessDeleteRecipeStepsQuotaRequestDeltas) UnmarshalJSON(da
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -8300,9 +8327,10 @@ func (r *InstancePreprocessUpdateRecipeStepsStatusDetails) HashCode() string {
 }
 
 type InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstancePreprocessUpdateRecipeStepsQuotaRequestDeltas InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas
@@ -8323,6 +8351,8 @@ func (r *InstancePreprocessUpdateRecipeStepsQuotaRequestDeltas) UnmarshalJSON(da
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -9015,9 +9045,10 @@ func (r *InstancePreprocessFreezeRecipeStepsStatusDetails) HashCode() string {
 }
 
 type InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstancePreprocessFreezeRecipeStepsQuotaRequestDeltas InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas
@@ -9038,6 +9069,8 @@ func (r *InstancePreprocessFreezeRecipeStepsQuotaRequestDeltas) UnmarshalJSON(da
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -9730,9 +9763,10 @@ func (r *InstanceFreezeRecipeStepsStatusDetails) HashCode() string {
 }
 
 type InstanceFreezeRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstanceFreezeRecipeStepsQuotaRequestDeltas InstanceFreezeRecipeStepsQuotaRequestDeltas
@@ -9753,6 +9787,8 @@ func (r *InstanceFreezeRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byte)
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -10445,9 +10481,10 @@ func (r *InstancePreprocessUnfreezeRecipeStepsStatusDetails) HashCode() string {
 }
 
 type InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas
@@ -10468,6 +10505,8 @@ func (r *InstancePreprocessUnfreezeRecipeStepsQuotaRequestDeltas) UnmarshalJSON(
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -11160,9 +11199,10 @@ func (r *InstanceUnfreezeRecipeStepsStatusDetails) HashCode() string {
 }
 
 type InstanceUnfreezeRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstanceUnfreezeRecipeStepsQuotaRequestDeltas InstanceUnfreezeRecipeStepsQuotaRequestDeltas
@@ -11183,6 +11223,8 @@ func (r *InstanceUnfreezeRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byt
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -11875,9 +11917,10 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsStatusDetails) HashCod
 }
 
 type InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas
@@ -11898,6 +11941,8 @@ func (r *InstancePreprocessReportInstanceHealthRecipeStepsQuotaRequestDeltas) Un
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -12590,9 +12635,10 @@ func (r *InstanceReportInstanceHealthRecipeStepsStatusDetails) HashCode() string
 }
 
 type InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas
@@ -12613,6 +12659,8 @@ func (r *InstanceReportInstanceHealthRecipeStepsQuotaRequestDeltas) UnmarshalJSO
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -13305,9 +13353,10 @@ func (r *InstancePreprocessGetRecipeStepsStatusDetails) HashCode() string {
 }
 
 type InstancePreprocessGetRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstancePreprocessGetRecipeStepsQuotaRequestDeltas InstancePreprocessGetRecipeStepsQuotaRequestDeltas
@@ -13328,6 +13377,8 @@ func (r *InstancePreprocessGetRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data 
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -14020,9 +14071,10 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsStatusDetails) HashCode() string {
 }
 
 type InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas
@@ -14043,6 +14095,8 @@ func (r *InstanceNotifyKeyAvailableRecipeStepsQuotaRequestDeltas) UnmarshalJSON(
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -14735,9 +14789,10 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsStatusDetails) HashCode() string
 }
 
 type InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas
@@ -14758,6 +14813,8 @@ func (r *InstanceNotifyKeyUnavailableRecipeStepsQuotaRequestDeltas) UnmarshalJSO
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -15450,9 +15507,10 @@ func (r *InstanceReadonlyRecipeStepsStatusDetails) HashCode() string {
 }
 
 type InstanceReadonlyRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstanceReadonlyRecipeStepsQuotaRequestDeltas InstanceReadonlyRecipeStepsQuotaRequestDeltas
@@ -15473,6 +15531,8 @@ func (r *InstanceReadonlyRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []byt
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -16165,9 +16225,10 @@ func (r *InstanceReconcileRecipeStepsStatusDetails) HashCode() string {
 }
 
 type InstanceReconcileRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstanceReconcileRecipeStepsQuotaRequestDeltas InstanceReconcileRecipeStepsQuotaRequestDeltas
@@ -16188,6 +16249,8 @@ func (r *InstanceReconcileRecipeStepsQuotaRequestDeltas) UnmarshalJSON(data []by
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -16880,9 +16943,10 @@ func (r *InstancePreprocessPassthroughRecipeStepsStatusDetails) HashCode() strin
 }
 
 type InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas
@@ -16903,6 +16967,8 @@ func (r *InstancePreprocessPassthroughRecipeStepsQuotaRequestDeltas) UnmarshalJS
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -17595,9 +17661,10 @@ func (r *InstancePreprocessReconcileRecipeStepsStatusDetails) HashCode() string 
 }
 
 type InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas struct {
-	empty      bool    `json:"-"`
-	MetricName *string `json:"metricName"`
-	Amount     *int64  `json:"amount"`
+	empty             bool    `json:"-"`
+	MetricName        *string `json:"metricName"`
+	Amount            *int64  `json:"amount"`
+	QuotaLocationName *string `json:"quotaLocationName"`
 }
 
 type jsonInstancePreprocessReconcileRecipeStepsQuotaRequestDeltas InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas
@@ -17618,6 +17685,8 @@ func (r *InstancePreprocessReconcileRecipeStepsQuotaRequestDeltas) UnmarshalJSON
 		r.MetricName = res.MetricName
 
 		r.Amount = res.Amount
+
+		r.QuotaLocationName = res.QuotaLocationName
 
 	}
 	return nil
@@ -18287,8 +18356,13 @@ func applyInstanceHelper(c *Client, ctx context.Context, rawDesired *Instance, o
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
+	for _, fd := range fieldDiffs {
+		fmt.Printf("fd: %+v\n", fd)
+	}
+
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToInstanceOp(opStrings, fieldDiffs, opts)
+	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -18330,9 +18404,7 @@ func applyInstanceHelper(c *Client, ctx context.Context, rawDesired *Instance, o
 	if create {
 		ops = append(ops, &createInstanceOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteInstanceOperation{})
-
 		ops = append(ops, &createInstanceOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeInstanceDesiredState(rawDesired, nil)
@@ -18362,7 +18434,6 @@ func applyInstanceHelper(c *Client, ctx context.Context, rawDesired *Instance, o
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

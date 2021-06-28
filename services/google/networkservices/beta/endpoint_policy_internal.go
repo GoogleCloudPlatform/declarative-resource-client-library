@@ -440,7 +440,6 @@ func (c *Client) endpointPolicyDiffsForRawDesired(ctx context.Context, rawDesire
 		desired, err = canonicalizeEndpointPolicyDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for EndpointPolicy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for EndpointPolicy: %v", rawDesired)
 
@@ -460,6 +459,7 @@ func (c *Client) endpointPolicyDiffsForRawDesired(ctx context.Context, rawDesire
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffEndpointPolicy(c, desired, initial, opts...)
+	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
