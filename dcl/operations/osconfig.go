@@ -29,7 +29,7 @@ type OSPolicyAssignmentDeleteOperation struct {
 
 // Wait waits for an OSPolicyAssignmentDeleteOperation to complete by waiting until the operation returns a 404.
 func (op *OSPolicyAssignmentDeleteOperation) Wait(ctx context.Context, c *dcl.Config, _, _ string) error {
-	c.Logger.Infof("Waiting on: %v", op)
+	c.Logger.Infof("Waiting on: %q", op.Name)
 	op.config = c
 
 	return dcl.Do(ctx, op.operate, c.RetryProvider)
@@ -41,5 +41,5 @@ func (op *OSPolicyAssignmentDeleteOperation) operate(ctx context.Context) (*dcl.
 	if dcl.IsNotFound(err) {
 		return nil, nil
 	}
-	return resp, err
+	return resp, dcl.OperationNotDone{}
 }
