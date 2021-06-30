@@ -905,6 +905,19 @@ func (c *Client) ListBuildTriggerWithMaxResults(ctx context.Context, project str
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *BuildTrigger) URLNormalized() *BuildTrigger {
+	normalized := dcl.Copy(*r).(BuildTrigger)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Filename = dcl.SelfLinkToName(r.Filename)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Id = dcl.SelfLinkToName(r.Id)
+	normalized.CreateTime = dcl.SelfLinkToName(r.CreateTime)
+	return &normalized
+}
 func (c *Client) GetBuildTrigger(ctx context.Context, r *BuildTrigger) (*BuildTrigger, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -1052,9 +1065,7 @@ func applyBuildTriggerHelper(c *Client, ctx context.Context, rawDesired *BuildTr
 	if create {
 		ops = append(ops, &createBuildTriggerOperation{})
 	} else if recreate {
-
 		ops = append(ops, &deleteBuildTriggerOperation{})
-
 		ops = append(ops, &createBuildTriggerOperation{})
 		// We should re-canonicalize based on a nil existing resource.
 		desired, err = canonicalizeBuildTriggerDesiredState(rawDesired, nil)
@@ -1080,11 +1091,10 @@ func applyBuildTriggerHelper(c *Client, ctx context.Context, rawDesired *BuildTr
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetBuildTrigger(ctx, desired.urlNormalized())
+	rawNew, err := c.GetBuildTrigger(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
-
 	// Get additional values from the first response.
 	// These values should be merged into the newState above.
 	if len(ops) > 0 {

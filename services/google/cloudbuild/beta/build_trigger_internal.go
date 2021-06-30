@@ -160,14 +160,14 @@ func buildTriggerGetURL(userBasePath string, r *BuildTrigger) (string, error) {
 		"project": dcl.ValueOrEmptyString(r.Project),
 		"name":    dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("projects/{{project}}/triggers/{{name}}", "https://cloudbuild.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/triggers/{{name}}", "https://cloudbuild.googleapis.com/v1/", userBasePath, params), nil
 }
 
 func buildTriggerListURL(userBasePath, project string) (string, error) {
 	params := map[string]interface{}{
 		"project": project,
 	}
-	return dcl.URL("projects/{{project}}/triggers", "https://cloudbuild.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/triggers", "https://cloudbuild.googleapis.com/v1/", userBasePath, params), nil
 
 }
 
@@ -175,7 +175,7 @@ func buildTriggerCreateURL(userBasePath, project string) (string, error) {
 	params := map[string]interface{}{
 		"project": project,
 	}
-	return dcl.URL("projects/{{project}}/triggers", "https://cloudbuild.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/triggers", "https://cloudbuild.googleapis.com/v1/", userBasePath, params), nil
 
 }
 
@@ -184,7 +184,7 @@ func buildTriggerDeleteURL(userBasePath string, r *BuildTrigger) (string, error)
 		"project": dcl.ValueOrEmptyString(r.Project),
 		"name":    dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("projects/{{project}}/triggers/{{name}}", "https://cloudbuild.googleapis.com/v1beta1/", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/triggers/{{name}}", "https://cloudbuild.googleapis.com/v1/", userBasePath, params), nil
 }
 
 // buildTriggerApiOperation represents a mutable operation in the underlying REST
@@ -261,7 +261,7 @@ type updateBuildTriggerUpdateBuildTriggerOperation struct {
 // PUT request to a single URL.
 
 func (op *updateBuildTriggerUpdateBuildTriggerOperation) do(ctx context.Context, r *BuildTrigger, c *Client) error {
-	_, err := c.GetBuildTrigger(ctx, r.urlNormalized())
+	_, err := c.GetBuildTrigger(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -334,7 +334,10 @@ func (c *Client) listBuildTrigger(ctx context.Context, project, pageToken string
 
 	var l []*BuildTrigger
 	for _, v := range m.Triggers {
-		res := flattenBuildTrigger(c, v)
+		res, err := unmarshalMapBuildTrigger(v, c)
+		if err != nil {
+			return nil, m.Token, err
+		}
 		res.Project = &project
 		l = append(l, res)
 	}
@@ -363,9 +366,7 @@ func (c *Client) deleteAllBuildTrigger(ctx context.Context, f func(*BuildTrigger
 type deleteBuildTriggerOperation struct{}
 
 func (op *deleteBuildTriggerOperation) do(ctx context.Context, r *BuildTrigger, c *Client) error {
-
-	_, err := c.GetBuildTrigger(ctx, r.urlNormalized())
-
+	r, err := c.GetBuildTrigger(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("BuildTrigger not found, returning. Original error: %v", err)
@@ -375,7 +376,7 @@ func (op *deleteBuildTriggerOperation) do(ctx context.Context, r *BuildTrigger, 
 		return err
 	}
 
-	u, err := buildTriggerDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := buildTriggerDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -391,7 +392,7 @@ func (op *deleteBuildTriggerOperation) do(ctx context.Context, r *BuildTrigger, 
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetBuildTrigger(ctx, r.urlNormalized())
+		_, err = c.GetBuildTrigger(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -440,7 +441,7 @@ func (op *createBuildTriggerOperation) do(ctx context.Context, r *BuildTrigger, 
 	}
 	op.response = o
 
-	if _, err := c.GetBuildTrigger(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetBuildTrigger(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -450,7 +451,7 @@ func (op *createBuildTriggerOperation) do(ctx context.Context, r *BuildTrigger, 
 
 func (c *Client) getBuildTriggerRaw(ctx context.Context, r *BuildTrigger) ([]byte, error) {
 
-	u, err := buildTriggerGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := buildTriggerGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -483,7 +484,7 @@ func (c *Client) buildTriggerDiffsForRawDesired(ctx context.Context, rawDesired 
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetBuildTrigger(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetBuildTrigger(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a BuildTrigger resource already exists: %s", err)
@@ -494,7 +495,6 @@ func (c *Client) buildTriggerDiffsForRawDesired(ctx context.Context, rawDesired 
 		desired, err = canonicalizeBuildTriggerDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-
 	c.Config.Logger.Infof("Found initial state for BuildTrigger: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for BuildTrigger: %v", rawDesired)
 
@@ -546,20 +546,6 @@ func canonicalizeBuildTriggerInitialState(rawInitial, rawDesired *BuildTrigger) 
 
 func canonicalizeBuildTriggerDesiredState(rawDesired, rawInitial *BuildTrigger, opts ...dcl.ApplyOption) (*BuildTrigger, error) {
 
-	if dcl.IsZeroValue(rawDesired.Filename) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.Build) {
-			rawDesired.Filename = dcl.String("")
-		}
-	}
-
-	if dcl.IsZeroValue(rawDesired.Build) {
-		// check if anything else is set
-		if dcl.AnySet(rawDesired.Filename) {
-			rawDesired.Build = EmptyBuildTriggerBuild
-		}
-	}
-
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
@@ -569,6 +555,23 @@ func canonicalizeBuildTriggerDesiredState(rawDesired, rawInitial *BuildTrigger, 
 
 		return rawDesired, nil
 	}
+
+	if rawDesired.Filename != nil || rawInitial.Filename != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.Build) {
+			rawDesired.Filename = nil
+			rawInitial.Filename = nil
+		}
+	}
+
+	if rawDesired.Build != nil || rawInitial.Build != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.Filename) {
+			rawDesired.Build = nil
+			rawInitial.Build = nil
+		}
+	}
+
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		rawDesired.Name = rawInitial.Name
 	}
@@ -1996,28 +1999,28 @@ func diffBuildTrigger(c *Client, desired, actual *BuildTrigger, opts ...dcl.Appl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TriggerTemplate, actual.TriggerTemplate, dcl.Info{ObjectFunction: compareBuildTriggerTriggerTemplateNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("TriggerTemplate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TriggerTemplate, actual.TriggerTemplate, dcl.Info{ObjectFunction: compareBuildTriggerTriggerTemplateNewStyle, EmptyObject: EmptyBuildTriggerTriggerTemplate, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("TriggerTemplate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Github, actual.Github, dcl.Info{ObjectFunction: compareBuildTriggerGithubNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Github")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Github, actual.Github, dcl.Info{ObjectFunction: compareBuildTriggerGithubNewStyle, EmptyObject: EmptyBuildTriggerGithub, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Github")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Build, actual.Build, dcl.Info{ObjectFunction: compareBuildTriggerBuildNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Build")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Build, actual.Build, dcl.Info{ObjectFunction: compareBuildTriggerBuildNewStyle, EmptyObject: EmptyBuildTriggerBuild, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Build")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2145,14 +2148,14 @@ func compareBuildTriggerGithubNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PullRequest, actual.PullRequest, dcl.Info{ObjectFunction: compareBuildTriggerGithubPullRequestNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("PullRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PullRequest, actual.PullRequest, dcl.Info{ObjectFunction: compareBuildTriggerGithubPullRequestNewStyle, EmptyObject: EmptyBuildTriggerGithubPullRequest, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("PullRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Push, actual.Push, dcl.Info{ObjectFunction: compareBuildTriggerGithubPushNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Push")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Push, actual.Push, dcl.Info{ObjectFunction: compareBuildTriggerGithubPushNewStyle, EmptyObject: EmptyBuildTriggerGithubPush, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Push")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2309,21 +2312,21 @@ func compareBuildTriggerBuildNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Secrets, actual.Secrets, dcl.Info{ObjectFunction: compareBuildTriggerBuildSecretsNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Secrets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Secrets, actual.Secrets, dcl.Info{ObjectFunction: compareBuildTriggerBuildSecretsNewStyle, EmptyObject: EmptyBuildTriggerBuildSecrets, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Secrets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareBuildTriggerBuildStepsNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Steps, actual.Steps, dcl.Info{ObjectFunction: compareBuildTriggerBuildStepsNewStyle, EmptyObject: EmptyBuildTriggerBuildSteps, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Steps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Source, actual.Source, dcl.Info{ObjectFunction: compareBuildTriggerBuildSourceNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Source")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Source, actual.Source, dcl.Info{ObjectFunction: compareBuildTriggerBuildSourceNewStyle, EmptyObject: EmptyBuildTriggerBuildSource, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Source")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2444,21 +2447,21 @@ func compareBuildTriggerBuildStepsNewStyle(d, a interface{}, fn dcl.FieldName) (
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Volumes, actual.Volumes, dcl.Info{ObjectFunction: compareBuildTriggerBuildStepsVolumesNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Volumes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Volumes, actual.Volumes, dcl.Info{ObjectFunction: compareBuildTriggerBuildStepsVolumesNewStyle, EmptyObject: EmptyBuildTriggerBuildStepsVolumes, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("Volumes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Timing, actual.Timing, dcl.Info{OutputOnly: true, ObjectFunction: compareBuildTriggerBuildStepsTimingNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Timing")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Timing, actual.Timing, dcl.Info{OutputOnly: true, ObjectFunction: compareBuildTriggerBuildStepsTimingNewStyle, EmptyObject: EmptyBuildTriggerBuildStepsTiming, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Timing")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PullTiming, actual.PullTiming, dcl.Info{OutputOnly: true, ObjectFunction: compareBuildTriggerBuildStepsPullTimingNewStyle, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PullTiming")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PullTiming, actual.PullTiming, dcl.Info{OutputOnly: true, ObjectFunction: compareBuildTriggerBuildStepsPullTimingNewStyle, EmptyObject: EmptyBuildTriggerBuildStepsPullTiming, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PullTiming")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2609,14 +2612,14 @@ func compareBuildTriggerBuildSourceNewStyle(d, a interface{}, fn dcl.FieldName) 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.StorageSource, actual.StorageSource, dcl.Info{ObjectFunction: compareBuildTriggerBuildSourceStorageSourceNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("StorageSource")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StorageSource, actual.StorageSource, dcl.Info{ObjectFunction: compareBuildTriggerBuildSourceStorageSourceNewStyle, EmptyObject: EmptyBuildTriggerBuildSourceStorageSource, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("StorageSource")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RepoSource, actual.RepoSource, dcl.Info{ObjectFunction: compareBuildTriggerBuildSourceRepoSourceNewStyle, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("RepoSource")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RepoSource, actual.RepoSource, dcl.Info{ObjectFunction: compareBuildTriggerBuildSourceRepoSourceNewStyle, EmptyObject: EmptyBuildTriggerBuildSourceRepoSource, OperationSelector: dcl.TriggersOperation("updateBuildTriggerUpdateBuildTriggerOperation")}, fn.AddNest("RepoSource")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2746,43 +2749,29 @@ func compareBuildTriggerBuildSourceRepoSourceNewStyle(d, a interface{}, fn dcl.F
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *BuildTrigger) urlNormalized() *BuildTrigger {
-	normalized := dcl.Copy(*r).(BuildTrigger)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Filename = dcl.SelfLinkToName(r.Filename)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Id = dcl.SelfLinkToName(r.Id)
-	normalized.CreateTime = dcl.SelfLinkToName(r.CreateTime)
-	return &normalized
-}
-
 func (r *BuildTrigger) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *BuildTrigger) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
 func (r *BuildTrigger) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *BuildTrigger) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateBuildTrigger" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
 			"name":    dcl.ValueOrEmptyString(n.Name),
 		}
-		return dcl.URL("projects/{{project}}/triggers/{{name}}", "https://cloudbuild.googleapis.com/v1beta1/", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/triggers/{{name}}", "https://cloudbuild.googleapis.com/v1/", userBasePath, fields), nil
 
 	}
 	return "", fmt.Errorf("unknown update name: %s", updateName)
@@ -4675,8 +4664,8 @@ func (r *BuildTrigger) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

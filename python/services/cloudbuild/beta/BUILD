@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="cloudbuild/beta", resources=["worker_pool"])
+connector(name="cloudbuild/beta", resources=["build_trigger","worker_pool"])

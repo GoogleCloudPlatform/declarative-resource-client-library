@@ -31,7 +31,7 @@ func ProtoToCloudbuildBetaBuildTriggerGithubPullRequestCommentControlEnum(e beta
 		return nil
 	}
 	if n, ok := betapb.CloudbuildBetaBuildTriggerGithubPullRequestCommentControlEnum_name[int32(e)]; ok {
-		e := beta.BuildTriggerGithubPullRequestCommentControlEnum(n[len("BuildTriggerGithubPullRequestCommentControlEnum"):])
+		e := beta.BuildTriggerGithubPullRequestCommentControlEnum(n[len("CloudbuildBetaBuildTriggerGithubPullRequestCommentControlEnum"):])
 		return &e
 	}
 	return nil
@@ -43,7 +43,7 @@ func ProtoToCloudbuildBetaBuildTriggerBuildStepsStatusEnum(e betapb.CloudbuildBe
 		return nil
 	}
 	if n, ok := betapb.CloudbuildBetaBuildTriggerBuildStepsStatusEnum_name[int32(e)]; ok {
-		e := beta.BuildTriggerBuildStepsStatusEnum(n[len("BuildTriggerBuildStepsStatusEnum"):])
+		e := beta.BuildTriggerBuildStepsStatusEnum(n[len("CloudbuildBetaBuildTriggerBuildStepsStatusEnum"):])
 		return &e
 	}
 	return nil
@@ -577,7 +577,7 @@ func (s *BuildTriggerServer) DeleteCloudbuildBetaBuildTrigger(ctx context.Contex
 
 }
 
-// ListBuildTrigger handles the gRPC request by passing it to the underlying BuildTriggerList() method.
+// ListCloudbuildBetaBuildTrigger handles the gRPC request by passing it to the underlying BuildTriggerList() method.
 func (s *BuildTriggerServer) ListCloudbuildBetaBuildTrigger(ctx context.Context, request *betapb.ListCloudbuildBetaBuildTriggerRequest) (*betapb.ListCloudbuildBetaBuildTriggerResponse, error) {
 	cl, err := createConfigBuildTrigger(ctx, request.ServiceAccountFile)
 	if err != nil {
