@@ -9,8 +9,8 @@
         "comment": "A second sample key",
         "id": "ni:///sha-256;2CoEOPC-exQXJMJBUaQoZkUuBU5fq7yHp6ORKoo97iI",
         "pkixPublicKey": {
-          "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEwk/YrStDhzDAOTTgduIr87bf/U/i\nxPqWOIlSxfA8LFbI6SyIIc0XNKnNaExaF2fYiLNyz3JbYQOkDGizDL1eAg==\n-----END PUBLIC KEY-----",
-          "signatureAlgorithm": "ECDSA_P256_SHA256"
+          "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuBNaYo22FYG/Em4drZF0\n3gBQd7VIV1dtrG0sI6irZh3vYnqoTQy7/gOdmmkoHAHdKGaOYyD4ijv5uLl324eT\ngqLy0eeBNEvKKrtU/rgKMvQb77nMvoSotQsqC0oNPRZSyPtyzO2u7eGYCHWcFRnT\n9B9Z9EYe5G2EFTpUU44RaRSnuSpXCqWDCQRXdOlrqk1vk1yCBobVvAqB11Ly3sME\noH5tjJY7Ri1jFBjmIimSI+lDtsHjhEFqamQAuvq12N6bdrj6gulwilJrOtOsyjpx\nbU5SSXd7vj7IFetWM+vASSQaU0hkEW9M02g4mkyU+i7NRMw9QSdxw5hsPXAKbkbk\nfQIDAQAB\n-----END PUBLIC KEY-----",
+          "signatureAlgorithm": "RSA_PSS_2048_SHA256"
         }
       },
       {
