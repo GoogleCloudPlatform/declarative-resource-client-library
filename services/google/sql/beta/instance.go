@@ -2282,6 +2282,25 @@ func (c *Client) ListInstanceWithMaxResults(ctx context.Context, project string,
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Instance) URLNormalized() *Instance {
+	normalized := dcl.Copy(*r).(Instance)
+	normalized.ConnectionName = dcl.SelfLinkToName(r.ConnectionName)
+	normalized.Etag = dcl.SelfLinkToName(r.Etag)
+	normalized.GceZone = dcl.SelfLinkToName(r.GceZone)
+	normalized.MasterInstanceName = dcl.SelfLinkToName(r.MasterInstanceName)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Region = dcl.SelfLinkToName(r.Region)
+	normalized.RootPassword = dcl.SelfLinkToName(r.RootPassword)
+	normalized.State = dcl.SelfLinkToName(r.State)
+	normalized.IPv6Address = dcl.SelfLinkToName(r.IPv6Address)
+	normalized.ServiceAccountEmailAddress = dcl.SelfLinkToName(r.ServiceAccountEmailAddress)
+	normalized.InstanceUid = dcl.SelfLinkToName(r.InstanceUid)
+	return &normalized
+}
 func (c *Client) GetInstance(ctx context.Context, r *Instance) (*Instance, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -2386,13 +2405,8 @@ func applyInstanceHelper(c *Client, ctx context.Context, rawDesired *Instance, o
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToInstanceOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -2460,7 +2474,7 @@ func applyInstanceHelper(c *Client, ctx context.Context, rawDesired *Instance, o
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetInstance(ctx, desired.urlNormalized())
+	rawNew, err := c.GetInstance(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

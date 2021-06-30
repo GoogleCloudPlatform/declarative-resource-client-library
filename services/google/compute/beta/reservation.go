@@ -371,6 +371,19 @@ func (c *Client) ListReservationWithMaxResults(ctx context.Context, project, zon
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Reservation) URLNormalized() *Reservation {
+	normalized := dcl.Copy(*r).(Reservation)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Zone = dcl.SelfLinkToName(r.Zone)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Commitment = dcl.SelfLinkToName(r.Commitment)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
 func (c *Client) GetReservation(ctx context.Context, r *Reservation) (*Reservation, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -476,13 +489,8 @@ func applyReservationHelper(c *Client, ctx context.Context, rawDesired *Reservat
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToReservationOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -550,7 +558,7 @@ func applyReservationHelper(c *Client, ctx context.Context, rawDesired *Reservat
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetReservation(ctx, desired.urlNormalized())
+	rawNew, err := c.GetReservation(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

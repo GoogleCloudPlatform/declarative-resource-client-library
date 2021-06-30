@@ -33,7 +33,7 @@ func (c *Client) getServiceRaw(ctx context.Context, r *Service) ([]byte, error) 
 		r.Kind = dcl.String("Service")
 	}
 
-	u, err := serviceGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := serviceGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -54,7 +54,7 @@ func (c *Client) GetService(ctx context.Context, r *Service) (*Service, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(60*time.Second))
 	defer cancel()
 
-	u, err := serviceGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := serviceGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

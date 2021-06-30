@@ -835,6 +835,19 @@ func (c *Client) ListNodePool(ctx context.Context, project, location, cluster st
 
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *NodePool) URLNormalized() *NodePool {
+	normalized := dcl.Copy(*r).(NodePool)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Version = dcl.SelfLinkToName(r.Version)
+	normalized.StatusMessage = dcl.SelfLinkToName(r.StatusMessage)
+	normalized.Cluster = dcl.SelfLinkToName(r.Cluster)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
+}
 func (c *Client) GetNodePool(ctx context.Context, r *NodePool) (*NodePool, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -941,13 +954,8 @@ func applyNodePoolHelper(c *Client, ctx context.Context, rawDesired *NodePool, o
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToNodePoolOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -1015,7 +1023,7 @@ func applyNodePoolHelper(c *Client, ctx context.Context, rawDesired *NodePool, o
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetNodePool(ctx, desired.urlNormalized())
+	rawNew, err := c.GetNodePool(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

@@ -108,7 +108,7 @@ func newUpdateSnapshotSetLabelsRequest(ctx context.Context, f *Snapshot, c *Clie
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
 	}
-	b, err := c.getSnapshotRaw(ctx, f.urlNormalized())
+	b, err := c.getSnapshotRaw(ctx, f.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -148,7 +148,7 @@ type updateSnapshotSetLabelsOperation struct {
 // PUT request to a single URL.
 
 func (op *updateSnapshotSetLabelsOperation) do(ctx context.Context, r *Snapshot, c *Client) error {
-	_, err := c.GetSnapshot(ctx, r.urlNormalized())
+	_, err := c.GetSnapshot(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -263,9 +263,7 @@ func (c *Client) deleteAllSnapshot(ctx context.Context, f func(*Snapshot) bool, 
 type deleteSnapshotOperation struct{}
 
 func (op *deleteSnapshotOperation) do(ctx context.Context, r *Snapshot, c *Client) error {
-
-	_, err := c.GetSnapshot(ctx, r.urlNormalized())
-
+	r, err := c.GetSnapshot(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Snapshot not found, returning. Original error: %v", err)
@@ -275,7 +273,7 @@ func (op *deleteSnapshotOperation) do(ctx context.Context, r *Snapshot, c *Clien
 		return err
 	}
 
-	u, err := snapshotDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := snapshotDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -300,7 +298,7 @@ func (op *deleteSnapshotOperation) do(ctx context.Context, r *Snapshot, c *Clien
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetSnapshot(ctx, r.urlNormalized())
+		_, err = c.GetSnapshot(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -354,7 +352,7 @@ func (op *createSnapshotOperation) do(ctx context.Context, r *Snapshot, c *Clien
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetSnapshot(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetSnapshot(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -364,7 +362,7 @@ func (op *createSnapshotOperation) do(ctx context.Context, r *Snapshot, c *Clien
 
 func (c *Client) getSnapshotRaw(ctx context.Context, r *Snapshot) ([]byte, error) {
 
-	u, err := snapshotGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := snapshotGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -397,7 +395,7 @@ func (c *Client) snapshotDiffsForRawDesired(ctx context.Context, rawDesired *Sna
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetSnapshot(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetSnapshot(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Snapshot resource already exists: %s", err)
@@ -427,7 +425,6 @@ func (c *Client) snapshotDiffsForRawDesired(ctx context.Context, rawDesired *Sna
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffSnapshot(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -872,37 +869,23 @@ func compareSnapshotSourceDiskEncryptionKeyNewStyle(d, a interface{}, fn dcl.Fie
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Snapshot) urlNormalized() *Snapshot {
-	normalized := dcl.Copy(*r).(Snapshot)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.SourceDisk = dcl.SelfLinkToName(r.SourceDisk)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Zone = dcl.SelfLinkToName(r.Zone)
-	return &normalized
-}
-
 func (r *Snapshot) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Snapshot) createFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Zone), dcl.ValueOrEmptyString(n.SourceDisk)
 }
 
 func (r *Snapshot) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Snapshot) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "setLabels" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -1265,8 +1248,8 @@ func (r *Snapshot) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

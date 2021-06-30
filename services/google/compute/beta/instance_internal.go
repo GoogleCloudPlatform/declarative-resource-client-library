@@ -138,7 +138,7 @@ func instanceDeleteURL(userBasePath string, r *Instance) (string, error) {
 }
 
 func (r *Instance) SetPolicyURL(userBasePath string) string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	fields := map[string]interface{}{
 		"project": *n.Project,
 		"zone":    *n.Zone,
@@ -152,7 +152,7 @@ func (r *Instance) SetPolicyVerb() string {
 }
 
 func (r *Instance) getPolicyURL(userBasePath string) string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	fields := map[string]interface{}{
 		"project": *n.Project,
 		"zone":    *n.Zone,
@@ -208,7 +208,7 @@ type updateInstanceSetDeletionProtectionOperation struct {
 // PUT request to a single URL.
 
 func (op *updateInstanceSetDeletionProtectionOperation) do(ctx context.Context, r *Instance, c *Client) error {
-	_, err := c.GetInstance(ctx, r.urlNormalized())
+	_, err := c.GetInstance(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -255,7 +255,7 @@ func newUpdateInstanceSetLabelsRequest(ctx context.Context, f *Instance, c *Clie
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
 	}
-	b, err := c.getInstanceRaw(ctx, f.urlNormalized())
+	b, err := c.getInstanceRaw(ctx, f.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -300,7 +300,7 @@ type updateInstanceSetLabelsOperation struct {
 // PUT request to a single URL.
 
 func (op *updateInstanceSetLabelsOperation) do(ctx context.Context, r *Instance, c *Client) error {
-	_, err := c.GetInstance(ctx, r.urlNormalized())
+	_, err := c.GetInstance(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -375,7 +375,7 @@ type updateInstanceSetMachineTypeOperation struct {
 // PUT request to a single URL.
 
 func (op *updateInstanceSetMachineTypeOperation) do(ctx context.Context, r *Instance, c *Client) error {
-	_, err := c.GetInstance(ctx, r.urlNormalized())
+	_, err := c.GetInstance(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -424,7 +424,7 @@ func newUpdateInstanceSetMetadataRequest(ctx context.Context, f *Instance, c *Cl
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["items"] = v
 	}
-	b, err := c.getInstanceRaw(ctx, f.urlNormalized())
+	b, err := c.getInstanceRaw(ctx, f.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -469,7 +469,7 @@ type updateInstanceSetMetadataOperation struct {
 // PUT request to a single URL.
 
 func (op *updateInstanceSetMetadataOperation) do(ctx context.Context, r *Instance, c *Client) error {
-	_, err := c.GetInstance(ctx, r.urlNormalized())
+	_, err := c.GetInstance(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -516,7 +516,7 @@ func newUpdateInstanceSetTagsRequest(ctx context.Context, f *Instance, c *Client
 	if v := f.Tags; !dcl.IsEmptyValueIndirect(v) {
 		req["items"] = v
 	}
-	b, err := c.getInstanceRaw(ctx, f.urlNormalized())
+	b, err := c.getInstanceRaw(ctx, f.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -561,7 +561,7 @@ type updateInstanceSetTagsOperation struct {
 // PUT request to a single URL.
 
 func (op *updateInstanceSetTagsOperation) do(ctx context.Context, r *Instance, c *Client) error {
-	_, err := c.GetInstance(ctx, r.urlNormalized())
+	_, err := c.GetInstance(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -633,7 +633,7 @@ type updateInstanceStartOperation struct {
 // PUT request to a single URL.
 
 func (op *updateInstanceStartOperation) do(ctx context.Context, r *Instance, c *Client) error {
-	_, err := c.GetInstance(ctx, r.urlNormalized())
+	_, err := c.GetInstance(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -705,7 +705,7 @@ type updateInstanceStopOperation struct {
 // PUT request to a single URL.
 
 func (op *updateInstanceStopOperation) do(ctx context.Context, r *Instance, c *Client) error {
-	_, err := c.GetInstance(ctx, r.urlNormalized())
+	_, err := c.GetInstance(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -777,7 +777,7 @@ type updateInstanceUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateInstanceUpdateOperation) do(ctx context.Context, r *Instance, c *Client) error {
-	_, err := c.GetInstance(ctx, r.urlNormalized())
+	_, err := c.GetInstance(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -854,7 +854,7 @@ type updateInstanceUpdateShieldedInstanceConfigOperation struct {
 // PUT request to a single URL.
 
 func (op *updateInstanceUpdateShieldedInstanceConfigOperation) do(ctx context.Context, r *Instance, c *Client) error {
-	_, err := c.GetInstance(ctx, r.urlNormalized())
+	_, err := c.GetInstance(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -970,9 +970,7 @@ func (c *Client) deleteAllInstance(ctx context.Context, f func(*Instance) bool, 
 type deleteInstanceOperation struct{}
 
 func (op *deleteInstanceOperation) do(ctx context.Context, r *Instance, c *Client) error {
-
-	_, err := c.GetInstance(ctx, r.urlNormalized())
-
+	r, err := c.GetInstance(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Instance not found, returning. Original error: %v", err)
@@ -982,7 +980,7 @@ func (op *deleteInstanceOperation) do(ctx context.Context, r *Instance, c *Clien
 		return err
 	}
 
-	u, err := instanceDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := instanceDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -1007,7 +1005,7 @@ func (op *deleteInstanceOperation) do(ctx context.Context, r *Instance, c *Clien
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetInstance(ctx, r.urlNormalized())
+		_, err = c.GetInstance(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -1061,7 +1059,7 @@ func (op *createInstanceOperation) do(ctx context.Context, r *Instance, c *Clien
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetInstance(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetInstance(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -1071,7 +1069,7 @@ func (op *createInstanceOperation) do(ctx context.Context, r *Instance, c *Clien
 
 func (c *Client) getInstanceRaw(ctx context.Context, r *Instance) ([]byte, error) {
 
-	u, err := instanceGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := instanceGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -1104,7 +1102,7 @@ func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Ins
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetInstance(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetInstance(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Instance resource already exists: %s", err)
@@ -1134,7 +1132,6 @@ func (c *Client) instanceDiffsForRawDesired(ctx context.Context, rawDesired *Ins
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffInstance(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -3064,43 +3061,23 @@ func compareInstanceShieldedInstanceConfigNewStyle(d, a interface{}, fn dcl.Fiel
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Instance) urlNormalized() *Instance {
-	normalized := dcl.Copy(*r).(Instance)
-	normalized.CpuPlatform = dcl.SelfLinkToName(r.CpuPlatform)
-	normalized.CreationTimestamp = dcl.SelfLinkToName(r.CreationTimestamp)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Hostname = dcl.SelfLinkToName(r.Hostname)
-	normalized.Id = dcl.SelfLinkToName(r.Id)
-	normalized.MachineType = r.MachineType
-	normalized.MinCpuPlatform = dcl.SelfLinkToName(r.MinCpuPlatform)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.StatusMessage = dcl.SelfLinkToName(r.StatusMessage)
-	normalized.Zone = dcl.SelfLinkToName(r.Zone)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	return &normalized
-}
-
 func (r *Instance) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Zone), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Instance) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Zone)
 }
 
 func (r *Instance) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Zone), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Instance) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "setDeletionProtection" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -4912,8 +4889,8 @@ func (r *Instance) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

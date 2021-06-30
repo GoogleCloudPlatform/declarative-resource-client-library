@@ -1605,6 +1605,17 @@ func (c *Client) ListWorkflowTemplateWithMaxResults(ctx context.Context, project
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *WorkflowTemplate) URLNormalized() *WorkflowTemplate {
+	normalized := dcl.Copy(*r).(WorkflowTemplate)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.DagTimeout = dcl.SelfLinkToName(r.DagTimeout)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
+}
 func (c *Client) GetWorkflowTemplate(ctx context.Context, r *WorkflowTemplate) (*WorkflowTemplate, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -1710,13 +1721,8 @@ func applyWorkflowTemplateHelper(c *Client, ctx context.Context, rawDesired *Wor
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToWorkflowTemplateOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -1784,7 +1790,7 @@ func applyWorkflowTemplateHelper(c *Client, ctx context.Context, rawDesired *Wor
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetWorkflowTemplate(ctx, desired.urlNormalized())
+	rawNew, err := c.GetWorkflowTemplate(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

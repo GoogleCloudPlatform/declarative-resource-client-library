@@ -161,9 +161,7 @@ func (c *Client) deleteAllRoute(ctx context.Context, f func(*Route) bool, resour
 type deleteRouteOperation struct{}
 
 func (op *deleteRouteOperation) do(ctx context.Context, r *Route, c *Client) error {
-
-	_, err := c.GetRoute(ctx, r.urlNormalized())
-
+	r, err := c.GetRoute(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Route not found, returning. Original error: %v", err)
@@ -173,7 +171,7 @@ func (op *deleteRouteOperation) do(ctx context.Context, r *Route, c *Client) err
 		return err
 	}
 
-	u, err := routeDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := routeDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -198,7 +196,7 @@ func (op *deleteRouteOperation) do(ctx context.Context, r *Route, c *Client) err
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetRoute(ctx, r.urlNormalized())
+		_, err = c.GetRoute(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -252,7 +250,7 @@ func (op *createRouteOperation) do(ctx context.Context, r *Route, c *Client) err
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetRoute(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetRoute(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -265,7 +263,7 @@ func (c *Client) getRouteRaw(ctx context.Context, r *Route) ([]byte, error) {
 		r.Priority = dcl.Int64(1000)
 	}
 
-	u, err := routeGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := routeGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -298,7 +296,7 @@ func (c *Client) routeDiffsForRawDesired(ctx context.Context, rawDesired *Route,
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetRoute(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetRoute(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Route resource already exists: %s", err)
@@ -328,7 +326,6 @@ func (c *Client) routeDiffsForRawDesired(ctx context.Context, rawDesired *Route,
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffRoute(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -779,39 +776,18 @@ func compareRouteWarningNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fie
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Route) urlNormalized() *Route {
-	normalized := dcl.Copy(*r).(Route)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Network = dcl.SelfLinkToName(r.Network)
-	normalized.DestRange = dcl.SelfLinkToName(r.DestRange)
-	normalized.NextHopInstance = dcl.SelfLinkToName(r.NextHopInstance)
-	normalized.NextHopIP = dcl.SelfLinkToName(r.NextHopIP)
-	normalized.NextHopNetwork = dcl.SelfLinkToName(r.NextHopNetwork)
-	normalized.NextHopGateway = dcl.SelfLinkToName(r.NextHopGateway)
-	normalized.NextHopPeering = dcl.SelfLinkToName(r.NextHopPeering)
-	normalized.NextHopIlb = dcl.SelfLinkToName(r.NextHopIlb)
-	normalized.NextHopVpnTunnel = dcl.SelfLinkToName(r.NextHopVpnTunnel)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *Route) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Route) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
 func (r *Route) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
@@ -1122,8 +1098,8 @@ func (r *Route) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

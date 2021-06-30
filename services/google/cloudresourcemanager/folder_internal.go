@@ -34,7 +34,7 @@ func (r *Folder) validate() error {
 }
 
 func (r *Folder) SetPolicyURL(userBasePath string) string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	fields := map[string]interface{}{
 		"name": *n.Name,
 	}
@@ -46,7 +46,7 @@ func (r *Folder) SetPolicyVerb() string {
 }
 
 func (r *Folder) getPolicyURL(userBasePath string) string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	fields := map[string]interface{}{
 		"name": *n.Name,
 	}
@@ -125,7 +125,7 @@ type updateFolderUpdateFolderOperation struct {
 // PUT request to a single URL.
 
 func (op *updateFolderUpdateFolderOperation) do(ctx context.Context, r *Folder, c *Client) error {
-	_, err := c.GetFolder(ctx, r.urlNormalized())
+	_, err := c.GetFolder(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -240,9 +240,7 @@ func (c *Client) deleteAllFolder(ctx context.Context, f func(*Folder) bool, reso
 type deleteFolderOperation struct{}
 
 func (op *deleteFolderOperation) do(ctx context.Context, r *Folder, c *Client) error {
-
-	_, err := c.GetFolder(ctx, r.urlNormalized())
-
+	r, err := c.GetFolder(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Folder not found, returning. Original error: %v", err)
@@ -252,7 +250,7 @@ func (op *deleteFolderOperation) do(ctx context.Context, r *Folder, c *Client) e
 		return err
 	}
 
-	u, err := folderDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := folderDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -314,7 +312,7 @@ func (op *createFolderOperation) do(ctx context.Context, r *Folder, c *Client) e
 	}
 	r.Name = &name
 
-	if _, err := c.GetFolder(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetFolder(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -324,7 +322,7 @@ func (op *createFolderOperation) do(ctx context.Context, r *Folder, c *Client) e
 
 func (c *Client) getFolderRaw(ctx context.Context, r *Folder) ([]byte, error) {
 
-	u, err := folderGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := folderGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -363,7 +361,7 @@ func (c *Client) folderDiffsForRawDesired(ctx context.Context, rawDesired *Folde
 		return nil, desired, nil, err
 	}
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetFolder(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetFolder(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Folder resource already exists: %s", err)
@@ -393,7 +391,6 @@ func (c *Client) folderDiffsForRawDesired(ctx context.Context, rawDesired *Folde
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffFolder(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -556,30 +553,18 @@ func diffFolder(c *Client, desired, actual *Folder, opts ...dcl.ApplyOption) ([]
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Folder) urlNormalized() *Folder {
-	normalized := dcl.Copy(*r).(Folder)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Parent = r.Parent
-	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
-	normalized.Etag = dcl.SelfLinkToName(r.Etag)
-	return &normalized
-}
-
 func (r *Folder) getFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Folder) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Parent)
 }
 
 func (r *Folder) deleteFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Name)
 }
 
@@ -705,8 +690,8 @@ func (r *Folder) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Name == nil && ncr.Name == nil {

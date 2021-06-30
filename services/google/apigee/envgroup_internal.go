@@ -104,7 +104,7 @@ type updateEnvgroupPatchEnvironmentGroupOperation struct {
 // PUT request to a single URL.
 
 func (op *updateEnvgroupPatchEnvironmentGroupOperation) do(ctx context.Context, r *Envgroup, c *Client) error {
-	_, err := c.GetEnvgroup(ctx, r.urlNormalized())
+	_, err := c.GetEnvgroup(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -224,9 +224,7 @@ func (c *Client) deleteAllEnvgroup(ctx context.Context, f func(*Envgroup) bool, 
 type deleteEnvgroupOperation struct{}
 
 func (op *deleteEnvgroupOperation) do(ctx context.Context, r *Envgroup, c *Client) error {
-
-	_, err := c.GetEnvgroup(ctx, r.urlNormalized())
-
+	r, err := c.GetEnvgroup(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Envgroup not found, returning. Original error: %v", err)
@@ -236,7 +234,7 @@ func (op *deleteEnvgroupOperation) do(ctx context.Context, r *Envgroup, c *Clien
 		return err
 	}
 
-	u, err := envgroupDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := envgroupDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -261,7 +259,7 @@ func (op *deleteEnvgroupOperation) do(ctx context.Context, r *Envgroup, c *Clien
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetEnvgroup(ctx, r.urlNormalized())
+		_, err = c.GetEnvgroup(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -315,7 +313,7 @@ func (op *createEnvgroupOperation) do(ctx context.Context, r *Envgroup, c *Clien
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetEnvgroup(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetEnvgroup(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -325,7 +323,7 @@ func (op *createEnvgroupOperation) do(ctx context.Context, r *Envgroup, c *Clien
 
 func (c *Client) getEnvgroupRaw(ctx context.Context, r *Envgroup) ([]byte, error) {
 
-	u, err := envgroupGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := envgroupGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -358,7 +356,7 @@ func (c *Client) envgroupDiffsForRawDesired(ctx context.Context, rawDesired *Env
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetEnvgroup(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetEnvgroup(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Envgroup resource already exists: %s", err)
@@ -388,7 +386,6 @@ func (c *Client) envgroupDiffsForRawDesired(ctx context.Context, rawDesired *Env
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffEnvgroup(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -521,33 +518,23 @@ func diffEnvgroup(c *Client, desired, actual *Envgroup, opts ...dcl.ApplyOption)
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Envgroup) urlNormalized() *Envgroup {
-	normalized := dcl.Copy(*r).(Envgroup)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Organization = dcl.SelfLinkToName(r.Organization)
-	return &normalized
-}
-
 func (r *Envgroup) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Organization), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Envgroup) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Organization)
 }
 
 func (r *Envgroup) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Organization), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Envgroup) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "PatchEnvironmentGroup" {
 		fields := map[string]interface{}{
 			"organization": dcl.ValueOrEmptyString(n.Organization),
@@ -675,8 +662,8 @@ func (r *Envgroup) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Organization == nil && ncr.Organization == nil {

@@ -106,7 +106,7 @@ type updateHmacKeyUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateHmacKeyUpdateOperation) do(ctx context.Context, r *HmacKey, c *Client) error {
-	_, err := c.GetHmacKey(ctx, r.urlNormalized())
+	_, err := c.GetHmacKey(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -211,9 +211,7 @@ func (c *Client) deleteAllHmacKey(ctx context.Context, f func(*HmacKey) bool, re
 type deleteHmacKeyOperation struct{}
 
 func (op *deleteHmacKeyOperation) do(ctx context.Context, r *HmacKey, c *Client) error {
-
-	r, err := c.GetHmacKey(ctx, r.urlNormalized())
-
+	r, err := c.GetHmacKey(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("HmacKey not found, returning. Original error: %v", err)
@@ -231,7 +229,7 @@ func (op *deleteHmacKeyOperation) do(ctx context.Context, r *HmacKey, c *Client)
 	if err != nil {
 		return err
 	}
-	u, err := hmacKeyDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := hmacKeyDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -261,7 +259,7 @@ func (c *Client) getHmacKeyRaw(ctx context.Context, r *HmacKey) ([]byte, error) 
 		r.State = HmacKeyStateEnumRef("ACTIVE")
 	}
 
-	u, err := hmacKeyGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := hmacKeyGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -300,7 +298,7 @@ func (c *Client) hmacKeyDiffsForRawDesired(ctx context.Context, rawDesired *Hmac
 		return nil, desired, nil, err
 	}
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetHmacKey(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetHmacKey(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a HmacKey resource already exists: %s", err)
@@ -330,7 +328,6 @@ func (c *Client) hmacKeyDiffsForRawDesired(ctx context.Context, rawDesired *Hmac
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffHmacKey(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -491,37 +488,23 @@ func diffHmacKey(c *Client, desired, actual *HmacKey, opts ...dcl.ApplyOption) (
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *HmacKey) urlNormalized() *HmacKey {
-	normalized := dcl.Copy(*r).(HmacKey)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.TimeCreated = dcl.SelfLinkToName(r.TimeCreated)
-	normalized.Updated = dcl.SelfLinkToName(r.Updated)
-	normalized.Secret = dcl.SelfLinkToName(r.Secret)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.ServiceAccountEmail = dcl.SelfLinkToName(r.ServiceAccountEmail)
-	return &normalized
-}
-
 func (r *HmacKey) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *HmacKey) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.ServiceAccountEmail)
 }
 
 func (r *HmacKey) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *HmacKey) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "update" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -658,8 +641,8 @@ func (r *HmacKey) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

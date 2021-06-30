@@ -187,6 +187,21 @@ func (c *Client) ListRoleWithMaxResults(ctx context.Context, parent string, page
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Role) URLNormalized() *Role {
+	normalized := dcl.Copy(*r).(Role)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Title = dcl.SelfLinkToName(r.Title)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.LifecyclePhase = dcl.SelfLinkToName(r.LifecyclePhase)
+	normalized.GroupName = dcl.SelfLinkToName(r.GroupName)
+	normalized.GroupTitle = dcl.SelfLinkToName(r.GroupTitle)
+	normalized.Etag = dcl.SelfLinkToName(r.Etag)
+	normalized.Parent = r.Parent
+	return &normalized
+}
 func (c *Client) GetRole(ctx context.Context, r *Role) (*Role, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -291,13 +306,8 @@ func applyRoleHelper(c *Client, ctx context.Context, rawDesired *Role, opts ...d
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToRoleOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -365,7 +375,7 @@ func applyRoleHelper(c *Client, ctx context.Context, rawDesired *Role, opts ...d
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetRole(ctx, desired.urlNormalized())
+	rawNew, err := c.GetRole(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

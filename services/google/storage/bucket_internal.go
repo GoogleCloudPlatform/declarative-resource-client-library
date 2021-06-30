@@ -126,7 +126,7 @@ func bucketDeleteURL(userBasePath string, r *Bucket) (string, error) {
 }
 
 func (r *Bucket) SetPolicyURL(userBasePath string) string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	fields := map[string]interface{}{
 		"name": *n.Name,
 	}
@@ -138,7 +138,7 @@ func (r *Bucket) SetPolicyVerb() string {
 }
 
 func (r *Bucket) getPolicyURL(userBasePath string) string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	fields := map[string]interface{}{
 		"name": *n.Name,
 	}
@@ -212,7 +212,7 @@ type updateBucketUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateBucketUpdateOperation) do(ctx context.Context, r *Bucket, c *Client) error {
-	_, err := c.GetBucket(ctx, r.urlNormalized())
+	_, err := c.GetBucket(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -317,9 +317,7 @@ func (c *Client) deleteAllBucket(ctx context.Context, f func(*Bucket) bool, reso
 type deleteBucketOperation struct{}
 
 func (op *deleteBucketOperation) do(ctx context.Context, r *Bucket, c *Client) error {
-
-	_, err := c.GetBucket(ctx, r.urlNormalized())
-
+	r, err := c.GetBucket(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Bucket not found, returning. Original error: %v", err)
@@ -329,7 +327,7 @@ func (op *deleteBucketOperation) do(ctx context.Context, r *Bucket, c *Client) e
 		return err
 	}
 
-	u, err := bucketDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := bucketDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -345,7 +343,7 @@ func (op *deleteBucketOperation) do(ctx context.Context, r *Bucket, c *Client) e
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetBucket(ctx, r.urlNormalized())
+		_, err = c.GetBucket(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -394,7 +392,7 @@ func (op *createBucketOperation) do(ctx context.Context, r *Bucket, c *Client) e
 	}
 	op.response = o
 
-	if _, err := c.GetBucket(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetBucket(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -404,7 +402,7 @@ func (op *createBucketOperation) do(ctx context.Context, r *Bucket, c *Client) e
 
 func (c *Client) getBucketRaw(ctx context.Context, r *Bucket) ([]byte, error) {
 
-	u, err := bucketGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := bucketGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -437,7 +435,7 @@ func (c *Client) bucketDiffsForRawDesired(ctx context.Context, rawDesired *Bucke
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetBucket(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetBucket(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Bucket resource already exists: %s", err)
@@ -467,7 +465,6 @@ func (c *Client) bucketDiffsForRawDesired(ctx context.Context, rawDesired *Bucke
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffBucket(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1614,34 +1611,23 @@ func compareBucketWebsiteNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fi
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Bucket) urlNormalized() *Bucket {
-	normalized := dcl.Copy(*r).(Bucket)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	return &normalized
-}
-
 func (r *Bucket) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Bucket) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
 func (r *Bucket) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Bucket) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "update" {
 		fields := map[string]interface{}{
 			"name": dcl.ValueOrEmptyString(n.Name),
@@ -2816,8 +2802,8 @@ func (r *Bucket) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

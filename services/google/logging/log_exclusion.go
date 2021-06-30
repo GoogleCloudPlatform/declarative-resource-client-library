@@ -103,6 +103,17 @@ func (c *Client) ListLogExclusionWithMaxResults(ctx context.Context, parent stri
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *LogExclusion) URLNormalized() *LogExclusion {
+	normalized := dcl.Copy(*r).(LogExclusion)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Filter = dcl.SelfLinkToName(r.Filter)
+	normalized.Parent = r.Parent
+	return &normalized
+}
 func (c *Client) GetLogExclusion(ctx context.Context, r *LogExclusion) (*LogExclusion, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -207,13 +218,8 @@ func applyLogExclusionHelper(c *Client, ctx context.Context, rawDesired *LogExcl
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToLogExclusionOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -281,7 +287,7 @@ func applyLogExclusionHelper(c *Client, ctx context.Context, rawDesired *LogExcl
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetLogExclusion(ctx, desired.urlNormalized())
+	rawNew, err := c.GetLogExclusion(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

@@ -261,7 +261,7 @@ type updateBuildTriggerUpdateBuildTriggerOperation struct {
 // PUT request to a single URL.
 
 func (op *updateBuildTriggerUpdateBuildTriggerOperation) do(ctx context.Context, r *BuildTrigger, c *Client) error {
-	_, err := c.GetBuildTrigger(ctx, r.urlNormalized())
+	_, err := c.GetBuildTrigger(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -366,9 +366,7 @@ func (c *Client) deleteAllBuildTrigger(ctx context.Context, f func(*BuildTrigger
 type deleteBuildTriggerOperation struct{}
 
 func (op *deleteBuildTriggerOperation) do(ctx context.Context, r *BuildTrigger, c *Client) error {
-
-	_, err := c.GetBuildTrigger(ctx, r.urlNormalized())
-
+	r, err := c.GetBuildTrigger(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("BuildTrigger not found, returning. Original error: %v", err)
@@ -378,7 +376,7 @@ func (op *deleteBuildTriggerOperation) do(ctx context.Context, r *BuildTrigger, 
 		return err
 	}
 
-	u, err := buildTriggerDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := buildTriggerDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -394,7 +392,7 @@ func (op *deleteBuildTriggerOperation) do(ctx context.Context, r *BuildTrigger, 
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetBuildTrigger(ctx, r.urlNormalized())
+		_, err = c.GetBuildTrigger(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -443,7 +441,7 @@ func (op *createBuildTriggerOperation) do(ctx context.Context, r *BuildTrigger, 
 	}
 	op.response = o
 
-	if _, err := c.GetBuildTrigger(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetBuildTrigger(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -453,7 +451,7 @@ func (op *createBuildTriggerOperation) do(ctx context.Context, r *BuildTrigger, 
 
 func (c *Client) getBuildTriggerRaw(ctx context.Context, r *BuildTrigger) ([]byte, error) {
 
-	u, err := buildTriggerGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := buildTriggerGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -486,7 +484,7 @@ func (c *Client) buildTriggerDiffsForRawDesired(ctx context.Context, rawDesired 
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetBuildTrigger(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetBuildTrigger(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a BuildTrigger resource already exists: %s", err)
@@ -516,7 +514,6 @@ func (c *Client) buildTriggerDiffsForRawDesired(ctx context.Context, rawDesired 
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffBuildTrigger(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -2752,37 +2749,23 @@ func compareBuildTriggerBuildSourceRepoSourceNewStyle(d, a interface{}, fn dcl.F
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *BuildTrigger) urlNormalized() *BuildTrigger {
-	normalized := dcl.Copy(*r).(BuildTrigger)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Filename = dcl.SelfLinkToName(r.Filename)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Id = dcl.SelfLinkToName(r.Id)
-	normalized.CreateTime = dcl.SelfLinkToName(r.CreateTime)
-	return &normalized
-}
-
 func (r *BuildTrigger) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *BuildTrigger) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
 func (r *BuildTrigger) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *BuildTrigger) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateBuildTrigger" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -4681,8 +4664,8 @@ func (r *BuildTrigger) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

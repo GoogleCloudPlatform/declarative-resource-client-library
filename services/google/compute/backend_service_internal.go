@@ -330,7 +330,7 @@ func newUpdateBackendServiceUpdateRequest(ctx context.Context, f *BackendService
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["maxStreamDuration"] = v
 	}
-	b, err := c.getBackendServiceRaw(ctx, f.urlNormalized())
+	b, err := c.getBackendServiceRaw(ctx, f.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -370,7 +370,7 @@ type updateBackendServiceUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateBackendServiceUpdateOperation) do(ctx context.Context, r *BackendService, c *Client) error {
-	_, err := c.GetBackendService(ctx, r.urlNormalized())
+	_, err := c.GetBackendService(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -486,9 +486,7 @@ func (c *Client) deleteAllBackendService(ctx context.Context, f func(*BackendSer
 type deleteBackendServiceOperation struct{}
 
 func (op *deleteBackendServiceOperation) do(ctx context.Context, r *BackendService, c *Client) error {
-
-	_, err := c.GetBackendService(ctx, r.urlNormalized())
-
+	r, err := c.GetBackendService(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("BackendService not found, returning. Original error: %v", err)
@@ -498,7 +496,7 @@ func (op *deleteBackendServiceOperation) do(ctx context.Context, r *BackendServi
 		return err
 	}
 
-	u, err := backendServiceDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := backendServiceDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -523,7 +521,7 @@ func (op *deleteBackendServiceOperation) do(ctx context.Context, r *BackendServi
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetBackendService(ctx, r.urlNormalized())
+		_, err = c.GetBackendService(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -577,7 +575,7 @@ func (op *createBackendServiceOperation) do(ctx context.Context, r *BackendServi
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetBackendService(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetBackendService(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -587,7 +585,7 @@ func (op *createBackendServiceOperation) do(ctx context.Context, r *BackendServi
 
 func (c *Client) getBackendServiceRaw(ctx context.Context, r *BackendService) ([]byte, error) {
 
-	u, err := backendServiceGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := backendServiceGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -620,7 +618,7 @@ func (c *Client) backendServiceDiffsForRawDesired(ctx context.Context, rawDesire
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetBackendService(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetBackendService(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a BackendService resource already exists: %s", err)
@@ -650,7 +648,6 @@ func (c *Client) backendServiceDiffsForRawDesired(ctx context.Context, rawDesire
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffBackendService(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -3813,41 +3810,23 @@ func compareBackendServiceMaxStreamDurationNewStyle(d, a interface{}, fn dcl.Fie
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *BackendService) urlNormalized() *BackendService {
-	normalized := dcl.Copy(*r).(BackendService)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.SelfLinkWithId = dcl.SelfLinkToName(r.SelfLinkWithId)
-	normalized.Fingerprint = dcl.SelfLinkToName(r.Fingerprint)
-	normalized.PortName = dcl.SelfLinkToName(r.PortName)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	normalized.SecurityPolicy = dcl.SelfLinkToName(r.SecurityPolicy)
-	normalized.Network = dcl.SelfLinkToName(r.Network)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *BackendService) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *BackendService) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location)
 }
 
 func (r *BackendService) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *BackendService) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "Update" {
 		fields := map[string]interface{}{
 			"project":  dcl.ValueOrEmptyString(n.Project),
@@ -6565,8 +6544,8 @@ func (r *BackendService) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

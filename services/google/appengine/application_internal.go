@@ -119,7 +119,7 @@ type updateApplicationPatchApplicationOperation struct {
 // PUT request to a single URL.
 
 func (op *updateApplicationPatchApplicationOperation) do(ctx context.Context, r *Application, c *Client) error {
-	_, err := c.GetApplication(ctx, r.urlNormalized())
+	_, err := c.GetApplication(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -202,7 +202,7 @@ func (op *createApplicationOperation) do(ctx context.Context, r *Application, c 
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetApplication(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetApplication(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -212,7 +212,7 @@ func (op *createApplicationOperation) do(ctx context.Context, r *Application, c 
 
 func (c *Client) getApplicationRaw(ctx context.Context, r *Application) ([]byte, error) {
 
-	u, err := applicationGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := applicationGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -245,7 +245,7 @@ func (c *Client) applicationDiffsForRawDesired(ctx context.Context, rawDesired *
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetApplication(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetApplication(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFoundOrCode(err, 403) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Application resource already exists: %s", err)
@@ -275,7 +275,6 @@ func (c *Client) applicationDiffsForRawDesired(ctx context.Context, rawDesired *
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffApplication(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -919,24 +918,8 @@ func compareApplicationFeatureSettingsNewStyle(d, a interface{}, fn dcl.FieldNam
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Application) urlNormalized() *Application {
-	normalized := dcl.Copy(*r).(Application)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.AuthDomain = dcl.SelfLinkToName(r.AuthDomain)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	normalized.CodeBucket = dcl.SelfLinkToName(r.CodeBucket)
-	normalized.DefaultCookieExpiration = dcl.SelfLinkToName(r.DefaultCookieExpiration)
-	normalized.DefaultHostname = dcl.SelfLinkToName(r.DefaultHostname)
-	normalized.DefaultBucket = dcl.SelfLinkToName(r.DefaultBucket)
-	normalized.GcrDomain = dcl.SelfLinkToName(r.GcrDomain)
-	return &normalized
-}
-
 func (r *Application) getFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Name)
 }
 
@@ -945,7 +928,7 @@ func (r *Application) createFields() string {
 }
 
 func (r *Application) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "PatchApplication" {
 		fields := map[string]interface{}{
 			"name": dcl.ValueOrEmptyString(n.Name),
@@ -1501,8 +1484,8 @@ func (r *Application) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Name == nil && ncr.Name == nil {

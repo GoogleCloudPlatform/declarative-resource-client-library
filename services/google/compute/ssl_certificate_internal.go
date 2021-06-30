@@ -160,9 +160,7 @@ func (c *Client) deleteAllSslCertificate(ctx context.Context, f func(*SslCertifi
 type deleteSslCertificateOperation struct{}
 
 func (op *deleteSslCertificateOperation) do(ctx context.Context, r *SslCertificate, c *Client) error {
-
-	_, err := c.GetSslCertificate(ctx, r.urlNormalized())
-
+	r, err := c.GetSslCertificate(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("SslCertificate not found, returning. Original error: %v", err)
@@ -172,7 +170,7 @@ func (op *deleteSslCertificateOperation) do(ctx context.Context, r *SslCertifica
 		return err
 	}
 
-	u, err := sslCertificateDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := sslCertificateDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -197,7 +195,7 @@ func (op *deleteSslCertificateOperation) do(ctx context.Context, r *SslCertifica
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetSslCertificate(ctx, r.urlNormalized())
+		_, err = c.GetSslCertificate(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -251,7 +249,7 @@ func (op *createSslCertificateOperation) do(ctx context.Context, r *SslCertifica
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetSslCertificate(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetSslCertificate(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -264,7 +262,7 @@ func (c *Client) getSslCertificateRaw(ctx context.Context, r *SslCertificate) ([
 		r.Type = SslCertificateTypeEnumRef("SELF_MANAGED")
 	}
 
-	u, err := sslCertificateGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := sslCertificateGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -297,7 +295,7 @@ func (c *Client) sslCertificateDiffsForRawDesired(ctx context.Context, rawDesire
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetSslCertificate(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetSslCertificate(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a SslCertificate resource already exists: %s", err)
@@ -327,7 +325,6 @@ func (c *Client) sslCertificateDiffsForRawDesired(ctx context.Context, rawDesire
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffSslCertificate(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -630,31 +627,18 @@ func compareSslCertificateSelfManagedNewStyle(d, a interface{}, fn dcl.FieldName
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *SslCertificate) urlNormalized() *SslCertificate {
-	normalized := dcl.Copy(*r).(SslCertificate)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.ExpireTime = dcl.SelfLinkToName(r.ExpireTime)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *SslCertificate) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *SslCertificate) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
 func (r *SslCertificate) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
@@ -914,8 +898,8 @@ func (r *SslCertificate) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

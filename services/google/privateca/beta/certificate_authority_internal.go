@@ -764,7 +764,7 @@ func (op *createCertificateAuthorityOperation) FirstResponse() (map[string]inter
 
 func (c *Client) getCertificateAuthorityRaw(ctx context.Context, r *CertificateAuthority) ([]byte, error) {
 
-	u, err := certificateAuthorityGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := certificateAuthorityGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -797,7 +797,7 @@ func (c *Client) certificateAuthorityDiffsForRawDesired(ctx context.Context, raw
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetCertificateAuthority(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetCertificateAuthority(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a CertificateAuthority resource already exists: %s", err)
@@ -827,7 +827,6 @@ func (c *Client) certificateAuthorityDiffsForRawDesired(ctx context.Context, raw
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffCertificateAuthority(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -9824,31 +9823,18 @@ func compareCertificateAuthorityIssuingOptionsNewStyle(d, a interface{}, fn dcl.
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *CertificateAuthority) urlNormalized() *CertificateAuthority {
-	normalized := dcl.Copy(*r).(CertificateAuthority)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Lifetime = dcl.SelfLinkToName(r.Lifetime)
-	normalized.GcsBucket = dcl.SelfLinkToName(r.GcsBucket)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
-}
-
 func (r *CertificateAuthority) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *CertificateAuthority) createFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *CertificateAuthority) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
@@ -18510,8 +18496,8 @@ func (r *CertificateAuthority) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

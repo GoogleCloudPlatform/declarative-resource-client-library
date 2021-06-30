@@ -51,7 +51,7 @@ func folderListURL(userBasePath, parent string) (string, error) {
 }
 
 func (r *Folder) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "MoveFolder" {
 		fields := map[string]interface{}{
 			"name": dcl.ValueOrEmptyString(n.Name),
@@ -77,7 +77,7 @@ func folderDeleteURL(userBasePath string, r *Folder) (string, error) {
 }
 
 func (op *updateFolderMoveFolderOperation) do(ctx context.Context, r *Folder, c *Client) error {
-	_, err := c.GetFolder(ctx, r.urlNormalized())
+	_, err := c.GetFolder(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}

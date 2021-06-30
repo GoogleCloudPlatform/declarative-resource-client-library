@@ -179,7 +179,7 @@ type updateEndpointPolicyUpdateEndpointPolicyOperation struct {
 // PUT request to a single URL.
 
 func (op *updateEndpointPolicyUpdateEndpointPolicyOperation) do(ctx context.Context, r *EndpointPolicy, c *Client) error {
-	_, err := c.GetEndpointPolicy(ctx, r.urlNormalized())
+	_, err := c.GetEndpointPolicy(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -295,9 +295,7 @@ func (c *Client) deleteAllEndpointPolicy(ctx context.Context, f func(*EndpointPo
 type deleteEndpointPolicyOperation struct{}
 
 func (op *deleteEndpointPolicyOperation) do(ctx context.Context, r *EndpointPolicy, c *Client) error {
-
-	_, err := c.GetEndpointPolicy(ctx, r.urlNormalized())
-
+	r, err := c.GetEndpointPolicy(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("EndpointPolicy not found, returning. Original error: %v", err)
@@ -307,7 +305,7 @@ func (op *deleteEndpointPolicyOperation) do(ctx context.Context, r *EndpointPoli
 		return err
 	}
 
-	u, err := endpointPolicyDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := endpointPolicyDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -332,7 +330,7 @@ func (op *deleteEndpointPolicyOperation) do(ctx context.Context, r *EndpointPoli
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetEndpointPolicy(ctx, r.urlNormalized())
+		_, err = c.GetEndpointPolicy(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -386,7 +384,7 @@ func (op *createEndpointPolicyOperation) do(ctx context.Context, r *EndpointPoli
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetEndpointPolicy(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetEndpointPolicy(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -396,7 +394,7 @@ func (op *createEndpointPolicyOperation) do(ctx context.Context, r *EndpointPoli
 
 func (c *Client) getEndpointPolicyRaw(ctx context.Context, r *EndpointPolicy) ([]byte, error) {
 
-	u, err := endpointPolicyGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := endpointPolicyGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -429,7 +427,7 @@ func (c *Client) endpointPolicyDiffsForRawDesired(ctx context.Context, rawDesire
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetEndpointPolicy(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetEndpointPolicy(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a EndpointPolicy resource already exists: %s", err)
@@ -459,7 +457,6 @@ func (c *Client) endpointPolicyDiffsForRawDesired(ctx context.Context, rawDesire
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffEndpointPolicy(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1140,38 +1137,23 @@ func compareEndpointPolicyTrafficPortSelectorNewStyle(d, a interface{}, fn dcl.F
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *EndpointPolicy) urlNormalized() *EndpointPolicy {
-	normalized := dcl.Copy(*r).(EndpointPolicy)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.AuthorizationPolicy = dcl.SelfLinkToName(r.AuthorizationPolicy)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.ServerTlsPolicy = dcl.SelfLinkToName(r.ServerTlsPolicy)
-	normalized.ClientTlsPolicy = dcl.SelfLinkToName(r.ClientTlsPolicy)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
-}
-
 func (r *EndpointPolicy) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *EndpointPolicy) createFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *EndpointPolicy) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *EndpointPolicy) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateEndpointPolicy" {
 		fields := map[string]interface{}{
 			"project":  dcl.ValueOrEmptyString(n.Project),
@@ -1835,8 +1817,8 @@ func (r *EndpointPolicy) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

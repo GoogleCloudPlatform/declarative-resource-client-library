@@ -105,6 +105,18 @@ func (c *Client) ListResourceRecordSetWithMaxResults(ctx context.Context, projec
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *ResourceRecordSet) URLNormalized() *ResourceRecordSet {
+	normalized := dcl.Copy(*r).(ResourceRecordSet)
+	normalized.DnsName = dcl.SelfLinkToName(r.DnsName)
+	normalized.DnsType = dcl.SelfLinkToName(r.DnsType)
+	normalized.ManagedZone = dcl.SelfLinkToName(r.ManagedZone)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
+
 func (c *Client) DeleteResourceRecordSet(ctx context.Context, r *ResourceRecordSet) error {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -177,13 +189,8 @@ func applyResourceRecordSetHelper(c *Client, ctx context.Context, rawDesired *Re
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToResourceRecordSetOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -251,7 +258,7 @@ func applyResourceRecordSetHelper(c *Client, ctx context.Context, rawDesired *Re
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetResourceRecordSet(ctx, desired.urlNormalized())
+	rawNew, err := c.GetResourceRecordSet(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

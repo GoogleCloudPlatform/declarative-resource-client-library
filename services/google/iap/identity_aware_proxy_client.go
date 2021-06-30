@@ -105,6 +105,18 @@ func (c *Client) ListIdentityAwareProxyClientWithMaxResults(ctx context.Context,
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *IdentityAwareProxyClient) URLNormalized() *IdentityAwareProxyClient {
+	normalized := dcl.Copy(*r).(IdentityAwareProxyClient)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Secret = dcl.SelfLinkToName(r.Secret)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Brand = dcl.SelfLinkToName(r.Brand)
+	return &normalized
+}
 func (c *Client) GetIdentityAwareProxyClient(ctx context.Context, r *IdentityAwareProxyClient) (*IdentityAwareProxyClient, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -210,13 +222,8 @@ func applyIdentityAwareProxyClientHelper(c *Client, ctx context.Context, rawDesi
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToIdentityAwareProxyClientOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -284,7 +291,7 @@ func applyIdentityAwareProxyClientHelper(c *Client, ctx context.Context, rawDesi
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetIdentityAwareProxyClient(ctx, desired.urlNormalized())
+	rawNew, err := c.GetIdentityAwareProxyClient(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

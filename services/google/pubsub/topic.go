@@ -149,6 +149,16 @@ func (c *Client) ListTopicWithMaxResults(ctx context.Context, project string, pa
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Topic) URLNormalized() *Topic {
+	normalized := dcl.Copy(*r).(Topic)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.KmsKeyName = dcl.SelfLinkToName(r.KmsKeyName)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
 func (c *Client) GetTopic(ctx context.Context, r *Topic) (*Topic, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -253,13 +263,8 @@ func applyTopicHelper(c *Client, ctx context.Context, rawDesired *Topic, opts ..
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToTopicOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -327,7 +332,7 @@ func applyTopicHelper(c *Client, ctx context.Context, rawDesired *Topic, opts ..
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetTopic(ctx, desired.urlNormalized())
+	rawNew, err := c.GetTopic(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

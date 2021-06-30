@@ -154,6 +154,18 @@ func (c *Client) ListBackendBucketWithMaxResults(ctx context.Context, project st
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *BackendBucket) URLNormalized() *BackendBucket {
+	normalized := dcl.Copy(*r).(BackendBucket)
+	normalized.BucketName = dcl.SelfLinkToName(r.BucketName)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	return &normalized
+}
 func (c *Client) GetBackendBucket(ctx context.Context, r *BackendBucket) (*BackendBucket, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -258,13 +270,8 @@ func applyBackendBucketHelper(c *Client, ctx context.Context, rawDesired *Backen
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToBackendBucketOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -332,7 +339,7 @@ func applyBackendBucketHelper(c *Client, ctx context.Context, rawDesired *Backen
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetBackendBucket(ctx, desired.urlNormalized())
+	rawNew, err := c.GetBackendBucket(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

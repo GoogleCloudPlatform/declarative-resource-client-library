@@ -142,7 +142,7 @@ type updateAccessLevelUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateAccessLevelUpdateOperation) do(ctx context.Context, r *AccessLevel, c *Client) error {
-	_, err := c.GetAccessLevel(ctx, r.urlNormalized())
+	_, err := c.GetAccessLevel(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -262,9 +262,7 @@ func (c *Client) deleteAllAccessLevel(ctx context.Context, f func(*AccessLevel) 
 type deleteAccessLevelOperation struct{}
 
 func (op *deleteAccessLevelOperation) do(ctx context.Context, r *AccessLevel, c *Client) error {
-
-	_, err := c.GetAccessLevel(ctx, r.urlNormalized())
-
+	r, err := c.GetAccessLevel(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("AccessLevel not found, returning. Original error: %v", err)
@@ -274,7 +272,7 @@ func (op *deleteAccessLevelOperation) do(ctx context.Context, r *AccessLevel, c 
 		return err
 	}
 
-	u, err := accessLevelDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := accessLevelDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -299,7 +297,7 @@ func (op *deleteAccessLevelOperation) do(ctx context.Context, r *AccessLevel, c 
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetAccessLevel(ctx, r.urlNormalized())
+		_, err = c.GetAccessLevel(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -353,7 +351,7 @@ func (op *createAccessLevelOperation) do(ctx context.Context, r *AccessLevel, c 
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetAccessLevel(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetAccessLevel(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -363,7 +361,7 @@ func (op *createAccessLevelOperation) do(ctx context.Context, r *AccessLevel, c 
 
 func (c *Client) getAccessLevelRaw(ctx context.Context, r *AccessLevel) ([]byte, error) {
 
-	u, err := accessLevelGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := accessLevelGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -396,7 +394,7 @@ func (c *Client) accessLevelDiffsForRawDesired(ctx context.Context, rawDesired *
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetAccessLevel(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetAccessLevel(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a AccessLevel resource already exists: %s", err)
@@ -426,7 +424,6 @@ func (c *Client) accessLevelDiffsForRawDesired(ctx context.Context, rawDesired *
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffAccessLevel(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1169,35 +1166,23 @@ func compareAccessLevelBasicConditionsDevicePolicyOsConstraintsNewStyle(d, a int
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *AccessLevel) urlNormalized() *AccessLevel {
-	normalized := dcl.Copy(*r).(AccessLevel)
-	normalized.Title = dcl.SelfLinkToName(r.Title)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Policy = dcl.SelfLinkToName(r.Policy)
-	return &normalized
-}
-
 func (r *AccessLevel) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Policy), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *AccessLevel) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Policy)
 }
 
 func (r *AccessLevel) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Policy), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *AccessLevel) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "update" {
 		fields := map[string]interface{}{
 			"policy": dcl.ValueOrEmptyString(n.Policy),
@@ -1944,8 +1929,8 @@ func (r *AccessLevel) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Policy == nil && ncr.Policy == nil {

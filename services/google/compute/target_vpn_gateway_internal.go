@@ -154,9 +154,7 @@ func (c *Client) deleteAllTargetVpnGateway(ctx context.Context, f func(*TargetVp
 type deleteTargetVpnGatewayOperation struct{}
 
 func (op *deleteTargetVpnGatewayOperation) do(ctx context.Context, r *TargetVpnGateway, c *Client) error {
-
-	_, err := c.GetTargetVpnGateway(ctx, r.urlNormalized())
-
+	r, err := c.GetTargetVpnGateway(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("TargetVpnGateway not found, returning. Original error: %v", err)
@@ -166,7 +164,7 @@ func (op *deleteTargetVpnGatewayOperation) do(ctx context.Context, r *TargetVpnG
 		return err
 	}
 
-	u, err := targetVpnGatewayDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := targetVpnGatewayDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -191,7 +189,7 @@ func (op *deleteTargetVpnGatewayOperation) do(ctx context.Context, r *TargetVpnG
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetTargetVpnGateway(ctx, r.urlNormalized())
+		_, err = c.GetTargetVpnGateway(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -245,7 +243,7 @@ func (op *createTargetVpnGatewayOperation) do(ctx context.Context, r *TargetVpnG
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetTargetVpnGateway(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetTargetVpnGateway(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -255,7 +253,7 @@ func (op *createTargetVpnGatewayOperation) do(ctx context.Context, r *TargetVpnG
 
 func (c *Client) getTargetVpnGatewayRaw(ctx context.Context, r *TargetVpnGateway) ([]byte, error) {
 
-	u, err := targetVpnGatewayGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := targetVpnGatewayGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -288,7 +286,7 @@ func (c *Client) targetVpnGatewayDiffsForRawDesired(ctx context.Context, rawDesi
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetTargetVpnGateway(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetTargetVpnGateway(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a TargetVpnGateway resource already exists: %s", err)
@@ -318,7 +316,6 @@ func (c *Client) targetVpnGatewayDiffsForRawDesired(ctx context.Context, rawDesi
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffTargetVpnGateway(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -517,32 +514,18 @@ func diffTargetVpnGateway(c *Client, desired, actual *TargetVpnGateway, opts ...
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *TargetVpnGateway) urlNormalized() *TargetVpnGateway {
-	normalized := dcl.Copy(*r).(TargetVpnGateway)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Region = dcl.SelfLinkToName(r.Region)
-	normalized.Network = dcl.SelfLinkToName(r.Network)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *TargetVpnGateway) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *TargetVpnGateway) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region)
 }
 
 func (r *TargetVpnGateway) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region), dcl.ValueOrEmptyString(n.Name)
 }
 
@@ -682,8 +665,8 @@ func (r *TargetVpnGateway) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

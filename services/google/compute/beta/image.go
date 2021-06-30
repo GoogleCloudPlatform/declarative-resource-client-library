@@ -994,6 +994,24 @@ func (c *Client) ListImageWithMaxResults(ctx context.Context, project string, pa
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Image) URLNormalized() *Image {
+	normalized := dcl.Copy(*r).(Image)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Family = dcl.SelfLinkToName(r.Family)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.SourceDisk = dcl.SelfLinkToName(r.SourceDisk)
+	normalized.SourceDiskId = dcl.SelfLinkToName(r.SourceDiskId)
+	normalized.SourceImage = dcl.SelfLinkToName(r.SourceImage)
+	normalized.SourceImageId = dcl.SelfLinkToName(r.SourceImageId)
+	normalized.SourceSnapshot = dcl.SelfLinkToName(r.SourceSnapshot)
+	normalized.SourceSnapshotId = dcl.SelfLinkToName(r.SourceSnapshotId)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
 func (c *Client) GetImage(ctx context.Context, r *Image) (*Image, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -1098,13 +1116,8 @@ func applyImageHelper(c *Client, ctx context.Context, rawDesired *Image, opts ..
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToImageOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -1172,7 +1185,7 @@ func applyImageHelper(c *Client, ctx context.Context, rawDesired *Image, opts ..
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetImage(ctx, desired.urlNormalized())
+	rawNew, err := c.GetImage(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

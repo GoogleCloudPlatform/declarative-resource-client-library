@@ -20,28 +20,26 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
-// Removes the string "spiffe://" from the keys of the given map and returns the map.
-func removeSpiffe(isiar map[string]PolicyAdmissionRule) {
+// Returns a copy of the given map with the string "spiffe://" removed from its keys.
+func withoutSpiffe(isiar map[string]PolicyAdmissionRule) map[string]PolicyAdmissionRule {
+	resultISIAR := make(map[string]PolicyAdmissionRule, len(isiar))
 	for k, v := range isiar {
-		if strings.HasPrefix(k, "spiffe://") {
-			isiar[k[9:len(k)]] = v
-			delete(isiar, k)
-		}
+		resultISIAR[strings.TrimPrefix(k, "spiffe://")] = v
 	}
+	return resultISIAR
 }
 
 func equalsPolicyISIAR(m, n map[string]PolicyAdmissionRule) bool {
 	if m == nil && n == nil {
 		return true
 	}
-	removeSpiffe(m)
-	removeSpiffe(n)
-	if ds, err := dcl.Diff(m, n, dcl.Info{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, dcl.FieldName{}); len(ds) != 0 || err != nil {
-		return false
-	}
-	return true
+	m = withoutSpiffe(m)
+	n = withoutSpiffe(n)
+	ds, err := dcl.Diff(m, n, dcl.Info{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, dcl.FieldName{})
+	return len(ds) == 0 && err == nil
 }
 
+// Compares two values of istioServiceIdentity
 func canonicalizePolicyISIAR(m, n interface{}) bool {
 	mVal, _ := m.(map[string]PolicyAdmissionRule)
 	nVal, _ := n.(map[string]PolicyAdmissionRule)

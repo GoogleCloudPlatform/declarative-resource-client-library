@@ -176,9 +176,7 @@ func (c *Client) deleteAllForwardingRule(ctx context.Context, f func(*Forwarding
 type deleteForwardingRuleOperation struct{}
 
 func (op *deleteForwardingRuleOperation) do(ctx context.Context, r *ForwardingRule, c *Client) error {
-
-	_, err := c.GetForwardingRule(ctx, r.urlNormalized())
-
+	r, err := c.GetForwardingRule(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("ForwardingRule not found, returning. Original error: %v", err)
@@ -188,7 +186,7 @@ func (op *deleteForwardingRuleOperation) do(ctx context.Context, r *ForwardingRu
 		return err
 	}
 
-	u, err := forwardingRuleDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := forwardingRuleDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -213,7 +211,7 @@ func (op *deleteForwardingRuleOperation) do(ctx context.Context, r *ForwardingRu
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetForwardingRule(ctx, r.urlNormalized())
+		_, err = c.GetForwardingRule(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -267,7 +265,7 @@ func (op *createForwardingRuleOperation) do(ctx context.Context, r *ForwardingRu
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetForwardingRule(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetForwardingRule(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -277,7 +275,7 @@ func (op *createForwardingRuleOperation) do(ctx context.Context, r *ForwardingRu
 
 func (c *Client) getForwardingRuleRaw(ctx context.Context, r *ForwardingRule) ([]byte, error) {
 
-	u, err := forwardingRuleGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := forwardingRuleGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -310,7 +308,7 @@ func (c *Client) forwardingRuleDiffsForRawDesired(ctx context.Context, rawDesire
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetForwardingRule(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetForwardingRule(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a ForwardingRule resource already exists: %s", err)
@@ -340,7 +338,6 @@ func (c *Client) forwardingRuleDiffsForRawDesired(ctx context.Context, rawDesire
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffForwardingRule(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1030,41 +1027,18 @@ func compareForwardingRuleMetadataFilterFilterLabelNewStyle(d, a interface{}, fn
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *ForwardingRule) urlNormalized() *ForwardingRule {
-	normalized := dcl.Copy(*r).(ForwardingRule)
-	normalized.BackendService = dcl.SelfLinkToName(r.BackendService)
-	normalized.CreationTimestamp = dcl.SelfLinkToName(r.CreationTimestamp)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.IPAddress = dcl.SelfLinkToName(r.IPAddress)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Network = dcl.SelfLinkToName(r.Network)
-	normalized.PortRange = dcl.SelfLinkToName(r.PortRange)
-	normalized.Region = dcl.SelfLinkToName(r.Region)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.ServiceLabel = dcl.SelfLinkToName(r.ServiceLabel)
-	normalized.ServiceName = dcl.SelfLinkToName(r.ServiceName)
-	normalized.Subnetwork = dcl.SelfLinkToName(r.Subnetwork)
-	normalized.Target = dcl.SelfLinkToName(r.Target)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
-}
-
 func (r *ForwardingRule) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *ForwardingRule) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location)
 }
 
 func (r *ForwardingRule) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
@@ -1624,8 +1598,8 @@ func (r *ForwardingRule) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

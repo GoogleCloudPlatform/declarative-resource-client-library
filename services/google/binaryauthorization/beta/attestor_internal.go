@@ -134,7 +134,7 @@ type updateAttestorUpdateAttestorOperation struct {
 // PUT request to a single URL.
 
 func (op *updateAttestorUpdateAttestorOperation) do(ctx context.Context, r *Attestor, c *Client) error {
-	_, err := c.GetAttestor(ctx, r.urlNormalized())
+	_, err := c.GetAttestor(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -239,9 +239,7 @@ func (c *Client) deleteAllAttestor(ctx context.Context, f func(*Attestor) bool, 
 type deleteAttestorOperation struct{}
 
 func (op *deleteAttestorOperation) do(ctx context.Context, r *Attestor, c *Client) error {
-
-	_, err := c.GetAttestor(ctx, r.urlNormalized())
-
+	r, err := c.GetAttestor(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Attestor not found, returning. Original error: %v", err)
@@ -251,7 +249,7 @@ func (op *deleteAttestorOperation) do(ctx context.Context, r *Attestor, c *Clien
 		return err
 	}
 
-	u, err := attestorDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := attestorDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -267,7 +265,7 @@ func (op *deleteAttestorOperation) do(ctx context.Context, r *Attestor, c *Clien
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetAttestor(ctx, r.urlNormalized())
+		_, err = c.GetAttestor(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -316,7 +314,7 @@ func (op *createAttestorOperation) do(ctx context.Context, r *Attestor, c *Clien
 	}
 	op.response = o
 
-	if _, err := c.GetAttestor(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetAttestor(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -326,7 +324,7 @@ func (op *createAttestorOperation) do(ctx context.Context, r *Attestor, c *Clien
 
 func (c *Client) getAttestorRaw(ctx context.Context, r *Attestor) ([]byte, error) {
 
-	u, err := attestorGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := attestorGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -359,7 +357,7 @@ func (c *Client) attestorDiffsForRawDesired(ctx context.Context, rawDesired *Att
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetAttestor(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetAttestor(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Attestor resource already exists: %s", err)
@@ -389,7 +387,6 @@ func (c *Client) attestorDiffsForRawDesired(ctx context.Context, rawDesired *Att
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffAttestor(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -893,34 +890,23 @@ func compareAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeyNewStyle(d, a int
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Attestor) urlNormalized() *Attestor {
-	normalized := dcl.Copy(*r).(Attestor)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *Attestor) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Attestor) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Attestor) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Attestor) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateAttestor" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -1418,8 +1404,8 @@ func (r *Attestor) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

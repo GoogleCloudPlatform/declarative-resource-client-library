@@ -75,6 +75,7 @@ components:
       required:
       - membership
       - feature
+      - location
       properties:
         configmanagement:
           type: object

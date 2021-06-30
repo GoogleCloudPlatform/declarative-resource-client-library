@@ -30,6 +30,9 @@ func (r *FeatureMembership) validate() error {
 	if err := dcl.RequiredParameter(r.Feature, "Feature"); err != nil {
 		return err
 	}
+	if err := dcl.RequiredParameter(r.Location, "Location"); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.Configmanagement) {
 		if err := r.Configmanagement.validate(); err != nil {
 			return err
@@ -205,7 +208,7 @@ func (c *Client) featureMembershipDiffsForRawDesired(ctx context.Context, rawDes
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetFeatureMembership(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetFeatureMembership(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a FeatureMembership resource already exists: %s", err)
@@ -235,7 +238,6 @@ func (c *Client) featureMembershipDiffsForRawDesired(ctx context.Context, rawDes
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffFeatureMembership(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1181,35 +1183,23 @@ func compareFeatureMembershipConfigmanagementHierarchyControllerNewStyle(d, a in
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *FeatureMembership) urlNormalized() *FeatureMembership {
-	normalized := dcl.Copy(*r).(FeatureMembership)
-	normalized.Membership = dcl.SelfLinkToName(r.Membership)
-	normalized.Feature = dcl.SelfLinkToName(r.Feature)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *FeatureMembership) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Feature)
 }
 
 func (r *FeatureMembership) createFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Feature)
 }
 
 func (r *FeatureMembership) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Feature)
 }
 
 func (r *FeatureMembership) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateFeatureMembership" {
 		fields := map[string]interface{}{
 			"project":  dcl.ValueOrEmptyString(n.Project),
@@ -2077,8 +2067,8 @@ func (r *FeatureMembership) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

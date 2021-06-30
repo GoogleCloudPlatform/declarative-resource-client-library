@@ -56,8 +56,7 @@ func projectLifecycleState(ctx context.Context, client *Client, url string) (str
 
 // The resources to be deleted first befoe deleting Workload
 func (r *Workload) workloadDeletePreAction(ctx context.Context, client *Client) error {
-	nr, err := client.GetWorkload(ctx, r.urlNormalized())
-
+	nr, err := client.GetWorkload(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			client.Config.Logger.Infof("Workload not found, returning. Original error: %v", err)
@@ -71,7 +70,7 @@ func (r *Workload) workloadDeletePreAction(ctx context.Context, client *Client) 
 			// Keyrings have no delete method.
 			continue
 		}
-		u, err := nr.urlNormalized().projectURL(client.Config.BasePath, i)
+		u, err := nr.URLNormalized().projectURL(client.Config.BasePath, i)
 		if err != nil {
 			return err
 		}
@@ -94,7 +93,7 @@ func (r *Workload) workloadDeletePreAction(ctx context.Context, client *Client) 
 				// Keyrings have no delete method.
 				continue
 			}
-			u, err := nr.urlNormalized().projectURL(client.Config.BasePath, i)
+			u, err := nr.URLNormalized().projectURL(client.Config.BasePath, i)
 			if err != nil {
 				return nil, err
 			}

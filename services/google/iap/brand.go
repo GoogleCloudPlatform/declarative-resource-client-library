@@ -101,6 +101,17 @@ func (c *Client) ListBrandWithMaxResults(ctx context.Context, project string, pa
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Brand) URLNormalized() *Brand {
+	normalized := dcl.Copy(*r).(Brand)
+	normalized.ApplicationTitle = dcl.SelfLinkToName(r.ApplicationTitle)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.SupportEmail = dcl.SelfLinkToName(r.SupportEmail)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
 func (c *Client) GetBrand(ctx context.Context, r *Brand) (*Brand, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -169,13 +180,8 @@ func applyBrandHelper(c *Client, ctx context.Context, rawDesired *Brand, opts ..
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToBrandOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -242,7 +248,7 @@ func applyBrandHelper(c *Client, ctx context.Context, rawDesired *Brand, opts ..
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetBrand(ctx, desired.urlNormalized())
+	rawNew, err := c.GetBrand(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

@@ -272,6 +272,21 @@ type ApplicationList struct {
 	nextToken string
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Application) URLNormalized() *Application {
+	normalized := dcl.Copy(*r).(Application)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.AuthDomain = dcl.SelfLinkToName(r.AuthDomain)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.CodeBucket = dcl.SelfLinkToName(r.CodeBucket)
+	normalized.DefaultCookieExpiration = dcl.SelfLinkToName(r.DefaultCookieExpiration)
+	normalized.DefaultHostname = dcl.SelfLinkToName(r.DefaultHostname)
+	normalized.DefaultBucket = dcl.SelfLinkToName(r.DefaultBucket)
+	normalized.GcrDomain = dcl.SelfLinkToName(r.GcrDomain)
+	return &normalized
+}
 func (c *Client) GetApplication(ctx context.Context, r *Application) (*Application, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -339,13 +354,8 @@ func applyApplicationHelper(c *Client, ctx context.Context, rawDesired *Applicat
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToApplicationOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -412,7 +422,7 @@ func applyApplicationHelper(c *Client, ctx context.Context, rawDesired *Applicat
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetApplication(ctx, desired.urlNormalized())
+	rawNew, err := c.GetApplication(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

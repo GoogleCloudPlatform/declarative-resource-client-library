@@ -1881,6 +1881,19 @@ func (c *Client) ListOsPolicyAssignmentWithMaxResults(ctx context.Context, proje
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *OsPolicyAssignment) URLNormalized() *OsPolicyAssignment {
+	normalized := dcl.Copy(*r).(OsPolicyAssignment)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.RevisionId = dcl.SelfLinkToName(r.RevisionId)
+	normalized.Uid = dcl.SelfLinkToName(r.Uid)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
+}
 func (c *Client) GetOsPolicyAssignment(ctx context.Context, r *OsPolicyAssignment) (*OsPolicyAssignment, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -1986,13 +1999,8 @@ func applyOsPolicyAssignmentHelper(c *Client, ctx context.Context, rawDesired *O
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToOsPolicyAssignmentOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -2060,7 +2068,7 @@ func applyOsPolicyAssignmentHelper(c *Client, ctx context.Context, rawDesired *O
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetOsPolicyAssignment(ctx, desired.urlNormalized())
+	rawNew, err := c.GetOsPolicyAssignment(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

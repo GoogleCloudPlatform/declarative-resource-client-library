@@ -136,6 +136,17 @@ func (c *Client) ListLogBucketWithMaxResults(ctx context.Context, location, pare
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *LogBucket) URLNormalized() *LogBucket {
+	normalized := dcl.Copy(*r).(LogBucket)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Parent = r.Parent
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
+}
 func (c *Client) GetLogBucket(ctx context.Context, r *LogBucket) (*LogBucket, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -241,13 +252,8 @@ func applyLogBucketHelper(c *Client, ctx context.Context, rawDesired *LogBucket,
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToLogBucketOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -315,7 +321,7 @@ func applyLogBucketHelper(c *Client, ctx context.Context, rawDesired *LogBucket,
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetLogBucket(ctx, desired.urlNormalized())
+	rawNew, err := c.GetLogBucket(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

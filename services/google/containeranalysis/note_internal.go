@@ -343,7 +343,7 @@ type updateNoteUpdateNoteOperation struct {
 // PUT request to a single URL.
 
 func (op *updateNoteUpdateNoteOperation) do(ctx context.Context, r *Note, c *Client) error {
-	_, err := c.GetNote(ctx, r.urlNormalized())
+	_, err := c.GetNote(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -448,9 +448,7 @@ func (c *Client) deleteAllNote(ctx context.Context, f func(*Note) bool, resource
 type deleteNoteOperation struct{}
 
 func (op *deleteNoteOperation) do(ctx context.Context, r *Note, c *Client) error {
-
-	_, err := c.GetNote(ctx, r.urlNormalized())
-
+	r, err := c.GetNote(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Note not found, returning. Original error: %v", err)
@@ -460,7 +458,7 @@ func (op *deleteNoteOperation) do(ctx context.Context, r *Note, c *Client) error
 		return err
 	}
 
-	u, err := noteDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := noteDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -476,7 +474,7 @@ func (op *deleteNoteOperation) do(ctx context.Context, r *Note, c *Client) error
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetNote(ctx, r.urlNormalized())
+		_, err = c.GetNote(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -525,7 +523,7 @@ func (op *createNoteOperation) do(ctx context.Context, r *Note, c *Client) error
 	}
 	op.response = o
 
-	if _, err := c.GetNote(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetNote(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -535,7 +533,7 @@ func (op *createNoteOperation) do(ctx context.Context, r *Note, c *Client) error
 
 func (c *Client) getNoteRaw(ctx context.Context, r *Note) ([]byte, error) {
 
-	u, err := noteGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := noteGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -568,7 +566,7 @@ func (c *Client) noteDiffsForRawDesired(ctx context.Context, rawDesired *Note, o
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetNote(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetNote(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Note resource already exists: %s", err)
@@ -598,7 +596,6 @@ func (c *Client) noteDiffsForRawDesired(ctx context.Context, rawDesired *Note, o
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffNote(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -3643,35 +3640,23 @@ func compareNoteAttestationHintNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Note) urlNormalized() *Note {
-	normalized := dcl.Copy(*r).(Note)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.ShortDescription = dcl.SelfLinkToName(r.ShortDescription)
-	normalized.LongDescription = dcl.SelfLinkToName(r.LongDescription)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *Note) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Note) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Note) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Note) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateNote" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -6703,8 +6688,8 @@ func (r *Note) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

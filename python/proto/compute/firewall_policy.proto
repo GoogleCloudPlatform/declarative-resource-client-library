@@ -28,8 +28,7 @@ message ComputeFirewallPolicy {
   string self_link_with_id = 7;
   int64 rule_tuple_count = 8;
   string short_name = 9;
-  string display_name = 10;
-  string parent = 11;
+  string parent = 10;
 }
 
 message ApplyComputeFirewallPolicyRequest {

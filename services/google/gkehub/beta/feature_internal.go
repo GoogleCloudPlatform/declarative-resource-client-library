@@ -200,9 +200,7 @@ func (c *Client) deleteAllFeature(ctx context.Context, f func(*Feature) bool, re
 type deleteFeatureOperation struct{}
 
 func (op *deleteFeatureOperation) do(ctx context.Context, r *Feature, c *Client) error {
-
-	_, err := c.GetFeature(ctx, r.urlNormalized())
-
+	r, err := c.GetFeature(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Feature not found, returning. Original error: %v", err)
@@ -212,7 +210,7 @@ func (op *deleteFeatureOperation) do(ctx context.Context, r *Feature, c *Client)
 		return err
 	}
 
-	u, err := featureDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := featureDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -237,7 +235,7 @@ func (op *deleteFeatureOperation) do(ctx context.Context, r *Feature, c *Client)
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetFeature(ctx, r.urlNormalized())
+		_, err = c.GetFeature(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -291,7 +289,7 @@ func (op *createFeatureOperation) do(ctx context.Context, r *Feature, c *Client)
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetFeature(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetFeature(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -301,7 +299,7 @@ func (op *createFeatureOperation) do(ctx context.Context, r *Feature, c *Client)
 
 func (c *Client) getFeatureRaw(ctx context.Context, r *Feature) ([]byte, error) {
 
-	u, err := featureGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := featureGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -334,7 +332,7 @@ func (c *Client) featureDiffsForRawDesired(ctx context.Context, rawDesired *Feat
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetFeature(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetFeature(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Feature resource already exists: %s", err)
@@ -364,7 +362,6 @@ func (c *Client) featureDiffsForRawDesired(ctx context.Context, rawDesired *Feat
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffFeature(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1078,34 +1075,23 @@ func compareFeatureStateStateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Feature) urlNormalized() *Feature {
-	normalized := dcl.Copy(*r).(Feature)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
-}
-
 func (r *Feature) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Feature) createFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Feature) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Feature) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateFeature" {
 		fields := map[string]interface{}{
 			"project":  dcl.ValueOrEmptyString(n.Project),
@@ -1877,8 +1863,8 @@ func (r *Feature) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

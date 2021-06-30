@@ -142,9 +142,7 @@ func (c *Client) deleteAllOrganization(ctx context.Context, f func(*Organization
 type deleteOrganizationOperation struct{}
 
 func (op *deleteOrganizationOperation) do(ctx context.Context, r *Organization, c *Client) error {
-
-	_, err := c.GetOrganization(ctx, r.urlNormalized())
-
+	r, err := c.GetOrganization(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFoundOrCode(err, 403) {
 			c.Config.Logger.Infof("Organization not found, returning. Original error: %v", err)
@@ -154,7 +152,7 @@ func (op *deleteOrganizationOperation) do(ctx context.Context, r *Organization, 
 		return err
 	}
 
-	u, err := organizationDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := organizationDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -179,7 +177,7 @@ func (op *deleteOrganizationOperation) do(ctx context.Context, r *Organization, 
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetOrganization(ctx, r.urlNormalized())
+		_, err = c.GetOrganization(ctx, r.URLNormalized())
 		if !dcl.IsNotFoundOrCode(err, 403) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -240,7 +238,7 @@ func (op *createOrganizationOperation) do(ctx context.Context, r *Organization, 
 	}
 	r.Name = &name
 
-	if _, err := c.GetOrganization(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetOrganization(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -250,7 +248,7 @@ func (op *createOrganizationOperation) do(ctx context.Context, r *Organization, 
 
 func (c *Client) getOrganizationRaw(ctx context.Context, r *Organization) ([]byte, error) {
 
-	u, err := organizationGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := organizationGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -289,7 +287,7 @@ func (c *Client) organizationDiffsForRawDesired(ctx context.Context, rawDesired 
 		return nil, desired, nil, err
 	}
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetOrganization(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetOrganization(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFoundOrCode(err, 403) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Organization resource already exists: %s", err)
@@ -319,7 +317,6 @@ func (c *Client) organizationDiffsForRawDesired(ctx context.Context, rawDesired 
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffOrganization(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -848,40 +845,23 @@ func compareOrganizationPropertiesPropertyNewStyle(d, a interface{}, fn dcl.Fiel
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Organization) urlNormalized() *Organization {
-	normalized := dcl.Copy(*r).(Organization)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.AnalyticsRegion = dcl.SelfLinkToName(r.AnalyticsRegion)
-	normalized.AuthorizedNetwork = dcl.SelfLinkToName(r.AuthorizedNetwork)
-	normalized.CaCertificate = dcl.SelfLinkToName(r.CaCertificate)
-	normalized.RuntimeDatabaseEncryptionKeyName = dcl.SelfLinkToName(r.RuntimeDatabaseEncryptionKeyName)
-	normalized.ProjectId = dcl.SelfLinkToName(r.ProjectId)
-	normalized.Parent = r.Parent
-	return &normalized
-}
-
 func (r *Organization) getFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Organization) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Parent)
 }
 
 func (r *Organization) deleteFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Organization) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateOrganization" {
 		fields := map[string]interface{}{
 			"name": dcl.ValueOrEmptyString(n.Name),
@@ -1387,8 +1367,8 @@ func (r *Organization) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Name == nil && ncr.Name == nil {

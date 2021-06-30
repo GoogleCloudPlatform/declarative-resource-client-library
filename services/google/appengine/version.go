@@ -1932,6 +1932,27 @@ func (c *Client) ListVersionWithMaxResults(ctx context.Context, app, service str
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Version) URLNormalized() *Version {
+	normalized := dcl.Copy(*r).(Version)
+	normalized.ConsumerName = dcl.SelfLinkToName(r.ConsumerName)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.InstanceClass = dcl.SelfLinkToName(r.InstanceClass)
+	normalized.Runtime = dcl.SelfLinkToName(r.Runtime)
+	normalized.RuntimeChannel = dcl.SelfLinkToName(r.RuntimeChannel)
+	normalized.Env = dcl.SelfLinkToName(r.Env)
+	normalized.CreatedBy = dcl.SelfLinkToName(r.CreatedBy)
+	normalized.RuntimeApiVersion = dcl.SelfLinkToName(r.RuntimeApiVersion)
+	normalized.RuntimeMainExecutablePath = dcl.SelfLinkToName(r.RuntimeMainExecutablePath)
+	normalized.DefaultExpiration = dcl.SelfLinkToName(r.DefaultExpiration)
+	normalized.NobuildFilesRegex = dcl.SelfLinkToName(r.NobuildFilesRegex)
+	normalized.VersionUrl = dcl.SelfLinkToName(r.VersionUrl)
+	normalized.App = dcl.SelfLinkToName(r.App)
+	normalized.Service = dcl.SelfLinkToName(r.Service)
+	return &normalized
+}
 func (c *Client) GetVersion(ctx context.Context, r *Version) (*Version, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -2037,13 +2058,8 @@ func applyVersionHelper(c *Client, ctx context.Context, rawDesired *Version, opt
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToVersionOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -2111,7 +2127,7 @@ func applyVersionHelper(c *Client, ctx context.Context, rawDesired *Version, opt
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetVersion(ctx, desired.urlNormalized())
+	rawNew, err := c.GetVersion(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

@@ -77,13 +77,7 @@ func newUpdateFirewallPolicyPatchRequest(ctx context.Context, f *FirewallPolicy,
 	if v := f.Fingerprint; !dcl.IsEmptyValueIndirect(v) {
 		req["fingerprint"] = v
 	}
-	if v := f.ShortName; !dcl.IsEmptyValueIndirect(v) {
-		req["shortName"] = v
-	}
-	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
-		req["displayName"] = v
-	}
-	b, err := c.getFirewallPolicyRaw(ctx, f.urlNormalized())
+	b, err := c.getFirewallPolicyRaw(ctx, f.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -211,7 +205,7 @@ func (op *createFirewallPolicyOperation) FirstResponse() (map[string]interface{}
 
 func (c *Client) getFirewallPolicyRaw(ctx context.Context, r *FirewallPolicy) ([]byte, error) {
 
-	u, err := firewallPolicyGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := firewallPolicyGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -250,7 +244,7 @@ func (c *Client) firewallPolicyDiffsForRawDesired(ctx context.Context, rawDesire
 		return nil, desired, nil, err
 	}
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetFirewallPolicy(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetFirewallPolicy(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a FirewallPolicy resource already exists: %s", err)
@@ -280,7 +274,6 @@ func (c *Client) firewallPolicyDiffsForRawDesired(ctx context.Context, rawDesire
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffFirewallPolicy(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -305,9 +298,6 @@ func canonicalizeFirewallPolicyDesiredState(rawDesired, rawInitial *FirewallPoli
 		return rawDesired, nil
 	}
 
-	if dcl.IsZeroValue(rawDesired.Name) {
-		rawDesired.Name = rawInitial.Name
-	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
@@ -316,9 +306,6 @@ func canonicalizeFirewallPolicyDesiredState(rawDesired, rawInitial *FirewallPoli
 	}
 	if dcl.StringCanonicalize(rawDesired.ShortName, rawInitial.ShortName) {
 		rawDesired.ShortName = rawInitial.ShortName
-	}
-	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
-		rawDesired.DisplayName = rawInitial.DisplayName
 	}
 	if dcl.StringCanonicalize(rawDesired.Parent, rawInitial.Parent) {
 		rawDesired.Parent = rawInitial.Parent
@@ -395,14 +382,6 @@ func canonicalizeFirewallPolicyNewState(c *Client, rawNew, rawDesired *FirewallP
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
-		rawNew.DisplayName = rawDesired.DisplayName
-	} else {
-		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
-			rawNew.DisplayName = rawDesired.DisplayName
-		}
-	}
-
 	if dcl.IsEmptyValueIndirect(rawNew.Parent) && dcl.IsEmptyValueIndirect(rawDesired.Parent) {
 		rawNew.Parent = rawDesired.Parent
 	} else {
@@ -429,7 +408,7 @@ func diffFirewallPolicy(c *Client, desired, actual *FirewallPolicy, opts ...dcl.
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -485,14 +464,7 @@ func diffFirewallPolicy(c *Client, desired, actual *FirewallPolicy, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ShortName, actual.ShortName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateFirewallPolicyPatchOperation")}, fn.AddNest("ShortName")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateFirewallPolicyPatchOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ShortName, actual.ShortName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ShortName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -509,41 +481,23 @@ func diffFirewallPolicy(c *Client, desired, actual *FirewallPolicy, opts ...dcl.
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *FirewallPolicy) urlNormalized() *FirewallPolicy {
-	normalized := dcl.Copy(*r).(FirewallPolicy)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Id = dcl.SelfLinkToName(r.Id)
-	normalized.CreationTimestamp = dcl.SelfLinkToName(r.CreationTimestamp)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Fingerprint = dcl.SelfLinkToName(r.Fingerprint)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.SelfLinkWithId = dcl.SelfLinkToName(r.SelfLinkWithId)
-	normalized.ShortName = dcl.SelfLinkToName(r.ShortName)
-	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
-	normalized.Parent = r.Parent
-	return &normalized
-}
-
 func (r *FirewallPolicy) getFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *FirewallPolicy) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Parent)
 }
 
 func (r *FirewallPolicy) deleteFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *FirewallPolicy) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "Patch" {
 		fields := map[string]interface{}{
 			"name": dcl.ValueOrEmptyString(n.Name),
@@ -610,9 +564,6 @@ func expandFirewallPolicy(c *Client, f *FirewallPolicy) (map[string]interface{},
 	if v := f.ShortName; !dcl.IsEmptyValueIndirect(v) {
 		m["shortName"] = v
 	}
-	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
-		m["displayName"] = v
-	}
 	if v := f.Parent; !dcl.IsEmptyValueIndirect(v) {
 		m["parent"] = v
 	}
@@ -641,7 +592,6 @@ func flattenFirewallPolicy(c *Client, i interface{}) *FirewallPolicy {
 	res.SelfLinkWithId = dcl.FlattenString(m["selfLinkWithId"])
 	res.RuleTupleCount = dcl.FlattenInteger(m["ruleTupleCount"])
 	res.ShortName = dcl.FlattenString(m["shortName"])
-	res.DisplayName = dcl.FlattenString(m["displayName"])
 	res.Parent = dcl.FlattenString(m["parent"])
 
 	return res
@@ -657,8 +607,8 @@ func (r *FirewallPolicy) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Name == nil && ncr.Name == nil {

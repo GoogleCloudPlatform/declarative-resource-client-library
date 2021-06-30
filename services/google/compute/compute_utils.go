@@ -144,7 +144,7 @@ func (op *createFirewallPolicyOperation) do(ctx context.Context, r *FirewallPoli
 
 	r.Name = &o.BaseOperation.TargetID
 
-	if _, err := c.GetFirewallPolicy(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetFirewallPolicy(ctx, r.URLNormalized()); err != nil {
 		return err
 	}
 
@@ -152,7 +152,7 @@ func (op *createFirewallPolicyOperation) do(ctx context.Context, r *FirewallPoli
 }
 
 func (op *updateFirewallPolicyPatchOperation) do(ctx context.Context, r *FirewallPolicy, c *Client) error {
-	_, err := c.GetFirewallPolicy(ctx, r.urlNormalized())
+	_, err := c.GetFirewallPolicy(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -194,7 +194,7 @@ func (op *updateFirewallPolicyPatchOperation) do(ctx context.Context, r *Firewal
 
 func (op *deleteFirewallPolicyOperation) do(ctx context.Context, r *FirewallPolicy, c *Client) error {
 
-	_, err := c.GetFirewallPolicy(ctx, r.urlNormalized())
+	_, err := c.GetFirewallPolicy(ctx, r.URLNormalized())
 
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -205,7 +205,7 @@ func (op *deleteFirewallPolicyOperation) do(ctx context.Context, r *FirewallPoli
 		return err
 	}
 
-	u, err := firewallPolicyDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := firewallPolicyDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -225,7 +225,7 @@ func (op *deleteFirewallPolicyOperation) do(ctx context.Context, r *FirewallPoli
 	if err := o.Wait(ctx, c.Config, r.Parent); err != nil {
 		return err
 	}
-	_, err = c.GetFirewallPolicy(ctx, r.urlNormalized())
+	_, err = c.GetFirewallPolicy(ctx, r.URLNormalized())
 	if !dcl.IsNotFound(err) {
 		return dcl.NotDeletedError{ExistingResource: r}
 	}
@@ -266,14 +266,14 @@ func (op *createFirewallPolicyRuleOperation) do(ctx context.Context, r *Firewall
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 
-	if _, err := c.GetFirewallPolicyRule(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetFirewallPolicyRule(ctx, r.URLNormalized()); err != nil {
 		return err
 	}
 	return nil
 }
 
 func (op *updateFirewallPolicyRulePatchRuleOperation) do(ctx context.Context, r *FirewallPolicyRule, c *Client) error {
-	_, err := c.GetFirewallPolicyRule(ctx, r.urlNormalized())
+	_, err := c.GetFirewallPolicyRule(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -315,7 +315,7 @@ func (op *updateFirewallPolicyRulePatchRuleOperation) do(ctx context.Context, r 
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 
-	if _, err := c.GetFirewallPolicyRule(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetFirewallPolicyRule(ctx, r.URLNormalized()); err != nil {
 		return err
 	}
 	return nil
@@ -355,7 +355,7 @@ func (op *deleteFirewallPolicyRuleOperation) do(ctx context.Context, r *Firewall
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 
-	_, err = c.GetFirewallPolicyRule(ctx, r.urlNormalized())
+	_, err = c.GetFirewallPolicyRule(ctx, r.URLNormalized())
 	if !dcl.IsNotFoundOrCode(err, 400) {
 		return dcl.NotDeletedError{ExistingResource: r}
 	}
@@ -396,7 +396,7 @@ func (op *createFirewallPolicyAssociationOperation) do(ctx context.Context, r *F
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 
-	if _, err := c.GetFirewallPolicyAssociation(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetFirewallPolicyAssociation(ctx, r.URLNormalized()); err != nil {
 		return err
 	}
 	return nil
@@ -436,7 +436,7 @@ func (op *deleteFirewallPolicyAssociationOperation) do(ctx context.Context, r *F
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 
-	_, err = c.GetFirewallPolicyAssociation(ctx, r.urlNormalized())
+	_, err = c.GetFirewallPolicyAssociation(ctx, r.URLNormalized())
 	if !dcl.IsNotFoundOrCode(err, 400) {
 		return dcl.NotDeletedError{ExistingResource: r}
 	}
@@ -468,8 +468,8 @@ func (r *NetworkEndpoint) customMatcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 
 		if nr.Port == nil && ncr.Port == nil {
 			c.Config.Logger.Info("Both Port fields null - considering equal.")
@@ -484,7 +484,7 @@ func (r *NetworkEndpoint) customMatcher(c *Client) func([]byte) bool {
 }
 
 func (c *Client) getNetworkEndpointRaw(ctx context.Context, r *NetworkEndpoint) ([]byte, error) {
-	u, err := networkEndpointGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := networkEndpointGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -542,7 +542,7 @@ func (c *Client) GetNetworkEndpoint(ctx context.Context, r *NetworkEndpoint) (*N
 func (op *deleteNetworkEndpointOperation) do(ctx context.Context, r *NetworkEndpoint, c *Client) error {
 	c.Config.Logger.Infof("Attempting to delete %v", r)
 
-	u, err := networkEndpointDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := networkEndpointDeleteURL(c.Config.BasePath, r.URLNormalized())
 
 	if err != nil {
 		return err
@@ -567,7 +567,7 @@ func (op *deleteNetworkEndpointOperation) do(ctx context.Context, r *NetworkEndp
 	}
 	c.Config.Logger.Infof("Successfully waited for operation")
 
-	_, err = c.GetNetworkEndpoint(ctx, r.urlNormalized())
+	_, err = c.GetNetworkEndpoint(ctx, r.URLNormalized())
 	if !dcl.IsNotFound(err) {
 		return dcl.NotDeletedError{ExistingResource: r}
 	}

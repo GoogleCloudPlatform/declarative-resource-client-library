@@ -91,7 +91,7 @@ type vpnGatewayApiOperation interface {
 func newUpdateVpnGatewaySetLabelsRequest(ctx context.Context, f *VpnGateway, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 
-	b, err := c.getVpnGatewayRaw(ctx, f.urlNormalized())
+	b, err := c.getVpnGatewayRaw(ctx, f.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -131,7 +131,7 @@ type updateVpnGatewaySetLabelsOperation struct {
 // PUT request to a single URL.
 
 func (op *updateVpnGatewaySetLabelsOperation) do(ctx context.Context, r *VpnGateway, c *Client) error {
-	_, err := c.GetVpnGateway(ctx, r.urlNormalized())
+	_, err := c.GetVpnGateway(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -247,9 +247,7 @@ func (c *Client) deleteAllVpnGateway(ctx context.Context, f func(*VpnGateway) bo
 type deleteVpnGatewayOperation struct{}
 
 func (op *deleteVpnGatewayOperation) do(ctx context.Context, r *VpnGateway, c *Client) error {
-
-	_, err := c.GetVpnGateway(ctx, r.urlNormalized())
-
+	r, err := c.GetVpnGateway(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("VpnGateway not found, returning. Original error: %v", err)
@@ -259,7 +257,7 @@ func (op *deleteVpnGatewayOperation) do(ctx context.Context, r *VpnGateway, c *C
 		return err
 	}
 
-	u, err := vpnGatewayDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := vpnGatewayDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -284,7 +282,7 @@ func (op *deleteVpnGatewayOperation) do(ctx context.Context, r *VpnGateway, c *C
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetVpnGateway(ctx, r.urlNormalized())
+		_, err = c.GetVpnGateway(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -338,7 +336,7 @@ func (op *createVpnGatewayOperation) do(ctx context.Context, r *VpnGateway, c *C
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetVpnGateway(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetVpnGateway(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -348,7 +346,7 @@ func (op *createVpnGatewayOperation) do(ctx context.Context, r *VpnGateway, c *C
 
 func (c *Client) getVpnGatewayRaw(ctx context.Context, r *VpnGateway) ([]byte, error) {
 
-	u, err := vpnGatewayGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := vpnGatewayGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -381,7 +379,7 @@ func (c *Client) vpnGatewayDiffsForRawDesired(ctx context.Context, rawDesired *V
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetVpnGateway(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetVpnGateway(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a VpnGateway resource already exists: %s", err)
@@ -411,7 +409,6 @@ func (c *Client) vpnGatewayDiffsForRawDesired(ctx context.Context, rawDesired *V
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffVpnGateway(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -710,37 +707,23 @@ func compareVpnGatewayVpnInterfaceNewStyle(d, a interface{}, fn dcl.FieldName) (
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *VpnGateway) urlNormalized() *VpnGateway {
-	normalized := dcl.Copy(*r).(VpnGateway)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Region = dcl.SelfLinkToName(r.Region)
-	normalized.Network = dcl.SelfLinkToName(r.Network)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *VpnGateway) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *VpnGateway) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region)
 }
 
 func (r *VpnGateway) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *VpnGateway) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "setLabels" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -970,8 +953,8 @@ func (r *VpnGateway) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

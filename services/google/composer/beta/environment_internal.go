@@ -260,9 +260,7 @@ func (c *Client) deleteAllEnvironment(ctx context.Context, f func(*Environment) 
 type deleteEnvironmentOperation struct{}
 
 func (op *deleteEnvironmentOperation) do(ctx context.Context, r *Environment, c *Client) error {
-
-	_, err := c.GetEnvironment(ctx, r.urlNormalized())
-
+	r, err := c.GetEnvironment(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Environment not found, returning. Original error: %v", err)
@@ -272,7 +270,7 @@ func (op *deleteEnvironmentOperation) do(ctx context.Context, r *Environment, c 
 		return err
 	}
 
-	u, err := environmentDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := environmentDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -297,7 +295,7 @@ func (op *deleteEnvironmentOperation) do(ctx context.Context, r *Environment, c 
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetEnvironment(ctx, r.urlNormalized())
+		_, err = c.GetEnvironment(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -351,7 +349,7 @@ func (op *createEnvironmentOperation) do(ctx context.Context, r *Environment, c 
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetEnvironment(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetEnvironment(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -361,7 +359,7 @@ func (op *createEnvironmentOperation) do(ctx context.Context, r *Environment, c 
 
 func (c *Client) getEnvironmentRaw(ctx context.Context, r *Environment) ([]byte, error) {
 
-	u, err := environmentGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := environmentGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -394,7 +392,7 @@ func (c *Client) environmentDiffsForRawDesired(ctx context.Context, rawDesired *
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetEnvironment(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetEnvironment(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Environment resource already exists: %s", err)
@@ -424,7 +422,6 @@ func (c *Client) environmentDiffsForRawDesired(ctx context.Context, rawDesired *
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffEnvironment(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -2258,30 +2255,18 @@ func compareEnvironmentConfigMaintenanceWindowNewStyle(d, a interface{}, fn dcl.
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Environment) urlNormalized() *Environment {
-	normalized := dcl.Copy(*r).(Environment)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Uuid = dcl.SelfLinkToName(r.Uuid)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
-}
-
 func (r *Environment) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Environment) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location)
 }
 
 func (r *Environment) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
@@ -3971,8 +3956,8 @@ func (r *Environment) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

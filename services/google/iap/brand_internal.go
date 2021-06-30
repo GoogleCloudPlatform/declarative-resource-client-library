@@ -157,7 +157,7 @@ func (op *createBrandOperation) do(ctx context.Context, r *Brand, c *Client) err
 	}
 	r.Name = &name
 
-	if _, err := c.GetBrand(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetBrand(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -167,7 +167,7 @@ func (op *createBrandOperation) do(ctx context.Context, r *Brand, c *Client) err
 
 func (c *Client) getBrandRaw(ctx context.Context, r *Brand) ([]byte, error) {
 
-	u, err := brandGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := brandGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -206,7 +206,7 @@ func (c *Client) brandDiffsForRawDesired(ctx context.Context, rawDesired *Brand,
 		return nil, desired, nil, err
 	}
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetBrand(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetBrand(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Brand resource already exists: %s", err)
@@ -236,7 +236,6 @@ func (c *Client) brandDiffsForRawDesired(ctx context.Context, rawDesired *Brand,
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffBrand(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -366,25 +365,13 @@ func diffBrand(c *Client, desired, actual *Brand, opts ...dcl.ApplyOption) ([]*d
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Brand) urlNormalized() *Brand {
-	normalized := dcl.Copy(*r).(Brand)
-	normalized.ApplicationTitle = dcl.SelfLinkToName(r.ApplicationTitle)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.SupportEmail = dcl.SelfLinkToName(r.SupportEmail)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *Brand) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Brand) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
@@ -475,8 +462,8 @@ func (r *Brand) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

@@ -75,7 +75,7 @@ func serviceAccountDeleteURL(userBasePath string, r *ServiceAccount) (string, er
 }
 
 func (r *ServiceAccount) SetPolicyURL(userBasePath string) string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	fields := map[string]interface{}{
 		"project": *n.Project,
 		"name":    *n.Name,
@@ -88,7 +88,7 @@ func (r *ServiceAccount) SetPolicyVerb() string {
 }
 
 func (r *ServiceAccount) getPolicyURL(userBasePath string) string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	fields := map[string]interface{}{
 		"project": *n.Project,
 		"name":    *n.Name,
@@ -151,7 +151,7 @@ type updateServiceAccountPatchServiceAccountOperation struct {
 // PUT request to a single URL.
 
 func (op *updateServiceAccountPatchServiceAccountOperation) do(ctx context.Context, r *ServiceAccount, c *Client) error {
-	_, err := c.GetServiceAccount(ctx, r.urlNormalized())
+	_, err := c.GetServiceAccount(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -266,9 +266,7 @@ func (c *Client) deleteAllServiceAccount(ctx context.Context, f func(*ServiceAcc
 type deleteServiceAccountOperation struct{}
 
 func (op *deleteServiceAccountOperation) do(ctx context.Context, r *ServiceAccount, c *Client) error {
-
-	_, err := c.GetServiceAccount(ctx, r.urlNormalized())
-
+	r, err := c.GetServiceAccount(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("ServiceAccount not found, returning. Original error: %v", err)
@@ -278,7 +276,7 @@ func (op *deleteServiceAccountOperation) do(ctx context.Context, r *ServiceAccou
 		return err
 	}
 
-	u, err := serviceAccountDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := serviceAccountDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -294,7 +292,7 @@ func (op *deleteServiceAccountOperation) do(ctx context.Context, r *ServiceAccou
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetServiceAccount(ctx, r.urlNormalized())
+		_, err = c.GetServiceAccount(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -343,7 +341,7 @@ func (op *createServiceAccountOperation) do(ctx context.Context, r *ServiceAccou
 	}
 	op.response = o
 
-	if _, err := c.GetServiceAccount(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetServiceAccount(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -353,7 +351,7 @@ func (op *createServiceAccountOperation) do(ctx context.Context, r *ServiceAccou
 
 func (c *Client) getServiceAccountRaw(ctx context.Context, r *ServiceAccount) ([]byte, error) {
 
-	u, err := serviceAccountGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := serviceAccountGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -386,7 +384,7 @@ func (c *Client) serviceAccountDiffsForRawDesired(ctx context.Context, rawDesire
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetServiceAccount(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetServiceAccount(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a ServiceAccount resource already exists: %s", err)
@@ -416,7 +414,6 @@ func (c *Client) serviceAccountDiffsForRawDesired(ctx context.Context, rawDesire
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffServiceAccount(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -815,38 +812,23 @@ func compareServiceAccountActasResourcesResourcesNewStyle(d, a interface{}, fn d
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *ServiceAccount) urlNormalized() *ServiceAccount {
-	normalized := dcl.Copy(*r).(ServiceAccount)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.UniqueId = dcl.SelfLinkToName(r.UniqueId)
-	normalized.Email = dcl.SelfLinkToName(r.Email)
-	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.OAuth2ClientId = dcl.SelfLinkToName(r.OAuth2ClientId)
-	return &normalized
-}
-
 func (r *ServiceAccount) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *ServiceAccount) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
 func (r *ServiceAccount) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *ServiceAccount) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "PatchServiceAccount" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -1198,8 +1180,8 @@ func (r *ServiceAccount) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

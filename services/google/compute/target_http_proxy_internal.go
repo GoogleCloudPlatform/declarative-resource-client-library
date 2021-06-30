@@ -112,7 +112,7 @@ type updateTargetHttpProxySetURLMapOperation struct {
 // PUT request to a single URL.
 
 func (op *updateTargetHttpProxySetURLMapOperation) do(ctx context.Context, r *TargetHttpProxy, c *Client) error {
-	_, err := c.GetTargetHttpProxy(ctx, r.urlNormalized())
+	_, err := c.GetTargetHttpProxy(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -227,9 +227,7 @@ func (c *Client) deleteAllTargetHttpProxy(ctx context.Context, f func(*TargetHtt
 type deleteTargetHttpProxyOperation struct{}
 
 func (op *deleteTargetHttpProxyOperation) do(ctx context.Context, r *TargetHttpProxy, c *Client) error {
-
-	_, err := c.GetTargetHttpProxy(ctx, r.urlNormalized())
-
+	r, err := c.GetTargetHttpProxy(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("TargetHttpProxy not found, returning. Original error: %v", err)
@@ -239,7 +237,7 @@ func (op *deleteTargetHttpProxyOperation) do(ctx context.Context, r *TargetHttpP
 		return err
 	}
 
-	u, err := targetHttpProxyDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := targetHttpProxyDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -264,7 +262,7 @@ func (op *deleteTargetHttpProxyOperation) do(ctx context.Context, r *TargetHttpP
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetTargetHttpProxy(ctx, r.urlNormalized())
+		_, err = c.GetTargetHttpProxy(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -318,7 +316,7 @@ func (op *createTargetHttpProxyOperation) do(ctx context.Context, r *TargetHttpP
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetTargetHttpProxy(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetTargetHttpProxy(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -328,7 +326,7 @@ func (op *createTargetHttpProxyOperation) do(ctx context.Context, r *TargetHttpP
 
 func (c *Client) getTargetHttpProxyRaw(ctx context.Context, r *TargetHttpProxy) ([]byte, error) {
 
-	u, err := targetHttpProxyGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := targetHttpProxyGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -361,7 +359,7 @@ func (c *Client) targetHttpProxyDiffsForRawDesired(ctx context.Context, rawDesir
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetTargetHttpProxy(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetTargetHttpProxy(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a TargetHttpProxy resource already exists: %s", err)
@@ -391,7 +389,6 @@ func (c *Client) targetHttpProxyDiffsForRawDesired(ctx context.Context, rawDesir
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffTargetHttpProxy(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -536,36 +533,23 @@ func diffTargetHttpProxy(c *Client, desired, actual *TargetHttpProxy, opts ...dc
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *TargetHttpProxy) urlNormalized() *TargetHttpProxy {
-	normalized := dcl.Copy(*r).(TargetHttpProxy)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.UrlMap = dcl.SelfLinkToName(r.UrlMap)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *TargetHttpProxy) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *TargetHttpProxy) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
 func (r *TargetHttpProxy) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *TargetHttpProxy) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "SetURLMap" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -664,8 +648,8 @@ func (r *TargetHttpProxy) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

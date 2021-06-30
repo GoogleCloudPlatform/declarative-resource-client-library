@@ -117,7 +117,7 @@ type updateDomainMappingUpdateDomainMappingOperation struct {
 // PUT request to a single URL.
 
 func (op *updateDomainMappingUpdateDomainMappingOperation) do(ctx context.Context, r *DomainMapping, c *Client) error {
-	_, err := c.GetDomainMapping(ctx, r.urlNormalized())
+	_, err := c.GetDomainMapping(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -232,9 +232,7 @@ func (c *Client) deleteAllDomainMapping(ctx context.Context, f func(*DomainMappi
 type deleteDomainMappingOperation struct{}
 
 func (op *deleteDomainMappingOperation) do(ctx context.Context, r *DomainMapping, c *Client) error {
-
-	_, err := c.GetDomainMapping(ctx, r.urlNormalized())
-
+	r, err := c.GetDomainMapping(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("DomainMapping not found, returning. Original error: %v", err)
@@ -244,7 +242,7 @@ func (op *deleteDomainMappingOperation) do(ctx context.Context, r *DomainMapping
 		return err
 	}
 
-	u, err := domainMappingDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := domainMappingDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -269,7 +267,7 @@ func (op *deleteDomainMappingOperation) do(ctx context.Context, r *DomainMapping
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetDomainMapping(ctx, r.urlNormalized())
+		_, err = c.GetDomainMapping(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -323,7 +321,7 @@ func (op *createDomainMappingOperation) do(ctx context.Context, r *DomainMapping
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetDomainMapping(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetDomainMapping(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -333,7 +331,7 @@ func (op *createDomainMappingOperation) do(ctx context.Context, r *DomainMapping
 
 func (c *Client) getDomainMappingRaw(ctx context.Context, r *DomainMapping) ([]byte, error) {
 
-	u, err := domainMappingGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := domainMappingGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -366,7 +364,7 @@ func (c *Client) domainMappingDiffsForRawDesired(ctx context.Context, rawDesired
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetDomainMapping(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetDomainMapping(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a DomainMapping resource already exists: %s", err)
@@ -396,7 +394,6 @@ func (c *Client) domainMappingDiffsForRawDesired(ctx context.Context, rawDesired
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffDomainMapping(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -778,34 +775,23 @@ func compareDomainMappingResourceRecordsNewStyle(d, a interface{}, fn dcl.FieldN
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *DomainMapping) urlNormalized() *DomainMapping {
-	normalized := dcl.Copy(*r).(DomainMapping)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.App = dcl.SelfLinkToName(r.App)
-	return &normalized
-}
-
 func (r *DomainMapping) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.App), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *DomainMapping) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.App)
 }
 
 func (r *DomainMapping) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.App), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *DomainMapping) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateDomainMapping" {
 		fields := map[string]interface{}{
 			"app":  dcl.ValueOrEmptyString(n.App),
@@ -1208,8 +1194,8 @@ func (r *DomainMapping) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.App == nil && ncr.App == nil {

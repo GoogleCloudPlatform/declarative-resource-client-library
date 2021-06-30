@@ -165,6 +165,18 @@ func (c *Client) ListAssignmentWithMaxResults(ctx context.Context, project, loca
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Assignment) URLNormalized() *Assignment {
+	normalized := dcl.Copy(*r).(Assignment)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Assignee = dcl.SelfLinkToName(r.Assignee)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.Reservation = dcl.SelfLinkToName(r.Reservation)
+	return &normalized
+}
 func (c *Client) GetAssignment(ctx context.Context, r *Assignment) (*Assignment, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -272,13 +284,8 @@ func applyAssignmentHelper(c *Client, ctx context.Context, rawDesired *Assignmen
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToAssignmentOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -346,7 +353,7 @@ func applyAssignmentHelper(c *Client, ctx context.Context, rawDesired *Assignmen
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetAssignment(ctx, desired.urlNormalized())
+	rawNew, err := c.GetAssignment(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

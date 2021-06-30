@@ -342,6 +342,19 @@ func (c *Client) ListWorkloadWithMaxResults(ctx context.Context, organization, l
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Workload) URLNormalized() *Workload {
+	normalized := dcl.Copy(*r).(Workload)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.BillingAccount = dcl.SelfLinkToName(r.BillingAccount)
+	normalized.ProvisionedResourcesParent = dcl.SelfLinkToName(r.ProvisionedResourcesParent)
+	normalized.Organization = dcl.SelfLinkToName(r.Organization)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
+}
 func (c *Client) GetWorkload(ctx context.Context, r *Workload) (*Workload, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -447,13 +460,8 @@ func applyWorkloadHelper(c *Client, ctx context.Context, rawDesired *Workload, o
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToWorkloadOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -521,7 +529,7 @@ func applyWorkloadHelper(c *Client, ctx context.Context, rawDesired *Workload, o
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetWorkload(ctx, desired.urlNormalized())
+	rawNew, err := c.GetWorkload(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

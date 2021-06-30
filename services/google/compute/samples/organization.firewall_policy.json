@@ -1,4 +1,5 @@
 {
-  "shortName": "organization-firewall-policy",
-  "parent": "organizations/{{org_id}}"
+  "shortName": "{{policy}}-create",
+  "parent": "organizations/{{org_id}}",
+  "description": "Create sample firewall policy."
 }

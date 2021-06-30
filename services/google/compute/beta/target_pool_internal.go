@@ -111,7 +111,7 @@ type updateTargetPoolAddHCOperation struct {
 // PUT request to a single URL.
 
 func (op *updateTargetPoolAddHCOperation) do(ctx context.Context, r *TargetPool, c *Client) error {
-	_, err := c.GetTargetPool(ctx, r.urlNormalized())
+	_, err := c.GetTargetPool(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -182,7 +182,7 @@ type updateTargetPoolAddInstanceOperation struct {
 // PUT request to a single URL.
 
 func (op *updateTargetPoolAddInstanceOperation) do(ctx context.Context, r *TargetPool, c *Client) error {
-	_, err := c.GetTargetPool(ctx, r.urlNormalized())
+	_, err := c.GetTargetPool(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -255,7 +255,7 @@ type updateTargetPoolRemoveHCOperation struct {
 // PUT request to a single URL.
 
 func (op *updateTargetPoolRemoveHCOperation) do(ctx context.Context, r *TargetPool, c *Client) error {
-	_, err := c.GetTargetPool(ctx, r.urlNormalized())
+	_, err := c.GetTargetPool(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -326,7 +326,7 @@ type updateTargetPoolRemoveInstanceOperation struct {
 // PUT request to a single URL.
 
 func (op *updateTargetPoolRemoveInstanceOperation) do(ctx context.Context, r *TargetPool, c *Client) error {
-	_, err := c.GetTargetPool(ctx, r.urlNormalized())
+	_, err := c.GetTargetPool(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -396,7 +396,7 @@ type updateTargetPoolSetBackupOperation struct {
 // PUT request to a single URL.
 
 func (op *updateTargetPoolSetBackupOperation) do(ctx context.Context, r *TargetPool, c *Client) error {
-	_, err := c.GetTargetPool(ctx, r.urlNormalized())
+	_, err := c.GetTargetPool(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -512,9 +512,7 @@ func (c *Client) deleteAllTargetPool(ctx context.Context, f func(*TargetPool) bo
 type deleteTargetPoolOperation struct{}
 
 func (op *deleteTargetPoolOperation) do(ctx context.Context, r *TargetPool, c *Client) error {
-
-	_, err := c.GetTargetPool(ctx, r.urlNormalized())
-
+	r, err := c.GetTargetPool(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("TargetPool not found, returning. Original error: %v", err)
@@ -524,7 +522,7 @@ func (op *deleteTargetPoolOperation) do(ctx context.Context, r *TargetPool, c *C
 		return err
 	}
 
-	u, err := targetPoolDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := targetPoolDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -549,7 +547,7 @@ func (op *deleteTargetPoolOperation) do(ctx context.Context, r *TargetPool, c *C
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetTargetPool(ctx, r.urlNormalized())
+		_, err = c.GetTargetPool(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -603,7 +601,7 @@ func (op *createTargetPoolOperation) do(ctx context.Context, r *TargetPool, c *C
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetTargetPool(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetTargetPool(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -613,7 +611,7 @@ func (op *createTargetPoolOperation) do(ctx context.Context, r *TargetPool, c *C
 
 func (c *Client) getTargetPoolRaw(ctx context.Context, r *TargetPool) ([]byte, error) {
 
-	u, err := targetPoolGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := targetPoolGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -646,7 +644,7 @@ func (c *Client) targetPoolDiffsForRawDesired(ctx context.Context, rawDesired *T
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetTargetPool(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetTargetPool(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a TargetPool resource already exists: %s", err)
@@ -676,7 +674,6 @@ func (c *Client) targetPoolDiffsForRawDesired(ctx context.Context, rawDesired *T
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffTargetPool(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -899,38 +896,23 @@ func diffTargetPool(c *Client, desired, actual *TargetPool, opts ...dcl.ApplyOpt
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *TargetPool) urlNormalized() *TargetPool {
-	normalized := dcl.Copy(*r).(TargetPool)
-	normalized.BackupPool = dcl.SelfLinkToName(r.BackupPool)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.HealthChecks = dcl.SelfLinkToNameArray(r.HealthChecks)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Region = dcl.SelfLinkToName(r.Region)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *TargetPool) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *TargetPool) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region)
 }
 
 func (r *TargetPool) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *TargetPool) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "AddHC" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -1111,8 +1093,8 @@ func (r *TargetPool) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

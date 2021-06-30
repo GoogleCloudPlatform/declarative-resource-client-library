@@ -155,7 +155,7 @@ type updateServicePerimeterUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateServicePerimeterUpdateOperation) do(ctx context.Context, r *ServicePerimeter, c *Client) error {
-	_, err := c.GetServicePerimeter(ctx, r.urlNormalized())
+	_, err := c.GetServicePerimeter(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -275,9 +275,7 @@ func (c *Client) deleteAllServicePerimeter(ctx context.Context, f func(*ServiceP
 type deleteServicePerimeterOperation struct{}
 
 func (op *deleteServicePerimeterOperation) do(ctx context.Context, r *ServicePerimeter, c *Client) error {
-
-	_, err := c.GetServicePerimeter(ctx, r.urlNormalized())
-
+	r, err := c.GetServicePerimeter(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("ServicePerimeter not found, returning. Original error: %v", err)
@@ -287,7 +285,7 @@ func (op *deleteServicePerimeterOperation) do(ctx context.Context, r *ServicePer
 		return err
 	}
 
-	u, err := servicePerimeterDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := servicePerimeterDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -312,7 +310,7 @@ func (op *deleteServicePerimeterOperation) do(ctx context.Context, r *ServicePer
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetServicePerimeter(ctx, r.urlNormalized())
+		_, err = c.GetServicePerimeter(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -366,7 +364,7 @@ func (op *createServicePerimeterOperation) do(ctx context.Context, r *ServicePer
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetServicePerimeter(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetServicePerimeter(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -379,7 +377,7 @@ func (c *Client) getServicePerimeterRaw(ctx context.Context, r *ServicePerimeter
 		r.PerimeterType = ServicePerimeterPerimeterTypeEnumRef("PERIMETER_TYPE_REGULAR")
 	}
 
-	u, err := servicePerimeterGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := servicePerimeterGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -412,7 +410,7 @@ func (c *Client) servicePerimeterDiffsForRawDesired(ctx context.Context, rawDesi
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetServicePerimeter(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetServicePerimeter(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a ServicePerimeter resource already exists: %s", err)
@@ -442,7 +440,6 @@ func (c *Client) servicePerimeterDiffsForRawDesired(ctx context.Context, rawDesi
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffServicePerimeter(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1158,35 +1155,23 @@ func compareServicePerimeterSpecVPCAccessibleServicesNewStyle(d, a interface{}, 
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *ServicePerimeter) urlNormalized() *ServicePerimeter {
-	normalized := dcl.Copy(*r).(ServicePerimeter)
-	normalized.Title = dcl.SelfLinkToName(r.Title)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Policy = dcl.SelfLinkToName(r.Policy)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	return &normalized
-}
-
 func (r *ServicePerimeter) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Policy), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *ServicePerimeter) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Policy)
 }
 
 func (r *ServicePerimeter) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Policy), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *ServicePerimeter) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "update" {
 		fields := map[string]interface{}{
 			"policy": dcl.ValueOrEmptyString(n.Policy),
@@ -1832,8 +1817,8 @@ func (r *ServicePerimeter) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Policy == nil && ncr.Policy == nil {

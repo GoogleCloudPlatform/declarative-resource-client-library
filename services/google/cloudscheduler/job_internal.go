@@ -220,7 +220,7 @@ type updateJobUpdateJobOperation struct {
 // PUT request to a single URL.
 
 func (op *updateJobUpdateJobOperation) do(ctx context.Context, r *Job, c *Client) error {
-	_, err := c.GetJob(ctx, r.urlNormalized())
+	_, err := c.GetJob(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -326,9 +326,7 @@ func (c *Client) deleteAllJob(ctx context.Context, f func(*Job) bool, resources 
 type deleteJobOperation struct{}
 
 func (op *deleteJobOperation) do(ctx context.Context, r *Job, c *Client) error {
-
-	_, err := c.GetJob(ctx, r.urlNormalized())
-
+	r, err := c.GetJob(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Job not found, returning. Original error: %v", err)
@@ -338,7 +336,7 @@ func (op *deleteJobOperation) do(ctx context.Context, r *Job, c *Client) error {
 		return err
 	}
 
-	u, err := jobDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := jobDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -354,7 +352,7 @@ func (op *deleteJobOperation) do(ctx context.Context, r *Job, c *Client) error {
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetJob(ctx, r.urlNormalized())
+		_, err = c.GetJob(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -403,7 +401,7 @@ func (op *createJobOperation) do(ctx context.Context, r *Job, c *Client) error {
 	}
 	op.response = o
 
-	if _, err := c.GetJob(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetJob(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -413,7 +411,7 @@ func (op *createJobOperation) do(ctx context.Context, r *Job, c *Client) error {
 
 func (c *Client) getJobRaw(ctx context.Context, r *Job) ([]byte, error) {
 
-	u, err := jobGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := jobGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -446,7 +444,7 @@ func (c *Client) jobDiffsForRawDesired(ctx context.Context, rawDesired *Job, opt
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetJob(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetJob(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Job resource already exists: %s", err)
@@ -476,7 +474,6 @@ func (c *Client) jobDiffsForRawDesired(ctx context.Context, rawDesired *Job, opt
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffJob(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1972,38 +1969,23 @@ func compareJobRetryConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Job) urlNormalized() *Job {
-	normalized := dcl.Copy(*r).(Job)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Schedule = dcl.SelfLinkToName(r.Schedule)
-	normalized.TimeZone = dcl.SelfLinkToName(r.TimeZone)
-	normalized.AttemptDeadline = dcl.SelfLinkToName(r.AttemptDeadline)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
-}
-
 func (r *Job) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Job) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location)
 }
 
 func (r *Job) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Job) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateJob" {
 		fields := map[string]interface{}{
 			"project":  dcl.ValueOrEmptyString(n.Project),
@@ -3374,8 +3356,8 @@ func (r *Job) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

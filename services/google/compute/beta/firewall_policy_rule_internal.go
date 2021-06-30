@@ -227,7 +227,7 @@ func (op *createFirewallPolicyRuleOperation) FirstResponse() (map[string]interfa
 
 func (c *Client) getFirewallPolicyRuleRaw(ctx context.Context, r *FirewallPolicyRule) ([]byte, error) {
 
-	u, err := firewallPolicyRuleGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := firewallPolicyRuleGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -260,7 +260,7 @@ func (c *Client) firewallPolicyRuleDiffsForRawDesired(ctx context.Context, rawDe
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetFirewallPolicyRule(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetFirewallPolicyRule(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFoundOrCode(err, 400) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a FirewallPolicyRule resource already exists: %s", err)
@@ -290,7 +290,6 @@ func (c *Client) firewallPolicyRuleDiffsForRawDesired(ctx context.Context, rawDe
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffFirewallPolicyRule(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -779,35 +778,23 @@ func compareFirewallPolicyRuleMatchLayer4ConfigsNewStyle(d, a interface{}, fn dc
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *FirewallPolicyRule) urlNormalized() *FirewallPolicyRule {
-	normalized := dcl.Copy(*r).(FirewallPolicyRule)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Action = dcl.SelfLinkToName(r.Action)
-	normalized.Kind = dcl.SelfLinkToName(r.Kind)
-	normalized.FirewallPolicy = dcl.SelfLinkToName(r.FirewallPolicy)
-	return &normalized
-}
-
 func (r *FirewallPolicyRule) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.FirewallPolicy), dcl.ValueOrEmptyString(n.Priority)
 }
 
 func (r *FirewallPolicyRule) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.FirewallPolicy)
 }
 
 func (r *FirewallPolicyRule) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.FirewallPolicy), dcl.ValueOrEmptyString(n.Priority)
 }
 
 func (r *FirewallPolicyRule) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "PatchRule" {
 		fields := map[string]interface{}{
 			"firewallPolicy": dcl.ValueOrEmptyString(n.FirewallPolicy),
@@ -1201,8 +1188,8 @@ func (r *FirewallPolicyRule) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.FirewallPolicy == nil && ncr.FirewallPolicy == nil {

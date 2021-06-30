@@ -177,7 +177,7 @@ type updateFunctionUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateFunctionUpdateOperation) do(ctx context.Context, r *Function, c *Client) error {
-	_, err := c.GetFunction(ctx, r.urlNormalized())
+	_, err := c.GetFunction(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -298,9 +298,7 @@ func (c *Client) deleteAllFunction(ctx context.Context, f func(*Function) bool, 
 type deleteFunctionOperation struct{}
 
 func (op *deleteFunctionOperation) do(ctx context.Context, r *Function, c *Client) error {
-
-	_, err := c.GetFunction(ctx, r.urlNormalized())
-
+	r, err := c.GetFunction(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Function not found, returning. Original error: %v", err)
@@ -310,7 +308,7 @@ func (op *deleteFunctionOperation) do(ctx context.Context, r *Function, c *Clien
 		return err
 	}
 
-	u, err := functionDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := functionDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -335,7 +333,7 @@ func (op *deleteFunctionOperation) do(ctx context.Context, r *Function, c *Clien
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetFunction(ctx, r.urlNormalized())
+		_, err = c.GetFunction(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -389,7 +387,7 @@ func (op *createFunctionOperation) do(ctx context.Context, r *Function, c *Clien
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetFunction(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetFunction(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -399,7 +397,7 @@ func (op *createFunctionOperation) do(ctx context.Context, r *Function, c *Clien
 
 func (c *Client) getFunctionRaw(ctx context.Context, r *Function) ([]byte, error) {
 
-	u, err := functionGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := functionGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -432,7 +430,7 @@ func (c *Client) functionDiffsForRawDesired(ctx context.Context, rawDesired *Fun
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetFunction(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetFunction(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Function resource already exists: %s", err)
@@ -462,7 +460,6 @@ func (c *Client) functionDiffsForRawDesired(ctx context.Context, rawDesired *Fun
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffFunction(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1302,43 +1299,23 @@ func compareFunctionEventTriggerNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Function) urlNormalized() *Function {
-	normalized := dcl.Copy(*r).(Function)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.SourceArchiveUrl = dcl.SelfLinkToName(r.SourceArchiveUrl)
-	normalized.EntryPoint = dcl.SelfLinkToName(r.EntryPoint)
-	normalized.Runtime = dcl.SelfLinkToName(r.Runtime)
-	normalized.Timeout = dcl.SelfLinkToName(r.Timeout)
-	normalized.ServiceAccountEmail = dcl.SelfLinkToName(r.ServiceAccountEmail)
-	normalized.UpdateTime = dcl.SelfLinkToName(r.UpdateTime)
-	normalized.Network = dcl.SelfLinkToName(r.Network)
-	normalized.VPCConnector = dcl.SelfLinkToName(r.VPCConnector)
-	normalized.Region = dcl.SelfLinkToName(r.Region)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *Function) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Function) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region)
 }
 
 func (r *Function) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Function) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "update" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -2002,8 +1979,8 @@ func (r *Function) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

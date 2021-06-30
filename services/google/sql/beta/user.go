@@ -186,6 +186,19 @@ func (c *Client) ListUserWithMaxResults(ctx context.Context, project, instance s
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *User) URLNormalized() *User {
+	normalized := dcl.Copy(*r).(User)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Password = dcl.SelfLinkToName(r.Password)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Instance = dcl.SelfLinkToName(r.Instance)
+	normalized.Etag = dcl.SelfLinkToName(r.Etag)
+	normalized.Host = dcl.SelfLinkToName(r.Host)
+	return &normalized
+}
 func (c *Client) GetUser(ctx context.Context, r *User) (*User, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -292,13 +305,8 @@ func applyUserHelper(c *Client, ctx context.Context, rawDesired *User, opts ...d
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToUserOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -366,7 +374,7 @@ func applyUserHelper(c *Client, ctx context.Context, rawDesired *User, opts ...d
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetUser(ctx, desired.urlNormalized())
+	rawNew, err := c.GetUser(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

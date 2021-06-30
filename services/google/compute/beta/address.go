@@ -255,6 +255,23 @@ func (c *Client) ListAddressWithMaxResults(ctx context.Context, project, locatio
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Address) URLNormalized() *Address {
+	normalized := dcl.Copy(*r).(Address)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Address = dcl.SelfLinkToName(r.Address)
+	normalized.Region = dcl.SelfLinkToName(r.Region)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Subnetwork = dcl.SelfLinkToName(r.Subnetwork)
+	normalized.Network = dcl.SelfLinkToName(r.Network)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.LabelFingerprint = dcl.SelfLinkToName(r.LabelFingerprint)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
+}
 func (c *Client) GetAddress(ctx context.Context, r *Address) (*Address, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -363,13 +380,8 @@ func applyAddressHelper(c *Client, ctx context.Context, rawDesired *Address, opt
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToAddressOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -437,7 +449,7 @@ func applyAddressHelper(c *Client, ctx context.Context, rawDesired *Address, opt
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetAddress(ctx, desired.urlNormalized())
+	rawNew, err := c.GetAddress(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

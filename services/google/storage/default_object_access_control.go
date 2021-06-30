@@ -213,6 +213,19 @@ func (c *Client) ListDefaultObjectAccessControlWithMaxResults(ctx context.Contex
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *DefaultObjectAccessControl) URLNormalized() *DefaultObjectAccessControl {
+	normalized := dcl.Copy(*r).(DefaultObjectAccessControl)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Bucket = dcl.SelfLinkToName(r.Bucket)
+	normalized.Domain = dcl.SelfLinkToName(r.Domain)
+	normalized.Email = dcl.SelfLinkToName(r.Email)
+	normalized.Entity = dcl.SelfLinkToName(r.Entity)
+	normalized.EntityId = dcl.SelfLinkToName(r.EntityId)
+	return &normalized
+}
 func (c *Client) GetDefaultObjectAccessControl(ctx context.Context, r *DefaultObjectAccessControl) (*DefaultObjectAccessControl, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -318,13 +331,8 @@ func applyDefaultObjectAccessControlHelper(c *Client, ctx context.Context, rawDe
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToDefaultObjectAccessControlOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -392,7 +400,7 @@ func applyDefaultObjectAccessControlHelper(c *Client, ctx context.Context, rawDe
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetDefaultObjectAccessControl(ctx, desired.urlNormalized())
+	rawNew, err := c.GetDefaultObjectAccessControl(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

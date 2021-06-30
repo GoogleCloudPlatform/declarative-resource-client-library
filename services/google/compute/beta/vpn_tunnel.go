@@ -149,6 +149,27 @@ func (c *Client) ListVpnTunnelWithMaxResults(ctx context.Context, project, regio
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *VpnTunnel) URLNormalized() *VpnTunnel {
+	normalized := dcl.Copy(*r).(VpnTunnel)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Region = dcl.SelfLinkToName(r.Region)
+	normalized.TargetVpnGateway = dcl.SelfLinkToName(r.TargetVpnGateway)
+	normalized.VpnGateway = dcl.SelfLinkToName(r.VpnGateway)
+	normalized.PeerExternalGateway = dcl.SelfLinkToName(r.PeerExternalGateway)
+	normalized.PeerGcpGateway = dcl.SelfLinkToName(r.PeerGcpGateway)
+	normalized.Router = dcl.SelfLinkToName(r.Router)
+	normalized.PeerIP = dcl.SelfLinkToName(r.PeerIP)
+	normalized.SharedSecret = dcl.SelfLinkToName(r.SharedSecret)
+	normalized.SharedSecretHash = dcl.SelfLinkToName(r.SharedSecretHash)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.DetailedStatus = dcl.SelfLinkToName(r.DetailedStatus)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
 func (c *Client) GetVpnTunnel(ctx context.Context, r *VpnTunnel) (*VpnTunnel, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -257,13 +278,8 @@ func applyVpnTunnelHelper(c *Client, ctx context.Context, rawDesired *VpnTunnel,
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToVpnTunnelOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -331,7 +347,7 @@ func applyVpnTunnelHelper(c *Client, ctx context.Context, rawDesired *VpnTunnel,
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetVpnTunnel(ctx, desired.urlNormalized())
+	rawNew, err := c.GetVpnTunnel(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

@@ -93,7 +93,7 @@ func connectionDeleteURL(userBasePath string, r *Connection) (string, error) {
 }
 
 func (r *Connection) SetPolicyURL(userBasePath string) string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	fields := map[string]interface{}{
 		"project":  *n.Project,
 		"location": *n.Location,
@@ -107,7 +107,7 @@ func (r *Connection) SetPolicyVerb() string {
 }
 
 func (r *Connection) getPolicyURL(userBasePath string) string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	fields := map[string]interface{}{
 		"project":  *n.Project,
 		"location": *n.Location,
@@ -171,7 +171,7 @@ type updateConnectionUpdateConnectionOperation struct {
 // PUT request to a single URL.
 
 func (op *updateConnectionUpdateConnectionOperation) do(ctx context.Context, r *Connection, c *Client) error {
-	_, err := c.GetConnection(ctx, r.urlNormalized())
+	_, err := c.GetConnection(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -282,9 +282,7 @@ func (c *Client) deleteAllConnection(ctx context.Context, f func(*Connection) bo
 type deleteConnectionOperation struct{}
 
 func (op *deleteConnectionOperation) do(ctx context.Context, r *Connection, c *Client) error {
-
-	_, err := c.GetConnection(ctx, r.urlNormalized())
-
+	r, err := c.GetConnection(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Connection not found, returning. Original error: %v", err)
@@ -294,7 +292,7 @@ func (op *deleteConnectionOperation) do(ctx context.Context, r *Connection, c *C
 		return err
 	}
 
-	u, err := connectionDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := connectionDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -310,7 +308,7 @@ func (op *deleteConnectionOperation) do(ctx context.Context, r *Connection, c *C
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetConnection(ctx, r.urlNormalized())
+		_, err = c.GetConnection(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -359,7 +357,7 @@ func (op *createConnectionOperation) do(ctx context.Context, r *Connection, c *C
 	}
 	op.response = o
 
-	if _, err := c.GetConnection(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetConnection(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -369,7 +367,7 @@ func (op *createConnectionOperation) do(ctx context.Context, r *Connection, c *C
 
 func (c *Client) getConnectionRaw(ctx context.Context, r *Connection) ([]byte, error) {
 
-	u, err := connectionGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := connectionGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -402,7 +400,7 @@ func (c *Client) connectionDiffsForRawDesired(ctx context.Context, rawDesired *C
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetConnection(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetConnection(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Connection resource already exists: %s", err)
@@ -432,7 +430,6 @@ func (c *Client) connectionDiffsForRawDesired(ctx context.Context, rawDesired *C
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffConnection(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -869,36 +866,23 @@ func compareConnectionCloudSqlCredentialNewStyle(d, a interface{}, fn dcl.FieldN
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Connection) urlNormalized() *Connection {
-	normalized := dcl.Copy(*r).(Connection)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.FriendlyName = dcl.SelfLinkToName(r.FriendlyName)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
-}
-
 func (r *Connection) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Connection) createFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Connection) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Connection) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateConnection" {
 		fields := map[string]interface{}{
 			"project":  dcl.ValueOrEmptyString(n.Project),
@@ -1291,8 +1275,8 @@ func (r *Connection) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

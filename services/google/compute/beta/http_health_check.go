@@ -108,6 +108,20 @@ func (c *Client) ListHttpHealthCheckWithMaxResults(ctx context.Context, project 
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *HttpHealthCheck) URLNormalized() *HttpHealthCheck {
+	normalized := dcl.Copy(*r).(HttpHealthCheck)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Host = dcl.SelfLinkToName(r.Host)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.RequestPath = dcl.SelfLinkToName(r.RequestPath)
+	normalized.CreationTimestamp = dcl.SelfLinkToName(r.CreationTimestamp)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	return &normalized
+}
 func (c *Client) GetHttpHealthCheck(ctx context.Context, r *HttpHealthCheck) (*HttpHealthCheck, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -230,13 +244,8 @@ func applyHttpHealthCheckHelper(c *Client, ctx context.Context, rawDesired *Http
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToHttpHealthCheckOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -304,7 +313,7 @@ func applyHttpHealthCheckHelper(c *Client, ctx context.Context, rawDesired *Http
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetHttpHealthCheck(ctx, desired.urlNormalized())
+	rawNew, err := c.GetHttpHealthCheck(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

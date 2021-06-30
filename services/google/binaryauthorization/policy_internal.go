@@ -59,7 +59,7 @@ func policyGetURL(userBasePath string, r *Policy) (string, error) {
 }
 
 func (r *Policy) SetPolicyURL(userBasePath string) string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	fields := map[string]interface{}{
 		"project": *n.Project,
 	}
@@ -71,7 +71,7 @@ func (r *Policy) SetPolicyVerb() string {
 }
 
 func (r *Policy) getPolicyURL(userBasePath string) string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	fields := map[string]interface{}{
 		"project": *n.Project,
 	}
@@ -147,7 +147,7 @@ type updatePolicyUpdatePolicyOperation struct {
 // PUT request to a single URL.
 
 func (op *updatePolicyUpdatePolicyOperation) do(ctx context.Context, r *Policy, c *Client) error {
-	_, err := c.GetPolicy(ctx, r.urlNormalized())
+	_, err := c.GetPolicy(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -188,7 +188,7 @@ func (op *createPolicyOperation) FirstResponse() (map[string]interface{}, bool) 
 
 func (c *Client) getPolicyRaw(ctx context.Context, r *Policy) ([]byte, error) {
 
-	u, err := policyGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := policyGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -221,7 +221,7 @@ func (c *Client) policyDiffsForRawDesired(ctx context.Context, rawDesired *Polic
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetPolicy(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetPolicy(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Policy resource already exists: %s", err)
@@ -251,7 +251,6 @@ func (c *Client) policyDiffsForRawDesired(ctx context.Context, rawDesired *Polic
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffPolicy(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -754,19 +753,8 @@ func comparePolicyAdmissionRuleNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Policy) urlNormalized() *Policy {
-	normalized := dcl.Copy(*r).(Policy)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *Policy) getFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
@@ -775,7 +763,7 @@ func (r *Policy) createFields() string {
 }
 
 func (r *Policy) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdatePolicy" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -1228,8 +1216,8 @@ func (r *Policy) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

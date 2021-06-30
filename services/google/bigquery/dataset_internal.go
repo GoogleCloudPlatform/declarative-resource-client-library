@@ -142,7 +142,7 @@ func newUpdateDatasetPatchDatasetRequest(ctx context.Context, f *Dataset, c *Cli
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["access"] = v
 	}
-	b, err := c.getDatasetRaw(ctx, f.urlNormalized())
+	b, err := c.getDatasetRaw(ctx, f.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -192,7 +192,7 @@ type updateDatasetPatchDatasetOperation struct {
 // PUT request to a single URL.
 
 func (op *updateDatasetPatchDatasetOperation) do(ctx context.Context, r *Dataset, c *Client) error {
-	_, err := c.GetDataset(ctx, r.urlNormalized())
+	_, err := c.GetDataset(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -297,9 +297,7 @@ func (c *Client) deleteAllDataset(ctx context.Context, f func(*Dataset) bool, re
 type deleteDatasetOperation struct{}
 
 func (op *deleteDatasetOperation) do(ctx context.Context, r *Dataset, c *Client) error {
-
-	_, err := c.GetDataset(ctx, r.urlNormalized())
-
+	r, err := c.GetDataset(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Dataset not found, returning. Original error: %v", err)
@@ -309,7 +307,7 @@ func (op *deleteDatasetOperation) do(ctx context.Context, r *Dataset, c *Client)
 		return err
 	}
 
-	u, err := datasetDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := datasetDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -325,7 +323,7 @@ func (op *deleteDatasetOperation) do(ctx context.Context, r *Dataset, c *Client)
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetDataset(ctx, r.urlNormalized())
+		_, err = c.GetDataset(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -374,7 +372,7 @@ func (op *createDatasetOperation) do(ctx context.Context, r *Dataset, c *Client)
 	}
 	op.response = o
 
-	if _, err := c.GetDataset(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetDataset(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -384,7 +382,7 @@ func (op *createDatasetOperation) do(ctx context.Context, r *Dataset, c *Client)
 
 func (c *Client) getDatasetRaw(ctx context.Context, r *Dataset) ([]byte, error) {
 
-	u, err := datasetGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := datasetGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -417,7 +415,7 @@ func (c *Client) datasetDiffsForRawDesired(ctx context.Context, rawDesired *Data
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetDataset(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetDataset(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Dataset resource already exists: %s", err)
@@ -447,7 +445,6 @@ func (c *Client) datasetDiffsForRawDesired(ctx context.Context, rawDesired *Data
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffDataset(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1304,41 +1301,23 @@ func compareDatasetDefaultEncryptionConfigurationNewStyle(d, a interface{}, fn d
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Dataset) urlNormalized() *Dataset {
-	normalized := dcl.Copy(*r).(Dataset)
-	normalized.Etag = dcl.SelfLinkToName(r.Etag)
-	normalized.Id = dcl.SelfLinkToName(r.Id)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.FriendlyName = dcl.SelfLinkToName(r.FriendlyName)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.DefaultTableExpirationMs = dcl.SelfLinkToName(r.DefaultTableExpirationMs)
-	normalized.DefaultPartitionExpirationMs = dcl.SelfLinkToName(r.DefaultPartitionExpirationMs)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
-}
-
 func (r *Dataset) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Dataset) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
 func (r *Dataset) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Dataset) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "PatchDataset" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -2001,8 +1980,8 @@ func (r *Dataset) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

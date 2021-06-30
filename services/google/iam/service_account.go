@@ -200,6 +200,20 @@ func (c *Client) ListServiceAccountWithMaxResults(ctx context.Context, project s
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *ServiceAccount) URLNormalized() *ServiceAccount {
+	normalized := dcl.Copy(*r).(ServiceAccount)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.UniqueId = dcl.SelfLinkToName(r.UniqueId)
+	normalized.Email = dcl.SelfLinkToName(r.Email)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.OAuth2ClientId = dcl.SelfLinkToName(r.OAuth2ClientId)
+	return &normalized
+}
 func (c *Client) GetServiceAccount(ctx context.Context, r *ServiceAccount) (*ServiceAccount, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -304,13 +318,8 @@ func applyServiceAccountHelper(c *Client, ctx context.Context, rawDesired *Servi
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToServiceAccountOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -378,7 +387,7 @@ func applyServiceAccountHelper(c *Client, ctx context.Context, rawDesired *Servi
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetServiceAccount(ctx, desired.urlNormalized())
+	rawNew, err := c.GetServiceAccount(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

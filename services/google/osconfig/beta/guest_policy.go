@@ -1865,6 +1865,17 @@ func (c *Client) ListGuestPolicyWithMaxResults(ctx context.Context, project stri
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *GuestPolicy) URLNormalized() *GuestPolicy {
+	normalized := dcl.Copy(*r).(GuestPolicy)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Etag = dcl.SelfLinkToName(r.Etag)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
 func (c *Client) GetGuestPolicy(ctx context.Context, r *GuestPolicy) (*GuestPolicy, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -1969,13 +1980,8 @@ func applyGuestPolicyHelper(c *Client, ctx context.Context, rawDesired *GuestPol
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToGuestPolicyOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -2043,7 +2049,7 @@ func applyGuestPolicyHelper(c *Client, ctx context.Context, rawDesired *GuestPol
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetGuestPolicy(ctx, desired.urlNormalized())
+	rawNew, err := c.GetGuestPolicy(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

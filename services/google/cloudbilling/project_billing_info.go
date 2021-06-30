@@ -50,6 +50,16 @@ type ProjectBillingInfoList struct {
 	nextToken string
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *ProjectBillingInfo) URLNormalized() *ProjectBillingInfo {
+	normalized := dcl.Copy(*r).(ProjectBillingInfo)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.BillingAccountName = dcl.SelfLinkToName(r.BillingAccountName)
+	normalized.BillingEnabled = dcl.SelfLinkToName(r.BillingEnabled)
+	return &normalized
+}
 func (c *Client) GetProjectBillingInfo(ctx context.Context, r *ProjectBillingInfo) (*ProjectBillingInfo, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -129,13 +139,8 @@ func applyProjectBillingInfoHelper(c *Client, ctx context.Context, rawDesired *P
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToProjectBillingInfoOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -171,7 +176,7 @@ func applyProjectBillingInfoHelper(c *Client, ctx context.Context, rawDesired *P
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetProjectBillingInfo(ctx, desired.urlNormalized())
+	rawNew, err := c.GetProjectBillingInfo(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

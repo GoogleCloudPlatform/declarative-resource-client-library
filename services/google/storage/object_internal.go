@@ -117,7 +117,7 @@ type updateObjectPatchObjectOperation struct {
 // PUT request to a single URL.
 
 func (op *updateObjectPatchObjectOperation) do(ctx context.Context, r *Object, c *Client) error {
-	_, err := c.GetObject(ctx, r.urlNormalized())
+	_, err := c.GetObject(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -232,9 +232,7 @@ func (c *Client) deleteAllObject(ctx context.Context, f func(*Object) bool, reso
 type deleteObjectOperation struct{}
 
 func (op *deleteObjectOperation) do(ctx context.Context, r *Object, c *Client) error {
-
-	_, err := c.GetObject(ctx, r.urlNormalized())
-
+	r, err := c.GetObject(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Object not found, returning. Original error: %v", err)
@@ -244,7 +242,7 @@ func (op *deleteObjectOperation) do(ctx context.Context, r *Object, c *Client) e
 		return err
 	}
 
-	u, err := objectDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := objectDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -260,7 +258,7 @@ func (op *deleteObjectOperation) do(ctx context.Context, r *Object, c *Client) e
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetObject(ctx, r.urlNormalized())
+		_, err = c.GetObject(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -300,7 +298,7 @@ func (c *Client) objectDiffsForRawDesired(ctx context.Context, rawDesired *Objec
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetObject(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetObject(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Object resource already exists: %s", err)
@@ -330,7 +328,6 @@ func (c *Client) objectDiffsForRawDesired(ctx context.Context, rawDesired *Objec
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffObject(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1021,43 +1018,23 @@ func compareObjectCustomerEncryptionNewStyle(d, a interface{}, fn dcl.FieldName)
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Object) urlNormalized() *Object {
-	normalized := dcl.Copy(*r).(Object)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Bucket = dcl.SelfLinkToName(r.Bucket)
-	normalized.Id = dcl.SelfLinkToName(r.Id)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.ContentType = dcl.SelfLinkToName(r.ContentType)
-	normalized.StorageClass = dcl.SelfLinkToName(r.StorageClass)
-	normalized.Md5Hash = dcl.SelfLinkToName(r.Md5Hash)
-	normalized.MediaLink = dcl.SelfLinkToName(r.MediaLink)
-	normalized.Crc32c = dcl.SelfLinkToName(r.Crc32c)
-	normalized.Etag = dcl.SelfLinkToName(r.Etag)
-	normalized.KmsKeyName = dcl.SelfLinkToName(r.KmsKeyName)
-	normalized.Content = dcl.SelfLinkToName(r.Content)
-	return &normalized
-}
-
 func (r *Object) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Bucket), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Object) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Bucket), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Object) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Bucket), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Object) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "PatchObject" {
 		fields := map[string]interface{}{
 			"bucket": dcl.ValueOrEmptyString(n.Bucket),
@@ -1485,8 +1462,8 @@ func (r *Object) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Bucket == nil && ncr.Bucket == nil {

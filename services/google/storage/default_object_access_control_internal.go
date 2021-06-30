@@ -127,7 +127,7 @@ type updateDefaultObjectAccessControlUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateDefaultObjectAccessControlUpdateOperation) do(ctx context.Context, r *DefaultObjectAccessControl, c *Client) error {
-	_, err := c.GetDefaultObjectAccessControl(ctx, r.urlNormalized())
+	_, err := c.GetDefaultObjectAccessControl(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -233,9 +233,7 @@ func (c *Client) deleteAllDefaultObjectAccessControl(ctx context.Context, f func
 type deleteDefaultObjectAccessControlOperation struct{}
 
 func (op *deleteDefaultObjectAccessControlOperation) do(ctx context.Context, r *DefaultObjectAccessControl, c *Client) error {
-
-	_, err := c.GetDefaultObjectAccessControl(ctx, r.urlNormalized())
-
+	r, err := c.GetDefaultObjectAccessControl(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("DefaultObjectAccessControl not found, returning. Original error: %v", err)
@@ -245,7 +243,7 @@ func (op *deleteDefaultObjectAccessControlOperation) do(ctx context.Context, r *
 		return err
 	}
 
-	u, err := defaultObjectAccessControlDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := defaultObjectAccessControlDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -261,7 +259,7 @@ func (op *deleteDefaultObjectAccessControlOperation) do(ctx context.Context, r *
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetDefaultObjectAccessControl(ctx, r.urlNormalized())
+		_, err = c.GetDefaultObjectAccessControl(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -310,7 +308,7 @@ func (op *createDefaultObjectAccessControlOperation) do(ctx context.Context, r *
 	}
 	op.response = o
 
-	if _, err := c.GetDefaultObjectAccessControl(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetDefaultObjectAccessControl(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -320,7 +318,7 @@ func (op *createDefaultObjectAccessControlOperation) do(ctx context.Context, r *
 
 func (c *Client) getDefaultObjectAccessControlRaw(ctx context.Context, r *DefaultObjectAccessControl) ([]byte, error) {
 
-	u, err := defaultObjectAccessControlGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := defaultObjectAccessControlGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -353,7 +351,7 @@ func (c *Client) defaultObjectAccessControlDiffsForRawDesired(ctx context.Contex
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetDefaultObjectAccessControl(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetDefaultObjectAccessControl(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a DefaultObjectAccessControl resource already exists: %s", err)
@@ -383,7 +381,6 @@ func (c *Client) defaultObjectAccessControlDiffsForRawDesired(ctx context.Contex
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffDefaultObjectAccessControl(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -666,37 +663,23 @@ func compareDefaultObjectAccessControlProjectTeamNewStyle(d, a interface{}, fn d
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *DefaultObjectAccessControl) urlNormalized() *DefaultObjectAccessControl {
-	normalized := dcl.Copy(*r).(DefaultObjectAccessControl)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Bucket = dcl.SelfLinkToName(r.Bucket)
-	normalized.Domain = dcl.SelfLinkToName(r.Domain)
-	normalized.Email = dcl.SelfLinkToName(r.Email)
-	normalized.Entity = dcl.SelfLinkToName(r.Entity)
-	normalized.EntityId = dcl.SelfLinkToName(r.EntityId)
-	return &normalized
-}
-
 func (r *DefaultObjectAccessControl) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Bucket), dcl.ValueOrEmptyString(n.Entity)
 }
 
 func (r *DefaultObjectAccessControl) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Bucket)
 }
 
 func (r *DefaultObjectAccessControl) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Bucket), dcl.ValueOrEmptyString(n.Entity)
 }
 
 func (r *DefaultObjectAccessControl) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "update" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -986,8 +969,8 @@ func (r *DefaultObjectAccessControl) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

@@ -7,7 +7,7 @@
   "labels": {
     "label-one": "value-one"
   },
-  "provisionedResourcesParent": "organizations/{{org_id}}",
+  "provisionedResourcesParent": "folders/519620126891",
   "kmsSettings": {
     "nextRotationTime": "9999-10-02T15:01:23Z",
     "rotationPeriod": "10368000s"

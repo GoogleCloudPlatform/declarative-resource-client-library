@@ -155,6 +155,16 @@ func (c *Client) ListRepoWithMaxResults(ctx context.Context, project string, pag
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Repo) URLNormalized() *Repo {
+	normalized := dcl.Copy(*r).(Repo)
+	normalized.Name = r.Name
+	normalized.Url = dcl.SelfLinkToName(r.Url)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
 func (c *Client) GetRepo(ctx context.Context, r *Repo) (*Repo, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -259,13 +269,8 @@ func applyRepoHelper(c *Client, ctx context.Context, rawDesired *Repo, opts ...d
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToRepoOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -337,7 +342,7 @@ func applyRepoHelper(c *Client, ctx context.Context, rawDesired *Repo, opts ...d
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetRepo(ctx, desired.urlNormalized())
+	rawNew, err := c.GetRepo(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

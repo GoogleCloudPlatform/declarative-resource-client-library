@@ -156,9 +156,7 @@ func (c *Client) deleteAllIdentityAwareProxyClient(ctx context.Context, f func(*
 type deleteIdentityAwareProxyClientOperation struct{}
 
 func (op *deleteIdentityAwareProxyClientOperation) do(ctx context.Context, r *IdentityAwareProxyClient, c *Client) error {
-
-	_, err := c.GetIdentityAwareProxyClient(ctx, r.urlNormalized())
-
+	r, err := c.GetIdentityAwareProxyClient(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("IdentityAwareProxyClient not found, returning. Original error: %v", err)
@@ -168,7 +166,7 @@ func (op *deleteIdentityAwareProxyClientOperation) do(ctx context.Context, r *Id
 		return err
 	}
 
-	u, err := identityAwareProxyClientDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := identityAwareProxyClientDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -184,7 +182,7 @@ func (op *deleteIdentityAwareProxyClientOperation) do(ctx context.Context, r *Id
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetIdentityAwareProxyClient(ctx, r.urlNormalized())
+		_, err = c.GetIdentityAwareProxyClient(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -240,7 +238,7 @@ func (op *createIdentityAwareProxyClientOperation) do(ctx context.Context, r *Id
 	}
 	r.Name = &name
 
-	if _, err := c.GetIdentityAwareProxyClient(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetIdentityAwareProxyClient(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -250,7 +248,7 @@ func (op *createIdentityAwareProxyClientOperation) do(ctx context.Context, r *Id
 
 func (c *Client) getIdentityAwareProxyClientRaw(ctx context.Context, r *IdentityAwareProxyClient) ([]byte, error) {
 
-	u, err := identityAwareProxyClientGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := identityAwareProxyClientGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -289,7 +287,7 @@ func (c *Client) identityAwareProxyClientDiffsForRawDesired(ctx context.Context,
 		return nil, desired, nil, err
 	}
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetIdentityAwareProxyClient(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetIdentityAwareProxyClient(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a IdentityAwareProxyClient resource already exists: %s", err)
@@ -319,7 +317,6 @@ func (c *Client) identityAwareProxyClientDiffsForRawDesired(ctx context.Context,
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffIdentityAwareProxyClient(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -443,31 +440,18 @@ func diffIdentityAwareProxyClient(c *Client, desired, actual *IdentityAwareProxy
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *IdentityAwareProxyClient) urlNormalized() *IdentityAwareProxyClient {
-	normalized := dcl.Copy(*r).(IdentityAwareProxyClient)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Secret = dcl.SelfLinkToName(r.Secret)
-	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Brand = dcl.SelfLinkToName(r.Brand)
-	return &normalized
-}
-
 func (r *IdentityAwareProxyClient) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Brand), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *IdentityAwareProxyClient) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Brand)
 }
 
 func (r *IdentityAwareProxyClient) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Brand), dcl.ValueOrEmptyString(n.Name)
 }
 
@@ -560,8 +544,8 @@ func (r *IdentityAwareProxyClient) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

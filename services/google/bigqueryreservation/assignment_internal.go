@@ -171,9 +171,7 @@ func (c *Client) deleteAllAssignment(ctx context.Context, f func(*Assignment) bo
 type deleteAssignmentOperation struct{}
 
 func (op *deleteAssignmentOperation) do(ctx context.Context, r *Assignment, c *Client) error {
-
-	_, err := c.GetAssignment(ctx, r.urlNormalized())
-
+	r, err := c.GetAssignment(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Assignment not found, returning. Original error: %v", err)
@@ -183,7 +181,7 @@ func (op *deleteAssignmentOperation) do(ctx context.Context, r *Assignment, c *C
 		return err
 	}
 
-	u, err := assignmentDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := assignmentDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -199,7 +197,7 @@ func (op *deleteAssignmentOperation) do(ctx context.Context, r *Assignment, c *C
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetAssignment(ctx, r.urlNormalized())
+		_, err = c.GetAssignment(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -255,7 +253,7 @@ func (op *createAssignmentOperation) do(ctx context.Context, r *Assignment, c *C
 	}
 	r.Name = &name
 
-	if _, err := c.GetAssignment(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetAssignment(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -265,7 +263,7 @@ func (op *createAssignmentOperation) do(ctx context.Context, r *Assignment, c *C
 
 func (c *Client) getAssignmentRaw(ctx context.Context, r *Assignment) ([]byte, error) {
 
-	u, err := assignmentGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := assignmentGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -308,7 +306,7 @@ func (c *Client) assignmentDiffsForRawDesired(ctx context.Context, rawDesired *A
 		return nil, desired, nil, err
 	}
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetAssignment(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetAssignment(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Assignment resource already exists: %s", err)
@@ -338,7 +336,6 @@ func (c *Client) assignmentDiffsForRawDesired(ctx context.Context, rawDesired *A
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffAssignment(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -486,31 +483,18 @@ func diffAssignment(c *Client, desired, actual *Assignment, opts ...dcl.ApplyOpt
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Assignment) urlNormalized() *Assignment {
-	normalized := dcl.Copy(*r).(Assignment)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Assignee = dcl.SelfLinkToName(r.Assignee)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	normalized.Reservation = dcl.SelfLinkToName(r.Reservation)
-	return &normalized
-}
-
 func (r *Assignment) getFields() (string, string, string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Reservation), dcl.ValueOrEmptyString(n.Assignee), dcl.ValueOrEmptyString(n.JobType)
 }
 
 func (r *Assignment) createFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Reservation)
 }
 
 func (r *Assignment) deleteFields() (string, string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Reservation), dcl.ValueOrEmptyString(n.Name)
 }
 
@@ -673,8 +657,8 @@ func (r *Assignment) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Assignee == nil && ncr.Assignee == nil {

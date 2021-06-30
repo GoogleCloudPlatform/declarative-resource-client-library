@@ -206,6 +206,19 @@ func (c *Client) ListSnapshotWithMaxResults(ctx context.Context, project string,
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Snapshot) URLNormalized() *Snapshot {
+	normalized := dcl.Copy(*r).(Snapshot)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.SourceDisk = dcl.SelfLinkToName(r.SourceDisk)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Zone = dcl.SelfLinkToName(r.Zone)
+	return &normalized
+}
 func (c *Client) GetSnapshot(ctx context.Context, r *Snapshot) (*Snapshot, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -310,13 +323,8 @@ func applySnapshotHelper(c *Client, ctx context.Context, rawDesired *Snapshot, o
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToSnapshotOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -384,7 +392,7 @@ func applySnapshotHelper(c *Client, ctx context.Context, rawDesired *Snapshot, o
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetSnapshot(ctx, desired.urlNormalized())
+	rawNew, err := c.GetSnapshot(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

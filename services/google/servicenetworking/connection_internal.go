@@ -122,7 +122,7 @@ type updateConnectionPatchOperation struct {
 // PUT request to a single URL.
 
 func (op *updateConnectionPatchOperation) do(ctx context.Context, r *Connection, c *Client) error {
-	_, err := c.GetConnection(ctx, r.urlNormalized())
+	_, err := c.GetConnection(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -286,7 +286,7 @@ func (op *createConnectionOperation) do(ctx context.Context, r *Connection, c *C
 	}
 	r.Name = &peering
 
-	if _, err := c.GetConnection(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetConnection(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -299,7 +299,7 @@ func (c *Client) getConnectionRaw(ctx context.Context, r *Connection) ([]byte, e
 		r.Service = dcl.String("services/servicenetworking.googleapis.com")
 	}
 
-	u, err := connectionGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := connectionGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -342,7 +342,7 @@ func (c *Client) connectionDiffsForRawDesired(ctx context.Context, rawDesired *C
 		return nil, desired, nil, err
 	}
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetConnection(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetConnection(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Connection resource already exists: %s", err)
@@ -372,7 +372,6 @@ func (c *Client) connectionDiffsForRawDesired(ctx context.Context, rawDesired *C
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffConnection(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -503,35 +502,23 @@ func diffConnection(c *Client, desired, actual *Connection, opts ...dcl.ApplyOpt
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Connection) urlNormalized() *Connection {
-	normalized := dcl.Copy(*r).(Connection)
-	normalized.Network = dcl.SelfLinkToName(r.Network)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Service = dcl.SelfLinkToName(r.Service)
-	return &normalized
-}
-
 func (r *Connection) getFields() (string, string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Network), dcl.ValueOrEmptyString(n.Service), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Connection) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Service)
 }
 
 func (r *Connection) deleteFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Service)
 }
 
 func (r *Connection) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "patch" {
 		fields := map[string]interface{}{
 			"service": dcl.ValueOrEmptyString(n.Service),
@@ -631,8 +618,8 @@ func (r *Connection) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Network == nil && ncr.Network == nil {

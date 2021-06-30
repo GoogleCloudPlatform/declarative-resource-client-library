@@ -456,7 +456,7 @@ func newUpdateDashboardUpdateRequest(ctx context.Context, f *Dashboard, c *Clien
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["columnLayout"] = v
 	}
-	b, err := c.getDashboardRaw(ctx, f.urlNormalized())
+	b, err := c.getDashboardRaw(ctx, f.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -498,7 +498,7 @@ type updateDashboardUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateDashboardUpdateOperation) do(ctx context.Context, r *Dashboard, c *Client) error {
-	_, err := c.GetDashboard(ctx, r.urlNormalized())
+	_, err := c.GetDashboard(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -603,9 +603,7 @@ func (c *Client) deleteAllDashboard(ctx context.Context, f func(*Dashboard) bool
 type deleteDashboardOperation struct{}
 
 func (op *deleteDashboardOperation) do(ctx context.Context, r *Dashboard, c *Client) error {
-
-	_, err := c.GetDashboard(ctx, r.urlNormalized())
-
+	r, err := c.GetDashboard(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Dashboard not found, returning. Original error: %v", err)
@@ -615,7 +613,7 @@ func (op *deleteDashboardOperation) do(ctx context.Context, r *Dashboard, c *Cli
 		return err
 	}
 
-	u, err := dashboardDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := dashboardDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -631,7 +629,7 @@ func (op *deleteDashboardOperation) do(ctx context.Context, r *Dashboard, c *Cli
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetDashboard(ctx, r.urlNormalized())
+		_, err = c.GetDashboard(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -673,7 +671,7 @@ func (op *createDashboardOperation) do(ctx context.Context, r *Dashboard, c *Cli
 	if err := json.Unmarshal(req, &m); err != nil {
 		return err
 	}
-	normalized := r.urlNormalized()
+	normalized := r.URLNormalized()
 	m["name"] = fmt.Sprintf("projects/%s/dashboards/%s", *normalized.Project, *normalized.Name)
 
 	req, err = json.Marshal(m)
@@ -691,7 +689,7 @@ func (op *createDashboardOperation) do(ctx context.Context, r *Dashboard, c *Cli
 	}
 	op.response = o
 
-	if _, err := c.GetDashboard(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetDashboard(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -701,7 +699,7 @@ func (op *createDashboardOperation) do(ctx context.Context, r *Dashboard, c *Cli
 
 func (c *Client) getDashboardRaw(ctx context.Context, r *Dashboard) ([]byte, error) {
 
-	u, err := dashboardGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := dashboardGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -734,7 +732,7 @@ func (c *Client) dashboardDiffsForRawDesired(ctx context.Context, rawDesired *Da
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetDashboard(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetDashboard(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Dashboard resource already exists: %s", err)
@@ -764,7 +762,6 @@ func (c *Client) dashboardDiffsForRawDesired(ctx context.Context, rawDesired *Da
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffDashboard(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -6566,35 +6563,23 @@ func compareDashboardWidgetBlankNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Dashboard) urlNormalized() *Dashboard {
-	normalized := dcl.Copy(*r).(Dashboard)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Etag = dcl.SelfLinkToName(r.Etag)
-	return &normalized
-}
-
 func (r *Dashboard) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Dashboard) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
 func (r *Dashboard) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Dashboard) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "update" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -13357,8 +13342,8 @@ func (r *Dashboard) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

@@ -157,9 +157,7 @@ func (c *Client) deleteAllVpnTunnel(ctx context.Context, f func(*VpnTunnel) bool
 type deleteVpnTunnelOperation struct{}
 
 func (op *deleteVpnTunnelOperation) do(ctx context.Context, r *VpnTunnel, c *Client) error {
-
-	_, err := c.GetVpnTunnel(ctx, r.urlNormalized())
-
+	r, err := c.GetVpnTunnel(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("VpnTunnel not found, returning. Original error: %v", err)
@@ -169,7 +167,7 @@ func (op *deleteVpnTunnelOperation) do(ctx context.Context, r *VpnTunnel, c *Cli
 		return err
 	}
 
-	u, err := vpnTunnelDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := vpnTunnelDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -194,7 +192,7 @@ func (op *deleteVpnTunnelOperation) do(ctx context.Context, r *VpnTunnel, c *Cli
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetVpnTunnel(ctx, r.urlNormalized())
+		_, err = c.GetVpnTunnel(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -248,7 +246,7 @@ func (op *createVpnTunnelOperation) do(ctx context.Context, r *VpnTunnel, c *Cli
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetVpnTunnel(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetVpnTunnel(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -261,7 +259,7 @@ func (c *Client) getVpnTunnelRaw(ctx context.Context, r *VpnTunnel) ([]byte, err
 		r.IkeVersion = dcl.Int64(2)
 	}
 
-	u, err := vpnTunnelGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := vpnTunnelGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -294,7 +292,7 @@ func (c *Client) vpnTunnelDiffsForRawDesired(ctx context.Context, rawDesired *Vp
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetVpnTunnel(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetVpnTunnel(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a VpnTunnel resource already exists: %s", err)
@@ -324,7 +322,6 @@ func (c *Client) vpnTunnelDiffsForRawDesired(ctx context.Context, rawDesired *Vp
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffVpnTunnel(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -725,40 +722,18 @@ func diffVpnTunnel(c *Client, desired, actual *VpnTunnel, opts ...dcl.ApplyOptio
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *VpnTunnel) urlNormalized() *VpnTunnel {
-	normalized := dcl.Copy(*r).(VpnTunnel)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Region = dcl.SelfLinkToName(r.Region)
-	normalized.TargetVpnGateway = dcl.SelfLinkToName(r.TargetVpnGateway)
-	normalized.VpnGateway = dcl.SelfLinkToName(r.VpnGateway)
-	normalized.PeerExternalGateway = dcl.SelfLinkToName(r.PeerExternalGateway)
-	normalized.PeerGcpGateway = dcl.SelfLinkToName(r.PeerGcpGateway)
-	normalized.Router = dcl.SelfLinkToName(r.Router)
-	normalized.PeerIP = dcl.SelfLinkToName(r.PeerIP)
-	normalized.SharedSecret = dcl.SelfLinkToName(r.SharedSecret)
-	normalized.SharedSecretHash = dcl.SelfLinkToName(r.SharedSecretHash)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.DetailedStatus = dcl.SelfLinkToName(r.DetailedStatus)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *VpnTunnel) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *VpnTunnel) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region)
 }
 
 func (r *VpnTunnel) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region), dcl.ValueOrEmptyString(n.Name)
 }
 
@@ -952,8 +927,8 @@ func (r *VpnTunnel) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

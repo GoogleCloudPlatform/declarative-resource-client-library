@@ -282,6 +282,27 @@ func (c *Client) ListInstanceWithMaxResults(ctx context.Context, project, locati
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Instance) URLNormalized() *Instance {
+	normalized := dcl.Copy(*r).(Instance)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.StateMessage = dcl.SelfLinkToName(r.StateMessage)
+	normalized.ServiceEndpoint = dcl.SelfLinkToName(r.ServiceEndpoint)
+	normalized.Zone = dcl.SelfLinkToName(r.Zone)
+	normalized.Version = dcl.SelfLinkToName(r.Version)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.ApiEndpoint = dcl.SelfLinkToName(r.ApiEndpoint)
+	normalized.GcsBucket = dcl.SelfLinkToName(r.GcsBucket)
+	normalized.P4ServiceAccount = dcl.SelfLinkToName(r.P4ServiceAccount)
+	normalized.TenantProjectId = dcl.SelfLinkToName(r.TenantProjectId)
+	normalized.DataprocServiceAccount = dcl.SelfLinkToName(r.DataprocServiceAccount)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
+}
 func (c *Client) GetInstance(ctx context.Context, r *Instance) (*Instance, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -387,13 +408,8 @@ func applyInstanceHelper(c *Client, ctx context.Context, rawDesired *Instance, o
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToInstanceOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -461,7 +477,7 @@ func applyInstanceHelper(c *Client, ctx context.Context, rawDesired *Instance, o
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetInstance(ctx, desired.urlNormalized())
+	rawNew, err := c.GetInstance(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

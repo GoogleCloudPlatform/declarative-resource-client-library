@@ -111,6 +111,20 @@ func (c *Client) ListNetworkEndpointWithMaxResults(ctx context.Context, project,
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *NetworkEndpoint) URLNormalized() *NetworkEndpoint {
+	normalized := dcl.Copy(*r).(NetworkEndpoint)
+	normalized.IPAddress = dcl.SelfLinkToName(r.IPAddress)
+	normalized.Fqdn = dcl.SelfLinkToName(r.Fqdn)
+	normalized.Instance = dcl.SelfLinkToName(r.Instance)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.Group = dcl.SelfLinkToName(r.Group)
+	return &normalized
+}
+
 func (c *Client) DeleteNetworkEndpoint(ctx context.Context, r *NetworkEndpoint) error {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -183,13 +197,8 @@ func applyNetworkEndpointHelper(c *Client, ctx context.Context, rawDesired *Netw
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToNetworkEndpointOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -257,7 +266,7 @@ func applyNetworkEndpointHelper(c *Client, ctx context.Context, rawDesired *Netw
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetNetworkEndpoint(ctx, desired.urlNormalized())
+	rawNew, err := c.GetNetworkEndpoint(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

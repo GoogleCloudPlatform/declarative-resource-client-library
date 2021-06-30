@@ -331,6 +331,23 @@ func (c *Client) ListDatasetWithMaxResults(ctx context.Context, project string, 
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Dataset) URLNormalized() *Dataset {
+	normalized := dcl.Copy(*r).(Dataset)
+	normalized.Etag = dcl.SelfLinkToName(r.Etag)
+	normalized.Id = dcl.SelfLinkToName(r.Id)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.FriendlyName = dcl.SelfLinkToName(r.FriendlyName)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.DefaultTableExpirationMs = dcl.SelfLinkToName(r.DefaultTableExpirationMs)
+	normalized.DefaultPartitionExpirationMs = dcl.SelfLinkToName(r.DefaultPartitionExpirationMs)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
+}
 func (c *Client) GetDataset(ctx context.Context, r *Dataset) (*Dataset, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -435,13 +452,8 @@ func applyDatasetHelper(c *Client, ctx context.Context, rawDesired *Dataset, opt
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToDatasetOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -509,7 +521,7 @@ func applyDatasetHelper(c *Client, ctx context.Context, rawDesired *Dataset, opt
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetDataset(ctx, desired.urlNormalized())
+	rawNew, err := c.GetDataset(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

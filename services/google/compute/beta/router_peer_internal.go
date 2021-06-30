@@ -140,7 +140,7 @@ type updateRouterPeerUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateRouterPeerUpdateOperation) do(ctx context.Context, r *RouterPeer, c *Client) error {
-	_, err := c.GetRouterPeer(ctx, r.urlNormalized())
+	_, err := c.GetRouterPeer(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -261,9 +261,7 @@ func (c *Client) deleteAllRouterPeer(ctx context.Context, f func(*RouterPeer) bo
 type deleteRouterPeerOperation struct{}
 
 func (op *deleteRouterPeerOperation) do(ctx context.Context, r *RouterPeer, c *Client) error {
-
-	_, err := c.GetRouterPeer(ctx, r.urlNormalized())
-
+	r, err := c.GetRouterPeer(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("RouterPeer not found, returning. Original error: %v", err)
@@ -273,7 +271,7 @@ func (op *deleteRouterPeerOperation) do(ctx context.Context, r *RouterPeer, c *C
 		return err
 	}
 
-	u, err := routerPeerDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := routerPeerDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -304,7 +302,7 @@ func (op *deleteRouterPeerOperation) do(ctx context.Context, r *RouterPeer, c *C
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetRouterPeer(ctx, r.urlNormalized())
+		_, err = c.GetRouterPeer(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -363,7 +361,7 @@ func (op *createRouterPeerOperation) do(ctx context.Context, r *RouterPeer, c *C
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetRouterPeer(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetRouterPeer(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -373,7 +371,7 @@ func (op *createRouterPeerOperation) do(ctx context.Context, r *RouterPeer, c *C
 
 func (c *Client) getRouterPeerRaw(ctx context.Context, r *RouterPeer) ([]byte, error) {
 
-	u, err := routerPeerGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := routerPeerGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -406,7 +404,7 @@ func (c *Client) routerPeerDiffsForRawDesired(ctx context.Context, rawDesired *R
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetRouterPeer(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetRouterPeer(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a RouterPeer resource already exists: %s", err)
@@ -436,7 +434,6 @@ func (c *Client) routerPeerDiffsForRawDesired(ctx context.Context, rawDesired *R
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffRouterPeer(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -472,7 +469,7 @@ func routerPeerFromParent(r *RouterPeer, parent map[string]interface{}) (map[str
 // the RouterPeer resource r as dictated by 'delete' and the presence r in the parent resource.
 func routerPeerNestedRequest(ctx context.Context, r *RouterPeer, c *Client, delete bool) ([]byte, error) {
 	// Fetch parent resource.
-	pb, err := c.getRouterPeerRaw(ctx, r.urlNormalized())
+	pb, err := c.getRouterPeerRaw(ctx, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -902,40 +899,23 @@ func compareRouterPeerAdvertisedIPRangesNewStyle(d, a interface{}, fn dcl.FieldN
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *RouterPeer) urlNormalized() *RouterPeer {
-	normalized := dcl.Copy(*r).(RouterPeer)
-	normalized.Router = dcl.SelfLinkToName(r.Router)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.InterfaceName = dcl.SelfLinkToName(r.InterfaceName)
-	normalized.IPAddress = dcl.SelfLinkToName(r.IPAddress)
-	normalized.PeerIPAddress = dcl.SelfLinkToName(r.PeerIPAddress)
-	normalized.AdvertiseMode = dcl.SelfLinkToName(r.AdvertiseMode)
-	normalized.ManagementType = dcl.SelfLinkToName(r.ManagementType)
-	normalized.Region = dcl.SelfLinkToName(r.Region)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *RouterPeer) getFields() (string, string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region), dcl.ValueOrEmptyString(n.Router), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *RouterPeer) createFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region), dcl.ValueOrEmptyString(n.Router)
 }
 
 func (r *RouterPeer) deleteFields() (string, string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Region), dcl.ValueOrEmptyString(n.Router), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *RouterPeer) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "update" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -1187,8 +1167,8 @@ func (r *RouterPeer) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

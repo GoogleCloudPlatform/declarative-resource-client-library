@@ -449,7 +449,7 @@ type updateVersionPatchVersionOperation struct {
 // PUT request to a single URL.
 
 func (op *updateVersionPatchVersionOperation) do(ctx context.Context, r *Version, c *Client) error {
-	_, err := c.GetVersion(ctx, r.urlNormalized())
+	_, err := c.GetVersion(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -565,9 +565,7 @@ func (c *Client) deleteAllVersion(ctx context.Context, f func(*Version) bool, re
 type deleteVersionOperation struct{}
 
 func (op *deleteVersionOperation) do(ctx context.Context, r *Version, c *Client) error {
-
-	_, err := c.GetVersion(ctx, r.urlNormalized())
-
+	r, err := c.GetVersion(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Version not found, returning. Original error: %v", err)
@@ -577,7 +575,7 @@ func (op *deleteVersionOperation) do(ctx context.Context, r *Version, c *Client)
 		return err
 	}
 
-	u, err := versionDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := versionDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -602,7 +600,7 @@ func (op *deleteVersionOperation) do(ctx context.Context, r *Version, c *Client)
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetVersion(ctx, r.urlNormalized())
+		_, err = c.GetVersion(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -656,7 +654,7 @@ func (op *createVersionOperation) do(ctx context.Context, r *Version, c *Client)
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetVersion(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetVersion(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -666,7 +664,7 @@ func (op *createVersionOperation) do(ctx context.Context, r *Version, c *Client)
 
 func (c *Client) getVersionRaw(ctx context.Context, r *Version) ([]byte, error) {
 
-	u, err := versionGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := versionGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -699,7 +697,7 @@ func (c *Client) versionDiffsForRawDesired(ctx context.Context, rawDesired *Vers
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetVersion(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetVersion(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Version resource already exists: %s", err)
@@ -729,7 +727,6 @@ func (c *Client) versionDiffsForRawDesired(ctx context.Context, rawDesired *Vers
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffVersion(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -5222,45 +5219,23 @@ func compareVersionVPCAccessConnectorNewStyle(d, a interface{}, fn dcl.FieldName
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Version) urlNormalized() *Version {
-	normalized := dcl.Copy(*r).(Version)
-	normalized.ConsumerName = dcl.SelfLinkToName(r.ConsumerName)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.InstanceClass = dcl.SelfLinkToName(r.InstanceClass)
-	normalized.Runtime = dcl.SelfLinkToName(r.Runtime)
-	normalized.RuntimeChannel = dcl.SelfLinkToName(r.RuntimeChannel)
-	normalized.Env = dcl.SelfLinkToName(r.Env)
-	normalized.CreatedBy = dcl.SelfLinkToName(r.CreatedBy)
-	normalized.RuntimeApiVersion = dcl.SelfLinkToName(r.RuntimeApiVersion)
-	normalized.RuntimeMainExecutablePath = dcl.SelfLinkToName(r.RuntimeMainExecutablePath)
-	normalized.DefaultExpiration = dcl.SelfLinkToName(r.DefaultExpiration)
-	normalized.NobuildFilesRegex = dcl.SelfLinkToName(r.NobuildFilesRegex)
-	normalized.VersionUrl = dcl.SelfLinkToName(r.VersionUrl)
-	normalized.App = dcl.SelfLinkToName(r.App)
-	normalized.Service = dcl.SelfLinkToName(r.Service)
-	return &normalized
-}
-
 func (r *Version) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.App), dcl.ValueOrEmptyString(n.Service), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Version) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.App), dcl.ValueOrEmptyString(n.Service)
 }
 
 func (r *Version) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.App), dcl.ValueOrEmptyString(n.Service), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Version) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "PatchVersion" {
 		fields := map[string]interface{}{
 			"app":     dcl.ValueOrEmptyString(n.App),
@@ -9358,8 +9333,8 @@ func (r *Version) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.App == nil && ncr.App == nil {

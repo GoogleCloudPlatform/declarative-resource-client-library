@@ -195,7 +195,7 @@ type updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation struct {
 // PUT request to a single URL.
 
 func (op *updateEndpointConfigSelectorUpdateEndpointConfigSelectorOperation) do(ctx context.Context, r *EndpointConfigSelector, c *Client) error {
-	_, err := c.GetEndpointConfigSelector(ctx, r.urlNormalized())
+	_, err := c.GetEndpointConfigSelector(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -311,9 +311,7 @@ func (c *Client) deleteAllEndpointConfigSelector(ctx context.Context, f func(*En
 type deleteEndpointConfigSelectorOperation struct{}
 
 func (op *deleteEndpointConfigSelectorOperation) do(ctx context.Context, r *EndpointConfigSelector, c *Client) error {
-
-	_, err := c.GetEndpointConfigSelector(ctx, r.urlNormalized())
-
+	r, err := c.GetEndpointConfigSelector(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("EndpointConfigSelector not found, returning. Original error: %v", err)
@@ -323,7 +321,7 @@ func (op *deleteEndpointConfigSelectorOperation) do(ctx context.Context, r *Endp
 		return err
 	}
 
-	u, err := endpointConfigSelectorDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := endpointConfigSelectorDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -348,7 +346,7 @@ func (op *deleteEndpointConfigSelectorOperation) do(ctx context.Context, r *Endp
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetEndpointConfigSelector(ctx, r.urlNormalized())
+		_, err = c.GetEndpointConfigSelector(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -402,7 +400,7 @@ func (op *createEndpointConfigSelectorOperation) do(ctx context.Context, r *Endp
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetEndpointConfigSelector(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetEndpointConfigSelector(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -412,7 +410,7 @@ func (op *createEndpointConfigSelectorOperation) do(ctx context.Context, r *Endp
 
 func (c *Client) getEndpointConfigSelectorRaw(ctx context.Context, r *EndpointConfigSelector) ([]byte, error) {
 
-	u, err := endpointConfigSelectorGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := endpointConfigSelectorGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -445,7 +443,7 @@ func (c *Client) endpointConfigSelectorDiffsForRawDesired(ctx context.Context, r
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetEndpointConfigSelector(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetEndpointConfigSelector(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a EndpointConfigSelector resource already exists: %s", err)
@@ -475,7 +473,6 @@ func (c *Client) endpointConfigSelectorDiffsForRawDesired(ctx context.Context, r
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffEndpointConfigSelector(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1274,38 +1271,23 @@ func compareEndpointConfigSelectorTrafficPortSelectorNewStyle(d, a interface{}, 
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *EndpointConfigSelector) urlNormalized() *EndpointConfigSelector {
-	normalized := dcl.Copy(*r).(EndpointConfigSelector)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.AuthorizationPolicy = dcl.SelfLinkToName(r.AuthorizationPolicy)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.ServerTlsPolicy = dcl.SelfLinkToName(r.ServerTlsPolicy)
-	normalized.ClientTlsPolicy = dcl.SelfLinkToName(r.ClientTlsPolicy)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
-}
-
 func (r *EndpointConfigSelector) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *EndpointConfigSelector) createFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *EndpointConfigSelector) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *EndpointConfigSelector) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateEndpointConfigSelector" {
 		fields := map[string]interface{}{
 			"project":  dcl.ValueOrEmptyString(n.Project),
@@ -2089,8 +2071,8 @@ func (r *EndpointConfigSelector) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

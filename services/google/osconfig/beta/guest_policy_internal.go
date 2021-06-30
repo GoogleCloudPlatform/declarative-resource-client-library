@@ -326,7 +326,7 @@ func newUpdateGuestPolicyUpdateGuestPolicyRequest(ctx context.Context, f *GuestP
 	if v := f.Etag; !dcl.IsEmptyValueIndirect(v) {
 		req["etag"] = v
 	}
-	b, err := c.getGuestPolicyRaw(ctx, f.urlNormalized())
+	b, err := c.getGuestPolicyRaw(ctx, f.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -366,7 +366,7 @@ type updateGuestPolicyUpdateGuestPolicyOperation struct {
 // PUT request to a single URL.
 
 func (op *updateGuestPolicyUpdateGuestPolicyOperation) do(ctx context.Context, r *GuestPolicy, c *Client) error {
-	_, err := c.GetGuestPolicy(ctx, r.urlNormalized())
+	_, err := c.GetGuestPolicy(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -471,9 +471,7 @@ func (c *Client) deleteAllGuestPolicy(ctx context.Context, f func(*GuestPolicy) 
 type deleteGuestPolicyOperation struct{}
 
 func (op *deleteGuestPolicyOperation) do(ctx context.Context, r *GuestPolicy, c *Client) error {
-
-	_, err := c.GetGuestPolicy(ctx, r.urlNormalized())
-
+	r, err := c.GetGuestPolicy(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("GuestPolicy not found, returning. Original error: %v", err)
@@ -483,7 +481,7 @@ func (op *deleteGuestPolicyOperation) do(ctx context.Context, r *GuestPolicy, c 
 		return err
 	}
 
-	u, err := guestPolicyDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := guestPolicyDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -499,7 +497,7 @@ func (op *deleteGuestPolicyOperation) do(ctx context.Context, r *GuestPolicy, c 
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetGuestPolicy(ctx, r.urlNormalized())
+		_, err = c.GetGuestPolicy(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -548,7 +546,7 @@ func (op *createGuestPolicyOperation) do(ctx context.Context, r *GuestPolicy, c 
 	}
 	op.response = o
 
-	if _, err := c.GetGuestPolicy(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetGuestPolicy(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -558,7 +556,7 @@ func (op *createGuestPolicyOperation) do(ctx context.Context, r *GuestPolicy, c 
 
 func (c *Client) getGuestPolicyRaw(ctx context.Context, r *GuestPolicy) ([]byte, error) {
 
-	u, err := guestPolicyGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := guestPolicyGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -591,7 +589,7 @@ func (c *Client) guestPolicyDiffsForRawDesired(ctx context.Context, rawDesired *
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetGuestPolicy(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetGuestPolicy(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a GuestPolicy resource already exists: %s", err)
@@ -621,7 +619,6 @@ func (c *Client) guestPolicyDiffsForRawDesired(ctx context.Context, rawDesired *
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffGuestPolicy(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -4619,35 +4616,23 @@ func compareGuestPolicyRecipesUpdateStepsScriptRunNewStyle(d, a interface{}, fn 
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *GuestPolicy) urlNormalized() *GuestPolicy {
-	normalized := dcl.Copy(*r).(GuestPolicy)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Etag = dcl.SelfLinkToName(r.Etag)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *GuestPolicy) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *GuestPolicy) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *GuestPolicy) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *GuestPolicy) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateGuestPolicy" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -8650,8 +8635,8 @@ func (r *GuestPolicy) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

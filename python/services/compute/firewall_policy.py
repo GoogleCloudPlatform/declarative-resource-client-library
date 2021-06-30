@@ -30,17 +30,14 @@ class FirewallPolicy(object):
         self_link_with_id: str = None,
         rule_tuple_count: int = None,
         short_name: str = None,
-        display_name: str = None,
         parent: str = None,
         service_account_file: str = "",
     ):
 
         channel.initialize()
-        self.name = name
         self.description = description
         self.fingerprint = fingerprint
         self.short_name = short_name
-        self.display_name = display_name
         self.parent = parent
         self.service_account_file = service_account_file
 
@@ -49,9 +46,6 @@ class FirewallPolicy(object):
             channel.Channel()
         )
         request = firewall_policy_pb2.ApplyComputeFirewallPolicyRequest()
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
@@ -60,9 +54,6 @@ class FirewallPolicy(object):
 
         if Primitive.to_proto(self.short_name):
             request.resource.short_name = Primitive.to_proto(self.short_name)
-
-        if Primitive.to_proto(self.display_name):
-            request.resource.display_name = Primitive.to_proto(self.display_name)
 
         if Primitive.to_proto(self.parent):
             request.resource.parent = Primitive.to_proto(self.parent)
@@ -79,7 +70,6 @@ class FirewallPolicy(object):
         self.self_link_with_id = Primitive.from_proto(response.self_link_with_id)
         self.rule_tuple_count = Primitive.from_proto(response.rule_tuple_count)
         self.short_name = Primitive.from_proto(response.short_name)
-        self.display_name = Primitive.from_proto(response.display_name)
         self.parent = Primitive.from_proto(response.parent)
 
     def delete(self):
@@ -88,9 +78,6 @@ class FirewallPolicy(object):
         )
         request = firewall_policy_pb2.DeleteComputeFirewallPolicyRequest()
         request.service_account_file = self.service_account_file
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
-
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
@@ -99,9 +86,6 @@ class FirewallPolicy(object):
 
         if Primitive.to_proto(self.short_name):
             request.resource.short_name = Primitive.to_proto(self.short_name)
-
-        if Primitive.to_proto(self.display_name):
-            request.resource.display_name = Primitive.to_proto(self.display_name)
 
         if Primitive.to_proto(self.parent):
             request.resource.parent = Primitive.to_proto(self.parent)
@@ -121,16 +105,12 @@ class FirewallPolicy(object):
 
     def to_proto(self):
         resource = firewall_policy_pb2.ComputeFirewallPolicy()
-        if Primitive.to_proto(self.name):
-            resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.description):
             resource.description = Primitive.to_proto(self.description)
         if Primitive.to_proto(self.fingerprint):
             resource.fingerprint = Primitive.to_proto(self.fingerprint)
         if Primitive.to_proto(self.short_name):
             resource.short_name = Primitive.to_proto(self.short_name)
-        if Primitive.to_proto(self.display_name):
-            resource.display_name = Primitive.to_proto(self.display_name)
         if Primitive.to_proto(self.parent):
             resource.parent = Primitive.to_proto(self.parent)
         return resource

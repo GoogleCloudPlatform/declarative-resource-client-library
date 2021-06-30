@@ -112,7 +112,7 @@ type updateLogExclusionUpdateExclusionOperation struct {
 // PUT request to a single URL.
 
 func (op *updateLogExclusionUpdateExclusionOperation) do(ctx context.Context, r *LogExclusion, c *Client) error {
-	_, err := c.GetLogExclusion(ctx, r.urlNormalized())
+	_, err := c.GetLogExclusion(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -222,9 +222,7 @@ func (c *Client) deleteAllLogExclusion(ctx context.Context, f func(*LogExclusion
 type deleteLogExclusionOperation struct{}
 
 func (op *deleteLogExclusionOperation) do(ctx context.Context, r *LogExclusion, c *Client) error {
-
-	_, err := c.GetLogExclusion(ctx, r.urlNormalized())
-
+	r, err := c.GetLogExclusion(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("LogExclusion not found, returning. Original error: %v", err)
@@ -234,7 +232,7 @@ func (op *deleteLogExclusionOperation) do(ctx context.Context, r *LogExclusion, 
 		return err
 	}
 
-	u, err := logExclusionDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := logExclusionDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -250,7 +248,7 @@ func (op *deleteLogExclusionOperation) do(ctx context.Context, r *LogExclusion, 
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetLogExclusion(ctx, r.urlNormalized())
+		_, err = c.GetLogExclusion(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -299,7 +297,7 @@ func (op *createLogExclusionOperation) do(ctx context.Context, r *LogExclusion, 
 	}
 	op.response = o
 
-	if _, err := c.GetLogExclusion(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetLogExclusion(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -309,7 +307,7 @@ func (op *createLogExclusionOperation) do(ctx context.Context, r *LogExclusion, 
 
 func (c *Client) getLogExclusionRaw(ctx context.Context, r *LogExclusion) ([]byte, error) {
 
-	u, err := logExclusionGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := logExclusionGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -342,7 +340,7 @@ func (c *Client) logExclusionDiffsForRawDesired(ctx context.Context, rawDesired 
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetLogExclusion(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetLogExclusion(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a LogExclusion resource already exists: %s", err)
@@ -372,7 +370,6 @@ func (c *Client) logExclusionDiffsForRawDesired(ctx context.Context, rawDesired 
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffLogExclusion(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -533,35 +530,23 @@ func diffLogExclusion(c *Client, desired, actual *LogExclusion, opts ...dcl.Appl
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *LogExclusion) urlNormalized() *LogExclusion {
-	normalized := dcl.Copy(*r).(LogExclusion)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Filter = dcl.SelfLinkToName(r.Filter)
-	normalized.Parent = r.Parent
-	return &normalized
-}
-
 func (r *LogExclusion) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Parent), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *LogExclusion) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Parent)
 }
 
 func (r *LogExclusion) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Parent), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *LogExclusion) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateExclusion" {
 		fields := map[string]interface{}{
 			"parent": dcl.ValueOrEmptyString(n.Parent),
@@ -662,8 +647,8 @@ func (r *LogExclusion) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Parent == nil && ncr.Parent == nil {

@@ -117,7 +117,7 @@ type updateNetworkUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateNetworkUpdateOperation) do(ctx context.Context, r *Network, c *Client) error {
-	_, err := c.GetNetwork(ctx, r.urlNormalized())
+	_, err := c.GetNetwork(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -232,9 +232,7 @@ func (c *Client) deleteAllNetwork(ctx context.Context, f func(*Network) bool, re
 type deleteNetworkOperation struct{}
 
 func (op *deleteNetworkOperation) do(ctx context.Context, r *Network, c *Client) error {
-
-	_, err := c.GetNetwork(ctx, r.urlNormalized())
-
+	r, err := c.GetNetwork(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Network not found, returning. Original error: %v", err)
@@ -244,7 +242,7 @@ func (op *deleteNetworkOperation) do(ctx context.Context, r *Network, c *Client)
 		return err
 	}
 
-	u, err := networkDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := networkDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -269,7 +267,7 @@ func (op *deleteNetworkOperation) do(ctx context.Context, r *Network, c *Client)
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetNetwork(ctx, r.urlNormalized())
+		_, err = c.GetNetwork(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -323,7 +321,7 @@ func (op *createNetworkOperation) do(ctx context.Context, r *Network, c *Client)
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetNetwork(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetNetwork(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -336,7 +334,7 @@ func (c *Client) getNetworkRaw(ctx context.Context, r *Network) ([]byte, error) 
 		r.AutoCreateSubnetworks = dcl.Bool(true)
 	}
 
-	u, err := networkGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := networkGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -369,7 +367,7 @@ func (c *Client) networkDiffsForRawDesired(ctx context.Context, rawDesired *Netw
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetNetwork(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetNetwork(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Network resource already exists: %s", err)
@@ -399,7 +397,6 @@ func (c *Client) networkDiffsForRawDesired(ctx context.Context, rawDesired *Netw
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffNetwork(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -683,37 +680,23 @@ func compareNetworkRoutingConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Network) urlNormalized() *Network {
-	normalized := dcl.Copy(*r).(Network)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.GatewayIPv4 = dcl.SelfLinkToName(r.GatewayIPv4)
-	normalized.IPv4Range = dcl.SelfLinkToName(r.IPv4Range)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	return &normalized
-}
-
 func (r *Network) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Network) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
 func (r *Network) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Network) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "update" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -967,8 +950,8 @@ func (r *Network) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

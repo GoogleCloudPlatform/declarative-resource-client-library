@@ -37,7 +37,6 @@ func ProtoToFirewallPolicy(p *computepb.ComputeFirewallPolicy) *compute.Firewall
 		SelfLinkWithId:    dcl.StringOrNil(p.SelfLinkWithId),
 		RuleTupleCount:    dcl.Int64OrNil(p.RuleTupleCount),
 		ShortName:         dcl.StringOrNil(p.ShortName),
-		DisplayName:       dcl.StringOrNil(p.DisplayName),
 		Parent:            dcl.StringOrNil(p.Parent),
 	}
 	return obj
@@ -55,7 +54,6 @@ func FirewallPolicyToProto(resource *compute.FirewallPolicy) *computepb.ComputeF
 		SelfLinkWithId:    dcl.ValueOrEmptyString(resource.SelfLinkWithId),
 		RuleTupleCount:    dcl.ValueOrEmptyInt64(resource.RuleTupleCount),
 		ShortName:         dcl.ValueOrEmptyString(resource.ShortName),
-		DisplayName:       dcl.ValueOrEmptyString(resource.DisplayName),
 		Parent:            dcl.ValueOrEmptyString(resource.Parent),
 	}
 

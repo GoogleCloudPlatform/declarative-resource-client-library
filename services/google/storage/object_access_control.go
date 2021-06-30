@@ -220,6 +220,21 @@ func (c *Client) ListObjectAccessControlWithMaxResults(ctx context.Context, proj
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *ObjectAccessControl) URLNormalized() *ObjectAccessControl {
+	normalized := dcl.Copy(*r).(ObjectAccessControl)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Bucket = dcl.SelfLinkToName(r.Bucket)
+	normalized.Domain = dcl.SelfLinkToName(r.Domain)
+	normalized.Email = dcl.SelfLinkToName(r.Email)
+	normalized.Entity = dcl.SelfLinkToName(r.Entity)
+	normalized.EntityId = dcl.SelfLinkToName(r.EntityId)
+	normalized.Id = dcl.SelfLinkToName(r.Id)
+	normalized.Object = dcl.SelfLinkToName(r.Object)
+	return &normalized
+}
 func (c *Client) GetObjectAccessControl(ctx context.Context, r *ObjectAccessControl) (*ObjectAccessControl, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -326,13 +341,8 @@ func applyObjectAccessControlHelper(c *Client, ctx context.Context, rawDesired *
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToObjectAccessControlOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -400,7 +410,7 @@ func applyObjectAccessControlHelper(c *Client, ctx context.Context, rawDesired *
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetObjectAccessControl(ctx, desired.urlNormalized())
+	rawNew, err := c.GetObjectAccessControl(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

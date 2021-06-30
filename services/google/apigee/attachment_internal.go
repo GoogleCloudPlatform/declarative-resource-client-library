@@ -152,9 +152,7 @@ func (c *Client) deleteAllAttachment(ctx context.Context, f func(*Attachment) bo
 type deleteAttachmentOperation struct{}
 
 func (op *deleteAttachmentOperation) do(ctx context.Context, r *Attachment, c *Client) error {
-
-	_, err := c.GetAttachment(ctx, r.urlNormalized())
-
+	r, err := c.GetAttachment(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Attachment not found, returning. Original error: %v", err)
@@ -164,7 +162,7 @@ func (op *deleteAttachmentOperation) do(ctx context.Context, r *Attachment, c *C
 		return err
 	}
 
-	u, err := attachmentDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := attachmentDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -189,7 +187,7 @@ func (op *deleteAttachmentOperation) do(ctx context.Context, r *Attachment, c *C
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetAttachment(ctx, r.urlNormalized())
+		_, err = c.GetAttachment(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -250,7 +248,7 @@ func (op *createAttachmentOperation) do(ctx context.Context, r *Attachment, c *C
 	}
 	r.Name = &name
 
-	if _, err := c.GetAttachment(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetAttachment(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -260,7 +258,7 @@ func (op *createAttachmentOperation) do(ctx context.Context, r *Attachment, c *C
 
 func (c *Client) getAttachmentRaw(ctx context.Context, r *Attachment) ([]byte, error) {
 
-	u, err := attachmentGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := attachmentGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -299,7 +297,7 @@ func (c *Client) attachmentDiffsForRawDesired(ctx context.Context, rawDesired *A
 		return nil, desired, nil, err
 	}
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetAttachment(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetAttachment(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Attachment resource already exists: %s", err)
@@ -329,7 +327,6 @@ func (c *Client) attachmentDiffsForRawDesired(ctx context.Context, rawDesired *A
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffAttachment(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -438,29 +435,18 @@ func diffAttachment(c *Client, desired, actual *Attachment, opts ...dcl.ApplyOpt
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Attachment) urlNormalized() *Attachment {
-	normalized := dcl.Copy(*r).(Attachment)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Environment = dcl.SelfLinkToName(r.Environment)
-	normalized.Envgroup = r.Envgroup
-	return &normalized
-}
-
 func (r *Attachment) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Envgroup), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Attachment) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Envgroup)
 }
 
 func (r *Attachment) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Envgroup), dcl.ValueOrEmptyString(n.Name)
 }
 
@@ -545,8 +531,8 @@ func (r *Attachment) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Envgroup == nil && ncr.Envgroup == nil {

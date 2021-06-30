@@ -120,7 +120,7 @@ func (op *createHmacKeyOperation) do(ctx context.Context, r *HmacKey, c *Client)
 	// Poll for the HmacKey resource to be created. HmacKey resources are eventually consistent but do not support operations
 	// so we must repeatedly poll to check for their creation.
 	return dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
-		u, err := hmacKeyGetURL(c.Config.BasePath, r.urlNormalized())
+		u, err := hmacKeyGetURL(c.Config.BasePath, r.URLNormalized())
 		if err != nil {
 			return nil, err
 		}
@@ -243,7 +243,7 @@ func (op *createObjectOperation) do(ctx context.Context, r *Object, c *Client) e
 	}
 	op.response = o
 
-	if _, err := c.GetObject(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetObject(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -253,7 +253,7 @@ func (op *createObjectOperation) do(ctx context.Context, r *Object, c *Client) e
 
 func (c *Client) getObjectRaw(ctx context.Context, r *Object) ([]byte, error) {
 
-	u, err := objectGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := objectGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -272,7 +272,7 @@ func (c *Client) getObjectRaw(ctx context.Context, r *Object) ([]byte, error) {
 
 func (c *Client) getObjectContentRaw(ctx context.Context, r *Object) ([]byte, error) {
 
-	u, err := objectGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := objectGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

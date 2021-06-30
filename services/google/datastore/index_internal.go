@@ -164,9 +164,7 @@ func (c *Client) deleteAllIndex(ctx context.Context, f func(*Index) bool, resour
 type deleteIndexOperation struct{}
 
 func (op *deleteIndexOperation) do(ctx context.Context, r *Index, c *Client) error {
-
-	_, err := c.GetIndex(ctx, r.urlNormalized())
-
+	r, err := c.GetIndex(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Index not found, returning. Original error: %v", err)
@@ -176,7 +174,7 @@ func (op *deleteIndexOperation) do(ctx context.Context, r *Index, c *Client) err
 		return err
 	}
 
-	u, err := indexDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := indexDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -201,7 +199,7 @@ func (op *deleteIndexOperation) do(ctx context.Context, r *Index, c *Client) err
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetIndex(ctx, r.urlNormalized())
+		_, err = c.GetIndex(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -262,7 +260,7 @@ func (op *createIndexOperation) do(ctx context.Context, r *Index, c *Client) err
 	}
 	r.IndexId = &indexId
 
-	if _, err := c.GetIndex(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetIndex(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -275,7 +273,7 @@ func (c *Client) getIndexRaw(ctx context.Context, r *Index) ([]byte, error) {
 		r.Ancestor = IndexAncestorEnumRef("NONE")
 	}
 
-	u, err := indexGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := indexGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -314,7 +312,7 @@ func (c *Client) indexDiffsForRawDesired(ctx context.Context, rawDesired *Index,
 		return nil, desired, nil, err
 	}
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetIndex(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetIndex(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Index resource already exists: %s", err)
@@ -344,7 +342,6 @@ func (c *Client) indexDiffsForRawDesired(ctx context.Context, rawDesired *Index,
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffIndex(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -600,29 +597,18 @@ func compareIndexPropertiesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Index) urlNormalized() *Index {
-	normalized := dcl.Copy(*r).(Index)
-	normalized.IndexId = dcl.SelfLinkToName(r.IndexId)
-	normalized.Kind = dcl.SelfLinkToName(r.Kind)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *Index) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.IndexId)
 }
 
 func (r *Index) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
 func (r *Index) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.IndexId)
 }
 
@@ -932,8 +918,8 @@ func (r *Index) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

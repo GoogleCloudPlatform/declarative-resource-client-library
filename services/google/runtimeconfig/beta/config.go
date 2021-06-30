@@ -103,6 +103,16 @@ func (c *Client) ListConfigWithMaxResults(ctx context.Context, project, name str
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Config) URLNormalized() *Config {
+	normalized := dcl.Copy(*r).(Config)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
 func (c *Client) GetConfig(ctx context.Context, r *Config) (*Config, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -207,13 +217,8 @@ func applyConfigHelper(c *Client, ctx context.Context, rawDesired *Config, opts 
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToConfigOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -281,7 +286,7 @@ func applyConfigHelper(c *Client, ctx context.Context, rawDesired *Config, opts 
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetConfig(ctx, desired.urlNormalized())
+	rawNew, err := c.GetConfig(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

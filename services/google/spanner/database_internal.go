@@ -160,9 +160,7 @@ func (c *Client) deleteAllDatabase(ctx context.Context, f func(*Database) bool, 
 type deleteDatabaseOperation struct{}
 
 func (op *deleteDatabaseOperation) do(ctx context.Context, r *Database, c *Client) error {
-
-	_, err := c.GetDatabase(ctx, r.urlNormalized())
-
+	r, err := c.GetDatabase(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Database not found, returning. Original error: %v", err)
@@ -172,7 +170,7 @@ func (op *deleteDatabaseOperation) do(ctx context.Context, r *Database, c *Clien
 		return err
 	}
 
-	u, err := databaseDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := databaseDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -188,7 +186,7 @@ func (op *deleteDatabaseOperation) do(ctx context.Context, r *Database, c *Clien
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetDatabase(ctx, r.urlNormalized())
+		_, err = c.GetDatabase(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -230,7 +228,7 @@ func (op *createDatabaseOperation) do(ctx context.Context, r *Database, c *Clien
 	if err := json.Unmarshal(req, &m); err != nil {
 		return err
 	}
-	normalized := r.urlNormalized()
+	normalized := r.URLNormalized()
 	m["createStatement"] = fmt.Sprintf("CREATE DATABASE `%s`", *normalized.Name)
 
 	req, err = json.Marshal(m)
@@ -253,7 +251,7 @@ func (op *createDatabaseOperation) do(ctx context.Context, r *Database, c *Clien
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetDatabase(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetDatabase(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -263,7 +261,7 @@ func (op *createDatabaseOperation) do(ctx context.Context, r *Database, c *Clien
 
 func (c *Client) getDatabaseRaw(ctx context.Context, r *Database) ([]byte, error) {
 
-	u, err := databaseGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := databaseGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -296,7 +294,7 @@ func (c *Client) databaseDiffsForRawDesired(ctx context.Context, rawDesired *Dat
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetDatabase(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetDatabase(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Database resource already exists: %s", err)
@@ -326,7 +324,6 @@ func (c *Client) databaseDiffsForRawDesired(ctx context.Context, rawDesired *Dat
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffDatabase(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -438,29 +435,18 @@ func diffDatabase(c *Client, desired, actual *Database, opts ...dcl.ApplyOption)
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Database) urlNormalized() *Database {
-	normalized := dcl.Copy(*r).(Database)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Instance = dcl.SelfLinkToName(r.Instance)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *Database) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Instance), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Database) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Instance)
 }
 
 func (r *Database) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Instance), dcl.ValueOrEmptyString(n.Name)
 }
 
@@ -584,8 +570,8 @@ func (r *Database) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

@@ -146,7 +146,7 @@ type updateTopicUpdateTopicOperation struct {
 // PUT request to a single URL.
 
 func (op *updateTopicUpdateTopicOperation) do(ctx context.Context, r *Topic, c *Client) error {
-	_, err := c.GetTopic(ctx, r.urlNormalized())
+	_, err := c.GetTopic(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -252,9 +252,7 @@ func (c *Client) deleteAllTopic(ctx context.Context, f func(*Topic) bool, resour
 type deleteTopicOperation struct{}
 
 func (op *deleteTopicOperation) do(ctx context.Context, r *Topic, c *Client) error {
-
-	_, err := c.GetTopic(ctx, r.urlNormalized())
-
+	r, err := c.GetTopic(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Topic not found, returning. Original error: %v", err)
@@ -264,7 +262,7 @@ func (op *deleteTopicOperation) do(ctx context.Context, r *Topic, c *Client) err
 		return err
 	}
 
-	u, err := topicDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := topicDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -280,7 +278,7 @@ func (op *deleteTopicOperation) do(ctx context.Context, r *Topic, c *Client) err
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetTopic(ctx, r.urlNormalized())
+		_, err = c.GetTopic(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -332,7 +330,7 @@ func (op *createTopicOperation) do(ctx context.Context, r *Topic, c *Client) err
 	// Poll for the Topic resource to be created. Topic resources are eventually consistent but do not support operations
 	// so we must repeatedly poll to check for their creation.
 	err = dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
-		u, err := topicGetURL(c.Config.BasePath, r.urlNormalized())
+		u, err := topicGetURL(c.Config.BasePath, r.URLNormalized())
 		if err != nil {
 			return nil, err
 		}
@@ -349,7 +347,7 @@ func (op *createTopicOperation) do(ctx context.Context, r *Topic, c *Client) err
 		return getResp, nil
 	}, c.Config.RetryProvider)
 
-	if _, err := c.GetTopic(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetTopic(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -359,7 +357,7 @@ func (op *createTopicOperation) do(ctx context.Context, r *Topic, c *Client) err
 
 func (c *Client) getTopicRaw(ctx context.Context, r *Topic) ([]byte, error) {
 
-	u, err := topicGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := topicGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -392,7 +390,7 @@ func (c *Client) topicDiffsForRawDesired(ctx context.Context, rawDesired *Topic,
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetTopic(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetTopic(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Topic resource already exists: %s", err)
@@ -422,7 +420,6 @@ func (c *Client) topicDiffsForRawDesired(ctx context.Context, rawDesired *Topic,
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffTopic(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -889,34 +886,23 @@ func compareTopicRetentionConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Topic) urlNormalized() *Topic {
-	normalized := dcl.Copy(*r).(Topic)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
-}
-
 func (r *Topic) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Topic) createFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Topic) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Topic) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateTopic" {
 		fields := map[string]interface{}{
 			"project":  dcl.ValueOrEmptyString(n.Project),
@@ -1374,8 +1360,8 @@ func (r *Topic) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

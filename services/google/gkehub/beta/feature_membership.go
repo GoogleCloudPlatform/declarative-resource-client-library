@@ -391,6 +391,18 @@ type FeatureMembershipList struct {
 	feature string
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *FeatureMembership) URLNormalized() *FeatureMembership {
+	normalized := dcl.Copy(*r).(FeatureMembership)
+	normalized.Membership = dcl.SelfLinkToName(r.Membership)
+	normalized.Feature = dcl.SelfLinkToName(r.Feature)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
+
 func (c *Client) DeleteFeatureMembership(ctx context.Context, r *FeatureMembership) error {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -463,13 +475,8 @@ func applyFeatureMembershipHelper(c *Client, ctx context.Context, rawDesired *Fe
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToFeatureMembershipOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -537,7 +544,7 @@ func applyFeatureMembershipHelper(c *Client, ctx context.Context, rawDesired *Fe
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetFeatureMembership(ctx, desired.urlNormalized())
+	rawNew, err := c.GetFeatureMembership(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

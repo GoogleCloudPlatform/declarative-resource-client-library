@@ -130,6 +130,19 @@ func (c *Client) ListHmacKeyWithMaxResults(ctx context.Context, project string, 
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *HmacKey) URLNormalized() *HmacKey {
+	normalized := dcl.Copy(*r).(HmacKey)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.TimeCreated = dcl.SelfLinkToName(r.TimeCreated)
+	normalized.Updated = dcl.SelfLinkToName(r.Updated)
+	normalized.Secret = dcl.SelfLinkToName(r.Secret)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.ServiceAccountEmail = dcl.SelfLinkToName(r.ServiceAccountEmail)
+	return &normalized
+}
 func (c *Client) GetHmacKey(ctx context.Context, r *HmacKey) (*HmacKey, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -237,13 +250,8 @@ func applyHmacKeyHelper(c *Client, ctx context.Context, rawDesired *HmacKey, opt
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToHmacKeyOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -311,7 +319,7 @@ func applyHmacKeyHelper(c *Client, ctx context.Context, rawDesired *HmacKey, opt
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetHmacKey(ctx, desired.urlNormalized())
+	rawNew, err := c.GetHmacKey(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

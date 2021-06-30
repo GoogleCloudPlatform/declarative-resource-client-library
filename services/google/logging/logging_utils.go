@@ -52,7 +52,7 @@ func (op *createLogBucketOperation) do(ctx context.Context, r *LogBucket, c *Cli
 	}
 	op.response = o
 
-	if _, err := c.GetLogBucket(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetLogBucket(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -64,7 +64,7 @@ func (op *createLogBucketOperation) do(ctx context.Context, r *LogBucket, c *Cli
 // "_Default" or "_Required"
 func (op *deleteLogBucketOperation) do(ctx context.Context, r *LogBucket, c *Client) error {
 
-	_, err := c.GetLogBucket(ctx, r.urlNormalized())
+	_, err := c.GetLogBucket(ctx, r.URLNormalized())
 
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -79,7 +79,7 @@ func (op *deleteLogBucketOperation) do(ctx context.Context, r *LogBucket, c *Cli
 		return nil
 	}
 
-	u, err := logBucketDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := logBucketDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}

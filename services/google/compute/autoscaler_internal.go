@@ -224,7 +224,7 @@ type updateAutoscalerUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateAutoscalerUpdateOperation) do(ctx context.Context, r *Autoscaler, c *Client) error {
-	_, err := c.GetAutoscaler(ctx, r.urlNormalized())
+	_, err := c.GetAutoscaler(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -340,9 +340,7 @@ func (c *Client) deleteAllAutoscaler(ctx context.Context, f func(*Autoscaler) bo
 type deleteAutoscalerOperation struct{}
 
 func (op *deleteAutoscalerOperation) do(ctx context.Context, r *Autoscaler, c *Client) error {
-
-	_, err := c.GetAutoscaler(ctx, r.urlNormalized())
-
+	r, err := c.GetAutoscaler(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Autoscaler not found, returning. Original error: %v", err)
@@ -352,7 +350,7 @@ func (op *deleteAutoscalerOperation) do(ctx context.Context, r *Autoscaler, c *C
 		return err
 	}
 
-	u, err := autoscalerDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := autoscalerDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -377,7 +375,7 @@ func (op *deleteAutoscalerOperation) do(ctx context.Context, r *Autoscaler, c *C
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetAutoscaler(ctx, r.urlNormalized())
+		_, err = c.GetAutoscaler(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -431,7 +429,7 @@ func (op *createAutoscalerOperation) do(ctx context.Context, r *Autoscaler, c *C
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetAutoscaler(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetAutoscaler(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -441,7 +439,7 @@ func (op *createAutoscalerOperation) do(ctx context.Context, r *Autoscaler, c *C
 
 func (c *Client) getAutoscalerRaw(ctx context.Context, r *Autoscaler) ([]byte, error) {
 
-	u, err := autoscalerGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := autoscalerGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -474,7 +472,7 @@ func (c *Client) autoscalerDiffsForRawDesired(ctx context.Context, rawDesired *A
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetAutoscaler(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetAutoscaler(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Autoscaler resource already exists: %s", err)
@@ -504,7 +502,6 @@ func (c *Client) autoscalerDiffsForRawDesired(ctx context.Context, rawDesired *A
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffAutoscaler(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1681,41 +1678,23 @@ func compareAutoscalerStatusDetailsNewStyle(d, a interface{}, fn dcl.FieldName) 
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Autoscaler) urlNormalized() *Autoscaler {
-	normalized := dcl.Copy(*r).(Autoscaler)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Target = dcl.SelfLinkToName(r.Target)
-	normalized.Zone = dcl.SelfLinkToName(r.Zone)
-	normalized.Region = dcl.SelfLinkToName(r.Region)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.SelfLinkWithId = dcl.SelfLinkToName(r.SelfLinkWithId)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.CreationTimestamp = dcl.SelfLinkToName(r.CreationTimestamp)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
-}
-
 func (r *Autoscaler) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Autoscaler) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location)
 }
 
 func (r *Autoscaler) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Autoscaler) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "Update" {
 		fields := map[string]interface{}{
 			"project":  dcl.ValueOrEmptyString(n.Project),
@@ -2870,8 +2849,8 @@ func (r *Autoscaler) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

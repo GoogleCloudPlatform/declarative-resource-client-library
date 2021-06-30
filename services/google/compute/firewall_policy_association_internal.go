@@ -159,7 +159,7 @@ func (op *createFirewallPolicyAssociationOperation) FirstResponse() (map[string]
 
 func (c *Client) getFirewallPolicyAssociationRaw(ctx context.Context, r *FirewallPolicyAssociation) ([]byte, error) {
 
-	u, err := firewallPolicyAssociationGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := firewallPolicyAssociationGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -192,7 +192,7 @@ func (c *Client) firewallPolicyAssociationDiffsForRawDesired(ctx context.Context
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetFirewallPolicyAssociation(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetFirewallPolicyAssociation(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFoundOrCode(err, 400) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a FirewallPolicyAssociation resource already exists: %s", err)
@@ -222,7 +222,6 @@ func (c *Client) firewallPolicyAssociationDiffsForRawDesired(ctx context.Context
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffFirewallPolicyAssociation(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -358,31 +357,18 @@ func diffFirewallPolicyAssociation(c *Client, desired, actual *FirewallPolicyAss
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *FirewallPolicyAssociation) urlNormalized() *FirewallPolicyAssociation {
-	normalized := dcl.Copy(*r).(FirewallPolicyAssociation)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.AttachmentTarget = dcl.SelfLinkToName(r.AttachmentTarget)
-	normalized.FirewallPolicy = dcl.SelfLinkToName(r.FirewallPolicy)
-	normalized.ShortName = dcl.SelfLinkToName(r.ShortName)
-	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
-	return &normalized
-}
-
 func (r *FirewallPolicyAssociation) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.FirewallPolicy), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *FirewallPolicyAssociation) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.FirewallPolicy)
 }
 
 func (r *FirewallPolicyAssociation) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.FirewallPolicy), dcl.ValueOrEmptyString(n.Name)
 }
 
@@ -469,8 +455,8 @@ func (r *FirewallPolicyAssociation) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.FirewallPolicy == nil && ncr.FirewallPolicy == nil {

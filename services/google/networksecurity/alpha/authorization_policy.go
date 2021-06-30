@@ -341,6 +341,17 @@ func (c *Client) ListAuthorizationPolicyWithMaxResults(ctx context.Context, proj
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *AuthorizationPolicy) URLNormalized() *AuthorizationPolicy {
+	normalized := dcl.Copy(*r).(AuthorizationPolicy)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
+}
 func (c *Client) GetAuthorizationPolicy(ctx context.Context, r *AuthorizationPolicy) (*AuthorizationPolicy, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -446,13 +457,8 @@ func applyAuthorizationPolicyHelper(c *Client, ctx context.Context, rawDesired *
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToAuthorizationPolicyOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -520,7 +526,7 @@ func applyAuthorizationPolicyHelper(c *Client, ctx context.Context, rawDesired *
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetAuthorizationPolicy(ctx, desired.urlNormalized())
+	rawNew, err := c.GetAuthorizationPolicy(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

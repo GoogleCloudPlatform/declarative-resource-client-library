@@ -578,7 +578,7 @@ type updateAlertPolicyUpdateAlertPolicyOperation struct {
 // PUT request to a single URL.
 
 func (op *updateAlertPolicyUpdateAlertPolicyOperation) do(ctx context.Context, r *AlertPolicy, c *Client) error {
-	_, err := c.GetAlertPolicy(ctx, r.urlNormalized())
+	_, err := c.GetAlertPolicy(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -693,9 +693,7 @@ func (c *Client) deleteAllAlertPolicy(ctx context.Context, f func(*AlertPolicy) 
 type deleteAlertPolicyOperation struct{}
 
 func (op *deleteAlertPolicyOperation) do(ctx context.Context, r *AlertPolicy, c *Client) error {
-
-	_, err := c.GetAlertPolicy(ctx, r.urlNormalized())
-
+	r, err := c.GetAlertPolicy(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("AlertPolicy not found, returning. Original error: %v", err)
@@ -705,7 +703,7 @@ func (op *deleteAlertPolicyOperation) do(ctx context.Context, r *AlertPolicy, c 
 		return err
 	}
 
-	u, err := alertPolicyDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := alertPolicyDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -721,7 +719,7 @@ func (op *deleteAlertPolicyOperation) do(ctx context.Context, r *AlertPolicy, c 
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetAlertPolicy(ctx, r.urlNormalized())
+		_, err = c.GetAlertPolicy(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -777,7 +775,7 @@ func (op *createAlertPolicyOperation) do(ctx context.Context, r *AlertPolicy, c 
 	}
 	r.Name = &name
 
-	if _, err := c.GetAlertPolicy(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetAlertPolicy(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -787,7 +785,7 @@ func (op *createAlertPolicyOperation) do(ctx context.Context, r *AlertPolicy, c 
 
 func (c *Client) getAlertPolicyRaw(ctx context.Context, r *AlertPolicy) ([]byte, error) {
 
-	u, err := alertPolicyGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := alertPolicyGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -826,7 +824,7 @@ func (c *Client) alertPolicyDiffsForRawDesired(ctx context.Context, rawDesired *
 		return nil, desired, nil, err
 	}
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetAlertPolicy(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetAlertPolicy(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a AlertPolicy resource already exists: %s", err)
@@ -856,7 +854,6 @@ func (c *Client) alertPolicyDiffsForRawDesired(ctx context.Context, rawDesired *
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffAlertPolicy(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -8806,34 +8803,23 @@ func compareAlertPolicyMetadataNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *AlertPolicy) urlNormalized() *AlertPolicy {
-	normalized := dcl.Copy(*r).(AlertPolicy)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *AlertPolicy) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *AlertPolicy) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
 func (r *AlertPolicy) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *AlertPolicy) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateAlertPolicy" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -17136,8 +17122,8 @@ func (r *AlertPolicy) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

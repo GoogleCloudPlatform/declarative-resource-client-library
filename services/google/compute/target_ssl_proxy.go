@@ -132,6 +132,19 @@ func (c *Client) ListTargetSslProxyWithMaxResults(ctx context.Context, project s
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *TargetSslProxy) URLNormalized() *TargetSslProxy {
+	normalized := dcl.Copy(*r).(TargetSslProxy)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Service = dcl.SelfLinkToName(r.Service)
+	normalized.SslPolicy = dcl.SelfLinkToName(r.SslPolicy)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
 func (c *Client) GetTargetSslProxy(ctx context.Context, r *TargetSslProxy) (*TargetSslProxy, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -239,13 +252,8 @@ func applyTargetSslProxyHelper(c *Client, ctx context.Context, rawDesired *Targe
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToTargetSslProxyOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -313,7 +321,7 @@ func applyTargetSslProxyHelper(c *Client, ctx context.Context, rawDesired *Targe
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetTargetSslProxy(ctx, desired.urlNormalized())
+	rawNew, err := c.GetTargetSslProxy(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

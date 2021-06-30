@@ -128,6 +128,16 @@ func (c *Client) ListFirewallRuleWithMaxResults(ctx context.Context, app string,
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *FirewallRule) URLNormalized() *FirewallRule {
+	normalized := dcl.Copy(*r).(FirewallRule)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.SourceRange = dcl.SelfLinkToName(r.SourceRange)
+	normalized.App = dcl.SelfLinkToName(r.App)
+	return &normalized
+}
 func (c *Client) GetFirewallRule(ctx context.Context, r *FirewallRule) (*FirewallRule, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -232,13 +242,8 @@ func applyFirewallRuleHelper(c *Client, ctx context.Context, rawDesired *Firewal
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToFirewallRuleOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -306,7 +311,7 @@ func applyFirewallRuleHelper(c *Client, ctx context.Context, rawDesired *Firewal
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetFirewallRule(ctx, desired.urlNormalized())
+	rawNew, err := c.GetFirewallRule(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

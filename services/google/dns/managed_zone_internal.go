@@ -179,7 +179,7 @@ type updateManagedZoneUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateManagedZoneUpdateOperation) do(ctx context.Context, r *ManagedZone, c *Client) error {
-	_, err := c.GetManagedZone(ctx, r.urlNormalized())
+	_, err := c.GetManagedZone(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -284,9 +284,7 @@ func (c *Client) deleteAllManagedZone(ctx context.Context, f func(*ManagedZone) 
 type deleteManagedZoneOperation struct{}
 
 func (op *deleteManagedZoneOperation) do(ctx context.Context, r *ManagedZone, c *Client) error {
-
-	_, err := c.GetManagedZone(ctx, r.urlNormalized())
-
+	r, err := c.GetManagedZone(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("ManagedZone not found, returning. Original error: %v", err)
@@ -296,7 +294,7 @@ func (op *deleteManagedZoneOperation) do(ctx context.Context, r *ManagedZone, c 
 		return err
 	}
 
-	u, err := managedZoneDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := managedZoneDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -312,7 +310,7 @@ func (op *deleteManagedZoneOperation) do(ctx context.Context, r *ManagedZone, c 
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetManagedZone(ctx, r.urlNormalized())
+		_, err = c.GetManagedZone(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -361,7 +359,7 @@ func (op *createManagedZoneOperation) do(ctx context.Context, r *ManagedZone, c 
 	}
 	op.response = o
 
-	if _, err := c.GetManagedZone(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetManagedZone(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -371,7 +369,7 @@ func (op *createManagedZoneOperation) do(ctx context.Context, r *ManagedZone, c 
 
 func (c *Client) getManagedZoneRaw(ctx context.Context, r *ManagedZone) ([]byte, error) {
 
-	u, err := managedZoneGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := managedZoneGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -404,7 +402,7 @@ func (c *Client) managedZoneDiffsForRawDesired(ctx context.Context, rawDesired *
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetManagedZone(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetManagedZone(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a ManagedZone resource already exists: %s", err)
@@ -434,7 +432,6 @@ func (c *Client) managedZoneDiffsForRawDesired(ctx context.Context, rawDesired *
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffManagedZone(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1570,35 +1567,23 @@ func compareManagedZonePeeringConfigTargetNetworkNewStyle(d, a interface{}, fn d
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *ManagedZone) urlNormalized() *ManagedZone {
-	normalized := dcl.Copy(*r).(ManagedZone)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.DnsName = dcl.SelfLinkToName(r.DnsName)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *ManagedZone) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *ManagedZone) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
 func (r *ManagedZone) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *ManagedZone) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "update" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -2863,8 +2848,8 @@ func (r *ManagedZone) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

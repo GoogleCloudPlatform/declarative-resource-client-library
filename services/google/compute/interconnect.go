@@ -427,6 +427,23 @@ func (c *Client) ListInterconnectWithMaxResults(ctx context.Context, project str
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Interconnect) URLNormalized() *Interconnect {
+	normalized := dcl.Copy(*r).(Interconnect)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.NocContactEmail = dcl.SelfLinkToName(r.NocContactEmail)
+	normalized.CustomerName = dcl.SelfLinkToName(r.CustomerName)
+	normalized.PeerIPAddress = dcl.SelfLinkToName(r.PeerIPAddress)
+	normalized.GoogleIPAddress = dcl.SelfLinkToName(r.GoogleIPAddress)
+	normalized.GoogleReferenceId = dcl.SelfLinkToName(r.GoogleReferenceId)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
 func (c *Client) GetInterconnect(ctx context.Context, r *Interconnect) (*Interconnect, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -531,13 +548,8 @@ func applyInterconnectHelper(c *Client, ctx context.Context, rawDesired *Interco
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToInterconnectOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -605,7 +617,7 @@ func applyInterconnectHelper(c *Client, ctx context.Context, rawDesired *Interco
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetInterconnect(ctx, desired.urlNormalized())
+	rawNew, err := c.GetInterconnect(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

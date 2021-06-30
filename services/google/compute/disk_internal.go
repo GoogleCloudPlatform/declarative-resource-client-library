@@ -169,7 +169,7 @@ type updateDiskResizeOperation struct {
 // PUT request to a single URL.
 
 func (op *updateDiskResizeOperation) do(ctx context.Context, r *Disk, c *Client) error {
-	_, err := c.GetDisk(ctx, r.urlNormalized())
+	_, err := c.GetDisk(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -219,7 +219,7 @@ func newUpdateDiskSetLabelsRequest(ctx context.Context, f *Disk, c *Client) (map
 	if v := f.LabelFingerprint; !dcl.IsEmptyValueIndirect(v) {
 		req["labelFingerprint"] = v
 	}
-	b, err := c.getDiskRaw(ctx, f.urlNormalized())
+	b, err := c.getDiskRaw(ctx, f.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -259,7 +259,7 @@ type updateDiskSetLabelsOperation struct {
 // PUT request to a single URL.
 
 func (op *updateDiskSetLabelsOperation) do(ctx context.Context, r *Disk, c *Client) error {
-	_, err := c.GetDisk(ctx, r.urlNormalized())
+	_, err := c.GetDisk(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -375,9 +375,7 @@ func (c *Client) deleteAllDisk(ctx context.Context, f func(*Disk) bool, resource
 type deleteDiskOperation struct{}
 
 func (op *deleteDiskOperation) do(ctx context.Context, r *Disk, c *Client) error {
-
-	_, err := c.GetDisk(ctx, r.urlNormalized())
-
+	r, err := c.GetDisk(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Disk not found, returning. Original error: %v", err)
@@ -387,7 +385,7 @@ func (op *deleteDiskOperation) do(ctx context.Context, r *Disk, c *Client) error
 		return err
 	}
 
-	u, err := diskDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := diskDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -412,7 +410,7 @@ func (op *deleteDiskOperation) do(ctx context.Context, r *Disk, c *Client) error
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetDisk(ctx, r.urlNormalized())
+		_, err = c.GetDisk(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -466,7 +464,7 @@ func (op *createDiskOperation) do(ctx context.Context, r *Disk, c *Client) error
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetDisk(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetDisk(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -476,7 +474,7 @@ func (op *createDiskOperation) do(ctx context.Context, r *Disk, c *Client) error
 
 func (c *Client) getDiskRaw(ctx context.Context, r *Disk) ([]byte, error) {
 
-	u, err := diskGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := diskGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -509,7 +507,7 @@ func (c *Client) diskDiffsForRawDesired(ctx context.Context, rawDesired *Disk, o
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetDisk(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetDisk(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Disk resource already exists: %s", err)
@@ -539,7 +537,6 @@ func (c *Client) diskDiffsForRawDesired(ctx context.Context, rawDesired *Disk, o
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffDisk(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1503,49 +1500,23 @@ func compareDiskGuestOsFeaturesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Disk) urlNormalized() *Disk {
-	normalized := dcl.Copy(*r).(Disk)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.LabelFingerprint = dcl.SelfLinkToName(r.LabelFingerprint)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Region = dcl.SelfLinkToName(r.Region)
-	normalized.SourceImage = dcl.SelfLinkToName(r.SourceImage)
-	normalized.SourceImageId = dcl.SelfLinkToName(r.SourceImageId)
-	normalized.SourceSnapshot = dcl.SelfLinkToName(r.SourceSnapshot)
-	normalized.SourceSnapshotId = dcl.SelfLinkToName(r.SourceSnapshotId)
-	normalized.Type = dcl.SelfLinkToName(r.Type)
-	normalized.Zone = dcl.SelfLinkToName(r.Zone)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Options = dcl.SelfLinkToName(r.Options)
-	normalized.LastAttachTimestamp = dcl.SelfLinkToName(r.LastAttachTimestamp)
-	normalized.LastDetachTimestamp = dcl.SelfLinkToName(r.LastDetachTimestamp)
-	normalized.SourceDisk = dcl.SelfLinkToName(r.SourceDisk)
-	normalized.SourceDiskId = dcl.SelfLinkToName(r.SourceDiskId)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
-}
-
 func (r *Disk) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Disk) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location)
 }
 
 func (r *Disk) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Disk) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "resize" {
 		fields := map[string]interface{}{
 			"project":  dcl.ValueOrEmptyString(n.Project),
@@ -2313,8 +2284,8 @@ func (r *Disk) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

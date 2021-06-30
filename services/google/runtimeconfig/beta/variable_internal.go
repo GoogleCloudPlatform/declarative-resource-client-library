@@ -121,7 +121,7 @@ type updateVariableUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateVariableUpdateOperation) do(ctx context.Context, r *Variable, c *Client) error {
-	_, err := c.GetVariable(ctx, r.urlNormalized())
+	_, err := c.GetVariable(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -227,9 +227,7 @@ func (c *Client) deleteAllVariable(ctx context.Context, f func(*Variable) bool, 
 type deleteVariableOperation struct{}
 
 func (op *deleteVariableOperation) do(ctx context.Context, r *Variable, c *Client) error {
-
-	_, err := c.GetVariable(ctx, r.urlNormalized())
-
+	r, err := c.GetVariable(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Variable not found, returning. Original error: %v", err)
@@ -239,7 +237,7 @@ func (op *deleteVariableOperation) do(ctx context.Context, r *Variable, c *Clien
 		return err
 	}
 
-	u, err := variableDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := variableDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -255,7 +253,7 @@ func (op *deleteVariableOperation) do(ctx context.Context, r *Variable, c *Clien
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetVariable(ctx, r.urlNormalized())
+		_, err = c.GetVariable(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -304,7 +302,7 @@ func (op *createVariableOperation) do(ctx context.Context, r *Variable, c *Clien
 	}
 	op.response = o
 
-	if _, err := c.GetVariable(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetVariable(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -314,7 +312,7 @@ func (op *createVariableOperation) do(ctx context.Context, r *Variable, c *Clien
 
 func (c *Client) getVariableRaw(ctx context.Context, r *Variable) ([]byte, error) {
 
-	u, err := variableGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := variableGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -347,7 +345,7 @@ func (c *Client) variableDiffsForRawDesired(ctx context.Context, rawDesired *Var
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetVariable(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetVariable(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Variable resource already exists: %s", err)
@@ -377,7 +375,6 @@ func (c *Client) variableDiffsForRawDesired(ctx context.Context, rawDesired *Var
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffVariable(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -553,37 +550,23 @@ func diffVariable(c *Client, desired, actual *Variable, opts ...dcl.ApplyOption)
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Variable) urlNormalized() *Variable {
-	normalized := dcl.Copy(*r).(Variable)
-	normalized.Name = r.Name
-	normalized.RuntimeConfig = dcl.SelfLinkToName(r.RuntimeConfig)
-	normalized.Text = dcl.SelfLinkToName(r.Text)
-	normalized.Value = dcl.SelfLinkToName(r.Value)
-	normalized.UpdateTime = dcl.SelfLinkToName(r.UpdateTime)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *Variable) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.RuntimeConfig), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Variable) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.RuntimeConfig)
 }
 
 func (r *Variable) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.RuntimeConfig), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Variable) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "update" {
 		fields := map[string]interface{}{
 			"project":       dcl.ValueOrEmptyString(n.Project),
@@ -685,8 +668,8 @@ func (r *Variable) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

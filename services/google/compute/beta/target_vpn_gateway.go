@@ -137,6 +137,19 @@ func (c *Client) ListTargetVpnGatewayWithMaxResults(ctx context.Context, project
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *TargetVpnGateway) URLNormalized() *TargetVpnGateway {
+	normalized := dcl.Copy(*r).(TargetVpnGateway)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Region = dcl.SelfLinkToName(r.Region)
+	normalized.Network = dcl.SelfLinkToName(r.Network)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
 func (c *Client) GetTargetVpnGateway(ctx context.Context, r *TargetVpnGateway) (*TargetVpnGateway, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -242,13 +255,8 @@ func applyTargetVpnGatewayHelper(c *Client, ctx context.Context, rawDesired *Tar
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToTargetVpnGatewayOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -316,7 +324,7 @@ func applyTargetVpnGatewayHelper(c *Client, ctx context.Context, rawDesired *Tar
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetTargetVpnGateway(ctx, desired.urlNormalized())
+	rawNew, err := c.GetTargetVpnGateway(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

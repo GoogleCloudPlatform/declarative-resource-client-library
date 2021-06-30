@@ -118,7 +118,7 @@ func (op *deleteResourceRecordSetOperation) do(ctx context.Context, r *ResourceR
 
 func (c *Client) getResourceRecordSetRaw(ctx context.Context, r *ResourceRecordSet) ([]byte, error) {
 
-	u, err := resourceRecordSetGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := resourceRecordSetGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

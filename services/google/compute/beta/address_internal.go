@@ -130,7 +130,7 @@ type updateAddressSetLabelsOperation struct {
 // PUT request to a single URL.
 
 func (op *updateAddressSetLabelsOperation) do(ctx context.Context, r *Address, c *Client) error {
-	_, err := c.GetAddress(ctx, r.urlNormalized())
+	_, err := c.GetAddress(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -246,9 +246,7 @@ func (c *Client) deleteAllAddress(ctx context.Context, f func(*Address) bool, re
 type deleteAddressOperation struct{}
 
 func (op *deleteAddressOperation) do(ctx context.Context, r *Address, c *Client) error {
-
-	_, err := c.GetAddress(ctx, r.urlNormalized())
-
+	r, err := c.GetAddress(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Address not found, returning. Original error: %v", err)
@@ -258,7 +256,7 @@ func (op *deleteAddressOperation) do(ctx context.Context, r *Address, c *Client)
 		return err
 	}
 
-	u, err := addressDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := addressDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -283,7 +281,7 @@ func (op *deleteAddressOperation) do(ctx context.Context, r *Address, c *Client)
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetAddress(ctx, r.urlNormalized())
+		_, err = c.GetAddress(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -337,7 +335,7 @@ func (op *createAddressOperation) do(ctx context.Context, r *Address, c *Client)
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetAddress(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetAddress(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -350,7 +348,7 @@ func (c *Client) getAddressRaw(ctx context.Context, r *Address) ([]byte, error) 
 		r.AddressType = AddressAddressTypeEnumRef("EXTERNAL")
 	}
 
-	u, err := addressGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := addressGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -383,7 +381,7 @@ func (c *Client) addressDiffsForRawDesired(ctx context.Context, rawDesired *Addr
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetAddress(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetAddress(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Address resource already exists: %s", err)
@@ -413,7 +411,6 @@ func (c *Client) addressDiffsForRawDesired(ctx context.Context, rawDesired *Addr
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffAddress(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -769,41 +766,23 @@ func diffAddress(c *Client, desired, actual *Address, opts ...dcl.ApplyOption) (
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Address) urlNormalized() *Address {
-	normalized := dcl.Copy(*r).(Address)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Address = dcl.SelfLinkToName(r.Address)
-	normalized.Region = dcl.SelfLinkToName(r.Region)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.Subnetwork = dcl.SelfLinkToName(r.Subnetwork)
-	normalized.Network = dcl.SelfLinkToName(r.Network)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.LabelFingerprint = dcl.SelfLinkToName(r.LabelFingerprint)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
-}
-
 func (r *Address) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Address) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location)
 }
 
 func (r *Address) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Address) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "setLabels" {
 		fields := map[string]interface{}{
 			"project":  dcl.ValueOrEmptyString(n.Project),
@@ -1124,8 +1103,8 @@ func (r *Address) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

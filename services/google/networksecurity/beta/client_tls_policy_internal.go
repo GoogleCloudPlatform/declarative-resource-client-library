@@ -133,7 +133,7 @@ func clientTlsPolicyDeleteURL(userBasePath string, r *ClientTlsPolicy) (string, 
 }
 
 func (r *ClientTlsPolicy) SetPolicyURL(userBasePath string) string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	fields := map[string]interface{}{
 		"project":  *n.Project,
 		"location": *n.Location,
@@ -147,7 +147,7 @@ func (r *ClientTlsPolicy) SetPolicyVerb() string {
 }
 
 func (r *ClientTlsPolicy) getPolicyURL(userBasePath string) string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	fields := map[string]interface{}{
 		"project":  *n.Project,
 		"location": *n.Location,
@@ -214,7 +214,7 @@ type updateClientTlsPolicyUpdateClientTlsPolicyOperation struct {
 // PUT request to a single URL.
 
 func (op *updateClientTlsPolicyUpdateClientTlsPolicyOperation) do(ctx context.Context, r *ClientTlsPolicy, c *Client) error {
-	_, err := c.GetClientTlsPolicy(ctx, r.urlNormalized())
+	_, err := c.GetClientTlsPolicy(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -330,9 +330,7 @@ func (c *Client) deleteAllClientTlsPolicy(ctx context.Context, f func(*ClientTls
 type deleteClientTlsPolicyOperation struct{}
 
 func (op *deleteClientTlsPolicyOperation) do(ctx context.Context, r *ClientTlsPolicy, c *Client) error {
-
-	_, err := c.GetClientTlsPolicy(ctx, r.urlNormalized())
-
+	r, err := c.GetClientTlsPolicy(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("ClientTlsPolicy not found, returning. Original error: %v", err)
@@ -342,7 +340,7 @@ func (op *deleteClientTlsPolicyOperation) do(ctx context.Context, r *ClientTlsPo
 		return err
 	}
 
-	u, err := clientTlsPolicyDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := clientTlsPolicyDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -367,7 +365,7 @@ func (op *deleteClientTlsPolicyOperation) do(ctx context.Context, r *ClientTlsPo
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetClientTlsPolicy(ctx, r.urlNormalized())
+		_, err = c.GetClientTlsPolicy(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -421,7 +419,7 @@ func (op *createClientTlsPolicyOperation) do(ctx context.Context, r *ClientTlsPo
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetClientTlsPolicy(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetClientTlsPolicy(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -431,7 +429,7 @@ func (op *createClientTlsPolicyOperation) do(ctx context.Context, r *ClientTlsPo
 
 func (c *Client) getClientTlsPolicyRaw(ctx context.Context, r *ClientTlsPolicy) ([]byte, error) {
 
-	u, err := clientTlsPolicyGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := clientTlsPolicyGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -464,7 +462,7 @@ func (c *Client) clientTlsPolicyDiffsForRawDesired(ctx context.Context, rawDesir
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetClientTlsPolicy(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetClientTlsPolicy(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a ClientTlsPolicy resource already exists: %s", err)
@@ -494,7 +492,6 @@ func (c *Client) clientTlsPolicyDiffsForRawDesired(ctx context.Context, rawDesir
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffClientTlsPolicy(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1321,36 +1318,23 @@ func compareClientTlsPolicyServerValidationCaCertificateProviderInstanceNewStyle
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *ClientTlsPolicy) urlNormalized() *ClientTlsPolicy {
-	normalized := dcl.Copy(*r).(ClientTlsPolicy)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Sni = dcl.SelfLinkToName(r.Sni)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
-}
-
 func (r *ClientTlsPolicy) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *ClientTlsPolicy) createFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *ClientTlsPolicy) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *ClientTlsPolicy) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateClientTlsPolicy" {
 		fields := map[string]interface{}{
 			"project":  dcl.ValueOrEmptyString(n.Project),
@@ -2172,8 +2156,8 @@ func (r *ClientTlsPolicy) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

@@ -184,6 +184,17 @@ type EnvironmentList struct {
 	organization string
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Environment) URLNormalized() *Environment {
+	normalized := dcl.Copy(*r).(Environment)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.Organization = dcl.SelfLinkToName(r.Organization)
+	return &normalized
+}
 func (c *Client) GetEnvironment(ctx context.Context, r *Environment) (*Environment, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -288,13 +299,8 @@ func applyEnvironmentHelper(c *Client, ctx context.Context, rawDesired *Environm
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToEnvironmentOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -362,7 +368,7 @@ func applyEnvironmentHelper(c *Client, ctx context.Context, rawDesired *Environm
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetEnvironment(ctx, desired.urlNormalized())
+	rawNew, err := c.GetEnvironment(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

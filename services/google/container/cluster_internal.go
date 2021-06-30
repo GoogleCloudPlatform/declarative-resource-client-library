@@ -655,7 +655,7 @@ type updateClusterSetMaintenancePolicyOperation struct {
 // PUT request to a single URL.
 
 func (op *updateClusterSetMaintenancePolicyOperation) do(ctx context.Context, r *Cluster, c *Client) error {
-	_, err := c.GetCluster(ctx, r.urlNormalized())
+	_, err := c.GetCluster(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -736,7 +736,7 @@ type updateClusterUpdateAddonsConfigOperation struct {
 // PUT request to a single URL.
 
 func (op *updateClusterUpdateAddonsConfigOperation) do(ctx context.Context, r *Cluster, c *Client) error {
-	_, err := c.GetCluster(ctx, r.urlNormalized())
+	_, err := c.GetCluster(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -817,7 +817,7 @@ type updateClusterUpdateAutoscalingOperation struct {
 // PUT request to a single URL.
 
 func (op *updateClusterUpdateAutoscalingOperation) do(ctx context.Context, r *Cluster, c *Client) error {
-	_, err := c.GetCluster(ctx, r.urlNormalized())
+	_, err := c.GetCluster(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -898,7 +898,7 @@ type updateClusterUpdateBinaryAuthorizationOperation struct {
 // PUT request to a single URL.
 
 func (op *updateClusterUpdateBinaryAuthorizationOperation) do(ctx context.Context, r *Cluster, c *Client) error {
-	_, err := c.GetCluster(ctx, r.urlNormalized())
+	_, err := c.GetCluster(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -979,7 +979,7 @@ type updateClusterUpdateDatabaseEncryptionOperation struct {
 // PUT request to a single URL.
 
 func (op *updateClusterUpdateDatabaseEncryptionOperation) do(ctx context.Context, r *Cluster, c *Client) error {
-	_, err := c.GetCluster(ctx, r.urlNormalized())
+	_, err := c.GetCluster(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -1060,7 +1060,7 @@ type updateClusterUpdateLegacyAbacOperation struct {
 // PUT request to a single URL.
 
 func (op *updateClusterUpdateLegacyAbacOperation) do(ctx context.Context, r *Cluster, c *Client) error {
-	_, err := c.GetCluster(ctx, r.urlNormalized())
+	_, err := c.GetCluster(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -1139,7 +1139,7 @@ type updateClusterUpdateLocationsOperation struct {
 // PUT request to a single URL.
 
 func (op *updateClusterUpdateLocationsOperation) do(ctx context.Context, r *Cluster, c *Client) error {
-	_, err := c.GetCluster(ctx, r.urlNormalized())
+	_, err := c.GetCluster(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -1220,7 +1220,7 @@ type updateClusterUpdateMasterAuthorizedNetworksConfigOperation struct {
 // PUT request to a single URL.
 
 func (op *updateClusterUpdateMasterAuthorizedNetworksConfigOperation) do(ctx context.Context, r *Cluster, c *Client) error {
-	_, err := c.GetCluster(ctx, r.urlNormalized())
+	_, err := c.GetCluster(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -1299,7 +1299,7 @@ type updateClusterUpdateMasterVersionOperation struct {
 // PUT request to a single URL.
 
 func (op *updateClusterUpdateMasterVersionOperation) do(ctx context.Context, r *Cluster, c *Client) error {
-	_, err := c.GetCluster(ctx, r.urlNormalized())
+	_, err := c.GetCluster(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -1381,7 +1381,7 @@ type updateClusterUpdateMonitoringAndLoggingServiceOperation struct {
 // PUT request to a single URL.
 
 func (op *updateClusterUpdateMonitoringAndLoggingServiceOperation) do(ctx context.Context, r *Cluster, c *Client) error {
-	_, err := c.GetCluster(ctx, r.urlNormalized())
+	_, err := c.GetCluster(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -1462,7 +1462,7 @@ type updateClusterUpdateShieldedNodesOperation struct {
 // PUT request to a single URL.
 
 func (op *updateClusterUpdateShieldedNodesOperation) do(ctx context.Context, r *Cluster, c *Client) error {
-	_, err := c.GetCluster(ctx, r.urlNormalized())
+	_, err := c.GetCluster(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -1543,7 +1543,7 @@ type updateClusterUpdateVerticalPodAutoscalingOperation struct {
 // PUT request to a single URL.
 
 func (op *updateClusterUpdateVerticalPodAutoscalingOperation) do(ctx context.Context, r *Cluster, c *Client) error {
-	_, err := c.GetCluster(ctx, r.urlNormalized())
+	_, err := c.GetCluster(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -1624,7 +1624,7 @@ type updateClusterUpdateWorkloadIdentityConfigOperation struct {
 // PUT request to a single URL.
 
 func (op *updateClusterUpdateWorkloadIdentityConfigOperation) do(ctx context.Context, r *Cluster, c *Client) error {
-	_, err := c.GetCluster(ctx, r.urlNormalized())
+	_, err := c.GetCluster(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -1744,9 +1744,7 @@ func (c *Client) deleteAllCluster(ctx context.Context, f func(*Cluster) bool, re
 type deleteClusterOperation struct{}
 
 func (op *deleteClusterOperation) do(ctx context.Context, r *Cluster, c *Client) error {
-
-	_, err := c.GetCluster(ctx, r.urlNormalized())
-
+	r, err := c.GetCluster(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Cluster not found, returning. Original error: %v", err)
@@ -1760,7 +1758,7 @@ func (op *deleteClusterOperation) do(ctx context.Context, r *Cluster, c *Client)
 		return err
 	}
 
-	u, err := clusterDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := clusterDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -1785,7 +1783,7 @@ func (op *deleteClusterOperation) do(ctx context.Context, r *Cluster, c *Client)
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetCluster(ctx, r.urlNormalized())
+		_, err = c.GetCluster(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -1839,7 +1837,7 @@ func (op *createClusterOperation) do(ctx context.Context, r *Cluster, c *Client)
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetCluster(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetCluster(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -1854,7 +1852,7 @@ func (op *createClusterOperation) do(ctx context.Context, r *Cluster, c *Client)
 
 func (c *Client) getClusterRaw(ctx context.Context, r *Cluster) ([]byte, error) {
 
-	u, err := clusterGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := clusterGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -1887,7 +1885,7 @@ func (c *Client) clusterDiffsForRawDesired(ctx context.Context, rawDesired *Clus
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetCluster(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetCluster(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Cluster resource already exists: %s", err)
@@ -1917,13 +1915,12 @@ func (c *Client) clusterDiffsForRawDesired(ctx context.Context, rawDesired *Clus
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffCluster(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
 func clusterCheckForErrorStateAndDelete(ctx context.Context, r *Cluster, c *Client) error {
 	if dcl.FindStringInArray(*r.Status, []string{"STOPPING", "ERROR", "DEGRADED", "RUNNING_WITH_ERROR"}) {
-		err := c.DeleteCluster(ctx, r.urlNormalized())
+		err := c.DeleteCluster(ctx, r.URLNormalized())
 		if err != nil {
 			return fmt.Errorf("Cluster was is in error state %s, delete attempted with error: %v", *r.StatusMessage, err)
 		} else {
@@ -1939,7 +1936,7 @@ type clusterWaitOperation struct {
 }
 
 func (op *clusterWaitOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) {
-	current, err := op.Client.GetCluster(ctx, op.Resource.urlNormalized())
+	current, err := op.Client.GetCluster(ctx, op.Resource.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -12162,52 +12159,23 @@ func compareClusterConfidentialNodesNewStyle(d, a interface{}, fn dcl.FieldName)
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Cluster) urlNormalized() *Cluster {
-	normalized := dcl.Copy(*r).(Cluster)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.LoggingService = dcl.SelfLinkToName(r.LoggingService)
-	normalized.MonitoringService = dcl.SelfLinkToName(r.MonitoringService)
-	normalized.Network = dcl.SelfLinkToName(r.Network)
-	normalized.ClusterIPv4Cidr = dcl.SelfLinkToName(r.ClusterIPv4Cidr)
-	normalized.Subnetwork = dcl.SelfLinkToName(r.Subnetwork)
-	normalized.LabelFingerprint = dcl.SelfLinkToName(r.LabelFingerprint)
-	normalized.Endpoint = dcl.SelfLinkToName(r.Endpoint)
-	normalized.MasterVersion = dcl.SelfLinkToName(r.MasterVersion)
-	normalized.StatusMessage = dcl.SelfLinkToName(r.StatusMessage)
-	normalized.ServicesIPv4Cidr = dcl.SelfLinkToName(r.ServicesIPv4Cidr)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	normalized.TPUIPv4CidrBlock = dcl.SelfLinkToName(r.TPUIPv4CidrBlock)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.Zone = dcl.SelfLinkToName(r.Zone)
-	normalized.InitialClusterVersion = dcl.SelfLinkToName(r.InitialClusterVersion)
-	normalized.CurrentMasterVersion = dcl.SelfLinkToName(r.CurrentMasterVersion)
-	normalized.CurrentNodeVersion = dcl.SelfLinkToName(r.CurrentNodeVersion)
-	normalized.Id = dcl.SelfLinkToName(r.Id)
-	return &normalized
-}
-
 func (r *Cluster) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Cluster) createFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location)
 }
 
 func (r *Cluster) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Cluster) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "setMaintenancePolicy" {
 		fields := map[string]interface{}{
 			"project":  dcl.ValueOrEmptyString(n.Project),
@@ -22207,8 +22175,8 @@ func (r *Cluster) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

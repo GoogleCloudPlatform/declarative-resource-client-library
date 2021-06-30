@@ -90,7 +90,7 @@ func featureDeleteURL(userBasePath string, r *Feature) (string, error) {
 }
 
 func (op *updateFeatureUpdateFeatureOperation) do(ctx context.Context, r *Feature, c *Client) error {
-	_, err := c.GetFeature(ctx, r.urlNormalized())
+	_, err := c.GetFeature(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -135,7 +135,7 @@ func (op *updateFeatureUpdateFeatureOperation) do(ctx context.Context, r *Featur
 
 // getMembershipSpecs returns a map of membership specs taken from the get response of the feature membership's feature object.
 func getMembershipSpecs(ctx context.Context, r *FeatureMembership, c *Client) (map[string]interface{}, error) {
-	u, err := featureMembershipGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := featureMembershipGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -217,7 +217,7 @@ func sendFeatureUpdate(ctx context.Context, req map[string]interface{}, c *Clien
 }
 
 func (op *createFeatureMembershipOperation) do(ctx context.Context, r *FeatureMembership, c *Client) error {
-	nr := r.urlNormalized()
+	nr := r.URLNormalized()
 	project, location, feature := nr.createFields()
 	u, err := featureMembershipCreateURL(c.Config.BasePath, project, location, feature)
 	if err != nil {
@@ -244,7 +244,7 @@ func (op *createFeatureMembershipOperation) do(ctx context.Context, r *FeatureMe
 
 // GetFeatureMembership returns a feature membership object retrieved from the membershipSpecs field of a feature.
 func (c *Client) GetFeatureMembership(ctx context.Context, r *FeatureMembership) (*FeatureMembership, error) {
-	nr := r.urlNormalized()
+	nr := r.URLNormalized()
 	membershipSpecs, err := getMembershipSpecs(ctx, nr, c)
 	if err != nil {
 		return nil, err
@@ -341,7 +341,7 @@ func (op *updateFeatureMembershipUpdateFeatureMembershipOperation) do(ctx contex
 }
 
 func (op *deleteFeatureMembershipOperation) do(ctx context.Context, r *FeatureMembership, c *Client) error {
-	nr := r.urlNormalized()
+	nr := r.URLNormalized()
 	u, err := featureMembershipDeleteURL(c.Config.BasePath, nr)
 	if err != nil {
 		return err

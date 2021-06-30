@@ -359,6 +359,20 @@ func (c *Client) ListEndpointPolicyWithMaxResults(ctx context.Context, project, 
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *EndpointPolicy) URLNormalized() *EndpointPolicy {
+	normalized := dcl.Copy(*r).(EndpointPolicy)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.AuthorizationPolicy = dcl.SelfLinkToName(r.AuthorizationPolicy)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.ServerTlsPolicy = dcl.SelfLinkToName(r.ServerTlsPolicy)
+	normalized.ClientTlsPolicy = dcl.SelfLinkToName(r.ClientTlsPolicy)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
+}
 func (c *Client) GetEndpointPolicy(ctx context.Context, r *EndpointPolicy) (*EndpointPolicy, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -464,13 +478,8 @@ func applyEndpointPolicyHelper(c *Client, ctx context.Context, rawDesired *Endpo
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToEndpointPolicyOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -538,7 +547,7 @@ func applyEndpointPolicyHelper(c *Client, ctx context.Context, rawDesired *Endpo
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetEndpointPolicy(ctx, desired.urlNormalized())
+	rawNew, err := c.GetEndpointPolicy(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

@@ -73,7 +73,7 @@ func (op *createCertificateAuthorityOperation) do(ctx context.Context, r *Certif
 
 func (op *deleteCertificateAuthorityOperation) do(ctx context.Context, r *CertificateAuthority, c *Client) error {
 
-	_, err := c.GetCertificateAuthority(ctx, r.urlNormalized())
+	_, err := c.GetCertificateAuthority(ctx, r.URLNormalized())
 
 	if err != nil {
 		if dcl.IsNotFound(err) {
@@ -84,7 +84,7 @@ func (op *deleteCertificateAuthorityOperation) do(ctx context.Context, r *Certif
 		return err
 	}
 
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	params := map[string]interface{}{
 		"project":  dcl.ValueOrEmptyString(n.Project),
 		"location": dcl.ValueOrEmptyString(n.Location),
@@ -107,7 +107,7 @@ func (op *deleteCertificateAuthorityOperation) do(ctx context.Context, r *Certif
 		return err
 	}
 
-	u, err = certificateAuthorityDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err = certificateAuthorityDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}

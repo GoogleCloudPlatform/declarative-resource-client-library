@@ -180,7 +180,7 @@ type updateImageDeprecateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateImageDeprecateOperation) do(ctx context.Context, r *Image, c *Client) error {
-	_, err := c.GetImage(ctx, r.urlNormalized())
+	_, err := c.GetImage(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -227,7 +227,7 @@ func newUpdateImageSetLabelsRequest(ctx context.Context, f *Image, c *Client) (m
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
 	}
-	b, err := c.getImageRaw(ctx, f.urlNormalized())
+	b, err := c.getImageRaw(ctx, f.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -267,7 +267,7 @@ type updateImageSetLabelsOperation struct {
 // PUT request to a single URL.
 
 func (op *updateImageSetLabelsOperation) do(ctx context.Context, r *Image, c *Client) error {
-	_, err := c.GetImage(ctx, r.urlNormalized())
+	_, err := c.GetImage(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -382,9 +382,7 @@ func (c *Client) deleteAllImage(ctx context.Context, f func(*Image) bool, resour
 type deleteImageOperation struct{}
 
 func (op *deleteImageOperation) do(ctx context.Context, r *Image, c *Client) error {
-
-	_, err := c.GetImage(ctx, r.urlNormalized())
-
+	r, err := c.GetImage(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Image not found, returning. Original error: %v", err)
@@ -394,7 +392,7 @@ func (op *deleteImageOperation) do(ctx context.Context, r *Image, c *Client) err
 		return err
 	}
 
-	u, err := imageDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := imageDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -419,7 +417,7 @@ func (op *deleteImageOperation) do(ctx context.Context, r *Image, c *Client) err
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetImage(ctx, r.urlNormalized())
+		_, err = c.GetImage(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -473,7 +471,7 @@ func (op *createImageOperation) do(ctx context.Context, r *Image, c *Client) err
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetImage(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetImage(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -483,7 +481,7 @@ func (op *createImageOperation) do(ctx context.Context, r *Image, c *Client) err
 
 func (c *Client) getImageRaw(ctx context.Context, r *Image) ([]byte, error) {
 
-	u, err := imageGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := imageGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -516,7 +514,7 @@ func (c *Client) imageDiffsForRawDesired(ctx context.Context, rawDesired *Image,
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetImage(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetImage(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Image resource already exists: %s", err)
@@ -546,7 +544,6 @@ func (c *Client) imageDiffsForRawDesired(ctx context.Context, rawDesired *Image,
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffImage(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -2558,42 +2555,23 @@ func compareImageDeprecatedNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Image) urlNormalized() *Image {
-	normalized := dcl.Copy(*r).(Image)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Family = dcl.SelfLinkToName(r.Family)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.SourceDisk = dcl.SelfLinkToName(r.SourceDisk)
-	normalized.SourceDiskId = dcl.SelfLinkToName(r.SourceDiskId)
-	normalized.SourceImage = dcl.SelfLinkToName(r.SourceImage)
-	normalized.SourceImageId = dcl.SelfLinkToName(r.SourceImageId)
-	normalized.SourceSnapshot = dcl.SelfLinkToName(r.SourceSnapshot)
-	normalized.SourceSnapshotId = dcl.SelfLinkToName(r.SourceSnapshotId)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *Image) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Image) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
 func (r *Image) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Image) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "deprecate" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -4553,8 +4531,8 @@ func (r *Image) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

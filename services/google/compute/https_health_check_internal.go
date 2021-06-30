@@ -128,7 +128,7 @@ type updateHttpsHealthCheckUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateHttpsHealthCheckUpdateOperation) do(ctx context.Context, r *HttpsHealthCheck, c *Client) error {
-	_, err := c.GetHttpsHealthCheck(ctx, r.urlNormalized())
+	_, err := c.GetHttpsHealthCheck(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -243,9 +243,7 @@ func (c *Client) deleteAllHttpsHealthCheck(ctx context.Context, f func(*HttpsHea
 type deleteHttpsHealthCheckOperation struct{}
 
 func (op *deleteHttpsHealthCheckOperation) do(ctx context.Context, r *HttpsHealthCheck, c *Client) error {
-
-	_, err := c.GetHttpsHealthCheck(ctx, r.urlNormalized())
-
+	r, err := c.GetHttpsHealthCheck(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("HttpsHealthCheck not found, returning. Original error: %v", err)
@@ -255,7 +253,7 @@ func (op *deleteHttpsHealthCheckOperation) do(ctx context.Context, r *HttpsHealt
 		return err
 	}
 
-	u, err := httpsHealthCheckDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := httpsHealthCheckDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -280,7 +278,7 @@ func (op *deleteHttpsHealthCheckOperation) do(ctx context.Context, r *HttpsHealt
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetHttpsHealthCheck(ctx, r.urlNormalized())
+		_, err = c.GetHttpsHealthCheck(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -334,7 +332,7 @@ func (op *createHttpsHealthCheckOperation) do(ctx context.Context, r *HttpsHealt
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetHttpsHealthCheck(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetHttpsHealthCheck(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -362,7 +360,7 @@ func (c *Client) getHttpsHealthCheckRaw(ctx context.Context, r *HttpsHealthCheck
 		r.UnhealthyThreshold = dcl.Int64(2)
 	}
 
-	u, err := httpsHealthCheckGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := httpsHealthCheckGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -395,7 +393,7 @@ func (c *Client) httpsHealthCheckDiffsForRawDesired(ctx context.Context, rawDesi
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetHttpsHealthCheck(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetHttpsHealthCheck(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a HttpsHealthCheck resource already exists: %s", err)
@@ -425,7 +423,6 @@ func (c *Client) httpsHealthCheckDiffsForRawDesired(ctx context.Context, rawDesi
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffHttpsHealthCheck(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -690,38 +687,23 @@ func diffHttpsHealthCheck(c *Client, desired, actual *HttpsHealthCheck, opts ...
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *HttpsHealthCheck) urlNormalized() *HttpsHealthCheck {
-	normalized := dcl.Copy(*r).(HttpsHealthCheck)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Host = dcl.SelfLinkToName(r.Host)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.RequestPath = dcl.SelfLinkToName(r.RequestPath)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.CreationTimestamp = dcl.SelfLinkToName(r.CreationTimestamp)
-	return &normalized
-}
-
 func (r *HttpsHealthCheck) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *HttpsHealthCheck) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
 func (r *HttpsHealthCheck) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *HttpsHealthCheck) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "update" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -866,8 +848,8 @@ func (r *HttpsHealthCheck) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

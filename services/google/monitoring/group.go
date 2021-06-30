@@ -102,6 +102,18 @@ func (c *Client) ListGroupWithMaxResults(ctx context.Context, project string, pa
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Group) URLNormalized() *Group {
+	normalized := dcl.Copy(*r).(Group)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.Filter = dcl.SelfLinkToName(r.Filter)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.ParentName = dcl.SelfLinkToName(r.ParentName)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
 func (c *Client) GetGroup(ctx context.Context, r *Group) (*Group, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -206,13 +218,8 @@ func applyGroupHelper(c *Client, ctx context.Context, rawDesired *Group, opts ..
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToGroupOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -280,7 +287,7 @@ func applyGroupHelper(c *Client, ctx context.Context, rawDesired *Group, opts ..
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetGroup(ctx, desired.urlNormalized())
+	rawNew, err := c.GetGroup(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

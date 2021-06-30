@@ -425,6 +425,31 @@ func (c *Client) ListDiskWithMaxResults(ctx context.Context, project, location s
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Disk) URLNormalized() *Disk {
+	normalized := dcl.Copy(*r).(Disk)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.LabelFingerprint = dcl.SelfLinkToName(r.LabelFingerprint)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Region = dcl.SelfLinkToName(r.Region)
+	normalized.SourceImage = dcl.SelfLinkToName(r.SourceImage)
+	normalized.SourceImageId = dcl.SelfLinkToName(r.SourceImageId)
+	normalized.SourceSnapshot = dcl.SelfLinkToName(r.SourceSnapshot)
+	normalized.SourceSnapshotId = dcl.SelfLinkToName(r.SourceSnapshotId)
+	normalized.Type = dcl.SelfLinkToName(r.Type)
+	normalized.Zone = dcl.SelfLinkToName(r.Zone)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Options = dcl.SelfLinkToName(r.Options)
+	normalized.LastAttachTimestamp = dcl.SelfLinkToName(r.LastAttachTimestamp)
+	normalized.LastDetachTimestamp = dcl.SelfLinkToName(r.LastDetachTimestamp)
+	normalized.SourceDisk = dcl.SelfLinkToName(r.SourceDisk)
+	normalized.SourceDiskId = dcl.SelfLinkToName(r.SourceDiskId)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
+}
 func (c *Client) GetDisk(ctx context.Context, r *Disk) (*Disk, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -530,13 +555,8 @@ func applyDiskHelper(c *Client, ctx context.Context, rawDesired *Disk, opts ...d
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToDiskOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -604,7 +624,7 @@ func applyDiskHelper(c *Client, ctx context.Context, rawDesired *Disk, opts ...d
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetDisk(ctx, desired.urlNormalized())
+	rawNew, err := c.GetDisk(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

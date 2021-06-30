@@ -1,6 +1,5 @@
 {
   "name": "{{ref:folder.firewall_policy.json:name}}",
-  "displayName": "{{policy}}",
   "parent": "folders/{{ref:folder.cloudresourcemanager.folder.json:name}}",
   "description": "Updated sample firewall policy."
 }

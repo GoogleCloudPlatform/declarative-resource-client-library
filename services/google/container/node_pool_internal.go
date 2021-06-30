@@ -207,7 +207,7 @@ type updateNodePoolSetAutoscalingOperation struct {
 // PUT request to a single URL.
 
 func (op *updateNodePoolSetAutoscalingOperation) do(ctx context.Context, r *NodePool, c *Client) error {
-	_, err := c.GetNodePool(ctx, r.urlNormalized())
+	_, err := c.GetNodePool(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -287,7 +287,7 @@ type updateNodePoolSetManagementOperation struct {
 // PUT request to a single URL.
 
 func (op *updateNodePoolSetManagementOperation) do(ctx context.Context, r *NodePool, c *Client) error {
-	_, err := c.GetNodePool(ctx, r.urlNormalized())
+	_, err := c.GetNodePool(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -365,7 +365,7 @@ type updateNodePoolSetSizeOperation struct {
 // PUT request to a single URL.
 
 func (op *updateNodePoolSetSizeOperation) do(ctx context.Context, r *NodePool, c *Client) error {
-	_, err := c.GetNodePool(ctx, r.urlNormalized())
+	_, err := c.GetNodePool(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -448,7 +448,7 @@ type updateNodePoolUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateNodePoolUpdateOperation) do(ctx context.Context, r *NodePool, c *Client) error {
-	_, err := c.GetNodePool(ctx, r.urlNormalized())
+	_, err := c.GetNodePool(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -569,9 +569,7 @@ func (c *Client) deleteAllNodePool(ctx context.Context, f func(*NodePool) bool, 
 type deleteNodePoolOperation struct{}
 
 func (op *deleteNodePoolOperation) do(ctx context.Context, r *NodePool, c *Client) error {
-
-	_, err := c.GetNodePool(ctx, r.urlNormalized())
-
+	r, err := c.GetNodePool(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("NodePool not found, returning. Original error: %v", err)
@@ -585,7 +583,7 @@ func (op *deleteNodePoolOperation) do(ctx context.Context, r *NodePool, c *Clien
 		return err
 	}
 
-	u, err := nodePoolDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := nodePoolDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -610,7 +608,7 @@ func (op *deleteNodePoolOperation) do(ctx context.Context, r *NodePool, c *Clien
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetNodePool(ctx, r.urlNormalized())
+		_, err = c.GetNodePool(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -664,7 +662,7 @@ func (op *createNodePoolOperation) do(ctx context.Context, r *NodePool, c *Clien
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetNodePool(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetNodePool(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -674,7 +672,7 @@ func (op *createNodePoolOperation) do(ctx context.Context, r *NodePool, c *Clien
 
 func (c *Client) getNodePoolRaw(ctx context.Context, r *NodePool) ([]byte, error) {
 
-	u, err := nodePoolGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := nodePoolGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -707,7 +705,7 @@ func (c *Client) nodePoolDiffsForRawDesired(ctx context.Context, rawDesired *Nod
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetNodePool(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetNodePool(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a NodePool resource already exists: %s", err)
@@ -737,13 +735,12 @@ func (c *Client) nodePoolDiffsForRawDesired(ctx context.Context, rawDesired *Nod
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffNodePool(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
 func nodePoolCheckForErrorStateAndDelete(ctx context.Context, r *NodePool, c *Client) error {
 	if dcl.FindStringInArray(*r.Status, []string{"STOPPING", "ERROR", "DEGRADED", "RUNNING_WITH_ERROR"}) {
-		err := c.DeleteNodePool(ctx, r.urlNormalized())
+		err := c.DeleteNodePool(ctx, r.URLNormalized())
 		if err != nil {
 			return fmt.Errorf("NodePool was is in error state %s, delete attempted with error: %v", *r.StatusMessage, err)
 		} else {
@@ -759,7 +756,7 @@ type nodePoolWaitOperation struct {
 }
 
 func (op *nodePoolWaitOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) {
-	current, err := op.Client.GetNodePool(ctx, op.Resource.urlNormalized())
+	current, err := op.Client.GetNodePool(ctx, op.Resource.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -2676,37 +2673,23 @@ func compareNodePoolUpgradeSettingsNewStyle(d, a interface{}, fn dcl.FieldName) 
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *NodePool) urlNormalized() *NodePool {
-	normalized := dcl.Copy(*r).(NodePool)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Version = dcl.SelfLinkToName(r.Version)
-	normalized.StatusMessage = dcl.SelfLinkToName(r.StatusMessage)
-	normalized.Cluster = dcl.SelfLinkToName(r.Cluster)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
-}
-
 func (r *NodePool) getFields() (string, string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Cluster), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *NodePool) createFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Cluster)
 }
 
 func (r *NodePool) deleteFields() (string, string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Cluster), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *NodePool) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "setAutoscaling" {
 		fields := map[string]interface{}{
 			"project":  dcl.ValueOrEmptyString(n.Project),
@@ -4485,8 +4468,8 @@ func (r *NodePool) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

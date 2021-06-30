@@ -163,7 +163,7 @@ func newUpdateTriggerUpdateTriggerRequest(ctx context.Context, f *Trigger, c *Cl
 	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
 		req["labels"] = v
 	}
-	b, err := c.getTriggerRaw(ctx, f.urlNormalized())
+	b, err := c.getTriggerRaw(ctx, f.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -203,7 +203,7 @@ type updateTriggerUpdateTriggerOperation struct {
 // PUT request to a single URL.
 
 func (op *updateTriggerUpdateTriggerOperation) do(ctx context.Context, r *Trigger, c *Client) error {
-	_, err := c.GetTrigger(ctx, r.urlNormalized())
+	_, err := c.GetTrigger(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -324,9 +324,7 @@ func (c *Client) deleteAllTrigger(ctx context.Context, f func(*Trigger) bool, re
 type deleteTriggerOperation struct{}
 
 func (op *deleteTriggerOperation) do(ctx context.Context, r *Trigger, c *Client) error {
-
-	_, err := c.GetTrigger(ctx, r.urlNormalized())
-
+	r, err := c.GetTrigger(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Trigger not found, returning. Original error: %v", err)
@@ -336,7 +334,7 @@ func (op *deleteTriggerOperation) do(ctx context.Context, r *Trigger, c *Client)
 		return err
 	}
 
-	u, err := triggerDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := triggerDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -361,7 +359,7 @@ func (op *deleteTriggerOperation) do(ctx context.Context, r *Trigger, c *Client)
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetTrigger(ctx, r.urlNormalized())
+		_, err = c.GetTrigger(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -415,7 +413,7 @@ func (op *createTriggerOperation) do(ctx context.Context, r *Trigger, c *Client)
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetTrigger(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetTrigger(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -425,7 +423,7 @@ func (op *createTriggerOperation) do(ctx context.Context, r *Trigger, c *Client)
 
 func (c *Client) getTriggerRaw(ctx context.Context, r *Trigger) ([]byte, error) {
 
-	u, err := triggerGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := triggerGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -458,7 +456,7 @@ func (c *Client) triggerDiffsForRawDesired(ctx context.Context, rawDesired *Trig
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetTrigger(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetTrigger(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Trigger resource already exists: %s", err)
@@ -488,7 +486,6 @@ func (c *Client) triggerDiffsForRawDesired(ctx context.Context, rawDesired *Trig
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffTrigger(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1283,37 +1280,23 @@ func compareTriggerTransportPubsubNewStyle(d, a interface{}, fn dcl.FieldName) (
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Trigger) urlNormalized() *Trigger {
-	normalized := dcl.Copy(*r).(Trigger)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Uid = dcl.SelfLinkToName(r.Uid)
-	normalized.ServiceAccount = dcl.SelfLinkToName(r.ServiceAccount)
-	normalized.Etag = dcl.SelfLinkToName(r.Etag)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
-}
-
 func (r *Trigger) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Trigger) createFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Trigger) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Trigger) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateTrigger" {
 		fields := map[string]interface{}{
 			"project":  dcl.ValueOrEmptyString(n.Project),
@@ -2039,8 +2022,8 @@ func (r *Trigger) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

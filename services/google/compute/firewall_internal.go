@@ -166,7 +166,7 @@ type updateFirewallUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateFirewallUpdateOperation) do(ctx context.Context, r *Firewall, c *Client) error {
-	_, err := c.GetFirewall(ctx, r.urlNormalized())
+	_, err := c.GetFirewall(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -281,9 +281,7 @@ func (c *Client) deleteAllFirewall(ctx context.Context, f func(*Firewall) bool, 
 type deleteFirewallOperation struct{}
 
 func (op *deleteFirewallOperation) do(ctx context.Context, r *Firewall, c *Client) error {
-
-	_, err := c.GetFirewall(ctx, r.urlNormalized())
-
+	r, err := c.GetFirewall(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Firewall not found, returning. Original error: %v", err)
@@ -293,7 +291,7 @@ func (op *deleteFirewallOperation) do(ctx context.Context, r *Firewall, c *Clien
 		return err
 	}
 
-	u, err := firewallDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := firewallDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -318,7 +316,7 @@ func (op *deleteFirewallOperation) do(ctx context.Context, r *Firewall, c *Clien
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetFirewall(ctx, r.urlNormalized())
+		_, err = c.GetFirewall(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -372,7 +370,7 @@ func (op *createFirewallOperation) do(ctx context.Context, r *Firewall, c *Clien
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetFirewall(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetFirewall(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -385,7 +383,7 @@ func (c *Client) getFirewallRaw(ctx context.Context, r *Firewall) ([]byte, error
 		r.Priority = dcl.Int64(1000)
 	}
 
-	u, err := firewallGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := firewallGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -418,7 +416,7 @@ func (c *Client) firewallDiffsForRawDesired(ctx context.Context, rawDesired *Fir
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetFirewall(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetFirewall(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Firewall resource already exists: %s", err)
@@ -448,7 +446,6 @@ func (c *Client) firewallDiffsForRawDesired(ctx context.Context, rawDesired *Fir
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffFirewall(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1157,36 +1154,23 @@ func compareFirewallDeniedNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Firewall) urlNormalized() *Firewall {
-	normalized := dcl.Copy(*r).(Firewall)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Id = dcl.SelfLinkToName(r.Id)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *Firewall) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Firewall) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
 func (r *Firewall) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Firewall) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "update" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -1734,8 +1718,8 @@ func (r *Firewall) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

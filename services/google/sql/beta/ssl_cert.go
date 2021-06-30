@@ -108,6 +108,19 @@ func (c *Client) ListSslCertWithMaxResults(ctx context.Context, project, instanc
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *SslCert) URLNormalized() *SslCert {
+	normalized := dcl.Copy(*r).(SslCert)
+	normalized.CertSerialNumber = dcl.SelfLinkToName(r.CertSerialNumber)
+	normalized.Cert = dcl.SelfLinkToName(r.Cert)
+	normalized.CommonName = dcl.SelfLinkToName(r.CommonName)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Instance = dcl.SelfLinkToName(r.Instance)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
 func (c *Client) GetSslCert(ctx context.Context, r *SslCert) (*SslCert, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -213,13 +226,8 @@ func applySslCertHelper(c *Client, ctx context.Context, rawDesired *SslCert, opt
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToSslCertOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -287,7 +295,7 @@ func applySslCertHelper(c *Client, ctx context.Context, rawDesired *SslCert, opt
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetSslCert(ctx, desired.urlNormalized())
+	rawNew, err := c.GetSslCert(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

@@ -196,7 +196,7 @@ type updateMembershipUpdateMembershipOperation struct {
 // PUT request to a single URL.
 
 func (op *updateMembershipUpdateMembershipOperation) do(ctx context.Context, r *Membership, c *Client) error {
-	_, err := c.GetMembership(ctx, r.urlNormalized())
+	_, err := c.GetMembership(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -317,9 +317,7 @@ func (c *Client) deleteAllMembership(ctx context.Context, f func(*Membership) bo
 type deleteMembershipOperation struct{}
 
 func (op *deleteMembershipOperation) do(ctx context.Context, r *Membership, c *Client) error {
-
-	_, err := c.GetMembership(ctx, r.urlNormalized())
-
+	r, err := c.GetMembership(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Membership not found, returning. Original error: %v", err)
@@ -329,7 +327,7 @@ func (op *deleteMembershipOperation) do(ctx context.Context, r *Membership, c *C
 		return err
 	}
 
-	u, err := membershipDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := membershipDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -354,7 +352,7 @@ func (op *deleteMembershipOperation) do(ctx context.Context, r *Membership, c *C
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetMembership(ctx, r.urlNormalized())
+		_, err = c.GetMembership(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -408,7 +406,7 @@ func (op *createMembershipOperation) do(ctx context.Context, r *Membership, c *C
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetMembership(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetMembership(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -418,7 +416,7 @@ func (op *createMembershipOperation) do(ctx context.Context, r *Membership, c *C
 
 func (c *Client) getMembershipRaw(ctx context.Context, r *Membership) ([]byte, error) {
 
-	u, err := membershipGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := membershipGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -451,7 +449,7 @@ func (c *Client) membershipDiffsForRawDesired(ctx context.Context, rawDesired *M
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetMembership(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetMembership(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Membership resource already exists: %s", err)
@@ -481,7 +479,6 @@ func (c *Client) membershipDiffsForRawDesired(ctx context.Context, rawDesired *M
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffMembership(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1813,37 +1810,23 @@ func compareMembershipAuthorityNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Membership) urlNormalized() *Membership {
-	normalized := dcl.Copy(*r).(Membership)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.ExternalId = dcl.SelfLinkToName(r.ExternalId)
-	normalized.UniqueId = dcl.SelfLinkToName(r.UniqueId)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
-}
-
 func (r *Membership) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Membership) createFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Membership) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Membership) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateMembership" {
 		fields := map[string]interface{}{
 			"project":  dcl.ValueOrEmptyString(n.Project),
@@ -3149,8 +3132,8 @@ func (r *Membership) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

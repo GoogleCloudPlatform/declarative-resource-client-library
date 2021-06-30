@@ -127,7 +127,7 @@ type updateSubscriptionUpdateSubscriptionOperation struct {
 // PUT request to a single URL.
 
 func (op *updateSubscriptionUpdateSubscriptionOperation) do(ctx context.Context, r *Subscription, c *Client) error {
-	_, err := c.GetSubscription(ctx, r.urlNormalized())
+	_, err := c.GetSubscription(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -238,9 +238,7 @@ func (c *Client) deleteAllSubscription(ctx context.Context, f func(*Subscription
 type deleteSubscriptionOperation struct{}
 
 func (op *deleteSubscriptionOperation) do(ctx context.Context, r *Subscription, c *Client) error {
-
-	_, err := c.GetSubscription(ctx, r.urlNormalized())
-
+	r, err := c.GetSubscription(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Subscription not found, returning. Original error: %v", err)
@@ -250,7 +248,7 @@ func (op *deleteSubscriptionOperation) do(ctx context.Context, r *Subscription, 
 		return err
 	}
 
-	u, err := subscriptionDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := subscriptionDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -266,7 +264,7 @@ func (op *deleteSubscriptionOperation) do(ctx context.Context, r *Subscription, 
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetSubscription(ctx, r.urlNormalized())
+		_, err = c.GetSubscription(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -318,7 +316,7 @@ func (op *createSubscriptionOperation) do(ctx context.Context, r *Subscription, 
 	// Poll for the Subscription resource to be created. Subscription resources are eventually consistent but do not support operations
 	// so we must repeatedly poll to check for their creation.
 	err = dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
-		u, err := subscriptionGetURL(c.Config.BasePath, r.urlNormalized())
+		u, err := subscriptionGetURL(c.Config.BasePath, r.URLNormalized())
 		if err != nil {
 			return nil, err
 		}
@@ -335,7 +333,7 @@ func (op *createSubscriptionOperation) do(ctx context.Context, r *Subscription, 
 		return getResp, nil
 	}, c.Config.RetryProvider)
 
-	if _, err := c.GetSubscription(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetSubscription(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -345,7 +343,7 @@ func (op *createSubscriptionOperation) do(ctx context.Context, r *Subscription, 
 
 func (c *Client) getSubscriptionRaw(ctx context.Context, r *Subscription) ([]byte, error) {
 
-	u, err := subscriptionGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := subscriptionGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -378,7 +376,7 @@ func (c *Client) subscriptionDiffsForRawDesired(ctx context.Context, rawDesired 
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetSubscription(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetSubscription(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Subscription resource already exists: %s", err)
@@ -408,7 +406,6 @@ func (c *Client) subscriptionDiffsForRawDesired(ctx context.Context, rawDesired 
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffSubscription(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -637,35 +634,23 @@ func compareSubscriptionDeliveryConfigNewStyle(d, a interface{}, fn dcl.FieldNam
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Subscription) urlNormalized() *Subscription {
-	normalized := dcl.Copy(*r).(Subscription)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Topic = dcl.SelfLinkToName(r.Topic)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
-}
-
 func (r *Subscription) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Subscription) createFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Subscription) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Subscription) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateSubscription" {
 		fields := map[string]interface{}{
 			"project":  dcl.ValueOrEmptyString(n.Project),
@@ -912,8 +897,8 @@ func (r *Subscription) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

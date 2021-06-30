@@ -129,6 +129,15 @@ func (c *Client) ListEnvgroupWithMaxResults(ctx context.Context, organization st
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Envgroup) URLNormalized() *Envgroup {
+	normalized := dcl.Copy(*r).(Envgroup)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Organization = dcl.SelfLinkToName(r.Organization)
+	return &normalized
+}
 func (c *Client) GetEnvgroup(ctx context.Context, r *Envgroup) (*Envgroup, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -233,13 +242,8 @@ func applyEnvgroupHelper(c *Client, ctx context.Context, rawDesired *Envgroup, o
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToEnvgroupOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -307,7 +311,7 @@ func applyEnvgroupHelper(c *Client, ctx context.Context, rawDesired *Envgroup, o
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetEnvgroup(ctx, desired.urlNormalized())
+	rawNew, err := c.GetEnvgroup(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

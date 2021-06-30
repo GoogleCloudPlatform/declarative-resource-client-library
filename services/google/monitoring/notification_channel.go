@@ -132,6 +132,18 @@ func (c *Client) ListNotificationChannelWithMaxResults(ctx context.Context, proj
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *NotificationChannel) URLNormalized() *NotificationChannel {
+	normalized := dcl.Copy(*r).(NotificationChannel)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Type = dcl.SelfLinkToName(r.Type)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
 func (c *Client) GetNotificationChannel(ctx context.Context, r *NotificationChannel) (*NotificationChannel, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -239,13 +251,8 @@ func applyNotificationChannelHelper(c *Client, ctx context.Context, rawDesired *
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToNotificationChannelOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -313,7 +320,7 @@ func applyNotificationChannelHelper(c *Client, ctx context.Context, rawDesired *
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetNotificationChannel(ctx, desired.urlNormalized())
+	rawNew, err := c.GetNotificationChannel(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

@@ -182,7 +182,7 @@ type updateLogMetricUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateLogMetricUpdateOperation) do(ctx context.Context, r *LogMetric, c *Client) error {
-	_, err := c.GetLogMetric(ctx, r.urlNormalized())
+	_, err := c.GetLogMetric(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -287,9 +287,7 @@ func (c *Client) deleteAllLogMetric(ctx context.Context, f func(*LogMetric) bool
 type deleteLogMetricOperation struct{}
 
 func (op *deleteLogMetricOperation) do(ctx context.Context, r *LogMetric, c *Client) error {
-
-	_, err := c.GetLogMetric(ctx, r.urlNormalized())
-
+	r, err := c.GetLogMetric(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("LogMetric not found, returning. Original error: %v", err)
@@ -299,7 +297,7 @@ func (op *deleteLogMetricOperation) do(ctx context.Context, r *LogMetric, c *Cli
 		return err
 	}
 
-	u, err := logMetricDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := logMetricDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -315,7 +313,7 @@ func (op *deleteLogMetricOperation) do(ctx context.Context, r *LogMetric, c *Cli
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetLogMetric(ctx, r.urlNormalized())
+		_, err = c.GetLogMetric(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -364,7 +362,7 @@ func (op *createLogMetricOperation) do(ctx context.Context, r *LogMetric, c *Cli
 	}
 	op.response = o
 
-	if _, err := c.GetLogMetric(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetLogMetric(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -374,7 +372,7 @@ func (op *createLogMetricOperation) do(ctx context.Context, r *LogMetric, c *Cli
 
 func (c *Client) getLogMetricRaw(ctx context.Context, r *LogMetric) ([]byte, error) {
 
-	u, err := logMetricGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := logMetricGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -407,7 +405,7 @@ func (c *Client) logMetricDiffsForRawDesired(ctx context.Context, rawDesired *Lo
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetLogMetric(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetLogMetric(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a LogMetric resource already exists: %s", err)
@@ -437,7 +435,6 @@ func (c *Client) logMetricDiffsForRawDesired(ctx context.Context, rawDesired *Lo
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffLogMetric(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -1614,36 +1611,23 @@ func compareLogMetricBucketOptionsExplicitBucketsNewStyle(d, a interface{}, fn d
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *LogMetric) urlNormalized() *LogMetric {
-	normalized := dcl.Copy(*r).(LogMetric)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Filter = dcl.SelfLinkToName(r.Filter)
-	normalized.ValueExtractor = dcl.SelfLinkToName(r.ValueExtractor)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *LogMetric) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *LogMetric) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
 func (r *LogMetric) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *LogMetric) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "update" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -2807,8 +2791,8 @@ func (r *LogMetric) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

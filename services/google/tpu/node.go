@@ -454,6 +454,25 @@ func (c *Client) ListNodeWithMaxResults(ctx context.Context, project, location s
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Node) URLNormalized() *Node {
+	normalized := dcl.Copy(*r).(Node)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.AcceleratorType = dcl.SelfLinkToName(r.AcceleratorType)
+	normalized.IPAddress = dcl.SelfLinkToName(r.IPAddress)
+	normalized.Port = dcl.SelfLinkToName(r.Port)
+	normalized.HealthDescription = dcl.SelfLinkToName(r.HealthDescription)
+	normalized.TensorflowVersion = dcl.SelfLinkToName(r.TensorflowVersion)
+	normalized.Network = dcl.SelfLinkToName(r.Network)
+	normalized.CidrBlock = dcl.SelfLinkToName(r.CidrBlock)
+	normalized.ServiceAccount = dcl.SelfLinkToName(r.ServiceAccount)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
+}
 func (c *Client) GetNode(ctx context.Context, r *Node) (*Node, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -559,13 +578,8 @@ func applyNodeHelper(c *Client, ctx context.Context, rawDesired *Node, opts ...d
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToNodeOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -633,7 +647,7 @@ func applyNodeHelper(c *Client, ctx context.Context, rawDesired *Node, opts ...d
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetNode(ctx, desired.urlNormalized())
+	rawNew, err := c.GetNode(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

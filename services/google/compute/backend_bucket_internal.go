@@ -123,7 +123,7 @@ type updateBackendBucketUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateBackendBucketUpdateOperation) do(ctx context.Context, r *BackendBucket, c *Client) error {
-	_, err := c.GetBackendBucket(ctx, r.urlNormalized())
+	_, err := c.GetBackendBucket(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -238,9 +238,7 @@ func (c *Client) deleteAllBackendBucket(ctx context.Context, f func(*BackendBuck
 type deleteBackendBucketOperation struct{}
 
 func (op *deleteBackendBucketOperation) do(ctx context.Context, r *BackendBucket, c *Client) error {
-
-	_, err := c.GetBackendBucket(ctx, r.urlNormalized())
-
+	r, err := c.GetBackendBucket(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("BackendBucket not found, returning. Original error: %v", err)
@@ -250,7 +248,7 @@ func (op *deleteBackendBucketOperation) do(ctx context.Context, r *BackendBucket
 		return err
 	}
 
-	u, err := backendBucketDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := backendBucketDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -275,7 +273,7 @@ func (op *deleteBackendBucketOperation) do(ctx context.Context, r *BackendBucket
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetBackendBucket(ctx, r.urlNormalized())
+		_, err = c.GetBackendBucket(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -329,7 +327,7 @@ func (op *createBackendBucketOperation) do(ctx context.Context, r *BackendBucket
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetBackendBucket(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetBackendBucket(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -339,7 +337,7 @@ func (op *createBackendBucketOperation) do(ctx context.Context, r *BackendBucket
 
 func (c *Client) getBackendBucketRaw(ctx context.Context, r *BackendBucket) ([]byte, error) {
 
-	u, err := backendBucketGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := backendBucketGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -372,7 +370,7 @@ func (c *Client) backendBucketDiffsForRawDesired(ctx context.Context, rawDesired
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetBackendBucket(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetBackendBucket(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a BackendBucket resource already exists: %s", err)
@@ -402,7 +400,6 @@ func (c *Client) backendBucketDiffsForRawDesired(ctx context.Context, rawDesired
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffBackendBucket(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -683,36 +680,23 @@ func compareBackendBucketCdnPolicyNewStyle(d, a interface{}, fn dcl.FieldName) (
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *BackendBucket) urlNormalized() *BackendBucket {
-	normalized := dcl.Copy(*r).(BackendBucket)
-	normalized.BucketName = dcl.SelfLinkToName(r.BucketName)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	return &normalized
-}
-
 func (r *BackendBucket) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *BackendBucket) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
 func (r *BackendBucket) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *BackendBucket) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "update" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -933,8 +917,8 @@ func (r *BackendBucket) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

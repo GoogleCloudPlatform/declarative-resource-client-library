@@ -98,7 +98,7 @@ type updateAccessPolicyUpdateOperation struct {
 // PUT request to a single URL.
 
 func (op *updateAccessPolicyUpdateOperation) do(ctx context.Context, r *AccessPolicy, c *Client) error {
-	_, err := c.GetAccessPolicy(ctx, r.urlNormalized())
+	_, err := c.GetAccessPolicy(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -218,9 +218,7 @@ func (c *Client) deleteAllAccessPolicy(ctx context.Context, f func(*AccessPolicy
 type deleteAccessPolicyOperation struct{}
 
 func (op *deleteAccessPolicyOperation) do(ctx context.Context, r *AccessPolicy, c *Client) error {
-
-	_, err := c.GetAccessPolicy(ctx, r.urlNormalized())
-
+	r, err := c.GetAccessPolicy(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("AccessPolicy not found, returning. Original error: %v", err)
@@ -230,7 +228,7 @@ func (op *deleteAccessPolicyOperation) do(ctx context.Context, r *AccessPolicy, 
 		return err
 	}
 
-	u, err := accessPolicyDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := accessPolicyDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -255,7 +253,7 @@ func (op *deleteAccessPolicyOperation) do(ctx context.Context, r *AccessPolicy, 
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetAccessPolicy(ctx, r.urlNormalized())
+		_, err = c.GetAccessPolicy(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -315,7 +313,7 @@ func (op *createAccessPolicyOperation) do(ctx context.Context, r *AccessPolicy, 
 	}
 	r.Name = &name
 
-	if _, err := c.GetAccessPolicy(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetAccessPolicy(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -325,7 +323,7 @@ func (op *createAccessPolicyOperation) do(ctx context.Context, r *AccessPolicy, 
 
 func (c *Client) getAccessPolicyRaw(ctx context.Context, r *AccessPolicy) ([]byte, error) {
 
-	u, err := accessPolicyGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := accessPolicyGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -371,7 +369,7 @@ func (c *Client) accessPolicyDiffsForRawDesired(ctx context.Context, rawDesired 
 		return nil, desired, nil, err
 	}
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetAccessPolicy(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetAccessPolicy(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a AccessPolicy resource already exists: %s", err)
@@ -401,7 +399,6 @@ func (c *Client) accessPolicyDiffsForRawDesired(ctx context.Context, rawDesired 
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffAccessPolicy(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -525,19 +522,8 @@ func diffAccessPolicy(c *Client, desired, actual *AccessPolicy, opts ...dcl.Appl
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *AccessPolicy) urlNormalized() *AccessPolicy {
-	normalized := dcl.Copy(*r).(AccessPolicy)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Parent = r.Parent
-	normalized.Title = dcl.SelfLinkToName(r.Title)
-	return &normalized
-}
-
 func (r *AccessPolicy) getFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Parent)
 }
 
@@ -546,12 +532,12 @@ func (r *AccessPolicy) createFields() string {
 }
 
 func (r *AccessPolicy) deleteFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *AccessPolicy) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "update" {
 		fields := map[string]interface{}{
 			"name": dcl.ValueOrEmptyString(n.Name),
@@ -643,8 +629,8 @@ func (r *AccessPolicy) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Parent == nil && ncr.Parent == nil {

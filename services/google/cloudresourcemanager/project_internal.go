@@ -63,7 +63,7 @@ func projectDeleteURL(userBasePath string, r *Project) (string, error) {
 }
 
 func (r *Project) SetPolicyURL(userBasePath string) string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	fields := map[string]interface{}{
 		"name": *n.Name,
 	}
@@ -75,7 +75,7 @@ func (r *Project) SetPolicyVerb() string {
 }
 
 func (r *Project) getPolicyURL(userBasePath string) string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	fields := map[string]interface{}{
 		"name": *n.Name,
 	}
@@ -124,7 +124,7 @@ type updateProjectUpdateProjectOperation struct {
 // PUT request to a single URL.
 
 func (op *updateProjectUpdateProjectOperation) do(ctx context.Context, r *Project, c *Client) error {
-	_, err := c.GetProject(ctx, r.urlNormalized())
+	_, err := c.GetProject(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -238,9 +238,7 @@ func (c *Client) deleteAllProject(ctx context.Context, f func(*Project) bool, re
 type deleteProjectOperation struct{}
 
 func (op *deleteProjectOperation) do(ctx context.Context, r *Project, c *Client) error {
-
-	r, err := c.GetProject(ctx, r.urlNormalized())
-
+	r, err := c.GetProject(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFoundOrCode(err, 403) {
 			c.Config.Logger.Infof("Project not found, returning. Original error: %v", err)
@@ -254,7 +252,7 @@ func (op *deleteProjectOperation) do(ctx context.Context, r *Project, c *Client)
 		return nil
 	}
 
-	u, err := projectDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := projectDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -308,7 +306,7 @@ func (op *createProjectOperation) do(ctx context.Context, r *Project, c *Client)
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetProject(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetProject(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -318,7 +316,7 @@ func (op *createProjectOperation) do(ctx context.Context, r *Project, c *Client)
 
 func (c *Client) getProjectRaw(ctx context.Context, r *Project) ([]byte, error) {
 
-	u, err := projectGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := projectGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -351,7 +349,7 @@ func (c *Client) projectDiffsForRawDesired(ctx context.Context, rawDesired *Proj
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetProject(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetProject(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFoundOrCode(err, 403) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Project resource already exists: %s", err)
@@ -381,7 +379,6 @@ func (c *Client) projectDiffsForRawDesired(ctx context.Context, rawDesired *Proj
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffProject(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -638,18 +635,8 @@ func compareProjectParentNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fi
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Project) urlNormalized() *Project {
-	normalized := dcl.Copy(*r).(Project)
-	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	return &normalized
-}
-
 func (r *Project) getFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Name)
 }
 
@@ -658,12 +645,12 @@ func (r *Project) createFields() string {
 }
 
 func (r *Project) deleteFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Project) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateProject" {
 		fields := map[string]interface{}{
 			"name": dcl.ValueOrEmptyString(n.Name),
@@ -908,8 +895,8 @@ func (r *Project) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Name == nil && ncr.Name == nil {

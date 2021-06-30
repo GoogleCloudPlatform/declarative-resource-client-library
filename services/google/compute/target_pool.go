@@ -137,6 +137,20 @@ func (c *Client) ListTargetPoolWithMaxResults(ctx context.Context, project, regi
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *TargetPool) URLNormalized() *TargetPool {
+	normalized := dcl.Copy(*r).(TargetPool)
+	normalized.BackupPool = dcl.SelfLinkToName(r.BackupPool)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.HealthChecks = dcl.SelfLinkToNameArray(r.HealthChecks)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Region = dcl.SelfLinkToName(r.Region)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
 func (c *Client) GetTargetPool(ctx context.Context, r *TargetPool) (*TargetPool, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -242,13 +256,8 @@ func applyTargetPoolHelper(c *Client, ctx context.Context, rawDesired *TargetPoo
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToTargetPoolOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -316,7 +325,7 @@ func applyTargetPoolHelper(c *Client, ctx context.Context, rawDesired *TargetPoo
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetTargetPool(ctx, desired.urlNormalized())
+	rawNew, err := c.GetTargetPool(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

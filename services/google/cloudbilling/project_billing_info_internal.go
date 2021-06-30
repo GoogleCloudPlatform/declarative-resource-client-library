@@ -83,7 +83,7 @@ type updateProjectBillingInfoUpdateProjectBillingInfoOperation struct {
 // PUT request to a single URL.
 
 func (op *updateProjectBillingInfoUpdateProjectBillingInfoOperation) do(ctx context.Context, r *ProjectBillingInfo, c *Client) error {
-	_, err := c.GetProjectBillingInfo(ctx, r.urlNormalized())
+	_, err := c.GetProjectBillingInfo(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -144,7 +144,7 @@ func (op *createProjectBillingInfoOperation) FirstResponse() (map[string]interfa
 
 func (c *Client) getProjectBillingInfoRaw(ctx context.Context, r *ProjectBillingInfo) ([]byte, error) {
 
-	u, err := projectBillingInfoGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := projectBillingInfoGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -177,7 +177,7 @@ func (c *Client) projectBillingInfoDiffsForRawDesired(ctx context.Context, rawDe
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetProjectBillingInfo(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetProjectBillingInfo(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a ProjectBillingInfo resource already exists: %s", err)
@@ -207,7 +207,6 @@ func (c *Client) projectBillingInfoDiffsForRawDesired(ctx context.Context, rawDe
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffProjectBillingInfo(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -304,19 +303,8 @@ func diffProjectBillingInfo(c *Client, desired, actual *ProjectBillingInfo, opts
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *ProjectBillingInfo) urlNormalized() *ProjectBillingInfo {
-	normalized := dcl.Copy(*r).(ProjectBillingInfo)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.BillingAccountName = dcl.SelfLinkToName(r.BillingAccountName)
-	normalized.BillingEnabled = dcl.SelfLinkToName(r.BillingEnabled)
-	return &normalized
-}
-
 func (r *ProjectBillingInfo) getFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Name)
 }
 
@@ -325,12 +313,12 @@ func (r *ProjectBillingInfo) createFields() string {
 }
 
 func (r *ProjectBillingInfo) deleteFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *ProjectBillingInfo) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateProjectBillingInfo" {
 		fields := map[string]interface{}{
 			"name": dcl.ValueOrEmptyString(n.Name),
@@ -416,8 +404,8 @@ func (r *ProjectBillingInfo) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Name == nil && ncr.Name == nil {

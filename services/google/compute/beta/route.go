@@ -194,6 +194,26 @@ func (c *Client) ListRouteWithMaxResults(ctx context.Context, project string, pa
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Route) URLNormalized() *Route {
+	normalized := dcl.Copy(*r).(Route)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Network = dcl.SelfLinkToName(r.Network)
+	normalized.DestRange = dcl.SelfLinkToName(r.DestRange)
+	normalized.NextHopInstance = dcl.SelfLinkToName(r.NextHopInstance)
+	normalized.NextHopIP = dcl.SelfLinkToName(r.NextHopIP)
+	normalized.NextHopNetwork = dcl.SelfLinkToName(r.NextHopNetwork)
+	normalized.NextHopGateway = dcl.SelfLinkToName(r.NextHopGateway)
+	normalized.NextHopPeering = dcl.SelfLinkToName(r.NextHopPeering)
+	normalized.NextHopIlb = dcl.SelfLinkToName(r.NextHopIlb)
+	normalized.NextHopVpnTunnel = dcl.SelfLinkToName(r.NextHopVpnTunnel)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
 func (c *Client) GetRoute(ctx context.Context, r *Route) (*Route, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -301,13 +321,8 @@ func applyRouteHelper(c *Client, ctx context.Context, rawDesired *Route, opts ..
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToRouteOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -375,7 +390,7 @@ func applyRouteHelper(c *Client, ctx context.Context, rawDesired *Route, opts ..
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetRoute(ctx, desired.urlNormalized())
+	rawNew, err := c.GetRoute(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

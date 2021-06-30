@@ -729,6 +729,19 @@ func (c *Client) ListHealthCheckWithMaxResults(ctx context.Context, project, loc
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *HealthCheck) URLNormalized() *HealthCheck {
+	normalized := dcl.Copy(*r).(HealthCheck)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Region = dcl.SelfLinkToName(r.Region)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
+}
 func (c *Client) GetHealthCheck(ctx context.Context, r *HealthCheck) (*HealthCheck, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -834,13 +847,8 @@ func applyHealthCheckHelper(c *Client, ctx context.Context, rawDesired *HealthCh
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToHealthCheckOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -908,7 +916,7 @@ func applyHealthCheckHelper(c *Client, ctx context.Context, rawDesired *HealthCh
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetHealthCheck(ctx, desired.urlNormalized())
+	rawNew, err := c.GetHealthCheck(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

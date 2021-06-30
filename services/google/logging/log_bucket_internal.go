@@ -107,7 +107,7 @@ type updateLogBucketUpdateBucketOperation struct {
 // PUT request to a single URL.
 
 func (op *updateLogBucketUpdateBucketOperation) do(ctx context.Context, r *LogBucket, c *Client) error {
-	_, err := c.GetLogBucket(ctx, r.urlNormalized())
+	_, err := c.GetLogBucket(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -230,7 +230,7 @@ func (op *createLogBucketOperation) FirstResponse() (map[string]interface{}, boo
 
 func (c *Client) getLogBucketRaw(ctx context.Context, r *LogBucket) ([]byte, error) {
 
-	u, err := logBucketGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := logBucketGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -263,7 +263,7 @@ func (c *Client) logBucketDiffsForRawDesired(ctx context.Context, rawDesired *Lo
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetLogBucket(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetLogBucket(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a LogBucket resource already exists: %s", err)
@@ -293,7 +293,6 @@ func (c *Client) logBucketDiffsForRawDesired(ctx context.Context, rawDesired *Lo
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffLogBucket(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -474,35 +473,23 @@ func diffLogBucket(c *Client, desired, actual *LogBucket, opts ...dcl.ApplyOptio
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *LogBucket) urlNormalized() *LogBucket {
-	normalized := dcl.Copy(*r).(LogBucket)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Parent = r.Parent
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
-}
-
 func (r *LogBucket) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Parent), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *LogBucket) createFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Parent), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *LogBucket) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Parent), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *LogBucket) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateBucket" {
 		fields := map[string]interface{}{
 			"location": dcl.ValueOrEmptyString(n.Location),
@@ -647,8 +634,8 @@ func (r *LogBucket) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Location == nil && ncr.Location == nil {

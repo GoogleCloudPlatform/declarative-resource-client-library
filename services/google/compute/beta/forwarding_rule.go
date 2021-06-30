@@ -359,6 +359,28 @@ func (c *Client) ListForwardingRuleWithMaxResults(ctx context.Context, project, 
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *ForwardingRule) URLNormalized() *ForwardingRule {
+	normalized := dcl.Copy(*r).(ForwardingRule)
+	normalized.BackendService = dcl.SelfLinkToName(r.BackendService)
+	normalized.CreationTimestamp = dcl.SelfLinkToName(r.CreationTimestamp)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.IPAddress = dcl.SelfLinkToName(r.IPAddress)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Network = dcl.SelfLinkToName(r.Network)
+	normalized.PortRange = dcl.SelfLinkToName(r.PortRange)
+	normalized.Region = dcl.SelfLinkToName(r.Region)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.ServiceLabel = dcl.SelfLinkToName(r.ServiceLabel)
+	normalized.ServiceName = dcl.SelfLinkToName(r.ServiceName)
+	normalized.Subnetwork = dcl.SelfLinkToName(r.Subnetwork)
+	normalized.Target = dcl.SelfLinkToName(r.Target)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
+}
 func (c *Client) GetForwardingRule(ctx context.Context, r *ForwardingRule) (*ForwardingRule, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -464,13 +486,8 @@ func applyForwardingRuleHelper(c *Client, ctx context.Context, rawDesired *Forwa
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToForwardingRuleOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -538,7 +555,7 @@ func applyForwardingRuleHelper(c *Client, ctx context.Context, rawDesired *Forwa
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetForwardingRule(ctx, desired.urlNormalized())
+	rawNew, err := c.GetForwardingRule(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

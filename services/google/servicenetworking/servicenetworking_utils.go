@@ -25,7 +25,7 @@ import (
 
 // Do removes the link from the network specified.
 func (op *deleteConnectionOperation) do(ctx context.Context, r *Connection, c *Client) error {
-	un := r.urlNormalized()
+	un := r.URLNormalized()
 	u := fmt.Sprintf("https://compute.googleapis.com/compute/v1/projects/%s/global/networks/%s/removePeering", *un.Project, *un.Network)
 	body := fmt.Sprintf(`{"name": %q}`, *un.Name)
 	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBufferString(body), c.Config.RetryProvider)

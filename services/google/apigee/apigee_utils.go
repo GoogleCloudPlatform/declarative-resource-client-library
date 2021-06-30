@@ -143,7 +143,7 @@ func (c *Client) ListOrganizationWithMaxResults(ctx context.Context, pageSize in
 // do will transcribe a subset of the resource into a request object and send a
 // PUT request to a single URL.
 func (op *updateOrganizationUpdateOrganizationOperation) do(ctx context.Context, r *Organization, c *Client) error {
-	_, err := c.GetOrganization(ctx, r.urlNormalized())
+	_, err := c.GetOrganization(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}

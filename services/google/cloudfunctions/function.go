@@ -386,6 +386,25 @@ func (c *Client) ListFunctionWithMaxResults(ctx context.Context, project, region
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Function) URLNormalized() *Function {
+	normalized := dcl.Copy(*r).(Function)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.SourceArchiveUrl = dcl.SelfLinkToName(r.SourceArchiveUrl)
+	normalized.EntryPoint = dcl.SelfLinkToName(r.EntryPoint)
+	normalized.Runtime = dcl.SelfLinkToName(r.Runtime)
+	normalized.Timeout = dcl.SelfLinkToName(r.Timeout)
+	normalized.ServiceAccountEmail = dcl.SelfLinkToName(r.ServiceAccountEmail)
+	normalized.UpdateTime = dcl.SelfLinkToName(r.UpdateTime)
+	normalized.Network = dcl.SelfLinkToName(r.Network)
+	normalized.VPCConnector = dcl.SelfLinkToName(r.VPCConnector)
+	normalized.Region = dcl.SelfLinkToName(r.Region)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
 func (c *Client) GetFunction(ctx context.Context, r *Function) (*Function, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -491,13 +510,8 @@ func applyFunctionHelper(c *Client, ctx context.Context, rawDesired *Function, o
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToFunctionOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -565,7 +579,7 @@ func applyFunctionHelper(c *Client, ctx context.Context, rawDesired *Function, o
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetFunction(ctx, desired.urlNormalized())
+	rawNew, err := c.GetFunction(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

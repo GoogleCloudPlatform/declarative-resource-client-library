@@ -158,6 +158,19 @@ func (c *Client) ListOAuthIdpConfigWithMaxResults(ctx context.Context, project s
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *OAuthIdpConfig) URLNormalized() *OAuthIdpConfig {
+	normalized := dcl.Copy(*r).(OAuthIdpConfig)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.ClientId = dcl.SelfLinkToName(r.ClientId)
+	normalized.Issuer = dcl.SelfLinkToName(r.Issuer)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.ClientSecret = dcl.SelfLinkToName(r.ClientSecret)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
 func (c *Client) GetOAuthIdpConfig(ctx context.Context, r *OAuthIdpConfig) (*OAuthIdpConfig, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -262,13 +275,8 @@ func applyOAuthIdpConfigHelper(c *Client, ctx context.Context, rawDesired *OAuth
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToOAuthIdpConfigOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -336,7 +344,7 @@ func applyOAuthIdpConfigHelper(c *Client, ctx context.Context, rawDesired *OAuth
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetOAuthIdpConfig(ctx, desired.urlNormalized())
+	rawNew, err := c.GetOAuthIdpConfig(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

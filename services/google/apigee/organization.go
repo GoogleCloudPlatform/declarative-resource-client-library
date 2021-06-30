@@ -272,6 +272,22 @@ type OrganizationList struct {
 	pageSize int32
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Organization) URLNormalized() *Organization {
+	normalized := dcl.Copy(*r).(Organization)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.AnalyticsRegion = dcl.SelfLinkToName(r.AnalyticsRegion)
+	normalized.AuthorizedNetwork = dcl.SelfLinkToName(r.AuthorizedNetwork)
+	normalized.CaCertificate = dcl.SelfLinkToName(r.CaCertificate)
+	normalized.RuntimeDatabaseEncryptionKeyName = dcl.SelfLinkToName(r.RuntimeDatabaseEncryptionKeyName)
+	normalized.ProjectId = dcl.SelfLinkToName(r.ProjectId)
+	normalized.Parent = r.Parent
+	return &normalized
+}
 func (c *Client) GetOrganization(ctx context.Context, r *Organization) (*Organization, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -375,13 +391,8 @@ func applyOrganizationHelper(c *Client, ctx context.Context, rawDesired *Organiz
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToOrganizationOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -449,7 +460,7 @@ func applyOrganizationHelper(c *Client, ctx context.Context, rawDesired *Organiz
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetOrganization(ctx, desired.urlNormalized())
+	rawNew, err := c.GetOrganization(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

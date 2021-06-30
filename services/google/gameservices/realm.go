@@ -108,6 +108,18 @@ func (c *Client) ListRealmWithMaxResults(ctx context.Context, project, location 
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Realm) URLNormalized() *Realm {
+	normalized := dcl.Copy(*r).(Realm)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.TimeZone = dcl.SelfLinkToName(r.TimeZone)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
 func (c *Client) GetRealm(ctx context.Context, r *Realm) (*Realm, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -213,13 +225,8 @@ func applyRealmHelper(c *Client, ctx context.Context, rawDesired *Realm, opts ..
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToRealmOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -287,7 +294,7 @@ func applyRealmHelper(c *Client, ctx context.Context, rawDesired *Realm, opts ..
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetRealm(ctx, desired.urlNormalized())
+	rawNew, err := c.GetRealm(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

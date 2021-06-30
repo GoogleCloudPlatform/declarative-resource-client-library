@@ -1183,6 +1183,17 @@ func (c *Client) ListInstanceTemplateWithMaxResults(ctx context.Context, project
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *InstanceTemplate) URLNormalized() *InstanceTemplate {
+	normalized := dcl.Copy(*r).(InstanceTemplate)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
+}
 func (c *Client) GetInstanceTemplate(ctx context.Context, r *InstanceTemplate) (*InstanceTemplate, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -1287,13 +1298,8 @@ func applyInstanceTemplateHelper(c *Client, ctx context.Context, rawDesired *Ins
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToInstanceTemplateOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -1361,7 +1367,7 @@ func applyInstanceTemplateHelper(c *Client, ctx context.Context, rawDesired *Ins
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetInstanceTemplate(ctx, desired.urlNormalized())
+	rawNew, err := c.GetInstanceTemplate(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

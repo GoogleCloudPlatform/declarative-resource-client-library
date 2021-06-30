@@ -227,7 +227,7 @@ func (op *createNetworkEndpointOperation) do(ctx context.Context, r *NetworkEndp
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetNetworkEndpoint(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetNetworkEndpoint(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -251,7 +251,7 @@ func (c *Client) networkEndpointDiffsForRawDesired(ctx context.Context, rawDesir
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetNetworkEndpoint(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetNetworkEndpoint(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a NetworkEndpoint resource already exists: %s", err)
@@ -281,7 +281,6 @@ func (c *Client) networkEndpointDiffsForRawDesired(ctx context.Context, rawDesir
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffNetworkEndpoint(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -453,32 +452,18 @@ func diffNetworkEndpoint(c *Client, desired, actual *NetworkEndpoint, opts ...dc
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *NetworkEndpoint) urlNormalized() *NetworkEndpoint {
-	normalized := dcl.Copy(*r).(NetworkEndpoint)
-	normalized.IPAddress = dcl.SelfLinkToName(r.IPAddress)
-	normalized.Fqdn = dcl.SelfLinkToName(r.Fqdn)
-	normalized.Instance = dcl.SelfLinkToName(r.Instance)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	normalized.Group = dcl.SelfLinkToName(r.Group)
-	return &normalized
-}
-
 func (r *NetworkEndpoint) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Group)
 }
 
 func (r *NetworkEndpoint) createFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Group)
 }
 
 func (r *NetworkEndpoint) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Group)
 }
 
@@ -584,8 +569,8 @@ func (r *NetworkEndpoint) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

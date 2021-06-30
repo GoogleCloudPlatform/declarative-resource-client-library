@@ -118,7 +118,7 @@ type updateRepoUpdateRepoOperation struct {
 // PUT request to a single URL.
 
 func (op *updateRepoUpdateRepoOperation) do(ctx context.Context, r *Repo, c *Client) error {
-	_, err := c.GetRepo(ctx, r.urlNormalized())
+	_, err := c.GetRepo(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -228,9 +228,7 @@ func (c *Client) deleteAllRepo(ctx context.Context, f func(*Repo) bool, resource
 type deleteRepoOperation struct{}
 
 func (op *deleteRepoOperation) do(ctx context.Context, r *Repo, c *Client) error {
-
-	_, err := c.GetRepo(ctx, r.urlNormalized())
-
+	r, err := c.GetRepo(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("Repo not found, returning. Original error: %v", err)
@@ -240,7 +238,7 @@ func (op *deleteRepoOperation) do(ctx context.Context, r *Repo, c *Client) error
 		return err
 	}
 
-	u, err := repoDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := repoDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -256,7 +254,7 @@ func (op *deleteRepoOperation) do(ctx context.Context, r *Repo, c *Client) error
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetRepo(ctx, r.urlNormalized())
+		_, err = c.GetRepo(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -305,7 +303,7 @@ func (op *createRepoOperation) do(ctx context.Context, r *Repo, c *Client) error
 	}
 	op.response = o
 
-	if _, err := c.GetRepo(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetRepo(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -315,7 +313,7 @@ func (op *createRepoOperation) do(ctx context.Context, r *Repo, c *Client) error
 
 func (c *Client) getRepoRaw(ctx context.Context, r *Repo) ([]byte, error) {
 
-	u, err := repoGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := repoGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -348,7 +346,7 @@ func (c *Client) repoDiffsForRawDesired(ctx context.Context, rawDesired *Repo, o
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetRepo(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetRepo(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a Repo resource already exists: %s", err)
@@ -378,7 +376,6 @@ func (c *Client) repoDiffsForRawDesired(ctx context.Context, rawDesired *Repo, o
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffRepo(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -631,34 +628,23 @@ func compareRepoPubsubConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 	return diffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Repo) urlNormalized() *Repo {
-	normalized := dcl.Copy(*r).(Repo)
-	normalized.Name = r.Name
-	normalized.Url = dcl.SelfLinkToName(r.Url)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
-}
-
 func (r *Repo) getFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Repo) createFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
 func (r *Repo) deleteFields() (string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *Repo) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateRepo" {
 		fields := map[string]interface{}{
 			"project": dcl.ValueOrEmptyString(n.Project),
@@ -877,8 +863,8 @@ func (r *Repo) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {

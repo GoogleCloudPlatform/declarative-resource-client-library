@@ -682,6 +682,20 @@ func (c *Client) ListJobWithMaxResults(ctx context.Context, project, location st
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Job) URLNormalized() *Job {
+	normalized := dcl.Copy(*r).(Job)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Schedule = dcl.SelfLinkToName(r.Schedule)
+	normalized.TimeZone = dcl.SelfLinkToName(r.TimeZone)
+	normalized.AttemptDeadline = dcl.SelfLinkToName(r.AttemptDeadline)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
+}
 func (c *Client) GetJob(ctx context.Context, r *Job) (*Job, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -787,13 +801,8 @@ func applyJobHelper(c *Client, ctx context.Context, rawDesired *Job, opts ...dcl
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToJobOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -861,7 +870,7 @@ func applyJobHelper(c *Client, ctx context.Context, rawDesired *Job, opts ...dcl
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetJob(ctx, desired.urlNormalized())
+	rawNew, err := c.GetJob(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

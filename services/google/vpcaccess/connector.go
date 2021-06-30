@@ -191,6 +191,19 @@ func (c *Client) ListConnectorWithMaxResults(ctx context.Context, project, locat
 	}, nil
 }
 
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Connector) URLNormalized() *Connector {
+	normalized := dcl.Copy(*r).(Connector)
+	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Network = dcl.SelfLinkToName(r.Network)
+	normalized.IPCidrRange = dcl.SelfLinkToName(r.IPCidrRange)
+	normalized.MachineType = dcl.SelfLinkToName(r.MachineType)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
+	return &normalized
+}
 func (c *Client) GetConnector(ctx context.Context, r *Connector) (*Connector, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -296,13 +309,8 @@ func applyConnectorHelper(c *Client, ctx context.Context, rawDesired *Connector,
 		return nil, fmt.Errorf("failed to create a diff: %w", err)
 	}
 
-	for _, fd := range fieldDiffs {
-		fmt.Printf("fd: %+v\n", fd)
-	}
-
 	opStrings := dcl.DeduplicateOperations(fieldDiffs)
 	diffs, err := convertFieldDiffToConnectorOp(opStrings, fieldDiffs, opts)
-	fmt.Printf("diffs: %+v, opStrings: %v\n", diffs, opStrings)
 	if err != nil {
 		return nil, err
 	}
@@ -370,7 +378,7 @@ func applyConnectorHelper(c *Client, ctx context.Context, rawDesired *Connector,
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetConnector(ctx, desired.urlNormalized())
+	rawNew, err := c.GetConnector(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
 	}

@@ -141,7 +141,7 @@ type updateHttpFilterUpdateHttpFilterOperation struct {
 // PUT request to a single URL.
 
 func (op *updateHttpFilterUpdateHttpFilterOperation) do(ctx context.Context, r *HttpFilter, c *Client) error {
-	_, err := c.GetHttpFilter(ctx, r.urlNormalized())
+	_, err := c.GetHttpFilter(ctx, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -262,9 +262,7 @@ func (c *Client) deleteAllHttpFilter(ctx context.Context, f func(*HttpFilter) bo
 type deleteHttpFilterOperation struct{}
 
 func (op *deleteHttpFilterOperation) do(ctx context.Context, r *HttpFilter, c *Client) error {
-
-	_, err := c.GetHttpFilter(ctx, r.urlNormalized())
-
+	r, err := c.GetHttpFilter(ctx, r.URLNormalized())
 	if err != nil {
 		if dcl.IsNotFound(err) {
 			c.Config.Logger.Infof("HttpFilter not found, returning. Original error: %v", err)
@@ -274,7 +272,7 @@ func (op *deleteHttpFilterOperation) do(ctx context.Context, r *HttpFilter, c *C
 		return err
 	}
 
-	u, err := httpFilterDeleteURL(c.Config.BasePath, r.urlNormalized())
+	u, err := httpFilterDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err
 	}
@@ -299,7 +297,7 @@ func (op *deleteHttpFilterOperation) do(ctx context.Context, r *HttpFilter, c *C
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetHttpFilter(ctx, r.urlNormalized())
+		_, err = c.GetHttpFilter(ctx, r.URLNormalized())
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -353,7 +351,7 @@ func (op *createHttpFilterOperation) do(ctx context.Context, r *HttpFilter, c *C
 	c.Config.Logger.Infof("Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetHttpFilter(ctx, r.urlNormalized()); err != nil {
+	if _, err := c.GetHttpFilter(ctx, r.URLNormalized()); err != nil {
 		c.Config.Logger.Warningf("get returned error: %v", err)
 		return err
 	}
@@ -363,7 +361,7 @@ func (op *createHttpFilterOperation) do(ctx context.Context, r *HttpFilter, c *C
 
 func (c *Client) getHttpFilterRaw(ctx context.Context, r *HttpFilter) ([]byte, error) {
 
-	u, err := httpFilterGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := httpFilterGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -396,7 +394,7 @@ func (c *Client) httpFilterDiffsForRawDesired(ctx context.Context, rawDesired *H
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetHttpFilter(ctx, fetchState.urlNormalized())
+	rawInitial, err := c.GetHttpFilter(ctx, fetchState.URLNormalized())
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
 			c.Config.Logger.Warningf("Failed to retrieve whether a HttpFilter resource already exists: %s", err)
@@ -426,7 +424,6 @@ func (c *Client) httpFilterDiffsForRawDesired(ctx context.Context, rawDesired *H
 
 	// 2.1: Comparison of initial and desired state.
 	diffs, err = diffHttpFilter(c, desired, initial, opts...)
-	fmt.Printf("newDiffs: %v\n", diffs)
 	return initial, desired, diffs, err
 }
 
@@ -631,38 +628,23 @@ func diffHttpFilter(c *Client, desired, actual *HttpFilter, opts ...dcl.ApplyOpt
 	return newDiffs, nil
 }
 
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *HttpFilter) urlNormalized() *HttpFilter {
-	normalized := dcl.Copy(*r).(HttpFilter)
-	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.FilterName = dcl.SelfLinkToName(r.FilterName)
-	normalized.ConfigTypeUrl = dcl.SelfLinkToName(r.ConfigTypeUrl)
-	normalized.Config = dcl.SelfLinkToName(r.Config)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	normalized.Location = dcl.SelfLinkToName(r.Location)
-	return &normalized
-}
-
 func (r *HttpFilter) getFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *HttpFilter) createFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *HttpFilter) deleteFields() (string, string, string) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *HttpFilter) updateURL(userBasePath, updateName string) (string, error) {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	if updateName == "UpdateHttpFilter" {
 		fields := map[string]interface{}{
 			"project":  dcl.ValueOrEmptyString(n.Project),
@@ -780,8 +762,8 @@ func (r *HttpFilter) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {
