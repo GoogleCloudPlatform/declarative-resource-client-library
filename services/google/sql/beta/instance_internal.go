@@ -452,8 +452,8 @@ func (c *Client) listInstanceRaw(ctx context.Context, project, pageToken string,
 }
 
 type listInstanceOperation struct {
-	Instances []map[string]interface{} `json:"instances"`
-	Token     string                   `json:"nextPageToken"`
+	Items []map[string]interface{} `json:"items"`
+	Token string                   `json:"nextPageToken"`
 }
 
 func (c *Client) listInstance(ctx context.Context, project, pageToken string, pageSize int32) ([]*Instance, string, error) {
@@ -468,7 +468,7 @@ func (c *Client) listInstance(ctx context.Context, project, pageToken string, pa
 	}
 
 	var l []*Instance
-	for _, v := range m.Instances {
+	for _, v := range m.Items {
 		res, err := unmarshalMapInstance(v, c)
 		if err != nil {
 			return nil, m.Token, err
