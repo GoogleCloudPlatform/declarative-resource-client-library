@@ -17,6 +17,9 @@ dependencies:
 - samples/folder_firewall.iam.member.json
 - samples/folder_compute.iam.member.json
 - samples/folder.cloudresourcemanager.folder.json
+- samples/folder.cloudresourcemanager.project.json
+- samples/folder.cloudbilling.project_billing_info.json
+- samples/compute.serviceusage.service.json
 - samples/folder.network.json
 description: An example of a compute firewall policy for a folder
 name: folder_firewall_policy
