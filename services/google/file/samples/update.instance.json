@@ -24,9 +24,9 @@
   ],
   "networks": [
     {
-      "network": "default",
+      "network": "{{ref:basic.compute.network.json:name}}",
       "modes": ["MODE_IPV4"],
-      "reservedIpRange": "10.0.0.0/29"
+      "reservedIpRange": "10.0.1.0/29"
     }
   ]
 }
