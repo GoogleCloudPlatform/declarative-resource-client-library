@@ -506,7 +506,11 @@ func slice(slice interface{}) ([]interface{}, error) {
 
 func addOperationToDiffs(fds []*FieldDiff, i Info) {
 	for _, fd := range fds {
-		fd.ResultingOperation = i.OperationSelector(fd)
+		ops := i.OperationSelector(fd)
+		// Do not overwrite update operations with recreate.
+		if !StringSliceContains("Recreate", ops) || len(fd.ResultingOperation) == 0 {
+			fd.ResultingOperation = ops
+		}
 	}
 }
 
