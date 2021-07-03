@@ -123,6 +123,7 @@ components:
             set a project with a KMS CMEK key is provisioned. This field is mandatory
             for a subset of Compliance Regimes.
           x-kubernetes-immutable: true
+          x-dcl-mutable-unreadable: true
           required:
           - nextRotationTime
           - rotationPeriod
@@ -177,6 +178,7 @@ components:
             be the same or a child of the Workload parent. If not specified all resources
             are created under the Workload parent. Formats: folders/{folder_id}, organizations/{organization_id}'
           x-kubernetes-immutable: true
+          x-dcl-mutable-unreadable: true
         resourceSettings:
           type: array
           x-dcl-go-name: ResourceSettings
@@ -209,6 +211,7 @@ components:
                 - CONSUMER_PROJECT
                 - ENCRYPTION_KEYS_PROJECT
                 - KEYRING
+          x-dcl-mutable-unreadable: true
         resources:
           type: array
           x-dcl-go-name: Resources

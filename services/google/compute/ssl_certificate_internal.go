@@ -461,9 +461,7 @@ func canonicalizeNewSslCertificateSelfManaged(c *Client, des, nw *SslCertificate
 	if dcl.StringCanonicalize(des.Certificate, nw.Certificate) {
 		nw.Certificate = des.Certificate
 	}
-	if dcl.StringCanonicalize(des.PrivateKey, nw.PrivateKey) {
-		nw.PrivateKey = des.PrivateKey
-	}
+	nw.PrivateKey = des.PrivateKey
 
 	return nw
 }

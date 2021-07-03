@@ -61,6 +61,7 @@ components:
     User:
       title: User
       x-dcl-id: projects/{{project}}/instances/{{instance}}/names/{{name}}/hosts/{{host}}
+      x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
       type: object
       properties:
@@ -95,6 +96,7 @@ components:
           type: string
           x-dcl-go-name: Password
           description: The password for the user.
+          x-dcl-mutable-unreadable: true
         project:
           type: string
           x-dcl-go-name: Project

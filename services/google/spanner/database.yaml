@@ -61,6 +61,7 @@ components:
     Database:
       title: Database
       x-dcl-id: projects/{{project}}/instances/{{instance}}/databases/{{name}}
+      x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
       type: object
       required:
@@ -80,6 +81,7 @@ components:
           items:
             type: string
             x-dcl-go-type: string
+          x-dcl-mutable-unreadable: true
         instance:
           type: string
           x-dcl-go-name: Instance

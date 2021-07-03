@@ -184,6 +184,7 @@ components:
           x-dcl-go-name: Metadata
           description: User-provided metadata, in key/value pairs.
           x-kubernetes-immutable: true
+          x-dcl-mutable-unreadable: true
         metageneration:
           type: integer
           format: int64

@@ -63,6 +63,7 @@ components:
       x-dcl-id: projects/{{project}}/regions/{{region}}/routers/{{name}}
       x-dcl-locations:
       - region
+      x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
       type: object
       properties:
@@ -209,6 +210,7 @@ components:
                 x-dcl-go-name: PeerIPAddress
                 description: IP address of the BGP interface outside Google Cloud
                   Platform. Only IPv4 is supported.
+                x-dcl-mutable-unreadable: true
         creationTimestamp:
           type: string
           format: date-time

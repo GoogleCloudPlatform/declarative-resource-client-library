@@ -1019,9 +1019,7 @@ func canonicalizeNewRouterBgpPeers(c *Client, des, nw *RouterBgpPeers) *RouterBg
 	if dcl.StringCanonicalize(des.IPAddress, nw.IPAddress) {
 		nw.IPAddress = des.IPAddress
 	}
-	if dcl.StringCanonicalize(des.PeerIPAddress, nw.PeerIPAddress) {
-		nw.PeerIPAddress = des.PeerIPAddress
-	}
+	nw.PeerIPAddress = des.PeerIPAddress
 	if dcl.IsZeroValue(nw.PeerAsn) {
 		nw.PeerAsn = des.PeerAsn
 	}

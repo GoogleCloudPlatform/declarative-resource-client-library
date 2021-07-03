@@ -879,9 +879,7 @@ func canonicalizeNewMembershipEndpointKubernetesResource(c *Client, des, nw *Mem
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.MembershipCrManifest, nw.MembershipCrManifest) {
-		nw.MembershipCrManifest = des.MembershipCrManifest
-	}
+	nw.MembershipCrManifest = des.MembershipCrManifest
 	nw.MembershipResources = canonicalizeNewMembershipEndpointKubernetesResourceMembershipResourcesSlice(c, des.MembershipResources, nw.MembershipResources)
 	nw.ConnectResources = canonicalizeNewMembershipEndpointKubernetesResourceConnectResourcesSlice(c, des.ConnectResources, nw.ConnectResources)
 	nw.ResourceOptions = canonicalizeNewMembershipEndpointKubernetesResourceResourceOptions(c, des.ResourceOptions, nw.ResourceOptions)

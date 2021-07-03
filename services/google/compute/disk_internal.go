@@ -977,9 +977,7 @@ func canonicalizeNewDiskEncryptionKey(c *Client, des, nw *DiskEncryptionKey) *Di
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) {
-		nw.RawKey = des.RawKey
-	}
+	nw.RawKey = des.RawKey
 	if dcl.StringCanonicalize(des.KmsKeyName, nw.KmsKeyName) {
 		nw.KmsKeyName = des.KmsKeyName
 	}

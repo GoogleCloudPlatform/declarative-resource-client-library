@@ -569,9 +569,7 @@ func canonicalizeNewSnapshotSnapshotEncryptionKey(c *Client, des, nw *SnapshotSn
 		return nw
 	}
 
-	if dcl.StringCanonicalize(des.RawKey, nw.RawKey) {
-		nw.RawKey = des.RawKey
-	}
+	nw.RawKey = des.RawKey
 	if dcl.StringCanonicalize(des.Sha256, nw.Sha256) {
 		nw.Sha256 = des.Sha256
 	}

@@ -63,6 +63,7 @@ components:
       x-dcl-locations:
       - region
       - zone
+      x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
       x-dcl-labels: labels
       type: object
@@ -489,6 +490,7 @@ components:
             to either encrypt or decrypt this resource.
           x-kubernetes-immutable: true
           x-dcl-sensitive: true
+          x-dcl-mutable-unreadable: true
         sha256:
           type: string
           x-dcl-go-name: Sha256

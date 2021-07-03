@@ -63,6 +63,7 @@ components:
       x-dcl-id: projects/{{project}}/locations/{{location}}/clusters/{{name}}
       x-dcl-locations:
       - zone
+      x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
       x-dcl-labels: nodeconfig.labels
       type: object
@@ -2152,6 +2153,7 @@ components:
                       the cluster-level default (\\\\\\\\\\`ip\\\\\\\\\\_allocation\\\\\\\\\\_policy.cluster\\\\\\\\\\_ipv4\\\\\\\\\\_cidr\\\\\\\\\\_block\\\\\\\\\\`)
                       is used.
                     x-kubernetes-immutable: true
+                    x-dcl-mutable-unreadable: true
                   podIPv4CidrBlock:
                     type: string
                     x-dcl-go-name: PodIPv4CidrBlock

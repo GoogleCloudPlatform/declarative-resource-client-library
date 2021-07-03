@@ -5156,9 +5156,7 @@ func canonicalizeNewClusterNodePoolsNetworkConfig(c *Client, des, nw *ClusterNod
 		return nw
 	}
 
-	if dcl.BoolCanonicalize(des.CreatePodRange, nw.CreatePodRange) {
-		nw.CreatePodRange = des.CreatePodRange
-	}
+	nw.CreatePodRange = des.CreatePodRange
 	if dcl.StringCanonicalize(des.PodRange, nw.PodRange) {
 		nw.PodRange = des.PodRange
 	}

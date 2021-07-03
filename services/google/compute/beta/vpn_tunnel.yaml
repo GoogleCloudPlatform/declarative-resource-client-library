@@ -63,6 +63,7 @@ components:
       x-dcl-id: projects/{{project}}/regions/{{region}}/vpnTunnels/{{name}}
       x-dcl-locations:
       - region
+      x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
       x-dcl-labels: labels
       type: object
@@ -208,6 +209,7 @@ components:
             VPN gateway and the peer VPN gateway.
           x-kubernetes-immutable: true
           x-dcl-sensitive: true
+          x-dcl-mutable-unreadable: true
         sharedSecretHash:
           type: string
           x-dcl-go-name: SharedSecretHash

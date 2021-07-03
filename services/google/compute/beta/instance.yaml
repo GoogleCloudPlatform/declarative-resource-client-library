@@ -63,6 +63,7 @@ components:
       x-dcl-id: projects/{{project}}/zones/{{zone}}/instances/{{name}}
       x-dcl-locations:
       - zone
+      x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
       x-dcl-labels: labels
       type: object
@@ -177,6 +178,7 @@ components:
                   created alongside the new instance. Use initialization parameters
                   to create boot disks or local SSDs attached to the new instance. '
                 x-kubernetes-immutable: true
+                x-dcl-mutable-unreadable: true
                 properties:
                   diskName:
                     type: string
@@ -280,6 +282,7 @@ components:
                 enum:
                 - SCRATCH
                 - PERSISTENT
+          x-dcl-mutable-unreadable: true
         guestAccelerators:
           type: array
           x-dcl-go-name: GuestAccelerators

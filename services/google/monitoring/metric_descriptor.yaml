@@ -53,6 +53,7 @@ components:
     MetricDescriptor:
       title: MetricDescriptor
       x-dcl-id: projects/{{project}}/metricDescriptors/{{type}}
+      x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
       type: object
       required:
@@ -130,6 +131,7 @@ components:
           - BETA
           - GA
           - DEPRECATED
+          x-dcl-mutable-unreadable: true
         metadata:
           type: object
           x-dcl-go-name: Metadata
@@ -137,6 +139,7 @@ components:
           description: Optional. Metadata which can be used to guide usage of the
             metric.
           x-kubernetes-immutable: true
+          x-dcl-mutable-unreadable: true
           properties:
             ingestDelay:
               type: string

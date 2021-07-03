@@ -55,6 +55,7 @@ components:
       x-dcl-id: projects/{{project}}/global/sslCertificates/{{name}}
       x-dcl-locations:
       - global
+      x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
       type: object
       required:
@@ -127,6 +128,7 @@ components:
               description: A write-only private key in PEM format. Only `insert` requests
                 will include this field.
               x-kubernetes-immutable: true
+              x-dcl-mutable-unreadable: true
         subjectAlternativeNames:
           type: array
           x-dcl-go-name: SubjectAlternativeNames

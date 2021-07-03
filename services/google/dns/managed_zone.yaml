@@ -53,6 +53,7 @@ components:
     ManagedZone:
       title: ManagedZone
       x-dcl-id: projects/{{project}}/managedZones/{{name}}
+      x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
       x-dcl-labels: labels
       type: object
@@ -283,6 +284,7 @@ components:
             records for VPC resources. This only applies to networks listed under
             'private_visibility_config
           x-kubernetes-immutable: true
+          x-dcl-mutable-unreadable: true
         visibility:
           type: string
           x-dcl-go-name: Visibility

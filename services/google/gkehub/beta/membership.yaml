@@ -61,6 +61,7 @@ components:
     Membership:
       title: Membership
       x-dcl-id: projects/{{project}}/locations/{{location}}/memberships/{{name}}
+      x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
       x-dcl-labels: labels
       type: object
@@ -242,6 +243,7 @@ components:
                     present in the cluster during CreateMembership or UpdateMembership,
                     or leave this field empty if none exists. The CR manifest is used
                     to validate the cluster has not been registered with another Membership.
+                  x-dcl-mutable-unreadable: true
                 membershipResources:
                   type: array
                   x-dcl-go-name: MembershipResources

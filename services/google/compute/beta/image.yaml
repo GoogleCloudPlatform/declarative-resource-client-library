@@ -55,6 +55,7 @@ components:
       x-dcl-id: projects/{{project}}/global/images/{{name}}
       x-dcl-locations:
       - global
+      x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
       x-dcl-labels: labels
       type: object
@@ -252,6 +253,7 @@ components:
           x-dcl-go-type: ImageRawDisk
           description: The parameters of the raw disk image.
           x-kubernetes-immutable: true
+          x-dcl-mutable-unreadable: true
           properties:
             containerType:
               type: string
