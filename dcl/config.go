@@ -47,7 +47,8 @@ type Config struct {
 	queryParams         map[string]string
 	Logger              Logger
 	BasePath            string
-	UserOverrideProject string
+	billingProject      string
+	userOverrideProject bool
 }
 
 // UserAgent returns the user agent for the config, which will always include the
@@ -78,15 +79,15 @@ func NewConfig(o ...ConfigOption) *Config {
 // Clone returns a copy of an existing Config with optional new values.
 func (c *Config) Clone(o ...ConfigOption) *Config {
 	result := &Config{
-		RetryProvider:       c.RetryProvider,
-		timeout:             c.timeout,
-		clientOptions:       c.clientOptions,
-		userAgent:           c.userAgent,
-		contentType:         c.contentType,
-		queryParams:         c.queryParams,
-		Logger:              c.Logger,
-		BasePath:            c.BasePath,
-		UserOverrideProject: c.UserOverrideProject,
+		RetryProvider:  c.RetryProvider,
+		timeout:        c.timeout,
+		clientOptions:  c.clientOptions,
+		userAgent:      c.userAgent,
+		contentType:    c.contentType,
+		queryParams:    c.queryParams,
+		Logger:         c.Logger,
+		BasePath:       c.BasePath,
+		billingProject: c.billingProject,
 	}
 
 	if c.header != nil {
@@ -300,11 +301,20 @@ func WithHTTPClient(client *http.Client) ConfigOption {
 	}
 }
 
-// WithUserOverrideProject returns a ConfigOption that specifies the user override project.
+// WithBillingProject returns a ConfigOption that specifies the user override project.
 // This will be used to set X-Goog-User-Project on API calls.
-func WithUserOverrideProject(project string) ConfigOption {
+// This option will be ignored unless WithUserProjectOverride is also used.
+func WithBillingProject(project string) ConfigOption {
 	return func(c *Config) {
-		c.UserOverrideProject = project
+		c.billingProject = project
+	}
+}
+
+// WithUserProjectOverride returns a ConfigOption that turns on WithUserProjectOverride.
+// This will send the X-Goog-User-Project on API calls.
+func WithUserProjectOverride() ConfigOption {
+	return func(c *Config) {
+		c.userOverrideProject = true
 	}
 }
 
