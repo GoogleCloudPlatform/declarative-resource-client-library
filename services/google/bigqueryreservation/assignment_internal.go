@@ -33,12 +33,6 @@ func (r *Assignment) validate() error {
 	if err := dcl.Required(r, "jobType"); err != nil {
 		return err
 	}
-	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
-		return err
-	}
-	if err := dcl.RequiredParameter(r.Location, "Location"); err != nil {
-		return err
-	}
 	if err := dcl.RequiredParameter(r.Reservation, "Reservation"); err != nil {
 		return err
 	}

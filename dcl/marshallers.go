@@ -310,3 +310,24 @@ func FindStringInArray(s string, items []string) bool {
 	}
 	return false
 }
+
+// ValueFromRegexOnField assigns val to the regex value on containerVal if val is unset
+func ValueFromRegexOnField(val *string, containerVal *string, regex string) (*string, error) {
+	if val == nil || *val == "" {
+		if containerVal == nil || *containerVal == "" {
+			return nil, fmt.Errorf("containerval is empty")
+		}
+
+		r := re.MustCompile(regex)
+		m := r.FindStringSubmatch(*containerVal)
+		if m == nil {
+			return nil, fmt.Errorf("no matches found")
+		}
+
+		if len(m) < 2 {
+			return nil, fmt.Errorf("no value found in %v", *containerVal)
+		}
+		return String(m[1]), nil
+	}
+	return val, nil
+}

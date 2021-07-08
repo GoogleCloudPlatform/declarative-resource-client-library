@@ -74,8 +74,6 @@ components:
       required:
       - assignee
       - jobType
-      - project
-      - location
       - reservation
       properties:
         assignee:
