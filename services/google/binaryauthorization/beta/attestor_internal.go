@@ -63,14 +63,14 @@ func attestorGetURL(userBasePath string, r *Attestor) (string, error) {
 		"project": dcl.ValueOrEmptyString(r.Project),
 		"name":    dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("projects/{{project}}/attestors/{{name}}", "https://binaryauthorization.googleapis.com/v1beta1", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/attestors/{{name}}", "https://binaryauthorization.googleapis.com/v1", userBasePath, params), nil
 }
 
 func attestorListURL(userBasePath, project string) (string, error) {
 	params := map[string]interface{}{
 		"project": project,
 	}
-	return dcl.URL("projects/{{project}}/attestors", "https://binaryauthorization.googleapis.com/v1beta1", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/attestors", "https://binaryauthorization.googleapis.com/v1", userBasePath, params), nil
 
 }
 
@@ -79,7 +79,7 @@ func attestorCreateURL(userBasePath, project, name string) (string, error) {
 		"project": project,
 		"name":    name,
 	}
-	return dcl.URL("projects/{{project}}/attestors?attestorId={{name}}", "https://binaryauthorization.googleapis.com/v1beta1", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/attestors?attestorId={{name}}", "https://binaryauthorization.googleapis.com/v1", userBasePath, params), nil
 
 }
 
@@ -88,7 +88,7 @@ func attestorDeleteURL(userBasePath string, r *Attestor) (string, error) {
 		"project": dcl.ValueOrEmptyString(r.Project),
 		"name":    dcl.ValueOrEmptyString(r.Name),
 	}
-	return dcl.URL("projects/{{project}}/attestors/{{name}}", "https://binaryauthorization.googleapis.com/v1beta1", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/attestors/{{name}}", "https://binaryauthorization.googleapis.com/v1", userBasePath, params), nil
 }
 
 // attestorApiOperation represents a mutable operation in the underlying REST
@@ -107,9 +107,9 @@ func newUpdateAttestorUpdateAttestorRequest(ctx context.Context, f *Attestor, c 
 		req["description"] = v
 	}
 	if v, err := expandAttestorUserOwnedDrydockNote(c, f.UserOwnedDrydockNote); err != nil {
-		return nil, fmt.Errorf("error expanding UserOwnedDrydockNote into userOwnedDrydockNote: %w", err)
+		return nil, fmt.Errorf("error expanding UserOwnedDrydockNote into userOwnedGrafeasNote: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["userOwnedDrydockNote"] = v
+		req["userOwnedGrafeasNote"] = v
 	}
 	return req, nil
 }
@@ -738,7 +738,7 @@ func diffAttestor(c *Client, desired, actual *Attestor, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UserOwnedDrydockNote, actual.UserOwnedDrydockNote, dcl.Info{ObjectFunction: compareAttestorUserOwnedDrydockNoteNewStyle, EmptyObject: EmptyAttestorUserOwnedDrydockNote, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UserOwnedDrydockNote")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UserOwnedDrydockNote, actual.UserOwnedDrydockNote, dcl.Info{ObjectFunction: compareAttestorUserOwnedDrydockNoteNewStyle, EmptyObject: EmptyAttestorUserOwnedDrydockNote, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UserOwnedGrafeasNote")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -912,7 +912,7 @@ func (r *Attestor) updateURL(userBasePath, updateName string) (string, error) {
 			"project": dcl.ValueOrEmptyString(n.Project),
 			"name":    dcl.ValueOrEmptyString(n.Name),
 		}
-		return dcl.URL("projects/{{project}}/attestors/{{name}}", "https://binaryauthorization.googleapis.com/v1beta1", userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/attestors/{{name}}", "https://binaryauthorization.googleapis.com/v1", userBasePath, fields), nil
 
 	}
 	return "", fmt.Errorf("unknown update name: %s", updateName)
@@ -956,9 +956,9 @@ func expandAttestor(c *Client, f *Attestor) (map[string]interface{}, error) {
 		m["description"] = v
 	}
 	if v, err := expandAttestorUserOwnedDrydockNote(c, f.UserOwnedDrydockNote); err != nil {
-		return nil, fmt.Errorf("error expanding UserOwnedDrydockNote into userOwnedDrydockNote: %w", err)
+		return nil, fmt.Errorf("error expanding UserOwnedDrydockNote into userOwnedGrafeasNote: %w", err)
 	} else if v != nil {
-		m["userOwnedDrydockNote"] = v
+		m["userOwnedGrafeasNote"] = v
 	}
 	if v := f.UpdateTime; !dcl.IsEmptyValueIndirect(v) {
 		m["updateTime"] = v
@@ -986,7 +986,7 @@ func flattenAttestor(c *Client, i interface{}) *Attestor {
 	res := &Attestor{}
 	res.Name = dcl.FlattenString(m["name"])
 	res.Description = dcl.FlattenString(m["description"])
-	res.UserOwnedDrydockNote = flattenAttestorUserOwnedDrydockNote(c, m["userOwnedDrydockNote"])
+	res.UserOwnedDrydockNote = flattenAttestorUserOwnedDrydockNote(c, m["userOwnedGrafeasNote"])
 	res.UpdateTime = dcl.FlattenString(m["updateTime"])
 	res.Project = dcl.FlattenString(m["project"])
 

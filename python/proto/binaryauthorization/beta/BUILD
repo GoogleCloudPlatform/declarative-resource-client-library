@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="binaryauthorization/beta", resources=["attestor"])
+proto_package(name="binaryauthorization/beta", resources=["attestor","policy"])

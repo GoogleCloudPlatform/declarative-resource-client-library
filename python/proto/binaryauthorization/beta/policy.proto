@@ -18,32 +18,18 @@ package dcl;
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
-enum BinaryauthorizationBetaPolicyClusterAdmissionRulesEvaluationModeEnum {
-  BinaryauthorizationBetaPolicyClusterAdmissionRulesEvaluationModeEnumNO_VALUE_DO_NOT_USE = 0;
-  BinaryauthorizationBetaPolicyClusterAdmissionRulesEvaluationModeEnumALWAYS_ALLOW = 1;
-  BinaryauthorizationBetaPolicyClusterAdmissionRulesEvaluationModeEnumALWAYS_DENY = 2;
-  BinaryauthorizationBetaPolicyClusterAdmissionRulesEvaluationModeEnumREQUIRE_ATTESTATION = 3;
+enum BinaryauthorizationBetaPolicyAdmissionRuleEvaluationModeEnum {
+  BinaryauthorizationBetaPolicyAdmissionRuleEvaluationModeEnumNO_VALUE_DO_NOT_USE = 0;
+  BinaryauthorizationBetaPolicyAdmissionRuleEvaluationModeEnumALWAYS_ALLOW = 1;
+  BinaryauthorizationBetaPolicyAdmissionRuleEvaluationModeEnumALWAYS_DENY = 2;
+  BinaryauthorizationBetaPolicyAdmissionRuleEvaluationModeEnumREQUIRE_ATTESTATION = 3;
 }
 
-enum BinaryauthorizationBetaPolicyClusterAdmissionRulesEnforcementModeEnum {
-  BinaryauthorizationBetaPolicyClusterAdmissionRulesEnforcementModeEnumNO_VALUE_DO_NOT_USE = 0;
-  BinaryauthorizationBetaPolicyClusterAdmissionRulesEnforcementModeEnumENFORCEMENT_MODE_UNSPECIFIED = 1;
-  BinaryauthorizationBetaPolicyClusterAdmissionRulesEnforcementModeEnumENFORCED_BLOCK_AND_AUDIT_LOG = 2;
-  BinaryauthorizationBetaPolicyClusterAdmissionRulesEnforcementModeEnumDRYRUN_AUDIT_LOG_ONLY = 3;
-}
-
-enum BinaryauthorizationBetaPolicyDefaultAdmissionRuleEvaluationModeEnum {
-  BinaryauthorizationBetaPolicyDefaultAdmissionRuleEvaluationModeEnumNO_VALUE_DO_NOT_USE = 0;
-  BinaryauthorizationBetaPolicyDefaultAdmissionRuleEvaluationModeEnumGLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED = 1;
-  BinaryauthorizationBetaPolicyDefaultAdmissionRuleEvaluationModeEnumENABLE = 2;
-  BinaryauthorizationBetaPolicyDefaultAdmissionRuleEvaluationModeEnumDISABLE = 3;
-}
-
-enum BinaryauthorizationBetaPolicyDefaultAdmissionRuleEnforcementModeEnum {
-  BinaryauthorizationBetaPolicyDefaultAdmissionRuleEnforcementModeEnumNO_VALUE_DO_NOT_USE = 0;
-  BinaryauthorizationBetaPolicyDefaultAdmissionRuleEnforcementModeEnumENFORCEMENT_MODE_UNSPECIFIED = 1;
-  BinaryauthorizationBetaPolicyDefaultAdmissionRuleEnforcementModeEnumENFORCED_BLOCK_AND_AUDIT_LOG = 2;
-  BinaryauthorizationBetaPolicyDefaultAdmissionRuleEnforcementModeEnumDRYRUN_AUDIT_LOG_ONLY = 3;
+enum BinaryauthorizationBetaPolicyAdmissionRuleEnforcementModeEnum {
+  BinaryauthorizationBetaPolicyAdmissionRuleEnforcementModeEnumNO_VALUE_DO_NOT_USE = 0;
+  BinaryauthorizationBetaPolicyAdmissionRuleEnforcementModeEnumENFORCEMENT_MODE_UNSPECIFIED = 1;
+  BinaryauthorizationBetaPolicyAdmissionRuleEnforcementModeEnumENFORCED_BLOCK_AND_AUDIT_LOG = 2;
+  BinaryauthorizationBetaPolicyAdmissionRuleEnforcementModeEnumDRYRUN_AUDIT_LOG_ONLY = 3;
 }
 
 enum BinaryauthorizationBetaPolicyGlobalPolicyEvaluationModeEnum {
@@ -55,29 +41,26 @@ enum BinaryauthorizationBetaPolicyGlobalPolicyEvaluationModeEnum {
 
 message BinaryauthorizationBetaPolicy {
   repeated BinaryauthorizationBetaPolicyAdmissionWhitelistPatterns admission_whitelist_patterns = 1;
-  map<string, BinaryauthorizationBetaPolicyClusterAdmissionRules> cluster_admission_rules = 2;
-  BinaryauthorizationBetaPolicyDefaultAdmissionRule default_admission_rule = 3;
-  string description = 4;
-  BinaryauthorizationBetaPolicyGlobalPolicyEvaluationModeEnum global_policy_evaluation_mode = 5;
-  string self_link = 6;
-  string project = 7;
-  string update_time = 8;
+  map<string, BinaryauthorizationBetaPolicyAdmissionRule> cluster_admission_rules = 2;
+  map<string, BinaryauthorizationBetaPolicyAdmissionRule> kubernetes_namespace_admission_rules = 3;
+  map<string, BinaryauthorizationBetaPolicyAdmissionRule> kubernetes_service_account_admission_rules = 4;
+  map<string, BinaryauthorizationBetaPolicyAdmissionRule> istio_service_identity_admission_rules = 5;
+  BinaryauthorizationBetaPolicyAdmissionRule default_admission_rule = 6;
+  string description = 7;
+  BinaryauthorizationBetaPolicyGlobalPolicyEvaluationModeEnum global_policy_evaluation_mode = 8;
+  string self_link = 9;
+  string project = 10;
+  string update_time = 11;
 }
 
 message BinaryauthorizationBetaPolicyAdmissionWhitelistPatterns {
   string name_pattern = 1;
 }
 
-message BinaryauthorizationBetaPolicyClusterAdmissionRules {
-  BinaryauthorizationBetaPolicyClusterAdmissionRulesEvaluationModeEnum evaluation_mode = 1;
+message BinaryauthorizationBetaPolicyAdmissionRule {
+  BinaryauthorizationBetaPolicyAdmissionRuleEvaluationModeEnum evaluation_mode = 1;
   repeated string require_attestations_by = 2;
-  BinaryauthorizationBetaPolicyClusterAdmissionRulesEnforcementModeEnum enforcement_mode = 3;
-}
-
-message BinaryauthorizationBetaPolicyDefaultAdmissionRule {
-  BinaryauthorizationBetaPolicyDefaultAdmissionRuleEvaluationModeEnum evaluation_mode = 1;
-  repeated string require_attestations_by = 2;
-  BinaryauthorizationBetaPolicyDefaultAdmissionRuleEnforcementModeEnum enforcement_mode = 3;
+  BinaryauthorizationBetaPolicyAdmissionRuleEnforcementModeEnum enforcement_mode = 3;
 }
 
 message ApplyBinaryauthorizationBetaPolicyRequest {
@@ -93,7 +76,6 @@ message DeleteBinaryauthorizationBetaPolicyRequest {
 
 message ListBinaryauthorizationBetaPolicyRequest {
   string service_account_file = 1;
-  string Project = 2;
 }
 
 message ListBinaryauthorizationBetaPolicyResponse {

@@ -14,6 +14,7 @@
 package beta
 
 import (
+	"bytes"
 	"context"
 	"crypto/sha256"
 	"encoding/json"
@@ -25,123 +26,72 @@ import (
 )
 
 type Policy struct {
-	AdmissionWhitelistPatterns []PolicyAdmissionWhitelistPatterns     `json:"admissionWhitelistPatterns"`
-	ClusterAdmissionRules      map[string]PolicyClusterAdmissionRules `json:"clusterAdmissionRules"`
-	DefaultAdmissionRule       *PolicyDefaultAdmissionRule            `json:"defaultAdmissionRule"`
-	Description                *string                                `json:"description"`
-	GlobalPolicyEvaluationMode *PolicyGlobalPolicyEvaluationModeEnum  `json:"globalPolicyEvaluationMode"`
-	SelfLink                   *string                                `json:"selfLink"`
-	Project                    *string                                `json:"project"`
-	UpdateTime                 *string                                `json:"updateTime"`
+	AdmissionWhitelistPatterns             []PolicyAdmissionWhitelistPatterns    `json:"admissionWhitelistPatterns"`
+	ClusterAdmissionRules                  map[string]PolicyAdmissionRule        `json:"clusterAdmissionRules"`
+	KubernetesNamespaceAdmissionRules      map[string]PolicyAdmissionRule        `json:"kubernetesNamespaceAdmissionRules"`
+	KubernetesServiceAccountAdmissionRules map[string]PolicyAdmissionRule        `json:"kubernetesServiceAccountAdmissionRules"`
+	IstioServiceIdentityAdmissionRules     map[string]PolicyAdmissionRule        `json:"istioServiceIdentityAdmissionRules"`
+	DefaultAdmissionRule                   *PolicyAdmissionRule                  `json:"defaultAdmissionRule"`
+	Description                            *string                               `json:"description"`
+	GlobalPolicyEvaluationMode             *PolicyGlobalPolicyEvaluationModeEnum `json:"globalPolicyEvaluationMode"`
+	SelfLink                               *string                               `json:"selfLink"`
+	Project                                *string                               `json:"project"`
+	UpdateTime                             *string                               `json:"updateTime"`
 }
 
 func (r *Policy) String() string {
 	return dcl.SprintResource(r)
 }
 
-// The enum PolicyClusterAdmissionRulesEvaluationModeEnum.
-type PolicyClusterAdmissionRulesEvaluationModeEnum string
+// The enum PolicyAdmissionRuleEvaluationModeEnum.
+type PolicyAdmissionRuleEvaluationModeEnum string
 
-// PolicyClusterAdmissionRulesEvaluationModeEnumRef returns a *PolicyClusterAdmissionRulesEvaluationModeEnum with the value of string s
+// PolicyAdmissionRuleEvaluationModeEnumRef returns a *PolicyAdmissionRuleEvaluationModeEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func PolicyClusterAdmissionRulesEvaluationModeEnumRef(s string) *PolicyClusterAdmissionRulesEvaluationModeEnum {
+func PolicyAdmissionRuleEvaluationModeEnumRef(s string) *PolicyAdmissionRuleEvaluationModeEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := PolicyClusterAdmissionRulesEvaluationModeEnum(s)
+	v := PolicyAdmissionRuleEvaluationModeEnum(s)
 	return &v
 }
 
-func (v PolicyClusterAdmissionRulesEvaluationModeEnum) Validate() error {
+func (v PolicyAdmissionRuleEvaluationModeEnum) Validate() error {
 	for _, s := range []string{"ALWAYS_ALLOW", "ALWAYS_DENY", "REQUIRE_ATTESTATION"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "PolicyClusterAdmissionRulesEvaluationModeEnum",
+		Enum:  "PolicyAdmissionRuleEvaluationModeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum PolicyClusterAdmissionRulesEnforcementModeEnum.
-type PolicyClusterAdmissionRulesEnforcementModeEnum string
+// The enum PolicyAdmissionRuleEnforcementModeEnum.
+type PolicyAdmissionRuleEnforcementModeEnum string
 
-// PolicyClusterAdmissionRulesEnforcementModeEnumRef returns a *PolicyClusterAdmissionRulesEnforcementModeEnum with the value of string s
+// PolicyAdmissionRuleEnforcementModeEnumRef returns a *PolicyAdmissionRuleEnforcementModeEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func PolicyClusterAdmissionRulesEnforcementModeEnumRef(s string) *PolicyClusterAdmissionRulesEnforcementModeEnum {
+func PolicyAdmissionRuleEnforcementModeEnumRef(s string) *PolicyAdmissionRuleEnforcementModeEnum {
 	if s == "" {
 		return nil
 	}
 
-	v := PolicyClusterAdmissionRulesEnforcementModeEnum(s)
+	v := PolicyAdmissionRuleEnforcementModeEnum(s)
 	return &v
 }
 
-func (v PolicyClusterAdmissionRulesEnforcementModeEnum) Validate() error {
+func (v PolicyAdmissionRuleEnforcementModeEnum) Validate() error {
 	for _, s := range []string{"ENFORCEMENT_MODE_UNSPECIFIED", "ENFORCED_BLOCK_AND_AUDIT_LOG", "DRYRUN_AUDIT_LOG_ONLY"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "PolicyClusterAdmissionRulesEnforcementModeEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-// The enum PolicyDefaultAdmissionRuleEvaluationModeEnum.
-type PolicyDefaultAdmissionRuleEvaluationModeEnum string
-
-// PolicyDefaultAdmissionRuleEvaluationModeEnumRef returns a *PolicyDefaultAdmissionRuleEvaluationModeEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func PolicyDefaultAdmissionRuleEvaluationModeEnumRef(s string) *PolicyDefaultAdmissionRuleEvaluationModeEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := PolicyDefaultAdmissionRuleEvaluationModeEnum(s)
-	return &v
-}
-
-func (v PolicyDefaultAdmissionRuleEvaluationModeEnum) Validate() error {
-	for _, s := range []string{"GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED", "ENABLE", "DISABLE"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "PolicyDefaultAdmissionRuleEvaluationModeEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-// The enum PolicyDefaultAdmissionRuleEnforcementModeEnum.
-type PolicyDefaultAdmissionRuleEnforcementModeEnum string
-
-// PolicyDefaultAdmissionRuleEnforcementModeEnumRef returns a *PolicyDefaultAdmissionRuleEnforcementModeEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func PolicyDefaultAdmissionRuleEnforcementModeEnumRef(s string) *PolicyDefaultAdmissionRuleEnforcementModeEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := PolicyDefaultAdmissionRuleEnforcementModeEnum(s)
-	return &v
-}
-
-func (v PolicyDefaultAdmissionRuleEnforcementModeEnum) Validate() error {
-	for _, s := range []string{"ENFORCEMENT_MODE_UNSPECIFIED", "ENFORCED_BLOCK_AND_AUDIT_LOG", "DRYRUN_AUDIT_LOG_ONLY"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "PolicyDefaultAdmissionRuleEnforcementModeEnum",
+		Enum:  "PolicyAdmissionRuleEnforcementModeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -220,17 +170,17 @@ func (r *PolicyAdmissionWhitelistPatterns) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type PolicyClusterAdmissionRules struct {
-	empty                 bool                                            `json:"-"`
-	EvaluationMode        *PolicyClusterAdmissionRulesEvaluationModeEnum  `json:"evaluationMode"`
-	RequireAttestationsBy []string                                        `json:"requireAttestationsBy"`
-	EnforcementMode       *PolicyClusterAdmissionRulesEnforcementModeEnum `json:"enforcementMode"`
+type PolicyAdmissionRule struct {
+	empty                 bool                                    `json:"-"`
+	EvaluationMode        *PolicyAdmissionRuleEvaluationModeEnum  `json:"evaluationMode"`
+	RequireAttestationsBy []string                                `json:"requireAttestationsBy"`
+	EnforcementMode       *PolicyAdmissionRuleEnforcementModeEnum `json:"enforcementMode"`
 }
 
-type jsonPolicyClusterAdmissionRules PolicyClusterAdmissionRules
+type jsonPolicyAdmissionRule PolicyAdmissionRule
 
-func (r *PolicyClusterAdmissionRules) UnmarshalJSON(data []byte) error {
-	var res jsonPolicyClusterAdmissionRules
+func (r *PolicyAdmissionRule) UnmarshalJSON(data []byte) error {
+	var res jsonPolicyAdmissionRule
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -239,7 +189,7 @@ func (r *PolicyClusterAdmissionRules) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyPolicyClusterAdmissionRules
+		*r = *EmptyPolicyAdmissionRule
 	} else {
 
 		r.EvaluationMode = res.EvaluationMode
@@ -252,72 +202,20 @@ func (r *PolicyClusterAdmissionRules) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this PolicyClusterAdmissionRules is
+// This object is used to assert a desired state where this PolicyAdmissionRule is
 // empty.  Go lacks global const objects, but this object should be treated
 // as one.  Modifying this object will have undesirable results.
-var EmptyPolicyClusterAdmissionRules *PolicyClusterAdmissionRules = &PolicyClusterAdmissionRules{empty: true}
+var EmptyPolicyAdmissionRule *PolicyAdmissionRule = &PolicyAdmissionRule{empty: true}
 
-func (r *PolicyClusterAdmissionRules) Empty() bool {
+func (r *PolicyAdmissionRule) Empty() bool {
 	return r.empty
 }
 
-func (r *PolicyClusterAdmissionRules) String() string {
+func (r *PolicyAdmissionRule) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *PolicyClusterAdmissionRules) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type PolicyDefaultAdmissionRule struct {
-	empty                 bool                                           `json:"-"`
-	EvaluationMode        *PolicyDefaultAdmissionRuleEvaluationModeEnum  `json:"evaluationMode"`
-	RequireAttestationsBy []string                                       `json:"requireAttestationsBy"`
-	EnforcementMode       *PolicyDefaultAdmissionRuleEnforcementModeEnum `json:"enforcementMode"`
-}
-
-type jsonPolicyDefaultAdmissionRule PolicyDefaultAdmissionRule
-
-func (r *PolicyDefaultAdmissionRule) UnmarshalJSON(data []byte) error {
-	var res jsonPolicyDefaultAdmissionRule
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyPolicyDefaultAdmissionRule
-	} else {
-
-		r.EvaluationMode = res.EvaluationMode
-
-		r.RequireAttestationsBy = res.RequireAttestationsBy
-
-		r.EnforcementMode = res.EnforcementMode
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this PolicyDefaultAdmissionRule is
-// empty.  Go lacks global const objects, but this object should be treated
-// as one.  Modifying this object will have undesirable results.
-var EmptyPolicyDefaultAdmissionRule *PolicyDefaultAdmissionRule = &PolicyDefaultAdmissionRule{empty: true}
-
-func (r *PolicyDefaultAdmissionRule) Empty() bool {
-	return r.empty
-}
-
-func (r *PolicyDefaultAdmissionRule) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *PolicyDefaultAdmissionRule) HashCode() string {
+func (r *PolicyAdmissionRule) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -340,57 +238,18 @@ type PolicyList struct {
 	Items []*Policy
 
 	nextToken string
-
-	pageSize int32
-
-	project string
 }
 
-func (l *PolicyList) HasNext() bool {
-	return l.nextToken != ""
+// URLNormalized returns a copy of the resource struct with values normalized
+// for URL substitutions. For instance, it converts long-form self-links to
+// short-form so they can be substituted in.
+func (r *Policy) URLNormalized() *Policy {
+	normalized := dcl.Copy(*r).(Policy)
+	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
+	normalized.Project = dcl.SelfLinkToName(r.Project)
+	return &normalized
 }
-
-func (l *PolicyList) Next(ctx context.Context, c *Client) error {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
-
-	if !l.HasNext() {
-		return fmt.Errorf("no next page")
-	}
-	items, token, err := c.listPolicy(ctx, l.project, l.nextToken, l.pageSize)
-	if err != nil {
-		return err
-	}
-	l.Items = items
-	l.nextToken = token
-	return err
-}
-
-func (c *Client) ListPolicy(ctx context.Context, project string) (*PolicyList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
-
-	return c.ListPolicyWithMaxResults(ctx, project, PolicyMaxPage)
-
-}
-
-func (c *Client) ListPolicyWithMaxResults(ctx context.Context, project string, pageSize int32) (*PolicyList, error) {
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
-	defer cancel()
-
-	items, token, err := c.listPolicy(ctx, project, "", pageSize)
-	if err != nil {
-		return nil, err
-	}
-	return &PolicyList{
-		Items:     items,
-		nextToken: token,
-		pageSize:  pageSize,
-
-		project: project,
-	}, nil
-}
-
 func (c *Client) GetPolicy(ctx context.Context, r *Policy) (*Policy, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
@@ -467,51 +326,19 @@ func applyPolicyHelper(c *Client, ctx context.Context, rawDesired *Policy, opts 
 	// TODO(magic-modules-eng): 2.2 Feasibility check (all updates are feasible so far).
 
 	// 2.3: Lifecycle Directive Check
-	var create bool
-	var recreate bool
 	lp := dcl.FetchLifecycleParams(opts)
 	if initial == nil {
-		if dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
-			return nil, dcl.ApplyInfeasibleError{Message: fmt.Sprintf("Creation blocked by lifecycle params: %#v.", desired)}
-		}
-		create = true
-	} else if dcl.HasLifecycleParam(lp, dcl.BlockAcquire) {
-		return nil, dcl.ApplyInfeasibleError{
-			Message: fmt.Sprintf("Resource already exists - apply blocked by lifecycle params: %#v.", initial),
-		}
+		return nil, dcl.ApplyInfeasibleError{Message: "No initial state found for singleton resource."}
 	} else {
 		for _, d := range diffs {
-			if d.RequiresRecreate {
-				if dcl.HasLifecycleParam(lp, dcl.BlockDestruction) || dcl.HasLifecycleParam(lp, dcl.BlockCreation) {
-					return nil, dcl.ApplyInfeasibleError{
-						Message: fmt.Sprintf("Infeasible update: (%v) would require recreation.", d),
-					}
-				}
-				c.Config.Logger.Infof("Diff requires recreate: %+v\n", d)
-				recreate = true
-			}
 			if dcl.HasLifecycleParam(lp, dcl.BlockModification) {
 				return nil, dcl.ApplyInfeasibleError{Message: fmt.Sprintf("Modification blocked, diff (%v) unresolvable.", d)}
 			}
 		}
 	}
-
-	// 2.4 Imperative Request Planning
 	var ops []policyApiOperation
-	if create {
-		ops = append(ops, &createPolicyOperation{})
-	} else if recreate {
-
-		ops = append(ops, &createPolicyOperation{})
-		// We should re-canonicalize based on a nil existing resource.
-		desired, err = canonicalizePolicyDesiredState(rawDesired, nil)
-		if err != nil {
-			return nil, err
-		}
-	} else {
-		for _, d := range diffs {
-			ops = append(ops, d.UpdateOp)
-		}
+	for _, d := range diffs {
+		ops = append(ops, d.UpdateOp)
 	}
 	c.Config.Logger.Infof("Created plan: %#v", ops)
 
@@ -527,31 +354,9 @@ func applyPolicyHelper(c *Client, ctx context.Context, rawDesired *Policy, opts 
 
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.Info("Retrieving raw new state...")
-	rawNew, err := c.GetPolicy(ctx, desired.urlNormalized())
+	rawNew, err := c.GetPolicy(ctx, desired.URLNormalized())
 	if err != nil {
 		return nil, err
-	}
-
-	// Get additional values from the first response.
-	// These values should be merged into the newState above.
-	if len(ops) > 0 {
-		lastOp := ops[len(ops)-1]
-		if o, ok := lastOp.(*createPolicyOperation); ok {
-			if r, hasR := o.FirstResponse(); hasR {
-
-				c.Config.Logger.Info("Retrieving raw new state from operation...")
-
-				fullResp, err := unmarshalMapPolicy(r, c)
-				if err != nil {
-					return nil, err
-				}
-
-				rawNew, err = canonicalizePolicyNewState(c, rawNew, fullResp)
-				if err != nil {
-					return nil, err
-				}
-			}
-		}
 	}
 
 	c.Config.Logger.Infof("Canonicalizing with raw desired state: %v", rawDesired)
@@ -586,4 +391,13 @@ func applyPolicyHelper(c *Client, ctx context.Context, rawDesired *Policy, opts 
 	}
 	c.Config.Logger.Info("Done Apply.")
 	return newState, nil
+}
+func (r *Policy) GetPolicy(basePath string) (string, string, *bytes.Buffer, error) {
+	u := r.getPolicyURL(basePath)
+	body := &bytes.Buffer{}
+	u, err := dcl.AddQueryParams(u, map[string]string{"optionsRequestedPolicyVersion": fmt.Sprintf("%d", r.IAMPolicyVersion())})
+	if err != nil {
+		return "", "", nil, err
+	}
+	return u, "POST", body, nil
 }

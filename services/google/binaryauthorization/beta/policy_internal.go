@@ -25,6 +25,9 @@ import (
 
 func (r *Policy) validate() error {
 
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"KubernetesNamespaceAdmissionRules", "KubernetesServiceAccountAdmissionRules", "IstioServiceIdentityAdmissionRules", "ClusterAdmissionRules"}, r.KubernetesNamespaceAdmissionRules, r.KubernetesServiceAccountAdmissionRules, r.IstioServiceIdentityAdmissionRules, r.ClusterAdmissionRules); err != nil {
+		return err
+	}
 	if err := dcl.Required(r, "defaultAdmissionRule"); err != nil {
 		return err
 	}
@@ -38,16 +41,7 @@ func (r *Policy) validate() error {
 func (r *PolicyAdmissionWhitelistPatterns) validate() error {
 	return nil
 }
-func (r *PolicyClusterAdmissionRules) validate() error {
-	if err := dcl.Required(r, "evaluationMode"); err != nil {
-		return err
-	}
-	if err := dcl.Required(r, "enforcementMode"); err != nil {
-		return err
-	}
-	return nil
-}
-func (r *PolicyDefaultAdmissionRule) validate() error {
+func (r *PolicyAdmissionRule) validate() error {
 	if err := dcl.Required(r, "evaluationMode"); err != nil {
 		return err
 	}
@@ -61,23 +55,31 @@ func policyGetURL(userBasePath string, r *Policy) (string, error) {
 	params := map[string]interface{}{
 		"project": dcl.ValueOrEmptyString(r.Project),
 	}
-	return dcl.URL("projects/{{project}}/policy", "https://binaryauthorization.googleapis.com/v1beta1", userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/policy", "https://binaryauthorization.googleapis.com/v1", userBasePath, params), nil
 }
 
-func policyListURL(userBasePath, project string) (string, error) {
-	params := map[string]interface{}{
-		"project": project,
+func (r *Policy) SetPolicyURL(userBasePath string) string {
+	n := r.URLNormalized()
+	fields := map[string]interface{}{
+		"project": *n.Project,
 	}
-	return dcl.URL("projects/{{project}}/policy", "https://binaryauthorization.googleapis.com/v1beta1", userBasePath, params), nil
-
+	return dcl.URL("projects/{{project}}/policy:setIamPolicy", "https://binaryauthorization.googleapis.com/v1", userBasePath, fields)
 }
 
-func policyCreateURL(userBasePath, project string) (string, error) {
-	params := map[string]interface{}{
-		"project": project,
-	}
-	return dcl.URL("projects/{{project}}/policy", "https://binaryauthorization.googleapis.com/v1beta1", userBasePath, params), nil
+func (r *Policy) SetPolicyVerb() string {
+	return "POST"
+}
 
+func (r *Policy) getPolicyURL(userBasePath string) string {
+	n := r.URLNormalized()
+	fields := map[string]interface{}{
+		"project": *n.Project,
+	}
+	return dcl.URL("projects/{{project}}/policy:getIamPolicy", "https://binaryauthorization.googleapis.com/v1", userBasePath, fields)
+}
+
+func (r *Policy) IAMPolicyVersion() int {
+	return 3
 }
 
 // policyApiOperation represents a mutable operation in the underlying REST
@@ -86,60 +88,91 @@ type policyApiOperation interface {
 	do(context.Context, *Policy, *Client) error
 }
 
-func (c *Client) listPolicyRaw(ctx context.Context, project, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := policyListURL(c.Config.BasePath, project)
-	if err != nil {
-		return nil, err
-	}
+// newUpdatePolicyUpdatePolicyRequest creates a request for an
+// Policy resource's UpdatePolicy update type by filling in the update
+// fields based on the intended state of the resource.
+func newUpdatePolicyUpdatePolicyRequest(ctx context.Context, f *Policy, c *Client) (map[string]interface{}, error) {
+	req := map[string]interface{}{}
 
-	m := make(map[string]string)
-	if pageToken != "" {
-		m["pageToken"] = pageToken
+	if v, err := expandPolicyAdmissionWhitelistPatternsSlice(c, f.AdmissionWhitelistPatterns); err != nil {
+		return nil, fmt.Errorf("error expanding AdmissionWhitelistPatterns into admissionWhitelistPatterns: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["admissionWhitelistPatterns"] = v
 	}
-
-	if pageSize != PolicyMaxPage {
-		m["pageSize"] = fmt.Sprintf("%v", pageSize)
+	if v, err := expandPolicyAdmissionRuleMap(c, f.ClusterAdmissionRules); err != nil {
+		return nil, fmt.Errorf("error expanding ClusterAdmissionRules into clusterAdmissionRules: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["clusterAdmissionRules"] = v
 	}
-
-	u, err = dcl.AddQueryParams(u, m)
-	if err != nil {
-		return nil, err
+	if v := f.KubernetesNamespaceAdmissionRules; !dcl.IsEmptyValueIndirect(v) {
+		req["kubernetesNamespaceAdmissionRules"] = v
 	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, &bytes.Buffer{}, c.Config.RetryProvider)
-	if err != nil {
-		return nil, err
+	if v := f.KubernetesServiceAccountAdmissionRules; !dcl.IsEmptyValueIndirect(v) {
+		req["kubernetesServiceAccountAdmissionRules"] = v
 	}
-	defer resp.Response.Body.Close()
-	return ioutil.ReadAll(resp.Response.Body)
+	if v := f.IstioServiceIdentityAdmissionRules; !dcl.IsEmptyValueIndirect(v) {
+		req["istioServiceIdentityAdmissionRules"] = v
+	}
+	if v, err := expandPolicyAdmissionRule(c, f.DefaultAdmissionRule); err != nil {
+		return nil, fmt.Errorf("error expanding DefaultAdmissionRule into defaultAdmissionRule: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["defaultAdmissionRule"] = v
+	}
+	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+		req["description"] = v
+	}
+	if v := f.GlobalPolicyEvaluationMode; !dcl.IsEmptyValueIndirect(v) {
+		req["globalPolicyEvaluationMode"] = v
+	}
+	return req, nil
 }
 
-type listPolicyOperation struct {
-	Items []map[string]interface{} `json:"items"`
-	Token string                   `json:"nextPageToken"`
+// marshalUpdatePolicyUpdatePolicyRequest converts the update into
+// the final JSON request body.
+func marshalUpdatePolicyUpdatePolicyRequest(c *Client, m map[string]interface{}) ([]byte, error) {
+
+	return json.Marshal(m)
 }
 
-func (c *Client) listPolicy(ctx context.Context, project, pageToken string, pageSize int32) ([]*Policy, string, error) {
-	b, err := c.listPolicyRaw(ctx, project, pageToken, pageSize)
+type updatePolicyUpdatePolicyOperation struct {
+	// If the update operation has the REQUIRES_APPLY_OPTIONS trait, this will be populated.
+	// Usually it will be nil - this is to prevent us from accidentally depending on apply
+	// options, which should usually be unnecessary.
+	ApplyOptions []dcl.ApplyOption
+	Diffs        []*dcl.FieldDiff
+}
+
+// do creates a request and sends it to the appropriate URL. In most operations,
+// do will transcribe a subset of the resource into a request object and send a
+// PUT request to a single URL.
+
+func (op *updatePolicyUpdatePolicyOperation) do(ctx context.Context, r *Policy, c *Client) error {
+	_, err := c.GetPolicy(ctx, r.URLNormalized())
 	if err != nil {
-		return nil, "", err
+		return err
 	}
 
-	var m listPolicyOperation
-	if err := json.Unmarshal(b, &m); err != nil {
-		return nil, "", err
+	u, err := r.updateURL(c.Config.BasePath, "UpdatePolicy")
+	if err != nil {
+		return err
 	}
 
-	var l []*Policy
-	for _, v := range m.Items {
-		res, err := unmarshalMapPolicy(v, c)
-		if err != nil {
-			return nil, m.Token, err
-		}
-		res.Project = &project
-		l = append(l, res)
+	req, err := newUpdatePolicyUpdatePolicyRequest(ctx, r, c)
+	if err != nil {
+		return err
 	}
 
-	return l, m.Token, nil
+	c.Config.Logger.Infof("Created update: %#v", req)
+	body, err := marshalUpdatePolicyUpdatePolicyRequest(c, req)
+	if err != nil {
+		return err
+	}
+	_, err = dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // Create operations are similar to Update operations, although they do not have
@@ -153,42 +186,9 @@ func (op *createPolicyOperation) FirstResponse() (map[string]interface{}, bool) 
 	return op.response, len(op.response) > 0
 }
 
-func (op *createPolicyOperation) do(ctx context.Context, r *Policy, c *Client) error {
-	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project := r.createFields()
-	u, err := policyCreateURL(c.Config.BasePath, project)
-
-	if err != nil {
-		return err
-	}
-
-	req, err := r.marshal(c)
-	if err != nil {
-		return err
-	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "PUT", u, bytes.NewBuffer(req), c.Config.RetryProvider)
-	if err != nil {
-		return err
-	}
-
-	o, err := dcl.ResponseBodyAsJSON(resp)
-	if err != nil {
-		return fmt.Errorf("error decoding response body into JSON: %w", err)
-	}
-	op.response = o
-
-	if _, err := c.GetPolicy(ctx, r.urlNormalized()); err != nil {
-		c.Config.Logger.Warningf("get returned error: %v", err)
-		return err
-	}
-
-	return nil
-}
-
 func (c *Client) getPolicyRaw(ctx context.Context, r *Policy) ([]byte, error) {
 
-	u, err := policyGetURL(c.Config.BasePath, r.urlNormalized())
+	u, err := policyGetURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return nil, err
 	}
@@ -220,11 +220,18 @@ func (c *Client) policyDiffsForRawDesired(ctx context.Context, rawDesired *Polic
 		fetchState = rawDesired
 	}
 
-	// Simulate the resource not existing because create operation should be called anyway.
-	rawInitial := &Policy{}
-	desired, err = canonicalizePolicyDesiredState(rawDesired, rawInitial)
-	return nil, desired, nil, err
-
+	// 1.2: Retrieval of raw initial state from API
+	rawInitial, err := c.GetPolicy(ctx, fetchState.URLNormalized())
+	if rawInitial == nil {
+		if !dcl.IsNotFound(err) {
+			c.Config.Logger.Warningf("Failed to retrieve whether a Policy resource already exists: %s", err)
+			return nil, nil, nil, fmt.Errorf("failed to retrieve Policy resource: %v", err)
+		}
+		c.Config.Logger.Info("Found that Policy resource did not exist.")
+		// Perform canonicalization to pick up defaults.
+		desired, err = canonicalizePolicyDesiredState(rawDesired, rawInitial)
+		return nil, desired, nil, err
+	}
 	c.Config.Logger.Infof("Found initial state for Policy: %v", rawInitial)
 	c.Config.Logger.Infof("Initial desired state for Policy: %v", rawDesired)
 
@@ -249,6 +256,35 @@ func (c *Client) policyDiffsForRawDesired(ctx context.Context, rawDesired *Polic
 
 func canonicalizePolicyInitialState(rawInitial, rawDesired *Policy) (*Policy, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
+
+	if dcl.IsZeroValue(rawInitial.KubernetesNamespaceAdmissionRules) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.KubernetesServiceAccountAdmissionRules, rawInitial.IstioServiceIdentityAdmissionRules, rawInitial.ClusterAdmissionRules) {
+			rawInitial.KubernetesNamespaceAdmissionRules = map[string]PolicyAdmissionRule{}
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.KubernetesServiceAccountAdmissionRules) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.KubernetesNamespaceAdmissionRules, rawInitial.IstioServiceIdentityAdmissionRules, rawInitial.ClusterAdmissionRules) {
+			rawInitial.KubernetesServiceAccountAdmissionRules = map[string]PolicyAdmissionRule{}
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.IstioServiceIdentityAdmissionRules) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.KubernetesNamespaceAdmissionRules, rawInitial.KubernetesServiceAccountAdmissionRules, rawInitial.ClusterAdmissionRules) {
+			rawInitial.IstioServiceIdentityAdmissionRules = map[string]PolicyAdmissionRule{}
+		}
+	}
+
+	if dcl.IsZeroValue(rawInitial.ClusterAdmissionRules) {
+		// check if anything else is set
+		if dcl.AnySet(rawInitial.KubernetesNamespaceAdmissionRules, rawInitial.KubernetesServiceAccountAdmissionRules, rawInitial.IstioServiceIdentityAdmissionRules) {
+			rawInitial.ClusterAdmissionRules = map[string]PolicyAdmissionRule{}
+		}
+	}
+
 	return rawInitial, nil
 }
 
@@ -264,9 +300,41 @@ func canonicalizePolicyDesiredState(rawDesired, rawInitial *Policy, opts ...dcl.
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
-		rawDesired.DefaultAdmissionRule = canonicalizePolicyDefaultAdmissionRule(rawDesired.DefaultAdmissionRule, nil, opts...)
+		rawDesired.DefaultAdmissionRule = canonicalizePolicyAdmissionRule(rawDesired.DefaultAdmissionRule, nil, opts...)
 
 		return rawDesired, nil
+	}
+
+	if rawDesired.KubernetesNamespaceAdmissionRules != nil || rawInitial.KubernetesNamespaceAdmissionRules != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.KubernetesServiceAccountAdmissionRules, rawDesired.IstioServiceIdentityAdmissionRules, rawDesired.ClusterAdmissionRules) {
+			rawDesired.KubernetesNamespaceAdmissionRules = nil
+			rawInitial.KubernetesNamespaceAdmissionRules = nil
+		}
+	}
+
+	if rawDesired.KubernetesServiceAccountAdmissionRules != nil || rawInitial.KubernetesServiceAccountAdmissionRules != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.KubernetesNamespaceAdmissionRules, rawDesired.IstioServiceIdentityAdmissionRules, rawDesired.ClusterAdmissionRules) {
+			rawDesired.KubernetesServiceAccountAdmissionRules = nil
+			rawInitial.KubernetesServiceAccountAdmissionRules = nil
+		}
+	}
+
+	if rawDesired.IstioServiceIdentityAdmissionRules != nil || rawInitial.IstioServiceIdentityAdmissionRules != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.KubernetesNamespaceAdmissionRules, rawDesired.KubernetesServiceAccountAdmissionRules, rawDesired.ClusterAdmissionRules) {
+			rawDesired.IstioServiceIdentityAdmissionRules = nil
+			rawInitial.IstioServiceIdentityAdmissionRules = nil
+		}
+	}
+
+	if rawDesired.ClusterAdmissionRules != nil || rawInitial.ClusterAdmissionRules != nil {
+		// check if anything else is set
+		if dcl.AnySet(rawDesired.KubernetesNamespaceAdmissionRules, rawDesired.KubernetesServiceAccountAdmissionRules, rawDesired.IstioServiceIdentityAdmissionRules) {
+			rawDesired.ClusterAdmissionRules = nil
+			rawInitial.ClusterAdmissionRules = nil
+		}
 	}
 
 	if dcl.IsZeroValue(rawDesired.AdmissionWhitelistPatterns) {
@@ -275,7 +343,16 @@ func canonicalizePolicyDesiredState(rawDesired, rawInitial *Policy, opts ...dcl.
 	if dcl.IsZeroValue(rawDesired.ClusterAdmissionRules) {
 		rawDesired.ClusterAdmissionRules = rawInitial.ClusterAdmissionRules
 	}
-	rawDesired.DefaultAdmissionRule = canonicalizePolicyDefaultAdmissionRule(rawDesired.DefaultAdmissionRule, rawInitial.DefaultAdmissionRule, opts...)
+	if dcl.IsZeroValue(rawDesired.KubernetesNamespaceAdmissionRules) {
+		rawDesired.KubernetesNamespaceAdmissionRules = rawInitial.KubernetesNamespaceAdmissionRules
+	}
+	if dcl.IsZeroValue(rawDesired.KubernetesServiceAccountAdmissionRules) {
+		rawDesired.KubernetesServiceAccountAdmissionRules = rawInitial.KubernetesServiceAccountAdmissionRules
+	}
+	if canonicalizePolicyISIAR(rawDesired.IstioServiceIdentityAdmissionRules, rawInitial.IstioServiceIdentityAdmissionRules) {
+		rawDesired.IstioServiceIdentityAdmissionRules = rawInitial.IstioServiceIdentityAdmissionRules
+	}
+	rawDesired.DefaultAdmissionRule = canonicalizePolicyAdmissionRule(rawDesired.DefaultAdmissionRule, rawInitial.DefaultAdmissionRule, opts...)
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		rawDesired.Description = rawInitial.Description
 	}
@@ -302,10 +379,28 @@ func canonicalizePolicyNewState(c *Client, rawNew, rawDesired *Policy) (*Policy,
 	} else {
 	}
 
+	if dcl.IsEmptyValueIndirect(rawNew.KubernetesNamespaceAdmissionRules) && dcl.IsEmptyValueIndirect(rawDesired.KubernetesNamespaceAdmissionRules) {
+		rawNew.KubernetesNamespaceAdmissionRules = rawDesired.KubernetesNamespaceAdmissionRules
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.KubernetesServiceAccountAdmissionRules) && dcl.IsEmptyValueIndirect(rawDesired.KubernetesServiceAccountAdmissionRules) {
+		rawNew.KubernetesServiceAccountAdmissionRules = rawDesired.KubernetesServiceAccountAdmissionRules
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.IstioServiceIdentityAdmissionRules) && dcl.IsEmptyValueIndirect(rawDesired.IstioServiceIdentityAdmissionRules) {
+		rawNew.IstioServiceIdentityAdmissionRules = rawDesired.IstioServiceIdentityAdmissionRules
+	} else {
+		if canonicalizePolicyISIAR(rawDesired.IstioServiceIdentityAdmissionRules, rawNew.IstioServiceIdentityAdmissionRules) {
+			rawNew.IstioServiceIdentityAdmissionRules = rawDesired.IstioServiceIdentityAdmissionRules
+		}
+	}
+
 	if dcl.IsEmptyValueIndirect(rawNew.DefaultAdmissionRule) && dcl.IsEmptyValueIndirect(rawDesired.DefaultAdmissionRule) {
 		rawNew.DefaultAdmissionRule = rawDesired.DefaultAdmissionRule
 	} else {
-		rawNew.DefaultAdmissionRule = canonicalizeNewPolicyDefaultAdmissionRule(c, rawDesired.DefaultAdmissionRule, rawNew.DefaultAdmissionRule)
+		rawNew.DefaultAdmissionRule = canonicalizeNewPolicyAdmissionRule(c, rawDesired.DefaultAdmissionRule, rawNew.DefaultAdmissionRule)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
@@ -413,7 +508,7 @@ func canonicalizeNewPolicyAdmissionWhitelistPatternsSlice(c *Client, des, nw []P
 	return items
 }
 
-func canonicalizePolicyClusterAdmissionRules(des, initial *PolicyClusterAdmissionRules, opts ...dcl.ApplyOption) *PolicyClusterAdmissionRules {
+func canonicalizePolicyAdmissionRule(des, initial *PolicyAdmissionRule, opts ...dcl.ApplyOption) *PolicyAdmissionRule {
 	if des == nil {
 		return initial
 	}
@@ -438,7 +533,7 @@ func canonicalizePolicyClusterAdmissionRules(des, initial *PolicyClusterAdmissio
 	return des
 }
 
-func canonicalizeNewPolicyClusterAdmissionRules(c *Client, des, nw *PolicyClusterAdmissionRules) *PolicyClusterAdmissionRules {
+func canonicalizeNewPolicyAdmissionRule(c *Client, des, nw *PolicyAdmissionRule) *PolicyAdmissionRule {
 	if des == nil || nw == nil {
 		return nw
 	}
@@ -456,15 +551,15 @@ func canonicalizeNewPolicyClusterAdmissionRules(c *Client, des, nw *PolicyCluste
 	return nw
 }
 
-func canonicalizeNewPolicyClusterAdmissionRulesSet(c *Client, des, nw []PolicyClusterAdmissionRules) []PolicyClusterAdmissionRules {
+func canonicalizeNewPolicyAdmissionRuleSet(c *Client, des, nw []PolicyAdmissionRule) []PolicyAdmissionRule {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []PolicyClusterAdmissionRules
+	var reorderedNew []PolicyAdmissionRule
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := comparePolicyClusterAdmissionRulesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := comparePolicyAdmissionRuleNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -479,7 +574,7 @@ func canonicalizeNewPolicyClusterAdmissionRulesSet(c *Client, des, nw []PolicyCl
 	return reorderedNew
 }
 
-func canonicalizeNewPolicyClusterAdmissionRulesSlice(c *Client, des, nw []PolicyClusterAdmissionRules) []PolicyClusterAdmissionRules {
+func canonicalizeNewPolicyAdmissionRuleSlice(c *Client, des, nw []PolicyAdmissionRule) []PolicyAdmissionRule {
 	if des == nil {
 		return nw
 	}
@@ -490,96 +585,10 @@ func canonicalizeNewPolicyClusterAdmissionRulesSlice(c *Client, des, nw []Policy
 		return nw
 	}
 
-	var items []PolicyClusterAdmissionRules
+	var items []PolicyAdmissionRule
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewPolicyClusterAdmissionRules(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizePolicyDefaultAdmissionRule(des, initial *PolicyDefaultAdmissionRule, opts ...dcl.ApplyOption) *PolicyDefaultAdmissionRule {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	if dcl.IsZeroValue(des.EvaluationMode) {
-		des.EvaluationMode = initial.EvaluationMode
-	}
-	if dcl.IsZeroValue(des.RequireAttestationsBy) {
-		des.RequireAttestationsBy = initial.RequireAttestationsBy
-	}
-	if dcl.IsZeroValue(des.EnforcementMode) {
-		des.EnforcementMode = initial.EnforcementMode
-	}
-
-	return des
-}
-
-func canonicalizeNewPolicyDefaultAdmissionRule(c *Client, des, nw *PolicyDefaultAdmissionRule) *PolicyDefaultAdmissionRule {
-	if des == nil || nw == nil {
-		return nw
-	}
-
-	if dcl.IsZeroValue(nw.EvaluationMode) {
-		nw.EvaluationMode = des.EvaluationMode
-	}
-	if dcl.IsZeroValue(nw.RequireAttestationsBy) {
-		nw.RequireAttestationsBy = des.RequireAttestationsBy
-	}
-	if dcl.IsZeroValue(nw.EnforcementMode) {
-		nw.EnforcementMode = des.EnforcementMode
-	}
-
-	return nw
-}
-
-func canonicalizeNewPolicyDefaultAdmissionRuleSet(c *Client, des, nw []PolicyDefaultAdmissionRule) []PolicyDefaultAdmissionRule {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []PolicyDefaultAdmissionRule
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := comparePolicyDefaultAdmissionRuleNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewPolicyDefaultAdmissionRuleSlice(c *Client, des, nw []PolicyDefaultAdmissionRule) []PolicyDefaultAdmissionRule {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []PolicyDefaultAdmissionRule
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewPolicyDefaultAdmissionRule(c, &d, &n))
+		items = append(items, *canonicalizeNewPolicyAdmissionRule(c, &d, &n))
 	}
 
 	return items
@@ -600,28 +609,49 @@ func diffPolicy(c *Client, desired, actual *Policy, opts ...dcl.ApplyOption) ([]
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.AdmissionWhitelistPatterns, actual.AdmissionWhitelistPatterns, dcl.Info{ObjectFunction: comparePolicyAdmissionWhitelistPatternsNewStyle, EmptyObject: EmptyPolicyAdmissionWhitelistPatterns, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AdmissionWhitelistPatterns")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdmissionWhitelistPatterns, actual.AdmissionWhitelistPatterns, dcl.Info{ObjectFunction: comparePolicyAdmissionWhitelistPatternsNewStyle, EmptyObject: EmptyPolicyAdmissionWhitelistPatterns, OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("AdmissionWhitelistPatterns")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DefaultAdmissionRule, actual.DefaultAdmissionRule, dcl.Info{ObjectFunction: comparePolicyDefaultAdmissionRuleNewStyle, EmptyObject: EmptyPolicyDefaultAdmissionRule, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultAdmissionRule")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KubernetesNamespaceAdmissionRules, actual.KubernetesNamespaceAdmissionRules, dcl.Info{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("KubernetesNamespaceAdmissionRules")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KubernetesServiceAccountAdmissionRules, actual.KubernetesServiceAccountAdmissionRules, dcl.Info{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("KubernetesServiceAccountAdmissionRules")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GlobalPolicyEvaluationMode, actual.GlobalPolicyEvaluationMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GlobalPolicyEvaluationMode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IstioServiceIdentityAdmissionRules, actual.IstioServiceIdentityAdmissionRules, dcl.Info{CustomDiff: canonicalizePolicyISIAR, OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("IstioServiceIdentityAdmissionRules")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DefaultAdmissionRule, actual.DefaultAdmissionRule, dcl.Info{ObjectFunction: comparePolicyAdmissionRuleNewStyle, EmptyObject: EmptyPolicyAdmissionRule, OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("DefaultAdmissionRule")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GlobalPolicyEvaluationMode, actual.GlobalPolicyEvaluationMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("GlobalPolicyEvaluationMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -671,7 +701,7 @@ func comparePolicyAdmissionWhitelistPatternsNewStyle(d, a interface{}, fn dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.NamePattern, actual.NamePattern, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NamePattern")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NamePattern, actual.NamePattern, dcl.Info{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("NamePattern")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -680,114 +710,67 @@ func comparePolicyAdmissionWhitelistPatternsNewStyle(d, a interface{}, fn dcl.Fi
 	return diffs, nil
 }
 
-func comparePolicyClusterAdmissionRulesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func comparePolicyAdmissionRuleNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*PolicyClusterAdmissionRules)
+	desired, ok := d.(*PolicyAdmissionRule)
 	if !ok {
-		desiredNotPointer, ok := d.(PolicyClusterAdmissionRules)
+		desiredNotPointer, ok := d.(PolicyAdmissionRule)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a PolicyClusterAdmissionRules or *PolicyClusterAdmissionRules", d)
+			return nil, fmt.Errorf("obj %v is not a PolicyAdmissionRule or *PolicyAdmissionRule", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*PolicyClusterAdmissionRules)
+	actual, ok := a.(*PolicyAdmissionRule)
 	if !ok {
-		actualNotPointer, ok := a.(PolicyClusterAdmissionRules)
+		actualNotPointer, ok := a.(PolicyAdmissionRule)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a PolicyClusterAdmissionRules", a)
+			return nil, fmt.Errorf("obj %v is not a PolicyAdmissionRule", a)
 		}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.EvaluationMode, actual.EvaluationMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EvaluationMode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EvaluationMode, actual.EvaluationMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("EvaluationMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequireAttestationsBy, actual.RequireAttestationsBy, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequireAttestationsBy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequireAttestationsBy, actual.RequireAttestationsBy, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("RequireAttestationsBy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EnforcementMode, actual.EnforcementMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnforcementMode")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func comparePolicyDefaultAdmissionRuleNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*PolicyDefaultAdmissionRule)
-	if !ok {
-		desiredNotPointer, ok := d.(PolicyDefaultAdmissionRule)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a PolicyDefaultAdmissionRule or *PolicyDefaultAdmissionRule", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*PolicyDefaultAdmissionRule)
-	if !ok {
-		actualNotPointer, ok := a.(PolicyDefaultAdmissionRule)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a PolicyDefaultAdmissionRule", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.EvaluationMode, actual.EvaluationMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EvaluationMode")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.RequireAttestationsBy, actual.RequireAttestationsBy, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RequireAttestationsBy")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.EnforcementMode, actual.EnforcementMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnforcementMode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnforcementMode, actual.EnforcementMode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("EnforcementMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 	return diffs, nil
-}
-
-// urlNormalized returns a copy of the resource struct with values normalized
-// for URL substitutions. For instance, it converts long-form self-links to
-// short-form so they can be substituted in.
-func (r *Policy) urlNormalized() *Policy {
-	normalized := dcl.Copy(*r).(Policy)
-	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
-	normalized.Project = dcl.SelfLinkToName(r.Project)
-	return &normalized
 }
 
 func (r *Policy) getFields() string {
-	n := r.urlNormalized()
+	n := r.URLNormalized()
 	return dcl.ValueOrEmptyString(n.Project)
 }
 
 func (r *Policy) createFields() string {
-	n := r.urlNormalized()
-	return dcl.ValueOrEmptyString(n.Project)
+	return ""
 }
 
 func (r *Policy) updateURL(userBasePath, updateName string) (string, error) {
+	n := r.URLNormalized()
+	if updateName == "UpdatePolicy" {
+		fields := map[string]interface{}{
+			"project": dcl.ValueOrEmptyString(n.Project),
+		}
+		return dcl.URL("projects/{{project}}/policy", "https://binaryauthorization.googleapis.com/v1", userBasePath, fields), nil
+
+	}
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
@@ -825,12 +808,21 @@ func expandPolicy(c *Client, f *Policy) (map[string]interface{}, error) {
 	} else if v != nil {
 		m["admissionWhitelistPatterns"] = v
 	}
-	if v, err := expandPolicyClusterAdmissionRulesMap(c, f.ClusterAdmissionRules); err != nil {
+	if v, err := expandPolicyAdmissionRuleMap(c, f.ClusterAdmissionRules); err != nil {
 		return nil, fmt.Errorf("error expanding ClusterAdmissionRules into clusterAdmissionRules: %w", err)
 	} else if v != nil {
 		m["clusterAdmissionRules"] = v
 	}
-	if v, err := expandPolicyDefaultAdmissionRule(c, f.DefaultAdmissionRule); err != nil {
+	if v := f.KubernetesNamespaceAdmissionRules; !dcl.IsEmptyValueIndirect(v) {
+		m["kubernetesNamespaceAdmissionRules"] = v
+	}
+	if v := f.KubernetesServiceAccountAdmissionRules; !dcl.IsEmptyValueIndirect(v) {
+		m["kubernetesServiceAccountAdmissionRules"] = v
+	}
+	if v := f.IstioServiceIdentityAdmissionRules; !dcl.IsEmptyValueIndirect(v) {
+		m["istioServiceIdentityAdmissionRules"] = v
+	}
+	if v, err := expandPolicyAdmissionRule(c, f.DefaultAdmissionRule); err != nil {
 		return nil, fmt.Errorf("error expanding DefaultAdmissionRule into defaultAdmissionRule: %w", err)
 	} else if v != nil {
 		m["defaultAdmissionRule"] = v
@@ -871,8 +863,11 @@ func flattenPolicy(c *Client, i interface{}) *Policy {
 
 	res := &Policy{}
 	res.AdmissionWhitelistPatterns = flattenPolicyAdmissionWhitelistPatternsSlice(c, m["admissionWhitelistPatterns"])
-	res.ClusterAdmissionRules = flattenPolicyClusterAdmissionRulesMap(c, m["clusterAdmissionRules"])
-	res.DefaultAdmissionRule = flattenPolicyDefaultAdmissionRule(c, m["defaultAdmissionRule"])
+	res.ClusterAdmissionRules = flattenPolicyAdmissionRuleMap(c, m["clusterAdmissionRules"])
+	res.KubernetesNamespaceAdmissionRules = flattenPolicyAdmissionRuleMap(c, m["kubernetesNamespaceAdmissionRules"])
+	res.KubernetesServiceAccountAdmissionRules = flattenPolicyAdmissionRuleMap(c, m["kubernetesServiceAccountAdmissionRules"])
+	res.IstioServiceIdentityAdmissionRules = flattenPolicyAdmissionRuleMap(c, m["istioServiceIdentityAdmissionRules"])
+	res.DefaultAdmissionRule = flattenPolicyAdmissionRule(c, m["defaultAdmissionRule"])
 	res.Description = dcl.FlattenString(m["description"])
 	res.GlobalPolicyEvaluationMode = flattenPolicyGlobalPolicyEvaluationModeEnum(m["globalPolicyEvaluationMode"])
 	res.SelfLink = dcl.FlattenString(m["name"])
@@ -996,16 +991,16 @@ func flattenPolicyAdmissionWhitelistPatterns(c *Client, i interface{}) *PolicyAd
 	return r
 }
 
-// expandPolicyClusterAdmissionRulesMap expands the contents of PolicyClusterAdmissionRules into a JSON
+// expandPolicyAdmissionRuleMap expands the contents of PolicyAdmissionRule into a JSON
 // request object.
-func expandPolicyClusterAdmissionRulesMap(c *Client, f map[string]PolicyClusterAdmissionRules) (map[string]interface{}, error) {
+func expandPolicyAdmissionRuleMap(c *Client, f map[string]PolicyAdmissionRule) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandPolicyClusterAdmissionRules(c, &item)
+		i, err := expandPolicyAdmissionRule(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1017,16 +1012,16 @@ func expandPolicyClusterAdmissionRulesMap(c *Client, f map[string]PolicyClusterA
 	return items, nil
 }
 
-// expandPolicyClusterAdmissionRulesSlice expands the contents of PolicyClusterAdmissionRules into a JSON
+// expandPolicyAdmissionRuleSlice expands the contents of PolicyAdmissionRule into a JSON
 // request object.
-func expandPolicyClusterAdmissionRulesSlice(c *Client, f []PolicyClusterAdmissionRules) ([]map[string]interface{}, error) {
+func expandPolicyAdmissionRuleSlice(c *Client, f []PolicyAdmissionRule) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandPolicyClusterAdmissionRules(c, &item)
+		i, err := expandPolicyAdmissionRule(c, &item)
 		if err != nil {
 			return nil, err
 		}
@@ -1037,49 +1032,49 @@ func expandPolicyClusterAdmissionRulesSlice(c *Client, f []PolicyClusterAdmissio
 	return items, nil
 }
 
-// flattenPolicyClusterAdmissionRulesMap flattens the contents of PolicyClusterAdmissionRules from a JSON
+// flattenPolicyAdmissionRuleMap flattens the contents of PolicyAdmissionRule from a JSON
 // response object.
-func flattenPolicyClusterAdmissionRulesMap(c *Client, i interface{}) map[string]PolicyClusterAdmissionRules {
+func flattenPolicyAdmissionRuleMap(c *Client, i interface{}) map[string]PolicyAdmissionRule {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]PolicyClusterAdmissionRules{}
+		return map[string]PolicyAdmissionRule{}
 	}
 
 	if len(a) == 0 {
-		return map[string]PolicyClusterAdmissionRules{}
+		return map[string]PolicyAdmissionRule{}
 	}
 
-	items := make(map[string]PolicyClusterAdmissionRules)
+	items := make(map[string]PolicyAdmissionRule)
 	for k, item := range a {
-		items[k] = *flattenPolicyClusterAdmissionRules(c, item.(map[string]interface{}))
+		items[k] = *flattenPolicyAdmissionRule(c, item.(map[string]interface{}))
 	}
 
 	return items
 }
 
-// flattenPolicyClusterAdmissionRulesSlice flattens the contents of PolicyClusterAdmissionRules from a JSON
+// flattenPolicyAdmissionRuleSlice flattens the contents of PolicyAdmissionRule from a JSON
 // response object.
-func flattenPolicyClusterAdmissionRulesSlice(c *Client, i interface{}) []PolicyClusterAdmissionRules {
+func flattenPolicyAdmissionRuleSlice(c *Client, i interface{}) []PolicyAdmissionRule {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []PolicyClusterAdmissionRules{}
+		return []PolicyAdmissionRule{}
 	}
 
 	if len(a) == 0 {
-		return []PolicyClusterAdmissionRules{}
+		return []PolicyAdmissionRule{}
 	}
 
-	items := make([]PolicyClusterAdmissionRules, 0, len(a))
+	items := make([]PolicyAdmissionRule, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPolicyClusterAdmissionRules(c, item.(map[string]interface{})))
+		items = append(items, *flattenPolicyAdmissionRule(c, item.(map[string]interface{})))
 	}
 
 	return items
 }
 
-// expandPolicyClusterAdmissionRules expands an instance of PolicyClusterAdmissionRules into a JSON
+// expandPolicyAdmissionRule expands an instance of PolicyAdmissionRule into a JSON
 // request object.
-func expandPolicyClusterAdmissionRules(c *Client, f *PolicyClusterAdmissionRules) (map[string]interface{}, error) {
+func expandPolicyAdmissionRule(c *Client, f *PolicyAdmissionRule) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1098,270 +1093,86 @@ func expandPolicyClusterAdmissionRules(c *Client, f *PolicyClusterAdmissionRules
 	return m, nil
 }
 
-// flattenPolicyClusterAdmissionRules flattens an instance of PolicyClusterAdmissionRules from a JSON
+// flattenPolicyAdmissionRule flattens an instance of PolicyAdmissionRule from a JSON
 // response object.
-func flattenPolicyClusterAdmissionRules(c *Client, i interface{}) *PolicyClusterAdmissionRules {
+func flattenPolicyAdmissionRule(c *Client, i interface{}) *PolicyAdmissionRule {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &PolicyClusterAdmissionRules{}
+	r := &PolicyAdmissionRule{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyPolicyClusterAdmissionRules
+		return EmptyPolicyAdmissionRule
 	}
-	r.EvaluationMode = flattenPolicyClusterAdmissionRulesEvaluationModeEnum(m["evaluationMode"])
+	r.EvaluationMode = flattenPolicyAdmissionRuleEvaluationModeEnum(m["evaluationMode"])
 	r.RequireAttestationsBy = dcl.FlattenStringSlice(m["requireAttestationsBy"])
-	r.EnforcementMode = flattenPolicyClusterAdmissionRulesEnforcementModeEnum(m["enforcementMode"])
+	r.EnforcementMode = flattenPolicyAdmissionRuleEnforcementModeEnum(m["enforcementMode"])
 
 	return r
 }
 
-// expandPolicyDefaultAdmissionRuleMap expands the contents of PolicyDefaultAdmissionRule into a JSON
-// request object.
-func expandPolicyDefaultAdmissionRuleMap(c *Client, f map[string]PolicyDefaultAdmissionRule) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandPolicyDefaultAdmissionRule(c, &item)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandPolicyDefaultAdmissionRuleSlice expands the contents of PolicyDefaultAdmissionRule into a JSON
-// request object.
-func expandPolicyDefaultAdmissionRuleSlice(c *Client, f []PolicyDefaultAdmissionRule) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandPolicyDefaultAdmissionRule(c, &item)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenPolicyDefaultAdmissionRuleMap flattens the contents of PolicyDefaultAdmissionRule from a JSON
+// flattenPolicyAdmissionRuleEvaluationModeEnumSlice flattens the contents of PolicyAdmissionRuleEvaluationModeEnum from a JSON
 // response object.
-func flattenPolicyDefaultAdmissionRuleMap(c *Client, i interface{}) map[string]PolicyDefaultAdmissionRule {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]PolicyDefaultAdmissionRule{}
-	}
-
-	if len(a) == 0 {
-		return map[string]PolicyDefaultAdmissionRule{}
-	}
-
-	items := make(map[string]PolicyDefaultAdmissionRule)
-	for k, item := range a {
-		items[k] = *flattenPolicyDefaultAdmissionRule(c, item.(map[string]interface{}))
-	}
-
-	return items
-}
-
-// flattenPolicyDefaultAdmissionRuleSlice flattens the contents of PolicyDefaultAdmissionRule from a JSON
-// response object.
-func flattenPolicyDefaultAdmissionRuleSlice(c *Client, i interface{}) []PolicyDefaultAdmissionRule {
+func flattenPolicyAdmissionRuleEvaluationModeEnumSlice(c *Client, i interface{}) []PolicyAdmissionRuleEvaluationModeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []PolicyDefaultAdmissionRule{}
+		return []PolicyAdmissionRuleEvaluationModeEnum{}
 	}
 
 	if len(a) == 0 {
-		return []PolicyDefaultAdmissionRule{}
+		return []PolicyAdmissionRuleEvaluationModeEnum{}
 	}
 
-	items := make([]PolicyDefaultAdmissionRule, 0, len(a))
+	items := make([]PolicyAdmissionRuleEvaluationModeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPolicyDefaultAdmissionRule(c, item.(map[string]interface{})))
+		items = append(items, *flattenPolicyAdmissionRuleEvaluationModeEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// expandPolicyDefaultAdmissionRule expands an instance of PolicyDefaultAdmissionRule into a JSON
-// request object.
-func expandPolicyDefaultAdmissionRule(c *Client, f *PolicyDefaultAdmissionRule) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.EvaluationMode; !dcl.IsEmptyValueIndirect(v) {
-		m["evaluationMode"] = v
-	}
-	if v := f.RequireAttestationsBy; !dcl.IsEmptyValueIndirect(v) {
-		m["requireAttestationsBy"] = v
-	}
-	if v := f.EnforcementMode; !dcl.IsEmptyValueIndirect(v) {
-		m["enforcementMode"] = v
-	}
-
-	return m, nil
-}
-
-// flattenPolicyDefaultAdmissionRule flattens an instance of PolicyDefaultAdmissionRule from a JSON
-// response object.
-func flattenPolicyDefaultAdmissionRule(c *Client, i interface{}) *PolicyDefaultAdmissionRule {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &PolicyDefaultAdmissionRule{}
-
-	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyPolicyDefaultAdmissionRule
-	}
-	r.EvaluationMode = flattenPolicyDefaultAdmissionRuleEvaluationModeEnum(m["evaluationMode"])
-	r.RequireAttestationsBy = dcl.FlattenStringSlice(m["requireAttestationsBy"])
-	r.EnforcementMode = flattenPolicyDefaultAdmissionRuleEnforcementModeEnum(m["enforcementMode"])
-
-	return r
-}
-
-// flattenPolicyClusterAdmissionRulesEvaluationModeEnumSlice flattens the contents of PolicyClusterAdmissionRulesEvaluationModeEnum from a JSON
-// response object.
-func flattenPolicyClusterAdmissionRulesEvaluationModeEnumSlice(c *Client, i interface{}) []PolicyClusterAdmissionRulesEvaluationModeEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []PolicyClusterAdmissionRulesEvaluationModeEnum{}
-	}
-
-	if len(a) == 0 {
-		return []PolicyClusterAdmissionRulesEvaluationModeEnum{}
-	}
-
-	items := make([]PolicyClusterAdmissionRulesEvaluationModeEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenPolicyClusterAdmissionRulesEvaluationModeEnum(item.(interface{})))
-	}
-
-	return items
-}
-
-// flattenPolicyClusterAdmissionRulesEvaluationModeEnum asserts that an interface is a string, and returns a
-// pointer to a *PolicyClusterAdmissionRulesEvaluationModeEnum with the same value as that string.
-func flattenPolicyClusterAdmissionRulesEvaluationModeEnum(i interface{}) *PolicyClusterAdmissionRulesEvaluationModeEnum {
+// flattenPolicyAdmissionRuleEvaluationModeEnum asserts that an interface is a string, and returns a
+// pointer to a *PolicyAdmissionRuleEvaluationModeEnum with the same value as that string.
+func flattenPolicyAdmissionRuleEvaluationModeEnum(i interface{}) *PolicyAdmissionRuleEvaluationModeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return PolicyClusterAdmissionRulesEvaluationModeEnumRef("")
+		return PolicyAdmissionRuleEvaluationModeEnumRef("")
 	}
 
-	return PolicyClusterAdmissionRulesEvaluationModeEnumRef(s)
+	return PolicyAdmissionRuleEvaluationModeEnumRef(s)
 }
 
-// flattenPolicyClusterAdmissionRulesEnforcementModeEnumSlice flattens the contents of PolicyClusterAdmissionRulesEnforcementModeEnum from a JSON
+// flattenPolicyAdmissionRuleEnforcementModeEnumSlice flattens the contents of PolicyAdmissionRuleEnforcementModeEnum from a JSON
 // response object.
-func flattenPolicyClusterAdmissionRulesEnforcementModeEnumSlice(c *Client, i interface{}) []PolicyClusterAdmissionRulesEnforcementModeEnum {
+func flattenPolicyAdmissionRuleEnforcementModeEnumSlice(c *Client, i interface{}) []PolicyAdmissionRuleEnforcementModeEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []PolicyClusterAdmissionRulesEnforcementModeEnum{}
+		return []PolicyAdmissionRuleEnforcementModeEnum{}
 	}
 
 	if len(a) == 0 {
-		return []PolicyClusterAdmissionRulesEnforcementModeEnum{}
+		return []PolicyAdmissionRuleEnforcementModeEnum{}
 	}
 
-	items := make([]PolicyClusterAdmissionRulesEnforcementModeEnum, 0, len(a))
+	items := make([]PolicyAdmissionRuleEnforcementModeEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenPolicyClusterAdmissionRulesEnforcementModeEnum(item.(interface{})))
+		items = append(items, *flattenPolicyAdmissionRuleEnforcementModeEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// flattenPolicyClusterAdmissionRulesEnforcementModeEnum asserts that an interface is a string, and returns a
-// pointer to a *PolicyClusterAdmissionRulesEnforcementModeEnum with the same value as that string.
-func flattenPolicyClusterAdmissionRulesEnforcementModeEnum(i interface{}) *PolicyClusterAdmissionRulesEnforcementModeEnum {
+// flattenPolicyAdmissionRuleEnforcementModeEnum asserts that an interface is a string, and returns a
+// pointer to a *PolicyAdmissionRuleEnforcementModeEnum with the same value as that string.
+func flattenPolicyAdmissionRuleEnforcementModeEnum(i interface{}) *PolicyAdmissionRuleEnforcementModeEnum {
 	s, ok := i.(string)
 	if !ok {
-		return PolicyClusterAdmissionRulesEnforcementModeEnumRef("")
+		return PolicyAdmissionRuleEnforcementModeEnumRef("")
 	}
 
-	return PolicyClusterAdmissionRulesEnforcementModeEnumRef(s)
-}
-
-// flattenPolicyDefaultAdmissionRuleEvaluationModeEnumSlice flattens the contents of PolicyDefaultAdmissionRuleEvaluationModeEnum from a JSON
-// response object.
-func flattenPolicyDefaultAdmissionRuleEvaluationModeEnumSlice(c *Client, i interface{}) []PolicyDefaultAdmissionRuleEvaluationModeEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []PolicyDefaultAdmissionRuleEvaluationModeEnum{}
-	}
-
-	if len(a) == 0 {
-		return []PolicyDefaultAdmissionRuleEvaluationModeEnum{}
-	}
-
-	items := make([]PolicyDefaultAdmissionRuleEvaluationModeEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenPolicyDefaultAdmissionRuleEvaluationModeEnum(item.(interface{})))
-	}
-
-	return items
-}
-
-// flattenPolicyDefaultAdmissionRuleEvaluationModeEnum asserts that an interface is a string, and returns a
-// pointer to a *PolicyDefaultAdmissionRuleEvaluationModeEnum with the same value as that string.
-func flattenPolicyDefaultAdmissionRuleEvaluationModeEnum(i interface{}) *PolicyDefaultAdmissionRuleEvaluationModeEnum {
-	s, ok := i.(string)
-	if !ok {
-		return PolicyDefaultAdmissionRuleEvaluationModeEnumRef("")
-	}
-
-	return PolicyDefaultAdmissionRuleEvaluationModeEnumRef(s)
-}
-
-// flattenPolicyDefaultAdmissionRuleEnforcementModeEnumSlice flattens the contents of PolicyDefaultAdmissionRuleEnforcementModeEnum from a JSON
-// response object.
-func flattenPolicyDefaultAdmissionRuleEnforcementModeEnumSlice(c *Client, i interface{}) []PolicyDefaultAdmissionRuleEnforcementModeEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []PolicyDefaultAdmissionRuleEnforcementModeEnum{}
-	}
-
-	if len(a) == 0 {
-		return []PolicyDefaultAdmissionRuleEnforcementModeEnum{}
-	}
-
-	items := make([]PolicyDefaultAdmissionRuleEnforcementModeEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenPolicyDefaultAdmissionRuleEnforcementModeEnum(item.(interface{})))
-	}
-
-	return items
-}
-
-// flattenPolicyDefaultAdmissionRuleEnforcementModeEnum asserts that an interface is a string, and returns a
-// pointer to a *PolicyDefaultAdmissionRuleEnforcementModeEnum with the same value as that string.
-func flattenPolicyDefaultAdmissionRuleEnforcementModeEnum(i interface{}) *PolicyDefaultAdmissionRuleEnforcementModeEnum {
-	s, ok := i.(string)
-	if !ok {
-		return PolicyDefaultAdmissionRuleEnforcementModeEnumRef("")
-	}
-
-	return PolicyDefaultAdmissionRuleEnforcementModeEnumRef(s)
+	return PolicyAdmissionRuleEnforcementModeEnumRef(s)
 }
 
 // flattenPolicyGlobalPolicyEvaluationModeEnumSlice flattens the contents of PolicyGlobalPolicyEvaluationModeEnum from a JSON
@@ -1405,8 +1216,8 @@ func (r *Policy) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
 		}
-		nr := r.urlNormalized()
-		ncr := cr.urlNormalized()
+		nr := r.URLNormalized()
+		ncr := cr.URLNormalized()
 		c.Config.Logger.Infof("looking for %v\nin %v", nr, ncr)
 
 		if nr.Project == nil && ncr.Project == nil {
@@ -1447,6 +1258,9 @@ func convertFieldDiffToPolicyOp(ops []string, fds []*dcl.FieldDiff, opts []dcl.A
 
 func convertOpNameTopolicyApiOperation(op string, diffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (policyApiOperation, error) {
 	switch op {
+
+	case "updatePolicyUpdatePolicyOperation":
+		return &updatePolicyUpdatePolicyOperation{Diffs: diffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", op)

@@ -25,6 +25,9 @@ class Policy(object):
         self,
         admission_whitelist_patterns: list = None,
         cluster_admission_rules: dict = None,
+        kubernetes_namespace_admission_rules: dict = None,
+        kubernetes_service_account_admission_rules: dict = None,
+        istio_service_identity_admission_rules: dict = None,
         default_admission_rule: dict = None,
         description: str = None,
         global_policy_evaluation_mode: str = None,
@@ -37,6 +40,13 @@ class Policy(object):
         channel.initialize()
         self.admission_whitelist_patterns = admission_whitelist_patterns
         self.cluster_admission_rules = cluster_admission_rules
+        self.kubernetes_namespace_admission_rules = kubernetes_namespace_admission_rules
+        self.kubernetes_service_account_admission_rules = (
+            kubernetes_service_account_admission_rules
+        )
+        self.istio_service_identity_admission_rules = (
+            istio_service_identity_admission_rules
+        )
         self.default_admission_rule = default_admission_rule
         self.description = description
         self.global_policy_evaluation_mode = global_policy_evaluation_mode
@@ -61,9 +71,24 @@ class Policy(object):
                 self.cluster_admission_rules
             )
 
-        if PolicyDefaultAdmissionRule.to_proto(self.default_admission_rule):
+        if Primitive.to_proto(self.kubernetes_namespace_admission_rules):
+            request.resource.kubernetes_namespace_admission_rules = Primitive.to_proto(
+                self.kubernetes_namespace_admission_rules
+            )
+
+        if Primitive.to_proto(self.kubernetes_service_account_admission_rules):
+            request.resource.kubernetes_service_account_admission_rules = Primitive.to_proto(
+                self.kubernetes_service_account_admission_rules
+            )
+
+        if Primitive.to_proto(self.istio_service_identity_admission_rules):
+            request.resource.istio_service_identity_admission_rules = Primitive.to_proto(
+                self.istio_service_identity_admission_rules
+            )
+
+        if PolicyAdmissionRule.to_proto(self.default_admission_rule):
             request.resource.default_admission_rule.CopyFrom(
-                PolicyDefaultAdmissionRule.to_proto(self.default_admission_rule)
+                PolicyAdmissionRule.to_proto(self.default_admission_rule)
             )
         else:
             request.resource.ClearField("default_admission_rule")
@@ -89,7 +114,16 @@ class Policy(object):
         self.cluster_admission_rules = Primitive.from_proto(
             response.cluster_admission_rules
         )
-        self.default_admission_rule = PolicyDefaultAdmissionRule.from_proto(
+        self.kubernetes_namespace_admission_rules = Primitive.from_proto(
+            response.kubernetes_namespace_admission_rules
+        )
+        self.kubernetes_service_account_admission_rules = Primitive.from_proto(
+            response.kubernetes_service_account_admission_rules
+        )
+        self.istio_service_identity_admission_rules = Primitive.from_proto(
+            response.istio_service_identity_admission_rules
+        )
+        self.default_admission_rule = PolicyAdmissionRule.from_proto(
             response.default_admission_rule
         )
         self.description = Primitive.from_proto(response.description)
@@ -119,9 +153,24 @@ class Policy(object):
                 self.cluster_admission_rules
             )
 
-        if PolicyDefaultAdmissionRule.to_proto(self.default_admission_rule):
+        if Primitive.to_proto(self.kubernetes_namespace_admission_rules):
+            request.resource.kubernetes_namespace_admission_rules = Primitive.to_proto(
+                self.kubernetes_namespace_admission_rules
+            )
+
+        if Primitive.to_proto(self.kubernetes_service_account_admission_rules):
+            request.resource.kubernetes_service_account_admission_rules = Primitive.to_proto(
+                self.kubernetes_service_account_admission_rules
+            )
+
+        if Primitive.to_proto(self.istio_service_identity_admission_rules):
+            request.resource.istio_service_identity_admission_rules = Primitive.to_proto(
+                self.istio_service_identity_admission_rules
+            )
+
+        if PolicyAdmissionRule.to_proto(self.default_admission_rule):
             request.resource.default_admission_rule.CopyFrom(
-                PolicyDefaultAdmissionRule.to_proto(self.default_admission_rule)
+                PolicyAdmissionRule.to_proto(self.default_admission_rule)
             )
         else:
             request.resource.ClearField("default_admission_rule")
@@ -141,13 +190,12 @@ class Policy(object):
         response = stub.DeleteBinaryauthorizationBetaPolicy(request)
 
     @classmethod
-    def list(self, project, service_account_file=""):
+    def list(self, service_account_file=""):
         stub = policy_pb2_grpc.BinaryauthorizationBetaPolicyServiceStub(
             channel.Channel()
         )
         request = policy_pb2.ListBinaryauthorizationBetaPolicyRequest()
         request.service_account_file = service_account_file
-        request.Project = project
 
         return stub.ListBinaryauthorizationBetaPolicy(request).items
 
@@ -165,9 +213,21 @@ class Policy(object):
             resource.cluster_admission_rules = Primitive.to_proto(
                 self.cluster_admission_rules
             )
-        if PolicyDefaultAdmissionRule.to_proto(self.default_admission_rule):
+        if Primitive.to_proto(self.kubernetes_namespace_admission_rules):
+            resource.kubernetes_namespace_admission_rules = Primitive.to_proto(
+                self.kubernetes_namespace_admission_rules
+            )
+        if Primitive.to_proto(self.kubernetes_service_account_admission_rules):
+            resource.kubernetes_service_account_admission_rules = Primitive.to_proto(
+                self.kubernetes_service_account_admission_rules
+            )
+        if Primitive.to_proto(self.istio_service_identity_admission_rules):
+            resource.istio_service_identity_admission_rules = Primitive.to_proto(
+                self.istio_service_identity_admission_rules
+            )
+        if PolicyAdmissionRule.to_proto(self.default_admission_rule):
             resource.default_admission_rule.CopyFrom(
-                PolicyDefaultAdmissionRule.to_proto(self.default_admission_rule)
+                PolicyAdmissionRule.to_proto(self.default_admission_rule)
             )
         else:
             resource.ClearField("default_admission_rule")
@@ -220,7 +280,7 @@ class PolicyAdmissionWhitelistPatternsArray(object):
         return [PolicyAdmissionWhitelistPatterns.from_proto(i) for i in resources]
 
 
-class PolicyClusterAdmissionRules(object):
+class PolicyAdmissionRule(object):
     def __init__(
         self,
         evaluation_mode: str = None,
@@ -236,21 +296,17 @@ class PolicyClusterAdmissionRules(object):
         if not resource:
             return None
 
-        res = policy_pb2.BinaryauthorizationBetaPolicyClusterAdmissionRules()
-        if PolicyClusterAdmissionRulesEvaluationModeEnum.to_proto(
-            resource.evaluation_mode
-        ):
-            res.evaluation_mode = PolicyClusterAdmissionRulesEvaluationModeEnum.to_proto(
+        res = policy_pb2.BinaryauthorizationBetaPolicyAdmissionRule()
+        if PolicyAdmissionRuleEvaluationModeEnum.to_proto(resource.evaluation_mode):
+            res.evaluation_mode = PolicyAdmissionRuleEvaluationModeEnum.to_proto(
                 resource.evaluation_mode
             )
         if Primitive.to_proto(resource.require_attestations_by):
             res.require_attestations_by.extend(
                 Primitive.to_proto(resource.require_attestations_by)
             )
-        if PolicyClusterAdmissionRulesEnforcementModeEnum.to_proto(
-            resource.enforcement_mode
-        ):
-            res.enforcement_mode = PolicyClusterAdmissionRulesEnforcementModeEnum.to_proto(
+        if PolicyAdmissionRuleEnforcementModeEnum.to_proto(resource.enforcement_mode):
+            res.enforcement_mode = PolicyAdmissionRuleEnforcementModeEnum.to_proto(
                 resource.enforcement_mode
             )
         return res
@@ -260,183 +316,68 @@ class PolicyClusterAdmissionRules(object):
         if not resource:
             return None
 
-        return PolicyClusterAdmissionRules(
-            evaluation_mode=PolicyClusterAdmissionRulesEvaluationModeEnum.from_proto(
+        return PolicyAdmissionRule(
+            evaluation_mode=PolicyAdmissionRuleEvaluationModeEnum.from_proto(
                 resource.evaluation_mode
             ),
             require_attestations_by=Primitive.from_proto(
                 resource.require_attestations_by
             ),
-            enforcement_mode=PolicyClusterAdmissionRulesEnforcementModeEnum.from_proto(
+            enforcement_mode=PolicyAdmissionRuleEnforcementModeEnum.from_proto(
                 resource.enforcement_mode
             ),
         )
 
 
-class PolicyClusterAdmissionRulesArray(object):
+class PolicyAdmissionRuleArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [PolicyClusterAdmissionRules.to_proto(i) for i in resources]
+        return [PolicyAdmissionRule.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [PolicyClusterAdmissionRules.from_proto(i) for i in resources]
+        return [PolicyAdmissionRule.from_proto(i) for i in resources]
 
 
-class PolicyDefaultAdmissionRule(object):
-    def __init__(
-        self,
-        evaluation_mode: str = None,
-        require_attestations_by: list = None,
-        enforcement_mode: str = None,
-    ):
-        self.evaluation_mode = evaluation_mode
-        self.require_attestations_by = require_attestations_by
-        self.enforcement_mode = enforcement_mode
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = policy_pb2.BinaryauthorizationBetaPolicyDefaultAdmissionRule()
-        if PolicyDefaultAdmissionRuleEvaluationModeEnum.to_proto(
-            resource.evaluation_mode
-        ):
-            res.evaluation_mode = PolicyDefaultAdmissionRuleEvaluationModeEnum.to_proto(
-                resource.evaluation_mode
-            )
-        if Primitive.to_proto(resource.require_attestations_by):
-            res.require_attestations_by.extend(
-                Primitive.to_proto(resource.require_attestations_by)
-            )
-        if PolicyDefaultAdmissionRuleEnforcementModeEnum.to_proto(
-            resource.enforcement_mode
-        ):
-            res.enforcement_mode = PolicyDefaultAdmissionRuleEnforcementModeEnum.to_proto(
-                resource.enforcement_mode
-            )
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return PolicyDefaultAdmissionRule(
-            evaluation_mode=PolicyDefaultAdmissionRuleEvaluationModeEnum.from_proto(
-                resource.evaluation_mode
-            ),
-            require_attestations_by=Primitive.from_proto(
-                resource.require_attestations_by
-            ),
-            enforcement_mode=PolicyDefaultAdmissionRuleEnforcementModeEnum.from_proto(
-                resource.enforcement_mode
-            ),
-        )
-
-
-class PolicyDefaultAdmissionRuleArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [PolicyDefaultAdmissionRule.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [PolicyDefaultAdmissionRule.from_proto(i) for i in resources]
-
-
-class PolicyClusterAdmissionRulesEvaluationModeEnum(object):
+class PolicyAdmissionRuleEvaluationModeEnum(object):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return policy_pb2.BinaryauthorizationBetaPolicyClusterAdmissionRulesEvaluationModeEnum.Value(
-            "BinaryauthorizationBetaPolicyClusterAdmissionRulesEvaluationModeEnum%s"
-            % resource
+        return policy_pb2.BinaryauthorizationBetaPolicyAdmissionRuleEvaluationModeEnum.Value(
+            "BinaryauthorizationBetaPolicyAdmissionRuleEvaluationModeEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return policy_pb2.BinaryauthorizationBetaPolicyClusterAdmissionRulesEvaluationModeEnum.Name(
+        return policy_pb2.BinaryauthorizationBetaPolicyAdmissionRuleEvaluationModeEnum.Name(
             resource
         )[
-            len(
-                "BinaryauthorizationBetaPolicyClusterAdmissionRulesEvaluationModeEnum"
-            ) :
+            len("BinaryauthorizationBetaPolicyAdmissionRuleEvaluationModeEnum") :
         ]
 
 
-class PolicyClusterAdmissionRulesEnforcementModeEnum(object):
+class PolicyAdmissionRuleEnforcementModeEnum(object):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return policy_pb2.BinaryauthorizationBetaPolicyClusterAdmissionRulesEnforcementModeEnum.Value(
-            "BinaryauthorizationBetaPolicyClusterAdmissionRulesEnforcementModeEnum%s"
-            % resource
+        return policy_pb2.BinaryauthorizationBetaPolicyAdmissionRuleEnforcementModeEnum.Value(
+            "BinaryauthorizationBetaPolicyAdmissionRuleEnforcementModeEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return policy_pb2.BinaryauthorizationBetaPolicyClusterAdmissionRulesEnforcementModeEnum.Name(
+        return policy_pb2.BinaryauthorizationBetaPolicyAdmissionRuleEnforcementModeEnum.Name(
             resource
         )[
-            len(
-                "BinaryauthorizationBetaPolicyClusterAdmissionRulesEnforcementModeEnum"
-            ) :
-        ]
-
-
-class PolicyDefaultAdmissionRuleEvaluationModeEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return policy_pb2.BinaryauthorizationBetaPolicyDefaultAdmissionRuleEvaluationModeEnum.Value(
-            "BinaryauthorizationBetaPolicyDefaultAdmissionRuleEvaluationModeEnum%s"
-            % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return policy_pb2.BinaryauthorizationBetaPolicyDefaultAdmissionRuleEvaluationModeEnum.Name(
-            resource
-        )[
-            len("BinaryauthorizationBetaPolicyDefaultAdmissionRuleEvaluationModeEnum") :
-        ]
-
-
-class PolicyDefaultAdmissionRuleEnforcementModeEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return policy_pb2.BinaryauthorizationBetaPolicyDefaultAdmissionRuleEnforcementModeEnum.Value(
-            "BinaryauthorizationBetaPolicyDefaultAdmissionRuleEnforcementModeEnum%s"
-            % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return policy_pb2.BinaryauthorizationBetaPolicyDefaultAdmissionRuleEnforcementModeEnum.Name(
-            resource
-        )[
-            len(
-                "BinaryauthorizationBetaPolicyDefaultAdmissionRuleEnforcementModeEnum"
-            ) :
+            len("BinaryauthorizationBetaPolicyAdmissionRuleEnforcementModeEnum") :
         ]
 
 

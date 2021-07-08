@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="binaryauthorization/beta", resources=["attestor"])
+connector(name="binaryauthorization/beta", resources=["attestor","policy"])
