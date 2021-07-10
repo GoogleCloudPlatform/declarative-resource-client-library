@@ -219,6 +219,7 @@ func (r *Snapshot) URLNormalized() *Snapshot {
 	normalized.Zone = dcl.SelfLinkToName(r.Zone)
 	return &normalized
 }
+
 func (c *Client) GetSnapshot(ctx context.Context, r *Snapshot) (*Snapshot, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

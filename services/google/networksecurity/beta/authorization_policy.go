@@ -352,6 +352,7 @@ func (r *AuthorizationPolicy) URLNormalized() *AuthorizationPolicy {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetAuthorizationPolicy(ctx context.Context, r *AuthorizationPolicy) (*AuthorizationPolicy, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

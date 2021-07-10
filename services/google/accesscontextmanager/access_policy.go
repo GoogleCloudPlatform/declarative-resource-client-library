@@ -111,6 +111,7 @@ func (r *AccessPolicy) URLNormalized() *AccessPolicy {
 	normalized.Title = dcl.SelfLinkToName(r.Title)
 	return &normalized
 }
+
 func (c *Client) GetAccessPolicy(ctx context.Context, r *AccessPolicy) (*AccessPolicy, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

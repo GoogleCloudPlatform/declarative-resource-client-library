@@ -742,6 +742,7 @@ func (r *HealthCheck) URLNormalized() *HealthCheck {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetHealthCheck(ctx context.Context, r *HealthCheck) (*HealthCheck, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

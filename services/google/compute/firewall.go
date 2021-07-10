@@ -306,6 +306,7 @@ func (r *Firewall) URLNormalized() *Firewall {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetFirewall(ctx context.Context, r *Firewall) (*Firewall, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

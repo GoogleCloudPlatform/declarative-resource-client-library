@@ -345,13 +345,7 @@ class LogMetricMetricDescriptorLabelsArray(object):
 
 
 class LogMetricMetricDescriptorMetadata(object):
-    def __init__(
-        self,
-        launch_stage: str = None,
-        sample_period: str = None,
-        ingest_delay: str = None,
-    ):
-        self.launch_stage = launch_stage
+    def __init__(self, sample_period: str = None, ingest_delay: str = None):
         self.sample_period = sample_period
         self.ingest_delay = ingest_delay
 
@@ -361,12 +355,6 @@ class LogMetricMetricDescriptorMetadata(object):
             return None
 
         res = log_metric_pb2.LoggingLogMetricMetricDescriptorMetadata()
-        if LogMetricMetricDescriptorMetadataLaunchStageEnum.to_proto(
-            resource.launch_stage
-        ):
-            res.launch_stage = LogMetricMetricDescriptorMetadataLaunchStageEnum.to_proto(
-                resource.launch_stage
-            )
         if Primitive.to_proto(resource.sample_period):
             res.sample_period = Primitive.to_proto(resource.sample_period)
         if Primitive.to_proto(resource.ingest_delay):
@@ -379,9 +367,6 @@ class LogMetricMetricDescriptorMetadata(object):
             return None
 
         return LogMetricMetricDescriptorMetadata(
-            launch_stage=LogMetricMetricDescriptorMetadataLaunchStageEnum.from_proto(
-                resource.launch_stage
-            ),
             sample_period=Primitive.from_proto(resource.sample_period),
             ingest_delay=Primitive.from_proto(resource.ingest_delay),
         )
@@ -657,26 +642,6 @@ class LogMetricMetricDescriptorValueTypeEnum(object):
         return log_metric_pb2.LoggingLogMetricMetricDescriptorValueTypeEnum.Name(
             resource
         )[len("LoggingLogMetricMetricDescriptorValueTypeEnum") :]
-
-
-class LogMetricMetricDescriptorMetadataLaunchStageEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return log_metric_pb2.LoggingLogMetricMetricDescriptorMetadataLaunchStageEnum.Value(
-            "LoggingLogMetricMetricDescriptorMetadataLaunchStageEnum%s" % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return log_metric_pb2.LoggingLogMetricMetricDescriptorMetadataLaunchStageEnum.Name(
-            resource
-        )[
-            len("LoggingLogMetricMetricDescriptorMetadataLaunchStageEnum") :
-        ]
 
 
 class LogMetricMetricDescriptorLaunchStageEnum(object):

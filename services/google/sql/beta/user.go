@@ -199,6 +199,7 @@ func (r *User) URLNormalized() *User {
 	normalized.Host = dcl.SelfLinkToName(r.Host)
 	return &normalized
 }
+
 func (c *Client) GetUser(ctx context.Context, r *User) (*User, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

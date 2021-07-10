@@ -117,6 +117,7 @@ func (r *IdentityAwareProxyClient) URLNormalized() *IdentityAwareProxyClient {
 	normalized.Brand = dcl.SelfLinkToName(r.Brand)
 	return &normalized
 }
+
 func (c *Client) GetIdentityAwareProxyClient(ctx context.Context, r *IdentityAwareProxyClient) (*IdentityAwareProxyClient, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

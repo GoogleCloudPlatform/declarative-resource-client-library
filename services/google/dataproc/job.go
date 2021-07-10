@@ -1603,6 +1603,7 @@ func (r *Job) URLNormalized() *Job {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetJob(ctx context.Context, r *Job) (*Job, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

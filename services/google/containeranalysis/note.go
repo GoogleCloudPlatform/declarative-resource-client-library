@@ -1572,6 +1572,7 @@ func (r *Note) URLNormalized() *Note {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetNote(ctx context.Context, r *Note) (*Note, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

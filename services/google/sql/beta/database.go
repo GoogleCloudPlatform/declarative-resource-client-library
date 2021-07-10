@@ -119,6 +119,7 @@ func (r *Database) URLNormalized() *Database {
 	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	return &normalized
 }
+
 func (c *Client) GetDatabase(ctx context.Context, r *Database) (*Database, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

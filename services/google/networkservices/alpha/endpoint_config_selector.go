@@ -420,6 +420,7 @@ func (r *EndpointConfigSelector) URLNormalized() *EndpointConfigSelector {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetEndpointConfigSelector(ctx context.Context, r *EndpointConfigSelector) (*EndpointConfigSelector, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

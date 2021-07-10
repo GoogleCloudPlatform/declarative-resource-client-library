@@ -166,6 +166,7 @@ func (r *BackendBucket) URLNormalized() *BackendBucket {
 	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	return &normalized
 }
+
 func (c *Client) GetBackendBucket(ctx context.Context, r *BackendBucket) (*BackendBucket, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

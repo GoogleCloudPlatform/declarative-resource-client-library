@@ -159,6 +159,7 @@ func (r *Topic) URLNormalized() *Topic {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetTopic(ctx context.Context, r *Topic) (*Topic, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

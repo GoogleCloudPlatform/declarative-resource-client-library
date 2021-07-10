@@ -18273,6 +18273,7 @@ func (r *Instance) URLNormalized() *Instance {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetInstance(ctx context.Context, r *Instance) (*Instance, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

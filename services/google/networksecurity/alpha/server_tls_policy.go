@@ -507,6 +507,7 @@ func (r *ServerTlsPolicy) URLNormalized() *ServerTlsPolicy {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetServerTlsPolicy(ctx context.Context, r *ServerTlsPolicy) (*ServerTlsPolicy, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

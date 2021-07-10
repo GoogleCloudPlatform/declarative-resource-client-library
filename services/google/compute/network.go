@@ -192,6 +192,7 @@ func (r *Network) URLNormalized() *Network {
 	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	return &normalized
 }
+
 func (c *Client) GetNetwork(ctx context.Context, r *Network) (*Network, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

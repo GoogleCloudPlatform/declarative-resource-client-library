@@ -610,6 +610,7 @@ func (r *Autoscaler) URLNormalized() *Autoscaler {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetAutoscaler(ctx context.Context, r *Autoscaler) (*Autoscaler, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

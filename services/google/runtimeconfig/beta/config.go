@@ -113,6 +113,7 @@ func (r *Config) URLNormalized() *Config {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetConfig(ctx context.Context, r *Config) (*Config, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

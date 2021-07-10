@@ -1876,6 +1876,7 @@ func (r *GuestPolicy) URLNormalized() *GuestPolicy {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetGuestPolicy(ctx context.Context, r *GuestPolicy) (*GuestPolicy, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

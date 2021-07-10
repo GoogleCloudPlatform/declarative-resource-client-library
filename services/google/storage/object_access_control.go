@@ -235,6 +235,7 @@ func (r *ObjectAccessControl) URLNormalized() *ObjectAccessControl {
 	normalized.Object = dcl.SelfLinkToName(r.Object)
 	return &normalized
 }
+
 func (c *Client) GetObjectAccessControl(ctx context.Context, r *ObjectAccessControl) (*ObjectAccessControl, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

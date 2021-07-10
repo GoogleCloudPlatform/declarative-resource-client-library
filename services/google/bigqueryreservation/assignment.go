@@ -177,6 +177,7 @@ func (r *Assignment) URLNormalized() *Assignment {
 	normalized.Reservation = dcl.SelfLinkToName(r.Reservation)
 	return &normalized
 }
+
 func (c *Client) GetAssignment(ctx context.Context, r *Assignment) (*Assignment, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

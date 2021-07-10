@@ -112,6 +112,7 @@ func (r *Brand) URLNormalized() *Brand {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetBrand(ctx context.Context, r *Brand) (*Brand, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

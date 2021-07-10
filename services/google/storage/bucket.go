@@ -600,6 +600,7 @@ func (r *Bucket) URLNormalized() *Bucket {
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	return &normalized
 }
+
 func (c *Client) GetBucket(ctx context.Context, r *Bucket) (*Bucket, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

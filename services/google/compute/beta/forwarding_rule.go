@@ -381,6 +381,7 @@ func (r *ForwardingRule) URLNormalized() *ForwardingRule {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetForwardingRule(ctx context.Context, r *ForwardingRule) (*ForwardingRule, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

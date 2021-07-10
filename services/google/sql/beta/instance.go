@@ -2301,6 +2301,7 @@ func (r *Instance) URLNormalized() *Instance {
 	normalized.InstanceUid = dcl.SelfLinkToName(r.InstanceUid)
 	return &normalized
 }
+
 func (c *Client) GetInstance(ctx context.Context, r *Instance) (*Instance, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

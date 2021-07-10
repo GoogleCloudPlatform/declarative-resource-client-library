@@ -114,6 +114,7 @@ func (r *LogExclusion) URLNormalized() *LogExclusion {
 	normalized.Parent = r.Parent
 	return &normalized
 }
+
 func (c *Client) GetLogExclusion(ctx context.Context, r *LogExclusion) (*LogExclusion, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

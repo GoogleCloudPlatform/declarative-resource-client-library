@@ -574,9 +574,6 @@ func canonicalizeLogMetricMetricDescriptor(des, initial *LogMetricMetricDescript
 		return des
 	}
 
-	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
-		des.Type = initial.Type
-	}
 	if dcl.IsZeroValue(des.Labels) {
 		des.Labels = initial.Labels
 	}
@@ -595,9 +592,6 @@ func canonicalizeLogMetricMetricDescriptor(des, initial *LogMetricMetricDescript
 	des.Metadata = canonicalizeLogMetricMetricDescriptorMetadata(des.Metadata, initial.Metadata, opts...)
 	if dcl.IsZeroValue(des.LaunchStage) {
 		des.LaunchStage = initial.LaunchStage
-	}
-	if dcl.IsZeroValue(des.MonitoredResourceTypes) {
-		des.MonitoredResourceTypes = initial.MonitoredResourceTypes
 	}
 
 	return des
@@ -780,9 +774,6 @@ func canonicalizeLogMetricMetricDescriptorMetadata(des, initial *LogMetricMetric
 		return des
 	}
 
-	if dcl.IsZeroValue(des.LaunchStage) {
-		des.LaunchStage = initial.LaunchStage
-	}
 	if dcl.StringCanonicalize(des.SamplePeriod, initial.SamplePeriod) || dcl.IsZeroValue(des.SamplePeriod) {
 		des.SamplePeriod = initial.SamplePeriod
 	}
@@ -798,9 +789,6 @@ func canonicalizeNewLogMetricMetricDescriptorMetadata(c *Client, des, nw *LogMet
 		return nw
 	}
 
-	if dcl.IsZeroValue(nw.LaunchStage) {
-		nw.LaunchStage = des.LaunchStage
-	}
 	if dcl.StringCanonicalize(des.SamplePeriod, nw.SamplePeriod) {
 		nw.SamplePeriod = des.SamplePeriod
 	}
@@ -1217,7 +1205,7 @@ func diffLogMetric(c *Client, desired, actual *LogMetric, opts ...dcl.ApplyOptio
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MetricDescriptor, actual.MetricDescriptor, dcl.Info{ObjectFunction: compareLogMetricMetricDescriptorNewStyle, EmptyObject: EmptyLogMetricMetricDescriptor, OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("MetricDescriptor")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricDescriptor, actual.MetricDescriptor, dcl.Info{ObjectFunction: compareLogMetricMetricDescriptorNewStyle, EmptyObject: EmptyLogMetricMetricDescriptor, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricDescriptor")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1295,14 +1283,14 @@ func compareLogMetricMetricDescriptorNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Type: "Set", ObjectFunction: compareLogMetricMetricDescriptorLabelsNewStyle, EmptyObject: EmptyLogMetricMetricDescriptorLabels, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{Type: "Set", ObjectFunction: compareLogMetricMetricDescriptorLabelsNewStyle, EmptyObject: EmptyLogMetricMetricDescriptorLabels, OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1323,42 +1311,42 @@ func compareLogMetricMetricDescriptorNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Unit, actual.Unit, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Unit")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Unit, actual.Unit, dcl.Info{OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("Unit")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OutputOnly: true, OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{Ignore: true, ObjectFunction: compareLogMetricMetricDescriptorMetadataNewStyle, EmptyObject: EmptyLogMetricMetricDescriptorMetadata, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{Ignore: true, ObjectFunction: compareLogMetricMetricDescriptorMetadataNewStyle, EmptyObject: EmptyLogMetricMetricDescriptorMetadata, OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LaunchStage, actual.LaunchStage, dcl.Info{Ignore: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LaunchStage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LaunchStage, actual.LaunchStage, dcl.Info{Ignore: true, Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("LaunchStage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MonitoredResourceTypes, actual.MonitoredResourceTypes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MonitoredResourceTypes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MonitoredResourceTypes, actual.MonitoredResourceTypes, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MonitoredResourceTypes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1430,21 +1418,14 @@ func compareLogMetricMetricDescriptorMetadataNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LaunchStage, actual.LaunchStage, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LaunchStage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SamplePeriod, actual.SamplePeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("SamplePeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SamplePeriod, actual.SamplePeriod, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SamplePeriod")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.IngestDelay, actual.IngestDelay, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IngestDelay")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IngestDelay, actual.IngestDelay, dcl.Info{OperationSelector: dcl.TriggersOperation("updateLogMetricUpdateOperation")}, fn.AddNest("IngestDelay")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2107,9 +2088,6 @@ func expandLogMetricMetricDescriptorMetadata(c *Client, f *LogMetricMetricDescri
 	}
 
 	m := make(map[string]interface{})
-	if v := f.LaunchStage; !dcl.IsEmptyValueIndirect(v) {
-		m["launchStage"] = v
-	}
 	if v := f.SamplePeriod; !dcl.IsEmptyValueIndirect(v) {
 		m["samplePeriod"] = v
 	}
@@ -2133,7 +2111,6 @@ func flattenLogMetricMetricDescriptorMetadata(c *Client, i interface{}) *LogMetr
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyLogMetricMetricDescriptorMetadata
 	}
-	r.LaunchStage = flattenLogMetricMetricDescriptorMetadataLaunchStageEnum(m["launchStage"])
 	r.SamplePeriod = dcl.FlattenString(m["samplePeriod"])
 	r.IngestDelay = dcl.FlattenString(m["ingestDelay"])
 
@@ -2717,37 +2694,6 @@ func flattenLogMetricMetricDescriptorValueTypeEnum(i interface{}) *LogMetricMetr
 	}
 
 	return LogMetricMetricDescriptorValueTypeEnumRef(s)
-}
-
-// flattenLogMetricMetricDescriptorMetadataLaunchStageEnumSlice flattens the contents of LogMetricMetricDescriptorMetadataLaunchStageEnum from a JSON
-// response object.
-func flattenLogMetricMetricDescriptorMetadataLaunchStageEnumSlice(c *Client, i interface{}) []LogMetricMetricDescriptorMetadataLaunchStageEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []LogMetricMetricDescriptorMetadataLaunchStageEnum{}
-	}
-
-	if len(a) == 0 {
-		return []LogMetricMetricDescriptorMetadataLaunchStageEnum{}
-	}
-
-	items := make([]LogMetricMetricDescriptorMetadataLaunchStageEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenLogMetricMetricDescriptorMetadataLaunchStageEnum(item.(interface{})))
-	}
-
-	return items
-}
-
-// flattenLogMetricMetricDescriptorMetadataLaunchStageEnum asserts that an interface is a string, and returns a
-// pointer to a *LogMetricMetricDescriptorMetadataLaunchStageEnum with the same value as that string.
-func flattenLogMetricMetricDescriptorMetadataLaunchStageEnum(i interface{}) *LogMetricMetricDescriptorMetadataLaunchStageEnum {
-	s, ok := i.(string)
-	if !ok {
-		return LogMetricMetricDescriptorMetadataLaunchStageEnumRef("")
-	}
-
-	return LogMetricMetricDescriptorMetadataLaunchStageEnumRef(s)
 }
 
 // flattenLogMetricMetricDescriptorLaunchStageEnumSlice flattens the contents of LogMetricMetricDescriptorLaunchStageEnum from a JSON

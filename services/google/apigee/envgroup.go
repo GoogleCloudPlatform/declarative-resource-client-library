@@ -138,6 +138,7 @@ func (r *Envgroup) URLNormalized() *Envgroup {
 	normalized.Organization = dcl.SelfLinkToName(r.Organization)
 	return &normalized
 }
+
 func (c *Client) GetEnvgroup(ctx context.Context, r *Envgroup) (*Envgroup, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

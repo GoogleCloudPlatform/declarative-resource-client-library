@@ -185,6 +185,7 @@ components:
             cannot be updated once initially configured. New labels can be added in
             the `metric_descriptor`, but existing labels cannot be modified except
             for their description. '
+          x-kubernetes-immutable: true
           properties:
             description:
               type: string
@@ -217,10 +218,12 @@ components:
                     type: string
                     x-dcl-go-name: Description
                     description: A human-readable description for the label.
+                    x-kubernetes-immutable: true
                   key:
                     type: string
                     x-dcl-go-name: Key
                     description: The label key.
+                    x-kubernetes-immutable: true
                   valueType:
                     type: string
                     x-dcl-go-name: ValueType
@@ -228,6 +231,7 @@ components:
                     description: 'The type of data that can be assigned to the label.
                       Possible values: STRING, BOOL, INT64, DOUBLE, DISTRIBUTION,
                       MONEY'
+                    x-kubernetes-immutable: true
                     enum:
                     - STRING
                     - BOOL
@@ -240,10 +244,8 @@ components:
               x-dcl-go-name: LaunchStage
               x-dcl-go-type: LogMetricMetricDescriptorLaunchStageEnum
               description: 'Optional. The launch stage of the metric definition. Possible
-                values: LAUNCH_STAGE_UNSPECIFIED, UNIMPLEMENTED, PRELAUNCH, EARLY_ACCESS,
-                ALPHA, BETA, GA, DEPRECATED'
+                values: UNIMPLEMENTED, PRELAUNCH, EARLY_ACCESS, ALPHA, BETA, GA, DEPRECATED'
               enum:
-              - LAUNCH_STAGE_UNSPECIFIED
               - UNIMPLEMENTED
               - PRELAUNCH
               - EARLY_ACCESS
@@ -266,22 +268,6 @@ components:
                   description: The delay of data points caused by ingestion. Data
                     points older than this age are guaranteed to be ingested and available
                     to be read, excluding data loss due to errors.
-                launchStage:
-                  type: string
-                  x-dcl-go-name: LaunchStage
-                  x-dcl-go-type: LogMetricMetricDescriptorMetadataLaunchStageEnum
-                  description: 'Deprecated. Must use the instead. Possible values:
-                    LAUNCH_STAGE_UNSPECIFIED, UNIMPLEMENTED, PRELAUNCH, EARLY_ACCESS,
-                    ALPHA, BETA, GA, DEPRECATED'
-                  enum:
-                  - LAUNCH_STAGE_UNSPECIFIED
-                  - UNIMPLEMENTED
-                  - PRELAUNCH
-                  - EARLY_ACCESS
-                  - ALPHA
-                  - BETA
-                  - GA
-                  - DEPRECATED
                 samplePeriod:
                   type: string
                   x-dcl-go-name: SamplePeriod
@@ -295,19 +281,21 @@ components:
               x-dcl-go-type: LogMetricMetricDescriptorMetricKindEnum
               description: 'Whether the metric records instantaneous values, changes
                 to a value, etc. Some combinations of `metric_kind` and `value_type`
-                might not be supported. Possible values: METRIC_KIND_UNSPECIFIED,
-                GAUGE, DELTA, CUMULATIVE'
+                might not be supported. Possible values: GAUGE, DELTA, CUMULATIVE'
+              x-kubernetes-immutable: true
               enum:
-              - METRIC_KIND_UNSPECIFIED
               - GAUGE
               - DELTA
               - CUMULATIVE
             monitoredResourceTypes:
               type: array
               x-dcl-go-name: MonitoredResourceTypes
-              description: Read-only. If present, then a , that is associated with
-                this metric type can only be associated with one of the monitored
-                resource types listed here.
+              readOnly: true
+              description: Read-only. If present, then a TimeSeries, which is identified
+                partially by a metric type and a MonitoredResourceDescriptor, that
+                is associated with this metric type can only be associated with one
+                of the monitored resource types listed here.
+              x-kubernetes-immutable: true
               x-dcl-list-type: list
               items:
                 type: string
@@ -317,14 +305,17 @@ components:
               x-dcl-go-name: Name
               readOnly: true
               description: 'The resource name of the metric descriptor. '
+              x-kubernetes-immutable: true
             type:
               type: string
               x-dcl-go-name: Type
+              readOnly: true
               description: 'The metric type, including its DNS name prefix. The type
                 is not URL-encoded. All user-defined metric types have the DNS name
                 `custom.googleapis.com` or `external.googleapis.com`. Metric types
                 should use a natural hierarchical grouping. For example: "custom.googleapis.com/invoice/paid/amount"
                 "external.googleapis.com/prometheus/up" "appengine.googleapis.com/http/server/response_latencies"'
+              x-kubernetes-immutable: true
             unit:
               type: string
               x-dcl-go-name: Unit
@@ -364,6 +355,7 @@ components:
                 number, etc. Some combinations of `metric_kind` and `value_type` might
                 not be supported. Possible values: STRING, BOOL, INT64, DOUBLE, DISTRIBUTION,
                 MONEY'
+              x-kubernetes-immutable: true
               enum:
               - STRING
               - BOOL

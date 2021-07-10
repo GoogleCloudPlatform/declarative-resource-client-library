@@ -384,6 +384,7 @@ func (r *Reservation) URLNormalized() *Reservation {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetReservation(ctx context.Context, r *Reservation) (*Reservation, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

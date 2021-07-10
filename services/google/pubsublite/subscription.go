@@ -191,6 +191,7 @@ func (r *Subscription) URLNormalized() *Subscription {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetSubscription(ctx context.Context, r *Subscription) (*Subscription, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

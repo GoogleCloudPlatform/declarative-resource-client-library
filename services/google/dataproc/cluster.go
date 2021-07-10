@@ -1408,6 +1408,7 @@ func (r *Cluster) URLNormalized() *Cluster {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetCluster(ctx context.Context, r *Cluster) (*Cluster, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

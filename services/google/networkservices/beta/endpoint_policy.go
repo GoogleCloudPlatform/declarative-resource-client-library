@@ -373,6 +373,7 @@ func (r *EndpointPolicy) URLNormalized() *EndpointPolicy {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetEndpointPolicy(ctx context.Context, r *EndpointPolicy) (*EndpointPolicy, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

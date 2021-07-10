@@ -415,6 +415,7 @@ func (r *Feature) URLNormalized() *Feature {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetFeature(ctx context.Context, r *Feature) (*Feature, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

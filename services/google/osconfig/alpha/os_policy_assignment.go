@@ -1894,6 +1894,7 @@ func (r *OsPolicyAssignment) URLNormalized() *OsPolicyAssignment {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetOsPolicyAssignment(ctx context.Context, r *OsPolicyAssignment) (*OsPolicyAssignment, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

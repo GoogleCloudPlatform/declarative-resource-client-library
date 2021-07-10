@@ -789,9 +789,9 @@ func newUpdateClusterUpdateAutoscalingRequest(ctx context.Context, f *Cluster, c
 	req := map[string]interface{}{}
 
 	if v, err := expandClusterAutoscaling(c, f.Autoscaling); err != nil {
-		return nil, fmt.Errorf("error expanding Autoscaling into desiredAutoscaling: %w", err)
+		return nil, fmt.Errorf("error expanding Autoscaling into desiredClusterAutoscaling: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["desiredAutoscaling"] = v
+		req["desiredClusterAutoscaling"] = v
 	}
 	return req, nil
 }

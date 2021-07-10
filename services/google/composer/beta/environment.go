@@ -812,6 +812,7 @@ func (r *Environment) URLNormalized() *Environment {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetEnvironment(ctx context.Context, r *Environment) (*Environment, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

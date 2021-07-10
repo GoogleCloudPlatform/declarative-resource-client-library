@@ -246,6 +246,7 @@ func (r *WorkerPool) URLNormalized() *WorkerPool {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetWorkerPool(ctx context.Context, r *WorkerPool) (*WorkerPool, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

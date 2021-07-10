@@ -3720,6 +3720,7 @@ func (r *AlertPolicy) URLNormalized() *AlertPolicy {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetAlertPolicy(ctx context.Context, r *AlertPolicy) (*AlertPolicy, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

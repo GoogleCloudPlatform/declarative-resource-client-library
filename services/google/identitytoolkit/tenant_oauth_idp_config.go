@@ -177,6 +177,7 @@ func (r *TenantOAuthIdpConfig) URLNormalized() *TenantOAuthIdpConfig {
 	normalized.Tenant = dcl.SelfLinkToName(r.Tenant)
 	return &normalized
 }
+
 func (c *Client) GetTenantOAuthIdpConfig(ctx context.Context, r *TenantOAuthIdpConfig) (*TenantOAuthIdpConfig, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

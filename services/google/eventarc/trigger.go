@@ -372,6 +372,7 @@ func (r *Trigger) URLNormalized() *Trigger {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetTrigger(ctx context.Context, r *Trigger) (*Trigger, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

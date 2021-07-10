@@ -61,18 +61,6 @@ func ProtoToLoggingLogMetricMetricDescriptorValueTypeEnum(e loggingpb.LoggingLog
 	return nil
 }
 
-// ProtoToLogMetricMetricDescriptorMetadataLaunchStageEnum converts a LogMetricMetricDescriptorMetadataLaunchStageEnum enum from its proto representation.
-func ProtoToLoggingLogMetricMetricDescriptorMetadataLaunchStageEnum(e loggingpb.LoggingLogMetricMetricDescriptorMetadataLaunchStageEnum) *logging.LogMetricMetricDescriptorMetadataLaunchStageEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := loggingpb.LoggingLogMetricMetricDescriptorMetadataLaunchStageEnum_name[int32(e)]; ok {
-		e := logging.LogMetricMetricDescriptorMetadataLaunchStageEnum(n[len("LoggingLogMetricMetricDescriptorMetadataLaunchStageEnum"):])
-		return &e
-	}
-	return nil
-}
-
 // ProtoToLogMetricMetricDescriptorLaunchStageEnum converts a LogMetricMetricDescriptorLaunchStageEnum enum from its proto representation.
 func ProtoToLoggingLogMetricMetricDescriptorLaunchStageEnum(e loggingpb.LoggingLogMetricMetricDescriptorLaunchStageEnum) *logging.LogMetricMetricDescriptorLaunchStageEnum {
 	if e == 0 {
@@ -129,7 +117,6 @@ func ProtoToLoggingLogMetricMetricDescriptorMetadata(p *loggingpb.LoggingLogMetr
 		return nil
 	}
 	obj := &logging.LogMetricMetricDescriptorMetadata{
-		LaunchStage:  ProtoToLoggingLogMetricMetricDescriptorMetadataLaunchStageEnum(p.GetLaunchStage()),
 		SamplePeriod: dcl.StringOrNil(p.SamplePeriod),
 		IngestDelay:  dcl.StringOrNil(p.IngestDelay),
 	}
@@ -237,17 +224,6 @@ func LoggingLogMetricMetricDescriptorValueTypeEnumToProto(e *logging.LogMetricMe
 	return loggingpb.LoggingLogMetricMetricDescriptorValueTypeEnum(0)
 }
 
-// LogMetricMetricDescriptorMetadataLaunchStageEnumToProto converts a LogMetricMetricDescriptorMetadataLaunchStageEnum enum to its proto representation.
-func LoggingLogMetricMetricDescriptorMetadataLaunchStageEnumToProto(e *logging.LogMetricMetricDescriptorMetadataLaunchStageEnum) loggingpb.LoggingLogMetricMetricDescriptorMetadataLaunchStageEnum {
-	if e == nil {
-		return loggingpb.LoggingLogMetricMetricDescriptorMetadataLaunchStageEnum(0)
-	}
-	if v, ok := loggingpb.LoggingLogMetricMetricDescriptorMetadataLaunchStageEnum_value["LogMetricMetricDescriptorMetadataLaunchStageEnum"+string(*e)]; ok {
-		return loggingpb.LoggingLogMetricMetricDescriptorMetadataLaunchStageEnum(v)
-	}
-	return loggingpb.LoggingLogMetricMetricDescriptorMetadataLaunchStageEnum(0)
-}
-
 // LogMetricMetricDescriptorLaunchStageEnumToProto converts a LogMetricMetricDescriptorLaunchStageEnum enum to its proto representation.
 func LoggingLogMetricMetricDescriptorLaunchStageEnumToProto(e *logging.LogMetricMetricDescriptorLaunchStageEnum) loggingpb.LoggingLogMetricMetricDescriptorLaunchStageEnum {
 	if e == nil {
@@ -303,7 +279,6 @@ func LoggingLogMetricMetricDescriptorMetadataToProto(o *logging.LogMetricMetricD
 		return nil
 	}
 	p := &loggingpb.LoggingLogMetricMetricDescriptorMetadata{
-		LaunchStage:  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnumToProto(o.LaunchStage),
 		SamplePeriod: dcl.ValueOrEmptyString(o.SamplePeriod),
 		IngestDelay:  dcl.ValueOrEmptyString(o.IngestDelay),
 	}

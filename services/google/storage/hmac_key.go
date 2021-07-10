@@ -143,6 +143,7 @@ func (r *HmacKey) URLNormalized() *HmacKey {
 	normalized.ServiceAccountEmail = dcl.SelfLinkToName(r.ServiceAccountEmail)
 	return &normalized
 }
+
 func (c *Client) GetHmacKey(ctx context.Context, r *HmacKey) (*HmacKey, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

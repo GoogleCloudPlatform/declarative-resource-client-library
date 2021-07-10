@@ -113,6 +113,7 @@ func (r *FirewallPolicyAssociation) URLNormalized() *FirewallPolicyAssociation {
 	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	return &normalized
 }
+
 func (c *Client) GetFirewallPolicyAssociation(ctx context.Context, r *FirewallPolicyAssociation) (*FirewallPolicyAssociation, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

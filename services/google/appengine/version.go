@@ -1953,6 +1953,7 @@ func (r *Version) URLNormalized() *Version {
 	normalized.Service = dcl.SelfLinkToName(r.Service)
 	return &normalized
 }
+
 func (c *Client) GetVersion(ctx context.Context, r *Version) (*Version, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

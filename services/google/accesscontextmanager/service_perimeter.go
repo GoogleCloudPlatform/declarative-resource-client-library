@@ -354,6 +354,7 @@ func (r *ServicePerimeter) URLNormalized() *ServicePerimeter {
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	return &normalized
 }
+
 func (c *Client) GetServicePerimeter(ctx context.Context, r *ServicePerimeter) (*ServicePerimeter, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

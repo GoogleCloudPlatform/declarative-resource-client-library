@@ -60,6 +60,7 @@ func (r *ProjectBillingInfo) URLNormalized() *ProjectBillingInfo {
 	normalized.BillingEnabled = dcl.SelfLinkToName(r.BillingEnabled)
 	return &normalized
 }
+
 func (c *Client) GetProjectBillingInfo(ctx context.Context, r *ProjectBillingInfo) (*ProjectBillingInfo, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

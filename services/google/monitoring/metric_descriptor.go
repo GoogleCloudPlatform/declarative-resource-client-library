@@ -362,6 +362,7 @@ func (r *MetricDescriptor) URLNormalized() *MetricDescriptor {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetMetricDescriptor(ctx context.Context, r *MetricDescriptor) (*MetricDescriptor, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

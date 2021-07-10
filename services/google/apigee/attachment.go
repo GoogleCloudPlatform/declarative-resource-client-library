@@ -110,6 +110,7 @@ func (r *Attachment) URLNormalized() *Attachment {
 	normalized.Envgroup = r.Envgroup
 	return &normalized
 }
+
 func (c *Client) GetAttachment(ctx context.Context, r *Attachment) (*Attachment, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

@@ -355,6 +355,7 @@ func (r *Workload) URLNormalized() *Workload {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetWorkload(ctx context.Context, r *Workload) (*Workload, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

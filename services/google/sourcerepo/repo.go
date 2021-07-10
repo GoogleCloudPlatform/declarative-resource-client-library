@@ -165,6 +165,7 @@ func (r *Repo) URLNormalized() *Repo {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetRepo(ctx context.Context, r *Repo) (*Repo, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

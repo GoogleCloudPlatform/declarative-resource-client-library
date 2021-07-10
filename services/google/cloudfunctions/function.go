@@ -405,6 +405,7 @@ func (r *Function) URLNormalized() *Function {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetFunction(ctx context.Context, r *Function) (*Function, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

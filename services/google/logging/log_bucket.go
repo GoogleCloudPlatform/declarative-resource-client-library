@@ -147,6 +147,7 @@ func (r *LogBucket) URLNormalized() *LogBucket {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetLogBucket(ctx context.Context, r *LogBucket) (*LogBucket, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

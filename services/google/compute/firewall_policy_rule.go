@@ -249,6 +249,7 @@ func (r *FirewallPolicyRule) URLNormalized() *FirewallPolicyRule {
 	normalized.FirewallPolicy = dcl.SelfLinkToName(r.FirewallPolicy)
 	return &normalized
 }
+
 func (c *Client) GetFirewallPolicyRule(ctx context.Context, r *FirewallPolicyRule) (*FirewallPolicyRule, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

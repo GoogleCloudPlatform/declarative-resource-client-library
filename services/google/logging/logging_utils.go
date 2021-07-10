@@ -115,11 +115,11 @@ func canonicalizeLogMetricMetricDescriptorLabelsValueType(m, n interface{}) bool
 	return equalsLogMetricMetricDescriptorLabelsValueType(mVal, nVal)
 }
 
-func equalsLogMetricMetricDescriptorValueType(m, n *LogMetricMetricDescriptorLabelsValueTypeEnum) bool {
+func equalsLogMetricMetricDescriptorValueType(m, n *LogMetricMetricDescriptorValueTypeEnum) bool {
 	if m == nil && n == nil {
 		return true
 	}
-	v := *LogMetricMetricDescriptorLabelsValueTypeEnumRef("STRING")
+	v := *LogMetricMetricDescriptorValueTypeEnumRef("STRING")
 	if m == nil {
 		return *n == v
 	} else if n == nil {
@@ -132,7 +132,7 @@ func canonicalizeLogMetricMetricDescriptorValueType(m, n interface{}) bool {
 	if m == nil && n == nil {
 		return true
 	}
-	mVal, _ := m.(*LogMetricMetricDescriptorLabelsValueTypeEnum)
-	nVal, _ := n.(*LogMetricMetricDescriptorLabelsValueTypeEnum)
+	mVal, _ := m.(*LogMetricMetricDescriptorValueTypeEnum)
+	nVal, _ := n.(*LogMetricMetricDescriptorValueTypeEnum)
 	return equalsLogMetricMetricDescriptorValueType(mVal, nVal)
 }

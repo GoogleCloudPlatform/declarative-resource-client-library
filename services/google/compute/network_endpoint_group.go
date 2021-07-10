@@ -313,6 +313,7 @@ func (r *NetworkEndpointGroup) URLNormalized() *NetworkEndpointGroup {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetNetworkEndpointGroup(ctx context.Context, r *NetworkEndpointGroup) (*NetworkEndpointGroup, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

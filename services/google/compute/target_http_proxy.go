@@ -114,6 +114,7 @@ func (r *TargetHttpProxy) URLNormalized() *TargetHttpProxy {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetTargetHttpProxy(ctx context.Context, r *TargetHttpProxy) (*TargetHttpProxy, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

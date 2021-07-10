@@ -202,6 +202,7 @@ func (r *Role) URLNormalized() *Role {
 	normalized.Parent = r.Parent
 	return &normalized
 }
+
 func (c *Client) GetRole(ctx context.Context, r *Role) (*Role, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

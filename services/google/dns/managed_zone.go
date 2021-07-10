@@ -672,6 +672,7 @@ func (r *ManagedZone) URLNormalized() *ManagedZone {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetManagedZone(ctx context.Context, r *ManagedZone) (*ManagedZone, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

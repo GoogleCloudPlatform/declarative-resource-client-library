@@ -288,6 +288,7 @@ func (r *Organization) URLNormalized() *Organization {
 	normalized.Parent = r.Parent
 	return &normalized
 }
+
 func (c *Client) GetOrganization(ctx context.Context, r *Organization) (*Organization, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

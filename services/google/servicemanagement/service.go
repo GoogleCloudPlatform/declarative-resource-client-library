@@ -107,6 +107,7 @@ func (r *Service) URLNormalized() *Service {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetService(ctx context.Context, r *Service) (*Service, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

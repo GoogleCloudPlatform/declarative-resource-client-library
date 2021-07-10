@@ -447,6 +447,7 @@ func (r *AccessLevel) URLNormalized() *AccessLevel {
 	normalized.Policy = dcl.SelfLinkToName(r.Policy)
 	return &normalized
 }
+
 func (c *Client) GetAccessLevel(ctx context.Context, r *AccessLevel) (*AccessLevel, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

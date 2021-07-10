@@ -343,6 +343,7 @@ func (r *Subnetwork) URLNormalized() *Subnetwork {
 	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	return &normalized
 }
+
 func (c *Client) GetSubnetwork(ctx context.Context, r *Subnetwork) (*Subnetwork, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

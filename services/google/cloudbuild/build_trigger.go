@@ -918,6 +918,7 @@ func (r *BuildTrigger) URLNormalized() *BuildTrigger {
 	normalized.CreateTime = dcl.SelfLinkToName(r.CreateTime)
 	return &normalized
 }
+
 func (c *Client) GetBuildTrigger(ctx context.Context, r *BuildTrigger) (*BuildTrigger, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

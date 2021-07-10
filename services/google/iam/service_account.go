@@ -214,6 +214,7 @@ func (r *ServiceAccount) URLNormalized() *ServiceAccount {
 	normalized.OAuth2ClientId = dcl.SelfLinkToName(r.OAuth2ClientId)
 	return &normalized
 }
+
 func (c *Client) GetServiceAccount(ctx context.Context, r *ServiceAccount) (*ServiceAccount, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

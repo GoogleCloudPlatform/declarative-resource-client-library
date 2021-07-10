@@ -244,6 +244,7 @@ func (r *Index) URLNormalized() *Index {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetIndex(ctx context.Context, r *Index) (*Index, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

@@ -204,6 +204,7 @@ func (r *Connector) URLNormalized() *Connector {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetConnector(ctx context.Context, r *Connector) (*Connector, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

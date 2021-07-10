@@ -287,6 +287,7 @@ func (r *Application) URLNormalized() *Application {
 	normalized.GcrDomain = dcl.SelfLinkToName(r.GcrDomain)
 	return &normalized
 }
+
 func (c *Client) GetApplication(ctx context.Context, r *Application) (*Application, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

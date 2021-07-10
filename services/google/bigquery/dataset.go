@@ -348,6 +348,7 @@ func (r *Dataset) URLNormalized() *Dataset {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetDataset(ctx context.Context, r *Dataset) (*Dataset, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

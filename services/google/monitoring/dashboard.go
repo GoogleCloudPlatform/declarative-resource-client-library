@@ -3446,6 +3446,7 @@ func (r *Dashboard) URLNormalized() *Dashboard {
 	normalized.Etag = dcl.SelfLinkToName(r.Etag)
 	return &normalized
 }
+
 func (c *Client) GetDashboard(ctx context.Context, r *Dashboard) (*Dashboard, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

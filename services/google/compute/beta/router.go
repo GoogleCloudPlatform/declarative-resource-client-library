@@ -749,6 +749,7 @@ func (r *Router) URLNormalized() *Router {
 	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	return &normalized
 }
+
 func (c *Client) GetRouter(ctx context.Context, r *Router) (*Router, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

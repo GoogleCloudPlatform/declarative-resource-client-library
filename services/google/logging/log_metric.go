@@ -84,7 +84,7 @@ func LogMetricMetricDescriptorMetricKindEnumRef(s string) *LogMetricMetricDescri
 }
 
 func (v LogMetricMetricDescriptorMetricKindEnum) Validate() error {
-	for _, s := range []string{"METRIC_KIND_UNSPECIFIED", "GAUGE", "DELTA", "CUMULATIVE"} {
+	for _, s := range []string{"GAUGE", "DELTA", "CUMULATIVE"} {
 		if string(v) == s {
 			return nil
 		}
@@ -123,33 +123,6 @@ func (v LogMetricMetricDescriptorValueTypeEnum) Validate() error {
 	}
 }
 
-// The enum LogMetricMetricDescriptorMetadataLaunchStageEnum.
-type LogMetricMetricDescriptorMetadataLaunchStageEnum string
-
-// LogMetricMetricDescriptorMetadataLaunchStageEnumRef returns a *LogMetricMetricDescriptorMetadataLaunchStageEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func LogMetricMetricDescriptorMetadataLaunchStageEnumRef(s string) *LogMetricMetricDescriptorMetadataLaunchStageEnum {
-	if s == "" {
-		return nil
-	}
-
-	v := LogMetricMetricDescriptorMetadataLaunchStageEnum(s)
-	return &v
-}
-
-func (v LogMetricMetricDescriptorMetadataLaunchStageEnum) Validate() error {
-	for _, s := range []string{"LAUNCH_STAGE_UNSPECIFIED", "UNIMPLEMENTED", "PRELAUNCH", "EARLY_ACCESS", "ALPHA", "BETA", "GA", "DEPRECATED"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "LogMetricMetricDescriptorMetadataLaunchStageEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
 // The enum LogMetricMetricDescriptorLaunchStageEnum.
 type LogMetricMetricDescriptorLaunchStageEnum string
 
@@ -165,7 +138,7 @@ func LogMetricMetricDescriptorLaunchStageEnumRef(s string) *LogMetricMetricDescr
 }
 
 func (v LogMetricMetricDescriptorLaunchStageEnum) Validate() error {
-	for _, s := range []string{"LAUNCH_STAGE_UNSPECIFIED", "UNIMPLEMENTED", "PRELAUNCH", "EARLY_ACCESS", "ALPHA", "BETA", "GA", "DEPRECATED"} {
+	for _, s := range []string{"UNIMPLEMENTED", "PRELAUNCH", "EARLY_ACCESS", "ALPHA", "BETA", "GA", "DEPRECATED"} {
 		if string(v) == s {
 			return nil
 		}
@@ -306,10 +279,9 @@ func (r *LogMetricMetricDescriptorLabels) HashCode() string {
 }
 
 type LogMetricMetricDescriptorMetadata struct {
-	empty        bool                                              `json:"-"`
-	LaunchStage  *LogMetricMetricDescriptorMetadataLaunchStageEnum `json:"launchStage"`
-	SamplePeriod *string                                           `json:"samplePeriod"`
-	IngestDelay  *string                                           `json:"ingestDelay"`
+	empty        bool    `json:"-"`
+	SamplePeriod *string `json:"samplePeriod"`
+	IngestDelay  *string `json:"ingestDelay"`
 }
 
 type jsonLogMetricMetricDescriptorMetadata LogMetricMetricDescriptorMetadata
@@ -326,8 +298,6 @@ func (r *LogMetricMetricDescriptorMetadata) UnmarshalJSON(data []byte) error {
 	if len(m) == 0 {
 		*r = *EmptyLogMetricMetricDescriptorMetadata
 	} else {
-
-		r.LaunchStage = res.LaunchStage
 
 		r.SamplePeriod = res.SamplePeriod
 
@@ -638,6 +608,7 @@ func (r *LogMetric) URLNormalized() *LogMetric {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetLogMetric(ctx context.Context, r *LogMetric) (*LogMetric, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

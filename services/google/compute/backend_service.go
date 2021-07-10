@@ -1316,6 +1316,7 @@ func (r *BackendService) URLNormalized() *BackendService {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetBackendService(ctx context.Context, r *BackendService) (*BackendService, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

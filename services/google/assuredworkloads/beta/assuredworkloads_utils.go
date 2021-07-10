@@ -66,8 +66,8 @@ func (r *Workload) workloadDeletePreAction(ctx context.Context, client *Client) 
 		return err
 	}
 	for i, resource := range nr.Resources {
-		if *resource.ResourceType == WorkloadResourcesResourceTypeEnum("KEYRING") {
-			// Keyrings have no delete method.
+		if resource.ResourceType != nil && *resource.ResourceType != WorkloadResourcesResourceTypeEnum("CONSUMER_PROJECT") {
+			// Only support project delete method.
 			continue
 		}
 		u, err := nr.URLNormalized().projectURL(client.Config.BasePath, i)
@@ -89,8 +89,8 @@ func (r *Workload) workloadDeletePreAction(ctx context.Context, client *Client) 
 	}
 	return dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		for i, resource := range nr.Resources {
-			if *resource.ResourceType == WorkloadResourcesResourceTypeEnum("KEYRING") {
-				// Keyrings have no delete method.
+			if resource.ResourceType != nil && *resource.ResourceType != WorkloadResourcesResourceTypeEnum("CONSUMER_PROJECT") {
+				// Only support project delete method.
 				continue
 			}
 			u, err := nr.URLNormalized().projectURL(client.Config.BasePath, i)

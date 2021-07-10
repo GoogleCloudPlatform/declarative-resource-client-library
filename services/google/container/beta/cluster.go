@@ -5087,6 +5087,7 @@ func (r *Cluster) URLNormalized() *Cluster {
 	normalized.MasterIPv4CidrBlock = dcl.SelfLinkToName(r.MasterIPv4CidrBlock)
 	return &normalized
 }
+
 func (c *Client) GetCluster(ctx context.Context, r *Cluster) (*Cluster, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

@@ -271,6 +271,7 @@ func (r *DomainMapping) URLNormalized() *DomainMapping {
 	normalized.App = dcl.SelfLinkToName(r.App)
 	return &normalized
 }
+
 func (c *Client) GetDomainMapping(ctx context.Context, r *DomainMapping) (*DomainMapping, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

@@ -122,6 +122,7 @@ func (r *HttpHealthCheck) URLNormalized() *HttpHealthCheck {
 	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	return &normalized
 }
+
 func (c *Client) GetHttpHealthCheck(ctx context.Context, r *HttpHealthCheck) (*HttpHealthCheck, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

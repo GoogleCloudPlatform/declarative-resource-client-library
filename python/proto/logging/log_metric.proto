@@ -30,10 +30,9 @@ enum LoggingLogMetricMetricDescriptorLabelsValueTypeEnum {
 
 enum LoggingLogMetricMetricDescriptorMetricKindEnum {
   LoggingLogMetricMetricDescriptorMetricKindEnumNO_VALUE_DO_NOT_USE = 0;
-  LoggingLogMetricMetricDescriptorMetricKindEnumMETRIC_KIND_UNSPECIFIED = 1;
-  LoggingLogMetricMetricDescriptorMetricKindEnumGAUGE = 2;
-  LoggingLogMetricMetricDescriptorMetricKindEnumDELTA = 3;
-  LoggingLogMetricMetricDescriptorMetricKindEnumCUMULATIVE = 4;
+  LoggingLogMetricMetricDescriptorMetricKindEnumGAUGE = 1;
+  LoggingLogMetricMetricDescriptorMetricKindEnumDELTA = 2;
+  LoggingLogMetricMetricDescriptorMetricKindEnumCUMULATIVE = 3;
 }
 
 enum LoggingLogMetricMetricDescriptorValueTypeEnum {
@@ -46,28 +45,15 @@ enum LoggingLogMetricMetricDescriptorValueTypeEnum {
   LoggingLogMetricMetricDescriptorValueTypeEnumMONEY = 6;
 }
 
-enum LoggingLogMetricMetricDescriptorMetadataLaunchStageEnum {
-  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnumNO_VALUE_DO_NOT_USE = 0;
-  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnumLAUNCH_STAGE_UNSPECIFIED = 1;
-  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnumUNIMPLEMENTED = 2;
-  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnumPRELAUNCH = 3;
-  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnumEARLY_ACCESS = 4;
-  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnumALPHA = 5;
-  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnumBETA = 6;
-  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnumGA = 7;
-  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnumDEPRECATED = 8;
-}
-
 enum LoggingLogMetricMetricDescriptorLaunchStageEnum {
   LoggingLogMetricMetricDescriptorLaunchStageEnumNO_VALUE_DO_NOT_USE = 0;
-  LoggingLogMetricMetricDescriptorLaunchStageEnumLAUNCH_STAGE_UNSPECIFIED = 1;
-  LoggingLogMetricMetricDescriptorLaunchStageEnumUNIMPLEMENTED = 2;
-  LoggingLogMetricMetricDescriptorLaunchStageEnumPRELAUNCH = 3;
-  LoggingLogMetricMetricDescriptorLaunchStageEnumEARLY_ACCESS = 4;
-  LoggingLogMetricMetricDescriptorLaunchStageEnumALPHA = 5;
-  LoggingLogMetricMetricDescriptorLaunchStageEnumBETA = 6;
-  LoggingLogMetricMetricDescriptorLaunchStageEnumGA = 7;
-  LoggingLogMetricMetricDescriptorLaunchStageEnumDEPRECATED = 8;
+  LoggingLogMetricMetricDescriptorLaunchStageEnumUNIMPLEMENTED = 1;
+  LoggingLogMetricMetricDescriptorLaunchStageEnumPRELAUNCH = 2;
+  LoggingLogMetricMetricDescriptorLaunchStageEnumEARLY_ACCESS = 3;
+  LoggingLogMetricMetricDescriptorLaunchStageEnumALPHA = 4;
+  LoggingLogMetricMetricDescriptorLaunchStageEnumBETA = 5;
+  LoggingLogMetricMetricDescriptorLaunchStageEnumGA = 6;
+  LoggingLogMetricMetricDescriptorLaunchStageEnumDEPRECATED = 7;
 }
 
 message LoggingLogMetric {
@@ -105,9 +91,8 @@ message LoggingLogMetricMetricDescriptorLabels {
 }
 
 message LoggingLogMetricMetricDescriptorMetadata {
-  LoggingLogMetricMetricDescriptorMetadataLaunchStageEnum launch_stage = 1;
-  string sample_period = 2;
-  string ingest_delay = 3;
+  string sample_period = 1;
+  string ingest_delay = 2;
 }
 
 message LoggingLogMetricBucketOptions {

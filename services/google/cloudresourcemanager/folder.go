@@ -143,6 +143,7 @@ func (r *Folder) URLNormalized() *Folder {
 	normalized.Etag = dcl.SelfLinkToName(r.Etag)
 	return &normalized
 }
+
 func (c *Client) GetFolder(ctx context.Context, r *Folder) (*Folder, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

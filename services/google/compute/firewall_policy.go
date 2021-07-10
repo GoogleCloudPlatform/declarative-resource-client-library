@@ -122,6 +122,7 @@ func (r *FirewallPolicy) URLNormalized() *FirewallPolicy {
 	normalized.Parent = r.Parent
 	return &normalized
 }
+
 func (c *Client) GetFirewallPolicy(ctx context.Context, r *FirewallPolicy) (*FirewallPolicy, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

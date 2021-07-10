@@ -151,6 +151,7 @@ func (r *TargetPool) URLNormalized() *TargetPool {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetTargetPool(ctx context.Context, r *TargetPool) (*TargetPool, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

@@ -124,6 +124,7 @@ func (r *HttpFilter) URLNormalized() *HttpFilter {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetHttpFilter(ctx context.Context, r *HttpFilter) (*HttpFilter, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

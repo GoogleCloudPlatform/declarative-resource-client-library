@@ -1012,6 +1012,7 @@ func (r *Image) URLNormalized() *Image {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
+
 func (c *Client) GetImage(ctx context.Context, r *Image) (*Image, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

@@ -329,6 +329,7 @@ func (r *AutoscalingPolicy) URLNormalized() *AutoscalingPolicy {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
+
 func (c *Client) GetAutoscalingPolicy(ctx context.Context, r *AutoscalingPolicy) (*AutoscalingPolicy, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

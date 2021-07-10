@@ -141,6 +141,7 @@ func (r *Instance) URLNormalized() *Instance {
 	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	return &normalized
 }
+
 func (c *Client) GetInstance(ctx context.Context, r *Instance) (*Instance, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
