@@ -79,7 +79,7 @@ func (r *Policy) getPolicyURL(userBasePath string) string {
 }
 
 func (r *Policy) IAMPolicyVersion() int {
-	return 3
+	return 0
 }
 
 // policyApiOperation represents a mutable operation in the underlying REST

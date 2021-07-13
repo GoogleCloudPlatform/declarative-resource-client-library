@@ -1,6 +1,6 @@
 {
   "name": "{{cluster1}}",
   "project": "{{ref:container.serviceusage.service.json:project}}",
-  "location": "us-central1-a",
+  "location": "{{zone}}",
   "initialNodeCount": 1
 }

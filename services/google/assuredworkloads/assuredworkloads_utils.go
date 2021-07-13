@@ -54,46 +54,19 @@ func projectLifecycleState(ctx context.Context, client *Client, url string) (str
 	return state, nil
 }
 
-// The resources to be deleted first befoe deleting Workload
+// Deletes projects owned by the workload prior to workload deletion.
 func (r *Workload) workloadDeletePreAction(ctx context.Context, client *Client) error {
-	nr, err := client.GetWorkload(ctx, r.URLNormalized())
-	if err != nil {
-		if dcl.IsNotFound(err) {
-			client.Config.Logger.Infof("Workload not found, returning. Original error: %v", err)
-			return nil
-		}
-		client.Config.Logger.Warningf("GetWorkload checking for existence. error: %v", err)
-		return err
-	}
-	for i, resource := range nr.Resources {
-		if resource.ResourceType != nil && *resource.ResourceType != WorkloadResourcesResourceTypeEnum("CONSUMER_PROJECT") {
-			// Only support project delete method.
-			continue
-		}
-		u, err := nr.URLNormalized().projectURL(client.Config.BasePath, i)
-		if err != nil {
-			return err
-		}
-		state, err := projectLifecycleState(ctx, client, u)
-		if err != nil {
-			return err
-		}
-		if state == "DELETE_REQUESTED" {
-			// Do not delete already deleted project.
-			continue
-		}
-		_, err = dcl.SendRequest(ctx, client.Config, "DELETE", u, &bytes.Buffer{}, client.Config.RetryProvider)
-		if err != nil {
-			return fmt.Errorf("failed to delete Workload Resource: %w", err)
-		}
-	}
+	nr := r.URLNormalized()
 	return dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		for i, resource := range nr.Resources {
-			if resource.ResourceType != nil && *resource.ResourceType != WorkloadResourcesResourceTypeEnum("CONSUMER_PROJECT") {
-				// Only support project delete method.
+			if resource.ResourceType == nil {
+				return nil, fmt.Errorf("nil resource type in workload %q", dcl.ValueOrEmptyString(nr.Name))
+			}
+			if *resource.ResourceType == WorkloadResourcesResourceTypeEnum("KEYRING") {
+				// Keyrings cannot be deleted.
 				continue
 			}
-			u, err := nr.URLNormalized().projectURL(client.Config.BasePath, i)
+			u, err := nr.projectURL(client.Config.BasePath, i)
 			if err != nil {
 				return nil, err
 			}
@@ -101,11 +74,19 @@ func (r *Workload) workloadDeletePreAction(ctx context.Context, client *Client) 
 			if err != nil {
 				return nil, err
 			}
-			if state != "DELETE_REQUESTED" {
-				return &dcl.RetryDetails{}, dcl.OperationNotDone{}
+			if state == "DELETE_REQUESTED" {
+				// Do not delete an already deleted project.
+				continue
 			}
-
+			// Send delete request for projects not already deleted.
+			_, err = dcl.SendRequest(ctx, client.Config, "DELETE", u, &bytes.Buffer{}, client.Config.RetryProvider)
+			if err != nil {
+				return nil, fmt.Errorf("failed to delete Workload Resource: %w", err)
+			}
+			// Retry until all projects are being deleted.
+			return &dcl.RetryDetails{}, dcl.OperationNotDone{}
 		}
+		// All project resources are in DELETE_REQUESTED state.
 		return nil, nil
 	}, client.Config.RetryProvider)
 }

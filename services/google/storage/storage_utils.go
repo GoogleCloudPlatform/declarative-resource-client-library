@@ -146,12 +146,6 @@ func hmacKeyDeletePrecondition(r *HmacKey) bool {
 // HmacKeyEnsureStateInactive ensures that an HmacKey resource is in the
 // INACTIVE state prior to deletion.
 func (r *HmacKey) HmacKeyEnsureStateInactive(ctx context.Context, c *Client) error {
-	// ensure that the HmacKey is up-to-date
-	r, err := c.GetHmacKey(ctx, r)
-	if err != nil {
-		return err
-	}
-
 	inactiveState := HmacKeyStateEnumRef("INACTIVE")
 	if r.State == inactiveState {
 		return nil
@@ -160,8 +154,7 @@ func (r *HmacKey) HmacKeyEnsureStateInactive(ctx context.Context, c *Client) err
 	// otherwise, set to INACTIVE
 	r.State = inactiveState
 	c.Config.Logger.Infof("Performing sub-apply to reach desired state 'INACTIVE' for HmacKey: %v", r)
-	_, err = c.ApplyHmacKey(ctx, r)
-	if err != nil {
+	if _, err := c.ApplyHmacKey(ctx, r); err != nil {
 		return err
 	}
 

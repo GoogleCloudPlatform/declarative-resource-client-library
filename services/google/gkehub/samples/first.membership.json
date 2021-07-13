@@ -5,7 +5,7 @@
   "description": "description",
   "endpoint": {
     "gkeCluster": {
-      "resourceLink": "{{ref:first.container.cluster.json:selfLink}}"
+      "resourceLink": "//container.googleapis.com/projects/{{ref:container.serviceusage.service.json:project}}/zones/{{zone}}/clusters/{{ref:first.container.cluster.json:name}}"
     }
   }
 }

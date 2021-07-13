@@ -36,6 +36,8 @@ func expandHubReferenceLink(f *MembershipEndpointGkeCluster, val *string) (inter
 
 	if strings.HasPrefix(v, "https:") {
 		return strings.Replace(strings.Replace(strings.Replace(*val, "https:", "", 1), "v1/", "", 1), "v1beta1/", "", 1), nil
+	} else if strings.HasPrefix(v, "//container.googleapis.com") {
+		return v, nil
 	}
 	return "//container.googleapis.com/" + v, nil
 }
