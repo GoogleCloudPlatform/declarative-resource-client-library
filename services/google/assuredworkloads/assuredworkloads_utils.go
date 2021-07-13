@@ -62,8 +62,8 @@ func (r *Workload) workloadDeletePreAction(ctx context.Context, client *Client) 
 			if resource.ResourceType == nil {
 				return nil, fmt.Errorf("nil resource type in workload %q", dcl.ValueOrEmptyString(nr.Name))
 			}
-			if *resource.ResourceType == WorkloadResourcesResourceTypeEnum("KEYRING") {
-				// Keyrings cannot be deleted.
+			if *resource.ResourceType != WorkloadResourcesResourceTypeEnum("CONSUMER_PROJECT") {
+				// Only projects can be deleted.
 				continue
 			}
 			u, err := nr.projectURL(client.Config.BasePath, i)
