@@ -312,44 +312,6 @@ func (op *createInstanceOperation) FirstResponse() (map[string]interface{}, bool
 	return op.response, len(op.response) > 0
 }
 
-func (op *createInstanceOperation) do(ctx context.Context, r *Instance, c *Client) error {
-	c.Config.Logger.Infof("Attempting to create %v", r)
-
-	project, location, name := r.createFields()
-	u, err := instanceCreateURL(c.Config.BasePath, project, location, name)
-
-	if err != nil {
-		return err
-	}
-
-	req, err := r.marshal(c)
-	if err != nil {
-		return err
-	}
-	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
-	if err != nil {
-		return err
-	}
-	// wait for object to be created.
-	var o operations.StandardGCPOperation
-	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
-		return err
-	}
-	if err := o.Wait(ctx, c.Config, "https://file.googleapis.com/v1beta1/", "GET"); err != nil {
-		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
-		return err
-	}
-	c.Config.Logger.Infof("Successfully waited for operation")
-	op.response, _ = o.FirstResponse()
-
-	if _, err := c.GetInstance(ctx, r.URLNormalized()); err != nil {
-		c.Config.Logger.Warningf("get returned error: %v", err)
-		return err
-	}
-
-	return nil
-}
-
 func (c *Client) getInstanceRaw(ctx context.Context, r *Instance) ([]byte, error) {
 
 	u, err := instanceGetURL(c.Config.BasePath, r.URLNormalized())

@@ -615,6 +615,10 @@ func (op *deleteOsPolicyAssignmentOperation) do(ctx context.Context, r *OsPolicy
 		return err
 	}
 
+	err = r.waitForNotReconciling(ctx, c)
+	if err != nil {
+		return err
+	}
 	u, err := osPolicyAssignmentDeleteURL(c.Config.BasePath, r.URLNormalized())
 	if err != nil {
 		return err

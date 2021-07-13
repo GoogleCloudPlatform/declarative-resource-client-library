@@ -281,7 +281,7 @@ func (op *deleteWorkloadOperation) do(ctx context.Context, r *Workload, c *Clien
 		return err
 	}
 
-	err = r.workloadDeletePreAction(ctx, c)
+	err = r.deleteProjectResources(ctx, c)
 	if err != nil {
 		return err
 	}

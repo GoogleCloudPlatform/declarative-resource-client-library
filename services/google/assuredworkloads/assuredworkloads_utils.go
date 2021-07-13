@@ -55,14 +55,25 @@ func projectLifecycleState(ctx context.Context, client *Client, url string) (str
 }
 
 // Deletes projects owned by the workload prior to workload deletion.
-func (r *Workload) workloadDeletePreAction(ctx context.Context, client *Client) error {
+func (r *Workload) deleteProjectResources(ctx context.Context, client *Client) error {
 	nr := r.URLNormalized()
 	return dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		for i, resource := range nr.Resources {
 			if resource.ResourceType == nil {
 				return nil, fmt.Errorf("nil resource type in workload %q", dcl.ValueOrEmptyString(nr.Name))
 			}
-			if *resource.ResourceType != WorkloadResourcesResourceTypeEnum("CONSUMER_PROJECT") {
+			isProject := false
+			projectResourceTypeEnums := []WorkloadResourcesResourceTypeEnum{
+				WorkloadResourcesResourceTypeEnum("CONSUMER_PROJECT"),
+				WorkloadResourcesResourceTypeEnum("ENCRYPTION_KEYS_PROJECT"),
+			}
+			resourceType := *resource.ResourceType
+			for _, prte := range projectResourceTypeEnums {
+				if resourceType == prte {
+					isProject = true
+				}
+			}
+			if !isProject {
 				// Only projects can be deleted.
 				continue
 			}

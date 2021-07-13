@@ -14,6 +14,7 @@
 package alpha
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
@@ -38,4 +39,18 @@ func canonicalizeOSPolicyAssignmentRolloutMinWaitDuration(m, n interface{}) bool
 		return false
 	}
 	return mFloat == nFloat
+}
+
+// Waits for os policy assignment to be done reconciling before deletion.
+func (r *OsPolicyAssignment) waitForNotReconciling(ctx context.Context, client *Client) error {
+	return dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
+		nr, err := client.GetOsPolicyAssignment(ctx, r)
+		if err != nil {
+			return nil, err
+		}
+		if dcl.ValueOrEmptyBool(nr.Reconciling) {
+			return &dcl.RetryDetails{}, dcl.OperationNotDone{}
+		}
+		return nil, nil
+	}, client.Config.RetryProvider)
 }
