@@ -65,7 +65,7 @@ func NewConfig(o ...ConfigOption) *Config {
 	c := &Config{
 		contentType:   "application/json",
 		queryParams:   map[string]string{"alt": "json"},
-		Logger:        DefaultLogger(),
+		Logger:        DefaultLogger(LoggerInfo),
 		RetryProvider: &BackoffRetryProvider{},
 	}
 
@@ -328,67 +328,96 @@ type Logger interface {
 	Warning(args ...interface{})
 }
 
+// LoggerLevel is the most basic level that a logger should print.
+// Anything at this level or more severe will be printed by this logger.
+type LoggerLevel int32
+
+const (
+	// Fatal will print only Fatal logs.
+	Fatal LoggerLevel = iota
+	// Error will print Error and all Fatal logs.
+	Error
+	// Warning will print Warning and all Error logs.
+	Warning
+	// LoggerInfo will print Info and all Warning logs.
+	LoggerInfo
+)
+
 // DefaultLogger returns the default logger for the Declarative Client Library.
-func DefaultLogger() Logger {
-	return glogger{}
+func DefaultLogger(level LoggerLevel) Logger {
+	return glogger{level: level}
 }
 
-type glogger struct{}
+type glogger struct {
+	level LoggerLevel
+}
 
 // Fatal records Fatal errors.
 func (l glogger) Fatal(args ...interface{}) {
-	glog.Fatal(args)
+	if l.level <= Fatal {
+		glog.Fatal(args)
+	}
 }
 
 // Fatalf records Fatal errors with added arguments.
 func (l glogger) Fatalf(format string, args ...interface{}) {
-	a := make([]interface{}, len(args))
-	for i, v := range args {
-		if s, ok := v.(*string); ok && s != nil {
-			a[i] = *s
-		} else {
-			a[i] = v
+	if l.level <= Fatal {
+		a := make([]interface{}, len(args))
+		for i, v := range args {
+			if s, ok := v.(*string); ok && s != nil {
+				a[i] = *s
+			} else {
+				a[i] = v
+			}
 		}
-	}
 
-	glog.Fatalf(format, a...)
+		glog.Fatalf(format, a...)
+	}
 }
 
 // Info records Info errors.
 func (l glogger) Info(args ...interface{}) {
-	glog.Info(args)
+	if l.level <= LoggerInfo {
+		glog.Info(args)
+	}
 }
 
 // Infof records Info errors with added arguments.
 func (l glogger) Infof(format string, args ...interface{}) {
-	a := make([]interface{}, len(args))
-	for i, v := range args {
-		if s, ok := v.(*string); ok && s != nil {
-			a[i] = *s
-		} else {
-			a[i] = v
+	if l.level <= LoggerInfo {
+		a := make([]interface{}, len(args))
+		for i, v := range args {
+			if s, ok := v.(*string); ok && s != nil {
+				a[i] = *s
+			} else {
+				a[i] = v
+			}
 		}
+		glog.Infof(format, a...)
 	}
-	glog.Infof(format, a...)
 }
 
 // Warningf records Warning errors with added arguments.
 func (l glogger) Warningf(format string, args ...interface{}) {
-	a := make([]interface{}, len(args))
-	for i, v := range args {
-		if s, ok := v.(*string); ok && s != nil {
-			a[i] = *s
-		} else {
-			a[i] = v
+	if l.level <= Warning {
+		a := make([]interface{}, len(args))
+		for i, v := range args {
+			if s, ok := v.(*string); ok && s != nil {
+				a[i] = *s
+			} else {
+				a[i] = v
+			}
 		}
-	}
 
-	glog.Warningf(format, a...)
+		glog.Warningf(format, a...)
+	}
 }
 
 // Warning records Warning errors.
 func (l glogger) Warning(args ...interface{}) {
-	glog.Warning(args...)
+	if l.level <= Warning {
+		glog.Warning(args...)
+	}
 }
 
 func randomString(length int) string {
