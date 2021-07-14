@@ -99,6 +99,12 @@ func (r *EnvironmentConfigNodeConfig) validate() error {
 	return nil
 }
 func (r *EnvironmentConfigNodeConfigIPAllocationPolicy) validate() error {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"ClusterSecondaryRangeName", "ClusterIPv4CidrBlock"}, r.ClusterSecondaryRangeName, r.ClusterIPv4CidrBlock); err != nil {
+		return err
+	}
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"ServicesSecondaryRangeName", "ServicesIPv4CidrBlock"}, r.ServicesSecondaryRangeName, r.ServicesIPv4CidrBlock); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *EnvironmentConfigPrivateEnvironmentConfig) validate() error {

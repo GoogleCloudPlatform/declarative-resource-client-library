@@ -50,6 +50,9 @@ func (r *ServerTlsPolicy) validate() error {
 	return nil
 }
 func (r *ServerTlsPolicyServerCertificate) validate() error {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"LocalFilepath", "GrpcEndpoint", "CertificateProviderInstance"}, r.LocalFilepath, r.GrpcEndpoint, r.CertificateProviderInstance); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.LocalFilepath) {
 		if err := r.LocalFilepath.validate(); err != nil {
 			return err
@@ -95,6 +98,9 @@ func (r *ServerTlsPolicyMtlsPolicy) validate() error {
 	return nil
 }
 func (r *ServerTlsPolicyMtlsPolicyClientValidationCa) validate() error {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"CaCertPath", "GrpcEndpoint", "CertificateProviderInstance"}, r.CaCertPath, r.GrpcEndpoint, r.CertificateProviderInstance); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.GrpcEndpoint) {
 		if err := r.GrpcEndpoint.validate(); err != nil {
 			return err

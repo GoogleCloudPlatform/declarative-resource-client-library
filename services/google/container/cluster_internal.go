@@ -424,6 +424,9 @@ func (r *ClusterMaintenancePolicy) validate() error {
 	return nil
 }
 func (r *ClusterMaintenancePolicyWindow) validate() error {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"DailyMaintenanceWindow", "RecurringWindow"}, r.DailyMaintenanceWindow, r.RecurringWindow); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.DailyMaintenanceWindow) {
 		if err := r.DailyMaintenanceWindow.validate(); err != nil {
 			return err

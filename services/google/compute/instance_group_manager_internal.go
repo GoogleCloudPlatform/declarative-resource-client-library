@@ -77,6 +77,9 @@ func (r *InstanceGroupManagerVersions) validate() error {
 	return nil
 }
 func (r *InstanceGroupManagerVersionsTargetSize) validate() error {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"Fixed", "Percent"}, r.Fixed, r.Percent); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *InstanceGroupManagerNamedPorts) validate() error {

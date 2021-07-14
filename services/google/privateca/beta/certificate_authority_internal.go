@@ -155,6 +155,9 @@ func (r *CertificateAuthorityConfigPublicKey) validate() error {
 	return nil
 }
 func (r *CertificateAuthorityConfigReusableConfig) validate() error {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"ReusableConfig", "ReusableConfigValues"}, r.ReusableConfig, r.ReusableConfigValues); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.ReusableConfigValues) {
 		if err := r.ReusableConfigValues.validate(); err != nil {
 			return err
@@ -233,6 +236,9 @@ func (r *CertificateAuthorityConfigReusableConfigReusableConfigValuesAdditionalE
 	return nil
 }
 func (r *CertificateAuthorityKeySpec) validate() error {
+	if err := dcl.ValidateExactlyOneOfFieldsSet([]string{"CloudKmsKeyVersion", "Algorithm"}, r.CloudKmsKeyVersion, r.Algorithm); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *CertificateAuthoritySubordinateConfig) validate() error {
@@ -240,6 +246,9 @@ func (r *CertificateAuthoritySubordinateConfig) validate() error {
 		return err
 	}
 	if err := dcl.Required(r, "pemIssuerChain"); err != nil {
+		return err
+	}
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"CertificateAuthority", "PemIssuerChain"}, r.CertificateAuthority, r.PemIssuerChain); err != nil {
 		return err
 	}
 	if !dcl.IsEmptyValueIndirect(r.PemIssuerChain) {
@@ -422,6 +431,9 @@ func (r *CertificateAuthorityAccessUrls) validate() error {
 	return nil
 }
 func (r *CertificateAuthorityCertificatePolicy) validate() error {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"AllowedConfigList", "OverwriteConfigValues"}, r.AllowedConfigList, r.OverwriteConfigValues); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.AllowedConfigList) {
 		if err := r.AllowedConfigList.validate(); err != nil {
 			return err
@@ -451,6 +463,9 @@ func (r *CertificateAuthorityCertificatePolicyAllowedConfigList) validate() erro
 	return nil
 }
 func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValues) validate() error {
+	if err := dcl.ValidateExactlyOneOfFieldsSet([]string{"ReusableConfig", "ReusableConfigValues"}, r.ReusableConfig, r.ReusableConfigValues); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.ReusableConfigValues) {
 		if err := r.ReusableConfigValues.validate(); err != nil {
 			return err
@@ -529,6 +544,9 @@ func (r *CertificateAuthorityCertificatePolicyAllowedConfigListAllowedConfigValu
 	return nil
 }
 func (r *CertificateAuthorityCertificatePolicyOverwriteConfigValues) validate() error {
+	if err := dcl.ValidateExactlyOneOfFieldsSet([]string{"ReusableConfig", "ReusableConfigValues"}, r.ReusableConfig, r.ReusableConfigValues); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.ReusableConfigValues) {
 		if err := r.ReusableConfigValues.validate(); err != nil {
 			return err

@@ -38,6 +38,9 @@ func (r *Key) validate() error {
 	return nil
 }
 func (r *KeyRestrictions) validate() error {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"BrowserKeyRestrictions", "ServerKeyRestrictions", "AndroidKeyRestrictions", "IosKeyRestrictions"}, r.BrowserKeyRestrictions, r.ServerKeyRestrictions, r.AndroidKeyRestrictions, r.IosKeyRestrictions); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.BrowserKeyRestrictions) {
 		if err := r.BrowserKeyRestrictions.validate(); err != nil {
 			return err

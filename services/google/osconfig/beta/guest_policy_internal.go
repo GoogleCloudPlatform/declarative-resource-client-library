@@ -53,6 +53,9 @@ func (r *GuestPolicyPackages) validate() error {
 	return nil
 }
 func (r *GuestPolicyPackageRepositories) validate() error {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"Apt", "Goo", "Yum", "Zypper"}, r.Apt, r.Goo, r.Yum, r.Zypper); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.Apt) {
 		if err := r.Apt.validate(); err != nil {
 			return err
@@ -112,6 +115,9 @@ func (r *GuestPolicyPackageRepositoriesGoo) validate() error {
 	return nil
 }
 func (r *GuestPolicyRecipes) validate() error {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"InstallSteps", "UpdateSteps"}, r.InstallSteps, r.UpdateSteps); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *GuestPolicyRecipesArtifacts) validate() error {

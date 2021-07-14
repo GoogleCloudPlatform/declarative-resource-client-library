@@ -63,6 +63,9 @@ func (r *LogMetricMetricDescriptorMetadata) validate() error {
 	return nil
 }
 func (r *LogMetricBucketOptions) validate() error {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"LinearBuckets", "ExponentialBuckets", "ExplicitBuckets"}, r.LinearBuckets, r.ExponentialBuckets, r.ExplicitBuckets); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.LinearBuckets) {
 		if err := r.LinearBuckets.validate(); err != nil {
 			return err

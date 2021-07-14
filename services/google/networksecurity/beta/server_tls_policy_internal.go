@@ -50,6 +50,9 @@ func (r *ServerTlsPolicy) validate() error {
 	return nil
 }
 func (r *ServerTlsPolicyServerCertificate) validate() error {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"GrpcEndpoint", "CertificateProviderInstance"}, r.GrpcEndpoint, r.CertificateProviderInstance); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.GrpcEndpoint) {
 		if err := r.GrpcEndpoint.validate(); err != nil {
 			return err
@@ -81,6 +84,9 @@ func (r *ServerTlsPolicyMtlsPolicy) validate() error {
 	return nil
 }
 func (r *ServerTlsPolicyMtlsPolicyClientValidationCa) validate() error {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"GrpcEndpoint", "CertificateProviderInstance"}, r.GrpcEndpoint, r.CertificateProviderInstance); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.GrpcEndpoint) {
 		if err := r.GrpcEndpoint.validate(); err != nil {
 			return err

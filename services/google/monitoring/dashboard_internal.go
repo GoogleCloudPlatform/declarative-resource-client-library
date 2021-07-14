@@ -88,6 +88,9 @@ func (r *DashboardColumnLayoutColumns) validate() error {
 	return nil
 }
 func (r *DashboardWidget) validate() error {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"XyChart", "Scorecard", "Text", "Blank"}, r.XyChart, r.Scorecard, r.Text, r.Blank); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.XyChart) {
 		if err := r.XyChart.validate(); err != nil {
 			return err

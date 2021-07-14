@@ -111,6 +111,9 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkg) validate() erro
 	if err := dcl.Required(r, "desiredState"); err != nil {
 		return err
 	}
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"Apt", "Deb", "Yum", "Zypper", "Rpm", "Googet", "Msi"}, r.Apt, r.Deb, r.Yum, r.Zypper, r.Rpm, r.Googet, r.Msi); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.Apt) {
 		if err := r.Apt.validate(); err != nil {
 			return err
@@ -217,6 +220,9 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgRpm) validate() e
 	return nil
 }
 func (r *OsPolicyAssignmentFile) validate() error {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"Remote", "Gcs", "LocalPath"}, r.Remote, r.Gcs, r.LocalPath); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.Remote) {
 		if err := r.Remote.validate(); err != nil {
 			return err
@@ -262,6 +268,9 @@ func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgMsi) validate() e
 	return nil
 }
 func (r *OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepository) validate() error {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"Apt", "Yum", "Zypper", "Goo"}, r.Apt, r.Yum, r.Zypper, r.Goo); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.Apt) {
 		if err := r.Apt.validate(); err != nil {
 			return err
@@ -346,6 +355,9 @@ func (r *OsPolicyAssignmentExec) validate() error {
 	if err := dcl.Required(r, "interpreter"); err != nil {
 		return err
 	}
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"File", "Script"}, r.File, r.Script); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.File) {
 		if err := r.File.validate(); err != nil {
 			return err
@@ -391,6 +403,9 @@ func (r *OsPolicyAssignmentRollout) validate() error {
 	return nil
 }
 func (r *OsPolicyAssignmentRolloutDisruptionBudget) validate() error {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"Fixed", "Percent"}, r.Fixed, r.Percent); err != nil {
+		return err
+	}
 	return nil
 }
 

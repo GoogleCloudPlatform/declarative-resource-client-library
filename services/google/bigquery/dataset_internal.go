@@ -38,6 +38,9 @@ func (r *DatasetAccess) validate() error {
 	if err := dcl.Required(r, "role"); err != nil {
 		return err
 	}
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"UserByEmail", "GroupByEmail", "Domain", "SpecialGroup", "IamMember", "View", "Routine"}, r.UserByEmail, r.GroupByEmail, r.Domain, r.SpecialGroup, r.IamMember, r.View, r.Routine); err != nil {
+		return err
+	}
 	if !dcl.IsEmptyValueIndirect(r.View) {
 		if err := r.View.validate(); err != nil {
 			return err
