@@ -340,9 +340,6 @@ func canonicalizeFirewallPolicyRuleDesiredState(rawDesired, rawInitial *Firewall
 	if dcl.BoolCanonicalize(rawDesired.Disabled, rawInitial.Disabled) {
 		rawDesired.Disabled = rawInitial.Disabled
 	}
-	if dcl.StringCanonicalize(rawDesired.Kind, rawInitial.Kind) {
-		rawDesired.Kind = rawInitial.Kind
-	}
 	if dcl.NameToSelfLink(rawDesired.FirewallPolicy, rawInitial.FirewallPolicy) {
 		rawDesired.FirewallPolicy = rawInitial.FirewallPolicy
 	}
@@ -683,7 +680,7 @@ func diffFirewallPolicyRule(c *Client, desired, actual *FirewallPolicyRule, opts
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

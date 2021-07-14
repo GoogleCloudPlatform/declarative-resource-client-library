@@ -21,14 +21,13 @@ dependencies:
 - samples/folder.cloudbilling.project_billing_info.json
 - samples/compute.serviceusage.service.json
 - samples/folder.network.json
-- samples/update_folder.network.json
 description: An example of a compute firewall policy for a folder
 name: folder_firewall_policy
 resource: samples/folder.firewall_policy_rule.json
 updates:
 - dependencies:
   - samples/update_folder.firewall_policy.json
-  resource: samples/update_folder.firewall_policy_rule.json
+  resource: samples/update_folder2.firewall_policy_rule.json
 versions:
 - ga
 - v1

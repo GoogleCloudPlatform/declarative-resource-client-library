@@ -1,21 +1,21 @@
 {
   "priority": 9000,
   "firewallPolicy": "{{ref:folder.firewall_policy.json:name}}",
-  "description": "allow-scan-probe",
+  "action": "allow",
+  "description": "allow-scan-probe-update",
   "match": {
     "layer4Configs": [
       {
-        "ipProtocol": "tcp",
-        "ports": ["123"]
+        "ipProtocol": "udp",
+        "ports": ["22"]
       }
     ],
-    "srcIPRanges": [],
-    "destIPRanges": ["10.100.0.1/32"]
+    "srcIPRanges": ["11.100.0.1/32"],
+    "destIPRanges": []
   },
-  "enableLogging" : false,
+  "enableLogging" : true,
   "targetServiceAccounts" : ["261421534184-compute@developer.gserviceaccount.com"],
-  "action": "deny",
-  "direction": "EGRESS",
-  "disabled" : false,
+  "direction": "INGRESS",
+  "disabled" : true,
   "targetResources": ["{{ref:folder.network.json:selfLink}}"]
 }

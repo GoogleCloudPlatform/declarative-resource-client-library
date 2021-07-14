@@ -48,7 +48,6 @@ class FirewallPolicyRule(object):
         self.enable_logging = enable_logging
         self.target_service_accounts = target_service_accounts
         self.disabled = disabled
-        self.kind = kind
         self.firewall_policy = firewall_policy
         self.service_account_file = service_account_file
 
@@ -90,9 +89,6 @@ class FirewallPolicyRule(object):
             )
         if Primitive.to_proto(self.disabled):
             request.resource.disabled = Primitive.to_proto(self.disabled)
-
-        if Primitive.to_proto(self.kind):
-            request.resource.kind = Primitive.to_proto(self.kind)
 
         if Primitive.to_proto(self.firewall_policy):
             request.resource.firewall_policy = Primitive.to_proto(self.firewall_policy)
@@ -155,9 +151,6 @@ class FirewallPolicyRule(object):
         if Primitive.to_proto(self.disabled):
             request.resource.disabled = Primitive.to_proto(self.disabled)
 
-        if Primitive.to_proto(self.kind):
-            request.resource.kind = Primitive.to_proto(self.kind)
-
         if Primitive.to_proto(self.firewall_policy):
             request.resource.firewall_policy = Primitive.to_proto(self.firewall_policy)
 
@@ -200,8 +193,6 @@ class FirewallPolicyRule(object):
             )
         if Primitive.to_proto(self.disabled):
             resource.disabled = Primitive.to_proto(self.disabled)
-        if Primitive.to_proto(self.kind):
-            resource.kind = Primitive.to_proto(self.kind)
         if Primitive.to_proto(self.firewall_policy):
             resource.firewall_policy = Primitive.to_proto(self.firewall_policy)
         return resource

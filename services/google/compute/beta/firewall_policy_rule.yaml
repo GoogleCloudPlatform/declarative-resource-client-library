@@ -103,6 +103,7 @@ components:
         kind:
           type: string
           x-dcl-go-name: Kind
+          readOnly: true
           description: Type of the resource. Always `compute#firewallPolicyRule` for
             firewall policy rules
           x-kubernetes-immutable: true
