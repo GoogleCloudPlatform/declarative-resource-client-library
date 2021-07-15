@@ -1450,6 +1450,26 @@ func flattenApplicationFeatureSettings(c *Client, i interface{}) *ApplicationFea
 	return r
 }
 
+// flattenApplicationServingStatusEnumMap flattens the contents of ApplicationServingStatusEnum from a JSON
+// response object.
+func flattenApplicationServingStatusEnumMap(c *Client, i interface{}) map[string]ApplicationServingStatusEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ApplicationServingStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ApplicationServingStatusEnum{}
+	}
+
+	items := make(map[string]ApplicationServingStatusEnum)
+	for k, item := range a {
+		items[k] = *flattenApplicationServingStatusEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenApplicationServingStatusEnumSlice flattens the contents of ApplicationServingStatusEnum from a JSON
 // response object.
 func flattenApplicationServingStatusEnumSlice(c *Client, i interface{}) []ApplicationServingStatusEnum {
@@ -1479,6 +1499,26 @@ func flattenApplicationServingStatusEnum(i interface{}) *ApplicationServingStatu
 	}
 
 	return ApplicationServingStatusEnumRef(s)
+}
+
+// flattenApplicationDatabaseTypeEnumMap flattens the contents of ApplicationDatabaseTypeEnum from a JSON
+// response object.
+func flattenApplicationDatabaseTypeEnumMap(c *Client, i interface{}) map[string]ApplicationDatabaseTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ApplicationDatabaseTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ApplicationDatabaseTypeEnum{}
+	}
+
+	items := make(map[string]ApplicationDatabaseTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenApplicationDatabaseTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenApplicationDatabaseTypeEnumSlice flattens the contents of ApplicationDatabaseTypeEnum from a JSON

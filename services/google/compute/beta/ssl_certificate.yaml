@@ -41,10 +41,18 @@ paths:
       required: true
       schema:
         type: string
+    - name: location
+      required: true
+      schema:
+        type: string
   list:
     description: The function used to list information about many SslCertificate
     parameters:
     - name: project
+      required: true
+      schema:
+        type: string
+    - name: location
       required: true
       schema:
         type: string
@@ -54,14 +62,20 @@ components:
       title: SslCertificate
       x-dcl-id: projects/{{project}}/global/sslCertificates/{{name}}
       x-dcl-locations:
+      - region
       - global
       x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
       type: object
       required:
-      - name
       - project
       properties:
+        creationTimestamp:
+          type: string
+          x-dcl-go-name: CreationTimestamp
+          readOnly: true
+          description: Creation timestamp in RFC3339 text format.
+          x-kubernetes-immutable: true
         description:
           type: string
           x-dcl-go-name: Description
@@ -81,6 +95,11 @@ components:
           readOnly: true
           description: The unique identifier for the resource. This identifier is
             defined by the server.
+          x-kubernetes-immutable: true
+        location:
+          type: string
+          x-dcl-go-name: Location
+          description: The location for the resource
           x-kubernetes-immutable: true
         name:
           type: string
@@ -102,6 +121,13 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+        region:
+          type: string
+          x-dcl-go-name: Region
+          readOnly: true
+          description: URL of the region where the regional SSL Certificate resides.
+            This field is not applicable to global SSL Certificate.
+          x-kubernetes-immutable: true
         selfLink:
           type: string
           x-dcl-go-name: SelfLink

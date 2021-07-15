@@ -18,4 +18,3 @@ updates:
 - resource: samples/update.note.json
 versions:
 - ga
-- v1

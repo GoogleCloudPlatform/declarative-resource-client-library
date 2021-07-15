@@ -4368,6 +4368,26 @@ func flattenImageDeprecated(c *Client, i interface{}) *ImageDeprecated {
 	return r
 }
 
+// flattenImageGuestOsFeatureTypeEnumMap flattens the contents of ImageGuestOsFeatureTypeEnum from a JSON
+// response object.
+func flattenImageGuestOsFeatureTypeEnumMap(c *Client, i interface{}) map[string]ImageGuestOsFeatureTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ImageGuestOsFeatureTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ImageGuestOsFeatureTypeEnum{}
+	}
+
+	items := make(map[string]ImageGuestOsFeatureTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenImageGuestOsFeatureTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenImageGuestOsFeatureTypeEnumSlice flattens the contents of ImageGuestOsFeatureTypeEnum from a JSON
 // response object.
 func flattenImageGuestOsFeatureTypeEnumSlice(c *Client, i interface{}) []ImageGuestOsFeatureTypeEnum {
@@ -4397,6 +4417,26 @@ func flattenImageGuestOsFeatureTypeEnum(i interface{}) *ImageGuestOsFeatureTypeE
 	}
 
 	return ImageGuestOsFeatureTypeEnumRef(s)
+}
+
+// flattenImageRawDiskContainerTypeEnumMap flattens the contents of ImageRawDiskContainerTypeEnum from a JSON
+// response object.
+func flattenImageRawDiskContainerTypeEnumMap(c *Client, i interface{}) map[string]ImageRawDiskContainerTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ImageRawDiskContainerTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ImageRawDiskContainerTypeEnum{}
+	}
+
+	items := make(map[string]ImageRawDiskContainerTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenImageRawDiskContainerTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenImageRawDiskContainerTypeEnumSlice flattens the contents of ImageRawDiskContainerTypeEnum from a JSON
@@ -4430,6 +4470,26 @@ func flattenImageRawDiskContainerTypeEnum(i interface{}) *ImageRawDiskContainerT
 	return ImageRawDiskContainerTypeEnumRef(s)
 }
 
+// flattenImageShieldedInstanceInitialStatePkFileTypeEnumMap flattens the contents of ImageShieldedInstanceInitialStatePkFileTypeEnum from a JSON
+// response object.
+func flattenImageShieldedInstanceInitialStatePkFileTypeEnumMap(c *Client, i interface{}) map[string]ImageShieldedInstanceInitialStatePkFileTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ImageShieldedInstanceInitialStatePkFileTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ImageShieldedInstanceInitialStatePkFileTypeEnum{}
+	}
+
+	items := make(map[string]ImageShieldedInstanceInitialStatePkFileTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenImageShieldedInstanceInitialStatePkFileTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenImageShieldedInstanceInitialStatePkFileTypeEnumSlice flattens the contents of ImageShieldedInstanceInitialStatePkFileTypeEnum from a JSON
 // response object.
 func flattenImageShieldedInstanceInitialStatePkFileTypeEnumSlice(c *Client, i interface{}) []ImageShieldedInstanceInitialStatePkFileTypeEnum {
@@ -4459,6 +4519,26 @@ func flattenImageShieldedInstanceInitialStatePkFileTypeEnum(i interface{}) *Imag
 	}
 
 	return ImageShieldedInstanceInitialStatePkFileTypeEnumRef(s)
+}
+
+// flattenImageShieldedInstanceInitialStateKekFileTypeEnumMap flattens the contents of ImageShieldedInstanceInitialStateKekFileTypeEnum from a JSON
+// response object.
+func flattenImageShieldedInstanceInitialStateKekFileTypeEnumMap(c *Client, i interface{}) map[string]ImageShieldedInstanceInitialStateKekFileTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ImageShieldedInstanceInitialStateKekFileTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ImageShieldedInstanceInitialStateKekFileTypeEnum{}
+	}
+
+	items := make(map[string]ImageShieldedInstanceInitialStateKekFileTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenImageShieldedInstanceInitialStateKekFileTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenImageShieldedInstanceInitialStateKekFileTypeEnumSlice flattens the contents of ImageShieldedInstanceInitialStateKekFileTypeEnum from a JSON
@@ -4492,6 +4572,26 @@ func flattenImageShieldedInstanceInitialStateKekFileTypeEnum(i interface{}) *Ima
 	return ImageShieldedInstanceInitialStateKekFileTypeEnumRef(s)
 }
 
+// flattenImageShieldedInstanceInitialStateDbFileTypeEnumMap flattens the contents of ImageShieldedInstanceInitialStateDbFileTypeEnum from a JSON
+// response object.
+func flattenImageShieldedInstanceInitialStateDbFileTypeEnumMap(c *Client, i interface{}) map[string]ImageShieldedInstanceInitialStateDbFileTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ImageShieldedInstanceInitialStateDbFileTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ImageShieldedInstanceInitialStateDbFileTypeEnum{}
+	}
+
+	items := make(map[string]ImageShieldedInstanceInitialStateDbFileTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenImageShieldedInstanceInitialStateDbFileTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenImageShieldedInstanceInitialStateDbFileTypeEnumSlice flattens the contents of ImageShieldedInstanceInitialStateDbFileTypeEnum from a JSON
 // response object.
 func flattenImageShieldedInstanceInitialStateDbFileTypeEnumSlice(c *Client, i interface{}) []ImageShieldedInstanceInitialStateDbFileTypeEnum {
@@ -4521,6 +4621,26 @@ func flattenImageShieldedInstanceInitialStateDbFileTypeEnum(i interface{}) *Imag
 	}
 
 	return ImageShieldedInstanceInitialStateDbFileTypeEnumRef(s)
+}
+
+// flattenImageShieldedInstanceInitialStateDbxFileTypeEnumMap flattens the contents of ImageShieldedInstanceInitialStateDbxFileTypeEnum from a JSON
+// response object.
+func flattenImageShieldedInstanceInitialStateDbxFileTypeEnumMap(c *Client, i interface{}) map[string]ImageShieldedInstanceInitialStateDbxFileTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ImageShieldedInstanceInitialStateDbxFileTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ImageShieldedInstanceInitialStateDbxFileTypeEnum{}
+	}
+
+	items := make(map[string]ImageShieldedInstanceInitialStateDbxFileTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenImageShieldedInstanceInitialStateDbxFileTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenImageShieldedInstanceInitialStateDbxFileTypeEnumSlice flattens the contents of ImageShieldedInstanceInitialStateDbxFileTypeEnum from a JSON
@@ -4554,6 +4674,26 @@ func flattenImageShieldedInstanceInitialStateDbxFileTypeEnum(i interface{}) *Ima
 	return ImageShieldedInstanceInitialStateDbxFileTypeEnumRef(s)
 }
 
+// flattenImageSourceTypeEnumMap flattens the contents of ImageSourceTypeEnum from a JSON
+// response object.
+func flattenImageSourceTypeEnumMap(c *Client, i interface{}) map[string]ImageSourceTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ImageSourceTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ImageSourceTypeEnum{}
+	}
+
+	items := make(map[string]ImageSourceTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenImageSourceTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenImageSourceTypeEnumSlice flattens the contents of ImageSourceTypeEnum from a JSON
 // response object.
 func flattenImageSourceTypeEnumSlice(c *Client, i interface{}) []ImageSourceTypeEnum {
@@ -4585,6 +4725,26 @@ func flattenImageSourceTypeEnum(i interface{}) *ImageSourceTypeEnum {
 	return ImageSourceTypeEnumRef(s)
 }
 
+// flattenImageStatusEnumMap flattens the contents of ImageStatusEnum from a JSON
+// response object.
+func flattenImageStatusEnumMap(c *Client, i interface{}) map[string]ImageStatusEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ImageStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ImageStatusEnum{}
+	}
+
+	items := make(map[string]ImageStatusEnum)
+	for k, item := range a {
+		items[k] = *flattenImageStatusEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenImageStatusEnumSlice flattens the contents of ImageStatusEnum from a JSON
 // response object.
 func flattenImageStatusEnumSlice(c *Client, i interface{}) []ImageStatusEnum {
@@ -4614,6 +4774,26 @@ func flattenImageStatusEnum(i interface{}) *ImageStatusEnum {
 	}
 
 	return ImageStatusEnumRef(s)
+}
+
+// flattenImageDeprecatedStateEnumMap flattens the contents of ImageDeprecatedStateEnum from a JSON
+// response object.
+func flattenImageDeprecatedStateEnumMap(c *Client, i interface{}) map[string]ImageDeprecatedStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ImageDeprecatedStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ImageDeprecatedStateEnum{}
+	}
+
+	items := make(map[string]ImageDeprecatedStateEnum)
+	for k, item := range a {
+		items[k] = *flattenImageDeprecatedStateEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenImageDeprecatedStateEnumSlice flattens the contents of ImageDeprecatedStateEnum from a JSON

@@ -1142,6 +1142,26 @@ func flattenDomainMappingResourceRecords(c *Client, i interface{}) *DomainMappin
 	return r
 }
 
+// flattenDomainMappingSslSettingsSslManagementTypeEnumMap flattens the contents of DomainMappingSslSettingsSslManagementTypeEnum from a JSON
+// response object.
+func flattenDomainMappingSslSettingsSslManagementTypeEnumMap(c *Client, i interface{}) map[string]DomainMappingSslSettingsSslManagementTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DomainMappingSslSettingsSslManagementTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DomainMappingSslSettingsSslManagementTypeEnum{}
+	}
+
+	items := make(map[string]DomainMappingSslSettingsSslManagementTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenDomainMappingSslSettingsSslManagementTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDomainMappingSslSettingsSslManagementTypeEnumSlice flattens the contents of DomainMappingSslSettingsSslManagementTypeEnum from a JSON
 // response object.
 func flattenDomainMappingSslSettingsSslManagementTypeEnumSlice(c *Client, i interface{}) []DomainMappingSslSettingsSslManagementTypeEnum {
@@ -1171,6 +1191,26 @@ func flattenDomainMappingSslSettingsSslManagementTypeEnum(i interface{}) *Domain
 	}
 
 	return DomainMappingSslSettingsSslManagementTypeEnumRef(s)
+}
+
+// flattenDomainMappingResourceRecordsTypeEnumMap flattens the contents of DomainMappingResourceRecordsTypeEnum from a JSON
+// response object.
+func flattenDomainMappingResourceRecordsTypeEnumMap(c *Client, i interface{}) map[string]DomainMappingResourceRecordsTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DomainMappingResourceRecordsTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DomainMappingResourceRecordsTypeEnum{}
+	}
+
+	items := make(map[string]DomainMappingResourceRecordsTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenDomainMappingResourceRecordsTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDomainMappingResourceRecordsTypeEnumSlice flattens the contents of DomainMappingResourceRecordsTypeEnum from a JSON

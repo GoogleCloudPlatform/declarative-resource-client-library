@@ -717,6 +717,26 @@ func flattenNotificationChannel(c *Client, i interface{}) *NotificationChannel {
 	return res
 }
 
+// flattenNotificationChannelVerificationStatusEnumMap flattens the contents of NotificationChannelVerificationStatusEnum from a JSON
+// response object.
+func flattenNotificationChannelVerificationStatusEnumMap(c *Client, i interface{}) map[string]NotificationChannelVerificationStatusEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NotificationChannelVerificationStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NotificationChannelVerificationStatusEnum{}
+	}
+
+	items := make(map[string]NotificationChannelVerificationStatusEnum)
+	for k, item := range a {
+		items[k] = *flattenNotificationChannelVerificationStatusEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenNotificationChannelVerificationStatusEnumSlice flattens the contents of NotificationChannelVerificationStatusEnum from a JSON
 // response object.
 func flattenNotificationChannelVerificationStatusEnumSlice(c *Client, i interface{}) []NotificationChannelVerificationStatusEnum {

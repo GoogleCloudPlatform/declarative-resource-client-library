@@ -6931,6 +6931,26 @@ func flattenClusterMetrics(c *Client, i interface{}) *ClusterMetrics {
 	return r
 }
 
+// flattenClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumMap flattens the contents of ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum from a JSON
+// response object.
+func flattenClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumMap(c *Client, i interface{}) map[string]ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum{}
+	}
+
+	items := make(map[string]ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumSlice flattens the contents of ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum from a JSON
 // response object.
 func flattenClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumSlice(c *Client, i interface{}) []ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum {
@@ -6960,6 +6980,26 @@ func flattenClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(i in
 	}
 
 	return ClusterClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnumRef(s)
+}
+
+// flattenClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumMap flattens the contents of ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum from a JSON
+// response object.
+func flattenClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumMap(c *Client, i interface{}) map[string]ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum{}
+	}
+
+	items := make(map[string]ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumSlice flattens the contents of ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnum from a JSON
@@ -6993,6 +7033,26 @@ func flattenClusterClusterConfigGceClusterConfigReservationAffinityConsumeReserv
 	return ClusterClusterConfigGceClusterConfigReservationAffinityConsumeReservationTypeEnumRef(s)
 }
 
+// flattenClusterInstanceGroupConfigPreemptibilityEnumMap flattens the contents of ClusterInstanceGroupConfigPreemptibilityEnum from a JSON
+// response object.
+func flattenClusterInstanceGroupConfigPreemptibilityEnumMap(c *Client, i interface{}) map[string]ClusterInstanceGroupConfigPreemptibilityEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterInstanceGroupConfigPreemptibilityEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterInstanceGroupConfigPreemptibilityEnum{}
+	}
+
+	items := make(map[string]ClusterInstanceGroupConfigPreemptibilityEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterInstanceGroupConfigPreemptibilityEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenClusterInstanceGroupConfigPreemptibilityEnumSlice flattens the contents of ClusterInstanceGroupConfigPreemptibilityEnum from a JSON
 // response object.
 func flattenClusterInstanceGroupConfigPreemptibilityEnumSlice(c *Client, i interface{}) []ClusterInstanceGroupConfigPreemptibilityEnum {
@@ -7022,6 +7082,26 @@ func flattenClusterInstanceGroupConfigPreemptibilityEnum(i interface{}) *Cluster
 	}
 
 	return ClusterInstanceGroupConfigPreemptibilityEnumRef(s)
+}
+
+// flattenClusterClusterConfigSoftwareConfigOptionalComponentsEnumMap flattens the contents of ClusterClusterConfigSoftwareConfigOptionalComponentsEnum from a JSON
+// response object.
+func flattenClusterClusterConfigSoftwareConfigOptionalComponentsEnumMap(c *Client, i interface{}) map[string]ClusterClusterConfigSoftwareConfigOptionalComponentsEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterClusterConfigSoftwareConfigOptionalComponentsEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterClusterConfigSoftwareConfigOptionalComponentsEnum{}
+	}
+
+	items := make(map[string]ClusterClusterConfigSoftwareConfigOptionalComponentsEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterClusterConfigSoftwareConfigOptionalComponentsEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenClusterClusterConfigSoftwareConfigOptionalComponentsEnumSlice flattens the contents of ClusterClusterConfigSoftwareConfigOptionalComponentsEnum from a JSON
@@ -7055,6 +7135,26 @@ func flattenClusterClusterConfigSoftwareConfigOptionalComponentsEnum(i interface
 	return ClusterClusterConfigSoftwareConfigOptionalComponentsEnumRef(s)
 }
 
+// flattenClusterStatusStateEnumMap flattens the contents of ClusterStatusStateEnum from a JSON
+// response object.
+func flattenClusterStatusStateEnumMap(c *Client, i interface{}) map[string]ClusterStatusStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterStatusStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterStatusStateEnum{}
+	}
+
+	items := make(map[string]ClusterStatusStateEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterStatusStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenClusterStatusStateEnumSlice flattens the contents of ClusterStatusStateEnum from a JSON
 // response object.
 func flattenClusterStatusStateEnumSlice(c *Client, i interface{}) []ClusterStatusStateEnum {
@@ -7084,6 +7184,26 @@ func flattenClusterStatusStateEnum(i interface{}) *ClusterStatusStateEnum {
 	}
 
 	return ClusterStatusStateEnumRef(s)
+}
+
+// flattenClusterStatusSubstateEnumMap flattens the contents of ClusterStatusSubstateEnum from a JSON
+// response object.
+func flattenClusterStatusSubstateEnumMap(c *Client, i interface{}) map[string]ClusterStatusSubstateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterStatusSubstateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterStatusSubstateEnum{}
+	}
+
+	items := make(map[string]ClusterStatusSubstateEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterStatusSubstateEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenClusterStatusSubstateEnumSlice flattens the contents of ClusterStatusSubstateEnum from a JSON
@@ -7117,6 +7237,26 @@ func flattenClusterStatusSubstateEnum(i interface{}) *ClusterStatusSubstateEnum 
 	return ClusterStatusSubstateEnumRef(s)
 }
 
+// flattenClusterStatusHistoryStateEnumMap flattens the contents of ClusterStatusHistoryStateEnum from a JSON
+// response object.
+func flattenClusterStatusHistoryStateEnumMap(c *Client, i interface{}) map[string]ClusterStatusHistoryStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterStatusHistoryStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterStatusHistoryStateEnum{}
+	}
+
+	items := make(map[string]ClusterStatusHistoryStateEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterStatusHistoryStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenClusterStatusHistoryStateEnumSlice flattens the contents of ClusterStatusHistoryStateEnum from a JSON
 // response object.
 func flattenClusterStatusHistoryStateEnumSlice(c *Client, i interface{}) []ClusterStatusHistoryStateEnum {
@@ -7146,6 +7286,26 @@ func flattenClusterStatusHistoryStateEnum(i interface{}) *ClusterStatusHistorySt
 	}
 
 	return ClusterStatusHistoryStateEnumRef(s)
+}
+
+// flattenClusterStatusHistorySubstateEnumMap flattens the contents of ClusterStatusHistorySubstateEnum from a JSON
+// response object.
+func flattenClusterStatusHistorySubstateEnumMap(c *Client, i interface{}) map[string]ClusterStatusHistorySubstateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterStatusHistorySubstateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterStatusHistorySubstateEnum{}
+	}
+
+	items := make(map[string]ClusterStatusHistorySubstateEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterStatusHistorySubstateEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenClusterStatusHistorySubstateEnumSlice flattens the contents of ClusterStatusHistorySubstateEnum from a JSON

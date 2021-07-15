@@ -17060,6 +17060,26 @@ func flattenAlertPolicyMetadata(c *Client, i interface{}) *AlertPolicyMetadata {
 	return r
 }
 
+// flattenAlertPolicyConditionsResourceStateFilterEnumMap flattens the contents of AlertPolicyConditionsResourceStateFilterEnum from a JSON
+// response object.
+func flattenAlertPolicyConditionsResourceStateFilterEnumMap(c *Client, i interface{}) map[string]AlertPolicyConditionsResourceStateFilterEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AlertPolicyConditionsResourceStateFilterEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AlertPolicyConditionsResourceStateFilterEnum{}
+	}
+
+	items := make(map[string]AlertPolicyConditionsResourceStateFilterEnum)
+	for k, item := range a {
+		items[k] = *flattenAlertPolicyConditionsResourceStateFilterEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenAlertPolicyConditionsResourceStateFilterEnumSlice flattens the contents of AlertPolicyConditionsResourceStateFilterEnum from a JSON
 // response object.
 func flattenAlertPolicyConditionsResourceStateFilterEnumSlice(c *Client, i interface{}) []AlertPolicyConditionsResourceStateFilterEnum {
@@ -17089,6 +17109,26 @@ func flattenAlertPolicyConditionsResourceStateFilterEnum(i interface{}) *AlertPo
 	}
 
 	return AlertPolicyConditionsResourceStateFilterEnumRef(s)
+}
+
+// flattenAlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnumMap flattens the contents of AlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum from a JSON
+// response object.
+func flattenAlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]AlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum{}
+	}
+
+	items := make(map[string]AlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum)
+	for k, item := range a {
+		items[k] = *flattenAlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenAlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnumSlice flattens the contents of AlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnum from a JSON
@@ -17122,6 +17162,26 @@ func flattenAlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerE
 	return AlertPolicyConditionsConditionThresholdAggregationsPerSeriesAlignerEnumRef(s)
 }
 
+// flattenAlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnumMap flattens the contents of AlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum from a JSON
+// response object.
+func flattenAlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]AlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum{}
+	}
+
+	items := make(map[string]AlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum)
+	for k, item := range a {
+		items[k] = *flattenAlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenAlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnumSlice flattens the contents of AlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum from a JSON
 // response object.
 func flattenAlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnumSlice(c *Client, i interface{}) []AlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnum {
@@ -17151,6 +17211,26 @@ func flattenAlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReduce
 	}
 
 	return AlertPolicyConditionsConditionThresholdAggregationsCrossSeriesReducerEnumRef(s)
+}
+
+// flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnumMap flattens the contents of AlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum from a JSON
+// response object.
+func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]AlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum{}
+	}
+
+	items := make(map[string]AlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum)
+	for k, item := range a {
+		items[k] = *flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnumSlice flattens the contents of AlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnum from a JSON
@@ -17184,6 +17264,26 @@ func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSer
 	return AlertPolicyConditionsConditionThresholdDenominatorAggregationsPerSeriesAlignerEnumRef(s)
 }
 
+// flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnumMap flattens the contents of AlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum from a JSON
+// response object.
+func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]AlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum{}
+	}
+
+	items := make(map[string]AlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum)
+	for k, item := range a {
+		items[k] = *flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnumSlice flattens the contents of AlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum from a JSON
 // response object.
 func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnumSlice(c *Client, i interface{}) []AlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnum {
@@ -17213,6 +17313,26 @@ func flattenAlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossS
 	}
 
 	return AlertPolicyConditionsConditionThresholdDenominatorAggregationsCrossSeriesReducerEnumRef(s)
+}
+
+// flattenAlertPolicyConditionsConditionThresholdComparisonEnumMap flattens the contents of AlertPolicyConditionsConditionThresholdComparisonEnum from a JSON
+// response object.
+func flattenAlertPolicyConditionsConditionThresholdComparisonEnumMap(c *Client, i interface{}) map[string]AlertPolicyConditionsConditionThresholdComparisonEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AlertPolicyConditionsConditionThresholdComparisonEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AlertPolicyConditionsConditionThresholdComparisonEnum{}
+	}
+
+	items := make(map[string]AlertPolicyConditionsConditionThresholdComparisonEnum)
+	for k, item := range a {
+		items[k] = *flattenAlertPolicyConditionsConditionThresholdComparisonEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenAlertPolicyConditionsConditionThresholdComparisonEnumSlice flattens the contents of AlertPolicyConditionsConditionThresholdComparisonEnum from a JSON
@@ -17246,6 +17366,26 @@ func flattenAlertPolicyConditionsConditionThresholdComparisonEnum(i interface{})
 	return AlertPolicyConditionsConditionThresholdComparisonEnumRef(s)
 }
 
+// flattenAlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnumMap flattens the contents of AlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum from a JSON
+// response object.
+func flattenAlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]AlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum{}
+	}
+
+	items := make(map[string]AlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum)
+	for k, item := range a {
+		items[k] = *flattenAlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenAlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnumSlice flattens the contents of AlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum from a JSON
 // response object.
 func flattenAlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnumSlice(c *Client, i interface{}) []AlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum {
@@ -17275,6 +17415,26 @@ func flattenAlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnum
 	}
 
 	return AlertPolicyConditionsConditionAbsentAggregationsPerSeriesAlignerEnumRef(s)
+}
+
+// flattenAlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnumMap flattens the contents of AlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum from a JSON
+// response object.
+func flattenAlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]AlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum{}
+	}
+
+	items := make(map[string]AlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum)
+	for k, item := range a {
+		items[k] = *flattenAlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenAlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnumSlice flattens the contents of AlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnum from a JSON
@@ -17308,6 +17468,26 @@ func flattenAlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEn
 	return AlertPolicyConditionsConditionAbsentAggregationsCrossSeriesReducerEnumRef(s)
 }
 
+// flattenAlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnumMap flattens the contents of AlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum from a JSON
+// response object.
+func flattenAlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]AlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum{}
+	}
+
+	items := make(map[string]AlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum)
+	for k, item := range a {
+		items[k] = *flattenAlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenAlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnumSlice flattens the contents of AlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum from a JSON
 // response object.
 func flattenAlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnumSlice(c *Client, i interface{}) []AlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum {
@@ -17337,6 +17517,26 @@ func flattenAlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnum(i
 	}
 
 	return AlertPolicyConditionsConditionRateAggregationsPerSeriesAlignerEnumRef(s)
+}
+
+// flattenAlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnumMap flattens the contents of AlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum from a JSON
+// response object.
+func flattenAlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]AlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum{}
+	}
+
+	items := make(map[string]AlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum)
+	for k, item := range a {
+		items[k] = *flattenAlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenAlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnumSlice flattens the contents of AlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum from a JSON
@@ -17370,6 +17570,26 @@ func flattenAlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnum
 	return AlertPolicyConditionsConditionRateAggregationsCrossSeriesReducerEnumRef(s)
 }
 
+// flattenAlertPolicyConditionsConditionRateComparisonEnumMap flattens the contents of AlertPolicyConditionsConditionRateComparisonEnum from a JSON
+// response object.
+func flattenAlertPolicyConditionsConditionRateComparisonEnumMap(c *Client, i interface{}) map[string]AlertPolicyConditionsConditionRateComparisonEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AlertPolicyConditionsConditionRateComparisonEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AlertPolicyConditionsConditionRateComparisonEnum{}
+	}
+
+	items := make(map[string]AlertPolicyConditionsConditionRateComparisonEnum)
+	for k, item := range a {
+		items[k] = *flattenAlertPolicyConditionsConditionRateComparisonEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenAlertPolicyConditionsConditionRateComparisonEnumSlice flattens the contents of AlertPolicyConditionsConditionRateComparisonEnum from a JSON
 // response object.
 func flattenAlertPolicyConditionsConditionRateComparisonEnumSlice(c *Client, i interface{}) []AlertPolicyConditionsConditionRateComparisonEnum {
@@ -17399,6 +17619,26 @@ func flattenAlertPolicyConditionsConditionRateComparisonEnum(i interface{}) *Ale
 	}
 
 	return AlertPolicyConditionsConditionRateComparisonEnumRef(s)
+}
+
+// flattenAlertPolicyConditionsConditionProcessCountComparisonEnumMap flattens the contents of AlertPolicyConditionsConditionProcessCountComparisonEnum from a JSON
+// response object.
+func flattenAlertPolicyConditionsConditionProcessCountComparisonEnumMap(c *Client, i interface{}) map[string]AlertPolicyConditionsConditionProcessCountComparisonEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AlertPolicyConditionsConditionProcessCountComparisonEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AlertPolicyConditionsConditionProcessCountComparisonEnum{}
+	}
+
+	items := make(map[string]AlertPolicyConditionsConditionProcessCountComparisonEnum)
+	for k, item := range a {
+		items[k] = *flattenAlertPolicyConditionsConditionProcessCountComparisonEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenAlertPolicyConditionsConditionProcessCountComparisonEnumSlice flattens the contents of AlertPolicyConditionsConditionProcessCountComparisonEnum from a JSON
@@ -17432,6 +17672,26 @@ func flattenAlertPolicyConditionsConditionProcessCountComparisonEnum(i interface
 	return AlertPolicyConditionsConditionProcessCountComparisonEnumRef(s)
 }
 
+// flattenAlertPolicyCombinerEnumMap flattens the contents of AlertPolicyCombinerEnum from a JSON
+// response object.
+func flattenAlertPolicyCombinerEnumMap(c *Client, i interface{}) map[string]AlertPolicyCombinerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AlertPolicyCombinerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AlertPolicyCombinerEnum{}
+	}
+
+	items := make(map[string]AlertPolicyCombinerEnum)
+	for k, item := range a {
+		items[k] = *flattenAlertPolicyCombinerEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenAlertPolicyCombinerEnumSlice flattens the contents of AlertPolicyCombinerEnum from a JSON
 // response object.
 func flattenAlertPolicyCombinerEnumSlice(c *Client, i interface{}) []AlertPolicyCombinerEnum {
@@ -17461,6 +17721,26 @@ func flattenAlertPolicyCombinerEnum(i interface{}) *AlertPolicyCombinerEnum {
 	}
 
 	return AlertPolicyCombinerEnumRef(s)
+}
+
+// flattenAlertPolicyIncidentStrategyTypeEnumMap flattens the contents of AlertPolicyIncidentStrategyTypeEnum from a JSON
+// response object.
+func flattenAlertPolicyIncidentStrategyTypeEnumMap(c *Client, i interface{}) map[string]AlertPolicyIncidentStrategyTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AlertPolicyIncidentStrategyTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AlertPolicyIncidentStrategyTypeEnum{}
+	}
+
+	items := make(map[string]AlertPolicyIncidentStrategyTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenAlertPolicyIncidentStrategyTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenAlertPolicyIncidentStrategyTypeEnumSlice flattens the contents of AlertPolicyIncidentStrategyTypeEnum from a JSON

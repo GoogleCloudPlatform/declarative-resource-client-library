@@ -21,15 +21,18 @@ from typing import List
 class SslCertificate(object):
     def __init__(
         self,
-        id: int = None,
         name: str = None,
+        id: int = None,
+        creation_timestamp: str = None,
         description: str = None,
         self_link: str = None,
         self_managed: dict = None,
         type: str = None,
         subject_alternative_names: list = None,
         expire_time: str = None,
+        region: str = None,
         project: str = None,
+        location: str = None,
         service_account_file: str = "",
     ):
 
@@ -39,6 +42,7 @@ class SslCertificate(object):
         self.self_managed = self_managed
         self.type = type
         self.project = project
+        self.location = location
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -64,11 +68,15 @@ class SslCertificate(object):
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
+
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyComputeBetaSslCertificate(request)
-        self.id = Primitive.from_proto(response.id)
         self.name = Primitive.from_proto(response.name)
+        self.id = Primitive.from_proto(response.id)
+        self.creation_timestamp = Primitive.from_proto(response.creation_timestamp)
         self.description = Primitive.from_proto(response.description)
         self.self_link = Primitive.from_proto(response.self_link)
         self.self_managed = SslCertificateSelfManaged.from_proto(response.self_managed)
@@ -77,7 +85,9 @@ class SslCertificate(object):
             response.subject_alternative_names
         )
         self.expire_time = Primitive.from_proto(response.expire_time)
+        self.region = Primitive.from_proto(response.region)
         self.project = Primitive.from_proto(response.project)
+        self.location = Primitive.from_proto(response.location)
 
     def delete(self):
         stub = ssl_certificate_pb2_grpc.ComputeBetaSslCertificateServiceStub(
@@ -103,16 +113,21 @@ class SslCertificate(object):
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
+
         response = stub.DeleteComputeBetaSslCertificate(request)
 
     @classmethod
-    def list(self, project, service_account_file=""):
+    def list(self, project, location, service_account_file=""):
         stub = ssl_certificate_pb2_grpc.ComputeBetaSslCertificateServiceStub(
             channel.Channel()
         )
         request = ssl_certificate_pb2.ListComputeBetaSslCertificateRequest()
         request.service_account_file = service_account_file
         request.Project = project
+
+        request.Location = location
 
         return stub.ListComputeBetaSslCertificate(request).items
 
@@ -132,6 +147,8 @@ class SslCertificate(object):
             resource.type = SslCertificateTypeEnum.to_proto(self.type)
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
         return resource
 
 

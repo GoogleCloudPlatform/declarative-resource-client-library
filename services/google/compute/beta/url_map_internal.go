@@ -15622,6 +15622,26 @@ func flattenUrlMapTest(c *Client, i interface{}) *UrlMapTest {
 	return r
 }
 
+// flattenUrlMapDefaultUrlRedirectRedirectResponseCodeEnumMap flattens the contents of UrlMapDefaultUrlRedirectRedirectResponseCodeEnum from a JSON
+// response object.
+func flattenUrlMapDefaultUrlRedirectRedirectResponseCodeEnumMap(c *Client, i interface{}) map[string]UrlMapDefaultUrlRedirectRedirectResponseCodeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]UrlMapDefaultUrlRedirectRedirectResponseCodeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]UrlMapDefaultUrlRedirectRedirectResponseCodeEnum{}
+	}
+
+	items := make(map[string]UrlMapDefaultUrlRedirectRedirectResponseCodeEnum)
+	for k, item := range a {
+		items[k] = *flattenUrlMapDefaultUrlRedirectRedirectResponseCodeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenUrlMapDefaultUrlRedirectRedirectResponseCodeEnumSlice flattens the contents of UrlMapDefaultUrlRedirectRedirectResponseCodeEnum from a JSON
 // response object.
 func flattenUrlMapDefaultUrlRedirectRedirectResponseCodeEnumSlice(c *Client, i interface{}) []UrlMapDefaultUrlRedirectRedirectResponseCodeEnum {
@@ -15651,6 +15671,26 @@ func flattenUrlMapDefaultUrlRedirectRedirectResponseCodeEnum(i interface{}) *Url
 	}
 
 	return UrlMapDefaultUrlRedirectRedirectResponseCodeEnumRef(s)
+}
+
+// flattenUrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnumMap flattens the contents of UrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum from a JSON
+// response object.
+func flattenUrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnumMap(c *Client, i interface{}) map[string]UrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]UrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]UrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum{}
+	}
+
+	items := make(map[string]UrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum)
+	for k, item := range a {
+		items[k] = *flattenUrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenUrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnumSlice flattens the contents of UrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum from a JSON
@@ -15684,6 +15724,26 @@ func flattenUrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnum(i interf
 	return UrlMapPathMatcherDefaultUrlRedirectRedirectResponseCodeEnumRef(s)
 }
 
+// flattenUrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnumMap flattens the contents of UrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum from a JSON
+// response object.
+func flattenUrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnumMap(c *Client, i interface{}) map[string]UrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]UrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]UrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum{}
+	}
+
+	items := make(map[string]UrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum)
+	for k, item := range a {
+		items[k] = *flattenUrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenUrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnumSlice flattens the contents of UrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum from a JSON
 // response object.
 func flattenUrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnumSlice(c *Client, i interface{}) []UrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum {
@@ -15715,6 +15775,26 @@ func flattenUrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnum(i inter
 	return UrlMapPathMatcherPathRuleUrlRedirectRedirectResponseCodeEnumRef(s)
 }
 
+// flattenUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnumMap flattens the contents of UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum from a JSON
+// response object.
+func flattenUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnumMap(c *Client, i interface{}) map[string]UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum{}
+	}
+
+	items := make(map[string]UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum)
+	for k, item := range a {
+		items[k] = *flattenUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnumSlice flattens the contents of UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum from a JSON
 // response object.
 func flattenUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnumSlice(c *Client, i interface{}) []UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnum {
@@ -15744,6 +15824,26 @@ func flattenUrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteria
 	}
 
 	return UrlMapPathMatcherRouteRuleMatchRuleMetadataFilterFilterMatchCriteriaEnumRef(s)
+}
+
+// flattenUrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnumMap flattens the contents of UrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum from a JSON
+// response object.
+func flattenUrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnumMap(c *Client, i interface{}) map[string]UrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]UrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]UrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum{}
+	}
+
+	items := make(map[string]UrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum)
+	for k, item := range a {
+		items[k] = *flattenUrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenUrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnumSlice flattens the contents of UrlMapPathMatcherRouteRuleUrlRedirectRedirectResponseCodeEnum from a JSON

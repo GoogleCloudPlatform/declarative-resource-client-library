@@ -1640,6 +1640,26 @@ func flattenNetworkEndpointGroupCloudFunction(c *Client, i interface{}) *Network
 	return r
 }
 
+// flattenNetworkEndpointGroupNetworkEndpointTypeEnumMap flattens the contents of NetworkEndpointGroupNetworkEndpointTypeEnum from a JSON
+// response object.
+func flattenNetworkEndpointGroupNetworkEndpointTypeEnumMap(c *Client, i interface{}) map[string]NetworkEndpointGroupNetworkEndpointTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NetworkEndpointGroupNetworkEndpointTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NetworkEndpointGroupNetworkEndpointTypeEnum{}
+	}
+
+	items := make(map[string]NetworkEndpointGroupNetworkEndpointTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenNetworkEndpointGroupNetworkEndpointTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenNetworkEndpointGroupNetworkEndpointTypeEnumSlice flattens the contents of NetworkEndpointGroupNetworkEndpointTypeEnum from a JSON
 // response object.
 func flattenNetworkEndpointGroupNetworkEndpointTypeEnumSlice(c *Client, i interface{}) []NetworkEndpointGroupNetworkEndpointTypeEnum {

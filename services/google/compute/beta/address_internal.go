@@ -966,6 +966,26 @@ func flattenAddress(c *Client, i interface{}) *Address {
 	return res
 }
 
+// flattenAddressStatusEnumMap flattens the contents of AddressStatusEnum from a JSON
+// response object.
+func flattenAddressStatusEnumMap(c *Client, i interface{}) map[string]AddressStatusEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AddressStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AddressStatusEnum{}
+	}
+
+	items := make(map[string]AddressStatusEnum)
+	for k, item := range a {
+		items[k] = *flattenAddressStatusEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenAddressStatusEnumSlice flattens the contents of AddressStatusEnum from a JSON
 // response object.
 func flattenAddressStatusEnumSlice(c *Client, i interface{}) []AddressStatusEnum {
@@ -995,6 +1015,26 @@ func flattenAddressStatusEnum(i interface{}) *AddressStatusEnum {
 	}
 
 	return AddressStatusEnumRef(s)
+}
+
+// flattenAddressNetworkTierEnumMap flattens the contents of AddressNetworkTierEnum from a JSON
+// response object.
+func flattenAddressNetworkTierEnumMap(c *Client, i interface{}) map[string]AddressNetworkTierEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AddressNetworkTierEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AddressNetworkTierEnum{}
+	}
+
+	items := make(map[string]AddressNetworkTierEnum)
+	for k, item := range a {
+		items[k] = *flattenAddressNetworkTierEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenAddressNetworkTierEnumSlice flattens the contents of AddressNetworkTierEnum from a JSON
@@ -1028,6 +1068,26 @@ func flattenAddressNetworkTierEnum(i interface{}) *AddressNetworkTierEnum {
 	return AddressNetworkTierEnumRef(s)
 }
 
+// flattenAddressIPVersionEnumMap flattens the contents of AddressIPVersionEnum from a JSON
+// response object.
+func flattenAddressIPVersionEnumMap(c *Client, i interface{}) map[string]AddressIPVersionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AddressIPVersionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AddressIPVersionEnum{}
+	}
+
+	items := make(map[string]AddressIPVersionEnum)
+	for k, item := range a {
+		items[k] = *flattenAddressIPVersionEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenAddressIPVersionEnumSlice flattens the contents of AddressIPVersionEnum from a JSON
 // response object.
 func flattenAddressIPVersionEnumSlice(c *Client, i interface{}) []AddressIPVersionEnum {
@@ -1059,6 +1119,26 @@ func flattenAddressIPVersionEnum(i interface{}) *AddressIPVersionEnum {
 	return AddressIPVersionEnumRef(s)
 }
 
+// flattenAddressAddressTypeEnumMap flattens the contents of AddressAddressTypeEnum from a JSON
+// response object.
+func flattenAddressAddressTypeEnumMap(c *Client, i interface{}) map[string]AddressAddressTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AddressAddressTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AddressAddressTypeEnum{}
+	}
+
+	items := make(map[string]AddressAddressTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenAddressAddressTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenAddressAddressTypeEnumSlice flattens the contents of AddressAddressTypeEnum from a JSON
 // response object.
 func flattenAddressAddressTypeEnumSlice(c *Client, i interface{}) []AddressAddressTypeEnum {
@@ -1088,6 +1168,26 @@ func flattenAddressAddressTypeEnum(i interface{}) *AddressAddressTypeEnum {
 	}
 
 	return AddressAddressTypeEnumRef(s)
+}
+
+// flattenAddressPurposeEnumMap flattens the contents of AddressPurposeEnum from a JSON
+// response object.
+func flattenAddressPurposeEnumMap(c *Client, i interface{}) map[string]AddressPurposeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AddressPurposeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AddressPurposeEnum{}
+	}
+
+	items := make(map[string]AddressPurposeEnum)
+	for k, item := range a {
+		items[k] = *flattenAddressPurposeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenAddressPurposeEnumSlice flattens the contents of AddressPurposeEnum from a JSON

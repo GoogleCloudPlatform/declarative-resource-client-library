@@ -591,6 +591,26 @@ func flattenFirewallRule(c *Client, i interface{}) *FirewallRule {
 	return res
 }
 
+// flattenFirewallRuleActionEnumMap flattens the contents of FirewallRuleActionEnum from a JSON
+// response object.
+func flattenFirewallRuleActionEnumMap(c *Client, i interface{}) map[string]FirewallRuleActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]FirewallRuleActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]FirewallRuleActionEnum{}
+	}
+
+	items := make(map[string]FirewallRuleActionEnum)
+	for k, item := range a {
+		items[k] = *flattenFirewallRuleActionEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenFirewallRuleActionEnumSlice flattens the contents of FirewallRuleActionEnum from a JSON
 // response object.
 func flattenFirewallRuleActionEnumSlice(c *Client, i interface{}) []FirewallRuleActionEnum {

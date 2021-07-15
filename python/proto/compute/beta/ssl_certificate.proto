@@ -24,15 +24,18 @@ enum ComputeBetaSslCertificateTypeEnum {
 }
 
 message ComputeBetaSslCertificate {
-  int64 id = 1;
-  string name = 2;
-  string description = 3;
-  string self_link = 4;
-  ComputeBetaSslCertificateSelfManaged self_managed = 5;
-  ComputeBetaSslCertificateTypeEnum type = 6;
-  repeated string subject_alternative_names = 7;
-  string expire_time = 8;
-  string project = 9;
+  string name = 1;
+  int64 id = 2;
+  string creation_timestamp = 3;
+  string description = 4;
+  string self_link = 5;
+  ComputeBetaSslCertificateSelfManaged self_managed = 6;
+  ComputeBetaSslCertificateTypeEnum type = 7;
+  repeated string subject_alternative_names = 8;
+  string expire_time = 9;
+  string region = 10;
+  string project = 11;
+  string location = 12;
 }
 
 message ComputeBetaSslCertificateSelfManaged {
@@ -54,6 +57,7 @@ message DeleteComputeBetaSslCertificateRequest {
 message ListComputeBetaSslCertificateRequest {
   string service_account_file = 1;
   string Project = 2;
+  string Location = 3;
 }
 
 message ListComputeBetaSslCertificateResponse {

@@ -3156,6 +3156,26 @@ func flattenRouterBgpAdvertisedIPRanges(c *Client, i interface{}) *RouterBgpAdve
 	return r
 }
 
+// flattenRouterNatsLogConfigFilterEnumMap flattens the contents of RouterNatsLogConfigFilterEnum from a JSON
+// response object.
+func flattenRouterNatsLogConfigFilterEnumMap(c *Client, i interface{}) map[string]RouterNatsLogConfigFilterEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]RouterNatsLogConfigFilterEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]RouterNatsLogConfigFilterEnum{}
+	}
+
+	items := make(map[string]RouterNatsLogConfigFilterEnum)
+	for k, item := range a {
+		items[k] = *flattenRouterNatsLogConfigFilterEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenRouterNatsLogConfigFilterEnumSlice flattens the contents of RouterNatsLogConfigFilterEnum from a JSON
 // response object.
 func flattenRouterNatsLogConfigFilterEnumSlice(c *Client, i interface{}) []RouterNatsLogConfigFilterEnum {
@@ -3185,6 +3205,26 @@ func flattenRouterNatsLogConfigFilterEnum(i interface{}) *RouterNatsLogConfigFil
 	}
 
 	return RouterNatsLogConfigFilterEnumRef(s)
+}
+
+// flattenRouterNatsSourceSubnetworkIPRangesToNatEnumMap flattens the contents of RouterNatsSourceSubnetworkIPRangesToNatEnum from a JSON
+// response object.
+func flattenRouterNatsSourceSubnetworkIPRangesToNatEnumMap(c *Client, i interface{}) map[string]RouterNatsSourceSubnetworkIPRangesToNatEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]RouterNatsSourceSubnetworkIPRangesToNatEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]RouterNatsSourceSubnetworkIPRangesToNatEnum{}
+	}
+
+	items := make(map[string]RouterNatsSourceSubnetworkIPRangesToNatEnum)
+	for k, item := range a {
+		items[k] = *flattenRouterNatsSourceSubnetworkIPRangesToNatEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenRouterNatsSourceSubnetworkIPRangesToNatEnumSlice flattens the contents of RouterNatsSourceSubnetworkIPRangesToNatEnum from a JSON
@@ -3218,6 +3258,26 @@ func flattenRouterNatsSourceSubnetworkIPRangesToNatEnum(i interface{}) *RouterNa
 	return RouterNatsSourceSubnetworkIPRangesToNatEnumRef(s)
 }
 
+// flattenRouterNatsNatIPAllocateOptionEnumMap flattens the contents of RouterNatsNatIPAllocateOptionEnum from a JSON
+// response object.
+func flattenRouterNatsNatIPAllocateOptionEnumMap(c *Client, i interface{}) map[string]RouterNatsNatIPAllocateOptionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]RouterNatsNatIPAllocateOptionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]RouterNatsNatIPAllocateOptionEnum{}
+	}
+
+	items := make(map[string]RouterNatsNatIPAllocateOptionEnum)
+	for k, item := range a {
+		items[k] = *flattenRouterNatsNatIPAllocateOptionEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenRouterNatsNatIPAllocateOptionEnumSlice flattens the contents of RouterNatsNatIPAllocateOptionEnum from a JSON
 // response object.
 func flattenRouterNatsNatIPAllocateOptionEnumSlice(c *Client, i interface{}) []RouterNatsNatIPAllocateOptionEnum {
@@ -3247,6 +3307,26 @@ func flattenRouterNatsNatIPAllocateOptionEnum(i interface{}) *RouterNatsNatIPAll
 	}
 
 	return RouterNatsNatIPAllocateOptionEnumRef(s)
+}
+
+// flattenRouterInterfacesManagementTypeEnumMap flattens the contents of RouterInterfacesManagementTypeEnum from a JSON
+// response object.
+func flattenRouterInterfacesManagementTypeEnumMap(c *Client, i interface{}) map[string]RouterInterfacesManagementTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]RouterInterfacesManagementTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]RouterInterfacesManagementTypeEnum{}
+	}
+
+	items := make(map[string]RouterInterfacesManagementTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenRouterInterfacesManagementTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenRouterInterfacesManagementTypeEnumSlice flattens the contents of RouterInterfacesManagementTypeEnum from a JSON
@@ -3280,6 +3360,26 @@ func flattenRouterInterfacesManagementTypeEnum(i interface{}) *RouterInterfacesM
 	return RouterInterfacesManagementTypeEnumRef(s)
 }
 
+// flattenRouterBgpPeersAdvertisedGroupsEnumMap flattens the contents of RouterBgpPeersAdvertisedGroupsEnum from a JSON
+// response object.
+func flattenRouterBgpPeersAdvertisedGroupsEnumMap(c *Client, i interface{}) map[string]RouterBgpPeersAdvertisedGroupsEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]RouterBgpPeersAdvertisedGroupsEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]RouterBgpPeersAdvertisedGroupsEnum{}
+	}
+
+	items := make(map[string]RouterBgpPeersAdvertisedGroupsEnum)
+	for k, item := range a {
+		items[k] = *flattenRouterBgpPeersAdvertisedGroupsEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenRouterBgpPeersAdvertisedGroupsEnumSlice flattens the contents of RouterBgpPeersAdvertisedGroupsEnum from a JSON
 // response object.
 func flattenRouterBgpPeersAdvertisedGroupsEnumSlice(c *Client, i interface{}) []RouterBgpPeersAdvertisedGroupsEnum {
@@ -3309,6 +3409,26 @@ func flattenRouterBgpPeersAdvertisedGroupsEnum(i interface{}) *RouterBgpPeersAdv
 	}
 
 	return RouterBgpPeersAdvertisedGroupsEnumRef(s)
+}
+
+// flattenRouterBgpAdvertiseModeEnumMap flattens the contents of RouterBgpAdvertiseModeEnum from a JSON
+// response object.
+func flattenRouterBgpAdvertiseModeEnumMap(c *Client, i interface{}) map[string]RouterBgpAdvertiseModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]RouterBgpAdvertiseModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]RouterBgpAdvertiseModeEnum{}
+	}
+
+	items := make(map[string]RouterBgpAdvertiseModeEnum)
+	for k, item := range a {
+		items[k] = *flattenRouterBgpAdvertiseModeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenRouterBgpAdvertiseModeEnumSlice flattens the contents of RouterBgpAdvertiseModeEnum from a JSON

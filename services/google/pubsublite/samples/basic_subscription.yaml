@@ -20,4 +20,3 @@ updates:
 - resource: samples/update.subscription.json
 versions:
 - ga
-- v1

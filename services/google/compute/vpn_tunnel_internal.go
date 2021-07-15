@@ -920,6 +920,26 @@ func flattenVpnTunnel(c *Client, i interface{}) *VpnTunnel {
 	return res
 }
 
+// flattenVpnTunnelStatusEnumMap flattens the contents of VpnTunnelStatusEnum from a JSON
+// response object.
+func flattenVpnTunnelStatusEnumMap(c *Client, i interface{}) map[string]VpnTunnelStatusEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]VpnTunnelStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]VpnTunnelStatusEnum{}
+	}
+
+	items := make(map[string]VpnTunnelStatusEnum)
+	for k, item := range a {
+		items[k] = *flattenVpnTunnelStatusEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenVpnTunnelStatusEnumSlice flattens the contents of VpnTunnelStatusEnum from a JSON
 // response object.
 func flattenVpnTunnelStatusEnumSlice(c *Client, i interface{}) []VpnTunnelStatusEnum {

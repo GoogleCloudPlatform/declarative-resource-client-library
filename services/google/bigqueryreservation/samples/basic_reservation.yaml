@@ -16,4 +16,3 @@ name: basic_reservation
 resource: samples/basic.reservation.json
 versions:
 - ga
-- v1

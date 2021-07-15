@@ -1072,6 +1072,26 @@ func flattenTargetPool(c *Client, i interface{}) *TargetPool {
 	return res
 }
 
+// flattenTargetPoolSessionAffinityEnumMap flattens the contents of TargetPoolSessionAffinityEnum from a JSON
+// response object.
+func flattenTargetPoolSessionAffinityEnumMap(c *Client, i interface{}) map[string]TargetPoolSessionAffinityEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]TargetPoolSessionAffinityEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]TargetPoolSessionAffinityEnum{}
+	}
+
+	items := make(map[string]TargetPoolSessionAffinityEnum)
+	for k, item := range a {
+		items[k] = *flattenTargetPoolSessionAffinityEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenTargetPoolSessionAffinityEnumSlice flattens the contents of TargetPoolSessionAffinityEnum from a JSON
 // response object.
 func flattenTargetPoolSessionAffinityEnumSlice(c *Client, i interface{}) []TargetPoolSessionAffinityEnum {

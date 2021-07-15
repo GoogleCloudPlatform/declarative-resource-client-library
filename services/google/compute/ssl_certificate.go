@@ -25,15 +25,18 @@ import (
 )
 
 type SslCertificate struct {
-	Id                      *int64                     `json:"id"`
 	Name                    *string                    `json:"name"`
+	Id                      *int64                     `json:"id"`
+	CreationTimestamp       *string                    `json:"creationTimestamp"`
 	Description             *string                    `json:"description"`
 	SelfLink                *string                    `json:"selfLink"`
 	SelfManaged             *SslCertificateSelfManaged `json:"selfManaged"`
 	Type                    *SslCertificateTypeEnum    `json:"type"`
 	SubjectAlternativeNames []string                   `json:"subjectAlternativeNames"`
 	ExpireTime              *string                    `json:"expireTime"`
+	Region                  *string                    `json:"region"`
 	Project                 *string                    `json:"project"`
+	Location                *string                    `json:"location"`
 }
 
 func (r *SslCertificate) String() string {
@@ -136,6 +139,8 @@ type SslCertificateList struct {
 	pageSize int32
 
 	project string
+
+	location string
 }
 
 func (l *SslCertificateList) HasNext() bool {
@@ -149,7 +154,7 @@ func (l *SslCertificateList) Next(ctx context.Context, c *Client) error {
 	if !l.HasNext() {
 		return fmt.Errorf("no next page")
 	}
-	items, token, err := c.listSslCertificate(ctx, l.project, l.nextToken, l.pageSize)
+	items, token, err := c.listSslCertificate(ctx, l.project, l.location, l.nextToken, l.pageSize)
 	if err != nil {
 		return err
 	}
@@ -158,19 +163,19 @@ func (l *SslCertificateList) Next(ctx context.Context, c *Client) error {
 	return err
 }
 
-func (c *Client) ListSslCertificate(ctx context.Context, project string) (*SslCertificateList, error) {
+func (c *Client) ListSslCertificate(ctx context.Context, project, location string) (*SslCertificateList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	return c.ListSslCertificateWithMaxResults(ctx, project, SslCertificateMaxPage)
+	return c.ListSslCertificateWithMaxResults(ctx, project, location, SslCertificateMaxPage)
 
 }
 
-func (c *Client) ListSslCertificateWithMaxResults(ctx context.Context, project string, pageSize int32) (*SslCertificateList, error) {
+func (c *Client) ListSslCertificateWithMaxResults(ctx context.Context, project, location string, pageSize int32) (*SslCertificateList, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
-	items, token, err := c.listSslCertificate(ctx, project, "", pageSize)
+	items, token, err := c.listSslCertificate(ctx, project, location, "", pageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -180,6 +185,8 @@ func (c *Client) ListSslCertificateWithMaxResults(ctx context.Context, project s
 		pageSize:  pageSize,
 
 		project: project,
+
+		location: location,
 	}, nil
 }
 
@@ -189,10 +196,13 @@ func (c *Client) ListSslCertificateWithMaxResults(ctx context.Context, project s
 func (r *SslCertificate) URLNormalized() *SslCertificate {
 	normalized := dcl.Copy(*r).(SslCertificate)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.CreationTimestamp = dcl.SelfLinkToName(r.CreationTimestamp)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	normalized.ExpireTime = dcl.SelfLinkToName(r.ExpireTime)
+	normalized.Region = dcl.SelfLinkToName(r.Region)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
+	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
 }
 
@@ -215,6 +225,7 @@ func (c *Client) GetSslCertificate(ctx context.Context, r *SslCertificate) (*Ssl
 		return nil, err
 	}
 	result.Project = r.Project
+	result.Location = r.Location
 	result.Name = r.Name
 	if dcl.IsZeroValue(result.Type) {
 		result.Type = SslCertificateTypeEnumRef("SELF_MANAGED")
@@ -244,8 +255,8 @@ func (c *Client) DeleteSslCertificate(ctx context.Context, r *SslCertificate) er
 }
 
 // DeleteAllSslCertificate deletes all resources that the filter functions returns true on.
-func (c *Client) DeleteAllSslCertificate(ctx context.Context, project string, filter func(*SslCertificate) bool) error {
-	listObj, err := c.ListSslCertificate(ctx, project)
+func (c *Client) DeleteAllSslCertificate(ctx context.Context, project, location string, filter func(*SslCertificate) bool) error {
+	listObj, err := c.ListSslCertificate(ctx, project, location)
 	if err != nil {
 		return err
 	}

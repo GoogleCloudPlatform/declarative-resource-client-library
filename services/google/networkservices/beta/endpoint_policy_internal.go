@@ -1781,6 +1781,26 @@ func flattenEndpointPolicyTrafficPortSelector(c *Client, i interface{}) *Endpoin
 	return r
 }
 
+// flattenEndpointPolicyTypeEnumMap flattens the contents of EndpointPolicyTypeEnum from a JSON
+// response object.
+func flattenEndpointPolicyTypeEnumMap(c *Client, i interface{}) map[string]EndpointPolicyTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]EndpointPolicyTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]EndpointPolicyTypeEnum{}
+	}
+
+	items := make(map[string]EndpointPolicyTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenEndpointPolicyTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenEndpointPolicyTypeEnumSlice flattens the contents of EndpointPolicyTypeEnum from a JSON
 // response object.
 func flattenEndpointPolicyTypeEnumSlice(c *Client, i interface{}) []EndpointPolicyTypeEnum {
@@ -1810,6 +1830,26 @@ func flattenEndpointPolicyTypeEnum(i interface{}) *EndpointPolicyTypeEnum {
 	}
 
 	return EndpointPolicyTypeEnumRef(s)
+}
+
+// flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnumMap flattens the contents of EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum from a JSON
+// response object.
+func flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnumMap(c *Client, i interface{}) map[string]EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum{}
+	}
+
+	items := make(map[string]EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum)
+	for k, item := range a {
+		items[k] = *flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenEndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnumSlice flattens the contents of EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum from a JSON

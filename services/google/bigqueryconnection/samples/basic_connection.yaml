@@ -22,4 +22,3 @@ updates:
 - resource: samples/update.connection.json
 versions:
 - ga
-- v1

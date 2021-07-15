@@ -3341,6 +3341,26 @@ func flattenJobRetryConfig(c *Client, i interface{}) *JobRetryConfig {
 	return r
 }
 
+// flattenJobAppEngineHttpTargetHttpMethodEnumMap flattens the contents of JobAppEngineHttpTargetHttpMethodEnum from a JSON
+// response object.
+func flattenJobAppEngineHttpTargetHttpMethodEnumMap(c *Client, i interface{}) map[string]JobAppEngineHttpTargetHttpMethodEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]JobAppEngineHttpTargetHttpMethodEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]JobAppEngineHttpTargetHttpMethodEnum{}
+	}
+
+	items := make(map[string]JobAppEngineHttpTargetHttpMethodEnum)
+	for k, item := range a {
+		items[k] = *flattenJobAppEngineHttpTargetHttpMethodEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenJobAppEngineHttpTargetHttpMethodEnumSlice flattens the contents of JobAppEngineHttpTargetHttpMethodEnum from a JSON
 // response object.
 func flattenJobAppEngineHttpTargetHttpMethodEnumSlice(c *Client, i interface{}) []JobAppEngineHttpTargetHttpMethodEnum {
@@ -3372,6 +3392,26 @@ func flattenJobAppEngineHttpTargetHttpMethodEnum(i interface{}) *JobAppEngineHtt
 	return JobAppEngineHttpTargetHttpMethodEnumRef(s)
 }
 
+// flattenJobHttpTargetHttpMethodEnumMap flattens the contents of JobHttpTargetHttpMethodEnum from a JSON
+// response object.
+func flattenJobHttpTargetHttpMethodEnumMap(c *Client, i interface{}) map[string]JobHttpTargetHttpMethodEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]JobHttpTargetHttpMethodEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]JobHttpTargetHttpMethodEnum{}
+	}
+
+	items := make(map[string]JobHttpTargetHttpMethodEnum)
+	for k, item := range a {
+		items[k] = *flattenJobHttpTargetHttpMethodEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenJobHttpTargetHttpMethodEnumSlice flattens the contents of JobHttpTargetHttpMethodEnum from a JSON
 // response object.
 func flattenJobHttpTargetHttpMethodEnumSlice(c *Client, i interface{}) []JobHttpTargetHttpMethodEnum {
@@ -3401,6 +3441,26 @@ func flattenJobHttpTargetHttpMethodEnum(i interface{}) *JobHttpTargetHttpMethodE
 	}
 
 	return JobHttpTargetHttpMethodEnumRef(s)
+}
+
+// flattenJobStateEnumMap flattens the contents of JobStateEnum from a JSON
+// response object.
+func flattenJobStateEnumMap(c *Client, i interface{}) map[string]JobStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]JobStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]JobStateEnum{}
+	}
+
+	items := make(map[string]JobStateEnum)
+	for k, item := range a {
+		items[k] = *flattenJobStateEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenJobStateEnumSlice flattens the contents of JobStateEnum from a JSON

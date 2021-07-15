@@ -1142,6 +1142,26 @@ func flattenPolicyAdmissionRule(c *Client, i interface{}) *PolicyAdmissionRule {
 	return r
 }
 
+// flattenPolicyAdmissionRuleEvaluationModeEnumMap flattens the contents of PolicyAdmissionRuleEvaluationModeEnum from a JSON
+// response object.
+func flattenPolicyAdmissionRuleEvaluationModeEnumMap(c *Client, i interface{}) map[string]PolicyAdmissionRuleEvaluationModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]PolicyAdmissionRuleEvaluationModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]PolicyAdmissionRuleEvaluationModeEnum{}
+	}
+
+	items := make(map[string]PolicyAdmissionRuleEvaluationModeEnum)
+	for k, item := range a {
+		items[k] = *flattenPolicyAdmissionRuleEvaluationModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenPolicyAdmissionRuleEvaluationModeEnumSlice flattens the contents of PolicyAdmissionRuleEvaluationModeEnum from a JSON
 // response object.
 func flattenPolicyAdmissionRuleEvaluationModeEnumSlice(c *Client, i interface{}) []PolicyAdmissionRuleEvaluationModeEnum {
@@ -1173,6 +1193,26 @@ func flattenPolicyAdmissionRuleEvaluationModeEnum(i interface{}) *PolicyAdmissio
 	return PolicyAdmissionRuleEvaluationModeEnumRef(s)
 }
 
+// flattenPolicyAdmissionRuleEnforcementModeEnumMap flattens the contents of PolicyAdmissionRuleEnforcementModeEnum from a JSON
+// response object.
+func flattenPolicyAdmissionRuleEnforcementModeEnumMap(c *Client, i interface{}) map[string]PolicyAdmissionRuleEnforcementModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]PolicyAdmissionRuleEnforcementModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]PolicyAdmissionRuleEnforcementModeEnum{}
+	}
+
+	items := make(map[string]PolicyAdmissionRuleEnforcementModeEnum)
+	for k, item := range a {
+		items[k] = *flattenPolicyAdmissionRuleEnforcementModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenPolicyAdmissionRuleEnforcementModeEnumSlice flattens the contents of PolicyAdmissionRuleEnforcementModeEnum from a JSON
 // response object.
 func flattenPolicyAdmissionRuleEnforcementModeEnumSlice(c *Client, i interface{}) []PolicyAdmissionRuleEnforcementModeEnum {
@@ -1202,6 +1242,26 @@ func flattenPolicyAdmissionRuleEnforcementModeEnum(i interface{}) *PolicyAdmissi
 	}
 
 	return PolicyAdmissionRuleEnforcementModeEnumRef(s)
+}
+
+// flattenPolicyGlobalPolicyEvaluationModeEnumMap flattens the contents of PolicyGlobalPolicyEvaluationModeEnum from a JSON
+// response object.
+func flattenPolicyGlobalPolicyEvaluationModeEnumMap(c *Client, i interface{}) map[string]PolicyGlobalPolicyEvaluationModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]PolicyGlobalPolicyEvaluationModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]PolicyGlobalPolicyEvaluationModeEnum{}
+	}
+
+	items := make(map[string]PolicyGlobalPolicyEvaluationModeEnum)
+	for k, item := range a {
+		items[k] = *flattenPolicyGlobalPolicyEvaluationModeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenPolicyGlobalPolicyEvaluationModeEnumSlice flattens the contents of PolicyGlobalPolicyEvaluationModeEnum from a JSON

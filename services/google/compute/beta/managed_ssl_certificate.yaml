@@ -58,9 +58,14 @@ components:
       x-dcl-parent-container: project
       type: object
       required:
-      - name
       - project
       properties:
+        creationTimestamp:
+          type: string
+          x-dcl-go-name: CreationTimestamp
+          readOnly: true
+          description: Creation timestamp in RFC3339 text format.
+          x-kubernetes-immutable: true
         description:
           type: string
           x-dcl-go-name: Description
@@ -92,6 +97,7 @@ components:
               type: object
               additionalProperties:
                 type: string
+                x-dcl-go-type: ManagedSslCertificateManagedDomainStatusEnum
               x-dcl-go-name: DomainStatus
               readOnly: true
               description: Detailed statuses of the domains specified for managed
@@ -113,12 +119,16 @@ components:
               x-dcl-go-type: ManagedSslCertificateManagedStatusEnum
               readOnly: true
               description: 'Status of the managed certificate resource. Possible values:
-                PENDING, RUNNING, DONE'
+                ACTIVE, MANAGED_CERTIFICATE_STATUS_UNSPECIFIED, PROVISIONING, PROVISIONING_FAILED,
+                PROVISIONING_FAILED_PERMANENTLY, RENEWAL_FAILED'
               x-kubernetes-immutable: true
               enum:
-              - PENDING
-              - RUNNING
-              - DONE
+              - ACTIVE
+              - MANAGED_CERTIFICATE_STATUS_UNSPECIFIED
+              - PROVISIONING
+              - PROVISIONING_FAILED
+              - PROVISIONING_FAILED_PERMANENTLY
+              - RENEWAL_FAILED
         name:
           type: string
           x-dcl-go-name: Name

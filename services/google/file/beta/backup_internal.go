@@ -779,6 +779,26 @@ func flattenBackup(c *Client, i interface{}) *Backup {
 	return res
 }
 
+// flattenBackupStateEnumMap flattens the contents of BackupStateEnum from a JSON
+// response object.
+func flattenBackupStateEnumMap(c *Client, i interface{}) map[string]BackupStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]BackupStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]BackupStateEnum{}
+	}
+
+	items := make(map[string]BackupStateEnum)
+	for k, item := range a {
+		items[k] = *flattenBackupStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenBackupStateEnumSlice flattens the contents of BackupStateEnum from a JSON
 // response object.
 func flattenBackupStateEnumSlice(c *Client, i interface{}) []BackupStateEnum {
@@ -808,6 +828,26 @@ func flattenBackupStateEnum(i interface{}) *BackupStateEnum {
 	}
 
 	return BackupStateEnumRef(s)
+}
+
+// flattenBackupSourceInstanceTierEnumMap flattens the contents of BackupSourceInstanceTierEnum from a JSON
+// response object.
+func flattenBackupSourceInstanceTierEnumMap(c *Client, i interface{}) map[string]BackupSourceInstanceTierEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]BackupSourceInstanceTierEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]BackupSourceInstanceTierEnum{}
+	}
+
+	items := make(map[string]BackupSourceInstanceTierEnum)
+	for k, item := range a {
+		items[k] = *flattenBackupSourceInstanceTierEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenBackupSourceInstanceTierEnumSlice flattens the contents of BackupSourceInstanceTierEnum from a JSON

@@ -911,6 +911,26 @@ func flattenDefaultObjectAccessControlProjectTeam(c *Client, i interface{}) *Def
 	return r
 }
 
+// flattenDefaultObjectAccessControlProjectTeamTeamEnumMap flattens the contents of DefaultObjectAccessControlProjectTeamTeamEnum from a JSON
+// response object.
+func flattenDefaultObjectAccessControlProjectTeamTeamEnumMap(c *Client, i interface{}) map[string]DefaultObjectAccessControlProjectTeamTeamEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DefaultObjectAccessControlProjectTeamTeamEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DefaultObjectAccessControlProjectTeamTeamEnum{}
+	}
+
+	items := make(map[string]DefaultObjectAccessControlProjectTeamTeamEnum)
+	for k, item := range a {
+		items[k] = *flattenDefaultObjectAccessControlProjectTeamTeamEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDefaultObjectAccessControlProjectTeamTeamEnumSlice flattens the contents of DefaultObjectAccessControlProjectTeamTeamEnum from a JSON
 // response object.
 func flattenDefaultObjectAccessControlProjectTeamTeamEnumSlice(c *Client, i interface{}) []DefaultObjectAccessControlProjectTeamTeamEnum {
@@ -940,6 +960,26 @@ func flattenDefaultObjectAccessControlProjectTeamTeamEnum(i interface{}) *Defaul
 	}
 
 	return DefaultObjectAccessControlProjectTeamTeamEnumRef(s)
+}
+
+// flattenDefaultObjectAccessControlRoleEnumMap flattens the contents of DefaultObjectAccessControlRoleEnum from a JSON
+// response object.
+func flattenDefaultObjectAccessControlRoleEnumMap(c *Client, i interface{}) map[string]DefaultObjectAccessControlRoleEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DefaultObjectAccessControlRoleEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DefaultObjectAccessControlRoleEnum{}
+	}
+
+	items := make(map[string]DefaultObjectAccessControlRoleEnum)
+	for k, item := range a {
+		items[k] = *flattenDefaultObjectAccessControlRoleEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDefaultObjectAccessControlRoleEnumSlice flattens the contents of DefaultObjectAccessControlRoleEnum from a JSON

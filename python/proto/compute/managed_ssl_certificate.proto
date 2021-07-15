@@ -20,9 +20,23 @@ import "proto/empty.proto";
 
 enum ComputeManagedSslCertificateManagedStatusEnum {
   ComputeManagedSslCertificateManagedStatusEnumNO_VALUE_DO_NOT_USE = 0;
-  ComputeManagedSslCertificateManagedStatusEnumPENDING = 1;
-  ComputeManagedSslCertificateManagedStatusEnumRUNNING = 2;
-  ComputeManagedSslCertificateManagedStatusEnumDONE = 3;
+  ComputeManagedSslCertificateManagedStatusEnumACTIVE = 1;
+  ComputeManagedSslCertificateManagedStatusEnumMANAGED_CERTIFICATE_STATUS_UNSPECIFIED = 2;
+  ComputeManagedSslCertificateManagedStatusEnumPROVISIONING = 3;
+  ComputeManagedSslCertificateManagedStatusEnumPROVISIONING_FAILED = 4;
+  ComputeManagedSslCertificateManagedStatusEnumPROVISIONING_FAILED_PERMANENTLY = 5;
+  ComputeManagedSslCertificateManagedStatusEnumRENEWAL_FAILED = 6;
+}
+
+enum ComputeManagedSslCertificateManagedDomainStatusEnum {
+  ComputeManagedSslCertificateManagedDomainStatusEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeManagedSslCertificateManagedDomainStatusEnumACTIVE = 1;
+  ComputeManagedSslCertificateManagedDomainStatusEnumDOMAIN_STATUS_UNSPECIFIED = 2;
+  ComputeManagedSslCertificateManagedDomainStatusEnumFAILED_CAA_CHECKING = 3;
+  ComputeManagedSslCertificateManagedDomainStatusEnumFAILED_CAA_FORBIDDEN = 4;
+  ComputeManagedSslCertificateManagedDomainStatusEnumFAILED_NOT_VISIBLE = 5;
+  ComputeManagedSslCertificateManagedDomainStatusEnumFAILED_RATE_LIMITED = 6;
+  ComputeManagedSslCertificateManagedDomainStatusEnumPROVISIONING = 7;
 }
 
 enum ComputeManagedSslCertificateTypeEnum {
@@ -31,21 +45,22 @@ enum ComputeManagedSslCertificateTypeEnum {
 }
 
 message ComputeManagedSslCertificate {
-  int64 id = 1;
-  string name = 2;
-  string description = 3;
-  string self_link = 4;
-  ComputeManagedSslCertificateManaged managed = 5;
-  ComputeManagedSslCertificateTypeEnum type = 6;
-  repeated string subject_alternative_names = 7;
-  string expire_time = 8;
-  string project = 9;
+  string name = 1;
+  int64 id = 2;
+  string creation_timestamp = 3;
+  string description = 4;
+  string self_link = 5;
+  ComputeManagedSslCertificateManaged managed = 6;
+  ComputeManagedSslCertificateTypeEnum type = 7;
+  repeated string subject_alternative_names = 8;
+  string expire_time = 9;
+  string project = 10;
 }
 
 message ComputeManagedSslCertificateManaged {
   repeated string domains = 1;
   ComputeManagedSslCertificateManagedStatusEnum status = 2;
-  map<string, string> domain_status = 3;
+  map<string, ComputeManagedSslCertificateManagedDomainStatusEnum> domain_status = 3;
 }
 
 message ApplyComputeManagedSslCertificateRequest {

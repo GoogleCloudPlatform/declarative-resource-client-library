@@ -1811,6 +1811,26 @@ func flattenFeatureStateState(c *Client, i interface{}) *FeatureStateState {
 	return r
 }
 
+// flattenFeatureResourceStateStateEnumMap flattens the contents of FeatureResourceStateStateEnum from a JSON
+// response object.
+func flattenFeatureResourceStateStateEnumMap(c *Client, i interface{}) map[string]FeatureResourceStateStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]FeatureResourceStateStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]FeatureResourceStateStateEnum{}
+	}
+
+	items := make(map[string]FeatureResourceStateStateEnum)
+	for k, item := range a {
+		items[k] = *flattenFeatureResourceStateStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenFeatureResourceStateStateEnumSlice flattens the contents of FeatureResourceStateStateEnum from a JSON
 // response object.
 func flattenFeatureResourceStateStateEnumSlice(c *Client, i interface{}) []FeatureResourceStateStateEnum {
@@ -1840,6 +1860,26 @@ func flattenFeatureResourceStateStateEnum(i interface{}) *FeatureResourceStateSt
 	}
 
 	return FeatureResourceStateStateEnumRef(s)
+}
+
+// flattenFeatureStateStateCodeEnumMap flattens the contents of FeatureStateStateCodeEnum from a JSON
+// response object.
+func flattenFeatureStateStateCodeEnumMap(c *Client, i interface{}) map[string]FeatureStateStateCodeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]FeatureStateStateCodeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]FeatureStateStateCodeEnum{}
+	}
+
+	items := make(map[string]FeatureStateStateCodeEnum)
+	for k, item := range a {
+		items[k] = *flattenFeatureStateStateCodeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenFeatureStateStateCodeEnumSlice flattens the contents of FeatureStateStateCodeEnum from a JSON

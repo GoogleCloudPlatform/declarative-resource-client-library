@@ -1259,6 +1259,26 @@ func flattenOrganizationPropertiesProperty(c *Client, i interface{}) *Organizati
 	return r
 }
 
+// flattenOrganizationRuntimeTypeEnumMap flattens the contents of OrganizationRuntimeTypeEnum from a JSON
+// response object.
+func flattenOrganizationRuntimeTypeEnumMap(c *Client, i interface{}) map[string]OrganizationRuntimeTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]OrganizationRuntimeTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]OrganizationRuntimeTypeEnum{}
+	}
+
+	items := make(map[string]OrganizationRuntimeTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenOrganizationRuntimeTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenOrganizationRuntimeTypeEnumSlice flattens the contents of OrganizationRuntimeTypeEnum from a JSON
 // response object.
 func flattenOrganizationRuntimeTypeEnumSlice(c *Client, i interface{}) []OrganizationRuntimeTypeEnum {
@@ -1288,6 +1308,26 @@ func flattenOrganizationRuntimeTypeEnum(i interface{}) *OrganizationRuntimeTypeE
 	}
 
 	return OrganizationRuntimeTypeEnumRef(s)
+}
+
+// flattenOrganizationSubscriptionTypeEnumMap flattens the contents of OrganizationSubscriptionTypeEnum from a JSON
+// response object.
+func flattenOrganizationSubscriptionTypeEnumMap(c *Client, i interface{}) map[string]OrganizationSubscriptionTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]OrganizationSubscriptionTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]OrganizationSubscriptionTypeEnum{}
+	}
+
+	items := make(map[string]OrganizationSubscriptionTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenOrganizationSubscriptionTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenOrganizationSubscriptionTypeEnumSlice flattens the contents of OrganizationSubscriptionTypeEnum from a JSON
@@ -1321,6 +1361,26 @@ func flattenOrganizationSubscriptionTypeEnum(i interface{}) *OrganizationSubscri
 	return OrganizationSubscriptionTypeEnumRef(s)
 }
 
+// flattenOrganizationBillingTypeEnumMap flattens the contents of OrganizationBillingTypeEnum from a JSON
+// response object.
+func flattenOrganizationBillingTypeEnumMap(c *Client, i interface{}) map[string]OrganizationBillingTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]OrganizationBillingTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]OrganizationBillingTypeEnum{}
+	}
+
+	items := make(map[string]OrganizationBillingTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenOrganizationBillingTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenOrganizationBillingTypeEnumSlice flattens the contents of OrganizationBillingTypeEnum from a JSON
 // response object.
 func flattenOrganizationBillingTypeEnumSlice(c *Client, i interface{}) []OrganizationBillingTypeEnum {
@@ -1350,6 +1410,26 @@ func flattenOrganizationBillingTypeEnum(i interface{}) *OrganizationBillingTypeE
 	}
 
 	return OrganizationBillingTypeEnumRef(s)
+}
+
+// flattenOrganizationStateEnumMap flattens the contents of OrganizationStateEnum from a JSON
+// response object.
+func flattenOrganizationStateEnumMap(c *Client, i interface{}) map[string]OrganizationStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]OrganizationStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]OrganizationStateEnum{}
+	}
+
+	items := make(map[string]OrganizationStateEnum)
+	for k, item := range a {
+		items[k] = *flattenOrganizationStateEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenOrganizationStateEnumSlice flattens the contents of OrganizationStateEnum from a JSON

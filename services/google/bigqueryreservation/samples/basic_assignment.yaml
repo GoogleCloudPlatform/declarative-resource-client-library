@@ -18,4 +18,3 @@ name: basic_assignment
 resource: samples/basic.assignment.json
 versions:
 - ga
-- v1

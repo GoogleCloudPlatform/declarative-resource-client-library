@@ -591,6 +591,26 @@ func flattenAssignment(c *Client, i interface{}) *Assignment {
 	return res
 }
 
+// flattenAssignmentJobTypeEnumMap flattens the contents of AssignmentJobTypeEnum from a JSON
+// response object.
+func flattenAssignmentJobTypeEnumMap(c *Client, i interface{}) map[string]AssignmentJobTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AssignmentJobTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AssignmentJobTypeEnum{}
+	}
+
+	items := make(map[string]AssignmentJobTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenAssignmentJobTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenAssignmentJobTypeEnumSlice flattens the contents of AssignmentJobTypeEnum from a JSON
 // response object.
 func flattenAssignmentJobTypeEnumSlice(c *Client, i interface{}) []AssignmentJobTypeEnum {
@@ -620,6 +640,26 @@ func flattenAssignmentJobTypeEnum(i interface{}) *AssignmentJobTypeEnum {
 	}
 
 	return AssignmentJobTypeEnumRef(s)
+}
+
+// flattenAssignmentStateEnumMap flattens the contents of AssignmentStateEnum from a JSON
+// response object.
+func flattenAssignmentStateEnumMap(c *Client, i interface{}) map[string]AssignmentStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AssignmentStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AssignmentStateEnum{}
+	}
+
+	items := make(map[string]AssignmentStateEnum)
+	for k, item := range a {
+		items[k] = *flattenAssignmentStateEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenAssignmentStateEnumSlice flattens the contents of AssignmentStateEnum from a JSON

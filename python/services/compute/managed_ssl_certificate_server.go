@@ -37,6 +37,18 @@ func ProtoToComputeManagedSslCertificateManagedStatusEnum(e computepb.ComputeMan
 	return nil
 }
 
+// ProtoToManagedSslCertificateManagedDomainStatusEnum converts a ManagedSslCertificateManagedDomainStatusEnum enum from its proto representation.
+func ProtoToComputeManagedSslCertificateManagedDomainStatusEnum(e computepb.ComputeManagedSslCertificateManagedDomainStatusEnum) *compute.ManagedSslCertificateManagedDomainStatusEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := computepb.ComputeManagedSslCertificateManagedDomainStatusEnum_name[int32(e)]; ok {
+		e := compute.ManagedSslCertificateManagedDomainStatusEnum(n[len("ComputeManagedSslCertificateManagedDomainStatusEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToManagedSslCertificateTypeEnum converts a ManagedSslCertificateTypeEnum enum from its proto representation.
 func ProtoToComputeManagedSslCertificateTypeEnum(e computepb.ComputeManagedSslCertificateTypeEnum) *compute.ManagedSslCertificateTypeEnum {
 	if e == 0 {
@@ -66,14 +78,15 @@ func ProtoToComputeManagedSslCertificateManaged(p *computepb.ComputeManagedSslCe
 // ProtoToManagedSslCertificate converts a ManagedSslCertificate resource from its proto representation.
 func ProtoToManagedSslCertificate(p *computepb.ComputeManagedSslCertificate) *compute.ManagedSslCertificate {
 	obj := &compute.ManagedSslCertificate{
-		Id:          dcl.Int64OrNil(p.Id),
-		Name:        dcl.StringOrNil(p.Name),
-		Description: dcl.StringOrNil(p.Description),
-		SelfLink:    dcl.StringOrNil(p.SelfLink),
-		Managed:     ProtoToComputeManagedSslCertificateManaged(p.GetManaged()),
-		Type:        ProtoToComputeManagedSslCertificateTypeEnum(p.GetType()),
-		ExpireTime:  dcl.StringOrNil(p.ExpireTime),
-		Project:     dcl.StringOrNil(p.Project),
+		Name:              dcl.StringOrNil(p.Name),
+		Id:                dcl.Int64OrNil(p.Id),
+		CreationTimestamp: dcl.StringOrNil(p.CreationTimestamp),
+		Description:       dcl.StringOrNil(p.Description),
+		SelfLink:          dcl.StringOrNil(p.SelfLink),
+		Managed:           ProtoToComputeManagedSslCertificateManaged(p.GetManaged()),
+		Type:              ProtoToComputeManagedSslCertificateTypeEnum(p.GetType()),
+		ExpireTime:        dcl.StringOrNil(p.ExpireTime),
+		Project:           dcl.StringOrNil(p.Project),
 	}
 	for _, r := range p.GetSubjectAlternativeNames() {
 		obj.SubjectAlternativeNames = append(obj.SubjectAlternativeNames, r)
@@ -90,6 +103,17 @@ func ComputeManagedSslCertificateManagedStatusEnumToProto(e *compute.ManagedSslC
 		return computepb.ComputeManagedSslCertificateManagedStatusEnum(v)
 	}
 	return computepb.ComputeManagedSslCertificateManagedStatusEnum(0)
+}
+
+// ManagedSslCertificateManagedDomainStatusEnumToProto converts a ManagedSslCertificateManagedDomainStatusEnum enum to its proto representation.
+func ComputeManagedSslCertificateManagedDomainStatusEnumToProto(e *compute.ManagedSslCertificateManagedDomainStatusEnum) computepb.ComputeManagedSslCertificateManagedDomainStatusEnum {
+	if e == nil {
+		return computepb.ComputeManagedSslCertificateManagedDomainStatusEnum(0)
+	}
+	if v, ok := computepb.ComputeManagedSslCertificateManagedDomainStatusEnum_value["ManagedSslCertificateManagedDomainStatusEnum"+string(*e)]; ok {
+		return computepb.ComputeManagedSslCertificateManagedDomainStatusEnum(v)
+	}
+	return computepb.ComputeManagedSslCertificateManagedDomainStatusEnum(0)
 }
 
 // ManagedSslCertificateTypeEnumToProto converts a ManagedSslCertificateTypeEnum enum to its proto representation.
@@ -114,9 +138,9 @@ func ComputeManagedSslCertificateManagedToProto(o *compute.ManagedSslCertificate
 	for _, r := range o.Domains {
 		p.Domains = append(p.Domains, r)
 	}
-	p.DomainStatus = make(map[string]string)
+	p.DomainStatus = make(map[string]computepb.ComputeManagedSslCertificateManagedDomainStatusEnum)
 	for k, r := range o.DomainStatus {
-		p.DomainStatus[k] = r
+		p.DomainStatus[k] = computepb.ComputeManagedSslCertificateManagedDomainStatusEnum(computepb.ComputeManagedSslCertificateManagedDomainStatusEnum_value[string(r)])
 	}
 	return p
 }
@@ -124,14 +148,15 @@ func ComputeManagedSslCertificateManagedToProto(o *compute.ManagedSslCertificate
 // ManagedSslCertificateToProto converts a ManagedSslCertificate resource to its proto representation.
 func ManagedSslCertificateToProto(resource *compute.ManagedSslCertificate) *computepb.ComputeManagedSslCertificate {
 	p := &computepb.ComputeManagedSslCertificate{
-		Id:          dcl.ValueOrEmptyInt64(resource.Id),
-		Name:        dcl.ValueOrEmptyString(resource.Name),
-		Description: dcl.ValueOrEmptyString(resource.Description),
-		SelfLink:    dcl.ValueOrEmptyString(resource.SelfLink),
-		Managed:     ComputeManagedSslCertificateManagedToProto(resource.Managed),
-		Type:        ComputeManagedSslCertificateTypeEnumToProto(resource.Type),
-		ExpireTime:  dcl.ValueOrEmptyString(resource.ExpireTime),
-		Project:     dcl.ValueOrEmptyString(resource.Project),
+		Name:              dcl.ValueOrEmptyString(resource.Name),
+		Id:                dcl.ValueOrEmptyInt64(resource.Id),
+		CreationTimestamp: dcl.ValueOrEmptyString(resource.CreationTimestamp),
+		Description:       dcl.ValueOrEmptyString(resource.Description),
+		SelfLink:          dcl.ValueOrEmptyString(resource.SelfLink),
+		Managed:           ComputeManagedSslCertificateManagedToProto(resource.Managed),
+		Type:              ComputeManagedSslCertificateTypeEnumToProto(resource.Type),
+		ExpireTime:        dcl.ValueOrEmptyString(resource.ExpireTime),
+		Project:           dcl.ValueOrEmptyString(resource.Project),
 	}
 	for _, r := range resource.SubjectAlternativeNames {
 		p.SubjectAlternativeNames = append(p.SubjectAlternativeNames, r)

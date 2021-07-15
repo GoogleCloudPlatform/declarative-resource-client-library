@@ -829,6 +829,26 @@ func flattenIndexProperties(c *Client, i interface{}) *IndexProperties {
 	return r
 }
 
+// flattenIndexAncestorEnumMap flattens the contents of IndexAncestorEnum from a JSON
+// response object.
+func flattenIndexAncestorEnumMap(c *Client, i interface{}) map[string]IndexAncestorEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]IndexAncestorEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]IndexAncestorEnum{}
+	}
+
+	items := make(map[string]IndexAncestorEnum)
+	for k, item := range a {
+		items[k] = *flattenIndexAncestorEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenIndexAncestorEnumSlice flattens the contents of IndexAncestorEnum from a JSON
 // response object.
 func flattenIndexAncestorEnumSlice(c *Client, i interface{}) []IndexAncestorEnum {
@@ -860,6 +880,26 @@ func flattenIndexAncestorEnum(i interface{}) *IndexAncestorEnum {
 	return IndexAncestorEnumRef(s)
 }
 
+// flattenIndexPropertiesDirectionEnumMap flattens the contents of IndexPropertiesDirectionEnum from a JSON
+// response object.
+func flattenIndexPropertiesDirectionEnumMap(c *Client, i interface{}) map[string]IndexPropertiesDirectionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]IndexPropertiesDirectionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]IndexPropertiesDirectionEnum{}
+	}
+
+	items := make(map[string]IndexPropertiesDirectionEnum)
+	for k, item := range a {
+		items[k] = *flattenIndexPropertiesDirectionEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenIndexPropertiesDirectionEnumSlice flattens the contents of IndexPropertiesDirectionEnum from a JSON
 // response object.
 func flattenIndexPropertiesDirectionEnumSlice(c *Client, i interface{}) []IndexPropertiesDirectionEnum {
@@ -889,6 +929,26 @@ func flattenIndexPropertiesDirectionEnum(i interface{}) *IndexPropertiesDirectio
 	}
 
 	return IndexPropertiesDirectionEnumRef(s)
+}
+
+// flattenIndexStateEnumMap flattens the contents of IndexStateEnum from a JSON
+// response object.
+func flattenIndexStateEnumMap(c *Client, i interface{}) map[string]IndexStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]IndexStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]IndexStateEnum{}
+	}
+
+	items := make(map[string]IndexStateEnum)
+	for k, item := range a {
+		items[k] = *flattenIndexStateEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenIndexStateEnumSlice flattens the contents of IndexStateEnum from a JSON

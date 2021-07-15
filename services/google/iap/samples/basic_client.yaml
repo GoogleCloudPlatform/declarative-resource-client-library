@@ -19,4 +19,3 @@ name: basic_client
 resource: samples/basic.identity_aware_proxy_client.json
 versions:
 - ga
-- v1

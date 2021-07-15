@@ -9057,6 +9057,26 @@ func flattenOsPolicyAssignmentRolloutDisruptionBudget(c *Client, i interface{}) 
 	return r
 }
 
+// flattenOsPolicyAssignmentOsPoliciesModeEnumMap flattens the contents of OsPolicyAssignmentOsPoliciesModeEnum from a JSON
+// response object.
+func flattenOsPolicyAssignmentOsPoliciesModeEnumMap(c *Client, i interface{}) map[string]OsPolicyAssignmentOsPoliciesModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]OsPolicyAssignmentOsPoliciesModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]OsPolicyAssignmentOsPoliciesModeEnum{}
+	}
+
+	items := make(map[string]OsPolicyAssignmentOsPoliciesModeEnum)
+	for k, item := range a {
+		items[k] = *flattenOsPolicyAssignmentOsPoliciesModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenOsPolicyAssignmentOsPoliciesModeEnumSlice flattens the contents of OsPolicyAssignmentOsPoliciesModeEnum from a JSON
 // response object.
 func flattenOsPolicyAssignmentOsPoliciesModeEnumSlice(c *Client, i interface{}) []OsPolicyAssignmentOsPoliciesModeEnum {
@@ -9086,6 +9106,26 @@ func flattenOsPolicyAssignmentOsPoliciesModeEnum(i interface{}) *OsPolicyAssignm
 	}
 
 	return OsPolicyAssignmentOsPoliciesModeEnumRef(s)
+}
+
+// flattenOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnumMap flattens the contents of OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnum from a JSON
+// response object.
+func flattenOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnumMap(c *Client, i interface{}) map[string]OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnum{}
+	}
+
+	items := make(map[string]OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnum)
+	for k, item := range a {
+		items[k] = *flattenOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnumSlice flattens the contents of OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnum from a JSON
@@ -9119,6 +9159,26 @@ func flattenOsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEn
 	return OsPolicyAssignmentOsPoliciesResourceGroupsResourcesPkgDesiredStateEnumRef(s)
 }
 
+// flattenOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumMap flattens the contents of OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum from a JSON
+// response object.
+func flattenOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumMap(c *Client, i interface{}) map[string]OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum{}
+	}
+
+	items := make(map[string]OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumSlice flattens the contents of OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum from a JSON
 // response object.
 func flattenOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumSlice(c *Client, i interface{}) []OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnum {
@@ -9148,6 +9208,26 @@ func flattenOsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArch
 	}
 
 	return OsPolicyAssignmentOsPoliciesResourceGroupsResourcesRepositoryAptArchiveTypeEnumRef(s)
+}
+
+// flattenOsPolicyAssignmentExecInterpreterEnumMap flattens the contents of OsPolicyAssignmentExecInterpreterEnum from a JSON
+// response object.
+func flattenOsPolicyAssignmentExecInterpreterEnumMap(c *Client, i interface{}) map[string]OsPolicyAssignmentExecInterpreterEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]OsPolicyAssignmentExecInterpreterEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]OsPolicyAssignmentExecInterpreterEnum{}
+	}
+
+	items := make(map[string]OsPolicyAssignmentExecInterpreterEnum)
+	for k, item := range a {
+		items[k] = *flattenOsPolicyAssignmentExecInterpreterEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenOsPolicyAssignmentExecInterpreterEnumSlice flattens the contents of OsPolicyAssignmentExecInterpreterEnum from a JSON
@@ -9181,6 +9261,26 @@ func flattenOsPolicyAssignmentExecInterpreterEnum(i interface{}) *OsPolicyAssign
 	return OsPolicyAssignmentExecInterpreterEnumRef(s)
 }
 
+// flattenOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnumMap flattens the contents of OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnum from a JSON
+// response object.
+func flattenOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnumMap(c *Client, i interface{}) map[string]OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnum{}
+	}
+
+	items := make(map[string]OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnum)
+	for k, item := range a {
+		items[k] = *flattenOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnumSlice flattens the contents of OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnum from a JSON
 // response object.
 func flattenOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnumSlice(c *Client, i interface{}) []OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnum {
@@ -9210,6 +9310,26 @@ func flattenOsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnum(i i
 	}
 
 	return OsPolicyAssignmentOsPoliciesResourceGroupsResourcesFileStateEnumRef(s)
+}
+
+// flattenOsPolicyAssignmentRolloutStateEnumMap flattens the contents of OsPolicyAssignmentRolloutStateEnum from a JSON
+// response object.
+func flattenOsPolicyAssignmentRolloutStateEnumMap(c *Client, i interface{}) map[string]OsPolicyAssignmentRolloutStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]OsPolicyAssignmentRolloutStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]OsPolicyAssignmentRolloutStateEnum{}
+	}
+
+	items := make(map[string]OsPolicyAssignmentRolloutStateEnum)
+	for k, item := range a {
+		items[k] = *flattenOsPolicyAssignmentRolloutStateEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenOsPolicyAssignmentRolloutStateEnumSlice flattens the contents of OsPolicyAssignmentRolloutStateEnum from a JSON

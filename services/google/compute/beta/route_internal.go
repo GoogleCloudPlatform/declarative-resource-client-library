@@ -1085,6 +1085,26 @@ func flattenRouteWarning(c *Client, i interface{}) *RouteWarning {
 	return r
 }
 
+// flattenRouteWarningCodeEnumMap flattens the contents of RouteWarningCodeEnum from a JSON
+// response object.
+func flattenRouteWarningCodeEnumMap(c *Client, i interface{}) map[string]RouteWarningCodeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]RouteWarningCodeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]RouteWarningCodeEnum{}
+	}
+
+	items := make(map[string]RouteWarningCodeEnum)
+	for k, item := range a {
+		items[k] = *flattenRouteWarningCodeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenRouteWarningCodeEnumSlice flattens the contents of RouteWarningCodeEnum from a JSON
 // response object.
 func flattenRouteWarningCodeEnumSlice(c *Client, i interface{}) []RouteWarningCodeEnum {

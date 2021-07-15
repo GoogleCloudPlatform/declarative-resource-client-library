@@ -16,4 +16,3 @@ name: basic_hmac_key
 resource: samples/basic.hmac_key.json
 versions:
 - ga
-- v1

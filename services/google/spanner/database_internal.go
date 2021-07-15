@@ -537,6 +537,26 @@ func flattenDatabase(c *Client, i interface{}) *Database {
 	return res
 }
 
+// flattenDatabaseStateEnumMap flattens the contents of DatabaseStateEnum from a JSON
+// response object.
+func flattenDatabaseStateEnumMap(c *Client, i interface{}) map[string]DatabaseStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DatabaseStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DatabaseStateEnum{}
+	}
+
+	items := make(map[string]DatabaseStateEnum)
+	for k, item := range a {
+		items[k] = *flattenDatabaseStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDatabaseStateEnumSlice flattens the contents of DatabaseStateEnum from a JSON
 // response object.
 func flattenDatabaseStateEnumSlice(c *Client, i interface{}) []DatabaseStateEnum {

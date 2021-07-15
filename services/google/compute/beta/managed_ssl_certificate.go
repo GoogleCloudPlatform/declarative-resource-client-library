@@ -25,8 +25,9 @@ import (
 )
 
 type ManagedSslCertificate struct {
-	Id                      *int64                         `json:"id"`
 	Name                    *string                        `json:"name"`
+	Id                      *int64                         `json:"id"`
+	CreationTimestamp       *string                        `json:"creationTimestamp"`
 	Description             *string                        `json:"description"`
 	SelfLink                *string                        `json:"selfLink"`
 	Managed                 *ManagedSslCertificateManaged  `json:"managed"`
@@ -55,13 +56,40 @@ func ManagedSslCertificateManagedStatusEnumRef(s string) *ManagedSslCertificateM
 }
 
 func (v ManagedSslCertificateManagedStatusEnum) Validate() error {
-	for _, s := range []string{"PENDING", "RUNNING", "DONE"} {
+	for _, s := range []string{"ACTIVE", "MANAGED_CERTIFICATE_STATUS_UNSPECIFIED", "PROVISIONING", "PROVISIONING_FAILED", "PROVISIONING_FAILED_PERMANENTLY", "RENEWAL_FAILED"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "ManagedSslCertificateManagedStatusEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum ManagedSslCertificateManagedDomainStatusEnum.
+type ManagedSslCertificateManagedDomainStatusEnum string
+
+// ManagedSslCertificateManagedDomainStatusEnumRef returns a *ManagedSslCertificateManagedDomainStatusEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func ManagedSslCertificateManagedDomainStatusEnumRef(s string) *ManagedSslCertificateManagedDomainStatusEnum {
+	if s == "" {
+		return nil
+	}
+
+	v := ManagedSslCertificateManagedDomainStatusEnum(s)
+	return &v
+}
+
+func (v ManagedSslCertificateManagedDomainStatusEnum) Validate() error {
+	for _, s := range []string{"ACTIVE", "DOMAIN_STATUS_UNSPECIFIED", "FAILED_CAA_CHECKING", "FAILED_CAA_FORBIDDEN", "FAILED_NOT_VISIBLE", "FAILED_RATE_LIMITED", "PROVISIONING"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "ManagedSslCertificateManagedDomainStatusEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -95,10 +123,10 @@ func (v ManagedSslCertificateTypeEnum) Validate() error {
 }
 
 type ManagedSslCertificateManaged struct {
-	empty        bool                                    `json:"-"`
-	Domains      []string                                `json:"domains"`
-	Status       *ManagedSslCertificateManagedStatusEnum `json:"status"`
-	DomainStatus map[string]string                       `json:"domainStatus"`
+	empty        bool                                                    `json:"-"`
+	Domains      []string                                                `json:"domains"`
+	Status       *ManagedSslCertificateManagedStatusEnum                 `json:"status"`
+	DomainStatus map[string]ManagedSslCertificateManagedDomainStatusEnum `json:"domainStatus"`
 }
 
 type jsonManagedSslCertificateManaged ManagedSslCertificateManaged
@@ -219,6 +247,7 @@ func (c *Client) ListManagedSslCertificateWithMaxResults(ctx context.Context, pr
 func (r *ManagedSslCertificate) URLNormalized() *ManagedSslCertificate {
 	normalized := dcl.Copy(*r).(ManagedSslCertificate)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.CreationTimestamp = dcl.SelfLinkToName(r.CreationTimestamp)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	normalized.ExpireTime = dcl.SelfLinkToName(r.ExpireTime)

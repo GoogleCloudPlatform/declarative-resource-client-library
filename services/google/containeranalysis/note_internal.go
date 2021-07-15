@@ -6400,6 +6400,26 @@ func flattenNoteAttestationHint(c *Client, i interface{}) *NoteAttestationHint {
 	return r
 }
 
+// flattenNoteVulnerabilitySeverityEnumMap flattens the contents of NoteVulnerabilitySeverityEnum from a JSON
+// response object.
+func flattenNoteVulnerabilitySeverityEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilitySeverityEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilitySeverityEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilitySeverityEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilitySeverityEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilitySeverityEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenNoteVulnerabilitySeverityEnumSlice flattens the contents of NoteVulnerabilitySeverityEnum from a JSON
 // response object.
 func flattenNoteVulnerabilitySeverityEnumSlice(c *Client, i interface{}) []NoteVulnerabilitySeverityEnum {
@@ -6429,6 +6449,26 @@ func flattenNoteVulnerabilitySeverityEnum(i interface{}) *NoteVulnerabilitySever
 	}
 
 	return NoteVulnerabilitySeverityEnumRef(s)
+}
+
+// flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnumMap flattens the contents of NoteVulnerabilityDetailsAffectedVersionStartKindEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityDetailsAffectedVersionStartKindEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityDetailsAffectedVersionStartKindEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityDetailsAffectedVersionStartKindEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityDetailsAffectedVersionStartKindEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnumSlice flattens the contents of NoteVulnerabilityDetailsAffectedVersionStartKindEnum from a JSON
@@ -6462,6 +6502,26 @@ func flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnum(i interface{}) 
 	return NoteVulnerabilityDetailsAffectedVersionStartKindEnumRef(s)
 }
 
+// flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnumMap flattens the contents of NoteVulnerabilityDetailsAffectedVersionEndKindEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityDetailsAffectedVersionEndKindEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityDetailsAffectedVersionEndKindEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityDetailsAffectedVersionEndKindEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityDetailsAffectedVersionEndKindEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnumSlice flattens the contents of NoteVulnerabilityDetailsAffectedVersionEndKindEnum from a JSON
 // response object.
 func flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnumSlice(c *Client, i interface{}) []NoteVulnerabilityDetailsAffectedVersionEndKindEnum {
@@ -6491,6 +6551,26 @@ func flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnum(i interface{}) *N
 	}
 
 	return NoteVulnerabilityDetailsAffectedVersionEndKindEnumRef(s)
+}
+
+// flattenNoteVulnerabilityDetailsFixedVersionKindEnumMap flattens the contents of NoteVulnerabilityDetailsFixedVersionKindEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityDetailsFixedVersionKindEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityDetailsFixedVersionKindEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityDetailsFixedVersionKindEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityDetailsFixedVersionKindEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityDetailsFixedVersionKindEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityDetailsFixedVersionKindEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenNoteVulnerabilityDetailsFixedVersionKindEnumSlice flattens the contents of NoteVulnerabilityDetailsFixedVersionKindEnum from a JSON
@@ -6524,6 +6604,26 @@ func flattenNoteVulnerabilityDetailsFixedVersionKindEnum(i interface{}) *NoteVul
 	return NoteVulnerabilityDetailsFixedVersionKindEnumRef(s)
 }
 
+// flattenNoteVulnerabilityCvssV3AttackVectorEnumMap flattens the contents of NoteVulnerabilityCvssV3AttackVectorEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3AttackVectorEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityCvssV3AttackVectorEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityCvssV3AttackVectorEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityCvssV3AttackVectorEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityCvssV3AttackVectorEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityCvssV3AttackVectorEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenNoteVulnerabilityCvssV3AttackVectorEnumSlice flattens the contents of NoteVulnerabilityCvssV3AttackVectorEnum from a JSON
 // response object.
 func flattenNoteVulnerabilityCvssV3AttackVectorEnumSlice(c *Client, i interface{}) []NoteVulnerabilityCvssV3AttackVectorEnum {
@@ -6553,6 +6653,26 @@ func flattenNoteVulnerabilityCvssV3AttackVectorEnum(i interface{}) *NoteVulnerab
 	}
 
 	return NoteVulnerabilityCvssV3AttackVectorEnumRef(s)
+}
+
+// flattenNoteVulnerabilityCvssV3AttackComplexityEnumMap flattens the contents of NoteVulnerabilityCvssV3AttackComplexityEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3AttackComplexityEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityCvssV3AttackComplexityEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityCvssV3AttackComplexityEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityCvssV3AttackComplexityEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityCvssV3AttackComplexityEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityCvssV3AttackComplexityEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenNoteVulnerabilityCvssV3AttackComplexityEnumSlice flattens the contents of NoteVulnerabilityCvssV3AttackComplexityEnum from a JSON
@@ -6586,6 +6706,26 @@ func flattenNoteVulnerabilityCvssV3AttackComplexityEnum(i interface{}) *NoteVuln
 	return NoteVulnerabilityCvssV3AttackComplexityEnumRef(s)
 }
 
+// flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnumMap flattens the contents of NoteVulnerabilityCvssV3PrivilegesRequiredEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityCvssV3PrivilegesRequiredEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityCvssV3PrivilegesRequiredEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityCvssV3PrivilegesRequiredEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityCvssV3PrivilegesRequiredEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnumSlice flattens the contents of NoteVulnerabilityCvssV3PrivilegesRequiredEnum from a JSON
 // response object.
 func flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnumSlice(c *Client, i interface{}) []NoteVulnerabilityCvssV3PrivilegesRequiredEnum {
@@ -6615,6 +6755,26 @@ func flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnum(i interface{}) *NoteVu
 	}
 
 	return NoteVulnerabilityCvssV3PrivilegesRequiredEnumRef(s)
+}
+
+// flattenNoteVulnerabilityCvssV3UserInteractionEnumMap flattens the contents of NoteVulnerabilityCvssV3UserInteractionEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3UserInteractionEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityCvssV3UserInteractionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityCvssV3UserInteractionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityCvssV3UserInteractionEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityCvssV3UserInteractionEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityCvssV3UserInteractionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenNoteVulnerabilityCvssV3UserInteractionEnumSlice flattens the contents of NoteVulnerabilityCvssV3UserInteractionEnum from a JSON
@@ -6648,6 +6808,26 @@ func flattenNoteVulnerabilityCvssV3UserInteractionEnum(i interface{}) *NoteVulne
 	return NoteVulnerabilityCvssV3UserInteractionEnumRef(s)
 }
 
+// flattenNoteVulnerabilityCvssV3ScopeEnumMap flattens the contents of NoteVulnerabilityCvssV3ScopeEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3ScopeEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityCvssV3ScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityCvssV3ScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityCvssV3ScopeEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityCvssV3ScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityCvssV3ScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenNoteVulnerabilityCvssV3ScopeEnumSlice flattens the contents of NoteVulnerabilityCvssV3ScopeEnum from a JSON
 // response object.
 func flattenNoteVulnerabilityCvssV3ScopeEnumSlice(c *Client, i interface{}) []NoteVulnerabilityCvssV3ScopeEnum {
@@ -6677,6 +6857,26 @@ func flattenNoteVulnerabilityCvssV3ScopeEnum(i interface{}) *NoteVulnerabilityCv
 	}
 
 	return NoteVulnerabilityCvssV3ScopeEnumRef(s)
+}
+
+// flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnumMap flattens the contents of NoteVulnerabilityCvssV3ConfidentialityImpactEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityCvssV3ConfidentialityImpactEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityCvssV3ConfidentialityImpactEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityCvssV3ConfidentialityImpactEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityCvssV3ConfidentialityImpactEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnumSlice flattens the contents of NoteVulnerabilityCvssV3ConfidentialityImpactEnum from a JSON
@@ -6710,6 +6910,26 @@ func flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnum(i interface{}) *Not
 	return NoteVulnerabilityCvssV3ConfidentialityImpactEnumRef(s)
 }
 
+// flattenNoteVulnerabilityCvssV3IntegrityImpactEnumMap flattens the contents of NoteVulnerabilityCvssV3IntegrityImpactEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3IntegrityImpactEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityCvssV3IntegrityImpactEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityCvssV3IntegrityImpactEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityCvssV3IntegrityImpactEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityCvssV3IntegrityImpactEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityCvssV3IntegrityImpactEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenNoteVulnerabilityCvssV3IntegrityImpactEnumSlice flattens the contents of NoteVulnerabilityCvssV3IntegrityImpactEnum from a JSON
 // response object.
 func flattenNoteVulnerabilityCvssV3IntegrityImpactEnumSlice(c *Client, i interface{}) []NoteVulnerabilityCvssV3IntegrityImpactEnum {
@@ -6739,6 +6959,26 @@ func flattenNoteVulnerabilityCvssV3IntegrityImpactEnum(i interface{}) *NoteVulne
 	}
 
 	return NoteVulnerabilityCvssV3IntegrityImpactEnumRef(s)
+}
+
+// flattenNoteVulnerabilityCvssV3AvailabilityImpactEnumMap flattens the contents of NoteVulnerabilityCvssV3AvailabilityImpactEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3AvailabilityImpactEnumMap(c *Client, i interface{}) map[string]NoteVulnerabilityCvssV3AvailabilityImpactEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityCvssV3AvailabilityImpactEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityCvssV3AvailabilityImpactEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityCvssV3AvailabilityImpactEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityCvssV3AvailabilityImpactEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenNoteVulnerabilityCvssV3AvailabilityImpactEnumSlice flattens the contents of NoteVulnerabilityCvssV3AvailabilityImpactEnum from a JSON
@@ -6772,6 +7012,26 @@ func flattenNoteVulnerabilityCvssV3AvailabilityImpactEnum(i interface{}) *NoteVu
 	return NoteVulnerabilityCvssV3AvailabilityImpactEnumRef(s)
 }
 
+// flattenNotePackageDistributionArchitectureEnumMap flattens the contents of NotePackageDistributionArchitectureEnum from a JSON
+// response object.
+func flattenNotePackageDistributionArchitectureEnumMap(c *Client, i interface{}) map[string]NotePackageDistributionArchitectureEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NotePackageDistributionArchitectureEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NotePackageDistributionArchitectureEnum{}
+	}
+
+	items := make(map[string]NotePackageDistributionArchitectureEnum)
+	for k, item := range a {
+		items[k] = *flattenNotePackageDistributionArchitectureEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenNotePackageDistributionArchitectureEnumSlice flattens the contents of NotePackageDistributionArchitectureEnum from a JSON
 // response object.
 func flattenNotePackageDistributionArchitectureEnumSlice(c *Client, i interface{}) []NotePackageDistributionArchitectureEnum {
@@ -6803,6 +7063,26 @@ func flattenNotePackageDistributionArchitectureEnum(i interface{}) *NotePackageD
 	return NotePackageDistributionArchitectureEnumRef(s)
 }
 
+// flattenNotePackageDistributionLatestVersionKindEnumMap flattens the contents of NotePackageDistributionLatestVersionKindEnum from a JSON
+// response object.
+func flattenNotePackageDistributionLatestVersionKindEnumMap(c *Client, i interface{}) map[string]NotePackageDistributionLatestVersionKindEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NotePackageDistributionLatestVersionKindEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NotePackageDistributionLatestVersionKindEnum{}
+	}
+
+	items := make(map[string]NotePackageDistributionLatestVersionKindEnum)
+	for k, item := range a {
+		items[k] = *flattenNotePackageDistributionLatestVersionKindEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenNotePackageDistributionLatestVersionKindEnumSlice flattens the contents of NotePackageDistributionLatestVersionKindEnum from a JSON
 // response object.
 func flattenNotePackageDistributionLatestVersionKindEnumSlice(c *Client, i interface{}) []NotePackageDistributionLatestVersionKindEnum {
@@ -6832,6 +7112,26 @@ func flattenNotePackageDistributionLatestVersionKindEnum(i interface{}) *NotePac
 	}
 
 	return NotePackageDistributionLatestVersionKindEnumRef(s)
+}
+
+// flattenNoteDiscoveryAnalysisKindEnumMap flattens the contents of NoteDiscoveryAnalysisKindEnum from a JSON
+// response object.
+func flattenNoteDiscoveryAnalysisKindEnumMap(c *Client, i interface{}) map[string]NoteDiscoveryAnalysisKindEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteDiscoveryAnalysisKindEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteDiscoveryAnalysisKindEnum{}
+	}
+
+	items := make(map[string]NoteDiscoveryAnalysisKindEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteDiscoveryAnalysisKindEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenNoteDiscoveryAnalysisKindEnumSlice flattens the contents of NoteDiscoveryAnalysisKindEnum from a JSON

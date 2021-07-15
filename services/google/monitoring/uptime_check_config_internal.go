@@ -2538,6 +2538,26 @@ func flattenUptimeCheckConfigContentMatchers(c *Client, i interface{}) *UptimeCh
 	return r
 }
 
+// flattenUptimeCheckConfigResourceGroupResourceTypeEnumMap flattens the contents of UptimeCheckConfigResourceGroupResourceTypeEnum from a JSON
+// response object.
+func flattenUptimeCheckConfigResourceGroupResourceTypeEnumMap(c *Client, i interface{}) map[string]UptimeCheckConfigResourceGroupResourceTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]UptimeCheckConfigResourceGroupResourceTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]UptimeCheckConfigResourceGroupResourceTypeEnum{}
+	}
+
+	items := make(map[string]UptimeCheckConfigResourceGroupResourceTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenUptimeCheckConfigResourceGroupResourceTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenUptimeCheckConfigResourceGroupResourceTypeEnumSlice flattens the contents of UptimeCheckConfigResourceGroupResourceTypeEnum from a JSON
 // response object.
 func flattenUptimeCheckConfigResourceGroupResourceTypeEnumSlice(c *Client, i interface{}) []UptimeCheckConfigResourceGroupResourceTypeEnum {
@@ -2567,6 +2587,26 @@ func flattenUptimeCheckConfigResourceGroupResourceTypeEnum(i interface{}) *Uptim
 	}
 
 	return UptimeCheckConfigResourceGroupResourceTypeEnumRef(s)
+}
+
+// flattenUptimeCheckConfigHttpCheckRequestMethodEnumMap flattens the contents of UptimeCheckConfigHttpCheckRequestMethodEnum from a JSON
+// response object.
+func flattenUptimeCheckConfigHttpCheckRequestMethodEnumMap(c *Client, i interface{}) map[string]UptimeCheckConfigHttpCheckRequestMethodEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]UptimeCheckConfigHttpCheckRequestMethodEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]UptimeCheckConfigHttpCheckRequestMethodEnum{}
+	}
+
+	items := make(map[string]UptimeCheckConfigHttpCheckRequestMethodEnum)
+	for k, item := range a {
+		items[k] = *flattenUptimeCheckConfigHttpCheckRequestMethodEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenUptimeCheckConfigHttpCheckRequestMethodEnumSlice flattens the contents of UptimeCheckConfigHttpCheckRequestMethodEnum from a JSON
@@ -2600,6 +2640,26 @@ func flattenUptimeCheckConfigHttpCheckRequestMethodEnum(i interface{}) *UptimeCh
 	return UptimeCheckConfigHttpCheckRequestMethodEnumRef(s)
 }
 
+// flattenUptimeCheckConfigHttpCheckContentTypeEnumMap flattens the contents of UptimeCheckConfigHttpCheckContentTypeEnum from a JSON
+// response object.
+func flattenUptimeCheckConfigHttpCheckContentTypeEnumMap(c *Client, i interface{}) map[string]UptimeCheckConfigHttpCheckContentTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]UptimeCheckConfigHttpCheckContentTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]UptimeCheckConfigHttpCheckContentTypeEnum{}
+	}
+
+	items := make(map[string]UptimeCheckConfigHttpCheckContentTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenUptimeCheckConfigHttpCheckContentTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenUptimeCheckConfigHttpCheckContentTypeEnumSlice flattens the contents of UptimeCheckConfigHttpCheckContentTypeEnum from a JSON
 // response object.
 func flattenUptimeCheckConfigHttpCheckContentTypeEnumSlice(c *Client, i interface{}) []UptimeCheckConfigHttpCheckContentTypeEnum {
@@ -2629,6 +2689,26 @@ func flattenUptimeCheckConfigHttpCheckContentTypeEnum(i interface{}) *UptimeChec
 	}
 
 	return UptimeCheckConfigHttpCheckContentTypeEnumRef(s)
+}
+
+// flattenUptimeCheckConfigContentMatchersMatcherEnumMap flattens the contents of UptimeCheckConfigContentMatchersMatcherEnum from a JSON
+// response object.
+func flattenUptimeCheckConfigContentMatchersMatcherEnumMap(c *Client, i interface{}) map[string]UptimeCheckConfigContentMatchersMatcherEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]UptimeCheckConfigContentMatchersMatcherEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]UptimeCheckConfigContentMatchersMatcherEnum{}
+	}
+
+	items := make(map[string]UptimeCheckConfigContentMatchersMatcherEnum)
+	for k, item := range a {
+		items[k] = *flattenUptimeCheckConfigContentMatchersMatcherEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenUptimeCheckConfigContentMatchersMatcherEnumSlice flattens the contents of UptimeCheckConfigContentMatchersMatcherEnum from a JSON

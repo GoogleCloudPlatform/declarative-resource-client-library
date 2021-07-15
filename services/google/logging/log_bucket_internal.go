@@ -605,6 +605,26 @@ func flattenLogBucket(c *Client, i interface{}) *LogBucket {
 	return res
 }
 
+// flattenLogBucketLifecycleStateEnumMap flattens the contents of LogBucketLifecycleStateEnum from a JSON
+// response object.
+func flattenLogBucketLifecycleStateEnumMap(c *Client, i interface{}) map[string]LogBucketLifecycleStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]LogBucketLifecycleStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]LogBucketLifecycleStateEnum{}
+	}
+
+	items := make(map[string]LogBucketLifecycleStateEnum)
+	for k, item := range a {
+		items[k] = *flattenLogBucketLifecycleStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenLogBucketLifecycleStateEnumSlice flattens the contents of LogBucketLifecycleStateEnum from a JSON
 // response object.
 func flattenLogBucketLifecycleStateEnumSlice(c *Client, i interface{}) []LogBucketLifecycleStateEnum {

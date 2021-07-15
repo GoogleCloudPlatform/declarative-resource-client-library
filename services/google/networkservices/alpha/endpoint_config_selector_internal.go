@@ -2039,6 +2039,26 @@ func flattenEndpointConfigSelectorTrafficPortSelector(c *Client, i interface{}) 
 	return r
 }
 
+// flattenEndpointConfigSelectorTypeEnumMap flattens the contents of EndpointConfigSelectorTypeEnum from a JSON
+// response object.
+func flattenEndpointConfigSelectorTypeEnumMap(c *Client, i interface{}) map[string]EndpointConfigSelectorTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]EndpointConfigSelectorTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]EndpointConfigSelectorTypeEnum{}
+	}
+
+	items := make(map[string]EndpointConfigSelectorTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenEndpointConfigSelectorTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenEndpointConfigSelectorTypeEnumSlice flattens the contents of EndpointConfigSelectorTypeEnum from a JSON
 // response object.
 func flattenEndpointConfigSelectorTypeEnumSlice(c *Client, i interface{}) []EndpointConfigSelectorTypeEnum {
@@ -2068,6 +2088,26 @@ func flattenEndpointConfigSelectorTypeEnum(i interface{}) *EndpointConfigSelecto
 	}
 
 	return EndpointConfigSelectorTypeEnumRef(s)
+}
+
+// flattenEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnumMap flattens the contents of EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum from a JSON
+// response object.
+func flattenEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnumMap(c *Client, i interface{}) map[string]EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum{}
+	}
+
+	items := make(map[string]EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum)
+	for k, item := range a {
+		items[k] = *flattenEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenEndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnumSlice flattens the contents of EndpointConfigSelectorEndpointMatcherMetadataLabelMatcherMetadataLabelMatchCriteriaEnum from a JSON

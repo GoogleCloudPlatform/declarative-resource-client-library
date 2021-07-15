@@ -2467,6 +2467,26 @@ func flattenInstanceMaintenanceSchedule(c *Client, i interface{}) *InstanceMaint
 	return r
 }
 
+// flattenInstanceStateEnumMap flattens the contents of InstanceStateEnum from a JSON
+// response object.
+func flattenInstanceStateEnumMap(c *Client, i interface{}) map[string]InstanceStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceStateEnum{}
+	}
+
+	items := make(map[string]InstanceStateEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceStateEnumSlice flattens the contents of InstanceStateEnum from a JSON
 // response object.
 func flattenInstanceStateEnumSlice(c *Client, i interface{}) []InstanceStateEnum {
@@ -2496,6 +2516,26 @@ func flattenInstanceStateEnum(i interface{}) *InstanceStateEnum {
 	}
 
 	return InstanceStateEnumRef(s)
+}
+
+// flattenInstanceTierEnumMap flattens the contents of InstanceTierEnum from a JSON
+// response object.
+func flattenInstanceTierEnumMap(c *Client, i interface{}) map[string]InstanceTierEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceTierEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceTierEnum{}
+	}
+
+	items := make(map[string]InstanceTierEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceTierEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceTierEnumSlice flattens the contents of InstanceTierEnum from a JSON
@@ -2529,6 +2569,26 @@ func flattenInstanceTierEnum(i interface{}) *InstanceTierEnum {
 	return InstanceTierEnumRef(s)
 }
 
+// flattenInstanceConnectModeEnumMap flattens the contents of InstanceConnectModeEnum from a JSON
+// response object.
+func flattenInstanceConnectModeEnumMap(c *Client, i interface{}) map[string]InstanceConnectModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceConnectModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceConnectModeEnum{}
+	}
+
+	items := make(map[string]InstanceConnectModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceConnectModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceConnectModeEnumSlice flattens the contents of InstanceConnectModeEnum from a JSON
 // response object.
 func flattenInstanceConnectModeEnumSlice(c *Client, i interface{}) []InstanceConnectModeEnum {
@@ -2560,6 +2620,26 @@ func flattenInstanceConnectModeEnum(i interface{}) *InstanceConnectModeEnum {
 	return InstanceConnectModeEnumRef(s)
 }
 
+// flattenInstanceTransitEncryptionModeEnumMap flattens the contents of InstanceTransitEncryptionModeEnum from a JSON
+// response object.
+func flattenInstanceTransitEncryptionModeEnumMap(c *Client, i interface{}) map[string]InstanceTransitEncryptionModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceTransitEncryptionModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceTransitEncryptionModeEnum{}
+	}
+
+	items := make(map[string]InstanceTransitEncryptionModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceTransitEncryptionModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceTransitEncryptionModeEnumSlice flattens the contents of InstanceTransitEncryptionModeEnum from a JSON
 // response object.
 func flattenInstanceTransitEncryptionModeEnumSlice(c *Client, i interface{}) []InstanceTransitEncryptionModeEnum {
@@ -2589,6 +2669,26 @@ func flattenInstanceTransitEncryptionModeEnum(i interface{}) *InstanceTransitEnc
 	}
 
 	return InstanceTransitEncryptionModeEnumRef(s)
+}
+
+// flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnumMap flattens the contents of InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum from a JSON
+// response object.
+func flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnumMap(c *Client, i interface{}) map[string]InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum{}
+	}
+
+	items := make(map[string]InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnumSlice flattens the contents of InstanceMaintenancePolicyWeeklyMaintenanceWindowDayEnum from a JSON

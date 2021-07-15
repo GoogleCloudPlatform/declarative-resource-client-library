@@ -1816,6 +1816,26 @@ func flattenServicePerimeterSpecVPCAccessibleServices(c *Client, i interface{}) 
 	return r
 }
 
+// flattenServicePerimeterPerimeterTypeEnumMap flattens the contents of ServicePerimeterPerimeterTypeEnum from a JSON
+// response object.
+func flattenServicePerimeterPerimeterTypeEnumMap(c *Client, i interface{}) map[string]ServicePerimeterPerimeterTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServicePerimeterPerimeterTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServicePerimeterPerimeterTypeEnum{}
+	}
+
+	items := make(map[string]ServicePerimeterPerimeterTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenServicePerimeterPerimeterTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenServicePerimeterPerimeterTypeEnumSlice flattens the contents of ServicePerimeterPerimeterTypeEnum from a JSON
 // response object.
 func flattenServicePerimeterPerimeterTypeEnumSlice(c *Client, i interface{}) []ServicePerimeterPerimeterTypeEnum {

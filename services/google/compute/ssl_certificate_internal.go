@@ -28,9 +28,6 @@ import (
 
 func (r *SslCertificate) validate() error {
 
-	if err := dcl.Required(r, "name"); err != nil {
-		return err
-	}
 	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
 		return err
 	}
@@ -47,33 +44,53 @@ func (r *SslCertificateSelfManaged) validate() error {
 
 func sslCertificateGetURL(userBasePath string, r *SslCertificate) (string, error) {
 	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(r.Project),
-		"name":    dcl.ValueOrEmptyString(r.Name),
+		"project":  dcl.ValueOrEmptyString(r.Project),
+		"location": dcl.ValueOrEmptyString(r.Location),
+		"name":     dcl.ValueOrEmptyString(r.Name),
 	}
+	if dcl.IsRegion(r.Location) {
+		return dcl.URL("projects/{{project}}/regions/{{location}}/sslCertificates/{{name}}", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+	}
+
 	return dcl.URL("projects/{{project}}/global/sslCertificates/{{name}}", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
 }
 
-func sslCertificateListURL(userBasePath, project string) (string, error) {
+func sslCertificateListURL(userBasePath, project, location string) (string, error) {
 	params := map[string]interface{}{
-		"project": project,
+		"project":  project,
+		"location": location,
 	}
+	if dcl.IsRegion(&location) {
+		return dcl.URL("projects/{{project}}/regions/{{location}}/sslCertificates", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+	}
+
 	return dcl.URL("projects/{{project}}/global/sslCertificates", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
 
 }
 
-func sslCertificateCreateURL(userBasePath, project string) (string, error) {
+func sslCertificateCreateURL(userBasePath, project, location string) (string, error) {
 	params := map[string]interface{}{
-		"project": project,
+		"project":  project,
+		"location": location,
 	}
+	if dcl.IsRegion(&location) {
+		return dcl.URL("projects/{{project}}/regions/{{location}}/sslCertificates", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+	}
+
 	return dcl.URL("projects/{{project}}/global/sslCertificates", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
 
 }
 
 func sslCertificateDeleteURL(userBasePath string, r *SslCertificate) (string, error) {
 	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(r.Project),
-		"name":    dcl.ValueOrEmptyString(r.Name),
+		"project":  dcl.ValueOrEmptyString(r.Project),
+		"location": dcl.ValueOrEmptyString(r.Location),
+		"name":     dcl.ValueOrEmptyString(r.Name),
 	}
+	if dcl.IsRegion(r.Location) {
+		return dcl.URL("projects/{{project}}/regions/{{location}}/sslCertificates/{{name}}", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
+	}
+
 	return dcl.URL("projects/{{project}}/global/sslCertificates/{{name}}", "https://www.googleapis.com/compute/v1/", userBasePath, params), nil
 }
 
@@ -83,8 +100,8 @@ type sslCertificateApiOperation interface {
 	do(context.Context, *SslCertificate, *Client) error
 }
 
-func (c *Client) listSslCertificateRaw(ctx context.Context, project, pageToken string, pageSize int32) ([]byte, error) {
-	u, err := sslCertificateListURL(c.Config.BasePath, project)
+func (c *Client) listSslCertificateRaw(ctx context.Context, project, location, pageToken string, pageSize int32) ([]byte, error) {
+	u, err := sslCertificateListURL(c.Config.BasePath, project, location)
 	if err != nil {
 		return nil, err
 	}
@@ -115,8 +132,8 @@ type listSslCertificateOperation struct {
 	Token string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listSslCertificate(ctx context.Context, project, pageToken string, pageSize int32) ([]*SslCertificate, string, error) {
-	b, err := c.listSslCertificateRaw(ctx, project, pageToken, pageSize)
+func (c *Client) listSslCertificate(ctx context.Context, project, location, pageToken string, pageSize int32) ([]*SslCertificate, string, error) {
+	b, err := c.listSslCertificateRaw(ctx, project, location, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
@@ -133,6 +150,7 @@ func (c *Client) listSslCertificate(ctx context.Context, project, pageToken stri
 			return nil, m.Token, err
 		}
 		res.Project = &project
+		res.Location = &location
 		l = append(l, res)
 	}
 
@@ -222,8 +240,8 @@ func (op *createSslCertificateOperation) FirstResponse() (map[string]interface{}
 func (op *createSslCertificateOperation) do(ctx context.Context, r *SslCertificate, c *Client) error {
 	c.Config.Logger.Infof("Attempting to create %v", r)
 
-	project := r.createFields()
-	u, err := sslCertificateCreateURL(c.Config.BasePath, project)
+	project, location := r.createFields()
+	u, err := sslCertificateCreateURL(c.Config.BasePath, project, location)
 
 	if err != nil {
 		return err
@@ -375,22 +393,35 @@ func canonicalizeSslCertificateDesiredState(rawDesired, rawInitial *SslCertifica
 	} else {
 		canonicalDesired.Project = rawDesired.Project
 	}
+	if dcl.NameToSelfLink(rawDesired.Location, rawInitial.Location) {
+		canonicalDesired.Location = rawInitial.Location
+	} else {
+		canonicalDesired.Location = rawDesired.Location
+	}
 
 	return canonicalDesired, nil
 }
 
 func canonicalizeSslCertificateNewState(c *Client, rawNew, rawDesired *SslCertificate) (*SslCertificate, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
-		rawNew.Id = rawDesired.Id
-	} else {
-	}
-
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
+		rawNew.Id = rawDesired.Id
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.CreationTimestamp) && dcl.IsEmptyValueIndirect(rawDesired.CreationTimestamp) {
+		rawNew.CreationTimestamp = rawDesired.CreationTimestamp
+	} else {
+		if dcl.StringCanonicalize(rawDesired.CreationTimestamp, rawNew.CreationTimestamp) {
+			rawNew.CreationTimestamp = rawDesired.CreationTimestamp
 		}
 	}
 
@@ -434,7 +465,17 @@ func canonicalizeSslCertificateNewState(c *Client, rawNew, rawDesired *SslCertif
 		}
 	}
 
+	if dcl.IsEmptyValueIndirect(rawNew.Region) && dcl.IsEmptyValueIndirect(rawDesired.Region) {
+		rawNew.Region = rawDesired.Region
+	} else {
+		if dcl.StringCanonicalize(rawDesired.Region, rawNew.Region) {
+			rawNew.Region = rawDesired.Region
+		}
+	}
+
 	rawNew.Project = rawDesired.Project
+
+	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
 }
@@ -538,6 +579,13 @@ func diffSslCertificate(c *Client, desired, actual *SslCertificate, opts ...dcl.
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -545,7 +593,7 @@ func diffSslCertificate(c *Client, desired, actual *SslCertificate, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -594,7 +642,21 @@ func diffSslCertificate(c *Client, desired, actual *SslCertificate, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -639,19 +701,19 @@ func compareSslCertificateSelfManagedNewStyle(d, a interface{}, fn dcl.FieldName
 	return diffs, nil
 }
 
-func (r *SslCertificate) getFields() (string, string) {
+func (r *SslCertificate) getFields() (string, string, string) {
 	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
+	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
-func (r *SslCertificate) createFields() string {
+func (r *SslCertificate) createFields() (string, string) {
 	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project)
+	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location)
 }
 
-func (r *SslCertificate) deleteFields() (string, string) {
+func (r *SslCertificate) deleteFields() (string, string, string) {
 	n := r.URLNormalized()
-	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Name)
+	return dcl.ValueOrEmptyString(n.Project), dcl.ValueOrEmptyString(n.Location), dcl.ValueOrEmptyString(n.Name)
 }
 
 func (r *SslCertificate) updateURL(userBasePath, updateName string) (string, error) {
@@ -687,11 +749,14 @@ func unmarshalMapSslCertificate(m map[string]interface{}, c *Client) (*SslCertif
 // expandSslCertificate expands SslCertificate into a JSON request object.
 func expandSslCertificate(c *Client, f *SslCertificate) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
 	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
 		m["id"] = v
 	}
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
-		m["name"] = v
+	if v := f.CreationTimestamp; !dcl.IsEmptyValueIndirect(v) {
+		m["creationTimestamp"] = v
 	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
@@ -713,10 +778,18 @@ func expandSslCertificate(c *Client, f *SslCertificate) (map[string]interface{},
 	if v := f.ExpireTime; !dcl.IsEmptyValueIndirect(v) {
 		m["expireTime"] = v
 	}
+	if v := f.Region; !dcl.IsEmptyValueIndirect(v) {
+		m["region"] = v
+	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
 	} else if v != nil {
 		m["project"] = v
+	}
+	if v, err := dcl.EmptyValue(); err != nil {
+		return nil, fmt.Errorf("error expanding Location into location: %w", err)
+	} else if v != nil {
+		m["location"] = v
 	}
 
 	return m, nil
@@ -734,8 +807,9 @@ func flattenSslCertificate(c *Client, i interface{}) *SslCertificate {
 	}
 
 	res := &SslCertificate{}
-	res.Id = dcl.FlattenInteger(m["id"])
 	res.Name = dcl.FlattenString(m["name"])
+	res.Id = dcl.FlattenInteger(m["id"])
+	res.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
 	res.Description = dcl.FlattenString(m["description"])
 	res.SelfLink = dcl.FlattenString(m["selfLink"])
 	res.SelfManaged = flattenSslCertificateSelfManaged(c, m["selfManaged"])
@@ -746,7 +820,9 @@ func flattenSslCertificate(c *Client, i interface{}) *SslCertificate {
 	}
 	res.SubjectAlternativeNames = dcl.FlattenStringSlice(m["subjectAlternativeNames"])
 	res.ExpireTime = dcl.FlattenString(m["expireTime"])
+	res.Region = dcl.FlattenString(m["region"])
 	res.Project = dcl.FlattenString(m["project"])
+	res.Location = dcl.FlattenString(m["location"])
 
 	return res
 }
@@ -869,6 +945,26 @@ func flattenSslCertificateSelfManaged(c *Client, i interface{}) *SslCertificateS
 	return r
 }
 
+// flattenSslCertificateTypeEnumMap flattens the contents of SslCertificateTypeEnum from a JSON
+// response object.
+func flattenSslCertificateTypeEnumMap(c *Client, i interface{}) map[string]SslCertificateTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]SslCertificateTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]SslCertificateTypeEnum{}
+	}
+
+	items := make(map[string]SslCertificateTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenSslCertificateTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenSslCertificateTypeEnumSlice flattens the contents of SslCertificateTypeEnum from a JSON
 // response object.
 func flattenSslCertificateTypeEnumSlice(c *Client, i interface{}) []SslCertificateTypeEnum {
@@ -920,6 +1016,14 @@ func (r *SslCertificate) matcher(c *Client) func([]byte) bool {
 			c.Config.Logger.Info("Only one Project field is null - considering unequal.")
 			return false
 		} else if *nr.Project != *ncr.Project {
+			return false
+		}
+		if nr.Location == nil && ncr.Location == nil {
+			c.Config.Logger.Info("Both Location fields null - considering equal.")
+		} else if nr.Location == nil || ncr.Location == nil {
+			c.Config.Logger.Info("Only one Location field is null - considering unequal.")
+			return false
+		} else if *nr.Location != *ncr.Location {
 			return false
 		}
 		if nr.Name == nil && ncr.Name == nil {

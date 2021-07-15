@@ -2710,6 +2710,26 @@ func flattenManagedZonePeeringConfigTargetNetwork(c *Client, i interface{}) *Man
 	return r
 }
 
+// flattenManagedZoneDnssecConfigNonExistenceEnumMap flattens the contents of ManagedZoneDnssecConfigNonExistenceEnum from a JSON
+// response object.
+func flattenManagedZoneDnssecConfigNonExistenceEnumMap(c *Client, i interface{}) map[string]ManagedZoneDnssecConfigNonExistenceEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ManagedZoneDnssecConfigNonExistenceEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ManagedZoneDnssecConfigNonExistenceEnum{}
+	}
+
+	items := make(map[string]ManagedZoneDnssecConfigNonExistenceEnum)
+	for k, item := range a {
+		items[k] = *flattenManagedZoneDnssecConfigNonExistenceEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenManagedZoneDnssecConfigNonExistenceEnumSlice flattens the contents of ManagedZoneDnssecConfigNonExistenceEnum from a JSON
 // response object.
 func flattenManagedZoneDnssecConfigNonExistenceEnumSlice(c *Client, i interface{}) []ManagedZoneDnssecConfigNonExistenceEnum {
@@ -2739,6 +2759,26 @@ func flattenManagedZoneDnssecConfigNonExistenceEnum(i interface{}) *ManagedZoneD
 	}
 
 	return ManagedZoneDnssecConfigNonExistenceEnumRef(s)
+}
+
+// flattenManagedZoneDnssecConfigStateEnumMap flattens the contents of ManagedZoneDnssecConfigStateEnum from a JSON
+// response object.
+func flattenManagedZoneDnssecConfigStateEnumMap(c *Client, i interface{}) map[string]ManagedZoneDnssecConfigStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ManagedZoneDnssecConfigStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ManagedZoneDnssecConfigStateEnum{}
+	}
+
+	items := make(map[string]ManagedZoneDnssecConfigStateEnum)
+	for k, item := range a {
+		items[k] = *flattenManagedZoneDnssecConfigStateEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenManagedZoneDnssecConfigStateEnumSlice flattens the contents of ManagedZoneDnssecConfigStateEnum from a JSON
@@ -2772,6 +2812,26 @@ func flattenManagedZoneDnssecConfigStateEnum(i interface{}) *ManagedZoneDnssecCo
 	return ManagedZoneDnssecConfigStateEnumRef(s)
 }
 
+// flattenManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnumMap flattens the contents of ManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnum from a JSON
+// response object.
+func flattenManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnumMap(c *Client, i interface{}) map[string]ManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnum{}
+	}
+
+	items := make(map[string]ManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnum)
+	for k, item := range a {
+		items[k] = *flattenManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnumSlice flattens the contents of ManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnum from a JSON
 // response object.
 func flattenManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnumSlice(c *Client, i interface{}) []ManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnum {
@@ -2801,6 +2861,26 @@ func flattenManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnum(i interface{}) *
 	}
 
 	return ManagedZoneDnssecConfigDefaultKeySpecsAlgorithmEnumRef(s)
+}
+
+// flattenManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnumMap flattens the contents of ManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnum from a JSON
+// response object.
+func flattenManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnumMap(c *Client, i interface{}) map[string]ManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnum{}
+	}
+
+	items := make(map[string]ManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnumSlice flattens the contents of ManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnum from a JSON
@@ -2834,6 +2914,26 @@ func flattenManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnum(i interface{}) *Ma
 	return ManagedZoneDnssecConfigDefaultKeySpecsKeyTypeEnumRef(s)
 }
 
+// flattenManagedZoneVisibilityEnumMap flattens the contents of ManagedZoneVisibilityEnum from a JSON
+// response object.
+func flattenManagedZoneVisibilityEnumMap(c *Client, i interface{}) map[string]ManagedZoneVisibilityEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ManagedZoneVisibilityEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ManagedZoneVisibilityEnum{}
+	}
+
+	items := make(map[string]ManagedZoneVisibilityEnum)
+	for k, item := range a {
+		items[k] = *flattenManagedZoneVisibilityEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenManagedZoneVisibilityEnumSlice flattens the contents of ManagedZoneVisibilityEnum from a JSON
 // response object.
 func flattenManagedZoneVisibilityEnumSlice(c *Client, i interface{}) []ManagedZoneVisibilityEnum {
@@ -2863,6 +2963,26 @@ func flattenManagedZoneVisibilityEnum(i interface{}) *ManagedZoneVisibilityEnum 
 	}
 
 	return ManagedZoneVisibilityEnumRef(s)
+}
+
+// flattenManagedZoneForwardingConfigTargetNameServersForwardingPathEnumMap flattens the contents of ManagedZoneForwardingConfigTargetNameServersForwardingPathEnum from a JSON
+// response object.
+func flattenManagedZoneForwardingConfigTargetNameServersForwardingPathEnumMap(c *Client, i interface{}) map[string]ManagedZoneForwardingConfigTargetNameServersForwardingPathEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ManagedZoneForwardingConfigTargetNameServersForwardingPathEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ManagedZoneForwardingConfigTargetNameServersForwardingPathEnum{}
+	}
+
+	items := make(map[string]ManagedZoneForwardingConfigTargetNameServersForwardingPathEnum)
+	for k, item := range a {
+		items[k] = *flattenManagedZoneForwardingConfigTargetNameServersForwardingPathEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenManagedZoneForwardingConfigTargetNameServersForwardingPathEnumSlice flattens the contents of ManagedZoneForwardingConfigTargetNameServersForwardingPathEnum from a JSON

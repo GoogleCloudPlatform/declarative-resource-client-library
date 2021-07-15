@@ -52,14 +52,17 @@ func ProtoToComputeBetaSslCertificateSelfManaged(p *betapb.ComputeBetaSslCertifi
 // ProtoToSslCertificate converts a SslCertificate resource from its proto representation.
 func ProtoToSslCertificate(p *betapb.ComputeBetaSslCertificate) *beta.SslCertificate {
 	obj := &beta.SslCertificate{
-		Id:          dcl.Int64OrNil(p.Id),
-		Name:        dcl.StringOrNil(p.Name),
-		Description: dcl.StringOrNil(p.Description),
-		SelfLink:    dcl.StringOrNil(p.SelfLink),
-		SelfManaged: ProtoToComputeBetaSslCertificateSelfManaged(p.GetSelfManaged()),
-		Type:        ProtoToComputeBetaSslCertificateTypeEnum(p.GetType()),
-		ExpireTime:  dcl.StringOrNil(p.ExpireTime),
-		Project:     dcl.StringOrNil(p.Project),
+		Name:              dcl.StringOrNil(p.Name),
+		Id:                dcl.Int64OrNil(p.Id),
+		CreationTimestamp: dcl.StringOrNil(p.CreationTimestamp),
+		Description:       dcl.StringOrNil(p.Description),
+		SelfLink:          dcl.StringOrNil(p.SelfLink),
+		SelfManaged:       ProtoToComputeBetaSslCertificateSelfManaged(p.GetSelfManaged()),
+		Type:              ProtoToComputeBetaSslCertificateTypeEnum(p.GetType()),
+		ExpireTime:        dcl.StringOrNil(p.ExpireTime),
+		Region:            dcl.StringOrNil(p.Region),
+		Project:           dcl.StringOrNil(p.Project),
+		Location:          dcl.StringOrNil(p.Location),
 	}
 	for _, r := range p.GetSubjectAlternativeNames() {
 		obj.SubjectAlternativeNames = append(obj.SubjectAlternativeNames, r)
@@ -93,14 +96,17 @@ func ComputeBetaSslCertificateSelfManagedToProto(o *beta.SslCertificateSelfManag
 // SslCertificateToProto converts a SslCertificate resource to its proto representation.
 func SslCertificateToProto(resource *beta.SslCertificate) *betapb.ComputeBetaSslCertificate {
 	p := &betapb.ComputeBetaSslCertificate{
-		Id:          dcl.ValueOrEmptyInt64(resource.Id),
-		Name:        dcl.ValueOrEmptyString(resource.Name),
-		Description: dcl.ValueOrEmptyString(resource.Description),
-		SelfLink:    dcl.ValueOrEmptyString(resource.SelfLink),
-		SelfManaged: ComputeBetaSslCertificateSelfManagedToProto(resource.SelfManaged),
-		Type:        ComputeBetaSslCertificateTypeEnumToProto(resource.Type),
-		ExpireTime:  dcl.ValueOrEmptyString(resource.ExpireTime),
-		Project:     dcl.ValueOrEmptyString(resource.Project),
+		Name:              dcl.ValueOrEmptyString(resource.Name),
+		Id:                dcl.ValueOrEmptyInt64(resource.Id),
+		CreationTimestamp: dcl.ValueOrEmptyString(resource.CreationTimestamp),
+		Description:       dcl.ValueOrEmptyString(resource.Description),
+		SelfLink:          dcl.ValueOrEmptyString(resource.SelfLink),
+		SelfManaged:       ComputeBetaSslCertificateSelfManagedToProto(resource.SelfManaged),
+		Type:              ComputeBetaSslCertificateTypeEnumToProto(resource.Type),
+		ExpireTime:        dcl.ValueOrEmptyString(resource.ExpireTime),
+		Region:            dcl.ValueOrEmptyString(resource.Region),
+		Project:           dcl.ValueOrEmptyString(resource.Project),
+		Location:          dcl.ValueOrEmptyString(resource.Location),
 	}
 	for _, r := range resource.SubjectAlternativeNames {
 		p.SubjectAlternativeNames = append(p.SubjectAlternativeNames, r)
@@ -147,7 +153,7 @@ func (s *SslCertificateServer) ListComputeBetaSslCertificate(ctx context.Context
 		return nil, err
 	}
 
-	resources, err := cl.ListSslCertificate(ctx, request.Project)
+	resources, err := cl.ListSslCertificate(ctx, request.Project, request.Location)
 	if err != nil {
 		return nil, err
 	}

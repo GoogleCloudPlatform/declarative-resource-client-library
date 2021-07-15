@@ -989,6 +989,26 @@ func flattenObjectAccessControlProjectTeam(c *Client, i interface{}) *ObjectAcce
 	return r
 }
 
+// flattenObjectAccessControlProjectTeamTeamEnumMap flattens the contents of ObjectAccessControlProjectTeamTeamEnum from a JSON
+// response object.
+func flattenObjectAccessControlProjectTeamTeamEnumMap(c *Client, i interface{}) map[string]ObjectAccessControlProjectTeamTeamEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ObjectAccessControlProjectTeamTeamEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ObjectAccessControlProjectTeamTeamEnum{}
+	}
+
+	items := make(map[string]ObjectAccessControlProjectTeamTeamEnum)
+	for k, item := range a {
+		items[k] = *flattenObjectAccessControlProjectTeamTeamEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenObjectAccessControlProjectTeamTeamEnumSlice flattens the contents of ObjectAccessControlProjectTeamTeamEnum from a JSON
 // response object.
 func flattenObjectAccessControlProjectTeamTeamEnumSlice(c *Client, i interface{}) []ObjectAccessControlProjectTeamTeamEnum {
@@ -1018,6 +1038,26 @@ func flattenObjectAccessControlProjectTeamTeamEnum(i interface{}) *ObjectAccessC
 	}
 
 	return ObjectAccessControlProjectTeamTeamEnumRef(s)
+}
+
+// flattenObjectAccessControlRoleEnumMap flattens the contents of ObjectAccessControlRoleEnum from a JSON
+// response object.
+func flattenObjectAccessControlRoleEnumMap(c *Client, i interface{}) map[string]ObjectAccessControlRoleEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ObjectAccessControlRoleEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ObjectAccessControlRoleEnum{}
+	}
+
+	items := make(map[string]ObjectAccessControlRoleEnum)
+	for k, item := range a {
+		items[k] = *flattenObjectAccessControlRoleEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenObjectAccessControlRoleEnumSlice flattens the contents of ObjectAccessControlRoleEnum from a JSON

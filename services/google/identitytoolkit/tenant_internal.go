@@ -969,6 +969,26 @@ func flattenTenantMfaConfig(c *Client, i interface{}) *TenantMfaConfig {
 	return r
 }
 
+// flattenTenantMfaConfigStateEnumMap flattens the contents of TenantMfaConfigStateEnum from a JSON
+// response object.
+func flattenTenantMfaConfigStateEnumMap(c *Client, i interface{}) map[string]TenantMfaConfigStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]TenantMfaConfigStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]TenantMfaConfigStateEnum{}
+	}
+
+	items := make(map[string]TenantMfaConfigStateEnum)
+	for k, item := range a {
+		items[k] = *flattenTenantMfaConfigStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenTenantMfaConfigStateEnumSlice flattens the contents of TenantMfaConfigStateEnum from a JSON
 // response object.
 func flattenTenantMfaConfigStateEnumSlice(c *Client, i interface{}) []TenantMfaConfigStateEnum {
@@ -998,6 +1018,26 @@ func flattenTenantMfaConfigStateEnum(i interface{}) *TenantMfaConfigStateEnum {
 	}
 
 	return TenantMfaConfigStateEnumRef(s)
+}
+
+// flattenTenantMfaConfigEnabledProvidersEnumMap flattens the contents of TenantMfaConfigEnabledProvidersEnum from a JSON
+// response object.
+func flattenTenantMfaConfigEnabledProvidersEnumMap(c *Client, i interface{}) map[string]TenantMfaConfigEnabledProvidersEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]TenantMfaConfigEnabledProvidersEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]TenantMfaConfigEnabledProvidersEnum{}
+	}
+
+	items := make(map[string]TenantMfaConfigEnabledProvidersEnum)
+	for k, item := range a {
+		items[k] = *flattenTenantMfaConfigEnabledProvidersEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenTenantMfaConfigEnabledProvidersEnumSlice flattens the contents of TenantMfaConfigEnabledProvidersEnum from a JSON

@@ -962,6 +962,26 @@ func flattenConnectorSubnet(c *Client, i interface{}) *ConnectorSubnet {
 	return r
 }
 
+// flattenConnectorStateEnumMap flattens the contents of ConnectorStateEnum from a JSON
+// response object.
+func flattenConnectorStateEnumMap(c *Client, i interface{}) map[string]ConnectorStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ConnectorStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ConnectorStateEnum{}
+	}
+
+	items := make(map[string]ConnectorStateEnum)
+	for k, item := range a {
+		items[k] = *flattenConnectorStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenConnectorStateEnumSlice flattens the contents of ConnectorStateEnum from a JSON
 // response object.
 func flattenConnectorStateEnumSlice(c *Client, i interface{}) []ConnectorStateEnum {

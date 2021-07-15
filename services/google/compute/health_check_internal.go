@@ -2591,6 +2591,26 @@ func flattenHealthCheckTcpHealthCheck(c *Client, i interface{}) *HealthCheckTcpH
 	return r
 }
 
+// flattenHealthCheckHttp2HealthCheckPortSpecificationEnumMap flattens the contents of HealthCheckHttp2HealthCheckPortSpecificationEnum from a JSON
+// response object.
+func flattenHealthCheckHttp2HealthCheckPortSpecificationEnumMap(c *Client, i interface{}) map[string]HealthCheckHttp2HealthCheckPortSpecificationEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]HealthCheckHttp2HealthCheckPortSpecificationEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]HealthCheckHttp2HealthCheckPortSpecificationEnum{}
+	}
+
+	items := make(map[string]HealthCheckHttp2HealthCheckPortSpecificationEnum)
+	for k, item := range a {
+		items[k] = *flattenHealthCheckHttp2HealthCheckPortSpecificationEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenHealthCheckHttp2HealthCheckPortSpecificationEnumSlice flattens the contents of HealthCheckHttp2HealthCheckPortSpecificationEnum from a JSON
 // response object.
 func flattenHealthCheckHttp2HealthCheckPortSpecificationEnumSlice(c *Client, i interface{}) []HealthCheckHttp2HealthCheckPortSpecificationEnum {
@@ -2620,6 +2640,26 @@ func flattenHealthCheckHttp2HealthCheckPortSpecificationEnum(i interface{}) *Hea
 	}
 
 	return HealthCheckHttp2HealthCheckPortSpecificationEnumRef(s)
+}
+
+// flattenHealthCheckHttp2HealthCheckProxyHeaderEnumMap flattens the contents of HealthCheckHttp2HealthCheckProxyHeaderEnum from a JSON
+// response object.
+func flattenHealthCheckHttp2HealthCheckProxyHeaderEnumMap(c *Client, i interface{}) map[string]HealthCheckHttp2HealthCheckProxyHeaderEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]HealthCheckHttp2HealthCheckProxyHeaderEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]HealthCheckHttp2HealthCheckProxyHeaderEnum{}
+	}
+
+	items := make(map[string]HealthCheckHttp2HealthCheckProxyHeaderEnum)
+	for k, item := range a {
+		items[k] = *flattenHealthCheckHttp2HealthCheckProxyHeaderEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenHealthCheckHttp2HealthCheckProxyHeaderEnumSlice flattens the contents of HealthCheckHttp2HealthCheckProxyHeaderEnum from a JSON
@@ -2653,6 +2693,26 @@ func flattenHealthCheckHttp2HealthCheckProxyHeaderEnum(i interface{}) *HealthChe
 	return HealthCheckHttp2HealthCheckProxyHeaderEnumRef(s)
 }
 
+// flattenHealthCheckHttpHealthCheckPortSpecificationEnumMap flattens the contents of HealthCheckHttpHealthCheckPortSpecificationEnum from a JSON
+// response object.
+func flattenHealthCheckHttpHealthCheckPortSpecificationEnumMap(c *Client, i interface{}) map[string]HealthCheckHttpHealthCheckPortSpecificationEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]HealthCheckHttpHealthCheckPortSpecificationEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]HealthCheckHttpHealthCheckPortSpecificationEnum{}
+	}
+
+	items := make(map[string]HealthCheckHttpHealthCheckPortSpecificationEnum)
+	for k, item := range a {
+		items[k] = *flattenHealthCheckHttpHealthCheckPortSpecificationEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenHealthCheckHttpHealthCheckPortSpecificationEnumSlice flattens the contents of HealthCheckHttpHealthCheckPortSpecificationEnum from a JSON
 // response object.
 func flattenHealthCheckHttpHealthCheckPortSpecificationEnumSlice(c *Client, i interface{}) []HealthCheckHttpHealthCheckPortSpecificationEnum {
@@ -2682,6 +2742,26 @@ func flattenHealthCheckHttpHealthCheckPortSpecificationEnum(i interface{}) *Heal
 	}
 
 	return HealthCheckHttpHealthCheckPortSpecificationEnumRef(s)
+}
+
+// flattenHealthCheckHttpHealthCheckProxyHeaderEnumMap flattens the contents of HealthCheckHttpHealthCheckProxyHeaderEnum from a JSON
+// response object.
+func flattenHealthCheckHttpHealthCheckProxyHeaderEnumMap(c *Client, i interface{}) map[string]HealthCheckHttpHealthCheckProxyHeaderEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]HealthCheckHttpHealthCheckProxyHeaderEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]HealthCheckHttpHealthCheckProxyHeaderEnum{}
+	}
+
+	items := make(map[string]HealthCheckHttpHealthCheckProxyHeaderEnum)
+	for k, item := range a {
+		items[k] = *flattenHealthCheckHttpHealthCheckProxyHeaderEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenHealthCheckHttpHealthCheckProxyHeaderEnumSlice flattens the contents of HealthCheckHttpHealthCheckProxyHeaderEnum from a JSON
@@ -2715,6 +2795,26 @@ func flattenHealthCheckHttpHealthCheckProxyHeaderEnum(i interface{}) *HealthChec
 	return HealthCheckHttpHealthCheckProxyHeaderEnumRef(s)
 }
 
+// flattenHealthCheckHttpsHealthCheckPortSpecificationEnumMap flattens the contents of HealthCheckHttpsHealthCheckPortSpecificationEnum from a JSON
+// response object.
+func flattenHealthCheckHttpsHealthCheckPortSpecificationEnumMap(c *Client, i interface{}) map[string]HealthCheckHttpsHealthCheckPortSpecificationEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]HealthCheckHttpsHealthCheckPortSpecificationEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]HealthCheckHttpsHealthCheckPortSpecificationEnum{}
+	}
+
+	items := make(map[string]HealthCheckHttpsHealthCheckPortSpecificationEnum)
+	for k, item := range a {
+		items[k] = *flattenHealthCheckHttpsHealthCheckPortSpecificationEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenHealthCheckHttpsHealthCheckPortSpecificationEnumSlice flattens the contents of HealthCheckHttpsHealthCheckPortSpecificationEnum from a JSON
 // response object.
 func flattenHealthCheckHttpsHealthCheckPortSpecificationEnumSlice(c *Client, i interface{}) []HealthCheckHttpsHealthCheckPortSpecificationEnum {
@@ -2744,6 +2844,26 @@ func flattenHealthCheckHttpsHealthCheckPortSpecificationEnum(i interface{}) *Hea
 	}
 
 	return HealthCheckHttpsHealthCheckPortSpecificationEnumRef(s)
+}
+
+// flattenHealthCheckHttpsHealthCheckProxyHeaderEnumMap flattens the contents of HealthCheckHttpsHealthCheckProxyHeaderEnum from a JSON
+// response object.
+func flattenHealthCheckHttpsHealthCheckProxyHeaderEnumMap(c *Client, i interface{}) map[string]HealthCheckHttpsHealthCheckProxyHeaderEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]HealthCheckHttpsHealthCheckProxyHeaderEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]HealthCheckHttpsHealthCheckProxyHeaderEnum{}
+	}
+
+	items := make(map[string]HealthCheckHttpsHealthCheckProxyHeaderEnum)
+	for k, item := range a {
+		items[k] = *flattenHealthCheckHttpsHealthCheckProxyHeaderEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenHealthCheckHttpsHealthCheckProxyHeaderEnumSlice flattens the contents of HealthCheckHttpsHealthCheckProxyHeaderEnum from a JSON
@@ -2777,6 +2897,26 @@ func flattenHealthCheckHttpsHealthCheckProxyHeaderEnum(i interface{}) *HealthChe
 	return HealthCheckHttpsHealthCheckProxyHeaderEnumRef(s)
 }
 
+// flattenHealthCheckSslHealthCheckPortSpecificationEnumMap flattens the contents of HealthCheckSslHealthCheckPortSpecificationEnum from a JSON
+// response object.
+func flattenHealthCheckSslHealthCheckPortSpecificationEnumMap(c *Client, i interface{}) map[string]HealthCheckSslHealthCheckPortSpecificationEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]HealthCheckSslHealthCheckPortSpecificationEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]HealthCheckSslHealthCheckPortSpecificationEnum{}
+	}
+
+	items := make(map[string]HealthCheckSslHealthCheckPortSpecificationEnum)
+	for k, item := range a {
+		items[k] = *flattenHealthCheckSslHealthCheckPortSpecificationEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenHealthCheckSslHealthCheckPortSpecificationEnumSlice flattens the contents of HealthCheckSslHealthCheckPortSpecificationEnum from a JSON
 // response object.
 func flattenHealthCheckSslHealthCheckPortSpecificationEnumSlice(c *Client, i interface{}) []HealthCheckSslHealthCheckPortSpecificationEnum {
@@ -2806,6 +2946,26 @@ func flattenHealthCheckSslHealthCheckPortSpecificationEnum(i interface{}) *Healt
 	}
 
 	return HealthCheckSslHealthCheckPortSpecificationEnumRef(s)
+}
+
+// flattenHealthCheckSslHealthCheckProxyHeaderEnumMap flattens the contents of HealthCheckSslHealthCheckProxyHeaderEnum from a JSON
+// response object.
+func flattenHealthCheckSslHealthCheckProxyHeaderEnumMap(c *Client, i interface{}) map[string]HealthCheckSslHealthCheckProxyHeaderEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]HealthCheckSslHealthCheckProxyHeaderEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]HealthCheckSslHealthCheckProxyHeaderEnum{}
+	}
+
+	items := make(map[string]HealthCheckSslHealthCheckProxyHeaderEnum)
+	for k, item := range a {
+		items[k] = *flattenHealthCheckSslHealthCheckProxyHeaderEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenHealthCheckSslHealthCheckProxyHeaderEnumSlice flattens the contents of HealthCheckSslHealthCheckProxyHeaderEnum from a JSON
@@ -2839,6 +2999,26 @@ func flattenHealthCheckSslHealthCheckProxyHeaderEnum(i interface{}) *HealthCheck
 	return HealthCheckSslHealthCheckProxyHeaderEnumRef(s)
 }
 
+// flattenHealthCheckTcpHealthCheckPortSpecificationEnumMap flattens the contents of HealthCheckTcpHealthCheckPortSpecificationEnum from a JSON
+// response object.
+func flattenHealthCheckTcpHealthCheckPortSpecificationEnumMap(c *Client, i interface{}) map[string]HealthCheckTcpHealthCheckPortSpecificationEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]HealthCheckTcpHealthCheckPortSpecificationEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]HealthCheckTcpHealthCheckPortSpecificationEnum{}
+	}
+
+	items := make(map[string]HealthCheckTcpHealthCheckPortSpecificationEnum)
+	for k, item := range a {
+		items[k] = *flattenHealthCheckTcpHealthCheckPortSpecificationEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenHealthCheckTcpHealthCheckPortSpecificationEnumSlice flattens the contents of HealthCheckTcpHealthCheckPortSpecificationEnum from a JSON
 // response object.
 func flattenHealthCheckTcpHealthCheckPortSpecificationEnumSlice(c *Client, i interface{}) []HealthCheckTcpHealthCheckPortSpecificationEnum {
@@ -2870,6 +3050,26 @@ func flattenHealthCheckTcpHealthCheckPortSpecificationEnum(i interface{}) *Healt
 	return HealthCheckTcpHealthCheckPortSpecificationEnumRef(s)
 }
 
+// flattenHealthCheckTcpHealthCheckProxyHeaderEnumMap flattens the contents of HealthCheckTcpHealthCheckProxyHeaderEnum from a JSON
+// response object.
+func flattenHealthCheckTcpHealthCheckProxyHeaderEnumMap(c *Client, i interface{}) map[string]HealthCheckTcpHealthCheckProxyHeaderEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]HealthCheckTcpHealthCheckProxyHeaderEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]HealthCheckTcpHealthCheckProxyHeaderEnum{}
+	}
+
+	items := make(map[string]HealthCheckTcpHealthCheckProxyHeaderEnum)
+	for k, item := range a {
+		items[k] = *flattenHealthCheckTcpHealthCheckProxyHeaderEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenHealthCheckTcpHealthCheckProxyHeaderEnumSlice flattens the contents of HealthCheckTcpHealthCheckProxyHeaderEnum from a JSON
 // response object.
 func flattenHealthCheckTcpHealthCheckProxyHeaderEnumSlice(c *Client, i interface{}) []HealthCheckTcpHealthCheckProxyHeaderEnum {
@@ -2899,6 +3099,26 @@ func flattenHealthCheckTcpHealthCheckProxyHeaderEnum(i interface{}) *HealthCheck
 	}
 
 	return HealthCheckTcpHealthCheckProxyHeaderEnumRef(s)
+}
+
+// flattenHealthCheckTypeEnumMap flattens the contents of HealthCheckTypeEnum from a JSON
+// response object.
+func flattenHealthCheckTypeEnumMap(c *Client, i interface{}) map[string]HealthCheckTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]HealthCheckTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]HealthCheckTypeEnum{}
+	}
+
+	items := make(map[string]HealthCheckTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenHealthCheckTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenHealthCheckTypeEnumSlice flattens the contents of HealthCheckTypeEnum from a JSON

@@ -1199,6 +1199,26 @@ func flattenWorkerPoolNetworkConfig(c *Client, i interface{}) *WorkerPoolNetwork
 	return r
 }
 
+// flattenWorkerPoolStateEnumMap flattens the contents of WorkerPoolStateEnum from a JSON
+// response object.
+func flattenWorkerPoolStateEnumMap(c *Client, i interface{}) map[string]WorkerPoolStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]WorkerPoolStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]WorkerPoolStateEnum{}
+	}
+
+	items := make(map[string]WorkerPoolStateEnum)
+	for k, item := range a {
+		items[k] = *flattenWorkerPoolStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenWorkerPoolStateEnumSlice flattens the contents of WorkerPoolStateEnum from a JSON
 // response object.
 func flattenWorkerPoolStateEnumSlice(c *Client, i interface{}) []WorkerPoolStateEnum {

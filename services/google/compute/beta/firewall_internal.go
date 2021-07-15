@@ -1729,6 +1729,26 @@ func flattenFirewallDenied(c *Client, i interface{}) *FirewallDenied {
 	return r
 }
 
+// flattenFirewallDirectionEnumMap flattens the contents of FirewallDirectionEnum from a JSON
+// response object.
+func flattenFirewallDirectionEnumMap(c *Client, i interface{}) map[string]FirewallDirectionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]FirewallDirectionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]FirewallDirectionEnum{}
+	}
+
+	items := make(map[string]FirewallDirectionEnum)
+	for k, item := range a {
+		items[k] = *flattenFirewallDirectionEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenFirewallDirectionEnumSlice flattens the contents of FirewallDirectionEnum from a JSON
 // response object.
 func flattenFirewallDirectionEnumSlice(c *Client, i interface{}) []FirewallDirectionEnum {

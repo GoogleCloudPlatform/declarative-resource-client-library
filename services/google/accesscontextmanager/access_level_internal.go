@@ -1847,6 +1847,26 @@ func flattenAccessLevelBasicConditionsDevicePolicyOsConstraints(c *Client, i int
 	return r
 }
 
+// flattenAccessLevelBasicCombiningFunctionEnumMap flattens the contents of AccessLevelBasicCombiningFunctionEnum from a JSON
+// response object.
+func flattenAccessLevelBasicCombiningFunctionEnumMap(c *Client, i interface{}) map[string]AccessLevelBasicCombiningFunctionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AccessLevelBasicCombiningFunctionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AccessLevelBasicCombiningFunctionEnum{}
+	}
+
+	items := make(map[string]AccessLevelBasicCombiningFunctionEnum)
+	for k, item := range a {
+		items[k] = *flattenAccessLevelBasicCombiningFunctionEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenAccessLevelBasicCombiningFunctionEnumSlice flattens the contents of AccessLevelBasicCombiningFunctionEnum from a JSON
 // response object.
 func flattenAccessLevelBasicCombiningFunctionEnumSlice(c *Client, i interface{}) []AccessLevelBasicCombiningFunctionEnum {
@@ -1876,6 +1896,26 @@ func flattenAccessLevelBasicCombiningFunctionEnum(i interface{}) *AccessLevelBas
 	}
 
 	return AccessLevelBasicCombiningFunctionEnumRef(s)
+}
+
+// flattenAccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnumMap flattens the contents of AccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnum from a JSON
+// response object.
+func flattenAccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnumMap(c *Client, i interface{}) map[string]AccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnum{}
+	}
+
+	items := make(map[string]AccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnum)
+	for k, item := range a {
+		items[k] = *flattenAccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenAccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnumSlice flattens the contents of AccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnum from a JSON
@@ -1909,6 +1949,26 @@ func flattenAccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnum(
 	return AccessLevelBasicConditionsDevicePolicyAllowedEncryptionStatusesEnumRef(s)
 }
 
+// flattenAccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnumMap flattens the contents of AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum from a JSON
+// response object.
+func flattenAccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnumMap(c *Client, i interface{}) map[string]AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum{}
+	}
+
+	items := make(map[string]AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum)
+	for k, item := range a {
+		items[k] = *flattenAccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenAccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnumSlice flattens the contents of AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum from a JSON
 // response object.
 func flattenAccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnumSlice(c *Client, i interface{}) []AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnum {
@@ -1938,6 +1998,26 @@ func flattenAccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsE
 	}
 
 	return AccessLevelBasicConditionsDevicePolicyAllowedDeviceManagementLevelsEnumRef(s)
+}
+
+// flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnumMap flattens the contents of AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum from a JSON
+// response object.
+func flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnumMap(c *Client, i interface{}) map[string]AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum{}
+	}
+
+	items := make(map[string]AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenAccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnumSlice flattens the contents of AccessLevelBasicConditionsDevicePolicyOsConstraintsOsTypeEnum from a JSON

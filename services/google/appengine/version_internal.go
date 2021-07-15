@@ -9303,6 +9303,26 @@ func flattenVersionVPCAccessConnector(c *Client, i interface{}) *VersionVPCAcces
 	return r
 }
 
+// flattenVersionInboundServicesEnumMap flattens the contents of VersionInboundServicesEnum from a JSON
+// response object.
+func flattenVersionInboundServicesEnumMap(c *Client, i interface{}) map[string]VersionInboundServicesEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]VersionInboundServicesEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]VersionInboundServicesEnum{}
+	}
+
+	items := make(map[string]VersionInboundServicesEnum)
+	for k, item := range a {
+		items[k] = *flattenVersionInboundServicesEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenVersionInboundServicesEnumSlice flattens the contents of VersionInboundServicesEnum from a JSON
 // response object.
 func flattenVersionInboundServicesEnumSlice(c *Client, i interface{}) []VersionInboundServicesEnum {
@@ -9332,6 +9352,26 @@ func flattenVersionInboundServicesEnum(i interface{}) *VersionInboundServicesEnu
 	}
 
 	return VersionInboundServicesEnumRef(s)
+}
+
+// flattenVersionServingStatusEnumMap flattens the contents of VersionServingStatusEnum from a JSON
+// response object.
+func flattenVersionServingStatusEnumMap(c *Client, i interface{}) map[string]VersionServingStatusEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]VersionServingStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]VersionServingStatusEnum{}
+	}
+
+	items := make(map[string]VersionServingStatusEnum)
+	for k, item := range a {
+		items[k] = *flattenVersionServingStatusEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenVersionServingStatusEnumSlice flattens the contents of VersionServingStatusEnum from a JSON
@@ -9365,6 +9405,26 @@ func flattenVersionServingStatusEnum(i interface{}) *VersionServingStatusEnum {
 	return VersionServingStatusEnumRef(s)
 }
 
+// flattenVersionHandlersSecurityLevelEnumMap flattens the contents of VersionHandlersSecurityLevelEnum from a JSON
+// response object.
+func flattenVersionHandlersSecurityLevelEnumMap(c *Client, i interface{}) map[string]VersionHandlersSecurityLevelEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]VersionHandlersSecurityLevelEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]VersionHandlersSecurityLevelEnum{}
+	}
+
+	items := make(map[string]VersionHandlersSecurityLevelEnum)
+	for k, item := range a {
+		items[k] = *flattenVersionHandlersSecurityLevelEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenVersionHandlersSecurityLevelEnumSlice flattens the contents of VersionHandlersSecurityLevelEnum from a JSON
 // response object.
 func flattenVersionHandlersSecurityLevelEnumSlice(c *Client, i interface{}) []VersionHandlersSecurityLevelEnum {
@@ -9394,6 +9454,26 @@ func flattenVersionHandlersSecurityLevelEnum(i interface{}) *VersionHandlersSecu
 	}
 
 	return VersionHandlersSecurityLevelEnumRef(s)
+}
+
+// flattenVersionHandlersLoginEnumMap flattens the contents of VersionHandlersLoginEnum from a JSON
+// response object.
+func flattenVersionHandlersLoginEnumMap(c *Client, i interface{}) map[string]VersionHandlersLoginEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]VersionHandlersLoginEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]VersionHandlersLoginEnum{}
+	}
+
+	items := make(map[string]VersionHandlersLoginEnum)
+	for k, item := range a {
+		items[k] = *flattenVersionHandlersLoginEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenVersionHandlersLoginEnumSlice flattens the contents of VersionHandlersLoginEnum from a JSON
@@ -9427,6 +9507,26 @@ func flattenVersionHandlersLoginEnum(i interface{}) *VersionHandlersLoginEnum {
 	return VersionHandlersLoginEnumRef(s)
 }
 
+// flattenVersionHandlersAuthFailActionEnumMap flattens the contents of VersionHandlersAuthFailActionEnum from a JSON
+// response object.
+func flattenVersionHandlersAuthFailActionEnumMap(c *Client, i interface{}) map[string]VersionHandlersAuthFailActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]VersionHandlersAuthFailActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]VersionHandlersAuthFailActionEnum{}
+	}
+
+	items := make(map[string]VersionHandlersAuthFailActionEnum)
+	for k, item := range a {
+		items[k] = *flattenVersionHandlersAuthFailActionEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenVersionHandlersAuthFailActionEnumSlice flattens the contents of VersionHandlersAuthFailActionEnum from a JSON
 // response object.
 func flattenVersionHandlersAuthFailActionEnumSlice(c *Client, i interface{}) []VersionHandlersAuthFailActionEnum {
@@ -9456,6 +9556,26 @@ func flattenVersionHandlersAuthFailActionEnum(i interface{}) *VersionHandlersAut
 	}
 
 	return VersionHandlersAuthFailActionEnumRef(s)
+}
+
+// flattenVersionHandlersRedirectHttpResponseCodeEnumMap flattens the contents of VersionHandlersRedirectHttpResponseCodeEnum from a JSON
+// response object.
+func flattenVersionHandlersRedirectHttpResponseCodeEnumMap(c *Client, i interface{}) map[string]VersionHandlersRedirectHttpResponseCodeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]VersionHandlersRedirectHttpResponseCodeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]VersionHandlersRedirectHttpResponseCodeEnum{}
+	}
+
+	items := make(map[string]VersionHandlersRedirectHttpResponseCodeEnum)
+	for k, item := range a {
+		items[k] = *flattenVersionHandlersRedirectHttpResponseCodeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenVersionHandlersRedirectHttpResponseCodeEnumSlice flattens the contents of VersionHandlersRedirectHttpResponseCodeEnum from a JSON
@@ -9489,6 +9609,26 @@ func flattenVersionHandlersRedirectHttpResponseCodeEnum(i interface{}) *VersionH
 	return VersionHandlersRedirectHttpResponseCodeEnumRef(s)
 }
 
+// flattenVersionErrorHandlersErrorCodeEnumMap flattens the contents of VersionErrorHandlersErrorCodeEnum from a JSON
+// response object.
+func flattenVersionErrorHandlersErrorCodeEnumMap(c *Client, i interface{}) map[string]VersionErrorHandlersErrorCodeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]VersionErrorHandlersErrorCodeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]VersionErrorHandlersErrorCodeEnum{}
+	}
+
+	items := make(map[string]VersionErrorHandlersErrorCodeEnum)
+	for k, item := range a {
+		items[k] = *flattenVersionErrorHandlersErrorCodeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenVersionErrorHandlersErrorCodeEnumSlice flattens the contents of VersionErrorHandlersErrorCodeEnum from a JSON
 // response object.
 func flattenVersionErrorHandlersErrorCodeEnumSlice(c *Client, i interface{}) []VersionErrorHandlersErrorCodeEnum {
@@ -9518,6 +9658,26 @@ func flattenVersionErrorHandlersErrorCodeEnum(i interface{}) *VersionErrorHandle
 	}
 
 	return VersionErrorHandlersErrorCodeEnumRef(s)
+}
+
+// flattenVersionApiConfigAuthFailActionEnumMap flattens the contents of VersionApiConfigAuthFailActionEnum from a JSON
+// response object.
+func flattenVersionApiConfigAuthFailActionEnumMap(c *Client, i interface{}) map[string]VersionApiConfigAuthFailActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]VersionApiConfigAuthFailActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]VersionApiConfigAuthFailActionEnum{}
+	}
+
+	items := make(map[string]VersionApiConfigAuthFailActionEnum)
+	for k, item := range a {
+		items[k] = *flattenVersionApiConfigAuthFailActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenVersionApiConfigAuthFailActionEnumSlice flattens the contents of VersionApiConfigAuthFailActionEnum from a JSON
@@ -9551,6 +9711,26 @@ func flattenVersionApiConfigAuthFailActionEnum(i interface{}) *VersionApiConfigA
 	return VersionApiConfigAuthFailActionEnumRef(s)
 }
 
+// flattenVersionApiConfigLoginEnumMap flattens the contents of VersionApiConfigLoginEnum from a JSON
+// response object.
+func flattenVersionApiConfigLoginEnumMap(c *Client, i interface{}) map[string]VersionApiConfigLoginEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]VersionApiConfigLoginEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]VersionApiConfigLoginEnum{}
+	}
+
+	items := make(map[string]VersionApiConfigLoginEnum)
+	for k, item := range a {
+		items[k] = *flattenVersionApiConfigLoginEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenVersionApiConfigLoginEnumSlice flattens the contents of VersionApiConfigLoginEnum from a JSON
 // response object.
 func flattenVersionApiConfigLoginEnumSlice(c *Client, i interface{}) []VersionApiConfigLoginEnum {
@@ -9580,6 +9760,26 @@ func flattenVersionApiConfigLoginEnum(i interface{}) *VersionApiConfigLoginEnum 
 	}
 
 	return VersionApiConfigLoginEnumRef(s)
+}
+
+// flattenVersionApiConfigSecurityLevelEnumMap flattens the contents of VersionApiConfigSecurityLevelEnum from a JSON
+// response object.
+func flattenVersionApiConfigSecurityLevelEnumMap(c *Client, i interface{}) map[string]VersionApiConfigSecurityLevelEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]VersionApiConfigSecurityLevelEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]VersionApiConfigSecurityLevelEnum{}
+	}
+
+	items := make(map[string]VersionApiConfigSecurityLevelEnum)
+	for k, item := range a {
+		items[k] = *flattenVersionApiConfigSecurityLevelEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenVersionApiConfigSecurityLevelEnumSlice flattens the contents of VersionApiConfigSecurityLevelEnum from a JSON

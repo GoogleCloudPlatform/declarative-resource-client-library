@@ -31,4 +31,3 @@ updates:
   resource: samples/update_folder.firewall_policy_rule.json
 versions:
 - ga
-- v1

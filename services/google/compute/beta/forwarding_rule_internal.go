@@ -1493,6 +1493,26 @@ func flattenForwardingRuleMetadataFilterFilterLabel(c *Client, i interface{}) *F
 	return r
 }
 
+// flattenForwardingRuleIPProtocolEnumMap flattens the contents of ForwardingRuleIPProtocolEnum from a JSON
+// response object.
+func flattenForwardingRuleIPProtocolEnumMap(c *Client, i interface{}) map[string]ForwardingRuleIPProtocolEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ForwardingRuleIPProtocolEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ForwardingRuleIPProtocolEnum{}
+	}
+
+	items := make(map[string]ForwardingRuleIPProtocolEnum)
+	for k, item := range a {
+		items[k] = *flattenForwardingRuleIPProtocolEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenForwardingRuleIPProtocolEnumSlice flattens the contents of ForwardingRuleIPProtocolEnum from a JSON
 // response object.
 func flattenForwardingRuleIPProtocolEnumSlice(c *Client, i interface{}) []ForwardingRuleIPProtocolEnum {
@@ -1522,6 +1542,26 @@ func flattenForwardingRuleIPProtocolEnum(i interface{}) *ForwardingRuleIPProtoco
 	}
 
 	return ForwardingRuleIPProtocolEnumRef(s)
+}
+
+// flattenForwardingRuleIPVersionEnumMap flattens the contents of ForwardingRuleIPVersionEnum from a JSON
+// response object.
+func flattenForwardingRuleIPVersionEnumMap(c *Client, i interface{}) map[string]ForwardingRuleIPVersionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ForwardingRuleIPVersionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ForwardingRuleIPVersionEnum{}
+	}
+
+	items := make(map[string]ForwardingRuleIPVersionEnum)
+	for k, item := range a {
+		items[k] = *flattenForwardingRuleIPVersionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenForwardingRuleIPVersionEnumSlice flattens the contents of ForwardingRuleIPVersionEnum from a JSON
@@ -1555,6 +1595,26 @@ func flattenForwardingRuleIPVersionEnum(i interface{}) *ForwardingRuleIPVersionE
 	return ForwardingRuleIPVersionEnumRef(s)
 }
 
+// flattenForwardingRuleLoadBalancingSchemeEnumMap flattens the contents of ForwardingRuleLoadBalancingSchemeEnum from a JSON
+// response object.
+func flattenForwardingRuleLoadBalancingSchemeEnumMap(c *Client, i interface{}) map[string]ForwardingRuleLoadBalancingSchemeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ForwardingRuleLoadBalancingSchemeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ForwardingRuleLoadBalancingSchemeEnum{}
+	}
+
+	items := make(map[string]ForwardingRuleLoadBalancingSchemeEnum)
+	for k, item := range a {
+		items[k] = *flattenForwardingRuleLoadBalancingSchemeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenForwardingRuleLoadBalancingSchemeEnumSlice flattens the contents of ForwardingRuleLoadBalancingSchemeEnum from a JSON
 // response object.
 func flattenForwardingRuleLoadBalancingSchemeEnumSlice(c *Client, i interface{}) []ForwardingRuleLoadBalancingSchemeEnum {
@@ -1586,6 +1646,26 @@ func flattenForwardingRuleLoadBalancingSchemeEnum(i interface{}) *ForwardingRule
 	return ForwardingRuleLoadBalancingSchemeEnumRef(s)
 }
 
+// flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnumMap flattens the contents of ForwardingRuleMetadataFilterFilterMatchCriteriaEnum from a JSON
+// response object.
+func flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnumMap(c *Client, i interface{}) map[string]ForwardingRuleMetadataFilterFilterMatchCriteriaEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ForwardingRuleMetadataFilterFilterMatchCriteriaEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ForwardingRuleMetadataFilterFilterMatchCriteriaEnum{}
+	}
+
+	items := make(map[string]ForwardingRuleMetadataFilterFilterMatchCriteriaEnum)
+	for k, item := range a {
+		items[k] = *flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnumSlice flattens the contents of ForwardingRuleMetadataFilterFilterMatchCriteriaEnum from a JSON
 // response object.
 func flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnumSlice(c *Client, i interface{}) []ForwardingRuleMetadataFilterFilterMatchCriteriaEnum {
@@ -1615,6 +1695,26 @@ func flattenForwardingRuleMetadataFilterFilterMatchCriteriaEnum(i interface{}) *
 	}
 
 	return ForwardingRuleMetadataFilterFilterMatchCriteriaEnumRef(s)
+}
+
+// flattenForwardingRuleNetworkTierEnumMap flattens the contents of ForwardingRuleNetworkTierEnum from a JSON
+// response object.
+func flattenForwardingRuleNetworkTierEnumMap(c *Client, i interface{}) map[string]ForwardingRuleNetworkTierEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ForwardingRuleNetworkTierEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ForwardingRuleNetworkTierEnum{}
+	}
+
+	items := make(map[string]ForwardingRuleNetworkTierEnum)
+	for k, item := range a {
+		items[k] = *flattenForwardingRuleNetworkTierEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenForwardingRuleNetworkTierEnumSlice flattens the contents of ForwardingRuleNetworkTierEnum from a JSON

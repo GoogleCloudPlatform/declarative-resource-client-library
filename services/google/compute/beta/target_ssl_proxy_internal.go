@@ -642,6 +642,26 @@ func flattenTargetSslProxy(c *Client, i interface{}) *TargetSslProxy {
 	return res
 }
 
+// flattenTargetSslProxyProxyHeaderEnumMap flattens the contents of TargetSslProxyProxyHeaderEnum from a JSON
+// response object.
+func flattenTargetSslProxyProxyHeaderEnumMap(c *Client, i interface{}) map[string]TargetSslProxyProxyHeaderEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]TargetSslProxyProxyHeaderEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]TargetSslProxyProxyHeaderEnum{}
+	}
+
+	items := make(map[string]TargetSslProxyProxyHeaderEnum)
+	for k, item := range a {
+		items[k] = *flattenTargetSslProxyProxyHeaderEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenTargetSslProxyProxyHeaderEnumSlice flattens the contents of TargetSslProxyProxyHeaderEnum from a JSON
 // response object.
 func flattenTargetSslProxyProxyHeaderEnumSlice(c *Client, i interface{}) []TargetSslProxyProxyHeaderEnum {

@@ -1389,6 +1389,26 @@ func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(c *Client, i int
 	return r
 }
 
+// flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumMap flattens the contents of AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum from a JSON
+// response object.
+func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumMap(c *Client, i interface{}) map[string]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum{}
+	}
+
+	items := make(map[string]AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum)
+	for k, item := range a {
+		items[k] = *flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumSlice flattens the contents of AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum from a JSON
 // response object.
 func flattenAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnumSlice(c *Client, i interface{}) []AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum {

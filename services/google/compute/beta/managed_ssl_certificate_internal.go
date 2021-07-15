@@ -28,9 +28,6 @@ import (
 
 func (r *ManagedSslCertificate) validate() error {
 
-	if err := dcl.Required(r, "name"); err != nil {
-		return err
-	}
 	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
 		return err
 	}
@@ -381,16 +378,24 @@ func canonicalizeManagedSslCertificateDesiredState(rawDesired, rawInitial *Manag
 
 func canonicalizeManagedSslCertificateNewState(c *Client, rawNew, rawDesired *ManagedSslCertificate) (*ManagedSslCertificate, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
-		rawNew.Id = rawDesired.Id
-	} else {
-	}
-
 	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
+		rawNew.Id = rawDesired.Id
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.CreationTimestamp) && dcl.IsEmptyValueIndirect(rawDesired.CreationTimestamp) {
+		rawNew.CreationTimestamp = rawDesired.CreationTimestamp
+	} else {
+		if dcl.StringCanonicalize(rawDesired.CreationTimestamp, rawNew.CreationTimestamp) {
+			rawNew.CreationTimestamp = rawDesired.CreationTimestamp
 		}
 	}
 
@@ -538,6 +543,13 @@ func diffManagedSslCertificate(c *Client, desired, actual *ManagedSslCertificate
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -545,7 +557,7 @@ func diffManagedSslCertificate(c *Client, desired, actual *ManagedSslCertificate
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -694,11 +706,14 @@ func unmarshalMapManagedSslCertificate(m map[string]interface{}, c *Client) (*Ma
 // expandManagedSslCertificate expands ManagedSslCertificate into a JSON request object.
 func expandManagedSslCertificate(c *Client, f *ManagedSslCertificate) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
 	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
 		m["id"] = v
 	}
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
-		m["name"] = v
+	if v := f.CreationTimestamp; !dcl.IsEmptyValueIndirect(v) {
+		m["creationTimestamp"] = v
 	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		m["description"] = v
@@ -741,8 +756,9 @@ func flattenManagedSslCertificate(c *Client, i interface{}) *ManagedSslCertifica
 	}
 
 	res := &ManagedSslCertificate{}
-	res.Id = dcl.FlattenInteger(m["id"])
 	res.Name = dcl.FlattenString(m["name"])
+	res.Id = dcl.FlattenInteger(m["id"])
+	res.CreationTimestamp = dcl.FlattenString(m["creationTimestamp"])
 	res.Description = dcl.FlattenString(m["description"])
 	res.SelfLink = dcl.FlattenString(m["selfLink"])
 	res.Managed = flattenManagedSslCertificateManaged(c, m["managed"])
@@ -875,9 +891,29 @@ func flattenManagedSslCertificateManaged(c *Client, i interface{}) *ManagedSslCe
 	}
 	r.Domains = dcl.FlattenStringSlice(m["domains"])
 	r.Status = flattenManagedSslCertificateManagedStatusEnum(m["status"])
-	r.DomainStatus = dcl.FlattenKeyValuePairs(m["domainStatus"])
+	r.DomainStatus = flattenManagedSslCertificateManagedDomainStatusEnumMap(c, m["domainStatus"])
 
 	return r
+}
+
+// flattenManagedSslCertificateManagedStatusEnumMap flattens the contents of ManagedSslCertificateManagedStatusEnum from a JSON
+// response object.
+func flattenManagedSslCertificateManagedStatusEnumMap(c *Client, i interface{}) map[string]ManagedSslCertificateManagedStatusEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ManagedSslCertificateManagedStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ManagedSslCertificateManagedStatusEnum{}
+	}
+
+	items := make(map[string]ManagedSslCertificateManagedStatusEnum)
+	for k, item := range a {
+		items[k] = *flattenManagedSslCertificateManagedStatusEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenManagedSslCertificateManagedStatusEnumSlice flattens the contents of ManagedSslCertificateManagedStatusEnum from a JSON
@@ -909,6 +945,77 @@ func flattenManagedSslCertificateManagedStatusEnum(i interface{}) *ManagedSslCer
 	}
 
 	return ManagedSslCertificateManagedStatusEnumRef(s)
+}
+
+// flattenManagedSslCertificateManagedDomainStatusEnumMap flattens the contents of ManagedSslCertificateManagedDomainStatusEnum from a JSON
+// response object.
+func flattenManagedSslCertificateManagedDomainStatusEnumMap(c *Client, i interface{}) map[string]ManagedSslCertificateManagedDomainStatusEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ManagedSslCertificateManagedDomainStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ManagedSslCertificateManagedDomainStatusEnum{}
+	}
+
+	items := make(map[string]ManagedSslCertificateManagedDomainStatusEnum)
+	for k, item := range a {
+		items[k] = *flattenManagedSslCertificateManagedDomainStatusEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenManagedSslCertificateManagedDomainStatusEnumSlice flattens the contents of ManagedSslCertificateManagedDomainStatusEnum from a JSON
+// response object.
+func flattenManagedSslCertificateManagedDomainStatusEnumSlice(c *Client, i interface{}) []ManagedSslCertificateManagedDomainStatusEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ManagedSslCertificateManagedDomainStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return []ManagedSslCertificateManagedDomainStatusEnum{}
+	}
+
+	items := make([]ManagedSslCertificateManagedDomainStatusEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenManagedSslCertificateManagedDomainStatusEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenManagedSslCertificateManagedDomainStatusEnum asserts that an interface is a string, and returns a
+// pointer to a *ManagedSslCertificateManagedDomainStatusEnum with the same value as that string.
+func flattenManagedSslCertificateManagedDomainStatusEnum(i interface{}) *ManagedSslCertificateManagedDomainStatusEnum {
+	s, ok := i.(string)
+	if !ok {
+		return ManagedSslCertificateManagedDomainStatusEnumRef("")
+	}
+
+	return ManagedSslCertificateManagedDomainStatusEnumRef(s)
+}
+
+// flattenManagedSslCertificateTypeEnumMap flattens the contents of ManagedSslCertificateTypeEnum from a JSON
+// response object.
+func flattenManagedSslCertificateTypeEnumMap(c *Client, i interface{}) map[string]ManagedSslCertificateTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ManagedSslCertificateTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ManagedSslCertificateTypeEnum{}
+	}
+
+	items := make(map[string]ManagedSslCertificateTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenManagedSslCertificateTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenManagedSslCertificateTypeEnumSlice flattens the contents of ManagedSslCertificateTypeEnum from a JSON

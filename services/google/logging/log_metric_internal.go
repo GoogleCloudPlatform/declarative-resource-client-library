@@ -2670,6 +2670,26 @@ func flattenLogMetricBucketOptionsExplicitBuckets(c *Client, i interface{}) *Log
 	return r
 }
 
+// flattenLogMetricMetricDescriptorLabelsValueTypeEnumMap flattens the contents of LogMetricMetricDescriptorLabelsValueTypeEnum from a JSON
+// response object.
+func flattenLogMetricMetricDescriptorLabelsValueTypeEnumMap(c *Client, i interface{}) map[string]LogMetricMetricDescriptorLabelsValueTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]LogMetricMetricDescriptorLabelsValueTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]LogMetricMetricDescriptorLabelsValueTypeEnum{}
+	}
+
+	items := make(map[string]LogMetricMetricDescriptorLabelsValueTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenLogMetricMetricDescriptorLabelsValueTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenLogMetricMetricDescriptorLabelsValueTypeEnumSlice flattens the contents of LogMetricMetricDescriptorLabelsValueTypeEnum from a JSON
 // response object.
 func flattenLogMetricMetricDescriptorLabelsValueTypeEnumSlice(c *Client, i interface{}) []LogMetricMetricDescriptorLabelsValueTypeEnum {
@@ -2699,6 +2719,26 @@ func flattenLogMetricMetricDescriptorLabelsValueTypeEnum(i interface{}) *LogMetr
 	}
 
 	return LogMetricMetricDescriptorLabelsValueTypeEnumRef(s)
+}
+
+// flattenLogMetricMetricDescriptorMetricKindEnumMap flattens the contents of LogMetricMetricDescriptorMetricKindEnum from a JSON
+// response object.
+func flattenLogMetricMetricDescriptorMetricKindEnumMap(c *Client, i interface{}) map[string]LogMetricMetricDescriptorMetricKindEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]LogMetricMetricDescriptorMetricKindEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]LogMetricMetricDescriptorMetricKindEnum{}
+	}
+
+	items := make(map[string]LogMetricMetricDescriptorMetricKindEnum)
+	for k, item := range a {
+		items[k] = *flattenLogMetricMetricDescriptorMetricKindEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenLogMetricMetricDescriptorMetricKindEnumSlice flattens the contents of LogMetricMetricDescriptorMetricKindEnum from a JSON
@@ -2732,6 +2772,26 @@ func flattenLogMetricMetricDescriptorMetricKindEnum(i interface{}) *LogMetricMet
 	return LogMetricMetricDescriptorMetricKindEnumRef(s)
 }
 
+// flattenLogMetricMetricDescriptorValueTypeEnumMap flattens the contents of LogMetricMetricDescriptorValueTypeEnum from a JSON
+// response object.
+func flattenLogMetricMetricDescriptorValueTypeEnumMap(c *Client, i interface{}) map[string]LogMetricMetricDescriptorValueTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]LogMetricMetricDescriptorValueTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]LogMetricMetricDescriptorValueTypeEnum{}
+	}
+
+	items := make(map[string]LogMetricMetricDescriptorValueTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenLogMetricMetricDescriptorValueTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenLogMetricMetricDescriptorValueTypeEnumSlice flattens the contents of LogMetricMetricDescriptorValueTypeEnum from a JSON
 // response object.
 func flattenLogMetricMetricDescriptorValueTypeEnumSlice(c *Client, i interface{}) []LogMetricMetricDescriptorValueTypeEnum {
@@ -2761,6 +2821,26 @@ func flattenLogMetricMetricDescriptorValueTypeEnum(i interface{}) *LogMetricMetr
 	}
 
 	return LogMetricMetricDescriptorValueTypeEnumRef(s)
+}
+
+// flattenLogMetricMetricDescriptorLaunchStageEnumMap flattens the contents of LogMetricMetricDescriptorLaunchStageEnum from a JSON
+// response object.
+func flattenLogMetricMetricDescriptorLaunchStageEnumMap(c *Client, i interface{}) map[string]LogMetricMetricDescriptorLaunchStageEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]LogMetricMetricDescriptorLaunchStageEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]LogMetricMetricDescriptorLaunchStageEnum{}
+	}
+
+	items := make(map[string]LogMetricMetricDescriptorLaunchStageEnum)
+	for k, item := range a {
+		items[k] = *flattenLogMetricMetricDescriptorLaunchStageEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenLogMetricMetricDescriptorLaunchStageEnumSlice flattens the contents of LogMetricMetricDescriptorLaunchStageEnum from a JSON

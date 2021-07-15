@@ -4021,6 +4021,26 @@ func flattenEnvironmentConfigMaintenanceWindow(c *Client, i interface{}) *Enviro
 	return r
 }
 
+// flattenEnvironmentStateEnumMap flattens the contents of EnvironmentStateEnum from a JSON
+// response object.
+func flattenEnvironmentStateEnumMap(c *Client, i interface{}) map[string]EnvironmentStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]EnvironmentStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]EnvironmentStateEnum{}
+	}
+
+	items := make(map[string]EnvironmentStateEnum)
+	for k, item := range a {
+		items[k] = *flattenEnvironmentStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenEnvironmentStateEnumSlice flattens the contents of EnvironmentStateEnum from a JSON
 // response object.
 func flattenEnvironmentStateEnumSlice(c *Client, i interface{}) []EnvironmentStateEnum {

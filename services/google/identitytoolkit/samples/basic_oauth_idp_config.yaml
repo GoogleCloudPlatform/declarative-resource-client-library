@@ -18,4 +18,3 @@ updates:
 - resource: samples/update.oauth_idp_config.json
 versions:
 - ga
-- v1

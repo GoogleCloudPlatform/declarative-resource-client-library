@@ -1604,6 +1604,26 @@ func flattenInstanceNetworks(c *Client, i interface{}) *InstanceNetworks {
 	return r
 }
 
+// flattenInstanceStateEnumMap flattens the contents of InstanceStateEnum from a JSON
+// response object.
+func flattenInstanceStateEnumMap(c *Client, i interface{}) map[string]InstanceStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceStateEnum{}
+	}
+
+	items := make(map[string]InstanceStateEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceStateEnumSlice flattens the contents of InstanceStateEnum from a JSON
 // response object.
 func flattenInstanceStateEnumSlice(c *Client, i interface{}) []InstanceStateEnum {
@@ -1633,6 +1653,26 @@ func flattenInstanceStateEnum(i interface{}) *InstanceStateEnum {
 	}
 
 	return InstanceStateEnumRef(s)
+}
+
+// flattenInstanceTierEnumMap flattens the contents of InstanceTierEnum from a JSON
+// response object.
+func flattenInstanceTierEnumMap(c *Client, i interface{}) map[string]InstanceTierEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceTierEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceTierEnum{}
+	}
+
+	items := make(map[string]InstanceTierEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceTierEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceTierEnumSlice flattens the contents of InstanceTierEnum from a JSON
@@ -1666,6 +1706,26 @@ func flattenInstanceTierEnum(i interface{}) *InstanceTierEnum {
 	return InstanceTierEnumRef(s)
 }
 
+// flattenInstanceFileSharesNfsExportOptionsAccessModeEnumMap flattens the contents of InstanceFileSharesNfsExportOptionsAccessModeEnum from a JSON
+// response object.
+func flattenInstanceFileSharesNfsExportOptionsAccessModeEnumMap(c *Client, i interface{}) map[string]InstanceFileSharesNfsExportOptionsAccessModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceFileSharesNfsExportOptionsAccessModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceFileSharesNfsExportOptionsAccessModeEnum{}
+	}
+
+	items := make(map[string]InstanceFileSharesNfsExportOptionsAccessModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceFileSharesNfsExportOptionsAccessModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceFileSharesNfsExportOptionsAccessModeEnumSlice flattens the contents of InstanceFileSharesNfsExportOptionsAccessModeEnum from a JSON
 // response object.
 func flattenInstanceFileSharesNfsExportOptionsAccessModeEnumSlice(c *Client, i interface{}) []InstanceFileSharesNfsExportOptionsAccessModeEnum {
@@ -1697,6 +1757,26 @@ func flattenInstanceFileSharesNfsExportOptionsAccessModeEnum(i interface{}) *Ins
 	return InstanceFileSharesNfsExportOptionsAccessModeEnumRef(s)
 }
 
+// flattenInstanceFileSharesNfsExportOptionsSquashModeEnumMap flattens the contents of InstanceFileSharesNfsExportOptionsSquashModeEnum from a JSON
+// response object.
+func flattenInstanceFileSharesNfsExportOptionsSquashModeEnumMap(c *Client, i interface{}) map[string]InstanceFileSharesNfsExportOptionsSquashModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceFileSharesNfsExportOptionsSquashModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceFileSharesNfsExportOptionsSquashModeEnum{}
+	}
+
+	items := make(map[string]InstanceFileSharesNfsExportOptionsSquashModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceFileSharesNfsExportOptionsSquashModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceFileSharesNfsExportOptionsSquashModeEnumSlice flattens the contents of InstanceFileSharesNfsExportOptionsSquashModeEnum from a JSON
 // response object.
 func flattenInstanceFileSharesNfsExportOptionsSquashModeEnumSlice(c *Client, i interface{}) []InstanceFileSharesNfsExportOptionsSquashModeEnum {
@@ -1726,6 +1806,26 @@ func flattenInstanceFileSharesNfsExportOptionsSquashModeEnum(i interface{}) *Ins
 	}
 
 	return InstanceFileSharesNfsExportOptionsSquashModeEnumRef(s)
+}
+
+// flattenInstanceNetworksModesEnumMap flattens the contents of InstanceNetworksModesEnum from a JSON
+// response object.
+func flattenInstanceNetworksModesEnumMap(c *Client, i interface{}) map[string]InstanceNetworksModesEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceNetworksModesEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceNetworksModesEnum{}
+	}
+
+	items := make(map[string]InstanceNetworksModesEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceNetworksModesEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceNetworksModesEnumSlice flattens the contents of InstanceNetworksModesEnum from a JSON

@@ -2777,6 +2777,26 @@ func flattenAutoscalerStatusDetails(c *Client, i interface{}) *AutoscalerStatusD
 	return r
 }
 
+// flattenAutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnumMap flattens the contents of AutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum from a JSON
+// response object.
+func flattenAutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnumMap(c *Client, i interface{}) map[string]AutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum{}
+	}
+
+	items := make(map[string]AutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenAutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenAutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnumSlice flattens the contents of AutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum from a JSON
 // response object.
 func flattenAutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnumSlice(c *Client, i interface{}) []AutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnum {
@@ -2806,6 +2826,26 @@ func flattenAutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTarget
 	}
 
 	return AutoscalerAutoscalingPolicyCustomMetricUtilizationsUtilizationTargetTypeEnumRef(s)
+}
+
+// flattenAutoscalerAutoscalingPolicyModeEnumMap flattens the contents of AutoscalerAutoscalingPolicyModeEnum from a JSON
+// response object.
+func flattenAutoscalerAutoscalingPolicyModeEnumMap(c *Client, i interface{}) map[string]AutoscalerAutoscalingPolicyModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AutoscalerAutoscalingPolicyModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AutoscalerAutoscalingPolicyModeEnum{}
+	}
+
+	items := make(map[string]AutoscalerAutoscalingPolicyModeEnum)
+	for k, item := range a {
+		items[k] = *flattenAutoscalerAutoscalingPolicyModeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenAutoscalerAutoscalingPolicyModeEnumSlice flattens the contents of AutoscalerAutoscalingPolicyModeEnum from a JSON
@@ -2839,6 +2879,26 @@ func flattenAutoscalerAutoscalingPolicyModeEnum(i interface{}) *AutoscalerAutosc
 	return AutoscalerAutoscalingPolicyModeEnumRef(s)
 }
 
+// flattenAutoscalerStatusEnumMap flattens the contents of AutoscalerStatusEnum from a JSON
+// response object.
+func flattenAutoscalerStatusEnumMap(c *Client, i interface{}) map[string]AutoscalerStatusEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AutoscalerStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AutoscalerStatusEnum{}
+	}
+
+	items := make(map[string]AutoscalerStatusEnum)
+	for k, item := range a {
+		items[k] = *flattenAutoscalerStatusEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenAutoscalerStatusEnumSlice flattens the contents of AutoscalerStatusEnum from a JSON
 // response object.
 func flattenAutoscalerStatusEnumSlice(c *Client, i interface{}) []AutoscalerStatusEnum {
@@ -2868,6 +2928,26 @@ func flattenAutoscalerStatusEnum(i interface{}) *AutoscalerStatusEnum {
 	}
 
 	return AutoscalerStatusEnumRef(s)
+}
+
+// flattenAutoscalerStatusDetailsTypeEnumMap flattens the contents of AutoscalerStatusDetailsTypeEnum from a JSON
+// response object.
+func flattenAutoscalerStatusDetailsTypeEnumMap(c *Client, i interface{}) map[string]AutoscalerStatusDetailsTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AutoscalerStatusDetailsTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AutoscalerStatusDetailsTypeEnum{}
+	}
+
+	items := make(map[string]AutoscalerStatusDetailsTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenAutoscalerStatusDetailsTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenAutoscalerStatusDetailsTypeEnumSlice flattens the contents of AutoscalerStatusDetailsTypeEnum from a JSON

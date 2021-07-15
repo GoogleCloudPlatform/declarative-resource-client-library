@@ -1262,6 +1262,26 @@ func flattenSslPolicyWarningData(c *Client, i interface{}) *SslPolicyWarningData
 	return r
 }
 
+// flattenSslPolicyProfileEnumMap flattens the contents of SslPolicyProfileEnum from a JSON
+// response object.
+func flattenSslPolicyProfileEnumMap(c *Client, i interface{}) map[string]SslPolicyProfileEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]SslPolicyProfileEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]SslPolicyProfileEnum{}
+	}
+
+	items := make(map[string]SslPolicyProfileEnum)
+	for k, item := range a {
+		items[k] = *flattenSslPolicyProfileEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenSslPolicyProfileEnumSlice flattens the contents of SslPolicyProfileEnum from a JSON
 // response object.
 func flattenSslPolicyProfileEnumSlice(c *Client, i interface{}) []SslPolicyProfileEnum {
@@ -1291,6 +1311,26 @@ func flattenSslPolicyProfileEnum(i interface{}) *SslPolicyProfileEnum {
 	}
 
 	return SslPolicyProfileEnumRef(s)
+}
+
+// flattenSslPolicyMinTlsVersionEnumMap flattens the contents of SslPolicyMinTlsVersionEnum from a JSON
+// response object.
+func flattenSslPolicyMinTlsVersionEnumMap(c *Client, i interface{}) map[string]SslPolicyMinTlsVersionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]SslPolicyMinTlsVersionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]SslPolicyMinTlsVersionEnum{}
+	}
+
+	items := make(map[string]SslPolicyMinTlsVersionEnum)
+	for k, item := range a {
+		items[k] = *flattenSslPolicyMinTlsVersionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenSslPolicyMinTlsVersionEnumSlice flattens the contents of SslPolicyMinTlsVersionEnum from a JSON

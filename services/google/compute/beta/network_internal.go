@@ -921,6 +921,26 @@ func flattenNetworkRoutingConfig(c *Client, i interface{}) *NetworkRoutingConfig
 	return r
 }
 
+// flattenNetworkRoutingConfigRoutingModeEnumMap flattens the contents of NetworkRoutingConfigRoutingModeEnum from a JSON
+// response object.
+func flattenNetworkRoutingConfigRoutingModeEnumMap(c *Client, i interface{}) map[string]NetworkRoutingConfigRoutingModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NetworkRoutingConfigRoutingModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NetworkRoutingConfigRoutingModeEnum{}
+	}
+
+	items := make(map[string]NetworkRoutingConfigRoutingModeEnum)
+	for k, item := range a {
+		items[k] = *flattenNetworkRoutingConfigRoutingModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenNetworkRoutingConfigRoutingModeEnumSlice flattens the contents of NetworkRoutingConfigRoutingModeEnum from a JSON
 // response object.
 func flattenNetworkRoutingConfigRoutingModeEnumSlice(c *Client, i interface{}) []NetworkRoutingConfigRoutingModeEnum {

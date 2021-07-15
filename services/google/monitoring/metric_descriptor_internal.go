@@ -1232,6 +1232,26 @@ func flattenMetricDescriptorMetadata(c *Client, i interface{}) *MetricDescriptor
 	return r
 }
 
+// flattenMetricDescriptorLabelsValueTypeEnumMap flattens the contents of MetricDescriptorLabelsValueTypeEnum from a JSON
+// response object.
+func flattenMetricDescriptorLabelsValueTypeEnumMap(c *Client, i interface{}) map[string]MetricDescriptorLabelsValueTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]MetricDescriptorLabelsValueTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]MetricDescriptorLabelsValueTypeEnum{}
+	}
+
+	items := make(map[string]MetricDescriptorLabelsValueTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenMetricDescriptorLabelsValueTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenMetricDescriptorLabelsValueTypeEnumSlice flattens the contents of MetricDescriptorLabelsValueTypeEnum from a JSON
 // response object.
 func flattenMetricDescriptorLabelsValueTypeEnumSlice(c *Client, i interface{}) []MetricDescriptorLabelsValueTypeEnum {
@@ -1261,6 +1281,26 @@ func flattenMetricDescriptorLabelsValueTypeEnum(i interface{}) *MetricDescriptor
 	}
 
 	return MetricDescriptorLabelsValueTypeEnumRef(s)
+}
+
+// flattenMetricDescriptorMetricKindEnumMap flattens the contents of MetricDescriptorMetricKindEnum from a JSON
+// response object.
+func flattenMetricDescriptorMetricKindEnumMap(c *Client, i interface{}) map[string]MetricDescriptorMetricKindEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]MetricDescriptorMetricKindEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]MetricDescriptorMetricKindEnum{}
+	}
+
+	items := make(map[string]MetricDescriptorMetricKindEnum)
+	for k, item := range a {
+		items[k] = *flattenMetricDescriptorMetricKindEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenMetricDescriptorMetricKindEnumSlice flattens the contents of MetricDescriptorMetricKindEnum from a JSON
@@ -1294,6 +1334,26 @@ func flattenMetricDescriptorMetricKindEnum(i interface{}) *MetricDescriptorMetri
 	return MetricDescriptorMetricKindEnumRef(s)
 }
 
+// flattenMetricDescriptorValueTypeEnumMap flattens the contents of MetricDescriptorValueTypeEnum from a JSON
+// response object.
+func flattenMetricDescriptorValueTypeEnumMap(c *Client, i interface{}) map[string]MetricDescriptorValueTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]MetricDescriptorValueTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]MetricDescriptorValueTypeEnum{}
+	}
+
+	items := make(map[string]MetricDescriptorValueTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenMetricDescriptorValueTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenMetricDescriptorValueTypeEnumSlice flattens the contents of MetricDescriptorValueTypeEnum from a JSON
 // response object.
 func flattenMetricDescriptorValueTypeEnumSlice(c *Client, i interface{}) []MetricDescriptorValueTypeEnum {
@@ -1325,6 +1385,26 @@ func flattenMetricDescriptorValueTypeEnum(i interface{}) *MetricDescriptorValueT
 	return MetricDescriptorValueTypeEnumRef(s)
 }
 
+// flattenMetricDescriptorMetadataLaunchStageEnumMap flattens the contents of MetricDescriptorMetadataLaunchStageEnum from a JSON
+// response object.
+func flattenMetricDescriptorMetadataLaunchStageEnumMap(c *Client, i interface{}) map[string]MetricDescriptorMetadataLaunchStageEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]MetricDescriptorMetadataLaunchStageEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]MetricDescriptorMetadataLaunchStageEnum{}
+	}
+
+	items := make(map[string]MetricDescriptorMetadataLaunchStageEnum)
+	for k, item := range a {
+		items[k] = *flattenMetricDescriptorMetadataLaunchStageEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenMetricDescriptorMetadataLaunchStageEnumSlice flattens the contents of MetricDescriptorMetadataLaunchStageEnum from a JSON
 // response object.
 func flattenMetricDescriptorMetadataLaunchStageEnumSlice(c *Client, i interface{}) []MetricDescriptorMetadataLaunchStageEnum {
@@ -1354,6 +1434,26 @@ func flattenMetricDescriptorMetadataLaunchStageEnum(i interface{}) *MetricDescri
 	}
 
 	return MetricDescriptorMetadataLaunchStageEnumRef(s)
+}
+
+// flattenMetricDescriptorLaunchStageEnumMap flattens the contents of MetricDescriptorLaunchStageEnum from a JSON
+// response object.
+func flattenMetricDescriptorLaunchStageEnumMap(c *Client, i interface{}) map[string]MetricDescriptorLaunchStageEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]MetricDescriptorLaunchStageEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]MetricDescriptorLaunchStageEnum{}
+	}
+
+	items := make(map[string]MetricDescriptorLaunchStageEnum)
+	for k, item := range a {
+		items[k] = *flattenMetricDescriptorLaunchStageEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenMetricDescriptorLaunchStageEnumSlice flattens the contents of MetricDescriptorLaunchStageEnum from a JSON

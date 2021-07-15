@@ -1025,6 +1025,26 @@ func flattenRoleLocalizedValues(c *Client, i interface{}) *RoleLocalizedValues {
 	return r
 }
 
+// flattenRoleStageEnumMap flattens the contents of RoleStageEnum from a JSON
+// response object.
+func flattenRoleStageEnumMap(c *Client, i interface{}) map[string]RoleStageEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]RoleStageEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]RoleStageEnum{}
+	}
+
+	items := make(map[string]RoleStageEnum)
+	for k, item := range a {
+		items[k] = *flattenRoleStageEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenRoleStageEnumSlice flattens the contents of RoleStageEnum from a JSON
 // response object.
 func flattenRoleStageEnumSlice(c *Client, i interface{}) []RoleStageEnum {

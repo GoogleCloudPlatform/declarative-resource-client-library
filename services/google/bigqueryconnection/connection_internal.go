@@ -1258,6 +1258,26 @@ func flattenConnectionCloudSqlCredential(c *Client, i interface{}) *ConnectionCl
 	return r
 }
 
+// flattenConnectionCloudSqlTypeEnumMap flattens the contents of ConnectionCloudSqlTypeEnum from a JSON
+// response object.
+func flattenConnectionCloudSqlTypeEnumMap(c *Client, i interface{}) map[string]ConnectionCloudSqlTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ConnectionCloudSqlTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ConnectionCloudSqlTypeEnum{}
+	}
+
+	items := make(map[string]ConnectionCloudSqlTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenConnectionCloudSqlTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenConnectionCloudSqlTypeEnumSlice flattens the contents of ConnectionCloudSqlTypeEnum from a JSON
 // response object.
 func flattenConnectionCloudSqlTypeEnumSlice(c *Client, i interface{}) []ConnectionCloudSqlTypeEnum {

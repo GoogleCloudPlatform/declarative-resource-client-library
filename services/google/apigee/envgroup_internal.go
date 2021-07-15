@@ -627,6 +627,26 @@ func flattenEnvgroup(c *Client, i interface{}) *Envgroup {
 	return res
 }
 
+// flattenEnvgroupStateEnumMap flattens the contents of EnvgroupStateEnum from a JSON
+// response object.
+func flattenEnvgroupStateEnumMap(c *Client, i interface{}) map[string]EnvgroupStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]EnvgroupStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]EnvgroupStateEnum{}
+	}
+
+	items := make(map[string]EnvgroupStateEnum)
+	for k, item := range a {
+		items[k] = *flattenEnvgroupStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenEnvgroupStateEnumSlice flattens the contents of EnvgroupStateEnum from a JSON
 // response object.
 func flattenEnvgroupStateEnumSlice(c *Client, i interface{}) []EnvgroupStateEnum {

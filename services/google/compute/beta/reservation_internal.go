@@ -1692,6 +1692,26 @@ func flattenReservationSpecificReservationInstancePropertiesLocalSsds(c *Client,
 	return r
 }
 
+// flattenReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnumMap flattens the contents of ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum from a JSON
+// response object.
+func flattenReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnumMap(c *Client, i interface{}) map[string]ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum{}
+	}
+
+	items := make(map[string]ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum)
+	for k, item := range a {
+		items[k] = *flattenReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnumSlice flattens the contents of ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum from a JSON
 // response object.
 func flattenReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnumSlice(c *Client, i interface{}) []ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnum {
@@ -1721,6 +1741,26 @@ func flattenReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEn
 	}
 
 	return ReservationSpecificReservationInstancePropertiesLocalSsdsInterfaceEnumRef(s)
+}
+
+// flattenReservationStatusEnumMap flattens the contents of ReservationStatusEnum from a JSON
+// response object.
+func flattenReservationStatusEnumMap(c *Client, i interface{}) map[string]ReservationStatusEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ReservationStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ReservationStatusEnum{}
+	}
+
+	items := make(map[string]ReservationStatusEnum)
+	for k, item := range a {
+		items[k] = *flattenReservationStatusEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenReservationStatusEnumSlice flattens the contents of ReservationStatusEnum from a JSON

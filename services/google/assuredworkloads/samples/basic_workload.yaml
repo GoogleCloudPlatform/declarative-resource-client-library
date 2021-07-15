@@ -18,4 +18,3 @@ updates:
 - resource: samples/update.workload.json
 versions:
 - ga
-- v1

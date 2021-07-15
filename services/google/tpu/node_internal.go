@@ -2202,6 +2202,26 @@ func flattenNodeSymptomsCreateTime(c *Client, i interface{}) *NodeSymptomsCreate
 	return r
 }
 
+// flattenNodeStateEnumMap flattens the contents of NodeStateEnum from a JSON
+// response object.
+func flattenNodeStateEnumMap(c *Client, i interface{}) map[string]NodeStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NodeStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NodeStateEnum{}
+	}
+
+	items := make(map[string]NodeStateEnum)
+	for k, item := range a {
+		items[k] = *flattenNodeStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenNodeStateEnumSlice flattens the contents of NodeStateEnum from a JSON
 // response object.
 func flattenNodeStateEnumSlice(c *Client, i interface{}) []NodeStateEnum {
@@ -2233,6 +2253,26 @@ func flattenNodeStateEnum(i interface{}) *NodeStateEnum {
 	return NodeStateEnumRef(s)
 }
 
+// flattenNodeHealthEnumMap flattens the contents of NodeHealthEnum from a JSON
+// response object.
+func flattenNodeHealthEnumMap(c *Client, i interface{}) map[string]NodeHealthEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NodeHealthEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NodeHealthEnum{}
+	}
+
+	items := make(map[string]NodeHealthEnum)
+	for k, item := range a {
+		items[k] = *flattenNodeHealthEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenNodeHealthEnumSlice flattens the contents of NodeHealthEnum from a JSON
 // response object.
 func flattenNodeHealthEnumSlice(c *Client, i interface{}) []NodeHealthEnum {
@@ -2262,6 +2302,26 @@ func flattenNodeHealthEnum(i interface{}) *NodeHealthEnum {
 	}
 
 	return NodeHealthEnumRef(s)
+}
+
+// flattenNodeSymptomsSymptomTypeEnumMap flattens the contents of NodeSymptomsSymptomTypeEnum from a JSON
+// response object.
+func flattenNodeSymptomsSymptomTypeEnumMap(c *Client, i interface{}) map[string]NodeSymptomsSymptomTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NodeSymptomsSymptomTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NodeSymptomsSymptomTypeEnum{}
+	}
+
+	items := make(map[string]NodeSymptomsSymptomTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenNodeSymptomsSymptomTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenNodeSymptomsSymptomTypeEnumSlice flattens the contents of NodeSymptomsSymptomTypeEnum from a JSON

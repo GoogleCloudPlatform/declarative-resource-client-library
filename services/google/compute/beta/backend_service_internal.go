@@ -7375,6 +7375,26 @@ func flattenBackendServiceMaxStreamDuration(c *Client, i interface{}) *BackendSe
 	return r
 }
 
+// flattenBackendServiceBackendsBalancingModeEnumMap flattens the contents of BackendServiceBackendsBalancingModeEnum from a JSON
+// response object.
+func flattenBackendServiceBackendsBalancingModeEnumMap(c *Client, i interface{}) map[string]BackendServiceBackendsBalancingModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]BackendServiceBackendsBalancingModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]BackendServiceBackendsBalancingModeEnum{}
+	}
+
+	items := make(map[string]BackendServiceBackendsBalancingModeEnum)
+	for k, item := range a {
+		items[k] = *flattenBackendServiceBackendsBalancingModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenBackendServiceBackendsBalancingModeEnumSlice flattens the contents of BackendServiceBackendsBalancingModeEnum from a JSON
 // response object.
 func flattenBackendServiceBackendsBalancingModeEnumSlice(c *Client, i interface{}) []BackendServiceBackendsBalancingModeEnum {
@@ -7404,6 +7424,26 @@ func flattenBackendServiceBackendsBalancingModeEnum(i interface{}) *BackendServi
 	}
 
 	return BackendServiceBackendsBalancingModeEnumRef(s)
+}
+
+// flattenBackendServiceProtocolEnumMap flattens the contents of BackendServiceProtocolEnum from a JSON
+// response object.
+func flattenBackendServiceProtocolEnumMap(c *Client, i interface{}) map[string]BackendServiceProtocolEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]BackendServiceProtocolEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]BackendServiceProtocolEnum{}
+	}
+
+	items := make(map[string]BackendServiceProtocolEnum)
+	for k, item := range a {
+		items[k] = *flattenBackendServiceProtocolEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenBackendServiceProtocolEnumSlice flattens the contents of BackendServiceProtocolEnum from a JSON
@@ -7437,6 +7477,26 @@ func flattenBackendServiceProtocolEnum(i interface{}) *BackendServiceProtocolEnu
 	return BackendServiceProtocolEnumRef(s)
 }
 
+// flattenBackendServiceSessionAffinityEnumMap flattens the contents of BackendServiceSessionAffinityEnum from a JSON
+// response object.
+func flattenBackendServiceSessionAffinityEnumMap(c *Client, i interface{}) map[string]BackendServiceSessionAffinityEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]BackendServiceSessionAffinityEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]BackendServiceSessionAffinityEnum{}
+	}
+
+	items := make(map[string]BackendServiceSessionAffinityEnum)
+	for k, item := range a {
+		items[k] = *flattenBackendServiceSessionAffinityEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenBackendServiceSessionAffinityEnumSlice flattens the contents of BackendServiceSessionAffinityEnum from a JSON
 // response object.
 func flattenBackendServiceSessionAffinityEnumSlice(c *Client, i interface{}) []BackendServiceSessionAffinityEnum {
@@ -7466,6 +7526,26 @@ func flattenBackendServiceSessionAffinityEnum(i interface{}) *BackendServiceSess
 	}
 
 	return BackendServiceSessionAffinityEnumRef(s)
+}
+
+// flattenBackendServiceLoadBalancingSchemeEnumMap flattens the contents of BackendServiceLoadBalancingSchemeEnum from a JSON
+// response object.
+func flattenBackendServiceLoadBalancingSchemeEnumMap(c *Client, i interface{}) map[string]BackendServiceLoadBalancingSchemeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]BackendServiceLoadBalancingSchemeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]BackendServiceLoadBalancingSchemeEnum{}
+	}
+
+	items := make(map[string]BackendServiceLoadBalancingSchemeEnum)
+	for k, item := range a {
+		items[k] = *flattenBackendServiceLoadBalancingSchemeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenBackendServiceLoadBalancingSchemeEnumSlice flattens the contents of BackendServiceLoadBalancingSchemeEnum from a JSON
@@ -7499,6 +7579,26 @@ func flattenBackendServiceLoadBalancingSchemeEnum(i interface{}) *BackendService
 	return BackendServiceLoadBalancingSchemeEnumRef(s)
 }
 
+// flattenBackendServiceCdnPolicyCacheModeEnumMap flattens the contents of BackendServiceCdnPolicyCacheModeEnum from a JSON
+// response object.
+func flattenBackendServiceCdnPolicyCacheModeEnumMap(c *Client, i interface{}) map[string]BackendServiceCdnPolicyCacheModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]BackendServiceCdnPolicyCacheModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]BackendServiceCdnPolicyCacheModeEnum{}
+	}
+
+	items := make(map[string]BackendServiceCdnPolicyCacheModeEnum)
+	for k, item := range a {
+		items[k] = *flattenBackendServiceCdnPolicyCacheModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenBackendServiceCdnPolicyCacheModeEnumSlice flattens the contents of BackendServiceCdnPolicyCacheModeEnum from a JSON
 // response object.
 func flattenBackendServiceCdnPolicyCacheModeEnumSlice(c *Client, i interface{}) []BackendServiceCdnPolicyCacheModeEnum {
@@ -7528,6 +7628,26 @@ func flattenBackendServiceCdnPolicyCacheModeEnum(i interface{}) *BackendServiceC
 	}
 
 	return BackendServiceCdnPolicyCacheModeEnumRef(s)
+}
+
+// flattenBackendServiceLocalityLbPolicyEnumMap flattens the contents of BackendServiceLocalityLbPolicyEnum from a JSON
+// response object.
+func flattenBackendServiceLocalityLbPolicyEnumMap(c *Client, i interface{}) map[string]BackendServiceLocalityLbPolicyEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]BackendServiceLocalityLbPolicyEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]BackendServiceLocalityLbPolicyEnum{}
+	}
+
+	items := make(map[string]BackendServiceLocalityLbPolicyEnum)
+	for k, item := range a {
+		items[k] = *flattenBackendServiceLocalityLbPolicyEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenBackendServiceLocalityLbPolicyEnumSlice flattens the contents of BackendServiceLocalityLbPolicyEnum from a JSON
@@ -7561,6 +7681,26 @@ func flattenBackendServiceLocalityLbPolicyEnum(i interface{}) *BackendServiceLoc
 	return BackendServiceLocalityLbPolicyEnumRef(s)
 }
 
+// flattenBackendServiceSubsettingPolicyEnumMap flattens the contents of BackendServiceSubsettingPolicyEnum from a JSON
+// response object.
+func flattenBackendServiceSubsettingPolicyEnumMap(c *Client, i interface{}) map[string]BackendServiceSubsettingPolicyEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]BackendServiceSubsettingPolicyEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]BackendServiceSubsettingPolicyEnum{}
+	}
+
+	items := make(map[string]BackendServiceSubsettingPolicyEnum)
+	for k, item := range a {
+		items[k] = *flattenBackendServiceSubsettingPolicyEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenBackendServiceSubsettingPolicyEnumSlice flattens the contents of BackendServiceSubsettingPolicyEnum from a JSON
 // response object.
 func flattenBackendServiceSubsettingPolicyEnumSlice(c *Client, i interface{}) []BackendServiceSubsettingPolicyEnum {
@@ -7592,6 +7732,26 @@ func flattenBackendServiceSubsettingPolicyEnum(i interface{}) *BackendServiceSub
 	return BackendServiceSubsettingPolicyEnumRef(s)
 }
 
+// flattenBackendServiceConnectionTrackingPolicyTrackingModeEnumMap flattens the contents of BackendServiceConnectionTrackingPolicyTrackingModeEnum from a JSON
+// response object.
+func flattenBackendServiceConnectionTrackingPolicyTrackingModeEnumMap(c *Client, i interface{}) map[string]BackendServiceConnectionTrackingPolicyTrackingModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]BackendServiceConnectionTrackingPolicyTrackingModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]BackendServiceConnectionTrackingPolicyTrackingModeEnum{}
+	}
+
+	items := make(map[string]BackendServiceConnectionTrackingPolicyTrackingModeEnum)
+	for k, item := range a {
+		items[k] = *flattenBackendServiceConnectionTrackingPolicyTrackingModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenBackendServiceConnectionTrackingPolicyTrackingModeEnumSlice flattens the contents of BackendServiceConnectionTrackingPolicyTrackingModeEnum from a JSON
 // response object.
 func flattenBackendServiceConnectionTrackingPolicyTrackingModeEnumSlice(c *Client, i interface{}) []BackendServiceConnectionTrackingPolicyTrackingModeEnum {
@@ -7621,6 +7781,26 @@ func flattenBackendServiceConnectionTrackingPolicyTrackingModeEnum(i interface{}
 	}
 
 	return BackendServiceConnectionTrackingPolicyTrackingModeEnumRef(s)
+}
+
+// flattenBackendServiceConnectionTrackingPolicyConnectionPersistenceOnUnhealthyBackendsEnumMap flattens the contents of BackendServiceConnectionTrackingPolicyConnectionPersistenceOnUnhealthyBackendsEnum from a JSON
+// response object.
+func flattenBackendServiceConnectionTrackingPolicyConnectionPersistenceOnUnhealthyBackendsEnumMap(c *Client, i interface{}) map[string]BackendServiceConnectionTrackingPolicyConnectionPersistenceOnUnhealthyBackendsEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]BackendServiceConnectionTrackingPolicyConnectionPersistenceOnUnhealthyBackendsEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]BackendServiceConnectionTrackingPolicyConnectionPersistenceOnUnhealthyBackendsEnum{}
+	}
+
+	items := make(map[string]BackendServiceConnectionTrackingPolicyConnectionPersistenceOnUnhealthyBackendsEnum)
+	for k, item := range a {
+		items[k] = *flattenBackendServiceConnectionTrackingPolicyConnectionPersistenceOnUnhealthyBackendsEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenBackendServiceConnectionTrackingPolicyConnectionPersistenceOnUnhealthyBackendsEnumSlice flattens the contents of BackendServiceConnectionTrackingPolicyConnectionPersistenceOnUnhealthyBackendsEnum from a JSON

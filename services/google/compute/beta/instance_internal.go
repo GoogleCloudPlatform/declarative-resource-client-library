@@ -4850,6 +4850,26 @@ func flattenInstanceShieldedInstanceConfig(c *Client, i interface{}) *InstanceSh
 	return r
 }
 
+// flattenInstanceDisksInterfaceEnumMap flattens the contents of InstanceDisksInterfaceEnum from a JSON
+// response object.
+func flattenInstanceDisksInterfaceEnumMap(c *Client, i interface{}) map[string]InstanceDisksInterfaceEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceDisksInterfaceEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceDisksInterfaceEnum{}
+	}
+
+	items := make(map[string]InstanceDisksInterfaceEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceDisksInterfaceEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceDisksInterfaceEnumSlice flattens the contents of InstanceDisksInterfaceEnum from a JSON
 // response object.
 func flattenInstanceDisksInterfaceEnumSlice(c *Client, i interface{}) []InstanceDisksInterfaceEnum {
@@ -4879,6 +4899,26 @@ func flattenInstanceDisksInterfaceEnum(i interface{}) *InstanceDisksInterfaceEnu
 	}
 
 	return InstanceDisksInterfaceEnumRef(s)
+}
+
+// flattenInstanceDisksModeEnumMap flattens the contents of InstanceDisksModeEnum from a JSON
+// response object.
+func flattenInstanceDisksModeEnumMap(c *Client, i interface{}) map[string]InstanceDisksModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceDisksModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceDisksModeEnum{}
+	}
+
+	items := make(map[string]InstanceDisksModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceDisksModeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceDisksModeEnumSlice flattens the contents of InstanceDisksModeEnum from a JSON
@@ -4912,6 +4952,26 @@ func flattenInstanceDisksModeEnum(i interface{}) *InstanceDisksModeEnum {
 	return InstanceDisksModeEnumRef(s)
 }
 
+// flattenInstanceDisksTypeEnumMap flattens the contents of InstanceDisksTypeEnum from a JSON
+// response object.
+func flattenInstanceDisksTypeEnumMap(c *Client, i interface{}) map[string]InstanceDisksTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceDisksTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceDisksTypeEnum{}
+	}
+
+	items := make(map[string]InstanceDisksTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceDisksTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceDisksTypeEnumSlice flattens the contents of InstanceDisksTypeEnum from a JSON
 // response object.
 func flattenInstanceDisksTypeEnumSlice(c *Client, i interface{}) []InstanceDisksTypeEnum {
@@ -4943,6 +5003,26 @@ func flattenInstanceDisksTypeEnum(i interface{}) *InstanceDisksTypeEnum {
 	return InstanceDisksTypeEnumRef(s)
 }
 
+// flattenInstanceNetworkInterfacesAccessConfigsTypeEnumMap flattens the contents of InstanceNetworkInterfacesAccessConfigsTypeEnum from a JSON
+// response object.
+func flattenInstanceNetworkInterfacesAccessConfigsTypeEnumMap(c *Client, i interface{}) map[string]InstanceNetworkInterfacesAccessConfigsTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceNetworkInterfacesAccessConfigsTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceNetworkInterfacesAccessConfigsTypeEnum{}
+	}
+
+	items := make(map[string]InstanceNetworkInterfacesAccessConfigsTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceNetworkInterfacesAccessConfigsTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceNetworkInterfacesAccessConfigsTypeEnumSlice flattens the contents of InstanceNetworkInterfacesAccessConfigsTypeEnum from a JSON
 // response object.
 func flattenInstanceNetworkInterfacesAccessConfigsTypeEnumSlice(c *Client, i interface{}) []InstanceNetworkInterfacesAccessConfigsTypeEnum {
@@ -4972,6 +5052,26 @@ func flattenInstanceNetworkInterfacesAccessConfigsTypeEnum(i interface{}) *Insta
 	}
 
 	return InstanceNetworkInterfacesAccessConfigsTypeEnumRef(s)
+}
+
+// flattenInstanceStatusEnumMap flattens the contents of InstanceStatusEnum from a JSON
+// response object.
+func flattenInstanceStatusEnumMap(c *Client, i interface{}) map[string]InstanceStatusEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceStatusEnum{}
+	}
+
+	items := make(map[string]InstanceStatusEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceStatusEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceStatusEnumSlice flattens the contents of InstanceStatusEnum from a JSON

@@ -4147,6 +4147,26 @@ func flattenInstanceGroupManagerUpdatePolicyMaxUnavailable(c *Client, i interfac
 	return r
 }
 
+// flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumMap flattens the contents of InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum from a JSON
+// response object.
+func flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumMap(c *Client, i interface{}) map[string]InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum{}
+	}
+
+	items := make(map[string]InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumSlice flattens the contents of InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum from a JSON
 // response object.
 func flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumSlice(c *Client, i interface{}) []InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum {
@@ -4176,6 +4196,26 @@ func flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum(i int
 	}
 
 	return InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumRef(s)
+}
+
+// flattenInstanceGroupManagerUpdatePolicyMinimalActionEnumMap flattens the contents of InstanceGroupManagerUpdatePolicyMinimalActionEnum from a JSON
+// response object.
+func flattenInstanceGroupManagerUpdatePolicyMinimalActionEnumMap(c *Client, i interface{}) map[string]InstanceGroupManagerUpdatePolicyMinimalActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceGroupManagerUpdatePolicyMinimalActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceGroupManagerUpdatePolicyMinimalActionEnum{}
+	}
+
+	items := make(map[string]InstanceGroupManagerUpdatePolicyMinimalActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceGroupManagerUpdatePolicyMinimalActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceGroupManagerUpdatePolicyMinimalActionEnumSlice flattens the contents of InstanceGroupManagerUpdatePolicyMinimalActionEnum from a JSON

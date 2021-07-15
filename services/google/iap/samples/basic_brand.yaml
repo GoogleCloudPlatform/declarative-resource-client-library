@@ -18,4 +18,3 @@ name: basic_brand
 resource: samples/basic.brand.json
 versions:
 - ga
-- v1

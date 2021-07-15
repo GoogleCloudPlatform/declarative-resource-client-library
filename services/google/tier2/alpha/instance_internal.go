@@ -87770,6 +87770,26 @@ func flattenInstanceHistory(c *Client, i interface{}) *InstanceHistory {
 	return r
 }
 
+// flattenInstanceSkuTierEnumMap flattens the contents of InstanceSkuTierEnum from a JSON
+// response object.
+func flattenInstanceSkuTierEnumMap(c *Client, i interface{}) map[string]InstanceSkuTierEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceSkuTierEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceSkuTierEnum{}
+	}
+
+	items := make(map[string]InstanceSkuTierEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceSkuTierEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceSkuTierEnumSlice flattens the contents of InstanceSkuTierEnum from a JSON
 // response object.
 func flattenInstanceSkuTierEnumSlice(c *Client, i interface{}) []InstanceSkuTierEnum {
@@ -87799,6 +87819,26 @@ func flattenInstanceSkuTierEnum(i interface{}) *InstanceSkuTierEnum {
 	}
 
 	return InstanceSkuTierEnumRef(s)
+}
+
+// flattenInstanceSkuSizeEnumMap flattens the contents of InstanceSkuSizeEnum from a JSON
+// response object.
+func flattenInstanceSkuSizeEnumMap(c *Client, i interface{}) map[string]InstanceSkuSizeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceSkuSizeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceSkuSizeEnum{}
+	}
+
+	items := make(map[string]InstanceSkuSizeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceSkuSizeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceSkuSizeEnumSlice flattens the contents of InstanceSkuSizeEnum from a JSON
@@ -87832,6 +87872,26 @@ func flattenInstanceSkuSizeEnum(i interface{}) *InstanceSkuSizeEnum {
 	return InstanceSkuSizeEnumRef(s)
 }
 
+// flattenInstanceStateEnumMap flattens the contents of InstanceStateEnum from a JSON
+// response object.
+func flattenInstanceStateEnumMap(c *Client, i interface{}) map[string]InstanceStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceStateEnum{}
+	}
+
+	items := make(map[string]InstanceStateEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceStateEnumSlice flattens the contents of InstanceStateEnum from a JSON
 // response object.
 func flattenInstanceStateEnumSlice(c *Client, i interface{}) []InstanceStateEnum {
@@ -87861,6 +87921,26 @@ func flattenInstanceStateEnum(i interface{}) *InstanceStateEnum {
 	}
 
 	return InstanceStateEnumRef(s)
+}
+
+// flattenInstancePreprocessCreateRecipeStepsActionEnumMap flattens the contents of InstancePreprocessCreateRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstancePreprocessCreateRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstancePreprocessCreateRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessCreateRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessCreateRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessCreateRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessCreateRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstancePreprocessCreateRecipeStepsActionEnumSlice flattens the contents of InstancePreprocessCreateRecipeStepsActionEnum from a JSON
@@ -87894,6 +87974,26 @@ func flattenInstancePreprocessCreateRecipeStepsActionEnum(i interface{}) *Instan
 	return InstancePreprocessCreateRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnum {
@@ -87923,6 +88023,26 @@ func flattenInstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnum(i
 	}
 
 	return InstancePreprocessCreateRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceCreateRecipeStepsActionEnumMap flattens the contents of InstanceCreateRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstanceCreateRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceCreateRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceCreateRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceCreateRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstanceCreateRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceCreateRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceCreateRecipeStepsActionEnumSlice flattens the contents of InstanceCreateRecipeStepsActionEnum from a JSON
@@ -87956,6 +88076,26 @@ func flattenInstanceCreateRecipeStepsActionEnum(i interface{}) *InstanceCreateRe
 	return InstanceCreateRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstanceCreateRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstanceCreateRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstanceCreateRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstanceCreateRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceCreateRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceCreateRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstanceCreateRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceCreateRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceCreateRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstanceCreateRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstanceCreateRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstanceCreateRecipeStepsRequestedTenantProjectScopeEnum {
@@ -87985,6 +88125,26 @@ func flattenInstanceCreateRecipeStepsRequestedTenantProjectScopeEnum(i interface
 	}
 
 	return InstanceCreateRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceDeleteRecipeStepsActionEnumMap flattens the contents of InstanceDeleteRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstanceDeleteRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceDeleteRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceDeleteRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceDeleteRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstanceDeleteRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceDeleteRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceDeleteRecipeStepsActionEnumSlice flattens the contents of InstanceDeleteRecipeStepsActionEnum from a JSON
@@ -88018,6 +88178,26 @@ func flattenInstanceDeleteRecipeStepsActionEnum(i interface{}) *InstanceDeleteRe
 	return InstanceDeleteRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstanceDeleteRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstanceDeleteRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstanceDeleteRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstanceDeleteRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceDeleteRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceDeleteRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstanceDeleteRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceDeleteRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceDeleteRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstanceDeleteRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstanceDeleteRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstanceDeleteRecipeStepsRequestedTenantProjectScopeEnum {
@@ -88047,6 +88227,26 @@ func flattenInstanceDeleteRecipeStepsRequestedTenantProjectScopeEnum(i interface
 	}
 
 	return InstanceDeleteRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceUpdateRecipeStepsActionEnumMap flattens the contents of InstanceUpdateRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstanceUpdateRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceUpdateRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceUpdateRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceUpdateRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstanceUpdateRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceUpdateRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceUpdateRecipeStepsActionEnumSlice flattens the contents of InstanceUpdateRecipeStepsActionEnum from a JSON
@@ -88080,6 +88280,26 @@ func flattenInstanceUpdateRecipeStepsActionEnum(i interface{}) *InstanceUpdateRe
 	return InstanceUpdateRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstanceUpdateRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstanceUpdateRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceUpdateRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstanceUpdateRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum {
@@ -88109,6 +88329,26 @@ func flattenInstanceUpdateRecipeStepsRequestedTenantProjectScopeEnum(i interface
 	}
 
 	return InstanceUpdateRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstancePreprocessResetRecipeStepsActionEnumMap flattens the contents of InstancePreprocessResetRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstancePreprocessResetRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstancePreprocessResetRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessResetRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessResetRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessResetRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessResetRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstancePreprocessResetRecipeStepsActionEnumSlice flattens the contents of InstancePreprocessResetRecipeStepsActionEnum from a JSON
@@ -88142,6 +88382,26 @@ func flattenInstancePreprocessResetRecipeStepsActionEnum(i interface{}) *Instanc
 	return InstancePreprocessResetRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum {
@@ -88171,6 +88431,26 @@ func flattenInstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnum(i 
 	}
 
 	return InstancePreprocessResetRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceResetRecipeStepsActionEnumMap flattens the contents of InstanceResetRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstanceResetRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceResetRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceResetRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceResetRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstanceResetRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceResetRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceResetRecipeStepsActionEnumSlice flattens the contents of InstanceResetRecipeStepsActionEnum from a JSON
@@ -88204,6 +88484,26 @@ func flattenInstanceResetRecipeStepsActionEnum(i interface{}) *InstanceResetReci
 	return InstanceResetRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstanceResetRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstanceResetRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstanceResetRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstanceResetRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceResetRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceResetRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstanceResetRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceResetRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceResetRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstanceResetRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstanceResetRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstanceResetRecipeStepsRequestedTenantProjectScopeEnum {
@@ -88233,6 +88533,26 @@ func flattenInstanceResetRecipeStepsRequestedTenantProjectScopeEnum(i interface{
 	}
 
 	return InstanceResetRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstancePreprocessRepairRecipeStepsActionEnumMap flattens the contents of InstancePreprocessRepairRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstancePreprocessRepairRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstancePreprocessRepairRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessRepairRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessRepairRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessRepairRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessRepairRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstancePreprocessRepairRecipeStepsActionEnumSlice flattens the contents of InstancePreprocessRepairRecipeStepsActionEnum from a JSON
@@ -88266,6 +88586,26 @@ func flattenInstancePreprocessRepairRecipeStepsActionEnum(i interface{}) *Instan
 	return InstancePreprocessRepairRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum {
@@ -88295,6 +88635,26 @@ func flattenInstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnum(i
 	}
 
 	return InstancePreprocessRepairRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceRepairRecipeStepsActionEnumMap flattens the contents of InstanceRepairRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstanceRepairRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceRepairRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceRepairRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceRepairRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstanceRepairRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceRepairRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceRepairRecipeStepsActionEnumSlice flattens the contents of InstanceRepairRecipeStepsActionEnum from a JSON
@@ -88328,6 +88688,26 @@ func flattenInstanceRepairRecipeStepsActionEnum(i interface{}) *InstanceRepairRe
 	return InstanceRepairRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstanceRepairRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstanceRepairRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstanceRepairRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstanceRepairRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceRepairRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceRepairRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstanceRepairRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceRepairRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceRepairRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstanceRepairRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstanceRepairRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstanceRepairRecipeStepsRequestedTenantProjectScopeEnum {
@@ -88357,6 +88737,26 @@ func flattenInstanceRepairRecipeStepsRequestedTenantProjectScopeEnum(i interface
 	}
 
 	return InstanceRepairRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstancePreprocessDeleteRecipeStepsActionEnumMap flattens the contents of InstancePreprocessDeleteRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstancePreprocessDeleteRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstancePreprocessDeleteRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessDeleteRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessDeleteRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessDeleteRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessDeleteRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstancePreprocessDeleteRecipeStepsActionEnumSlice flattens the contents of InstancePreprocessDeleteRecipeStepsActionEnum from a JSON
@@ -88390,6 +88790,26 @@ func flattenInstancePreprocessDeleteRecipeStepsActionEnum(i interface{}) *Instan
 	return InstancePreprocessDeleteRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnum {
@@ -88419,6 +88839,26 @@ func flattenInstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnum(i
 	}
 
 	return InstancePreprocessDeleteRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstancePreprocessUpdateRecipeStepsActionEnumMap flattens the contents of InstancePreprocessUpdateRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstancePreprocessUpdateRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstancePreprocessUpdateRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessUpdateRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessUpdateRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessUpdateRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessUpdateRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstancePreprocessUpdateRecipeStepsActionEnumSlice flattens the contents of InstancePreprocessUpdateRecipeStepsActionEnum from a JSON
@@ -88452,6 +88892,26 @@ func flattenInstancePreprocessUpdateRecipeStepsActionEnum(i interface{}) *Instan
 	return InstancePreprocessUpdateRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum {
@@ -88481,6 +88941,26 @@ func flattenInstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnum(i
 	}
 
 	return InstancePreprocessUpdateRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstancePreprocessFreezeRecipeStepsActionEnumMap flattens the contents of InstancePreprocessFreezeRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstancePreprocessFreezeRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstancePreprocessFreezeRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessFreezeRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessFreezeRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessFreezeRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessFreezeRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstancePreprocessFreezeRecipeStepsActionEnumSlice flattens the contents of InstancePreprocessFreezeRecipeStepsActionEnum from a JSON
@@ -88514,6 +88994,26 @@ func flattenInstancePreprocessFreezeRecipeStepsActionEnum(i interface{}) *Instan
 	return InstancePreprocessFreezeRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnum {
@@ -88543,6 +89043,26 @@ func flattenInstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnum(i
 	}
 
 	return InstancePreprocessFreezeRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceFreezeRecipeStepsActionEnumMap flattens the contents of InstanceFreezeRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstanceFreezeRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceFreezeRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceFreezeRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceFreezeRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstanceFreezeRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceFreezeRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceFreezeRecipeStepsActionEnumSlice flattens the contents of InstanceFreezeRecipeStepsActionEnum from a JSON
@@ -88576,6 +89096,26 @@ func flattenInstanceFreezeRecipeStepsActionEnum(i interface{}) *InstanceFreezeRe
 	return InstanceFreezeRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstanceFreezeRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstanceFreezeRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceFreezeRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstanceFreezeRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum {
@@ -88605,6 +89145,26 @@ func flattenInstanceFreezeRecipeStepsRequestedTenantProjectScopeEnum(i interface
 	}
 
 	return InstanceFreezeRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstancePreprocessUnfreezeRecipeStepsActionEnumMap flattens the contents of InstancePreprocessUnfreezeRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstancePreprocessUnfreezeRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstancePreprocessUnfreezeRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessUnfreezeRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessUnfreezeRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessUnfreezeRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessUnfreezeRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstancePreprocessUnfreezeRecipeStepsActionEnumSlice flattens the contents of InstancePreprocessUnfreezeRecipeStepsActionEnum from a JSON
@@ -88638,6 +89198,26 @@ func flattenInstancePreprocessUnfreezeRecipeStepsActionEnum(i interface{}) *Inst
 	return InstancePreprocessUnfreezeRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnum {
@@ -88667,6 +89247,26 @@ func flattenInstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnum
 	}
 
 	return InstancePreprocessUnfreezeRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceUnfreezeRecipeStepsActionEnumMap flattens the contents of InstanceUnfreezeRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstanceUnfreezeRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceUnfreezeRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceUnfreezeRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceUnfreezeRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstanceUnfreezeRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceUnfreezeRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceUnfreezeRecipeStepsActionEnumSlice flattens the contents of InstanceUnfreezeRecipeStepsActionEnum from a JSON
@@ -88700,6 +89300,26 @@ func flattenInstanceUnfreezeRecipeStepsActionEnum(i interface{}) *InstanceUnfree
 	return InstanceUnfreezeRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum {
@@ -88729,6 +89349,26 @@ func flattenInstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnum(i interfa
 	}
 
 	return InstanceUnfreezeRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstancePreprocessReportInstanceHealthRecipeStepsActionEnumMap flattens the contents of InstancePreprocessReportInstanceHealthRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstancePreprocessReportInstanceHealthRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstancePreprocessReportInstanceHealthRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessReportInstanceHealthRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessReportInstanceHealthRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessReportInstanceHealthRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessReportInstanceHealthRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstancePreprocessReportInstanceHealthRecipeStepsActionEnumSlice flattens the contents of InstancePreprocessReportInstanceHealthRecipeStepsActionEnum from a JSON
@@ -88762,6 +89402,26 @@ func flattenInstancePreprocessReportInstanceHealthRecipeStepsActionEnum(i interf
 	return InstancePreprocessReportInstanceHealthRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum {
@@ -88791,6 +89451,26 @@ func flattenInstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProj
 	}
 
 	return InstancePreprocessReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceReportInstanceHealthRecipeStepsActionEnumMap flattens the contents of InstanceReportInstanceHealthRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstanceReportInstanceHealthRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceReportInstanceHealthRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceReportInstanceHealthRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceReportInstanceHealthRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstanceReportInstanceHealthRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceReportInstanceHealthRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceReportInstanceHealthRecipeStepsActionEnumSlice flattens the contents of InstanceReportInstanceHealthRecipeStepsActionEnum from a JSON
@@ -88824,6 +89504,26 @@ func flattenInstanceReportInstanceHealthRecipeStepsActionEnum(i interface{}) *In
 	return InstanceReportInstanceHealthRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnum {
@@ -88853,6 +89553,26 @@ func flattenInstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEn
 	}
 
 	return InstanceReportInstanceHealthRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstancePreprocessGetRecipeStepsActionEnumMap flattens the contents of InstancePreprocessGetRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstancePreprocessGetRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstancePreprocessGetRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessGetRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessGetRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessGetRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessGetRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstancePreprocessGetRecipeStepsActionEnumSlice flattens the contents of InstancePreprocessGetRecipeStepsActionEnum from a JSON
@@ -88886,6 +89606,26 @@ func flattenInstancePreprocessGetRecipeStepsActionEnum(i interface{}) *InstanceP
 	return InstancePreprocessGetRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum {
@@ -88915,6 +89655,26 @@ func flattenInstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnum(i in
 	}
 
 	return InstancePreprocessGetRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceNotifyKeyAvailableRecipeStepsActionEnumMap flattens the contents of InstanceNotifyKeyAvailableRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstanceNotifyKeyAvailableRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceNotifyKeyAvailableRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceNotifyKeyAvailableRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceNotifyKeyAvailableRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstanceNotifyKeyAvailableRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceNotifyKeyAvailableRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceNotifyKeyAvailableRecipeStepsActionEnumSlice flattens the contents of InstanceNotifyKeyAvailableRecipeStepsActionEnum from a JSON
@@ -88948,6 +89708,26 @@ func flattenInstanceNotifyKeyAvailableRecipeStepsActionEnum(i interface{}) *Inst
 	return InstanceNotifyKeyAvailableRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum {
@@ -88977,6 +89757,26 @@ func flattenInstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnum
 	}
 
 	return InstanceNotifyKeyAvailableRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceNotifyKeyUnavailableRecipeStepsActionEnumMap flattens the contents of InstanceNotifyKeyUnavailableRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstanceNotifyKeyUnavailableRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceNotifyKeyUnavailableRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceNotifyKeyUnavailableRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceNotifyKeyUnavailableRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstanceNotifyKeyUnavailableRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceNotifyKeyUnavailableRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceNotifyKeyUnavailableRecipeStepsActionEnumSlice flattens the contents of InstanceNotifyKeyUnavailableRecipeStepsActionEnum from a JSON
@@ -89010,6 +89810,26 @@ func flattenInstanceNotifyKeyUnavailableRecipeStepsActionEnum(i interface{}) *In
 	return InstanceNotifyKeyUnavailableRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnum {
@@ -89039,6 +89859,26 @@ func flattenInstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEn
 	}
 
 	return InstanceNotifyKeyUnavailableRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceReadonlyRecipeStepsActionEnumMap flattens the contents of InstanceReadonlyRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstanceReadonlyRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceReadonlyRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceReadonlyRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceReadonlyRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstanceReadonlyRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceReadonlyRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceReadonlyRecipeStepsActionEnumSlice flattens the contents of InstanceReadonlyRecipeStepsActionEnum from a JSON
@@ -89072,6 +89912,26 @@ func flattenInstanceReadonlyRecipeStepsActionEnum(i interface{}) *InstanceReadon
 	return InstanceReadonlyRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum {
@@ -89101,6 +89961,26 @@ func flattenInstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnum(i interfa
 	}
 
 	return InstanceReadonlyRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstanceReconcileRecipeStepsActionEnumMap flattens the contents of InstanceReconcileRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstanceReconcileRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstanceReconcileRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceReconcileRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceReconcileRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstanceReconcileRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceReconcileRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceReconcileRecipeStepsActionEnumSlice flattens the contents of InstanceReconcileRecipeStepsActionEnum from a JSON
@@ -89134,6 +90014,26 @@ func flattenInstanceReconcileRecipeStepsActionEnum(i interface{}) *InstanceRecon
 	return InstanceReconcileRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum {
@@ -89163,6 +90063,26 @@ func flattenInstanceReconcileRecipeStepsRequestedTenantProjectScopeEnum(i interf
 	}
 
 	return InstanceReconcileRecipeStepsRequestedTenantProjectScopeEnumRef(s)
+}
+
+// flattenInstancePreprocessPassthroughRecipeStepsActionEnumMap flattens the contents of InstancePreprocessPassthroughRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstancePreprocessPassthroughRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstancePreprocessPassthroughRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessPassthroughRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessPassthroughRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessPassthroughRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessPassthroughRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstancePreprocessPassthroughRecipeStepsActionEnumSlice flattens the contents of InstancePreprocessPassthroughRecipeStepsActionEnum from a JSON
@@ -89196,6 +90116,26 @@ func flattenInstancePreprocessPassthroughRecipeStepsActionEnum(i interface{}) *I
 	return InstancePreprocessPassthroughRecipeStepsActionEnumRef(s)
 }
 
+// flattenInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum from a JSON
 // response object.
 func flattenInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnumSlice(c *Client, i interface{}) []InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnum {
@@ -89227,6 +90167,26 @@ func flattenInstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeE
 	return InstancePreprocessPassthroughRecipeStepsRequestedTenantProjectScopeEnumRef(s)
 }
 
+// flattenInstancePreprocessReconcileRecipeStepsActionEnumMap flattens the contents of InstancePreprocessReconcileRecipeStepsActionEnum from a JSON
+// response object.
+func flattenInstancePreprocessReconcileRecipeStepsActionEnumMap(c *Client, i interface{}) map[string]InstancePreprocessReconcileRecipeStepsActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessReconcileRecipeStepsActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessReconcileRecipeStepsActionEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessReconcileRecipeStepsActionEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessReconcileRecipeStepsActionEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstancePreprocessReconcileRecipeStepsActionEnumSlice flattens the contents of InstancePreprocessReconcileRecipeStepsActionEnum from a JSON
 // response object.
 func flattenInstancePreprocessReconcileRecipeStepsActionEnumSlice(c *Client, i interface{}) []InstancePreprocessReconcileRecipeStepsActionEnum {
@@ -89256,6 +90216,26 @@ func flattenInstancePreprocessReconcileRecipeStepsActionEnum(i interface{}) *Ins
 	}
 
 	return InstancePreprocessReconcileRecipeStepsActionEnumRef(s)
+}
+
+// flattenInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnumMap flattens the contents of InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum from a JSON
+// response object.
+func flattenInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnumMap(c *Client, i interface{}) map[string]InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum{}
+	}
+
+	items := make(map[string]InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnumSlice flattens the contents of InstancePreprocessReconcileRecipeStepsRequestedTenantProjectScopeEnum from a JSON

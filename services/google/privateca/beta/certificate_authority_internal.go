@@ -18799,6 +18799,26 @@ func flattenCertificateAuthorityIssuingOptions(c *Client, i interface{}) *Certif
 	return r
 }
 
+// flattenCertificateAuthorityTypeEnumMap flattens the contents of CertificateAuthorityTypeEnum from a JSON
+// response object.
+func flattenCertificateAuthorityTypeEnumMap(c *Client, i interface{}) map[string]CertificateAuthorityTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]CertificateAuthorityTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]CertificateAuthorityTypeEnum{}
+	}
+
+	items := make(map[string]CertificateAuthorityTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenCertificateAuthorityTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenCertificateAuthorityTypeEnumSlice flattens the contents of CertificateAuthorityTypeEnum from a JSON
 // response object.
 func flattenCertificateAuthorityTypeEnumSlice(c *Client, i interface{}) []CertificateAuthorityTypeEnum {
@@ -18828,6 +18848,26 @@ func flattenCertificateAuthorityTypeEnum(i interface{}) *CertificateAuthorityTyp
 	}
 
 	return CertificateAuthorityTypeEnumRef(s)
+}
+
+// flattenCertificateAuthorityConfigPublicKeyTypeEnumMap flattens the contents of CertificateAuthorityConfigPublicKeyTypeEnum from a JSON
+// response object.
+func flattenCertificateAuthorityConfigPublicKeyTypeEnumMap(c *Client, i interface{}) map[string]CertificateAuthorityConfigPublicKeyTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]CertificateAuthorityConfigPublicKeyTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]CertificateAuthorityConfigPublicKeyTypeEnum{}
+	}
+
+	items := make(map[string]CertificateAuthorityConfigPublicKeyTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenCertificateAuthorityConfigPublicKeyTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenCertificateAuthorityConfigPublicKeyTypeEnumSlice flattens the contents of CertificateAuthorityConfigPublicKeyTypeEnum from a JSON
@@ -18861,6 +18901,26 @@ func flattenCertificateAuthorityConfigPublicKeyTypeEnum(i interface{}) *Certific
 	return CertificateAuthorityConfigPublicKeyTypeEnumRef(s)
 }
 
+// flattenCertificateAuthorityKeySpecAlgorithmEnumMap flattens the contents of CertificateAuthorityKeySpecAlgorithmEnum from a JSON
+// response object.
+func flattenCertificateAuthorityKeySpecAlgorithmEnumMap(c *Client, i interface{}) map[string]CertificateAuthorityKeySpecAlgorithmEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]CertificateAuthorityKeySpecAlgorithmEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]CertificateAuthorityKeySpecAlgorithmEnum{}
+	}
+
+	items := make(map[string]CertificateAuthorityKeySpecAlgorithmEnum)
+	for k, item := range a {
+		items[k] = *flattenCertificateAuthorityKeySpecAlgorithmEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenCertificateAuthorityKeySpecAlgorithmEnumSlice flattens the contents of CertificateAuthorityKeySpecAlgorithmEnum from a JSON
 // response object.
 func flattenCertificateAuthorityKeySpecAlgorithmEnumSlice(c *Client, i interface{}) []CertificateAuthorityKeySpecAlgorithmEnum {
@@ -18890,6 +18950,26 @@ func flattenCertificateAuthorityKeySpecAlgorithmEnum(i interface{}) *Certificate
 	}
 
 	return CertificateAuthorityKeySpecAlgorithmEnumRef(s)
+}
+
+// flattenCertificateAuthorityTierEnumMap flattens the contents of CertificateAuthorityTierEnum from a JSON
+// response object.
+func flattenCertificateAuthorityTierEnumMap(c *Client, i interface{}) map[string]CertificateAuthorityTierEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]CertificateAuthorityTierEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]CertificateAuthorityTierEnum{}
+	}
+
+	items := make(map[string]CertificateAuthorityTierEnum)
+	for k, item := range a {
+		items[k] = *flattenCertificateAuthorityTierEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenCertificateAuthorityTierEnumSlice flattens the contents of CertificateAuthorityTierEnum from a JSON
@@ -18923,6 +19003,26 @@ func flattenCertificateAuthorityTierEnum(i interface{}) *CertificateAuthorityTie
 	return CertificateAuthorityTierEnumRef(s)
 }
 
+// flattenCertificateAuthorityStateEnumMap flattens the contents of CertificateAuthorityStateEnum from a JSON
+// response object.
+func flattenCertificateAuthorityStateEnumMap(c *Client, i interface{}) map[string]CertificateAuthorityStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]CertificateAuthorityStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]CertificateAuthorityStateEnum{}
+	}
+
+	items := make(map[string]CertificateAuthorityStateEnum)
+	for k, item := range a {
+		items[k] = *flattenCertificateAuthorityStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenCertificateAuthorityStateEnumSlice flattens the contents of CertificateAuthorityStateEnum from a JSON
 // response object.
 func flattenCertificateAuthorityStateEnumSlice(c *Client, i interface{}) []CertificateAuthorityStateEnum {
@@ -18954,6 +19054,26 @@ func flattenCertificateAuthorityStateEnum(i interface{}) *CertificateAuthoritySt
 	return CertificateAuthorityStateEnumRef(s)
 }
 
+// flattenCertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnumMap flattens the contents of CertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum from a JSON
+// response object.
+func flattenCertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnumMap(c *Client, i interface{}) map[string]CertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]CertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]CertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum{}
+	}
+
+	items := make(map[string]CertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum)
+	for k, item := range a {
+		items[k] = *flattenCertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenCertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnumSlice flattens the contents of CertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum from a JSON
 // response object.
 func flattenCertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnumSlice(c *Client, i interface{}) []CertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum {
@@ -18983,6 +19103,26 @@ func flattenCertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum(i i
 	}
 
 	return CertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnumRef(s)
+}
+
+// flattenCertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnumMap flattens the contents of CertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnum from a JSON
+// response object.
+func flattenCertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnumMap(c *Client, i interface{}) map[string]CertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]CertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]CertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnum{}
+	}
+
+	items := make(map[string]CertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenCertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenCertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnumSlice flattens the contents of CertificateAuthorityCaCertificateDescriptionsPublicKeyTypeEnum from a JSON

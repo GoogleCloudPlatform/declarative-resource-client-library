@@ -1587,6 +1587,26 @@ func flattenInterconnectCircuitInfos(c *Client, i interface{}) *InterconnectCirc
 	return r
 }
 
+// flattenInterconnectLinkTypeEnumMap flattens the contents of InterconnectLinkTypeEnum from a JSON
+// response object.
+func flattenInterconnectLinkTypeEnumMap(c *Client, i interface{}) map[string]InterconnectLinkTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InterconnectLinkTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InterconnectLinkTypeEnum{}
+	}
+
+	items := make(map[string]InterconnectLinkTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenInterconnectLinkTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInterconnectLinkTypeEnumSlice flattens the contents of InterconnectLinkTypeEnum from a JSON
 // response object.
 func flattenInterconnectLinkTypeEnumSlice(c *Client, i interface{}) []InterconnectLinkTypeEnum {
@@ -1616,6 +1636,26 @@ func flattenInterconnectLinkTypeEnum(i interface{}) *InterconnectLinkTypeEnum {
 	}
 
 	return InterconnectLinkTypeEnumRef(s)
+}
+
+// flattenInterconnectInterconnectTypeEnumMap flattens the contents of InterconnectInterconnectTypeEnum from a JSON
+// response object.
+func flattenInterconnectInterconnectTypeEnumMap(c *Client, i interface{}) map[string]InterconnectInterconnectTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InterconnectInterconnectTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InterconnectInterconnectTypeEnum{}
+	}
+
+	items := make(map[string]InterconnectInterconnectTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenInterconnectInterconnectTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInterconnectInterconnectTypeEnumSlice flattens the contents of InterconnectInterconnectTypeEnum from a JSON
@@ -1649,6 +1689,26 @@ func flattenInterconnectInterconnectTypeEnum(i interface{}) *InterconnectInterco
 	return InterconnectInterconnectTypeEnumRef(s)
 }
 
+// flattenInterconnectOperationalStatusEnumMap flattens the contents of InterconnectOperationalStatusEnum from a JSON
+// response object.
+func flattenInterconnectOperationalStatusEnumMap(c *Client, i interface{}) map[string]InterconnectOperationalStatusEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InterconnectOperationalStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InterconnectOperationalStatusEnum{}
+	}
+
+	items := make(map[string]InterconnectOperationalStatusEnum)
+	for k, item := range a {
+		items[k] = *flattenInterconnectOperationalStatusEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInterconnectOperationalStatusEnumSlice flattens the contents of InterconnectOperationalStatusEnum from a JSON
 // response object.
 func flattenInterconnectOperationalStatusEnumSlice(c *Client, i interface{}) []InterconnectOperationalStatusEnum {
@@ -1678,6 +1738,26 @@ func flattenInterconnectOperationalStatusEnum(i interface{}) *InterconnectOperat
 	}
 
 	return InterconnectOperationalStatusEnumRef(s)
+}
+
+// flattenInterconnectExpectedOutagesSourceEnumMap flattens the contents of InterconnectExpectedOutagesSourceEnum from a JSON
+// response object.
+func flattenInterconnectExpectedOutagesSourceEnumMap(c *Client, i interface{}) map[string]InterconnectExpectedOutagesSourceEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InterconnectExpectedOutagesSourceEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InterconnectExpectedOutagesSourceEnum{}
+	}
+
+	items := make(map[string]InterconnectExpectedOutagesSourceEnum)
+	for k, item := range a {
+		items[k] = *flattenInterconnectExpectedOutagesSourceEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInterconnectExpectedOutagesSourceEnumSlice flattens the contents of InterconnectExpectedOutagesSourceEnum from a JSON
@@ -1711,6 +1791,26 @@ func flattenInterconnectExpectedOutagesSourceEnum(i interface{}) *InterconnectEx
 	return InterconnectExpectedOutagesSourceEnumRef(s)
 }
 
+// flattenInterconnectExpectedOutagesStateEnumMap flattens the contents of InterconnectExpectedOutagesStateEnum from a JSON
+// response object.
+func flattenInterconnectExpectedOutagesStateEnumMap(c *Client, i interface{}) map[string]InterconnectExpectedOutagesStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InterconnectExpectedOutagesStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InterconnectExpectedOutagesStateEnum{}
+	}
+
+	items := make(map[string]InterconnectExpectedOutagesStateEnum)
+	for k, item := range a {
+		items[k] = *flattenInterconnectExpectedOutagesStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInterconnectExpectedOutagesStateEnumSlice flattens the contents of InterconnectExpectedOutagesStateEnum from a JSON
 // response object.
 func flattenInterconnectExpectedOutagesStateEnumSlice(c *Client, i interface{}) []InterconnectExpectedOutagesStateEnum {
@@ -1742,6 +1842,26 @@ func flattenInterconnectExpectedOutagesStateEnum(i interface{}) *InterconnectExp
 	return InterconnectExpectedOutagesStateEnumRef(s)
 }
 
+// flattenInterconnectExpectedOutagesIssueTypeEnumMap flattens the contents of InterconnectExpectedOutagesIssueTypeEnum from a JSON
+// response object.
+func flattenInterconnectExpectedOutagesIssueTypeEnumMap(c *Client, i interface{}) map[string]InterconnectExpectedOutagesIssueTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InterconnectExpectedOutagesIssueTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InterconnectExpectedOutagesIssueTypeEnum{}
+	}
+
+	items := make(map[string]InterconnectExpectedOutagesIssueTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenInterconnectExpectedOutagesIssueTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInterconnectExpectedOutagesIssueTypeEnumSlice flattens the contents of InterconnectExpectedOutagesIssueTypeEnum from a JSON
 // response object.
 func flattenInterconnectExpectedOutagesIssueTypeEnumSlice(c *Client, i interface{}) []InterconnectExpectedOutagesIssueTypeEnum {
@@ -1771,6 +1891,26 @@ func flattenInterconnectExpectedOutagesIssueTypeEnum(i interface{}) *Interconnec
 	}
 
 	return InterconnectExpectedOutagesIssueTypeEnumRef(s)
+}
+
+// flattenInterconnectStateEnumMap flattens the contents of InterconnectStateEnum from a JSON
+// response object.
+func flattenInterconnectStateEnumMap(c *Client, i interface{}) map[string]InterconnectStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InterconnectStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InterconnectStateEnum{}
+	}
+
+	items := make(map[string]InterconnectStateEnum)
+	for k, item := range a {
+		items[k] = *flattenInterconnectStateEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInterconnectStateEnumSlice flattens the contents of InterconnectStateEnum from a JSON

@@ -18,4 +18,3 @@ updates:
 - resource: samples/update.tenant.json
 versions:
 - ga
-- v1

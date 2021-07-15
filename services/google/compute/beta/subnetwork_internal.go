@@ -1590,6 +1590,26 @@ func flattenSubnetworkLogConfig(c *Client, i interface{}) *SubnetworkLogConfig {
 	return r
 }
 
+// flattenSubnetworkPurposeEnumMap flattens the contents of SubnetworkPurposeEnum from a JSON
+// response object.
+func flattenSubnetworkPurposeEnumMap(c *Client, i interface{}) map[string]SubnetworkPurposeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]SubnetworkPurposeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]SubnetworkPurposeEnum{}
+	}
+
+	items := make(map[string]SubnetworkPurposeEnum)
+	for k, item := range a {
+		items[k] = *flattenSubnetworkPurposeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenSubnetworkPurposeEnumSlice flattens the contents of SubnetworkPurposeEnum from a JSON
 // response object.
 func flattenSubnetworkPurposeEnumSlice(c *Client, i interface{}) []SubnetworkPurposeEnum {
@@ -1619,6 +1639,26 @@ func flattenSubnetworkPurposeEnum(i interface{}) *SubnetworkPurposeEnum {
 	}
 
 	return SubnetworkPurposeEnumRef(s)
+}
+
+// flattenSubnetworkRoleEnumMap flattens the contents of SubnetworkRoleEnum from a JSON
+// response object.
+func flattenSubnetworkRoleEnumMap(c *Client, i interface{}) map[string]SubnetworkRoleEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]SubnetworkRoleEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]SubnetworkRoleEnum{}
+	}
+
+	items := make(map[string]SubnetworkRoleEnum)
+	for k, item := range a {
+		items[k] = *flattenSubnetworkRoleEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenSubnetworkRoleEnumSlice flattens the contents of SubnetworkRoleEnum from a JSON
@@ -1652,6 +1692,26 @@ func flattenSubnetworkRoleEnum(i interface{}) *SubnetworkRoleEnum {
 	return SubnetworkRoleEnumRef(s)
 }
 
+// flattenSubnetworkLogConfigAggregationIntervalEnumMap flattens the contents of SubnetworkLogConfigAggregationIntervalEnum from a JSON
+// response object.
+func flattenSubnetworkLogConfigAggregationIntervalEnumMap(c *Client, i interface{}) map[string]SubnetworkLogConfigAggregationIntervalEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]SubnetworkLogConfigAggregationIntervalEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]SubnetworkLogConfigAggregationIntervalEnum{}
+	}
+
+	items := make(map[string]SubnetworkLogConfigAggregationIntervalEnum)
+	for k, item := range a {
+		items[k] = *flattenSubnetworkLogConfigAggregationIntervalEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenSubnetworkLogConfigAggregationIntervalEnumSlice flattens the contents of SubnetworkLogConfigAggregationIntervalEnum from a JSON
 // response object.
 func flattenSubnetworkLogConfigAggregationIntervalEnumSlice(c *Client, i interface{}) []SubnetworkLogConfigAggregationIntervalEnum {
@@ -1681,6 +1741,26 @@ func flattenSubnetworkLogConfigAggregationIntervalEnum(i interface{}) *Subnetwor
 	}
 
 	return SubnetworkLogConfigAggregationIntervalEnumRef(s)
+}
+
+// flattenSubnetworkLogConfigMetadataEnumMap flattens the contents of SubnetworkLogConfigMetadataEnum from a JSON
+// response object.
+func flattenSubnetworkLogConfigMetadataEnumMap(c *Client, i interface{}) map[string]SubnetworkLogConfigMetadataEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]SubnetworkLogConfigMetadataEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]SubnetworkLogConfigMetadataEnum{}
+	}
+
+	items := make(map[string]SubnetworkLogConfigMetadataEnum)
+	for k, item := range a {
+		items[k] = *flattenSubnetworkLogConfigMetadataEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenSubnetworkLogConfigMetadataEnumSlice flattens the contents of SubnetworkLogConfigMetadataEnum from a JSON

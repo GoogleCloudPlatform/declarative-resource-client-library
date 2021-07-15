@@ -24716,6 +24716,26 @@ func flattenClusterMaster(c *Client, i interface{}) *ClusterMaster {
 	return r
 }
 
+// flattenClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnumMap flattens the contents of ClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnum from a JSON
+// response object.
+func flattenClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnumMap(c *Client, i interface{}) map[string]ClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnum{}
+	}
+
+	items := make(map[string]ClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnumSlice flattens the contents of ClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnum from a JSON
 // response object.
 func flattenClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnumSlice(c *Client, i interface{}) []ClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnum {
@@ -24745,6 +24765,26 @@ func flattenClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnum(i interface{})
 	}
 
 	return ClusterAddonsConfigCloudRunConfigLoadBalancerTypeEnumRef(s)
+}
+
+// flattenClusterAddonsConfigIstioConfigAuthEnumMap flattens the contents of ClusterAddonsConfigIstioConfigAuthEnum from a JSON
+// response object.
+func flattenClusterAddonsConfigIstioConfigAuthEnumMap(c *Client, i interface{}) map[string]ClusterAddonsConfigIstioConfigAuthEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterAddonsConfigIstioConfigAuthEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterAddonsConfigIstioConfigAuthEnum{}
+	}
+
+	items := make(map[string]ClusterAddonsConfigIstioConfigAuthEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterAddonsConfigIstioConfigAuthEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenClusterAddonsConfigIstioConfigAuthEnumSlice flattens the contents of ClusterAddonsConfigIstioConfigAuthEnum from a JSON
@@ -24778,6 +24818,26 @@ func flattenClusterAddonsConfigIstioConfigAuthEnum(i interface{}) *ClusterAddons
 	return ClusterAddonsConfigIstioConfigAuthEnumRef(s)
 }
 
+// flattenClusterNodePoolsConfigWorkloadMetadataConfigModeEnumMap flattens the contents of ClusterNodePoolsConfigWorkloadMetadataConfigModeEnum from a JSON
+// response object.
+func flattenClusterNodePoolsConfigWorkloadMetadataConfigModeEnumMap(c *Client, i interface{}) map[string]ClusterNodePoolsConfigWorkloadMetadataConfigModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterNodePoolsConfigWorkloadMetadataConfigModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterNodePoolsConfigWorkloadMetadataConfigModeEnum{}
+	}
+
+	items := make(map[string]ClusterNodePoolsConfigWorkloadMetadataConfigModeEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterNodePoolsConfigWorkloadMetadataConfigModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenClusterNodePoolsConfigWorkloadMetadataConfigModeEnumSlice flattens the contents of ClusterNodePoolsConfigWorkloadMetadataConfigModeEnum from a JSON
 // response object.
 func flattenClusterNodePoolsConfigWorkloadMetadataConfigModeEnumSlice(c *Client, i interface{}) []ClusterNodePoolsConfigWorkloadMetadataConfigModeEnum {
@@ -24807,6 +24867,26 @@ func flattenClusterNodePoolsConfigWorkloadMetadataConfigModeEnum(i interface{}) 
 	}
 
 	return ClusterNodePoolsConfigWorkloadMetadataConfigModeEnumRef(s)
+}
+
+// flattenClusterNodePoolsConfigWorkloadMetadataConfigNodeMetadataEnumMap flattens the contents of ClusterNodePoolsConfigWorkloadMetadataConfigNodeMetadataEnum from a JSON
+// response object.
+func flattenClusterNodePoolsConfigWorkloadMetadataConfigNodeMetadataEnumMap(c *Client, i interface{}) map[string]ClusterNodePoolsConfigWorkloadMetadataConfigNodeMetadataEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterNodePoolsConfigWorkloadMetadataConfigNodeMetadataEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterNodePoolsConfigWorkloadMetadataConfigNodeMetadataEnum{}
+	}
+
+	items := make(map[string]ClusterNodePoolsConfigWorkloadMetadataConfigNodeMetadataEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterNodePoolsConfigWorkloadMetadataConfigNodeMetadataEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenClusterNodePoolsConfigWorkloadMetadataConfigNodeMetadataEnumSlice flattens the contents of ClusterNodePoolsConfigWorkloadMetadataConfigNodeMetadataEnum from a JSON
@@ -24840,6 +24920,26 @@ func flattenClusterNodePoolsConfigWorkloadMetadataConfigNodeMetadataEnum(i inter
 	return ClusterNodePoolsConfigWorkloadMetadataConfigNodeMetadataEnumRef(s)
 }
 
+// flattenClusterNodePoolsConfigTaintsEffectEnumMap flattens the contents of ClusterNodePoolsConfigTaintsEffectEnum from a JSON
+// response object.
+func flattenClusterNodePoolsConfigTaintsEffectEnumMap(c *Client, i interface{}) map[string]ClusterNodePoolsConfigTaintsEffectEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterNodePoolsConfigTaintsEffectEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterNodePoolsConfigTaintsEffectEnum{}
+	}
+
+	items := make(map[string]ClusterNodePoolsConfigTaintsEffectEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterNodePoolsConfigTaintsEffectEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenClusterNodePoolsConfigTaintsEffectEnumSlice flattens the contents of ClusterNodePoolsConfigTaintsEffectEnum from a JSON
 // response object.
 func flattenClusterNodePoolsConfigTaintsEffectEnumSlice(c *Client, i interface{}) []ClusterNodePoolsConfigTaintsEffectEnum {
@@ -24869,6 +24969,26 @@ func flattenClusterNodePoolsConfigTaintsEffectEnum(i interface{}) *ClusterNodePo
 	}
 
 	return ClusterNodePoolsConfigTaintsEffectEnumRef(s)
+}
+
+// flattenClusterNodePoolsConfigSandboxConfigTypeEnumMap flattens the contents of ClusterNodePoolsConfigSandboxConfigTypeEnum from a JSON
+// response object.
+func flattenClusterNodePoolsConfigSandboxConfigTypeEnumMap(c *Client, i interface{}) map[string]ClusterNodePoolsConfigSandboxConfigTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterNodePoolsConfigSandboxConfigTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterNodePoolsConfigSandboxConfigTypeEnum{}
+	}
+
+	items := make(map[string]ClusterNodePoolsConfigSandboxConfigTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterNodePoolsConfigSandboxConfigTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenClusterNodePoolsConfigSandboxConfigTypeEnumSlice flattens the contents of ClusterNodePoolsConfigSandboxConfigTypeEnum from a JSON
@@ -24902,6 +25022,26 @@ func flattenClusterNodePoolsConfigSandboxConfigTypeEnum(i interface{}) *ClusterN
 	return ClusterNodePoolsConfigSandboxConfigTypeEnumRef(s)
 }
 
+// flattenClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnumMap flattens the contents of ClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnum from a JSON
+// response object.
+func flattenClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnumMap(c *Client, i interface{}) map[string]ClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnum{}
+	}
+
+	items := make(map[string]ClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnumSlice flattens the contents of ClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnum from a JSON
 // response object.
 func flattenClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnumSlice(c *Client, i interface{}) []ClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnum {
@@ -24931,6 +25071,26 @@ func flattenClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnum(
 	}
 
 	return ClusterNodePoolsConfigReservationAffinityConsumeReservationTypeEnumRef(s)
+}
+
+// flattenClusterNodePoolsStatusEnumMap flattens the contents of ClusterNodePoolsStatusEnum from a JSON
+// response object.
+func flattenClusterNodePoolsStatusEnumMap(c *Client, i interface{}) map[string]ClusterNodePoolsStatusEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterNodePoolsStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterNodePoolsStatusEnum{}
+	}
+
+	items := make(map[string]ClusterNodePoolsStatusEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterNodePoolsStatusEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenClusterNodePoolsStatusEnumSlice flattens the contents of ClusterNodePoolsStatusEnum from a JSON
@@ -24964,6 +25124,26 @@ func flattenClusterNodePoolsStatusEnum(i interface{}) *ClusterNodePoolsStatusEnu
 	return ClusterNodePoolsStatusEnumRef(s)
 }
 
+// flattenClusterNodePoolsConditionsCodeEnumMap flattens the contents of ClusterNodePoolsConditionsCodeEnum from a JSON
+// response object.
+func flattenClusterNodePoolsConditionsCodeEnumMap(c *Client, i interface{}) map[string]ClusterNodePoolsConditionsCodeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterNodePoolsConditionsCodeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterNodePoolsConditionsCodeEnum{}
+	}
+
+	items := make(map[string]ClusterNodePoolsConditionsCodeEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterNodePoolsConditionsCodeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenClusterNodePoolsConditionsCodeEnumSlice flattens the contents of ClusterNodePoolsConditionsCodeEnum from a JSON
 // response object.
 func flattenClusterNodePoolsConditionsCodeEnumSlice(c *Client, i interface{}) []ClusterNodePoolsConditionsCodeEnum {
@@ -24993,6 +25173,26 @@ func flattenClusterNodePoolsConditionsCodeEnum(i interface{}) *ClusterNodePoolsC
 	}
 
 	return ClusterNodePoolsConditionsCodeEnumRef(s)
+}
+
+// flattenClusterNodePoolsConditionsCanonicalCodeEnumMap flattens the contents of ClusterNodePoolsConditionsCanonicalCodeEnum from a JSON
+// response object.
+func flattenClusterNodePoolsConditionsCanonicalCodeEnumMap(c *Client, i interface{}) map[string]ClusterNodePoolsConditionsCanonicalCodeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterNodePoolsConditionsCanonicalCodeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterNodePoolsConditionsCanonicalCodeEnum{}
+	}
+
+	items := make(map[string]ClusterNodePoolsConditionsCanonicalCodeEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterNodePoolsConditionsCanonicalCodeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenClusterNodePoolsConditionsCanonicalCodeEnumSlice flattens the contents of ClusterNodePoolsConditionsCanonicalCodeEnum from a JSON
@@ -25026,6 +25226,26 @@ func flattenClusterNodePoolsConditionsCanonicalCodeEnum(i interface{}) *ClusterN
 	return ClusterNodePoolsConditionsCanonicalCodeEnumRef(s)
 }
 
+// flattenClusterNetworkPolicyProviderEnumMap flattens the contents of ClusterNetworkPolicyProviderEnum from a JSON
+// response object.
+func flattenClusterNetworkPolicyProviderEnumMap(c *Client, i interface{}) map[string]ClusterNetworkPolicyProviderEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterNetworkPolicyProviderEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterNetworkPolicyProviderEnum{}
+	}
+
+	items := make(map[string]ClusterNetworkPolicyProviderEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterNetworkPolicyProviderEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenClusterNetworkPolicyProviderEnumSlice flattens the contents of ClusterNetworkPolicyProviderEnum from a JSON
 // response object.
 func flattenClusterNetworkPolicyProviderEnumSlice(c *Client, i interface{}) []ClusterNetworkPolicyProviderEnum {
@@ -25055,6 +25275,26 @@ func flattenClusterNetworkPolicyProviderEnum(i interface{}) *ClusterNetworkPolic
 	}
 
 	return ClusterNetworkPolicyProviderEnumRef(s)
+}
+
+// flattenClusterAutoscalingAutoscalingProfileEnumMap flattens the contents of ClusterAutoscalingAutoscalingProfileEnum from a JSON
+// response object.
+func flattenClusterAutoscalingAutoscalingProfileEnumMap(c *Client, i interface{}) map[string]ClusterAutoscalingAutoscalingProfileEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterAutoscalingAutoscalingProfileEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterAutoscalingAutoscalingProfileEnum{}
+	}
+
+	items := make(map[string]ClusterAutoscalingAutoscalingProfileEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterAutoscalingAutoscalingProfileEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenClusterAutoscalingAutoscalingProfileEnumSlice flattens the contents of ClusterAutoscalingAutoscalingProfileEnum from a JSON
@@ -25088,6 +25328,26 @@ func flattenClusterAutoscalingAutoscalingProfileEnum(i interface{}) *ClusterAuto
 	return ClusterAutoscalingAutoscalingProfileEnumRef(s)
 }
 
+// flattenClusterNetworkConfigPrivateIPv6GoogleAccessEnumMap flattens the contents of ClusterNetworkConfigPrivateIPv6GoogleAccessEnum from a JSON
+// response object.
+func flattenClusterNetworkConfigPrivateIPv6GoogleAccessEnumMap(c *Client, i interface{}) map[string]ClusterNetworkConfigPrivateIPv6GoogleAccessEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterNetworkConfigPrivateIPv6GoogleAccessEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterNetworkConfigPrivateIPv6GoogleAccessEnum{}
+	}
+
+	items := make(map[string]ClusterNetworkConfigPrivateIPv6GoogleAccessEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterNetworkConfigPrivateIPv6GoogleAccessEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenClusterNetworkConfigPrivateIPv6GoogleAccessEnumSlice flattens the contents of ClusterNetworkConfigPrivateIPv6GoogleAccessEnum from a JSON
 // response object.
 func flattenClusterNetworkConfigPrivateIPv6GoogleAccessEnumSlice(c *Client, i interface{}) []ClusterNetworkConfigPrivateIPv6GoogleAccessEnum {
@@ -25117,6 +25377,26 @@ func flattenClusterNetworkConfigPrivateIPv6GoogleAccessEnum(i interface{}) *Clus
 	}
 
 	return ClusterNetworkConfigPrivateIPv6GoogleAccessEnumRef(s)
+}
+
+// flattenClusterNetworkConfigDatapathProviderEnumMap flattens the contents of ClusterNetworkConfigDatapathProviderEnum from a JSON
+// response object.
+func flattenClusterNetworkConfigDatapathProviderEnumMap(c *Client, i interface{}) map[string]ClusterNetworkConfigDatapathProviderEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterNetworkConfigDatapathProviderEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterNetworkConfigDatapathProviderEnum{}
+	}
+
+	items := make(map[string]ClusterNetworkConfigDatapathProviderEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterNetworkConfigDatapathProviderEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenClusterNetworkConfigDatapathProviderEnumSlice flattens the contents of ClusterNetworkConfigDatapathProviderEnum from a JSON
@@ -25150,6 +25430,26 @@ func flattenClusterNetworkConfigDatapathProviderEnum(i interface{}) *ClusterNetw
 	return ClusterNetworkConfigDatapathProviderEnumRef(s)
 }
 
+// flattenClusterDatabaseEncryptionStateEnumMap flattens the contents of ClusterDatabaseEncryptionStateEnum from a JSON
+// response object.
+func flattenClusterDatabaseEncryptionStateEnumMap(c *Client, i interface{}) map[string]ClusterDatabaseEncryptionStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterDatabaseEncryptionStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterDatabaseEncryptionStateEnum{}
+	}
+
+	items := make(map[string]ClusterDatabaseEncryptionStateEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterDatabaseEncryptionStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenClusterDatabaseEncryptionStateEnumSlice flattens the contents of ClusterDatabaseEncryptionStateEnum from a JSON
 // response object.
 func flattenClusterDatabaseEncryptionStateEnumSlice(c *Client, i interface{}) []ClusterDatabaseEncryptionStateEnum {
@@ -25179,6 +25479,26 @@ func flattenClusterDatabaseEncryptionStateEnum(i interface{}) *ClusterDatabaseEn
 	}
 
 	return ClusterDatabaseEncryptionStateEnumRef(s)
+}
+
+// flattenClusterConditionsCanonicalCodeEnumMap flattens the contents of ClusterConditionsCanonicalCodeEnum from a JSON
+// response object.
+func flattenClusterConditionsCanonicalCodeEnumMap(c *Client, i interface{}) map[string]ClusterConditionsCanonicalCodeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterConditionsCanonicalCodeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterConditionsCanonicalCodeEnum{}
+	}
+
+	items := make(map[string]ClusterConditionsCanonicalCodeEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterConditionsCanonicalCodeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenClusterConditionsCanonicalCodeEnumSlice flattens the contents of ClusterConditionsCanonicalCodeEnum from a JSON
@@ -25212,6 +25532,26 @@ func flattenClusterConditionsCanonicalCodeEnum(i interface{}) *ClusterConditions
 	return ClusterConditionsCanonicalCodeEnumRef(s)
 }
 
+// flattenClusterNodeConfigWorkloadMetadataConfigModeEnumMap flattens the contents of ClusterNodeConfigWorkloadMetadataConfigModeEnum from a JSON
+// response object.
+func flattenClusterNodeConfigWorkloadMetadataConfigModeEnumMap(c *Client, i interface{}) map[string]ClusterNodeConfigWorkloadMetadataConfigModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterNodeConfigWorkloadMetadataConfigModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterNodeConfigWorkloadMetadataConfigModeEnum{}
+	}
+
+	items := make(map[string]ClusterNodeConfigWorkloadMetadataConfigModeEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterNodeConfigWorkloadMetadataConfigModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenClusterNodeConfigWorkloadMetadataConfigModeEnumSlice flattens the contents of ClusterNodeConfigWorkloadMetadataConfigModeEnum from a JSON
 // response object.
 func flattenClusterNodeConfigWorkloadMetadataConfigModeEnumSlice(c *Client, i interface{}) []ClusterNodeConfigWorkloadMetadataConfigModeEnum {
@@ -25241,6 +25581,26 @@ func flattenClusterNodeConfigWorkloadMetadataConfigModeEnum(i interface{}) *Clus
 	}
 
 	return ClusterNodeConfigWorkloadMetadataConfigModeEnumRef(s)
+}
+
+// flattenClusterNodeConfigWorkloadMetadataConfigNodeMetadataEnumMap flattens the contents of ClusterNodeConfigWorkloadMetadataConfigNodeMetadataEnum from a JSON
+// response object.
+func flattenClusterNodeConfigWorkloadMetadataConfigNodeMetadataEnumMap(c *Client, i interface{}) map[string]ClusterNodeConfigWorkloadMetadataConfigNodeMetadataEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterNodeConfigWorkloadMetadataConfigNodeMetadataEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterNodeConfigWorkloadMetadataConfigNodeMetadataEnum{}
+	}
+
+	items := make(map[string]ClusterNodeConfigWorkloadMetadataConfigNodeMetadataEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterNodeConfigWorkloadMetadataConfigNodeMetadataEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenClusterNodeConfigWorkloadMetadataConfigNodeMetadataEnumSlice flattens the contents of ClusterNodeConfigWorkloadMetadataConfigNodeMetadataEnum from a JSON
@@ -25274,6 +25634,26 @@ func flattenClusterNodeConfigWorkloadMetadataConfigNodeMetadataEnum(i interface{
 	return ClusterNodeConfigWorkloadMetadataConfigNodeMetadataEnumRef(s)
 }
 
+// flattenClusterNodeConfigTaintsEffectEnumMap flattens the contents of ClusterNodeConfigTaintsEffectEnum from a JSON
+// response object.
+func flattenClusterNodeConfigTaintsEffectEnumMap(c *Client, i interface{}) map[string]ClusterNodeConfigTaintsEffectEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterNodeConfigTaintsEffectEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterNodeConfigTaintsEffectEnum{}
+	}
+
+	items := make(map[string]ClusterNodeConfigTaintsEffectEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterNodeConfigTaintsEffectEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenClusterNodeConfigTaintsEffectEnumSlice flattens the contents of ClusterNodeConfigTaintsEffectEnum from a JSON
 // response object.
 func flattenClusterNodeConfigTaintsEffectEnumSlice(c *Client, i interface{}) []ClusterNodeConfigTaintsEffectEnum {
@@ -25303,6 +25683,26 @@ func flattenClusterNodeConfigTaintsEffectEnum(i interface{}) *ClusterNodeConfigT
 	}
 
 	return ClusterNodeConfigTaintsEffectEnumRef(s)
+}
+
+// flattenClusterNodeConfigSandboxConfigTypeEnumMap flattens the contents of ClusterNodeConfigSandboxConfigTypeEnum from a JSON
+// response object.
+func flattenClusterNodeConfigSandboxConfigTypeEnumMap(c *Client, i interface{}) map[string]ClusterNodeConfigSandboxConfigTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterNodeConfigSandboxConfigTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterNodeConfigSandboxConfigTypeEnum{}
+	}
+
+	items := make(map[string]ClusterNodeConfigSandboxConfigTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterNodeConfigSandboxConfigTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenClusterNodeConfigSandboxConfigTypeEnumSlice flattens the contents of ClusterNodeConfigSandboxConfigTypeEnum from a JSON
@@ -25336,6 +25736,26 @@ func flattenClusterNodeConfigSandboxConfigTypeEnum(i interface{}) *ClusterNodeCo
 	return ClusterNodeConfigSandboxConfigTypeEnumRef(s)
 }
 
+// flattenClusterNodeConfigReservationAffinityConsumeReservationTypeEnumMap flattens the contents of ClusterNodeConfigReservationAffinityConsumeReservationTypeEnum from a JSON
+// response object.
+func flattenClusterNodeConfigReservationAffinityConsumeReservationTypeEnumMap(c *Client, i interface{}) map[string]ClusterNodeConfigReservationAffinityConsumeReservationTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterNodeConfigReservationAffinityConsumeReservationTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterNodeConfigReservationAffinityConsumeReservationTypeEnum{}
+	}
+
+	items := make(map[string]ClusterNodeConfigReservationAffinityConsumeReservationTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterNodeConfigReservationAffinityConsumeReservationTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenClusterNodeConfigReservationAffinityConsumeReservationTypeEnumSlice flattens the contents of ClusterNodeConfigReservationAffinityConsumeReservationTypeEnum from a JSON
 // response object.
 func flattenClusterNodeConfigReservationAffinityConsumeReservationTypeEnumSlice(c *Client, i interface{}) []ClusterNodeConfigReservationAffinityConsumeReservationTypeEnum {
@@ -25367,6 +25787,26 @@ func flattenClusterNodeConfigReservationAffinityConsumeReservationTypeEnum(i int
 	return ClusterNodeConfigReservationAffinityConsumeReservationTypeEnumRef(s)
 }
 
+// flattenClusterReleaseChannelChannelEnumMap flattens the contents of ClusterReleaseChannelChannelEnum from a JSON
+// response object.
+func flattenClusterReleaseChannelChannelEnumMap(c *Client, i interface{}) map[string]ClusterReleaseChannelChannelEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterReleaseChannelChannelEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterReleaseChannelChannelEnum{}
+	}
+
+	items := make(map[string]ClusterReleaseChannelChannelEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterReleaseChannelChannelEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenClusterReleaseChannelChannelEnumSlice flattens the contents of ClusterReleaseChannelChannelEnum from a JSON
 // response object.
 func flattenClusterReleaseChannelChannelEnumSlice(c *Client, i interface{}) []ClusterReleaseChannelChannelEnum {
@@ -25396,6 +25836,26 @@ func flattenClusterReleaseChannelChannelEnum(i interface{}) *ClusterReleaseChann
 	}
 
 	return ClusterReleaseChannelChannelEnumRef(s)
+}
+
+// flattenClusterClusterTelemetryTypeEnumMap flattens the contents of ClusterClusterTelemetryTypeEnum from a JSON
+// response object.
+func flattenClusterClusterTelemetryTypeEnumMap(c *Client, i interface{}) map[string]ClusterClusterTelemetryTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterClusterTelemetryTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterClusterTelemetryTypeEnum{}
+	}
+
+	items := make(map[string]ClusterClusterTelemetryTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterClusterTelemetryTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenClusterClusterTelemetryTypeEnumSlice flattens the contents of ClusterClusterTelemetryTypeEnum from a JSON

@@ -1898,6 +1898,26 @@ func flattenFunctionEventTrigger(c *Client, i interface{}) *FunctionEventTrigger
 	return r
 }
 
+// flattenFunctionHttpsTriggerSecurityLevelEnumMap flattens the contents of FunctionHttpsTriggerSecurityLevelEnum from a JSON
+// response object.
+func flattenFunctionHttpsTriggerSecurityLevelEnumMap(c *Client, i interface{}) map[string]FunctionHttpsTriggerSecurityLevelEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]FunctionHttpsTriggerSecurityLevelEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]FunctionHttpsTriggerSecurityLevelEnum{}
+	}
+
+	items := make(map[string]FunctionHttpsTriggerSecurityLevelEnum)
+	for k, item := range a {
+		items[k] = *flattenFunctionHttpsTriggerSecurityLevelEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenFunctionHttpsTriggerSecurityLevelEnumSlice flattens the contents of FunctionHttpsTriggerSecurityLevelEnum from a JSON
 // response object.
 func flattenFunctionHttpsTriggerSecurityLevelEnumSlice(c *Client, i interface{}) []FunctionHttpsTriggerSecurityLevelEnum {
@@ -1927,6 +1947,26 @@ func flattenFunctionHttpsTriggerSecurityLevelEnum(i interface{}) *FunctionHttpsT
 	}
 
 	return FunctionHttpsTriggerSecurityLevelEnumRef(s)
+}
+
+// flattenFunctionStatusEnumMap flattens the contents of FunctionStatusEnum from a JSON
+// response object.
+func flattenFunctionStatusEnumMap(c *Client, i interface{}) map[string]FunctionStatusEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]FunctionStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]FunctionStatusEnum{}
+	}
+
+	items := make(map[string]FunctionStatusEnum)
+	for k, item := range a {
+		items[k] = *flattenFunctionStatusEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenFunctionStatusEnumSlice flattens the contents of FunctionStatusEnum from a JSON
@@ -1960,6 +2000,26 @@ func flattenFunctionStatusEnum(i interface{}) *FunctionStatusEnum {
 	return FunctionStatusEnumRef(s)
 }
 
+// flattenFunctionVPCConnectorEgressSettingsEnumMap flattens the contents of FunctionVPCConnectorEgressSettingsEnum from a JSON
+// response object.
+func flattenFunctionVPCConnectorEgressSettingsEnumMap(c *Client, i interface{}) map[string]FunctionVPCConnectorEgressSettingsEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]FunctionVPCConnectorEgressSettingsEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]FunctionVPCConnectorEgressSettingsEnum{}
+	}
+
+	items := make(map[string]FunctionVPCConnectorEgressSettingsEnum)
+	for k, item := range a {
+		items[k] = *flattenFunctionVPCConnectorEgressSettingsEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenFunctionVPCConnectorEgressSettingsEnumSlice flattens the contents of FunctionVPCConnectorEgressSettingsEnum from a JSON
 // response object.
 func flattenFunctionVPCConnectorEgressSettingsEnumSlice(c *Client, i interface{}) []FunctionVPCConnectorEgressSettingsEnum {
@@ -1989,6 +2049,26 @@ func flattenFunctionVPCConnectorEgressSettingsEnum(i interface{}) *FunctionVPCCo
 	}
 
 	return FunctionVPCConnectorEgressSettingsEnumRef(s)
+}
+
+// flattenFunctionIngressSettingsEnumMap flattens the contents of FunctionIngressSettingsEnum from a JSON
+// response object.
+func flattenFunctionIngressSettingsEnumMap(c *Client, i interface{}) map[string]FunctionIngressSettingsEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]FunctionIngressSettingsEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]FunctionIngressSettingsEnum{}
+	}
+
+	items := make(map[string]FunctionIngressSettingsEnum)
+	for k, item := range a {
+		items[k] = *flattenFunctionIngressSettingsEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenFunctionIngressSettingsEnumSlice flattens the contents of FunctionIngressSettingsEnum from a JSON

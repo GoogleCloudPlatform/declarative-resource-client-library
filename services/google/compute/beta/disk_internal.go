@@ -2183,6 +2183,26 @@ func flattenDiskGuestOsFeatures(c *Client, i interface{}) *DiskGuestOsFeatures {
 	return r
 }
 
+// flattenDiskGuestOsFeatureTypeEnumMap flattens the contents of DiskGuestOsFeatureTypeEnum from a JSON
+// response object.
+func flattenDiskGuestOsFeatureTypeEnumMap(c *Client, i interface{}) map[string]DiskGuestOsFeatureTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DiskGuestOsFeatureTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DiskGuestOsFeatureTypeEnum{}
+	}
+
+	items := make(map[string]DiskGuestOsFeatureTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenDiskGuestOsFeatureTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDiskGuestOsFeatureTypeEnumSlice flattens the contents of DiskGuestOsFeatureTypeEnum from a JSON
 // response object.
 func flattenDiskGuestOsFeatureTypeEnumSlice(c *Client, i interface{}) []DiskGuestOsFeatureTypeEnum {
@@ -2212,6 +2232,26 @@ func flattenDiskGuestOsFeatureTypeEnum(i interface{}) *DiskGuestOsFeatureTypeEnu
 	}
 
 	return DiskGuestOsFeatureTypeEnumRef(s)
+}
+
+// flattenDiskGuestOsFeatureTypeAltEnumMap flattens the contents of DiskGuestOsFeatureTypeAltEnum from a JSON
+// response object.
+func flattenDiskGuestOsFeatureTypeAltEnumMap(c *Client, i interface{}) map[string]DiskGuestOsFeatureTypeAltEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DiskGuestOsFeatureTypeAltEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DiskGuestOsFeatureTypeAltEnum{}
+	}
+
+	items := make(map[string]DiskGuestOsFeatureTypeAltEnum)
+	for k, item := range a {
+		items[k] = *flattenDiskGuestOsFeatureTypeAltEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDiskGuestOsFeatureTypeAltEnumSlice flattens the contents of DiskGuestOsFeatureTypeAltEnum from a JSON
@@ -2245,6 +2285,26 @@ func flattenDiskGuestOsFeatureTypeAltEnum(i interface{}) *DiskGuestOsFeatureType
 	return DiskGuestOsFeatureTypeAltEnumRef(s)
 }
 
+// flattenDiskStatusEnumMap flattens the contents of DiskStatusEnum from a JSON
+// response object.
+func flattenDiskStatusEnumMap(c *Client, i interface{}) map[string]DiskStatusEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DiskStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DiskStatusEnum{}
+	}
+
+	items := make(map[string]DiskStatusEnum)
+	for k, item := range a {
+		items[k] = *flattenDiskStatusEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDiskStatusEnumSlice flattens the contents of DiskStatusEnum from a JSON
 // response object.
 func flattenDiskStatusEnumSlice(c *Client, i interface{}) []DiskStatusEnum {
@@ -2276,6 +2336,26 @@ func flattenDiskStatusEnum(i interface{}) *DiskStatusEnum {
 	return DiskStatusEnumRef(s)
 }
 
+// flattenDiskGuestOsFeaturesTypeEnumMap flattens the contents of DiskGuestOsFeaturesTypeEnum from a JSON
+// response object.
+func flattenDiskGuestOsFeaturesTypeEnumMap(c *Client, i interface{}) map[string]DiskGuestOsFeaturesTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DiskGuestOsFeaturesTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DiskGuestOsFeaturesTypeEnum{}
+	}
+
+	items := make(map[string]DiskGuestOsFeaturesTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenDiskGuestOsFeaturesTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDiskGuestOsFeaturesTypeEnumSlice flattens the contents of DiskGuestOsFeaturesTypeEnum from a JSON
 // response object.
 func flattenDiskGuestOsFeaturesTypeEnumSlice(c *Client, i interface{}) []DiskGuestOsFeaturesTypeEnum {
@@ -2305,6 +2385,26 @@ func flattenDiskGuestOsFeaturesTypeEnum(i interface{}) *DiskGuestOsFeaturesTypeE
 	}
 
 	return DiskGuestOsFeaturesTypeEnumRef(s)
+}
+
+// flattenDiskGuestOsFeaturesTypeAltsEnumMap flattens the contents of DiskGuestOsFeaturesTypeAltsEnum from a JSON
+// response object.
+func flattenDiskGuestOsFeaturesTypeAltsEnumMap(c *Client, i interface{}) map[string]DiskGuestOsFeaturesTypeAltsEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DiskGuestOsFeaturesTypeAltsEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DiskGuestOsFeaturesTypeAltsEnum{}
+	}
+
+	items := make(map[string]DiskGuestOsFeaturesTypeAltsEnum)
+	for k, item := range a {
+		items[k] = *flattenDiskGuestOsFeaturesTypeAltsEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDiskGuestOsFeaturesTypeAltsEnumSlice flattens the contents of DiskGuestOsFeaturesTypeAltsEnum from a JSON

@@ -7857,6 +7857,26 @@ func flattenJobScheduling(c *Client, i interface{}) *JobScheduling {
 	return r
 }
 
+// flattenJobStatusStateEnumMap flattens the contents of JobStatusStateEnum from a JSON
+// response object.
+func flattenJobStatusStateEnumMap(c *Client, i interface{}) map[string]JobStatusStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]JobStatusStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]JobStatusStateEnum{}
+	}
+
+	items := make(map[string]JobStatusStateEnum)
+	for k, item := range a {
+		items[k] = *flattenJobStatusStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenJobStatusStateEnumSlice flattens the contents of JobStatusStateEnum from a JSON
 // response object.
 func flattenJobStatusStateEnumSlice(c *Client, i interface{}) []JobStatusStateEnum {
@@ -7886,6 +7906,26 @@ func flattenJobStatusStateEnum(i interface{}) *JobStatusStateEnum {
 	}
 
 	return JobStatusStateEnumRef(s)
+}
+
+// flattenJobStatusSubstateEnumMap flattens the contents of JobStatusSubstateEnum from a JSON
+// response object.
+func flattenJobStatusSubstateEnumMap(c *Client, i interface{}) map[string]JobStatusSubstateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]JobStatusSubstateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]JobStatusSubstateEnum{}
+	}
+
+	items := make(map[string]JobStatusSubstateEnum)
+	for k, item := range a {
+		items[k] = *flattenJobStatusSubstateEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenJobStatusSubstateEnumSlice flattens the contents of JobStatusSubstateEnum from a JSON
@@ -7919,6 +7959,26 @@ func flattenJobStatusSubstateEnum(i interface{}) *JobStatusSubstateEnum {
 	return JobStatusSubstateEnumRef(s)
 }
 
+// flattenJobStatusHistoryStateEnumMap flattens the contents of JobStatusHistoryStateEnum from a JSON
+// response object.
+func flattenJobStatusHistoryStateEnumMap(c *Client, i interface{}) map[string]JobStatusHistoryStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]JobStatusHistoryStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]JobStatusHistoryStateEnum{}
+	}
+
+	items := make(map[string]JobStatusHistoryStateEnum)
+	for k, item := range a {
+		items[k] = *flattenJobStatusHistoryStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenJobStatusHistoryStateEnumSlice flattens the contents of JobStatusHistoryStateEnum from a JSON
 // response object.
 func flattenJobStatusHistoryStateEnumSlice(c *Client, i interface{}) []JobStatusHistoryStateEnum {
@@ -7950,6 +8010,26 @@ func flattenJobStatusHistoryStateEnum(i interface{}) *JobStatusHistoryStateEnum 
 	return JobStatusHistoryStateEnumRef(s)
 }
 
+// flattenJobStatusHistorySubstateEnumMap flattens the contents of JobStatusHistorySubstateEnum from a JSON
+// response object.
+func flattenJobStatusHistorySubstateEnumMap(c *Client, i interface{}) map[string]JobStatusHistorySubstateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]JobStatusHistorySubstateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]JobStatusHistorySubstateEnum{}
+	}
+
+	items := make(map[string]JobStatusHistorySubstateEnum)
+	for k, item := range a {
+		items[k] = *flattenJobStatusHistorySubstateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenJobStatusHistorySubstateEnumSlice flattens the contents of JobStatusHistorySubstateEnum from a JSON
 // response object.
 func flattenJobStatusHistorySubstateEnumSlice(c *Client, i interface{}) []JobStatusHistorySubstateEnum {
@@ -7979,6 +8059,26 @@ func flattenJobStatusHistorySubstateEnum(i interface{}) *JobStatusHistorySubstat
 	}
 
 	return JobStatusHistorySubstateEnumRef(s)
+}
+
+// flattenJobYarnApplicationsStateEnumMap flattens the contents of JobYarnApplicationsStateEnum from a JSON
+// response object.
+func flattenJobYarnApplicationsStateEnumMap(c *Client, i interface{}) map[string]JobYarnApplicationsStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]JobYarnApplicationsStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]JobYarnApplicationsStateEnum{}
+	}
+
+	items := make(map[string]JobYarnApplicationsStateEnum)
+	for k, item := range a {
+		items[k] = *flattenJobYarnApplicationsStateEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenJobYarnApplicationsStateEnumSlice flattens the contents of JobYarnApplicationsStateEnum from a JSON

@@ -866,6 +866,26 @@ func flattenProjectParent(c *Client, i interface{}) *ProjectParent {
 	return r
 }
 
+// flattenProjectLifecycleStateEnumMap flattens the contents of ProjectLifecycleStateEnum from a JSON
+// response object.
+func flattenProjectLifecycleStateEnumMap(c *Client, i interface{}) map[string]ProjectLifecycleStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ProjectLifecycleStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ProjectLifecycleStateEnum{}
+	}
+
+	items := make(map[string]ProjectLifecycleStateEnum)
+	for k, item := range a {
+		items[k] = *flattenProjectLifecycleStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenProjectLifecycleStateEnumSlice flattens the contents of ProjectLifecycleStateEnum from a JSON
 // response object.
 func flattenProjectLifecycleStateEnumSlice(c *Client, i interface{}) []ProjectLifecycleStateEnum {

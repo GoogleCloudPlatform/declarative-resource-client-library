@@ -653,6 +653,26 @@ func flattenFolder(c *Client, i interface{}) *Folder {
 	return res
 }
 
+// flattenFolderStateEnumMap flattens the contents of FolderStateEnum from a JSON
+// response object.
+func flattenFolderStateEnumMap(c *Client, i interface{}) map[string]FolderStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]FolderStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]FolderStateEnum{}
+	}
+
+	items := make(map[string]FolderStateEnum)
+	for k, item := range a {
+		items[k] = *flattenFolderStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenFolderStateEnumSlice flattens the contents of FolderStateEnum from a JSON
 // response object.
 func flattenFolderStateEnumSlice(c *Client, i interface{}) []FolderStateEnum {

@@ -946,6 +946,26 @@ func flattenUserSqlserverUserDetails(c *Client, i interface{}) *UserSqlserverUse
 	return r
 }
 
+// flattenUserTypeEnumMap flattens the contents of UserTypeEnum from a JSON
+// response object.
+func flattenUserTypeEnumMap(c *Client, i interface{}) map[string]UserTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]UserTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]UserTypeEnum{}
+	}
+
+	items := make(map[string]UserTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenUserTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenUserTypeEnumSlice flattens the contents of UserTypeEnum from a JSON
 // response object.
 func flattenUserTypeEnumSlice(c *Client, i interface{}) []UserTypeEnum {

@@ -4472,6 +4472,26 @@ func flattenNodePoolUpgradeSettings(c *Client, i interface{}) *NodePoolUpgradeSe
 	return r
 }
 
+// flattenNodePoolConfigSandboxConfigTypeEnumMap flattens the contents of NodePoolConfigSandboxConfigTypeEnum from a JSON
+// response object.
+func flattenNodePoolConfigSandboxConfigTypeEnumMap(c *Client, i interface{}) map[string]NodePoolConfigSandboxConfigTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NodePoolConfigSandboxConfigTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NodePoolConfigSandboxConfigTypeEnum{}
+	}
+
+	items := make(map[string]NodePoolConfigSandboxConfigTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenNodePoolConfigSandboxConfigTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenNodePoolConfigSandboxConfigTypeEnumSlice flattens the contents of NodePoolConfigSandboxConfigTypeEnum from a JSON
 // response object.
 func flattenNodePoolConfigSandboxConfigTypeEnumSlice(c *Client, i interface{}) []NodePoolConfigSandboxConfigTypeEnum {
@@ -4503,6 +4523,26 @@ func flattenNodePoolConfigSandboxConfigTypeEnum(i interface{}) *NodePoolConfigSa
 	return NodePoolConfigSandboxConfigTypeEnumRef(s)
 }
 
+// flattenNodePoolConfigReservationAffinityConsumeReservationTypeEnumMap flattens the contents of NodePoolConfigReservationAffinityConsumeReservationTypeEnum from a JSON
+// response object.
+func flattenNodePoolConfigReservationAffinityConsumeReservationTypeEnumMap(c *Client, i interface{}) map[string]NodePoolConfigReservationAffinityConsumeReservationTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NodePoolConfigReservationAffinityConsumeReservationTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NodePoolConfigReservationAffinityConsumeReservationTypeEnum{}
+	}
+
+	items := make(map[string]NodePoolConfigReservationAffinityConsumeReservationTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenNodePoolConfigReservationAffinityConsumeReservationTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenNodePoolConfigReservationAffinityConsumeReservationTypeEnumSlice flattens the contents of NodePoolConfigReservationAffinityConsumeReservationTypeEnum from a JSON
 // response object.
 func flattenNodePoolConfigReservationAffinityConsumeReservationTypeEnumSlice(c *Client, i interface{}) []NodePoolConfigReservationAffinityConsumeReservationTypeEnum {
@@ -4532,6 +4572,26 @@ func flattenNodePoolConfigReservationAffinityConsumeReservationTypeEnum(i interf
 	}
 
 	return NodePoolConfigReservationAffinityConsumeReservationTypeEnumRef(s)
+}
+
+// flattenNodePoolConditionsCodeEnumMap flattens the contents of NodePoolConditionsCodeEnum from a JSON
+// response object.
+func flattenNodePoolConditionsCodeEnumMap(c *Client, i interface{}) map[string]NodePoolConditionsCodeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NodePoolConditionsCodeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NodePoolConditionsCodeEnum{}
+	}
+
+	items := make(map[string]NodePoolConditionsCodeEnum)
+	for k, item := range a {
+		items[k] = *flattenNodePoolConditionsCodeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenNodePoolConditionsCodeEnumSlice flattens the contents of NodePoolConditionsCodeEnum from a JSON

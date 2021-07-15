@@ -25,8 +25,9 @@ from typing import List
 class ManagedSslCertificate(object):
     def __init__(
         self,
-        id: int = None,
         name: str = None,
+        id: int = None,
+        creation_timestamp: str = None,
         description: str = None,
         self_link: str = None,
         managed: dict = None,
@@ -73,8 +74,9 @@ class ManagedSslCertificate(object):
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyComputeBetaManagedSslCertificate(request)
-        self.id = Primitive.from_proto(response.id)
         self.name = Primitive.from_proto(response.name)
+        self.id = Primitive.from_proto(response.id)
+        self.creation_timestamp = Primitive.from_proto(response.creation_timestamp)
         self.description = Primitive.from_proto(response.description)
         self.self_link = Primitive.from_proto(response.self_link)
         self.managed = ManagedSslCertificateManaged.from_proto(response.managed)
@@ -210,6 +212,26 @@ class ManagedSslCertificateManagedStatusEnum(object):
             resource
         )[
             len("ComputeBetaManagedSslCertificateManagedStatusEnum") :
+        ]
+
+
+class ManagedSslCertificateManagedDomainStatusEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return managed_ssl_certificate_pb2.ComputeBetaManagedSslCertificateManagedDomainStatusEnum.Value(
+            "ComputeBetaManagedSslCertificateManagedDomainStatusEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return managed_ssl_certificate_pb2.ComputeBetaManagedSslCertificateManagedDomainStatusEnum.Name(
+            resource
+        )[
+            len("ComputeBetaManagedSslCertificateManagedDomainStatusEnum") :
         ]
 
 

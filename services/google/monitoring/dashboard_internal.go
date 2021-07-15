@@ -12458,6 +12458,26 @@ func flattenDashboardWidgetBlank(c *Client, i interface{}) *DashboardWidgetBlank
 	return r
 }
 
+// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum from a JSON
+// response object.
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum from a JSON
 // response object.
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
@@ -12487,6 +12507,26 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef(s)
+}
+
+// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum from a JSON
+// response object.
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum from a JSON
@@ -12520,6 +12560,26 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggrega
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef(s)
 }
 
+// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum from a JSON
+// response object.
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum from a JSON
 // response object.
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
@@ -12549,6 +12609,26 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef(s)
+}
+
+// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum from a JSON
+// response object.
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum from a JSON
@@ -12582,6 +12662,26 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSeconda
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef(s)
 }
 
+// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum from a JSON
+// response object.
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum from a JSON
 // response object.
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
@@ -12611,6 +12711,26 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef(s)
+}
+
+// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum from a JSON
+// response object.
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum from a JSON
@@ -12644,6 +12764,26 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTim
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef(s)
 }
 
+// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum from a JSON
+// response object.
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum from a JSON
 // response object.
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
@@ -12673,6 +12813,26 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef(s)
+}
+
+// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum from a JSON
+// response object.
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum from a JSON
@@ -12706,6 +12866,26 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNu
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef(s)
 }
 
+// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum from a JSON
+// response object.
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum from a JSON
 // response object.
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
@@ -12735,6 +12915,26 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef(s)
+}
+
+// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum from a JSON
+// response object.
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum from a JSON
@@ -12768,6 +12968,26 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDe
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef(s)
 }
 
+// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum from a JSON
+// response object.
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum from a JSON
 // response object.
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
@@ -12797,6 +13017,26 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef(s)
+}
+
+// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum from a JSON
+// response object.
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum from a JSON
@@ -12830,6 +13070,26 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSe
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef(s)
 }
 
+// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum from a JSON
+// response object.
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum from a JSON
 // response object.
 func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
@@ -12859,6 +13119,26 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 	}
 
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef(s)
+}
+
+// flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumMap flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum from a JSON
+// response object.
+func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum from a JSON
@@ -12892,6 +13172,26 @@ func flattenDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPi
 	return DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef(s)
 }
 
+// flattenDashboardWidgetXyChartDataSetsPlotTypeEnumMap flattens the contents of DashboardWidgetXyChartDataSetsPlotTypeEnum from a JSON
+// response object.
+func flattenDashboardWidgetXyChartDataSetsPlotTypeEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartDataSetsPlotTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetXyChartDataSetsPlotTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetXyChartDataSetsPlotTypeEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetXyChartDataSetsPlotTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetXyChartDataSetsPlotTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDashboardWidgetXyChartDataSetsPlotTypeEnumSlice flattens the contents of DashboardWidgetXyChartDataSetsPlotTypeEnum from a JSON
 // response object.
 func flattenDashboardWidgetXyChartDataSetsPlotTypeEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartDataSetsPlotTypeEnum {
@@ -12921,6 +13221,26 @@ func flattenDashboardWidgetXyChartDataSetsPlotTypeEnum(i interface{}) *Dashboard
 	}
 
 	return DashboardWidgetXyChartDataSetsPlotTypeEnumRef(s)
+}
+
+// flattenDashboardWidgetXyChartThresholdsColorEnumMap flattens the contents of DashboardWidgetXyChartThresholdsColorEnum from a JSON
+// response object.
+func flattenDashboardWidgetXyChartThresholdsColorEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartThresholdsColorEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetXyChartThresholdsColorEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetXyChartThresholdsColorEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetXyChartThresholdsColorEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetXyChartThresholdsColorEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDashboardWidgetXyChartThresholdsColorEnumSlice flattens the contents of DashboardWidgetXyChartThresholdsColorEnum from a JSON
@@ -12954,6 +13274,26 @@ func flattenDashboardWidgetXyChartThresholdsColorEnum(i interface{}) *DashboardW
 	return DashboardWidgetXyChartThresholdsColorEnumRef(s)
 }
 
+// flattenDashboardWidgetXyChartThresholdsDirectionEnumMap flattens the contents of DashboardWidgetXyChartThresholdsDirectionEnum from a JSON
+// response object.
+func flattenDashboardWidgetXyChartThresholdsDirectionEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartThresholdsDirectionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetXyChartThresholdsDirectionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetXyChartThresholdsDirectionEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetXyChartThresholdsDirectionEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetXyChartThresholdsDirectionEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDashboardWidgetXyChartThresholdsDirectionEnumSlice flattens the contents of DashboardWidgetXyChartThresholdsDirectionEnum from a JSON
 // response object.
 func flattenDashboardWidgetXyChartThresholdsDirectionEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartThresholdsDirectionEnum {
@@ -12983,6 +13323,26 @@ func flattenDashboardWidgetXyChartThresholdsDirectionEnum(i interface{}) *Dashbo
 	}
 
 	return DashboardWidgetXyChartThresholdsDirectionEnumRef(s)
+}
+
+// flattenDashboardWidgetXyChartXAxisScaleEnumMap flattens the contents of DashboardWidgetXyChartXAxisScaleEnum from a JSON
+// response object.
+func flattenDashboardWidgetXyChartXAxisScaleEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartXAxisScaleEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetXyChartXAxisScaleEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetXyChartXAxisScaleEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetXyChartXAxisScaleEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetXyChartXAxisScaleEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDashboardWidgetXyChartXAxisScaleEnumSlice flattens the contents of DashboardWidgetXyChartXAxisScaleEnum from a JSON
@@ -13016,6 +13376,26 @@ func flattenDashboardWidgetXyChartXAxisScaleEnum(i interface{}) *DashboardWidget
 	return DashboardWidgetXyChartXAxisScaleEnumRef(s)
 }
 
+// flattenDashboardWidgetXyChartYAxisScaleEnumMap flattens the contents of DashboardWidgetXyChartYAxisScaleEnum from a JSON
+// response object.
+func flattenDashboardWidgetXyChartYAxisScaleEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartYAxisScaleEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetXyChartYAxisScaleEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetXyChartYAxisScaleEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetXyChartYAxisScaleEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetXyChartYAxisScaleEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDashboardWidgetXyChartYAxisScaleEnumSlice flattens the contents of DashboardWidgetXyChartYAxisScaleEnum from a JSON
 // response object.
 func flattenDashboardWidgetXyChartYAxisScaleEnumSlice(c *Client, i interface{}) []DashboardWidgetXyChartYAxisScaleEnum {
@@ -13045,6 +13425,26 @@ func flattenDashboardWidgetXyChartYAxisScaleEnum(i interface{}) *DashboardWidget
 	}
 
 	return DashboardWidgetXyChartYAxisScaleEnumRef(s)
+}
+
+// flattenDashboardWidgetXyChartChartOptionsModeEnumMap flattens the contents of DashboardWidgetXyChartChartOptionsModeEnum from a JSON
+// response object.
+func flattenDashboardWidgetXyChartChartOptionsModeEnumMap(c *Client, i interface{}) map[string]DashboardWidgetXyChartChartOptionsModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetXyChartChartOptionsModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetXyChartChartOptionsModeEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetXyChartChartOptionsModeEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetXyChartChartOptionsModeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDashboardWidgetXyChartChartOptionsModeEnumSlice flattens the contents of DashboardWidgetXyChartChartOptionsModeEnum from a JSON
@@ -13078,6 +13478,26 @@ func flattenDashboardWidgetXyChartChartOptionsModeEnum(i interface{}) *Dashboard
 	return DashboardWidgetXyChartChartOptionsModeEnumRef(s)
 }
 
+// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum from a JSON
+// response object.
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum from a JSON
 // response object.
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
@@ -13107,6 +13527,26 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPe
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef(s)
+}
+
+// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum from a JSON
+// response object.
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum from a JSON
@@ -13140,6 +13580,26 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCr
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef(s)
 }
 
+// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum from a JSON
+// response object.
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum from a JSON
 // response object.
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
@@ -13169,6 +13629,26 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef(s)
+}
+
+// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum from a JSON
+// response object.
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum from a JSON
@@ -13202,6 +13682,26 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggr
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef(s)
 }
 
+// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum from a JSON
+// response object.
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum from a JSON
 // response object.
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
@@ -13231,6 +13731,26 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef(s)
+}
+
+// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum from a JSON
+// response object.
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum from a JSON
@@ -13264,6 +13784,26 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSerie
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef(s)
 }
 
+// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum from a JSON
+// response object.
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum from a JSON
 // response object.
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
@@ -13293,6 +13833,26 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef(s)
+}
+
+// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum from a JSON
+// response object.
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum from a JSON
@@ -13326,6 +13886,26 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerato
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef(s)
 }
 
+// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum from a JSON
+// response object.
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum from a JSON
 // response object.
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
@@ -13355,6 +13935,26 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef(s)
+}
+
+// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum from a JSON
+// response object.
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum from a JSON
@@ -13388,6 +13988,26 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenomina
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef(s)
 }
 
+// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum from a JSON
+// response object.
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum from a JSON
 // response object.
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
@@ -13417,6 +14037,26 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef(s)
+}
+
+// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum from a JSON
+// response object.
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum from a JSON
@@ -13450,6 +14090,26 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondar
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef(s)
 }
 
+// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum from a JSON
+// response object.
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum from a JSON
 // response object.
 func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
@@ -13479,6 +14139,26 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 	}
 
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef(s)
+}
+
+// flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumMap flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum from a JSON
+// response object.
+func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumSlice flattens the contents of DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum from a JSON
@@ -13512,6 +14192,26 @@ func flattenDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTime
 	return DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef(s)
 }
 
+// flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnumMap flattens the contents of DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum from a JSON
+// response object.
+func flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnumSlice flattens the contents of DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum from a JSON
 // response object.
 func flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum {
@@ -13541,6 +14241,26 @@ func flattenDashboardWidgetScorecardSparkChartViewSparkChartTypeEnum(i interface
 	}
 
 	return DashboardWidgetScorecardSparkChartViewSparkChartTypeEnumRef(s)
+}
+
+// flattenDashboardWidgetScorecardThresholdsColorEnumMap flattens the contents of DashboardWidgetScorecardThresholdsColorEnum from a JSON
+// response object.
+func flattenDashboardWidgetScorecardThresholdsColorEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardThresholdsColorEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetScorecardThresholdsColorEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetScorecardThresholdsColorEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetScorecardThresholdsColorEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetScorecardThresholdsColorEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDashboardWidgetScorecardThresholdsColorEnumSlice flattens the contents of DashboardWidgetScorecardThresholdsColorEnum from a JSON
@@ -13574,6 +14294,26 @@ func flattenDashboardWidgetScorecardThresholdsColorEnum(i interface{}) *Dashboar
 	return DashboardWidgetScorecardThresholdsColorEnumRef(s)
 }
 
+// flattenDashboardWidgetScorecardThresholdsDirectionEnumMap flattens the contents of DashboardWidgetScorecardThresholdsDirectionEnum from a JSON
+// response object.
+func flattenDashboardWidgetScorecardThresholdsDirectionEnumMap(c *Client, i interface{}) map[string]DashboardWidgetScorecardThresholdsDirectionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetScorecardThresholdsDirectionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetScorecardThresholdsDirectionEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetScorecardThresholdsDirectionEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetScorecardThresholdsDirectionEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenDashboardWidgetScorecardThresholdsDirectionEnumSlice flattens the contents of DashboardWidgetScorecardThresholdsDirectionEnum from a JSON
 // response object.
 func flattenDashboardWidgetScorecardThresholdsDirectionEnumSlice(c *Client, i interface{}) []DashboardWidgetScorecardThresholdsDirectionEnum {
@@ -13603,6 +14343,26 @@ func flattenDashboardWidgetScorecardThresholdsDirectionEnum(i interface{}) *Dash
 	}
 
 	return DashboardWidgetScorecardThresholdsDirectionEnumRef(s)
+}
+
+// flattenDashboardWidgetTextFormatEnumMap flattens the contents of DashboardWidgetTextFormatEnum from a JSON
+// response object.
+func flattenDashboardWidgetTextFormatEnumMap(c *Client, i interface{}) map[string]DashboardWidgetTextFormatEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardWidgetTextFormatEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardWidgetTextFormatEnum{}
+	}
+
+	items := make(map[string]DashboardWidgetTextFormatEnum)
+	for k, item := range a {
+		items[k] = *flattenDashboardWidgetTextFormatEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenDashboardWidgetTextFormatEnumSlice flattens the contents of DashboardWidgetTextFormatEnum from a JSON

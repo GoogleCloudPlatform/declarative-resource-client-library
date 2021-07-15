@@ -436,6 +436,26 @@ func flattenService(c *Client, i interface{}) *Service {
 	return res
 }
 
+// flattenServiceStateEnumMap flattens the contents of ServiceStateEnum from a JSON
+// response object.
+func flattenServiceStateEnumMap(c *Client, i interface{}) map[string]ServiceStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ServiceStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ServiceStateEnum{}
+	}
+
+	items := make(map[string]ServiceStateEnum)
+	for k, item := range a {
+		items[k] = *flattenServiceStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenServiceStateEnumSlice flattens the contents of ServiceStateEnum from a JSON
 // response object.
 func flattenServiceStateEnumSlice(c *Client, i interface{}) []ServiceStateEnum {

@@ -1774,6 +1774,26 @@ func flattenAuthorizationPolicyRulesDestinationsHttpHeaderMatch(c *Client, i int
 	return r
 }
 
+// flattenAuthorizationPolicyActionEnumMap flattens the contents of AuthorizationPolicyActionEnum from a JSON
+// response object.
+func flattenAuthorizationPolicyActionEnumMap(c *Client, i interface{}) map[string]AuthorizationPolicyActionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AuthorizationPolicyActionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AuthorizationPolicyActionEnum{}
+	}
+
+	items := make(map[string]AuthorizationPolicyActionEnum)
+	for k, item := range a {
+		items[k] = *flattenAuthorizationPolicyActionEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenAuthorizationPolicyActionEnumSlice flattens the contents of AuthorizationPolicyActionEnum from a JSON
 // response object.
 func flattenAuthorizationPolicyActionEnumSlice(c *Client, i interface{}) []AuthorizationPolicyActionEnum {

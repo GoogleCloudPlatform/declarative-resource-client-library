@@ -1176,6 +1176,26 @@ func flattenFirewallPolicyRuleMatchLayer4Configs(c *Client, i interface{}) *Fire
 	return r
 }
 
+// flattenFirewallPolicyRuleDirectionEnumMap flattens the contents of FirewallPolicyRuleDirectionEnum from a JSON
+// response object.
+func flattenFirewallPolicyRuleDirectionEnumMap(c *Client, i interface{}) map[string]FirewallPolicyRuleDirectionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]FirewallPolicyRuleDirectionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]FirewallPolicyRuleDirectionEnum{}
+	}
+
+	items := make(map[string]FirewallPolicyRuleDirectionEnum)
+	for k, item := range a {
+		items[k] = *flattenFirewallPolicyRuleDirectionEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenFirewallPolicyRuleDirectionEnumSlice flattens the contents of FirewallPolicyRuleDirectionEnum from a JSON
 // response object.
 func flattenFirewallPolicyRuleDirectionEnumSlice(c *Client, i interface{}) []FirewallPolicyRuleDirectionEnum {

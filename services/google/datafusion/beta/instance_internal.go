@@ -1564,6 +1564,26 @@ func flattenInstanceAvailableVersion(c *Client, i interface{}) *InstanceAvailabl
 	return r
 }
 
+// flattenInstanceTypeEnumMap flattens the contents of InstanceTypeEnum from a JSON
+// response object.
+func flattenInstanceTypeEnumMap(c *Client, i interface{}) map[string]InstanceTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceTypeEnum{}
+	}
+
+	items := make(map[string]InstanceTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceTypeEnumSlice flattens the contents of InstanceTypeEnum from a JSON
 // response object.
 func flattenInstanceTypeEnumSlice(c *Client, i interface{}) []InstanceTypeEnum {
@@ -1593,6 +1613,26 @@ func flattenInstanceTypeEnum(i interface{}) *InstanceTypeEnum {
 	}
 
 	return InstanceTypeEnumRef(s)
+}
+
+// flattenInstanceStateEnumMap flattens the contents of InstanceStateEnum from a JSON
+// response object.
+func flattenInstanceStateEnumMap(c *Client, i interface{}) map[string]InstanceStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceStateEnum{}
+	}
+
+	items := make(map[string]InstanceStateEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceStateEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceStateEnumSlice flattens the contents of InstanceStateEnum from a JSON

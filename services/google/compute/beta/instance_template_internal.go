@@ -5407,6 +5407,26 @@ func flattenInstanceTemplatePropertiesServiceAccounts(c *Client, i interface{}) 
 	return r
 }
 
+// flattenInstanceTemplatePropertiesDisksInterfaceEnumMap flattens the contents of InstanceTemplatePropertiesDisksInterfaceEnum from a JSON
+// response object.
+func flattenInstanceTemplatePropertiesDisksInterfaceEnumMap(c *Client, i interface{}) map[string]InstanceTemplatePropertiesDisksInterfaceEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceTemplatePropertiesDisksInterfaceEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceTemplatePropertiesDisksInterfaceEnum{}
+	}
+
+	items := make(map[string]InstanceTemplatePropertiesDisksInterfaceEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceTemplatePropertiesDisksInterfaceEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceTemplatePropertiesDisksInterfaceEnumSlice flattens the contents of InstanceTemplatePropertiesDisksInterfaceEnum from a JSON
 // response object.
 func flattenInstanceTemplatePropertiesDisksInterfaceEnumSlice(c *Client, i interface{}) []InstanceTemplatePropertiesDisksInterfaceEnum {
@@ -5436,6 +5456,26 @@ func flattenInstanceTemplatePropertiesDisksInterfaceEnum(i interface{}) *Instanc
 	}
 
 	return InstanceTemplatePropertiesDisksInterfaceEnumRef(s)
+}
+
+// flattenInstanceTemplatePropertiesDisksModeEnumMap flattens the contents of InstanceTemplatePropertiesDisksModeEnum from a JSON
+// response object.
+func flattenInstanceTemplatePropertiesDisksModeEnumMap(c *Client, i interface{}) map[string]InstanceTemplatePropertiesDisksModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceTemplatePropertiesDisksModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceTemplatePropertiesDisksModeEnum{}
+	}
+
+	items := make(map[string]InstanceTemplatePropertiesDisksModeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceTemplatePropertiesDisksModeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceTemplatePropertiesDisksModeEnumSlice flattens the contents of InstanceTemplatePropertiesDisksModeEnum from a JSON
@@ -5469,6 +5509,26 @@ func flattenInstanceTemplatePropertiesDisksModeEnum(i interface{}) *InstanceTemp
 	return InstanceTemplatePropertiesDisksModeEnumRef(s)
 }
 
+// flattenInstanceTemplatePropertiesDisksTypeEnumMap flattens the contents of InstanceTemplatePropertiesDisksTypeEnum from a JSON
+// response object.
+func flattenInstanceTemplatePropertiesDisksTypeEnumMap(c *Client, i interface{}) map[string]InstanceTemplatePropertiesDisksTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceTemplatePropertiesDisksTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceTemplatePropertiesDisksTypeEnum{}
+	}
+
+	items := make(map[string]InstanceTemplatePropertiesDisksTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceTemplatePropertiesDisksTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceTemplatePropertiesDisksTypeEnumSlice flattens the contents of InstanceTemplatePropertiesDisksTypeEnum from a JSON
 // response object.
 func flattenInstanceTemplatePropertiesDisksTypeEnumSlice(c *Client, i interface{}) []InstanceTemplatePropertiesDisksTypeEnum {
@@ -5498,6 +5558,26 @@ func flattenInstanceTemplatePropertiesDisksTypeEnum(i interface{}) *InstanceTemp
 	}
 
 	return InstanceTemplatePropertiesDisksTypeEnumRef(s)
+}
+
+// flattenInstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnumMap flattens the contents of InstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum from a JSON
+// response object.
+func flattenInstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnumMap(c *Client, i interface{}) map[string]InstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum{}
+	}
+
+	items := make(map[string]InstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnumSlice flattens the contents of InstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum from a JSON
@@ -5531,6 +5611,26 @@ func flattenInstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnum(i i
 	return InstanceTemplatePropertiesNetworkInterfacesAccessConfigsTypeEnumRef(s)
 }
 
+// flattenInstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnumMap flattens the contents of InstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum from a JSON
+// response object.
+func flattenInstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnumMap(c *Client, i interface{}) map[string]InstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum{}
+	}
+
+	items := make(map[string]InstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenInstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnumSlice flattens the contents of InstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum from a JSON
 // response object.
 func flattenInstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnumSlice(c *Client, i interface{}) []InstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnum {
@@ -5560,6 +5660,26 @@ func flattenInstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierE
 	}
 
 	return InstanceTemplatePropertiesNetworkInterfacesAccessConfigsNetworkTierEnumRef(s)
+}
+
+// flattenInstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnumMap flattens the contents of InstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum from a JSON
+// response object.
+func flattenInstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnumMap(c *Client, i interface{}) map[string]InstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum{}
+	}
+
+	items := make(map[string]InstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenInstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnumSlice flattens the contents of InstanceTemplatePropertiesSchedulingNodeAffinitiesOperatorEnum from a JSON

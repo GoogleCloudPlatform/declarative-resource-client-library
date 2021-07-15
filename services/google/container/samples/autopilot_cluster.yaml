@@ -18,4 +18,3 @@ updates:
 - resource: samples/update_autopilot.cluster.json
 versions:
 - ga
-- v1

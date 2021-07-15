@@ -3108,6 +3108,26 @@ func flattenMembershipAuthority(c *Client, i interface{}) *MembershipAuthority {
 	return r
 }
 
+// flattenMembershipStateCodeEnumMap flattens the contents of MembershipStateCodeEnum from a JSON
+// response object.
+func flattenMembershipStateCodeEnumMap(c *Client, i interface{}) map[string]MembershipStateCodeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]MembershipStateCodeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]MembershipStateCodeEnum{}
+	}
+
+	items := make(map[string]MembershipStateCodeEnum)
+	for k, item := range a {
+		items[k] = *flattenMembershipStateCodeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenMembershipStateCodeEnumSlice flattens the contents of MembershipStateCodeEnum from a JSON
 // response object.
 func flattenMembershipStateCodeEnumSlice(c *Client, i interface{}) []MembershipStateCodeEnum {
@@ -3137,6 +3157,26 @@ func flattenMembershipStateCodeEnum(i interface{}) *MembershipStateCodeEnum {
 	}
 
 	return MembershipStateCodeEnumRef(s)
+}
+
+// flattenMembershipInfrastructureTypeEnumMap flattens the contents of MembershipInfrastructureTypeEnum from a JSON
+// response object.
+func flattenMembershipInfrastructureTypeEnumMap(c *Client, i interface{}) map[string]MembershipInfrastructureTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]MembershipInfrastructureTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]MembershipInfrastructureTypeEnum{}
+	}
+
+	items := make(map[string]MembershipInfrastructureTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenMembershipInfrastructureTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenMembershipInfrastructureTypeEnumSlice flattens the contents of MembershipInfrastructureTypeEnum from a JSON

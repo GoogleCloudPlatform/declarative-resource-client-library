@@ -20,4 +20,3 @@ updates:
 - resource: samples/update.tenant_oauth_idp_config.json
 versions:
 - ga
-- v1

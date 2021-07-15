@@ -4741,6 +4741,26 @@ func flattenBuildTriggerBuildSourceRepoSource(c *Client, i interface{}) *BuildTr
 	return r
 }
 
+// flattenBuildTriggerGithubPullRequestCommentControlEnumMap flattens the contents of BuildTriggerGithubPullRequestCommentControlEnum from a JSON
+// response object.
+func flattenBuildTriggerGithubPullRequestCommentControlEnumMap(c *Client, i interface{}) map[string]BuildTriggerGithubPullRequestCommentControlEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]BuildTriggerGithubPullRequestCommentControlEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]BuildTriggerGithubPullRequestCommentControlEnum{}
+	}
+
+	items := make(map[string]BuildTriggerGithubPullRequestCommentControlEnum)
+	for k, item := range a {
+		items[k] = *flattenBuildTriggerGithubPullRequestCommentControlEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenBuildTriggerGithubPullRequestCommentControlEnumSlice flattens the contents of BuildTriggerGithubPullRequestCommentControlEnum from a JSON
 // response object.
 func flattenBuildTriggerGithubPullRequestCommentControlEnumSlice(c *Client, i interface{}) []BuildTriggerGithubPullRequestCommentControlEnum {
@@ -4770,6 +4790,26 @@ func flattenBuildTriggerGithubPullRequestCommentControlEnum(i interface{}) *Buil
 	}
 
 	return BuildTriggerGithubPullRequestCommentControlEnumRef(s)
+}
+
+// flattenBuildTriggerBuildStepsStatusEnumMap flattens the contents of BuildTriggerBuildStepsStatusEnum from a JSON
+// response object.
+func flattenBuildTriggerBuildStepsStatusEnumMap(c *Client, i interface{}) map[string]BuildTriggerBuildStepsStatusEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]BuildTriggerBuildStepsStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]BuildTriggerBuildStepsStatusEnum{}
+	}
+
+	items := make(map[string]BuildTriggerBuildStepsStatusEnum)
+	for k, item := range a {
+		items[k] = *flattenBuildTriggerBuildStepsStatusEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenBuildTriggerBuildStepsStatusEnumSlice flattens the contents of BuildTriggerBuildStepsStatusEnum from a JSON

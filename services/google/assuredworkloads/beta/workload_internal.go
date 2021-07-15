@@ -1530,6 +1530,26 @@ func flattenWorkloadResourceSettings(c *Client, i interface{}) *WorkloadResource
 	return r
 }
 
+// flattenWorkloadResourcesResourceTypeEnumMap flattens the contents of WorkloadResourcesResourceTypeEnum from a JSON
+// response object.
+func flattenWorkloadResourcesResourceTypeEnumMap(c *Client, i interface{}) map[string]WorkloadResourcesResourceTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]WorkloadResourcesResourceTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]WorkloadResourcesResourceTypeEnum{}
+	}
+
+	items := make(map[string]WorkloadResourcesResourceTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenWorkloadResourcesResourceTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenWorkloadResourcesResourceTypeEnumSlice flattens the contents of WorkloadResourcesResourceTypeEnum from a JSON
 // response object.
 func flattenWorkloadResourcesResourceTypeEnumSlice(c *Client, i interface{}) []WorkloadResourcesResourceTypeEnum {
@@ -1561,6 +1581,26 @@ func flattenWorkloadResourcesResourceTypeEnum(i interface{}) *WorkloadResourcesR
 	return WorkloadResourcesResourceTypeEnumRef(s)
 }
 
+// flattenWorkloadComplianceRegimeEnumMap flattens the contents of WorkloadComplianceRegimeEnum from a JSON
+// response object.
+func flattenWorkloadComplianceRegimeEnumMap(c *Client, i interface{}) map[string]WorkloadComplianceRegimeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]WorkloadComplianceRegimeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]WorkloadComplianceRegimeEnum{}
+	}
+
+	items := make(map[string]WorkloadComplianceRegimeEnum)
+	for k, item := range a {
+		items[k] = *flattenWorkloadComplianceRegimeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenWorkloadComplianceRegimeEnumSlice flattens the contents of WorkloadComplianceRegimeEnum from a JSON
 // response object.
 func flattenWorkloadComplianceRegimeEnumSlice(c *Client, i interface{}) []WorkloadComplianceRegimeEnum {
@@ -1590,6 +1630,26 @@ func flattenWorkloadComplianceRegimeEnum(i interface{}) *WorkloadComplianceRegim
 	}
 
 	return WorkloadComplianceRegimeEnumRef(s)
+}
+
+// flattenWorkloadResourceSettingsResourceTypeEnumMap flattens the contents of WorkloadResourceSettingsResourceTypeEnum from a JSON
+// response object.
+func flattenWorkloadResourceSettingsResourceTypeEnumMap(c *Client, i interface{}) map[string]WorkloadResourceSettingsResourceTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]WorkloadResourceSettingsResourceTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]WorkloadResourceSettingsResourceTypeEnum{}
+	}
+
+	items := make(map[string]WorkloadResourceSettingsResourceTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenWorkloadResourceSettingsResourceTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenWorkloadResourceSettingsResourceTypeEnumSlice flattens the contents of WorkloadResourceSettingsResourceTypeEnum from a JSON

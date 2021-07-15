@@ -2759,6 +2759,26 @@ func flattenBucketWebsite(c *Client, i interface{}) *BucketWebsite {
 	return r
 }
 
+// flattenBucketLifecycleRuleActionTypeEnumMap flattens the contents of BucketLifecycleRuleActionTypeEnum from a JSON
+// response object.
+func flattenBucketLifecycleRuleActionTypeEnumMap(c *Client, i interface{}) map[string]BucketLifecycleRuleActionTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]BucketLifecycleRuleActionTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]BucketLifecycleRuleActionTypeEnum{}
+	}
+
+	items := make(map[string]BucketLifecycleRuleActionTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenBucketLifecycleRuleActionTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenBucketLifecycleRuleActionTypeEnumSlice flattens the contents of BucketLifecycleRuleActionTypeEnum from a JSON
 // response object.
 func flattenBucketLifecycleRuleActionTypeEnumSlice(c *Client, i interface{}) []BucketLifecycleRuleActionTypeEnum {
@@ -2790,6 +2810,26 @@ func flattenBucketLifecycleRuleActionTypeEnum(i interface{}) *BucketLifecycleRul
 	return BucketLifecycleRuleActionTypeEnumRef(s)
 }
 
+// flattenBucketLifecycleRuleConditionWithStateEnumMap flattens the contents of BucketLifecycleRuleConditionWithStateEnum from a JSON
+// response object.
+func flattenBucketLifecycleRuleConditionWithStateEnumMap(c *Client, i interface{}) map[string]BucketLifecycleRuleConditionWithStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]BucketLifecycleRuleConditionWithStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]BucketLifecycleRuleConditionWithStateEnum{}
+	}
+
+	items := make(map[string]BucketLifecycleRuleConditionWithStateEnum)
+	for k, item := range a {
+		items[k] = *flattenBucketLifecycleRuleConditionWithStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenBucketLifecycleRuleConditionWithStateEnumSlice flattens the contents of BucketLifecycleRuleConditionWithStateEnum from a JSON
 // response object.
 func flattenBucketLifecycleRuleConditionWithStateEnumSlice(c *Client, i interface{}) []BucketLifecycleRuleConditionWithStateEnum {
@@ -2819,6 +2859,26 @@ func flattenBucketLifecycleRuleConditionWithStateEnum(i interface{}) *BucketLife
 	}
 
 	return BucketLifecycleRuleConditionWithStateEnumRef(s)
+}
+
+// flattenBucketStorageClassEnumMap flattens the contents of BucketStorageClassEnum from a JSON
+// response object.
+func flattenBucketStorageClassEnumMap(c *Client, i interface{}) map[string]BucketStorageClassEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]BucketStorageClassEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]BucketStorageClassEnum{}
+	}
+
+	items := make(map[string]BucketStorageClassEnum)
+	for k, item := range a {
+		items[k] = *flattenBucketStorageClassEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenBucketStorageClassEnumSlice flattens the contents of BucketStorageClassEnum from a JSON

@@ -20,9 +20,23 @@ import "proto/empty.proto";
 
 enum ComputeBetaManagedSslCertificateManagedStatusEnum {
   ComputeBetaManagedSslCertificateManagedStatusEnumNO_VALUE_DO_NOT_USE = 0;
-  ComputeBetaManagedSslCertificateManagedStatusEnumPENDING = 1;
-  ComputeBetaManagedSslCertificateManagedStatusEnumRUNNING = 2;
-  ComputeBetaManagedSslCertificateManagedStatusEnumDONE = 3;
+  ComputeBetaManagedSslCertificateManagedStatusEnumACTIVE = 1;
+  ComputeBetaManagedSslCertificateManagedStatusEnumMANAGED_CERTIFICATE_STATUS_UNSPECIFIED = 2;
+  ComputeBetaManagedSslCertificateManagedStatusEnumPROVISIONING = 3;
+  ComputeBetaManagedSslCertificateManagedStatusEnumPROVISIONING_FAILED = 4;
+  ComputeBetaManagedSslCertificateManagedStatusEnumPROVISIONING_FAILED_PERMANENTLY = 5;
+  ComputeBetaManagedSslCertificateManagedStatusEnumRENEWAL_FAILED = 6;
+}
+
+enum ComputeBetaManagedSslCertificateManagedDomainStatusEnum {
+  ComputeBetaManagedSslCertificateManagedDomainStatusEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeBetaManagedSslCertificateManagedDomainStatusEnumACTIVE = 1;
+  ComputeBetaManagedSslCertificateManagedDomainStatusEnumDOMAIN_STATUS_UNSPECIFIED = 2;
+  ComputeBetaManagedSslCertificateManagedDomainStatusEnumFAILED_CAA_CHECKING = 3;
+  ComputeBetaManagedSslCertificateManagedDomainStatusEnumFAILED_CAA_FORBIDDEN = 4;
+  ComputeBetaManagedSslCertificateManagedDomainStatusEnumFAILED_NOT_VISIBLE = 5;
+  ComputeBetaManagedSslCertificateManagedDomainStatusEnumFAILED_RATE_LIMITED = 6;
+  ComputeBetaManagedSslCertificateManagedDomainStatusEnumPROVISIONING = 7;
 }
 
 enum ComputeBetaManagedSslCertificateTypeEnum {
@@ -31,21 +45,22 @@ enum ComputeBetaManagedSslCertificateTypeEnum {
 }
 
 message ComputeBetaManagedSslCertificate {
-  int64 id = 1;
-  string name = 2;
-  string description = 3;
-  string self_link = 4;
-  ComputeBetaManagedSslCertificateManaged managed = 5;
-  ComputeBetaManagedSslCertificateTypeEnum type = 6;
-  repeated string subject_alternative_names = 7;
-  string expire_time = 8;
-  string project = 9;
+  string name = 1;
+  int64 id = 2;
+  string creation_timestamp = 3;
+  string description = 4;
+  string self_link = 5;
+  ComputeBetaManagedSslCertificateManaged managed = 6;
+  ComputeBetaManagedSslCertificateTypeEnum type = 7;
+  repeated string subject_alternative_names = 8;
+  string expire_time = 9;
+  string project = 10;
 }
 
 message ComputeBetaManagedSslCertificateManaged {
   repeated string domains = 1;
   ComputeBetaManagedSslCertificateManagedStatusEnum status = 2;
-  map<string, string> domain_status = 3;
+  map<string, ComputeBetaManagedSslCertificateManagedDomainStatusEnum> domain_status = 3;
 }
 
 message ApplyComputeBetaManagedSslCertificateRequest {

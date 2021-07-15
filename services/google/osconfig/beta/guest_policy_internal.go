@@ -8611,6 +8611,26 @@ func flattenGuestPolicyRecipesUpdateStepsScriptRun(c *Client, i interface{}) *Gu
 	return r
 }
 
+// flattenGuestPolicyPackagesDesiredStateEnumMap flattens the contents of GuestPolicyPackagesDesiredStateEnum from a JSON
+// response object.
+func flattenGuestPolicyPackagesDesiredStateEnumMap(c *Client, i interface{}) map[string]GuestPolicyPackagesDesiredStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]GuestPolicyPackagesDesiredStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]GuestPolicyPackagesDesiredStateEnum{}
+	}
+
+	items := make(map[string]GuestPolicyPackagesDesiredStateEnum)
+	for k, item := range a {
+		items[k] = *flattenGuestPolicyPackagesDesiredStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenGuestPolicyPackagesDesiredStateEnumSlice flattens the contents of GuestPolicyPackagesDesiredStateEnum from a JSON
 // response object.
 func flattenGuestPolicyPackagesDesiredStateEnumSlice(c *Client, i interface{}) []GuestPolicyPackagesDesiredStateEnum {
@@ -8640,6 +8660,26 @@ func flattenGuestPolicyPackagesDesiredStateEnum(i interface{}) *GuestPolicyPacka
 	}
 
 	return GuestPolicyPackagesDesiredStateEnumRef(s)
+}
+
+// flattenGuestPolicyPackagesManagerEnumMap flattens the contents of GuestPolicyPackagesManagerEnum from a JSON
+// response object.
+func flattenGuestPolicyPackagesManagerEnumMap(c *Client, i interface{}) map[string]GuestPolicyPackagesManagerEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]GuestPolicyPackagesManagerEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]GuestPolicyPackagesManagerEnum{}
+	}
+
+	items := make(map[string]GuestPolicyPackagesManagerEnum)
+	for k, item := range a {
+		items[k] = *flattenGuestPolicyPackagesManagerEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenGuestPolicyPackagesManagerEnumSlice flattens the contents of GuestPolicyPackagesManagerEnum from a JSON
@@ -8673,6 +8713,26 @@ func flattenGuestPolicyPackagesManagerEnum(i interface{}) *GuestPolicyPackagesMa
 	return GuestPolicyPackagesManagerEnumRef(s)
 }
 
+// flattenGuestPolicyPackageRepositoriesAptArchiveTypeEnumMap flattens the contents of GuestPolicyPackageRepositoriesAptArchiveTypeEnum from a JSON
+// response object.
+func flattenGuestPolicyPackageRepositoriesAptArchiveTypeEnumMap(c *Client, i interface{}) map[string]GuestPolicyPackageRepositoriesAptArchiveTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]GuestPolicyPackageRepositoriesAptArchiveTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]GuestPolicyPackageRepositoriesAptArchiveTypeEnum{}
+	}
+
+	items := make(map[string]GuestPolicyPackageRepositoriesAptArchiveTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenGuestPolicyPackageRepositoriesAptArchiveTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenGuestPolicyPackageRepositoriesAptArchiveTypeEnumSlice flattens the contents of GuestPolicyPackageRepositoriesAptArchiveTypeEnum from a JSON
 // response object.
 func flattenGuestPolicyPackageRepositoriesAptArchiveTypeEnumSlice(c *Client, i interface{}) []GuestPolicyPackageRepositoriesAptArchiveTypeEnum {
@@ -8702,6 +8762,26 @@ func flattenGuestPolicyPackageRepositoriesAptArchiveTypeEnum(i interface{}) *Gue
 	}
 
 	return GuestPolicyPackageRepositoriesAptArchiveTypeEnumRef(s)
+}
+
+// flattenGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnumMap flattens the contents of GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum from a JSON
+// response object.
+func flattenGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnumMap(c *Client, i interface{}) map[string]GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum{}
+	}
+
+	items := make(map[string]GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnumSlice flattens the contents of GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum from a JSON
@@ -8735,6 +8815,26 @@ func flattenGuestPolicyRecipesInstallStepsArchiveExtractionTypeEnum(i interface{
 	return GuestPolicyRecipesInstallStepsArchiveExtractionTypeEnumRef(s)
 }
 
+// flattenGuestPolicyRecipesInstallStepsScriptRunInterpreterEnumMap flattens the contents of GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum from a JSON
+// response object.
+func flattenGuestPolicyRecipesInstallStepsScriptRunInterpreterEnumMap(c *Client, i interface{}) map[string]GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum{}
+	}
+
+	items := make(map[string]GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum)
+	for k, item := range a {
+		items[k] = *flattenGuestPolicyRecipesInstallStepsScriptRunInterpreterEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenGuestPolicyRecipesInstallStepsScriptRunInterpreterEnumSlice flattens the contents of GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum from a JSON
 // response object.
 func flattenGuestPolicyRecipesInstallStepsScriptRunInterpreterEnumSlice(c *Client, i interface{}) []GuestPolicyRecipesInstallStepsScriptRunInterpreterEnum {
@@ -8764,6 +8864,26 @@ func flattenGuestPolicyRecipesInstallStepsScriptRunInterpreterEnum(i interface{}
 	}
 
 	return GuestPolicyRecipesInstallStepsScriptRunInterpreterEnumRef(s)
+}
+
+// flattenGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnumMap flattens the contents of GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum from a JSON
+// response object.
+func flattenGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnumMap(c *Client, i interface{}) map[string]GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum{}
+	}
+
+	items := make(map[string]GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnumSlice flattens the contents of GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum from a JSON
@@ -8797,6 +8917,26 @@ func flattenGuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnum(i interface{}
 	return GuestPolicyRecipesUpdateStepsArchiveExtractionTypeEnumRef(s)
 }
 
+// flattenGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumMap flattens the contents of GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum from a JSON
+// response object.
+func flattenGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumMap(c *Client, i interface{}) map[string]GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum{}
+	}
+
+	items := make(map[string]GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum)
+	for k, item := range a {
+		items[k] = *flattenGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumSlice flattens the contents of GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum from a JSON
 // response object.
 func flattenGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumSlice(c *Client, i interface{}) []GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum {
@@ -8826,6 +8966,26 @@ func flattenGuestPolicyRecipesUpdateStepsScriptRunInterpreterEnum(i interface{})
 	}
 
 	return GuestPolicyRecipesUpdateStepsScriptRunInterpreterEnumRef(s)
+}
+
+// flattenGuestPolicyRecipesDesiredStateEnumMap flattens the contents of GuestPolicyRecipesDesiredStateEnum from a JSON
+// response object.
+func flattenGuestPolicyRecipesDesiredStateEnumMap(c *Client, i interface{}) map[string]GuestPolicyRecipesDesiredStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]GuestPolicyRecipesDesiredStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]GuestPolicyRecipesDesiredStateEnum{}
+	}
+
+	items := make(map[string]GuestPolicyRecipesDesiredStateEnum)
+	for k, item := range a {
+		items[k] = *flattenGuestPolicyRecipesDesiredStateEnum(item.(interface{}))
+	}
+
+	return items
 }
 
 // flattenGuestPolicyRecipesDesiredStateEnumSlice flattens the contents of GuestPolicyRecipesDesiredStateEnum from a JSON

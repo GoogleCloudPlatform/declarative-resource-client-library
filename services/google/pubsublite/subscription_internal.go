@@ -868,6 +868,26 @@ func flattenSubscriptionDeliveryConfig(c *Client, i interface{}) *SubscriptionDe
 	return r
 }
 
+// flattenSubscriptionDeliveryConfigDeliveryRequirementEnumMap flattens the contents of SubscriptionDeliveryConfigDeliveryRequirementEnum from a JSON
+// response object.
+func flattenSubscriptionDeliveryConfigDeliveryRequirementEnumMap(c *Client, i interface{}) map[string]SubscriptionDeliveryConfigDeliveryRequirementEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]SubscriptionDeliveryConfigDeliveryRequirementEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]SubscriptionDeliveryConfigDeliveryRequirementEnum{}
+	}
+
+	items := make(map[string]SubscriptionDeliveryConfigDeliveryRequirementEnum)
+	for k, item := range a {
+		items[k] = *flattenSubscriptionDeliveryConfigDeliveryRequirementEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenSubscriptionDeliveryConfigDeliveryRequirementEnumSlice flattens the contents of SubscriptionDeliveryConfigDeliveryRequirementEnum from a JSON
 // response object.
 func flattenSubscriptionDeliveryConfigDeliveryRequirementEnumSlice(c *Client, i interface{}) []SubscriptionDeliveryConfigDeliveryRequirementEnum {

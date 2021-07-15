@@ -608,6 +608,26 @@ func flattenHmacKey(c *Client, i interface{}) *HmacKey {
 	return res
 }
 
+// flattenHmacKeyStateEnumMap flattens the contents of HmacKeyStateEnum from a JSON
+// response object.
+func flattenHmacKeyStateEnumMap(c *Client, i interface{}) map[string]HmacKeyStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]HmacKeyStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]HmacKeyStateEnum{}
+	}
+
+	items := make(map[string]HmacKeyStateEnum)
+	for k, item := range a {
+		items[k] = *flattenHmacKeyStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
 // flattenHmacKeyStateEnumSlice flattens the contents of HmacKeyStateEnum from a JSON
 // response object.
 func flattenHmacKeyStateEnumSlice(c *Client, i interface{}) []HmacKeyStateEnum {

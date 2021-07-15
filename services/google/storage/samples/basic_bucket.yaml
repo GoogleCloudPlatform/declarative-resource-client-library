@@ -18,4 +18,3 @@ updates:
 - resource: samples/update.bucket.json
 versions:
 - ga
-- v1

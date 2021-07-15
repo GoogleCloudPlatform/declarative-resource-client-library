@@ -18,4 +18,3 @@ name: basic_object
 resource: samples/basic.object.json
 versions:
 - ga
-- v1
